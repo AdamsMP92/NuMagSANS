@@ -4,7 +4,7 @@
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 19 November 2024
+// Version      : 23 November 2024
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
@@ -31,20 +31,22 @@
 #include "NuMagSANSlib_ReadWrite.h"
 #include "NuMagSANSlib_Directory.h"
 #include "NuMagSANSlib_InputFileInterpreter.h"
-#include "NuMagSANSlib_MagDataObserver.h"
-#include "NuMagSANSlib_NucDataObserver.h"
+#include "NuMagSANSlib_MagDataExplorer.h"
+#include "NuMagSANSlib_NucDataExplorer.h"
+#include "NuMagSANSlib_StructureDataExplorer.h"
 #include "NuMagSANSlib_MagData.h"
 #include "NuMagSANSlib_NucData.h"
+#include "NuMagSANSlib_StructureData.h"
 #include "NuMagSANSlib_SANSData.h"
 #include "NuMagSANSlib_gpuKernel.h"
 
 using namespace std;
 
-
-void MagSANS_dilute(InputFileData* InputData, \
-					NucDataProperties* NucDataProp,\
-                    MagDataProperties* MagDataProp,\
-                    int Data_File_Index){
+void NuMagSANS_Calculator(InputFileData* InputData, \
+					      NucDataProperties* NucDataProp,\
+                          MagDataProperties* MagDataProp,\
+                          StructDataProperties* StructDataProp, \
+                          int Data_File_Index){
 
 	cout << "################################################################################" << "\n";
 	cout << "## Run - NuMagSANS #############################################################" << "\n";
@@ -63,6 +65,14 @@ void MagSANS_dilute(InputFileData* InputData, \
 	MagnetizationData MagData, MagData_gpu;
 	if(InputData->MagData_activate_flag){
 		init_MagnetizationData(&MagData, &MagData_gpu, MagDataProp, InputData, Data_File_Index);
+		//disp_MagnetizationData(&MagData);
+	}
+
+	// initialize structure data ##############################################################
+	StructureData StructData, StructData_gpu;
+	if(InputData->StructData_activate_flag){
+		init_StructureData(&StructData, &StructData_gpu, StructDataProp, InputData);
+		//disp_StructureData(&StructData);
 	}
 
 	// initialize scattering data #############################################################
@@ -78,35 +88,58 @@ void MagSANS_dilute(InputFileData* InputData, \
 	cout << "L = " << L << "\n";
 	cudaError_t err;
 
-	// Pure Magnetic Scattering Calculator
-	if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0){
-		Atomistic_MagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(MagData_gpu, SANSData_gpu);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-	 	   std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+		// Pure Magnetic Scattering Calculator without structure data ########################################
+		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 0){
+			cout << "Run: Atomistic_MagSANS_Kernel_dilute" << "\n";
+			Atomistic_MagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(MagData_gpu, SANSData_gpu);
+			cudaDeviceSynchronize();
+			err = cudaGetLastError();
+			if (err != cudaSuccess) {
+			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+			}
 		}
-	}
 
-	// Pure Nuclear Scattering Calculator
-	if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1){
-		Atomistic_NucSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, SANSData_gpu);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-	 	   std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+		// Pure Nuclear Scattering Calculator without structure data #########################################
+		if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0){
+			cout << "Run: Atomistic_NucSANS_Kernel_dilute" << "\n";
+			Atomistic_NucSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, SANSData_gpu);
+			cudaDeviceSynchronize();
+			err = cudaGetLastError();
+			if (err != cudaSuccess) {
+			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+			}
 		}
-	}
 
-	// Combined Magnetic and Nuclear Scattering Calculator
-	if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1){
-		Atomistic_NuMagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, SANSData_gpu);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-	 	   std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+		// Combined Magnetic and Nuclear Scattering Calculator without structure data ########################
+		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0){
+			cout << "Run: Atomistic_NuMagSANS_Kernel_dilute" << "\n";
+			Atomistic_NuMagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, SANSData_gpu);
+			cudaDeviceSynchronize();
+			err = cudaGetLastError();
+			if (err != cudaSuccess) {
+			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+			}
 		}
-	}
+
+
+
+
+		// Combined Magnetic and Nuclear Scattering Calculator without structure data ########################
+		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1){
+			cout << "Run: Atomistic_NuMagSANS_Kernel" << "\n";
+			Atomistic_NuMagSANS_Kernel<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, StructData_gpu, SANSData_gpu);
+			cudaDeviceSynchronize();
+			err = cudaGetLastError();
+			if (err != cudaSuccess) {
+			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+			}
+		}
+
+
+
+
+
+
 
 	// compute azimuthal average 1D ###########################################################
 	AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
@@ -150,6 +183,10 @@ void MagSANS_dilute(InputFileData* InputData, \
 	if(InputData->MagData_activate_flag){
 		free_MagnetizationData(&MagData, &MagData_gpu);
 	}
+
+	if(InputData->StructData_activate_flag){
+		free_StructureData(&StructData, &StructData_gpu);
+	}
 	
 	free_ScatteringData(&SANSData, &SANSData_gpu);
 
@@ -162,6 +199,6 @@ void MagSANS_dilute(InputFileData* InputData, \
 
 	cout << "################################################################################" << "\n";
 	cout << "## Stop - NuMagSANS ############################################################" << "\n";
-	cout << "################################################################################" << "\n\n";
+	cout << "################################################################################" << "\n\n\n\n";
 
 }

@@ -4,7 +4,7 @@
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 22 November 2024
+// Version      : 23 November 2024
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
@@ -37,6 +37,7 @@ struct InputFileData{
 
 	string NucDataPath;
 	string MagDataPath;
+	string StructDataFilename;
 	string SANSDataFoldername;
 	string Fourier_Approach;
 
@@ -70,6 +71,7 @@ struct InputFileData{
 
 	bool NucData_activate_flag; 
 	bool MagData_activate_flag;
+	bool StructData_activate_flag;
 	bool ExcludeZeroMoments_flag;
     
     bool Check_InputFile_Flag;
@@ -235,8 +237,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 	int line_counter = 0;
 
-	bool Check_Flag[53];
-	for(int k=0; k<53; k++){
+	bool Check_Flag[55];
+	for(int k=0; k<55; k++){
 		Check_Flag[k] = false;
 	}
 
@@ -298,6 +300,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		parseBool(line, "MagData_activate", InputData->MagData_activate_flag, Check_Flag[50]);
 		parseBool(line, "Exclude_Zero_Moments", InputData->ExcludeZeroMoments_flag, Check_Flag[51]);
 		parseBool(line, "Nuclear_1D", InputData->output_unpolarized_nuclear_SANS_cross_section_1D_flag, Check_Flag[52]);
+		parseString(line, "StructDataFilename", InputData->StructDataFilename, Check_Flag[53]);
+		parseBool(line, "StructData_activate", InputData->StructData_activate_flag, Check_Flag[54]);
 
 	}		
 
@@ -336,7 +340,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 	// Check the Error Flags
 	bool Error_Detect = true;
-	for(int k = 0; k < 53; k++){
+	for(int k = 0; k < 55; k++){
 		if(Check_Flag[k] != 1){
 			cout << "Error Check Flag " << k << "\n";
 			Error_Detect = false;

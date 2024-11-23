@@ -26,12 +26,7 @@
 #include <dirent.h>
 #include <unistd.h>
 
-
-
 using namespace std;
-
-
-
 
 // Read and Write Function library
 
@@ -80,6 +75,11 @@ void ReadCSV_double_matrix(unsigned long int N, unsigned long int M, double **da
 
 
 
+
+
+
+
+
 void NumberOfEntriesInNucFile(int *NumberOfColumns, string filename){
 
 	ifstream fin;
@@ -106,8 +106,6 @@ void NumberOfEntriesInNucFile(int *NumberOfColumns, string filename){
 //	cout << "Error counter: " << error_counter << "\n\n";
 
 }
-
-
 
 void NumberOfNonZeroMagneticMomentsInFile(int *NumberOfNonZeroMoments, int *NumberOfColumns, string filename){
 
