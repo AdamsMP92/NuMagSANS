@@ -88,7 +88,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	cout << "L = " << L << "\n";
 	cudaError_t err;
 
-		// Pure Magnetic Scattering Calculator without structure data ########################################
+		// Pure Magnetic Scattering Calculator without structure data #####################################################################
 		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 0){
 			cout << "Run: Atomistic_MagSANS_Kernel_dilute" << "\n";
 			Atomistic_MagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(MagData_gpu, SANSData_gpu);
@@ -99,7 +99,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 			}
 		}
 
-		// Pure Nuclear Scattering Calculator without structure data #########################################
+		// Pure Nuclear Scattering Calculator without structure data #######################################################################
 		if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0){
 			cout << "Run: Atomistic_NucSANS_Kernel_dilute" << "\n";
 			Atomistic_NucSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, SANSData_gpu);
@@ -110,7 +110,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 			}
 		}
 
-		// Combined Magnetic and Nuclear Scattering Calculator without structure data ########################
+		// Combined Magnetic and Nuclear Scattering Calculator without structure data ######################################################
 		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0){
 			cout << "Run: Atomistic_NuMagSANS_Kernel_dilute" << "\n";
 			Atomistic_NuMagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, SANSData_gpu);
@@ -122,9 +122,29 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 		}
 
 
+		// Pure Magnetic Scattering Calculator with structure data #########################################################################
+		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 1){
+			cout << "Run: Atomistic_MagSANS_Kernel" << "\n";
+			Atomistic_MagSANS_Kernel<<<(L+255)/256, 256>>>(MagData_gpu, StructData_gpu, SANSData_gpu);
+			cudaDeviceSynchronize();
+			err = cudaGetLastError();
+			if (err != cudaSuccess) {
+			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+			}
+		}
 
+		// Pure Nuclear Scattering Calculator with structure data ###########################################################################
+		if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1){
+			cout << "Run: Atomistic_NucSANS_Kernel" << "\n";
+			Atomistic_NucSANS_Kernel<<<(L+255)/256, 256>>>(NucData_gpu, StructData_gpu, SANSData_gpu);
+			cudaDeviceSynchronize();
+			err = cudaGetLastError();
+			if (err != cudaSuccess) {
+			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+			}
+		}
 
-		// Combined Magnetic and Nuclear Scattering Calculator without structure data ########################
+		// Combined Magnetic and Nuclear Scattering Calculator with structure data #########################################################
 		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1){
 			cout << "Run: Atomistic_NuMagSANS_Kernel" << "\n";
 			Atomistic_NuMagSANS_Kernel<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, StructData_gpu, SANSData_gpu);
@@ -134,10 +154,6 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
 			}
 		}
-
-
-
-
 
 
 
