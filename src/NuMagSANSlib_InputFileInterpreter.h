@@ -4,7 +4,7 @@
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 23 November 2024
+// Version      : 28 November 2024
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
@@ -57,10 +57,11 @@ struct InputFileData{
     float r_max;
 
     float Scattering_Volume_V;
+	float cell_nuclear_sld;
     float cell_magnetization;
-    float cuboid_cell_size_x;
-    float cuboid_cell_size_y;
-    float cuboid_cell_size_z;
+	float cuboid_cell_size_x;
+	float cuboid_cell_size_y;
+	float cuboid_cell_size_z;
     
     float RotMat_alpha;
     float RotMat_beta;
@@ -91,6 +92,8 @@ struct InputFileData{
 
 	bool output_unpolarized_nuclear_SANS_cross_section_1D_flag;
     bool output_unpolarized_magnetic_SANS_cross_section_1D_flag;
+	bool output_polarized_magnetic_SANS_cross_section_1D_flag;
+	bool output_nuclear_magnetic_SANS_cross_section_1D_flag;
     bool output_spin_flip_magnetic_SANS_cross_section_1D_flag;
     bool output_chiral_magnetic_SANS_cross_section_1D_flag;
 
@@ -237,8 +240,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 	int line_counter = 0;
 
-	bool Check_Flag[55];
-	for(int k=0; k<55; k++){
+	bool Check_Flag[58];
+	for(int k=0; k<58; k++){
 		Check_Flag[k] = false;
 	}
 
@@ -302,6 +305,10 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		parseBool(line, "Nuclear_1D", InputData->output_unpolarized_nuclear_SANS_cross_section_1D_flag, Check_Flag[52]);
 		parseString(line, "StructDataFilename", InputData->StructDataFilename, Check_Flag[53]);
 		parseBool(line, "StructData_activate", InputData->StructData_activate_flag, Check_Flag[54]);
+		parseFloat(line, "Cell_Nuclear_SLD", InputData->cell_nuclear_sld, Check_Flag[55]);
+		parseBool(line, "Polarized_1D", InputData->output_polarized_magnetic_SANS_cross_section_1D_flag, Check_Flag[56]);
+		parseBool(line, "NuclearMagnetic_1D", InputData->output_nuclear_magnetic_SANS_cross_section_1D_flag, Check_Flag[57]);
+
 
 	}		
 
@@ -340,7 +347,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 	// Check the Error Flags
 	bool Error_Detect = true;
-	for(int k = 0; k < 55; k++){
+	for(int k = 0; k < 58; k++){
 		if(Check_Flag[k] != 1){
 			cout << "Error Check Flag " << k << "\n";
 			Error_Detect = false;

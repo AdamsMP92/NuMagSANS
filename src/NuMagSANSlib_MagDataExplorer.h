@@ -4,7 +4,7 @@
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 22 October 2024
+// Version      : 26 November 2024
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
@@ -40,8 +40,11 @@ struct MagDataProperties{
     string SubFolder_FileNames_Type;
 	int Number_Of_Files_In_SubFolder;
 
-	int** NumberOfElements;
-	int** NumberOfNonZeroMoments;
+	int** NumberOfElements;			// this 2D list contains the number of atoms for each object
+	int** NumberOfNonZeroMoments;   // same but non-zero magnetic moments only
+
+	unsigned long int *TotalAtomNumber;			// Total number of atoms
+	unsigned long int *TotalNZMAtomNumber; 		// Total number of atoms with non-zero magnetic moments
 	
 };
 
@@ -57,6 +60,53 @@ void get_GlobalMagDataPath(std::string Local_MagDataPath, MagDataProperties* Mag
 	MagDataProp->GlobalFolderPath = tmp_string + "/" + Local_MagDataPath;
 	cout << "found Global MagDataPath: " << MagDataProp->GlobalFolderPath << "\n\n";
     
+}
+
+
+
+void NumberOfNonZeroMagneticMomentsInFile(int *NumberOfNonZeroMoments, int *NumberOfColumns, string filename){
+
+	ifstream fin;
+	fin.open(filename);
+	std::string line;
+
+	float x, y, z, mx, my, mz;
+
+	int line_counter = 0;
+	int moment_counter = 0;
+	int error_counter = 0;
+
+	while(std::getline(fin, line)){
+		std::istringstream ss(line);
+		if(ss >> x >> y >> z >> mx >> my >> mz){
+			if(mx != 0.0 || my != 0.0 || mz != 0.0){
+				moment_counter += 1;
+			}
+			line_counter += 1;
+		} else{
+			error_counter ++;
+			std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n";
+		}
+	}
+	fin.close();
+	*NumberOfColumns = line_counter;
+	*NumberOfNonZeroMoments = moment_counter;
+
+}
+
+void CountColumnsAndRowsInMagDataFile(int *Number_Of_Rows, int *Number_Of_Columns, string filename){
+
+	ifstream fin;
+	fin.open(filename);
+	string line;
+	//float ghost_buf = 0.0;
+
+ 	*Number_Of_Rows = 0;
+ 	*Number_Of_Columns = 0;
+	while(getline(fin, line)){
+		//cout << line.size() << "\n";
+		*Number_Of_Rows += 1;
+	}
 }
 
 
@@ -121,7 +171,7 @@ bool check_element_names_MagData(MagDataProperties* MagDataProp){
 		if(FileNames_Type[k] != FileNames_Type[0] || FileNames_Nom[k] != FileNames_Nom[0]){
 			return false;
 		}
-	}
+	}cout << "Total Number of sites with non-zero magnetic moments: " << MagDataProp->TotalNZMAtomNumber << "\n";
 
 	// Store correct Nom and Type
 	MagDataProp->SubFolder_FileNames_Nom = FileNames_Nom[0];
@@ -200,6 +250,26 @@ bool check_FileDimensions_MagData(MagDataProperties* MagDataProp){
 		
 }
 
+
+
+void CountAtomNumbers_MagData(MagDataProperties* MagDataProp){
+
+	MagDataProp->TotalAtomNumber = new unsigned long int[MagDataProp->Number_Of_Files_In_SubFolder];
+	MagDataProp->TotalNZMAtomNumber = new unsigned long int[MagDataProp->Number_Of_Files_In_SubFolder];
+
+	for(int k = 0; k < MagDataProp->Number_Of_Files_In_SubFolder; k++){
+		MagDataProp->TotalAtomNumber[k] = 0;
+		MagDataProp->TotalNZMAtomNumber[k] = 0;
+		for(int i = 0; i < MagDataProp->Number_Of_SubFolders; i++){
+			MagDataProp->TotalAtomNumber[k] +=  MagDataProp->NumberOfElements[i][k];
+			MagDataProp->TotalNZMAtomNumber[k] +=  MagDataProp->NumberOfNonZeroMoments[i][k];
+		}
+	}
+}
+
+
+
+
 // Routine that checks number of subfolders in MagData directory
 bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataProp){
 
@@ -222,9 +292,12 @@ bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataPr
 	bool FileDimensions_CheckFlag = check_FileDimensions_MagData(MagDataProp);
 
 
-	cout << "Number Of Elements: " << MagDataProp->NumberOfElements[0][0] << "\n";
-	cout << "Non-Zero magnetic moments: " << MagDataProp->NumberOfNonZeroMoments[0][0] << "\n";
-	cout << "\n";
+	CountAtomNumbers_MagData(MagDataProp);
+
+	for(int i = 0; i < MagDataProp->Number_Of_Files_In_SubFolder; i++){
+         cout << "Total Number of Atoms in data set " << i+1 << ": " << MagDataProp->TotalAtomNumber[i] << "\n";
+	}
+
 
 	cout << "##########################################################################################" << "\n";
 	cout << "## Stop - MagData Directory Explorer #####################################################" << "\n";

@@ -4,7 +4,7 @@
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 14 November 2024
+// Version      : 26 November 2024
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
@@ -41,6 +41,8 @@ struct NucDataProperties{
      int Number_Of_Files_In_SubFolder;
 
      int** NumberOfElements;
+
+     unsigned long int *TotalAtomNumber;			// Total number of atoms
      
 };
 
@@ -59,6 +61,32 @@ void get_GlobalNucDataPath(std::string Local_NucDataPath, NucDataProperties* Nuc
 
 }
 
+
+
+void NumberOfEntriesInNucFile(int *NumberOfColumns, string filename){
+
+	ifstream fin;
+	fin.open(filename);
+	std::string line;
+
+	float x, y, z, Nuc;
+
+	int line_counter = 0;
+	int error_counter = 0;
+
+	while(std::getline(fin, line)){
+		std::istringstream ss(line);
+		if(ss >> x >> y >> z >> Nuc){
+			line_counter += 1;
+		} else{
+			error_counter ++;
+//			std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n";
+		}
+	}
+	fin.close();
+	*NumberOfColumns = line_counter;
+
+}
 
 
 bool check_number_of_elements_in_folders_NucData(NucDataProperties* NucDataProp){
@@ -207,6 +235,18 @@ bool check_FileDimensions_NucData(NucDataProperties* NucDataProp){
 }
 
 
+void CountAtomNumbers_NucData(NucDataProperties* NucDataProp){
+
+	NucDataProp->TotalAtomNumber = new unsigned long int[NucDataProp->Number_Of_Files_In_SubFolder];
+
+	for(int k = 0; k < NucDataProp->Number_Of_Files_In_SubFolder; k++){
+		NucDataProp->TotalAtomNumber[k] = 0;
+		for(int i = 0; i < NucDataProp->Number_Of_SubFolders; i++){
+			NucDataProp->TotalAtomNumber[k] +=  NucDataProp->NumberOfElements[i][k];
+		}
+	}
+}
+
 
 
 // Routine that checks number of subfolders in MagData directory
@@ -227,9 +267,13 @@ bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataPr
      // Check the files in each subfolder
      bool Subfolder_Elements_CheckFlag = check_Subfolder_FileNames_NucData(NucDataProp);
 
-
      bool FileDimensions_CheckFlag = check_FileDimensions_NucData(NucDataProp);
 
+     CountAtomNumbers_NucData(NucDataProp);
+
+     for(int i = 0; i < NucDataProp->Number_Of_Files_In_SubFolder; i++){
+         cout << "Total Number of Atoms in data set " << i+1 << ": " << NucDataProp->TotalAtomNumber[i] << "\n";
+     }
 
      cout << "##########################################################################################" << "\n";
      cout << "## Stop - NucData Directory Explorer #####################################################" << "\n";

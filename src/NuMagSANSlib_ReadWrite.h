@@ -78,7 +78,7 @@ void ReadCSV_double_matrix(unsigned long int N, unsigned long int M, double **da
 
 
 
-
+/*
 
 void NumberOfEntriesInNucFile(int *NumberOfColumns, string filename){
 
@@ -103,10 +103,10 @@ void NumberOfEntriesInNucFile(int *NumberOfColumns, string filename){
 	fin.close();
 	*NumberOfColumns = line_counter;
 
-//	cout << "Error counter: " << error_counter << "\n\n";
-
 }
+*/
 
+/*
 void NumberOfNonZeroMagneticMomentsInFile(int *NumberOfNonZeroMoments, int *NumberOfColumns, string filename){
 
 	ifstream fin;
@@ -136,7 +136,9 @@ void NumberOfNonZeroMagneticMomentsInFile(int *NumberOfNonZeroMoments, int *Numb
 	*NumberOfNonZeroMoments = moment_counter;
 
 }
+*/
 
+/*
 void CountColumnsAndRowsInMagDataFile(int *Number_Of_Rows, int *Number_Of_Columns, string filename){
 
 	ifstream fin;
@@ -151,3 +153,4 @@ void CountColumnsAndRowsInMagDataFile(int *Number_Of_Rows, int *Number_Of_Column
 		*Number_Of_Rows += 1;
 	}
 }
+*/

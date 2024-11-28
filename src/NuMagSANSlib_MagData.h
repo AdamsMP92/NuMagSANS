@@ -4,7 +4,7 @@
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 22 October 2024
+// Version      : 26 November 2024
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
    
@@ -25,8 +25,10 @@
 #include <chrono>
 #include <dirent.h>
 #include <unistd.h>
-    
+
+
 using namespace std;
+
 
 struct MagnetizationData{
 
@@ -37,49 +39,62 @@ struct MagnetizationData{
    float*mx;	// magnetization data mx
    float*my;	// magnetization data my
    float*mz;	// magnetization data mz
-   unsigned long int* N;	// number of non-zero magnetic moments
-   unsigned long int* K; 	// number of orientations
-   unsigned long int* N_k;	// product of N * K
-   
+
+   unsigned long int* K; 	// number of objects (e.g., orientations)
+   unsigned long int* TotalAtomNumber;	// total atom number
+
+   unsigned int* NumberOfElements;
+   unsigned int* NumberOfNonZeroMoments;
+   unsigned long int* N_act;    // number of atoms in k-th object
+   unsigned long int* N_cum;    // cummulated number of atoms from object to object
+   unsigned long int* N_avg;    // average number of atoms per object
 };
+
+
+
+
 
 void allocate_MagnetizationDataRAM(MagnetizationData* MagData, \
 						           MagDataProperties* MagDataProp, \
-						           InputFileData* InputData){
+						           InputFileData* InputData, \
+                                   int MagData_File_Index){
 
 	 bool ExcludeZeroMoments_flag = InputData->ExcludeZeroMoments_flag;
 	 unsigned long int K = MagDataProp->Number_Of_SubFolders;
-	 unsigned long int N;
+     unsigned long int TotalAtomNumber = 0;
 	 if(ExcludeZeroMoments_flag){
-     	N = MagDataProp->NumberOfNonZeroMoments[0][0];
+     	TotalAtomNumber = MagDataProp->TotalNZMAtomNumber[MagData_File_Index];
      } else{
-		N = MagDataProp->NumberOfElements[0][0];
+		TotalAtomNumber = MagDataProp->TotalAtomNumber[MagData_File_Index];
      }
-     unsigned long int N_k = N * K;
-         
-     MagData->x = (float*) malloc(N_k*sizeof(float));
-     MagData->y = (float*) malloc(N_k*sizeof(float));
-     MagData->z = (float*) malloc(N_k*sizeof(float));
-     MagData->mx = (float*) malloc(N_k*sizeof(float));
-     MagData->my = (float*) malloc(N_k*sizeof(float));
-     MagData->mz = (float*) malloc(N_k*sizeof(float));
-     MagData->N = (unsigned long int*) malloc(sizeof(unsigned long int));
+
+     MagData->x = (float*) malloc(TotalAtomNumber*sizeof(float));
+     MagData->y = (float*) malloc(TotalAtomNumber*sizeof(float));
+     MagData->z = (float*) malloc(TotalAtomNumber*sizeof(float));
+     MagData->mx = (float*) malloc(TotalAtomNumber*sizeof(float));
+     MagData->my = (float*) malloc(TotalAtomNumber*sizeof(float));
+     MagData->mz = (float*) malloc(TotalAtomNumber*sizeof(float));
      MagData->K = (unsigned long int*) malloc(sizeof(unsigned long int));
-     MagData->N_k = (unsigned long int*) malloc(sizeof(unsigned long int));
+     MagData->TotalAtomNumber = (unsigned long int*) malloc(sizeof(unsigned long int));
      MagData->RotMat = (float*) malloc(9*sizeof(float));
+     MagData->NumberOfElements = (unsigned int*) malloc(K*sizeof(unsigned int));
+     MagData->NumberOfNonZeroMoments = (unsigned int*) malloc(K*sizeof(unsigned int));
+     MagData->N_cum = (unsigned long int*) malloc(K*sizeof(unsigned long int));
+     MagData->N_act = (unsigned long int*) malloc(K*sizeof(unsigned long int));
+     MagData->N_avg = (unsigned long int*) malloc(sizeof(unsigned long int));
 
 	 if (!MagData->x || !MagData->y || !MagData->z || 
 	     !MagData->mx || !MagData->my || !MagData->mz || 
-	     !MagData->N || !MagData->K || !MagData->N_k || !MagData->RotMat) {
+	     !MagData->N_avg || !MagData->K || !MagData->TotalAtomNumber || !MagData->RotMat) {
 	         perror("Memory allocation failed");
 	         exit(EXIT_FAILURE);
 	 }
 
-	 *MagData->N = N;
+	 *MagData->N_avg = 0;
 	 *MagData->K = K;
-	 *MagData->N_k = N_k;
+	 *MagData->TotalAtomNumber = TotalAtomNumber;
 
-	 for(unsigned long int i = 0; i < N_k; i++){
+	 for(unsigned long int i = 0; i < TotalAtomNumber; i++){
 		MagData->x[i] = 0.0;
 		MagData->y[i] = 0.0;
 		MagData->z[i] = 0.0;
@@ -87,44 +102,61 @@ void allocate_MagnetizationDataRAM(MagnetizationData* MagData, \
 		MagData->my[i] = 0.0;
 		MagData->mz[i] = 0.0;
 	 }	
+
+	 for(unsigned int i = 0; i < K; i++){
+         MagData->NumberOfElements[i] = MagDataProp->NumberOfElements[i][MagData_File_Index];
+         MagData->NumberOfNonZeroMoments[i] = MagDataProp->NumberOfNonZeroMoments[i][MagData_File_Index];
+         MagData->N_cum[i] = 0;
+         MagData->N_act[i] = 0;
+    }
+
 }
 
 
 void allocate_MagnetizationDataGPU(MagnetizationData* MagData, \
- 						           MagnetizationData* MagData_gpu){
+ 						           MagnetizationData* MagData_gpu, \
+                                   int MagData_File_Index){
 
-     unsigned long int N_k = *MagData->N_k;
+     unsigned long int TotalAtomNumber = *MagData->TotalAtomNumber;
 	
-	 cudaMalloc(&MagData_gpu->x, N_k*sizeof(float));
-     cudaMalloc(&MagData_gpu->y, N_k*sizeof(float));
-     cudaMalloc(&MagData_gpu->z, N_k*sizeof(float));
-     cudaMalloc(&MagData_gpu->mx, N_k*sizeof(float));
-     cudaMalloc(&MagData_gpu->my, N_k*sizeof(float));
-     cudaMalloc(&MagData_gpu->mz, N_k*sizeof(float));
-     cudaMalloc(&MagData_gpu->N, sizeof(unsigned long int));
+	 cudaMalloc(&MagData_gpu->x, TotalAtomNumber*sizeof(float));
+     cudaMalloc(&MagData_gpu->y, TotalAtomNumber*sizeof(float));
+     cudaMalloc(&MagData_gpu->z, TotalAtomNumber*sizeof(float));
+     cudaMalloc(&MagData_gpu->mx, TotalAtomNumber*sizeof(float));
+     cudaMalloc(&MagData_gpu->my, TotalAtomNumber*sizeof(float));
+     cudaMalloc(&MagData_gpu->mz, TotalAtomNumber*sizeof(float));
      cudaMalloc(&MagData_gpu->K, sizeof(unsigned long int));
-	 cudaMalloc(&MagData_gpu->N_k, sizeof(unsigned long int));
+	 cudaMalloc(&MagData_gpu->TotalAtomNumber, sizeof(unsigned long int));
 	 cudaMalloc(&MagData_gpu->RotMat, 9*sizeof(float));
+     cudaMalloc(&MagData_gpu->NumberOfElements, *MagData->K*sizeof(unsigned int));
+     cudaMalloc(&MagData_gpu->NumberOfNonZeroMoments, *MagData->K*sizeof(unsigned int));
+     cudaMalloc(&MagData_gpu->N_cum, *MagData->K*sizeof(unsigned long int));
+     cudaMalloc(&MagData_gpu->N_act, *MagData->K*sizeof(unsigned long int));
+      cudaMalloc(&MagData_gpu->N_avg, sizeof(unsigned long int));
 
-	 cudaMemcpy(MagData_gpu->N, MagData->N, sizeof(unsigned long int), cudaMemcpyHostToDevice);
+	 cudaMemcpy(MagData_gpu->N_avg, MagData->N_avg, sizeof(unsigned long int), cudaMemcpyHostToDevice);
 	 cudaMemcpy(MagData_gpu->K, MagData->K, sizeof(unsigned long int), cudaMemcpyHostToDevice);
-	 cudaMemcpy(MagData_gpu->N_k, MagData->N_k, sizeof(unsigned long int), cudaMemcpyHostToDevice);
+	 cudaMemcpy(MagData_gpu->TotalAtomNumber, MagData->TotalAtomNumber, sizeof(unsigned long int), cudaMemcpyHostToDevice);
 	 cudaMemcpy(MagData_gpu->RotMat, MagData->RotMat, 9*sizeof(float), cudaMemcpyHostToDevice);
+     cudaMemcpy(MagData_gpu->NumberOfElements, MagData->NumberOfElements, *MagData->K*sizeof(unsigned int), cudaMemcpyHostToDevice);
+     cudaMemcpy(MagData_gpu->NumberOfElements, MagData->NumberOfElements, *MagData->K*sizeof(unsigned int), cudaMemcpyHostToDevice);
+     cudaMemcpy(MagData_gpu->N_cum, MagData->N_cum, *MagData->K*sizeof(unsigned long int), cudaMemcpyHostToDevice);
+     cudaMemcpy(MagData_gpu->N_act, MagData->N_act, *MagData->K*sizeof(unsigned long int), cudaMemcpyHostToDevice);
 		
      cout << " \n";
          // copy data from Host to Device
      cout << "Copy Data from RAM to GPU...\n";
-     cudaMemcpy(MagData_gpu->x, MagData->x, N_k*sizeof(float), cudaMemcpyHostToDevice);
+     cudaMemcpy(MagData_gpu->x, MagData->x, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
      cout << "   x done...\n";
-     cudaMemcpy(MagData_gpu->y, MagData->y, N_k*sizeof(float), cudaMemcpyHostToDevice);
+     cudaMemcpy(MagData_gpu->y, MagData->y, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
      cout << "   y done...\n";
-     cudaMemcpy(MagData_gpu->z, MagData->z, N_k*sizeof(float), cudaMemcpyHostToDevice);
+     cudaMemcpy(MagData_gpu->z, MagData->z, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
      cout << "   z done...\n";
-     cudaMemcpy(MagData_gpu->mx, MagData->mx, N_k*sizeof(float), cudaMemcpyHostToDevice);
+     cudaMemcpy(MagData_gpu->mx, MagData->mx, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
      cout << "   mx done...\n";
-     cudaMemcpy(MagData_gpu->my, MagData->my, N_k*sizeof(float), cudaMemcpyHostToDevice);
+     cudaMemcpy(MagData_gpu->my, MagData->my, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
      cout << "   my done...\n";
-     cudaMemcpy(MagData_gpu->mz, MagData->mz, N_k*sizeof(float), cudaMemcpyHostToDevice);
+     cudaMemcpy(MagData_gpu->mz, MagData->mz, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
      cout << "   mz done...\n";
      cout << " \n";
      cout << "Data loaded...\n";
@@ -142,9 +174,8 @@ void read_MagnetizationData(MagnetizationData* MagData, \
                             int MagData_File_Index){
 
 	 cout << " \n";
-     cout << "Load Data...\n";
+     cout << "Load Magnetization Data...\n";
 
-     unsigned long int N = *MagData->N;
      unsigned long int K = *MagData->K;
      bool ExcludeZeroMoments_flag = InputData->ExcludeZeroMoments_flag;
 
@@ -160,7 +191,18 @@ void read_MagnetizationData(MagnetizationData* MagData, \
      float y_mean = 0.0;
      float z_mean = 0.0;
 
+     unsigned long int N_cum = 0;   // cummulative counter
+     unsigned long int N_act = 0;   // actual number of atoms per file
+
+
      for(unsigned long int k = 1; k <= K; k++){
+
+         if(ExcludeZeroMoments_flag){
+             N_act = MagData->NumberOfNonZeroMoments[k-1];
+         }else{
+             N_act = MagData->NumberOfElements[k-1];
+         }
+         MagData->N_act[k-1] = N_act;
 
          filename = MagDataProp->GlobalFolderPath + "/" + MagDataProp->SubFolderNames_Nom + "_" + to_string(k) \
                   + "/" + MagDataProp->SubFolder_FileNames_Nom + "_" + to_string(MagData_File_Index)\
@@ -179,16 +221,16 @@ void read_MagnetizationData(MagnetizationData* MagData, \
          if(ExcludeZeroMoments_flag){
          	while(fin >> x_buf >> y_buf >> z_buf >> mx_buf >> my_buf >> mz_buf){
             	if(mx_buf != 0.0 || my_buf != 0.0 || mz_buf != 0.0){
-                	MagData->x[n + (k-1)*N] = x_buf * InputData->XYZ_Unit_Factor;
-                	MagData->y[n + (k-1)*N] = y_buf * InputData->XYZ_Unit_Factor;
-                	MagData->z[n + (k-1)*N] = z_buf * InputData->XYZ_Unit_Factor;
-                	MagData->mx[n + (k-1)*N] = mx_buf;
-                	MagData->my[n + (k-1)*N] = my_buf;
-                	MagData->mz[n + (k-1)*N] = mz_buf;
+                	MagData->x[n + N_cum] = x_buf * InputData->XYZ_Unit_Factor;
+                	MagData->y[n + N_cum] = y_buf * InputData->XYZ_Unit_Factor;
+                	MagData->z[n + N_cum] = z_buf * InputData->XYZ_Unit_Factor;
+                	MagData->mx[n + N_cum] = mx_buf;
+                	MagData->my[n + N_cum] = my_buf;
+                	MagData->mz[n + N_cum] = mz_buf;
 
-                	x_mean += MagData->x[n + (k-1)*N]/N;
-                	y_mean += MagData->y[n + (k-1)*N]/N;
-                	z_mean += MagData->z[n + (k-1)*N]/N;
+                	x_mean += MagData->x[n + N_cum]/N_act;
+                	y_mean += MagData->y[n + N_cum]/N_act;
+                	z_mean += MagData->z[n + N_cum]/N_act;
 
                 	n += 1;
              	}
@@ -196,16 +238,16 @@ void read_MagnetizationData(MagnetizationData* MagData, \
          } else{
 			while(fin >> x_buf >> y_buf >> z_buf >> mx_buf >> my_buf >> mz_buf){
 			    
-			        MagData->x[n + (k-1)*N] = x_buf * InputData->XYZ_Unit_Factor;
-			        MagData->y[n + (k-1)*N] = y_buf * InputData->XYZ_Unit_Factor;
-			        MagData->z[n + (k-1)*N] = z_buf * InputData->XYZ_Unit_Factor;
-			        MagData->mx[n + (k-1)*N] = mx_buf;
-			        MagData->my[n + (k-1)*N] = my_buf;
-			        MagData->mz[n + (k-1)*N] = mz_buf;
+			        MagData->x[n + N_cum] = x_buf * InputData->XYZ_Unit_Factor;
+			        MagData->y[n + N_cum] = y_buf * InputData->XYZ_Unit_Factor;
+			        MagData->z[n + N_cum] = z_buf * InputData->XYZ_Unit_Factor;
+			        MagData->mx[n + N_cum] = mx_buf;
+			        MagData->my[n + N_cum] = my_buf;
+			        MagData->mz[n + N_cum] = mz_buf;
 			
-			        x_mean += MagData->x[n + (k-1)*N]/N;
-			        y_mean += MagData->y[n + (k-1)*N]/N;
-			        z_mean += MagData->z[n + (k-1)*N]/N;
+			        x_mean += MagData->x[n + N_cum]/N_act;
+			        y_mean += MagData->y[n + N_cum]/N_act;
+			        z_mean += MagData->z[n + N_cum]/N_act;
 			
                 	n += 1;
 			}        	
@@ -214,13 +256,23 @@ void read_MagnetizationData(MagnetizationData* MagData, \
          fin.close();
 
          // centering of the xyz-data set
-         for(int l = 0; l < N; l++){
-             MagData->x[l + (k-1)*N] = MagData->x[l + (k-1)*N] - x_mean;
-             MagData->y[l + (k-1)*N] = MagData->y[l + (k-1)*N] - y_mean;
-             MagData->z[l + (k-1)*N] = MagData->z[l + (k-1)*N] - z_mean;
+         for(int l = 0; l < N_act; l++){
+             MagData->x[l + N_cum] = MagData->x[l + N_cum] - x_mean;
+             MagData->y[l + N_cum] = MagData->y[l + N_cum] - y_mean;
+             MagData->z[l + N_cum] = MagData->z[l + N_cum] - z_mean;
          }
  
+        // update of the cummulative counter
+        N_cum += N_act;
+        if(k<K){
+            MagData->N_cum[k] = N_cum;
+        }
+        cout << "N_act: " << N_act << ",  " << "N_cum: " << N_cum << "\n";
+
       }
+
+      *MagData->N_avg = (unsigned long int) (((float)N_cum)/((float) K));
+      cout << "N_avg: " << *MagData->N_avg << "\n";
 
      cout << "(x, y, z, mx, my, mz) - data load done...\n";
     
@@ -233,25 +285,32 @@ void init_MagnetizationData(MagnetizationData* MagData, \
                   InputFileData* InputData, \
                   int MagData_File_Index){
 
-	allocate_MagnetizationDataRAM(MagData, MagDataProp, InputData);
+	allocate_MagnetizationDataRAM(MagData, MagDataProp, InputData, MagData_File_Index);
 	read_MagnetizationData(MagData, MagDataProp, InputData, MagData_File_Index);
-	allocate_MagnetizationDataGPU(MagData, MagData_gpu);
+	allocate_MagnetizationDataGPU(MagData, MagData_gpu, MagData_File_Index);
    
 }
 
 void free_MagnetizationData(MagnetizationData *MagData, \
                   MagnetizationData *MagData_gpu){
  
+
+     cout << "Free Magnetization Data..." << "\n";
+
      free(MagData->x);
      free(MagData->y);
      free(MagData->z);
      free(MagData->mx);
      free(MagData->my);
      free(MagData->mz);
-     free(MagData->N);
      free(MagData->K);
-     free(MagData->N_k);
+     free(MagData->TotalAtomNumber);
      free(MagData->RotMat);
+     free(MagData->NumberOfElements);
+     free(MagData->NumberOfNonZeroMoments);
+     free(MagData->N_cum);
+     free(MagData->N_act);
+     free(MagData->N_avg);
 
      cudaFree(MagData_gpu->x);
      cudaFree(MagData_gpu->y);
@@ -259,17 +318,21 @@ void free_MagnetizationData(MagnetizationData *MagData, \
      cudaFree(MagData_gpu->mx);
      cudaFree(MagData_gpu->my);
      cudaFree(MagData_gpu->mz);
-	 cudaFree(MagData_gpu->N);
 	 cudaFree(MagData_gpu->K);
-	 cudaFree(MagData_gpu->N_k);
+	 cudaFree(MagData_gpu->TotalAtomNumber);
 	 cudaFree(MagData_gpu->RotMat);
+     cudaFree(MagData_gpu->NumberOfElements);
+     cudaFree(MagData_gpu->NumberOfNonZeroMoments);
+     cudaFree(MagData_gpu->N_cum);
+     cudaFree(MagData_gpu->N_act);
+     cudaFree(MagData_gpu->N_avg);
 
-	 cudaFree(MagData);
+	 cudaFree(MagData_gpu);
 
 }
 
 void disp_MagnetizationData(MagnetizationData *MagData){
-	for(int k=0; k < *MagData->N_k; k++){
+	for(int k=0; k < *MagData->TotalAtomNumber; k++){
 		cout << MagData->x[k] << " "\
 		     << MagData->y[k] << " "\
 		     << MagData->z[k] << " "\

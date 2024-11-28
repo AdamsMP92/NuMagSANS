@@ -4,7 +4,7 @@
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 22 November 2024
+// Version      : 28 November 2024
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
@@ -98,8 +98,18 @@ struct ScatteringData {
 
 	float *S_Nuc_1D_unpolarized;
 	float *S_Mag_1D_unpolarized;
+	float *S_Mag_1D_polarized;
+	float *S_NucMag_1D;
 	float *S_Mag_1D_chiral;
+
 	float *S_Mag_1D_spin_flip;
+	float *S_Mag_1D_spin_flip_pm;
+	float *S_Mag_1D_spin_flip_mp;
+	float *S_Mag_1D_non_spin_flip_pp;
+	float *S_Mag_1D_non_spin_flip_mm;
+	float *S_Mag_1D_sanspol_p;
+	float *S_Mag_1D_sanspol_m;
+
 
 	float *p_Nuc_unpolarized;
 	float *p_Mag_unpolarized;
@@ -116,7 +126,9 @@ struct ScatteringData {
 // #################################################################################################################################################
 struct ScalingFactors{
 
-	float SANS_scaling_factor;
+	float Nuc_SANS_SF;
+	float Mag_SANS_SF;
+	float NucMag_SANS_SF;
 	float CorrelationMatrix_scaling_factor;
 	float correlation_function_1D_scaling_factor;
 	float pair_distance_distribution_1D_scaling_factor;
@@ -129,47 +141,63 @@ struct ScalingFactors{
 void init_ScalingFactors(ScalingFactors* ScalFactors,\
 					     InputFileData* InputData,\
 					     MagnetizationData* MagData, \
+					     NuclearData* NucData, \
 					     ScatteringData* SANSData){
 
-	// physical constants and scaling factors
-	   float mu_B = 9.2740100783*1e-24;    // Bohr Magneton
-	   float b_H = 2.91*1e8;           	   // Magnetic Scattering length in SI units
+		// physical constants and scaling factors
+		float mu_B = 9.2740100783*1e-24;    // Bohr Magneton in units of Am^2
+		float b_H = 2.91 * 1e8;             // Magnetic Scattering length in SI units
+		float n_B = 1e-15; 					// nuclear scattering length scaling factor in units of femto meters
+
+		// Total Scattering Volume in m^3
+		float V = InputData->Scattering_Volume_V;
+
+		// Micromagnetic properties
+		float sx = InputData->cuboid_cell_size_x; // cell size x in nanometers
+		float sy = InputData->cuboid_cell_size_y; // cell size y in nanometers
+		float sz = InputData->cuboid_cell_size_z; // cell size z in nanometers
+		float Ms = InputData->cell_magnetization; // saturation magnetization in units of A/m
+		float mag_moment = Ms * sx * sy * sz * 1e-27;	// cell magnetic moment
+
+		// nuclear properties
+		float cell_nuclear_sld = InputData->cell_nuclear_sld;		// nuclear scattering length density in units of barn
+		float n_length = cell_nuclear_sld * sx * sy * sz * 1e-27;	// nuclear scattering length in units of
+
+		// Total Number of atoms
+		unsigned long int W;
+		unsigned long int N_avg;
+		if(InputData->MagData_activate_flag){
+			W = *MagData->TotalAtomNumber;
+			N_avg = *MagData->N_avg;
+		}else{
+			W = *NucData->TotalAtomNumber;
+			N_avg = *NucData->N_avg;
+		}
 	   
-	   float Scattering_Volume_V_estimate = 0.0; // Variable for scattering volume V
-	   
-	  // float SANS_scaling_factor = pow(((float) N) * mu_B * b_H, 2)/scattering_volume_V * 1e-2;    // scaling factor for the SANS cross sections
-	  // float CorrelationMatrix_scaling_factor = pow(((float) N) * mu_B, 2)/(8.0*pow(M_PCuboid_Cell_Size_I, 3));     // scaling factor for the Fourier correlation functions
-	  // float correlation_function_1D_scaling_factor = SANS_scaling_factor * 1e-7;          // scaling factor for the 1D correlation function
-	  // float pair_distance_distribution_1D_scaling_factor = SANS_scaling_factor * 1e-7;
-	   
-	   unsigned long int N = *MagData->N;
+
 
 	if(InputData->Fourier_Approach == "atomistic"){
-		ScalFactors->SANS_scaling_factor = pow(((float) N) * mu_B * b_H, 2)/(InputData->Scattering_Volume_V) * 1e-2;  // scaling factor for the SANS cross sections
-		ScalFactors->CorrelationMatrix_scaling_factor = pow(((float) N) * mu_B, 2)/(8.0*pow(M_PI, 3));   // scaling factor for the Fourier correlation functions
-		ScalFactors->correlation_function_1D_scaling_factor = ScalFactors->SANS_scaling_factor * 1e-7;            // scaling factor for the 1D correlation function
-		ScalFactors->pair_distance_distribution_1D_scaling_factor = ScalFactors->SANS_scaling_factor * 1e-7;
-		ScalFactors->correlation_function_2D_scaling_factor = ScalFactors->SANS_scaling_factor * (*SANSData->dr) * (*SANSData->dtheta);
+
+		ScalFactors->Nuc_SANS_SF = ((float) W) * ((float) N_avg) * pow(n_B, 2)/V * 1e-2;
+		ScalFactors->Mag_SANS_SF = ((float) W) * ((float) N_avg) * pow(mu_B * b_H, 2)/V * 1e-2;  // scaling factor for the SANS cross sections
+		ScalFactors->NucMag_SANS_SF = ((float) W) * ((float) N_avg) * (n_B * mu_B * b_H)/V * 1e-2;
+		ScalFactors->CorrelationMatrix_scaling_factor = pow(((float) N_avg) * mu_B, 2)/(8.0*pow(M_PI, 3));   // scaling factor for the Fourier correlation functions
+		ScalFactors->correlation_function_1D_scaling_factor = ScalFactors->Mag_SANS_SF * 1e-7;            // scaling factor for the 1D correlation function
+		ScalFactors->pair_distance_distribution_1D_scaling_factor = ScalFactors->Mag_SANS_SF * 1e-7;
+		ScalFactors->correlation_function_2D_scaling_factor = ScalFactors->Mag_SANS_SF * (*SANSData->dr) * (*SANSData->dtheta);
 	}
 	else if(InputData->Fourier_Approach == "micromagnetic"){
-	 
-	// the scattering volume is estimated as the number of non-zero magnetic moments times the cuboid cell volume
-	// the scattering volume is given in units of m^3 (meters to the power of three)
-	   Scattering_Volume_V_estimate = N * InputData->cuboid_cell_size_x\
-										 * InputData->cuboid_cell_size_y\
-										 * InputData->cuboid_cell_size_z * 1e-27;
-	   
-		ScalFactors->SANS_scaling_factor = pow(((float) N) * Scattering_Volume_V_estimate \
-							* InputData->cell_magnetization * b_H, 2)/Scattering_Volume_V_estimate * 1e-2; // scaling factor for the SANS cross sections
-	  
-		ScalFactors->CorrelationMatrix_scaling_factor = pow(((float) N) * Scattering_Volume_V_estimate \
-										 * InputData->cell_magnetization, 2)/(8.0*pow(M_PI, 3));     // scaling factor for the Fourier correlation functions
-		ScalFactors->correlation_function_1D_scaling_factor = ScalFactors->SANS_scaling_factor * 1e-7;             // scaling factor for the 1D correlation function
-		ScalFactors->pair_distance_distribution_1D_scaling_factor = ScalFactors->SANS_scaling_factor * 1e-7;       // scaling factor for the pair-distance distribution function
-		ScalFactors->correlation_function_2D_scaling_factor = ScalFactors->SANS_scaling_factor * (*SANSData->dr) * (*SANSData->dtheta);
+
+		ScalFactors->Nuc_SANS_SF = ((float) W) * ((float) N_avg) * pow(n_length, 2)/V * 1e-2;
+		ScalFactors->Mag_SANS_SF = ((float) W) * ((float) N_avg) * pow(mag_moment * b_H, 2)/V * 1e-2; // scaling factor for the SANS cross sections
+		ScalFactors->NucMag_SANS_SF = ((float) W) * ((float) N_avg) * (n_length * mag_moment * b_H)/V * 1e-2;
+		ScalFactors->CorrelationMatrix_scaling_factor = pow(((float) N_avg) * V * Ms, 2)/(8.0*pow(M_PI, 3));     // scaling factor for the Fourier correlation functions
+		ScalFactors->correlation_function_1D_scaling_factor = ScalFactors->Mag_SANS_SF * 1e-7;             // scaling factor for the 1D correlation function
+		ScalFactors->pair_distance_distribution_1D_scaling_factor = ScalFactors->Mag_SANS_SF * 1e-7;       // scaling factor for the pair-distance distribution function
+		ScalFactors->correlation_function_2D_scaling_factor = ScalFactors->Mag_SANS_SF * (*SANSData->dr) * (*SANSData->dtheta);
 	}
 
-	cout << "SANS scaling factor: " << ScalFactors->SANS_scaling_factor << "\n";
+	cout << "SANS scaling factor: " << ScalFactors->Mag_SANS_SF << "\n";
 	cout << "Correlation Matrix scaling factor: " << ScalFactors->CorrelationMatrix_scaling_factor << "\n";
 	cout << "correlation function scaling factor: " << ScalFactors->correlation_function_1D_scaling_factor << "\n";
 	cout << "pair distance scaling factor: " << ScalFactors->pair_distance_distribution_1D_scaling_factor << "\n";
@@ -189,7 +217,7 @@ void scale_ScatteringData(ScalingFactors* ScalFactors, \
 
 	unsigned int L = (InputData->N_q) * (InputData->N_theta);
 
-	for(unsigned long int l=0; l<L; l++){
+	for(unsigned long int l=0; l < L; l++){
 		SANSData->Gxx_real[l] = SANSData->Gxx_real[l] * ScalFactors->CorrelationMatrix_scaling_factor;
 		SANSData->Gyy_real[l] = SANSData->Gyy_real[l] * ScalFactors->CorrelationMatrix_scaling_factor;
 		SANSData->Gzz_real[l] = SANSData->Gzz_real[l] * ScalFactors->CorrelationMatrix_scaling_factor;
@@ -210,22 +238,43 @@ void scale_ScatteringData(ScalingFactors* ScalFactors, \
 		SANSData->Gyz_imag[l] = SANSData->Gyz_imag[l] * ScalFactors->CorrelationMatrix_scaling_factor;
 		SANSData->Gzy_imag[l] = SANSData->Gzy_imag[l] * ScalFactors->CorrelationMatrix_scaling_factor;
 
-		SANSData->S_Mag_2D_unpolarized[l] = SANSData->S_Mag_2D_unpolarized[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_2D_polarized[l] = SANSData->S_Mag_2D_polarized[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_2D_spin_flip[l] = SANSData->S_Mag_2D_spin_flip[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_2D_chiral[l] = SANSData->S_Mag_2D_chiral[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_2D_spin_flip_pm[l] = SANSData->S_Mag_2D_spin_flip_pm[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_2D_spin_flip_mp[l] = SANSData->S_Mag_2D_spin_flip_mp[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_2D_non_spin_flip_pp[l] = SANSData->S_Mag_2D_non_spin_flip_pp[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_2D_non_spin_flip_mm[l] = SANSData->S_Mag_2D_non_spin_flip_mm[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_2D_sanspol_p[l] = SANSData->S_Mag_2D_sanspol_p[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_2D_sanspol_m[l] = SANSData->S_Mag_2D_sanspol_m[l] * ScalFactors->SANS_scaling_factor;
+		SANSData->S_Nuc_2D_unpolarized[l] = SANSData->S_Nuc_2D_unpolarized[l] * ScalFactors->Nuc_SANS_SF;
+		SANSData->S_Mag_2D_unpolarized[l] = SANSData->S_Mag_2D_unpolarized[l] * ScalFactors->Mag_SANS_SF;
+		SANSData->S_Mag_2D_polarized[l] = SANSData->S_Mag_2D_polarized[l] * ScalFactors->Mag_SANS_SF;;
+		SANSData->S_NucMag_2D[l] = SANSData->S_NucMag_2D[l] * ScalFactors->NucMag_SANS_SF;
+		SANSData->S_Mag_2D_chiral[l] = SANSData->S_Mag_2D_chiral[l] * ScalFactors->Mag_SANS_SF;
+
+		// composed SANS cross sections
+		SANSData->S_Mag_2D_spin_flip[l] = SANSData->S_Mag_2D_unpolarized[l] - SANSData->S_Mag_2D_polarized[l];
+		SANSData->S_Mag_2D_spin_flip_pm[l] = SANSData->S_Mag_2D_spin_flip[l] + SANSData->S_Mag_2D_chiral[l];
+		SANSData->S_Mag_2D_spin_flip_mp[l] = SANSData->S_Mag_2D_spin_flip[l] - SANSData->S_Mag_2D_chiral[l];
+		SANSData->S_Mag_2D_non_spin_flip_pp[l] = SANSData->S_Nuc_2D_unpolarized[l] + SANSData->S_NucMag_2D[l] + SANSData->S_Mag_2D_polarized[l];
+		SANSData->S_Mag_2D_non_spin_flip_mm[l] = SANSData->S_Nuc_2D_unpolarized[l] - SANSData->S_NucMag_2D[l] + SANSData->S_Mag_2D_polarized[l];
+		SANSData->S_Mag_2D_sanspol_p[l] = SANSData->S_Mag_2D_non_spin_flip_pp[l] + SANSData->S_Mag_2D_spin_flip_pm[l];
+		SANSData->S_Mag_2D_sanspol_m[l] = SANSData->S_Mag_2D_non_spin_flip_mm[l] + SANSData->S_Mag_2D_spin_flip_mp[l];
+
 	}
 
 	for(unsigned long int l=0; l < (InputData->N_q); l++){
-		SANSData->S_Mag_1D_unpolarized[l] = SANSData->S_Mag_1D_unpolarized[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_1D_chiral[l] = SANSData->S_Mag_1D_spin_flip[l] * ScalFactors->SANS_scaling_factor;
-		SANSData->S_Mag_1D_spin_flip[l] = SANSData->S_Mag_1D_chiral[l] * ScalFactors->SANS_scaling_factor;
+
+		SANSData->S_Nuc_1D_unpolarized[l] = SANSData->S_Nuc_1D_unpolarized[l] * ScalFactors->Nuc_SANS_SF;
+		SANSData->S_Mag_1D_unpolarized[l] = SANSData->S_Mag_1D_unpolarized[l] * ScalFactors->Mag_SANS_SF;
+		SANSData->S_Mag_1D_polarized[l] = SANSData->S_Mag_1D_polarized[l] * ScalFactors->Mag_SANS_SF;;
+		SANSData->S_NucMag_1D[l] = SANSData->S_NucMag_1D[l] * ScalFactors->NucMag_SANS_SF;
+		SANSData->S_Mag_1D_chiral[l] = SANSData->S_Mag_1D_chiral[l] * ScalFactors->Mag_SANS_SF;
+
+
+		// composed SANS cross sections
+		SANSData->S_Mag_1D_spin_flip[l] = SANSData->S_Mag_1D_unpolarized[l] - SANSData->S_Mag_1D_polarized[l];
+		SANSData->S_Mag_1D_spin_flip_pm[l] = SANSData->S_Mag_1D_spin_flip[l] + SANSData->S_Mag_1D_chiral[l];
+		SANSData->S_Mag_1D_spin_flip_mp[l] = SANSData->S_Mag_1D_spin_flip[l] - SANSData->S_Mag_1D_chiral[l];
+		SANSData->S_Mag_1D_non_spin_flip_pp[l] = SANSData->S_Nuc_1D_unpolarized[l] + SANSData->S_NucMag_1D[l] + SANSData->S_Mag_1D_polarized[l];
+		SANSData->S_Mag_1D_non_spin_flip_mm[l] = SANSData->S_Nuc_1D_unpolarized[l] - SANSData->S_NucMag_1D[l] + SANSData->S_Mag_1D_polarized[l];
+		SANSData->S_Mag_1D_sanspol_p[l] = SANSData->S_Mag_1D_non_spin_flip_pp[l] + SANSData->S_Mag_1D_spin_flip_pm[l];
+		SANSData->S_Mag_1D_sanspol_m[l] = SANSData->S_Mag_1D_non_spin_flip_mm[l] + SANSData->S_Mag_1D_spin_flip_mp[l];
+
+
+
 	}
 
 
@@ -323,20 +372,35 @@ void allocate_ScatteringData_RAM(InputFileData *InputData,\
 	SANSData->S_Mag_2D_sanspol_p = (float*) malloc(L*sizeof(float));
 	SANSData->S_Mag_2D_sanspol_m = (float*) malloc(L*sizeof(float));
 
-		
 	SANSData->q_1D = (float*) malloc((InputData->N_q)*sizeof(float));
 	SANSData->S_Nuc_1D_unpolarized = (float*) malloc((InputData->N_q)*sizeof(float));
 	SANSData->S_Mag_1D_unpolarized = (float*) malloc((InputData->N_q)*sizeof(float));
-	SANSData->S_Mag_1D_chiral = (float*) malloc((InputData->N_q)*sizeof(float));
+	SANSData->S_Mag_1D_polarized = (float*) malloc((InputData->N_q)*sizeof(float));
+	SANSData->S_NucMag_1D = (float*) malloc((InputData->N_q)*sizeof(float));
 	SANSData->S_Mag_1D_spin_flip = (float*) malloc((InputData->N_q)*sizeof(float));
+	SANSData->S_Mag_1D_chiral = (float*) malloc((InputData->N_q)*sizeof(float));
+	SANSData->S_Mag_1D_spin_flip_pm = (float*) malloc((InputData->N_q)*sizeof(float));
+	SANSData->S_Mag_1D_spin_flip_mp = (float*) malloc((InputData->N_q)*sizeof(float));
+	SANSData->S_Mag_1D_non_spin_flip_pp = (float*) malloc((InputData->N_q)*sizeof(float));
+	SANSData->S_Mag_1D_non_spin_flip_mm = (float*) malloc((InputData->N_q)*sizeof(float));
+	SANSData->S_Mag_1D_sanspol_p = (float*) malloc((InputData->N_q)*sizeof(float));
+	SANSData->S_Mag_1D_sanspol_m = (float*) malloc((InputData->N_q)*sizeof(float));
 
 	for(unsigned int i = 0; i < InputData->N_q; i++){
 	
 		SANSData->q_1D[i] = i * (*SANSData->dq);
 		SANSData->S_Nuc_1D_unpolarized[i] = 0.0;
 		SANSData->S_Mag_1D_unpolarized[i] = 0.0;
-		SANSData->S_Mag_1D_chiral[i] = 0.0;
+		SANSData->S_Mag_1D_polarized[i] = 0.0;
+		SANSData->S_NucMag_1D[i] = 0.0;
 		SANSData->S_Mag_1D_spin_flip[i] = 0.0;
+		SANSData->S_Mag_1D_chiral[i] = 0.0;
+		SANSData->S_Mag_1D_spin_flip_pm[i] = 0.0;
+		SANSData->S_Mag_1D_spin_flip_mp[i] = 0.0;
+		SANSData->S_Mag_1D_non_spin_flip_pp[i] = 0.0;
+		SANSData->S_Mag_1D_non_spin_flip_mm[i] = 0.0;
+		SANSData->S_Mag_1D_sanspol_p[i] = 0.0;
+		SANSData->S_Mag_1D_sanspol_m[i] = 0.0;
 		
 		for(unsigned int j=0; j < InputData->N_theta; j++){
 		
@@ -510,8 +574,16 @@ void allocate_ScatteringData_GPU(ScatteringData *SANSData, \
 	cudaMalloc(&SANSData_gpu->q_1D, (*SANSData->N_q)*sizeof(float));
 	cudaMalloc(&SANSData_gpu->S_Nuc_1D_unpolarized, (*SANSData->N_q)*sizeof(float));
 	cudaMalloc(&SANSData_gpu->S_Mag_1D_unpolarized, (*SANSData->N_q)*sizeof(float));
+	cudaMalloc(&SANSData_gpu->S_NucMag_1D, (*SANSData->N_q)*sizeof(float));
+	cudaMalloc(&SANSData_gpu->S_Mag_1D_polarized, (*SANSData->N_q)*sizeof(float));
 	cudaMalloc(&SANSData_gpu->S_Mag_1D_spin_flip, (*SANSData->N_q)*sizeof(float));
 	cudaMalloc(&SANSData_gpu->S_Mag_1D_chiral, (*SANSData->N_q)*sizeof(float));
+	cudaMalloc(&SANSData_gpu->S_Mag_1D_spin_flip_pm, (*SANSData->N_q)*sizeof(float));
+	cudaMalloc(&SANSData_gpu->S_Mag_1D_spin_flip_mp, (*SANSData->N_q)*sizeof(float));
+	cudaMalloc(&SANSData_gpu->S_Mag_1D_non_spin_flip_pp, (*SANSData->N_q)*sizeof(float));
+	cudaMalloc(&SANSData_gpu->S_Mag_1D_non_spin_flip_mm, (*SANSData->N_q)*sizeof(float));
+	cudaMalloc(&SANSData_gpu->S_Mag_1D_sanspol_p, (*SANSData->N_q)*sizeof(float));
+	cudaMalloc(&SANSData_gpu->S_Mag_1D_sanspol_m, (*SANSData->N_q)*sizeof(float));
 
 	cudaMemcpy(SANSData_gpu->q_2D, SANSData->q_2D, L*sizeof(float), cudaMemcpyHostToDevice);
 	cudaMemcpy(SANSData_gpu->theta_2D, SANSData->theta_2D, L*sizeof(float), cudaMemcpyHostToDevice);
@@ -554,8 +626,17 @@ void allocate_ScatteringData_GPU(ScatteringData *SANSData, \
 	cudaMemcpy(SANSData_gpu->q_1D, SANSData->q_1D, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
 	cudaMemcpy(SANSData_gpu->S_Nuc_1D_unpolarized, SANSData->S_Nuc_1D_unpolarized, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
 	cudaMemcpy(SANSData_gpu->S_Mag_1D_unpolarized, SANSData->S_Mag_1D_unpolarized, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
+	cudaMemcpy(SANSData_gpu->S_NucMag_1D, SANSData->S_NucMag_1D, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
+	cudaMemcpy(SANSData_gpu->S_Mag_1D_polarized, SANSData->S_Mag_1D_polarized, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
 	cudaMemcpy(SANSData_gpu->S_Mag_1D_spin_flip, SANSData->S_Mag_1D_spin_flip, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
 	cudaMemcpy(SANSData_gpu->S_Mag_1D_chiral, SANSData->S_Mag_1D_chiral, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
+	cudaMemcpy(SANSData_gpu->S_Mag_1D_spin_flip_pm, SANSData->S_Mag_1D_spin_flip_pm, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
+	cudaMemcpy(SANSData_gpu->S_Mag_1D_spin_flip_mp, SANSData->S_Mag_1D_spin_flip_mp, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
+	cudaMemcpy(SANSData_gpu->S_Mag_1D_non_spin_flip_pp, SANSData->S_Mag_1D_non_spin_flip_pp, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
+	cudaMemcpy(SANSData_gpu->S_Mag_1D_non_spin_flip_mm, SANSData->S_Mag_1D_non_spin_flip_mm, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
+	cudaMemcpy(SANSData_gpu->S_Mag_1D_sanspol_p, SANSData->S_Mag_1D_sanspol_p, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
+	cudaMemcpy(SANSData_gpu->S_Mag_1D_sanspol_m, SANSData->S_Mag_1D_sanspol_m, (*SANSData->N_q)*sizeof(float), cudaMemcpyHostToDevice);
+
 
 	L = (*SANSData->N_r) * (*SANSData->N_alpha);
 
@@ -669,8 +750,17 @@ void copyGPU2RAM_ScatteringData(ScatteringData *SANSData, \
 
 	cudaMemcpy(SANSData->S_Nuc_1D_unpolarized, SANSData_gpu->S_Nuc_1D_unpolarized, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
 	cudaMemcpy(SANSData->S_Mag_1D_unpolarized, SANSData_gpu->S_Mag_1D_unpolarized, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
+	cudaMemcpy(SANSData->S_NucMag_1D, SANSData_gpu->S_NucMag_1D, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
+	cudaMemcpy(SANSData->S_Mag_1D_polarized, SANSData_gpu->S_Mag_1D_polarized, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
 	cudaMemcpy(SANSData->S_Mag_1D_spin_flip, SANSData_gpu->S_Mag_1D_spin_flip, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
 	cudaMemcpy(SANSData->S_Mag_1D_chiral, SANSData_gpu->S_Mag_1D_chiral, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
+	cudaMemcpy(SANSData->S_Mag_1D_spin_flip_pm, SANSData_gpu->S_Mag_1D_spin_flip_pm, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
+	cudaMemcpy(SANSData->S_Mag_1D_spin_flip_mp, SANSData_gpu->S_Mag_1D_spin_flip_mp, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
+	cudaMemcpy(SANSData->S_Mag_1D_non_spin_flip_pp, SANSData_gpu->S_Mag_1D_non_spin_flip_pp, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
+	cudaMemcpy(SANSData->S_Mag_1D_non_spin_flip_mm, SANSData_gpu->S_Mag_1D_non_spin_flip_mm, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
+	cudaMemcpy(SANSData->S_Mag_1D_sanspol_p, SANSData_gpu->S_Mag_1D_sanspol_p, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
+	cudaMemcpy(SANSData->S_Mag_1D_sanspol_m, SANSData_gpu->S_Mag_1D_sanspol_m, (*SANSData->N_q)*sizeof(float), cudaMemcpyDeviceToHost);
+
 
 	L = (*SANSData->N_r) * (*SANSData->N_alpha);
 
@@ -885,6 +975,20 @@ void write2CSV_ScatteringData(InputFileData *InputData, \
 		cout << "Write: " << filename_S_Mag_1D_unpolarized << "\n";
 	}
 
+
+	if(InputData->output_polarized_magnetic_SANS_cross_section_1D_flag){
+		std::string filename_S_Mag_1D_polarized = target_foldername + "S_Mag_1D_polarized.csv";
+		WriteCSV_float_vector((*SANSData->N_q), SANSData->S_Mag_1D_polarized, filename_S_Mag_1D_polarized);
+		cout << "Write: " << filename_S_Mag_1D_polarized << "\n";
+	}
+
+	if(InputData->output_nuclear_magnetic_SANS_cross_section_1D_flag){
+		std::string filename_S_NucMag_1D = target_foldername + "S_NucMag_1D.csv";
+		WriteCSV_float_vector((*SANSData->N_q), SANSData->S_NucMag_1D, filename_S_NucMag_1D);
+		cout << "Write: " << filename_S_NucMag_1D << "\n";
+	}
+
+
 	if(InputData->output_spin_flip_magnetic_SANS_cross_section_1D_flag){
 		std::string filename_S_Mag_1D_spin_flip = target_foldername + "S_Mag_1D_spin_flip.csv";
 		WriteCSV_float_vector((*SANSData->N_q), SANSData->S_Mag_1D_spin_flip, filename_S_Mag_1D_spin_flip);
@@ -983,8 +1087,7 @@ void write2CSV_ScatteringData(InputFileData *InputData, \
 void free_ScatteringData(ScatteringData *SANSData, \
 				         ScatteringData *SANSData_gpu){
 
-	cout << "\n";
-	cout << "free memory..." << "\n";
+	cout << "Free SANS Data..." << "\n";
 	cout << "\n";
 
 	free(SANSData->Polarization);
@@ -1054,8 +1157,16 @@ void free_ScatteringData(ScatteringData *SANSData, \
 
 	free(SANSData->S_Nuc_1D_unpolarized);
 	free(SANSData->S_Mag_1D_unpolarized);
+	free(SANSData->S_NucMag_1D);
+	free(SANSData->S_Mag_1D_polarized);
 	free(SANSData->S_Mag_1D_chiral);
 	free(SANSData->S_Mag_1D_spin_flip);
+	free(SANSData->S_Mag_1D_spin_flip_pm);
+	free(SANSData->S_Mag_1D_spin_flip_mp);
+	free(SANSData->S_Mag_1D_non_spin_flip_pp);
+	free(SANSData->S_Mag_1D_non_spin_flip_mm);
+	free(SANSData->S_Mag_1D_sanspol_p);
+	free(SANSData->S_Mag_1D_sanspol_m);
 
 	free(SANSData->p_Nuc_unpolarized);
 	free(SANSData->p_Mag_unpolarized);
@@ -1069,7 +1180,6 @@ void free_ScatteringData(ScatteringData *SANSData, \
 
 
 	cudaFree(SANSData_gpu->Polarization);
-
 	cudaFree(SANSData_gpu->N_q);
 	cudaFree(SANSData_gpu->N_theta);
 	cudaFree(SANSData_gpu->N_r);
@@ -1135,8 +1245,17 @@ void free_ScatteringData(ScatteringData *SANSData, \
 
 	cudaFree(SANSData_gpu->S_Nuc_1D_unpolarized);
 	cudaFree(SANSData_gpu->S_Mag_1D_unpolarized);
+	cudaFree(SANSData_gpu->S_NucMag_1D);
+	cudaFree(SANSData_gpu->S_Mag_1D_polarized);
 	cudaFree(SANSData_gpu->S_Mag_1D_chiral);
 	cudaFree(SANSData_gpu->S_Mag_1D_spin_flip);
+	cudaFree(SANSData_gpu->S_Mag_1D_spin_flip_pm);
+	cudaFree(SANSData_gpu->S_Mag_1D_spin_flip_mp);
+	cudaFree(SANSData_gpu->S_Mag_1D_non_spin_flip_pp);
+	cudaFree(SANSData_gpu->S_Mag_1D_non_spin_flip_mm);
+	cudaFree(SANSData_gpu->S_Mag_1D_sanspol_p);
+	cudaFree(SANSData_gpu->S_Mag_1D_sanspol_m);
+
 
 	cudaFree(SANSData_gpu->p_Nuc_unpolarized);
 	cudaFree(SANSData_gpu->p_Mag_unpolarized);

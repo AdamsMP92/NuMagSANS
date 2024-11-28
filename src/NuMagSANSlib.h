@@ -27,6 +27,7 @@
 #include <unistd.h>
 
 //#pragma once
+#include "NuMagSANSlib_HelperFun.h"
 #include "NuMagSANSlib_StringCompare.h"
 #include "NuMagSANSlib_ReadWrite.h"
 #include "NuMagSANSlib_Directory.h"
@@ -81,7 +82,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 	// initialize scaling factors #############################################################
 	ScalingFactors ScalFactors;
-	init_ScalingFactors(&ScalFactors, InputData, &MagData, &SANSData);
+	init_ScalingFactors(&ScalFactors, InputData, &MagData, &NucData, &SANSData);
 
 	// compute 2D SANS cross sections #########################################################
 	int L = (*SANSData.N_q) * (*SANSData.N_theta);
