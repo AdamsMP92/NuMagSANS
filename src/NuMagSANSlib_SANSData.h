@@ -160,7 +160,7 @@ void init_ScalingFactors(ScalingFactors* ScalFactors,\
 		float mag_moment = Ms * sx * sy * sz * 1e-27;	// cell magnetic moment
 
 		// nuclear properties
-		float cell_nuclear_sld = InputData->cell_nuclear_sld;		// nuclear scattering length density in units of barn
+		float cell_nuclear_sld = InputData->cell_nuclear_sld;		// nuclear scattering length density in units of 1/m^2
 		float n_length = cell_nuclear_sld * sx * sy * sz * 1e-27;	// nuclear scattering length in units of
 
 		// Total Number of atoms

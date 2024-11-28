@@ -50,8 +50,13 @@ void allocate_NuclearDataRAM(NuclearData* NucData, \
                              NucDataProperties* NucDataProp, \
                              int NucData_File_Index){
    
+
+        cout << "Data File Index: " << NucData_File_Index << "\n";
+        cout << "Total Atom Number: " << NucDataProp->TotalAtomNumber[0] << "\n";
+
+
          unsigned long int K = NucDataProp->Number_Of_SubFolders;
-         unsigned long int TotalAtomNumber = NucDataProp->TotalAtomNumber[NucData_File_Index];
+         unsigned long int TotalAtomNumber = NucDataProp->TotalAtomNumber[NucData_File_Index-1];
    
          NucData->x = (float*) malloc(TotalAtomNumber*sizeof(float));
          NucData->y = (float*) malloc(TotalAtomNumber*sizeof(float));
@@ -83,7 +88,7 @@ void allocate_NuclearDataRAM(NuclearData* NucData, \
          }
 
          for(unsigned int i = 0; i < K; i++){
-             NucData->NumberOfElements[i] = NucDataProp->NumberOfElements[i][NucData_File_Index];
+             NucData->NumberOfElements[i] = NucDataProp->NumberOfElements[i][NucData_File_Index-1];
              NucData->N_cum[i] = 0;
              NucData->N_act[i] = 0;
         }
@@ -142,6 +147,7 @@ void read_NuclearData(NuclearData* NucData, \
                    	  InputFileData* InputData, \
                       int NucData_File_Index){
 
+
       cout << " \n";
       cout << "Load Nuclear Data...\n";
 
@@ -161,6 +167,7 @@ void read_NuclearData(NuclearData* NucData, \
 
       unsigned long int N_act = 0;
       unsigned long int N_cum = 0;
+
 
       for(unsigned long int k = 1; k <= K; k++){
 
@@ -202,11 +209,10 @@ void read_NuclearData(NuclearData* NucData, \
               NucData->z[l + N_cum] = NucData->z[l + N_cum] - z_mean;
           }
 
-
           N_cum += N_act;
           if(k<K){
               NucData->N_cum[k] = N_cum;
-        }
+          }
         cout << "N_act: " << N_act << ",  " << "N_cum: " << N_cum << "\n";
        }
 

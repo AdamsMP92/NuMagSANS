@@ -65,7 +65,7 @@ void allocate_MagnetizationDataRAM(MagnetizationData* MagData, \
 	 if(ExcludeZeroMoments_flag){
      	TotalAtomNumber = MagDataProp->TotalNZMAtomNumber[MagData_File_Index];
      } else{
-		TotalAtomNumber = MagDataProp->TotalAtomNumber[MagData_File_Index];
+		TotalAtomNumber = MagDataProp->TotalAtomNumber[MagData_File_Index-1];
      }
 
      MagData->x = (float*) malloc(TotalAtomNumber*sizeof(float));
@@ -104,8 +104,8 @@ void allocate_MagnetizationDataRAM(MagnetizationData* MagData, \
 	 }	
 
 	 for(unsigned int i = 0; i < K; i++){
-         MagData->NumberOfElements[i] = MagDataProp->NumberOfElements[i][MagData_File_Index];
-         MagData->NumberOfNonZeroMoments[i] = MagDataProp->NumberOfNonZeroMoments[i][MagData_File_Index];
+         MagData->NumberOfElements[i] = MagDataProp->NumberOfElements[i][MagData_File_Index-1];
+         MagData->NumberOfNonZeroMoments[i] = MagDataProp->NumberOfNonZeroMoments[i][MagData_File_Index-1];
          MagData->N_cum[i] = 0;
          MagData->N_act[i] = 0;
     }
