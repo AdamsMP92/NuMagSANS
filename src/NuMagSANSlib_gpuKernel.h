@@ -203,7 +203,8 @@ void Atomistic_MagSANS_Kernel_dilute(MagnetizationData MagData,\
 	unsigned long int W = *MagData.TotalAtomNumber;
 
 	//float v = 1.0/((float)  (*MagData.K)) * pow(1.0/((float) (*MagData.N)), 2); // pre factor
-	float v = 1.0/((float) W);
+	//float v = 1.0/((float) W);
+	float v = 1.0/((float) W) * 1.0/((float) N_avg);
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 
     float Px = SANSData.Polarization[0];

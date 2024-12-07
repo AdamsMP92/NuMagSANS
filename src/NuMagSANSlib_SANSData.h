@@ -191,7 +191,7 @@ void init_ScalingFactors(ScalingFactors* ScalFactors,\
 		ScalFactors->Nuc_SANS_SF = ((float) W) * ((float) N_avg) * pow(n_length, 2)/V * 1e-2;
 		ScalFactors->Mag_SANS_SF = ((float) W) * ((float) N_avg) * pow(mag_moment * b_H, 2)/V * 1e-2; // scaling factor for the SANS cross sections
 		ScalFactors->NucMag_SANS_SF = ((float) W) * ((float) N_avg) * (n_length * mag_moment * b_H)/V * 1e-2;
-		ScalFactors->CorrelationMatrix_scaling_factor = pow(((float) N_avg) * V * Ms, 2)/(8.0*pow(M_PI, 3));     // scaling factor for the Fourier correlation functions
+		ScalFactors->CorrelationMatrix_scaling_factor = pow(((float) N_avg) * mag_moment, 2)/(8.0*pow(M_PI, 3));     // scaling factor for the Fourier correlation functions
 		ScalFactors->correlation_function_1D_scaling_factor = ScalFactors->Mag_SANS_SF * 1e-7;             // scaling factor for the 1D correlation function
 		ScalFactors->pair_distance_distribution_1D_scaling_factor = ScalFactors->Mag_SANS_SF * 1e-7;       // scaling factor for the pair-distance distribution function
 		ScalFactors->correlation_function_2D_scaling_factor = ScalFactors->Mag_SANS_SF * (*SANSData->dr) * (*SANSData->dtheta);
