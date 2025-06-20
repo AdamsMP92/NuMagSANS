@@ -190,7 +190,9 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	scale_ScatteringData(&ScalFactors, &SANSData, InputData);
 
 	// write scattering data to csv files #####################################################
-	write2CSV_ScatteringData(InputData, &SANSData, Data_File_Index);
+	//write2CSV_ScatteringData(InputData, &SANSData, Data_File_Index);
+	write2CSVtable_ScatteringData(InputData, &SANSData, Data_File_Index);
+
 
 	// free memory ############################################################################
 	if(InputData->NucData_activate_flag){

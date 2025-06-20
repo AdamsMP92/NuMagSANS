@@ -31,6 +31,7 @@
 // integration using trapezoidal rule ////////////////////////////////////////////////////////////////////////////////////////////////////////
 __global__
 void AzimuthalAverage(ScatteringData SANSData){
+
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 
 	unsigned int N_theta = *SANSData.N_theta;
@@ -39,6 +40,7 @@ void AzimuthalAverage(ScatteringData SANSData){
   
     if(i < N_q){
          for(int j=0; j<N_theta-1; j++){
+
              SANSData.S_Nuc_1D_unpolarized[i] += SANSData.S_Nuc_2D_unpolarized[j + i*N_theta] \
                                                + SANSData.S_Nuc_2D_unpolarized[j + i*N_theta + 1];
              SANSData.S_Mag_1D_unpolarized[i] += SANSData.S_Mag_2D_unpolarized[j + i*N_theta] \
@@ -47,20 +49,17 @@ void AzimuthalAverage(ScatteringData SANSData){
 			  							     + SANSData.S_Mag_2D_polarized[j + i*N_theta + 1];
 			 SANSData.S_NucMag_1D[i] += SANSData.S_NucMag_2D[j + i*N_theta] \
 									  + SANSData.S_NucMag_2D[j + i*N_theta + 1];
+			 SANSData.S_Mag_1D_chiral[i] += SANSData.S_Mag_2D_chiral[j + i*N_theta] \
+			 						      + SANSData.S_Mag_2D_chiral[j + i*N_theta + 1];
 
-
-            // SANSData.S_Mag_1D_spin_flip[i] += SANSData.S_Mag_2D_spin_flip[j + i*N_theta] \
-             //                                + SANSData.S_Mag_2D_spin_flip[j + i*N_theta + 1];
-             //SANSData.S_Mag_1D_chiral[i] += abs(SANSData.S_Mag_2D_chiral[j + i*N_theta]) \
-              //                            + abs(SANSData.S_Mag_2D_chiral[j + i*N_theta + 1]);
           }
+          
          SANSData.S_Nuc_1D_unpolarized[i] = SANSData.S_Nuc_1D_unpolarized[i]/(4.0*M_PI)*dtheta;
          SANSData.S_Mag_1D_unpolarized[i] = SANSData.S_Mag_1D_unpolarized[i]/(4.0*M_PI)*dtheta;
 		 SANSData.S_Mag_1D_polarized[i] = SANSData.S_Mag_1D_polarized[i]/(4.0*M_PI)*dtheta;
 		 SANSData.S_NucMag_1D[i] = SANSData.S_NucMag_1D[i]/(4.0*M_PI)*dtheta;
+		 SANSData.S_Mag_1D_chiral[i] = SANSData.S_Mag_1D_chiral[i]/(4.0*M_PI)*dtheta;
 
-         //SANSData.S_Mag_1D_spin_flip[i] = SANSData.S_Mag_1D_spin_flip[i]/(4.0*M_PI)*dtheta;
-         //SANSData.S_Mag_1D_chiral[i] = SANSData.S_Mag_1D_chiral[i]/(4.0*M_PI)*dtheta;
      }
 }
 
@@ -70,6 +69,9 @@ void AzimuthalAverage(ScatteringData SANSData){
  // here we take into account the limit of sin(x)/x at x-> 0 and so the singularity is fixed
  __global__
  void DistributionFunctions(ScatteringData SANSData){
+
+
+	// spherical hankel transform using a trapezoidal integration rule
   
        int i = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -78,29 +80,28 @@ void AzimuthalAverage(ScatteringData SANSData){
        float dq = *SANSData.dq;
        float qr1 = 0.0;
        float qr2 = 0.0;
-       float po1 = 0.0;
-       float po2 = 0.0;
+       bool b1 = false; 
+       bool b2 = false; 
        float s1 = 0.0;
        float s2 = 0.0;
   
        if(i < N_r){
-           if(i != 0){
-               qr1 = SANSData.q_1D[1] * SANSData.r_1D[i];
-               po1 = pow(SANSData.q_1D[1], 2);
-               s1 = sin(qr1)/qr1 * po1;
-               SANSData.c_Nuc_unpolarized[i] += SANSData.S_Nuc_1D_unpolarized[1] * s1;
-               for(int j=1; j<N_q-1; j++){
+               for(int j=0; j<N_q-1; j++){
   
                    qr1 = SANSData.q_1D[j] * SANSData.r_1D[i];
-                   po1 = pow(SANSData.q_1D[j], 2);
-                   s1 = sin(qr1)/qr1 * po1;
+                   b1 = (qr1 == 0.0f);
+                   s1 = (sin(qr1)/(qr1 + (float)b1) + (float)b1) * pow(SANSData.q_1D[j], 2);
+                   
 	               qr2 = SANSData.q_1D[j+1] * SANSData.r_1D[i];
-	 	           po2 = pow(SANSData.q_1D[j+1], 2);
-        	       s2 = sin(qr2)/qr2 * po2;
+	               b2 = (qr2 == 0.0f);
+        	       s2 = (sin(qr2)/(qr2 + (float)b2) + (float)b2) * pow(SANSData.q_1D[j+1], 2);
 
-             	   SANSData.c_Nuc_unpolarized[i] += SANSData.S_Nuc_1D_unpolarized[j]  * s1  + SANSData.S_Nuc_1D_unpolarized[j+1] * s2;
-               	   SANSData.c_Mag_unpolarized[i] += SANSData.S_Mag_1D_unpolarized[j]  * s1  + SANSData.S_Mag_1D_unpolarized[j+1] * s2;
-               	   SANSData.c_Mag_spin_flip[i] += SANSData.S_Mag_1D_spin_flip[j]  * s1  + SANSData.S_Mag_1D_spin_flip[j+1] * s2;
+             	   SANSData.c_Nuc_unpolarized[i] += SANSData.S_Nuc_1D_unpolarized[j]  * s1 \
+             	   								  + SANSData.S_Nuc_1D_unpolarized[j+1] * s2;
+               	   SANSData.c_Mag_unpolarized[i] += SANSData.S_Mag_1D_unpolarized[j]  * s1 \
+               	   								  + SANSData.S_Mag_1D_unpolarized[j+1] * s2;
+               	   SANSData.c_Mag_polarized[i] += SANSData.S_Mag_1D_polarized[j]  * s1 \
+               	   							    + SANSData.S_Mag_1D_polarized[j+1] * s2;
            		}
 
 		        SANSData.c_Nuc_unpolarized[i] = SANSData.c_Nuc_unpolarized[i]/2.0 * dq;
@@ -109,36 +110,8 @@ void AzimuthalAverage(ScatteringData SANSData){
                 SANSData.c_Mag_unpolarized[i] = SANSData.c_Mag_unpolarized[i]/2.0 * dq;
                 SANSData.p_Mag_unpolarized[i] = SANSData.c_Mag_unpolarized[i] * pow(SANSData.r_1D[i], 2);
    
-                SANSData.c_Mag_spin_flip[i] = SANSData.c_Mag_spin_flip[i]/2.0 * dq;
-                SANSData.p_Mag_spin_flip[i] = SANSData.c_Mag_spin_flip[i] * pow(SANSData.r_1D[i], 2);
-           }
-           else{
-                SANSData.c_Nuc_unpolarized[i] += SANSData.S_Nuc_1D_unpolarized[1] * pow(SANSData.q_1D[1], 2);
-                SANSData.c_Mag_unpolarized[i] += SANSData.S_Mag_1D_unpolarized[1] * pow(SANSData.q_1D[1], 2);
-                SANSData.c_Mag_spin_flip[i] += SANSData.S_Mag_1D_spin_flip[1] * pow(SANSData.q_1D[1], 2);
-                for(int j=1; j<N_q-1; j++){
-   
-                    SANSData.c_Nuc_unpolarized[i] += SANSData.S_Nuc_1D_unpolarized[j]   * pow(SANSData.q_1D[j],   2) \
-                                                   + SANSData.S_Nuc_1D_unpolarized[j+1] * pow(SANSData.q_1D[j+1], 2);
-   
-                    SANSData.c_Mag_unpolarized[i] += SANSData.S_Mag_1D_unpolarized[j]   * pow(SANSData.q_1D[j],   2) \
-                                                   + SANSData.S_Mag_1D_unpolarized[j+1] * pow(SANSData.q_1D[j+1], 2);
-
-                    SANSData.c_Mag_spin_flip[i] += SANSData.S_Mag_1D_spin_flip[j]   * pow(SANSData.q_1D[j],   2) \
-                                                 + SANSData.S_Mag_1D_spin_flip[j+1] * pow(SANSData.q_1D[j+1], 2);
-   
-               }
-   
-               SANSData.c_Nuc_unpolarized[i] = SANSData.c_Nuc_unpolarized[i]/2.0 * dq;
-               SANSData.p_Nuc_unpolarized[i] = SANSData.c_Nuc_unpolarized[i] * pow(SANSData.r_1D[i], 2);
-  
-               SANSData.c_Mag_unpolarized[i] = SANSData.c_Mag_unpolarized[i]/2.0 * dq;
-               SANSData.p_Mag_unpolarized[i] = SANSData.c_Mag_unpolarized[i] * pow(SANSData.r_1D[i], 2);
-  
-               SANSData.c_Mag_spin_flip[i] = SANSData.c_Mag_spin_flip[i]/2.0 * dq;
-               SANSData.p_Mag_spin_flip[i] = SANSData.c_Mag_spin_flip[i] * pow(SANSData.r_1D[i], 2);
-  
-           }
+                SANSData.c_Mag_polarized[i] = SANSData.c_Mag_polarized[i]/2.0 * dq;
+                SANSData.p_Mag_polarized[i] = SANSData.c_Mag_polarized[i] * pow(SANSData.r_1D[i], 2);
       }
  }
 
@@ -278,7 +251,7 @@ void Atomistic_MagSANS_Kernel_dilute(MagnetizationData MagData,\
 				// atomic position composition
 				//X = MagData.RotMat[0] * (MagData.x[l+k*N] + StructData.x[k]) \
                 //  + MagData.RotMat[3] * (MagData.y[l+k*N] + StructData.y[k]) \
-				/ / + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
+				// + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
             	Y = MagData.RotMat[1] * MagData.x[l+N_cum] \
             	  + MagData.RotMat[4] * MagData.y[l+N_cum] \
             	  + MagData.RotMat[7] * MagData.z[l+N_cum];
@@ -407,7 +380,7 @@ void Atomistic_NucSANS_Kernel_dilute(NuclearData NucData,\
 	unsigned long int W = *NucData.TotalAtomNumber;
 
 	//float v = 1.0/((float)  (*NucData.K)) * pow(1.0/((float) (*NucData.N)), 2); // pre factor
-	float v = 1.0/((float) W);
+	float v = 1.0/((float) W) * 1.0/((float) N_avg);;
 
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -437,7 +410,7 @@ void Atomistic_NucSANS_Kernel_dilute(NuclearData NucData,\
 				// atomic position composition
 				//X = MagData.RotMat[0] * MagData.x[l+k*N] \
                 //  + MagData.RotMat[3] * MagData.y[l+k*N] \
-				/ / + MagData.RotMat[6] * MagData.z[l+k*N];
+				// + MagData.RotMat[6] * MagData.z[l+k*N];
             	Y = NucData.RotMat[1] * NucData.x[l+N_cum] \
             	  + NucData.RotMat[4] * NucData.y[l+N_cum] \
             	  + NucData.RotMat[7] * NucData.z[l+N_cum];
@@ -732,7 +705,7 @@ void Atomistic_MagSANS_Kernel(MagnetizationData MagData,\
 	unsigned long int W = *MagData.TotalAtomNumber;
 
 	//float v = 1.0/((float)  (*MagData.K)) * pow(1.0/((float) (*MagData.N)), 2); // pre factor
-	float v = 1.0/((float) W);
+	float v =  1.0/((float) W) * 1.0/((float) N_avg);
 
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -792,7 +765,7 @@ void Atomistic_MagSANS_Kernel(MagnetizationData MagData,\
 				// atomic position composition
 				//X = MagData.RotMat[0] * (MagData.x[l+k*N] + StructData.x[k]) \
                 //  + MagData.RotMat[3] * (MagData.y[l+k*N] + StructData.y[k]) \
-				/ / + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
+				// + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
             	Y = MagData.RotMat[1] * (MagData.x[l+N_cum] + StructData.x[k]) \
             	  + MagData.RotMat[4] * (MagData.y[l+N_cum] + StructData.y[k]) \
             	  + MagData.RotMat[7] * (MagData.z[l+N_cum] + StructData.z[k]);
@@ -924,7 +897,7 @@ void Atomistic_NucSANS_Kernel(NuclearData NucData,\
 	unsigned long int W = *NucData.TotalAtomNumber;
 
 	//float v = 1.0/((float)  (*NucData.K)) * pow(1.0/((float) (*NucData.N)), 2); // pre factor
-	float v = 1.0/((float) W);
+	float v = 1.0/((float) W) * 1.0/((float) N_avg);
 
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -958,7 +931,7 @@ void Atomistic_NucSANS_Kernel(NuclearData NucData,\
 				// atomic position composition
 				//X = MagData.RotMat[0] * (MagData.x[l+k*N] + StructData.x[k]) \
                 //  + MagData.RotMat[3] * (MagData.y[l+k*N] + StructData.y[k]) \
-				/ / + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
+				// + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
             	Y = NucData.RotMat[1] * (NucData.x[l+N_cum] + StructData.x[k]) \
             	  + NucData.RotMat[4] * (NucData.y[l+N_cum] + StructData.y[k]) \
             	  + NucData.RotMat[7] * (NucData.z[l+N_cum] + StructData.z[k]);
@@ -1029,7 +1002,7 @@ void Atomistic_NuMagSANS_Kernel(NuclearData NucData, \
 	unsigned long int W = *MagData.TotalAtomNumber;
 
 	//float v = (1.0/((float) K)) * pow(1.0/((float) N), 2); // pre factor
-	float v = 1.0/((float) W);
+	float v = 1.0/((float) W) * 1.0/((float) N_avg);
 
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -1100,7 +1073,7 @@ void Atomistic_NuMagSANS_Kernel(NuclearData NucData, \
 				// atomic position composition
 				//X = MagData.RotMat[0] * (MagData.x[l+k*N] + StructData.x[k]) \
                 //  + MagData.RotMat[3] * (MagData.y[l+k*N] + StructData.y[k]) \
-				/ / + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
+				// + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
             	Y = MagData.RotMat[1] * (MagData.x[l+N_cum] + StructData.x[k]) \
             	  + MagData.RotMat[4] * (MagData.y[l+N_cum] + StructData.y[k]) \
             	  + MagData.RotMat[7] * (MagData.z[l+N_cum] + StructData.z[k]);

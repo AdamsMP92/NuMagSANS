@@ -101,7 +101,6 @@ struct ScatteringData {
 	float *S_Mag_1D_polarized;
 	float *S_NucMag_1D;
 	float *S_Mag_1D_chiral;
-
 	float *S_Mag_1D_spin_flip;
 	float *S_Mag_1D_spin_flip_pm;
 	float *S_Mag_1D_spin_flip_mp;
@@ -113,11 +112,13 @@ struct ScatteringData {
 
 	float *p_Nuc_unpolarized;
 	float *p_Mag_unpolarized;
+	float *p_Mag_polarized;
 	float *p_Mag_chiral;
 	float *p_Mag_spin_flip;
 
 	float *c_Nuc_unpolarized;
 	float *c_Mag_unpolarized;
+	float *c_Mag_polarized;
 	float *c_Mag_chiral;
 	float *c_Mag_spin_flip;
 	
@@ -257,6 +258,7 @@ void scale_ScatteringData(ScalingFactors* ScalFactors, \
 
 	for(unsigned long int l=0; l < (InputData->N_q); l++){
 
+		// basic SANS cross sections
 		SANSData->S_Nuc_1D_unpolarized[l] = SANSData->S_Nuc_1D_unpolarized[l] * ScalFactors->Nuc_SANS_SF;
 		SANSData->S_Mag_1D_unpolarized[l] = SANSData->S_Mag_1D_unpolarized[l] * ScalFactors->Mag_SANS_SF;
 		SANSData->S_Mag_1D_polarized[l] = SANSData->S_Mag_1D_polarized[l] * ScalFactors->Mag_SANS_SF;;
@@ -273,8 +275,6 @@ void scale_ScatteringData(ScalingFactors* ScalFactors, \
 		SANSData->S_Mag_1D_sanspol_p[l] = SANSData->S_Mag_1D_non_spin_flip_pp[l] + SANSData->S_Mag_1D_spin_flip_pm[l];
 		SANSData->S_Mag_1D_sanspol_m[l] = SANSData->S_Mag_1D_non_spin_flip_mm[l] + SANSData->S_Mag_1D_spin_flip_mp[l];
 
-
-
 	}
 
 
@@ -287,13 +287,22 @@ void scale_ScatteringData(ScalingFactors* ScalFactors, \
 	}
 
 	for(unsigned long int l=0; l < InputData->N_r; l++){
-		SANSData->p_Mag_unpolarized[l] = SANSData->p_Mag_unpolarized[l] * ScalFactors->pair_distance_distribution_1D_scaling_factor;
-		SANSData->p_Mag_chiral[l] = SANSData->p_Mag_chiral[l] * ScalFactors->pair_distance_distribution_1D_scaling_factor;
-		SANSData->p_Mag_spin_flip[l] = SANSData->p_Mag_spin_flip[l] * ScalFactors->pair_distance_distribution_1D_scaling_factor;
 
+		// basic pair-distance distribution functions
+		SANSData->p_Mag_unpolarized[l] = SANSData->p_Mag_unpolarized[l] * ScalFactors->pair_distance_distribution_1D_scaling_factor;
+		SANSData->p_Mag_polarized[l] = SANSData->p_Mag_polarized[l] * ScalFactors->pair_distance_distribution_1D_scaling_factor;
+		SANSData->p_Mag_chiral[l] = SANSData->p_Mag_chiral[l] * ScalFactors->pair_distance_distribution_1D_scaling_factor;
+
+		// composed pair-distance distribution functions
+		SANSData->p_Mag_spin_flip[l] = SANSData->p_Mag_unpolarized[l] - SANSData->p_Mag_polarized[l];
+
+		// basic correlation functions 
 		SANSData->c_Mag_unpolarized[l] = SANSData->c_Mag_unpolarized[l] * ScalFactors->correlation_function_1D_scaling_factor;
+		SANSData->c_Mag_polarized[l] = SANSData->c_Mag_polarized[l] * ScalFactors->correlation_function_1D_scaling_factor;
 		SANSData->c_Mag_chiral[l] = SANSData->c_Mag_chiral[l] * ScalFactors->correlation_function_1D_scaling_factor;
-		SANSData->c_Mag_spin_flip[l] = SANSData->c_Mag_spin_flip[l] * ScalFactors->correlation_function_1D_scaling_factor;
+
+		// composed corelation functions
+		SANSData->c_Mag_spin_flip[l] = SANSData->c_Mag_unpolarized[l] - SANSData->c_Mag_polarized[l];
 	}
 		
 }
@@ -460,11 +469,13 @@ void allocate_ScatteringData_RAM(InputFileData *InputData,\
 	SANSData->r_1D = (float*) malloc((InputData->N_r)*sizeof(float));
 	SANSData->p_Nuc_unpolarized = (float*) malloc((InputData->N_r)*sizeof(float));
 	SANSData->p_Mag_unpolarized = (float*) malloc((InputData->N_r)*sizeof(float));
+	SANSData->p_Mag_polarized = (float*) malloc((InputData->N_r)*sizeof(float));
 	SANSData->p_Mag_chiral = (float*) malloc((InputData->N_r)*sizeof(float));
 	SANSData->p_Mag_spin_flip = (float*) malloc((InputData->N_r)*sizeof(float));
 
 	SANSData->c_Nuc_unpolarized = (float*) malloc((InputData->N_r)*sizeof(float));
 	SANSData->c_Mag_unpolarized = (float*) malloc((InputData->N_r)*sizeof(float));
+	SANSData->c_Mag_polarized = (float*) malloc((InputData->N_r)*sizeof(float));
 	SANSData->c_Mag_chiral = (float*) malloc((InputData->N_r)*sizeof(float));
 	SANSData->c_Mag_spin_flip = (float*) malloc((InputData->N_r)*sizeof(float));
 
@@ -473,10 +484,12 @@ void allocate_ScatteringData_RAM(InputFileData *InputData,\
 		SANSData->r_1D[i] = i * (*SANSData->dr);
 		SANSData->p_Nuc_unpolarized[i] = 0.0;
 		SANSData->p_Mag_unpolarized[i] = 0.0;
+		SANSData->p_Mag_polarized[i] = 0.0;
 		SANSData->p_Mag_chiral[i] = 0.0;
 		SANSData->p_Mag_spin_flip[i] = 0.0;
 		SANSData->c_Nuc_unpolarized[i] = 0.0;
 		SANSData->c_Mag_unpolarized[i] = 0.0;
+		SANSData->c_Mag_polarized[i] = 0.0;
 		SANSData->c_Mag_chiral[i] = 0.0;
 		SANSData->c_Mag_spin_flip[i] = 0.0;
 				
@@ -652,11 +665,13 @@ void allocate_ScatteringData_GPU(ScatteringData *SANSData, \
 
 	cudaMalloc(&SANSData_gpu->p_Nuc_unpolarized, (*SANSData->N_r)*sizeof(float));
 	cudaMalloc(&SANSData_gpu->p_Mag_unpolarized, (*SANSData->N_r)*sizeof(float));
+	cudaMalloc(&SANSData_gpu->p_Mag_polarized, (*SANSData->N_r)*sizeof(float));
 	cudaMalloc(&SANSData_gpu->p_Mag_chiral, (*SANSData->N_r)*sizeof(float));
 	cudaMalloc(&SANSData_gpu->p_Mag_spin_flip, (*SANSData->N_r)*sizeof(float));
 
 	cudaMalloc(&SANSData_gpu->c_Nuc_unpolarized, (*SANSData->N_r)*sizeof(float));
 	cudaMalloc(&SANSData_gpu->c_Mag_unpolarized, (*SANSData->N_r)*sizeof(float));
+	cudaMalloc(&SANSData_gpu->c_Mag_polarized, (*SANSData->N_r)*sizeof(float));
 	cudaMalloc(&SANSData_gpu->c_Mag_chiral, (*SANSData->N_r)*sizeof(float));
 	cudaMalloc(&SANSData_gpu->c_Mag_spin_flip, (*SANSData->N_r)*sizeof(float));
 
@@ -771,15 +786,493 @@ void copyGPU2RAM_ScatteringData(ScatteringData *SANSData, \
 
 	cudaMemcpy(SANSData->p_Nuc_unpolarized, SANSData_gpu->p_Nuc_unpolarized, (*SANSData->N_r)*sizeof(float), cudaMemcpyDeviceToHost);
 	cudaMemcpy(SANSData->p_Mag_unpolarized, SANSData_gpu->p_Mag_unpolarized, (*SANSData->N_r)*sizeof(float), cudaMemcpyDeviceToHost);
+	cudaMemcpy(SANSData->p_Mag_polarized, SANSData_gpu->p_Mag_polarized, (*SANSData->N_r)*sizeof(float), cudaMemcpyDeviceToHost);
 	cudaMemcpy(SANSData->p_Mag_spin_flip, SANSData_gpu->p_Mag_spin_flip, (*SANSData->N_r)*sizeof(float), cudaMemcpyDeviceToHost);
 	cudaMemcpy(SANSData->p_Mag_chiral, SANSData_gpu->p_Mag_chiral, (*SANSData->N_r)*sizeof(float), cudaMemcpyDeviceToHost);
 
 	cudaMemcpy(SANSData->c_Nuc_unpolarized, SANSData_gpu->c_Nuc_unpolarized, (*SANSData->N_r)*sizeof(float), cudaMemcpyDeviceToHost);
 	cudaMemcpy(SANSData->c_Mag_unpolarized, SANSData_gpu->c_Mag_unpolarized, (*SANSData->N_r)*sizeof(float), cudaMemcpyDeviceToHost);
+	cudaMemcpy(SANSData->c_Mag_polarized, SANSData_gpu->c_Mag_polarized, (*SANSData->N_r)*sizeof(float), cudaMemcpyDeviceToHost);
 	cudaMemcpy(SANSData->c_Mag_spin_flip, SANSData_gpu->c_Mag_spin_flip, (*SANSData->N_r)*sizeof(float), cudaMemcpyDeviceToHost);
 	cudaMemcpy(SANSData->c_Mag_chiral, SANSData_gpu->c_Mag_chiral, (*SANSData->N_r)*sizeof(float), cudaMemcpyDeviceToHost);
 	
 }
+
+
+
+void write2CSVtable_ScatteringData(InputFileData *InputData, \
+					     	       ScatteringData *SANSData, \
+					     	       int MagData_File_Index){
+
+	cout << "\n";
+	cout << "write scattering data to csv-files..." << "\n";
+	
+	unsigned int L = (*SANSData->N_q) * (*SANSData->N_theta);
+	
+	std::string target_foldername = InputData->SANSDataFoldername + "/SANS_" + std::to_string(MagData_File_Index) + "/";
+	mkdir(target_foldername.c_str(), 0777);
+
+	ofstream fout;
+
+	// 2D SANS cross sections
+
+	if(InputData->output_fourier_correlation_matrix_flag \
+	|| InputData->output_unpolarized_magnetic_SANS_cross_section_2D_flag \
+	|| InputData->output_polarized_magnetic_SANS_cross_section_2D_flag \
+	|| InputData->output_nuclear_magnetic_SANS_cross_section_2D_flag \
+	|| InputData->output_spin_flip_magnetic_SANS_cross_section_2D_flag \
+	|| InputData->output_chiral_magnetic_SANS_cross_section_2D_flag \
+	|| InputData->output_pm_spin_flip_magnetic_SANS_cross_section_2D_flag \
+	|| InputData->output_mp_spin_flip_magnetic_SANS_cross_section_2D_flag \
+	|| InputData->output_pp_non_spin_flip_magnetic_SANS_cross_section_2D_flag \
+	|| InputData->output_mm_non_spin_flip_magnetic_SANS_cross_section_2D_flag \
+	|| InputData->output_p_sanspol_magnetic_SANS_cross_section_2D_flag \
+	|| InputData->output_m_sanspol_magnetic_SANS_cross_section_2D_flag){
+	
+		std::string filename_SANS2D = target_foldername + "SANS2D.csv";	
+		fout.open(filename_SANS2D);
+		fout << "qz";
+		fout << "," << "qy";
+		fout << "," << "q";
+		fout << "," << "theta";
+
+		if(InputData->output_fourier_correlation_matrix_flag){
+			fout << "," << "Gxx_real";
+			fout << "," << "Gxx_imag";
+		    fout << "," << "Gyy_real";
+			fout << "," << "Gyy_imag";
+			fout << "," << "Gzz_real"; 
+			fout << "," << "Gzz_imag"; 
+			fout << "," << "Gxy_real";
+			fout << "," << "Gxy_imag";
+			fout << "," << "Gyx_real";
+			fout << "," << "Gyx_real";
+			fout << "," << "Gxz_real";
+			fout << "," << "Gxz_imag";
+			fout << "," << "Gzx_real";
+			fout << "," << "Gzx_imag";
+			fout << "," << "Gyz_real"; 
+			fout << "," << "Gyz_imag";
+			fout << "," << "Gzy_real"; 
+			fout << "," << "Gzy_imag";
+		}
+
+		if(InputData->output_unpolarized_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_mag_unpolarized";
+		}
+
+		if(InputData->output_polarized_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_mag_polarized";
+		}
+
+		if(InputData->output_nuclear_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_nuc_mag";
+		}
+
+		if(InputData->output_spin_flip_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_spin_flip";
+		}
+
+		if(InputData->output_chiral_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_chiral";
+		}
+
+		if(InputData->output_pm_spin_flip_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_spin_flip_pm";
+		}
+
+		if(InputData->output_mp_spin_flip_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_spin_flip_mp";
+		}
+
+		if(InputData->output_pp_non_spin_flip_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_non_spin_flip_pp";
+		}
+
+		if(InputData->output_mm_non_spin_flip_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_non_spin_flip_mm";
+		}
+		
+		if(InputData->output_p_sanspol_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_sanspol_p";
+		}
+
+		if(InputData->output_m_sanspol_magnetic_SANS_cross_section_2D_flag){
+			fout << "," << "S_sanspol_m";
+		}
+
+		fout << "\n";
+		
+		for(unsigned long int n = 0; n<L; n++){
+			fout << SANSData->qz_2D[n];
+			fout << "," << SANSData->qy_2D[n];
+			fout << "," << SANSData->q_2D[n];
+			fout << "," << SANSData->theta_2D[n];
+			
+			if(InputData->output_fourier_correlation_matrix_flag){
+				fout << "," << SANSData->Gxx_real[n];
+				fout << "," << SANSData->Gxx_imag[n];
+				fout << "," << SANSData->Gyy_real[n];
+				fout << "," << SANSData->Gyy_imag[n];
+				fout << "," << SANSData->Gzz_real[n];
+				fout << "," << SANSData->Gzz_imag[n];
+				fout << "," << SANSData->Gxy_real[n];
+				fout << "," << SANSData->Gxy_imag[n];
+				fout << "," << SANSData->Gyx_real[n];
+				fout << "," << SANSData->Gyx_imag[n];
+				fout << "," << SANSData->Gxz_real[n];
+				fout << "," << SANSData->Gxz_imag[n];
+				fout << "," << SANSData->Gzx_real[n];
+				fout << "," << SANSData->Gzx_imag[n];
+				fout << "," << SANSData->Gyz_real[n];
+				fout << "," << SANSData->Gyz_imag[n];
+				fout << "," << SANSData->Gzy_real[n];
+				fout << "," << SANSData->Gzy_imag[n];
+			}
+
+			if(InputData->output_unpolarized_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_Mag_2D_unpolarized[n];
+			}
+
+			if(InputData->output_polarized_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_Mag_2D_polarized[n];
+			}
+
+			if(InputData->output_nuclear_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_NucMag_2D[n];
+			}
+
+			if(InputData->output_spin_flip_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_Mag_2D_spin_flip[n];
+			}
+
+			if(InputData->output_chiral_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_Mag_2D_chiral[n];
+			}
+
+			if(InputData->output_pm_spin_flip_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_Mag_2D_spin_flip_pm[n];
+			}
+		
+			if(InputData->output_mp_spin_flip_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_Mag_2D_spin_flip_mp[n];
+			}
+		
+			if(InputData->output_pp_non_spin_flip_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_Mag_2D_non_spin_flip_pp[n];
+			}
+		
+			if(InputData->output_mm_non_spin_flip_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_Mag_2D_non_spin_flip_mm[n];
+			}
+			
+			if(InputData->output_p_sanspol_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_Mag_2D_sanspol_p[n];
+			}
+
+			if(InputData->output_m_sanspol_magnetic_SANS_cross_section_2D_flag){
+				fout << "," << SANSData->S_Mag_2D_sanspol_m[n];
+			}
+			
+
+			fout << "\n";
+		}
+		fout.close();
+
+		cout << "SANS2D finished..." << "\n";
+	}
+
+	// 1D SANS cross sections ####################################################
+	if(InputData->output_unpolarized_nuclear_SANS_cross_section_1D_flag \
+	|| InputData->output_unpolarized_magnetic_SANS_cross_section_1D_flag \
+	|| InputData->output_polarized_magnetic_SANS_cross_section_1D_flag \
+	|| InputData->output_nuclear_magnetic_SANS_cross_section_1D_flag \
+	|| InputData->output_spin_flip_magnetic_SANS_cross_section_1D_flag \
+	|| InputData->output_chiral_magnetic_SANS_cross_section_1D_flag \
+	|| InputData->output_pm_spin_flip_SANS_cross_section_1D_flag \
+	|| InputData->output_mp_spin_flip_SANS_cross_section_1D_flag \
+	|| InputData->output_pp_non_spin_flip_SANS_cross_section_1D_flag \
+	|| InputData->output_mm_non_spin_flip_SANS_cross_section_1D_flag \
+	|| InputData->output_p_sanspol_cross_section_1D_flag \
+	|| InputData->output_m_sanspol_cross_section_1D_flag){
+	
+	std::string filename_SANS1D = target_foldername + "SANS1D.csv";
+	fout.open(filename_SANS1D);
+
+	fout << "q"; 
+
+	if(InputData->output_unpolarized_nuclear_SANS_cross_section_1D_flag){
+		fout << "," << "S_nuc";
+	}
+
+	if(InputData->output_unpolarized_magnetic_SANS_cross_section_1D_flag){
+		fout << "," << "S_mag_unpolarized";
+	}
+
+	if(InputData->output_polarized_magnetic_SANS_cross_section_1D_flag){
+		fout << "," << "S_mag_polarized";
+	}
+
+	if(InputData->output_nuclear_magnetic_SANS_cross_section_1D_flag){
+		fout << "," << "S_nuc_mag";
+	}
+
+	if(InputData->output_spin_flip_magnetic_SANS_cross_section_1D_flag){
+		fout << "," << "S_sf";
+	}
+
+	if(InputData->output_chiral_magnetic_SANS_cross_section_1D_flag){
+		fout << "," << "S_chiral";
+	}
+
+	if(InputData->output_pm_spin_flip_SANS_cross_section_1D_flag){
+		fout << "," << "S_sf_pm";
+	}
+
+	if(InputData->output_mp_spin_flip_SANS_cross_section_1D_flag){
+		fout << "," << "S_sf_mp";
+	}
+
+	if(InputData->output_pp_non_spin_flip_SANS_cross_section_1D_flag){
+		fout << "," << "S_nsf_pp";
+	}
+
+	if(InputData->output_mm_non_spin_flip_SANS_cross_section_1D_flag){
+		fout << "," << "S_nsf_mm";
+	}
+
+	if(InputData->output_p_sanspol_cross_section_1D_flag){
+		fout << "," << "S_sanspol_p";
+	}
+
+	if(InputData->output_m_sanspol_cross_section_1D_flag){
+		fout << "," << "S_sanspol_m";
+	}
+
+	fout << "\n";	
+
+	for(unsigned long int n = 0; n<(*SANSData->N_q); n++){
+
+		fout << SANSData->q_1D[n];
+
+		if(InputData->output_unpolarized_nuclear_SANS_cross_section_1D_flag){
+			fout << "," << SANSData->S_Nuc_1D_unpolarized[n];
+		}
+	
+		if(InputData->output_unpolarized_magnetic_SANS_cross_section_1D_flag){
+			fout << "," << SANSData->S_Mag_1D_unpolarized[n];
+		}
+	
+		if(InputData->output_polarized_magnetic_SANS_cross_section_1D_flag){
+			fout << "," << SANSData->S_Mag_1D_polarized[n];
+		}
+	
+		if(InputData->output_nuclear_magnetic_SANS_cross_section_1D_flag){
+			fout << "," << SANSData->S_NucMag_1D[n];
+		}
+	
+		if(InputData->output_spin_flip_magnetic_SANS_cross_section_1D_flag){
+			fout << "," << SANSData->S_Mag_1D_spin_flip[n];
+		}
+	
+		if(InputData->output_chiral_magnetic_SANS_cross_section_1D_flag){
+			fout << "," << SANSData->S_Mag_1D_chiral[n];
+		}		
+
+		if(InputData->output_pm_spin_flip_SANS_cross_section_1D_flag){
+			fout << "," << SANSData->S_Mag_1D_spin_flip_pm[n];
+		}
+
+		if(InputData->output_mp_spin_flip_SANS_cross_section_1D_flag){
+			fout << "," << SANSData->S_Mag_1D_spin_flip_mp[n];
+		}
+
+		if(InputData->output_pp_non_spin_flip_SANS_cross_section_1D_flag){
+			fout << "," << SANSData->S_Mag_1D_non_spin_flip_pp[n];
+		}
+
+		if(InputData->output_mm_non_spin_flip_SANS_cross_section_1D_flag){
+			fout << "," << SANSData->S_Mag_1D_non_spin_flip_mm[n];
+		}
+
+		if(InputData->output_p_sanspol_cross_section_1D_flag){
+			fout << "," << SANSData->S_Mag_1D_sanspol_p[n];
+		}
+
+		if(InputData->output_m_sanspol_cross_section_1D_flag){
+			fout << "," << SANSData->S_Mag_1D_sanspol_m[n];
+		}
+
+		fout << "\n";
+	}
+	fout.close();
+
+	cout << "SANS1D finished..." << "\n";
+
+	}
+	
+
+	// Pair-Distance Distribution 1D ######################################################################
+
+	if(InputData->output_nuclear_pair_distance_distribution_1D_flag \
+	|| InputData->output_unpolarized_pair_distance_distribution_1D_flag \
+	|| InputData->output_polarized_pair_distance_distribution_1D_flag \
+	|| InputData->output_spin_flip_pair_distance_distribution_1D_flag \
+	|| InputData->output_chiral_pair_distance_distribution_1D_flag \
+	|| InputData->output_nuclear_correlation_function_1D_flag \
+	|| InputData->output_unpolarized_correlation_function_1D_flag \
+	|| InputData->output_polarized_correlation_function_1D_flag \
+	|| InputData->output_spin_flip_correlation_function_1D_flag \
+	|| InputData->output_chiral_correlation_function_1D_flag){
+
+		std::string filename_Corr1D = target_foldername + "Corr1D.csv";
+		fout.open(filename_Corr1D);
+
+		fout << "r";
+
+		if(InputData->output_nuclear_pair_distance_distribution_1D_flag){
+			fout << "," << "p_nuc_unpolarized";
+		}
+
+		if(InputData->output_unpolarized_pair_distance_distribution_1D_flag){
+			fout << "," << "p_mag_unpolarized";
+		}
+
+		if(InputData->output_polarized_pair_distance_distribution_1D_flag){
+			fout << "," << "p_mag_polarized";
+		}
+
+		if(InputData->output_spin_flip_pair_distance_distribution_1D_flag){
+			fout << "," << "p_spin_flip";
+		}
+
+		if(InputData->output_chiral_pair_distance_distribution_1D_flag){
+			fout << "," << "p_chiral";
+		}
+
+		if(InputData->output_nuclear_correlation_function_1D_flag){
+			fout << "," << "c_nuc_unpolarized";
+		}
+
+		if(InputData->output_unpolarized_correlation_function_1D_flag){
+			fout << "," << "c_mag_unpolarized";
+		}
+
+		if(InputData->output_polarized_correlation_function_1D_flag){
+			fout << "," << "c_mag_polarized";
+		}
+
+		if(InputData->output_spin_flip_correlation_function_1D_flag){
+			fout << "," << "c_spin_flip";
+		}
+
+		if(InputData->output_chiral_correlation_function_1D_flag){
+			fout << "," << "c_chiral";
+		}
+		
+
+		fout << "\n";
+
+		for(unsigned long int n = 0; n<(*SANSData->N_r); n++){
+		
+			fout << SANSData->r_1D[n];
+
+			if(InputData->output_nuclear_pair_distance_distribution_1D_flag){
+				fout << "," << SANSData->p_Nuc_unpolarized[n];
+			}
+
+			if(InputData->output_unpolarized_pair_distance_distribution_1D_flag){
+				fout << "," << SANSData->p_Mag_unpolarized[n];
+			}
+
+			if(InputData->output_polarized_pair_distance_distribution_1D_flag){
+				fout << "," << SANSData->p_Mag_polarized[n];
+			}
+
+			if(InputData->output_spin_flip_pair_distance_distribution_1D_flag){
+				fout << "," << SANSData->p_Mag_spin_flip[n];
+			}
+
+			if(InputData->output_chiral_pair_distance_distribution_1D_flag){
+				fout << "," << SANSData->p_Mag_chiral[n];
+			}
+
+			if(InputData->output_nuclear_correlation_function_1D_flag){
+				fout << "," << SANSData->c_Nuc_unpolarized[n];
+			}
+
+			if(InputData->output_unpolarized_correlation_function_1D_flag){
+				fout << "," << SANSData->c_Mag_unpolarized[n];
+			}
+
+			if(InputData->output_polarized_correlation_function_1D_flag){
+				fout << "," << SANSData->c_Mag_polarized[n];
+			}
+
+			if(InputData->output_spin_flip_correlation_function_1D_flag){
+				fout << "," << SANSData->c_Mag_spin_flip[n];
+			}
+
+			if(InputData->output_chiral_correlation_function_1D_flag){
+				fout << "," << SANSData->c_Mag_chiral[n];
+			}
+
+			fout << "\n";
+			
+		}
+		fout.close();
+
+		cout << "Corr1D finished..." << "\n";
+	}
+
+	// Corr 2D ###################################################################################################################################
+
+	if(InputData->output_unpolarized_correlation_function_2D_flag \
+	|| InputData->output_spin_flip_correlation_function_2D_flag \
+	|| InputData->output_chiral_correlation_function_2D_flag){
+
+		L = (*SANSData->N_r) * (*SANSData->N_alpha);
+
+		std::string filename_Corr2D = target_foldername + "Corr2D.csv";
+		ofstream fout;
+		fout.open(filename_Corr2D);
+		fout << "rz";
+		fout << "," << "ry" << ",";
+		fout << "," << "r" << ",";
+		fout << "," << "alpha" << ",";
+
+
+		for(unsigned long int n=0; n<L; n++){
+
+			fout << SANSData->rz_2D[n];
+			fout << "," << SANSData->rz_2D[n];
+			fout << "," << SANSData->r_2D[n];
+			fout << "," << SANSData->alpha_2D[n];
+
+			if(InputData->output_unpolarized_correlation_function_2D_flag){
+				fout << "," << SANSData->Corr_Mag_2D_unpolarized[n];
+			}
+		
+			if(InputData->output_spin_flip_correlation_function_2D_flag){
+				fout << "," << SANSData->Corr_Mag_2D_spin_flip[n];
+			}
+		
+			if(InputData->output_chiral_correlation_function_2D_flag){
+				fout << "," << SANSData->Corr_Mag_2D_chiral[n];
+			}
+
+			fout << "\n";
+			
+		}
+		fout.close();
+		cout << "Corr2D finished..." << "\n\n";
+	}
+	
+}
+
+
+
+
 
 
 // ################################################################################################################################################
@@ -794,6 +1287,10 @@ void write2CSV_ScatteringData(InputFileData *InputData, \
 
 	std::string target_foldername = InputData->SANSDataFoldername + "/SANS_" + std::to_string(MagData_File_Index) + "/";
 	mkdir(target_foldername.c_str(), 0777);
+
+
+	
+
 
 	std::string filename_qy_2D = target_foldername + "qy_2D.csv";
 	WriteCSV_float_vector(L, SANSData->qy_2D, filename_qy_2D);
@@ -817,77 +1314,80 @@ void write2CSV_ScatteringData(InputFileData *InputData, \
 
 
 	if(InputData->output_fourier_correlation_matrix_flag){
+
+		std::string target_foldername_MagnCorrMatrix = target_foldername +  "/MagnCorrMatrix/";
+		mkdir(target_foldername_MagnCorrMatrix.c_str(), 0777);
 	
-		std::string filename_Gxx_real = target_foldername + "Gxx_real_2D.csv";
+		std::string filename_Gxx_real = target_foldername_MagnCorrMatrix + "Gxx_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxx_real, filename_Gxx_real);
 		cout << "Write: " << filename_Gxx_real << "\n";
 
-		std::string filename_Gyy_real = target_foldername + "Gyy_real_2D.csv";
+		std::string filename_Gyy_real = target_foldername_MagnCorrMatrix + "Gyy_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyy_real, filename_Gyy_real);
 		cout << "Write: " << filename_Gyy_real << "\n";
 
-		std::string filename_Gzz_real = target_foldername + "Gzz_real_2D.csv";
+		std::string filename_Gzz_real = target_foldername_MagnCorrMatrix + "Gzz_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzz_real, filename_Gzz_real);
 		cout << "Write: " << filename_Gzz_real << "\n";
 
-		std::string filename_Gxy_real = target_foldername + "Gxy_real_2D.csv";
+		std::string filename_Gxy_real = target_foldername_MagnCorrMatrix + "Gxy_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxy_real, filename_Gxy_real);
 		cout << "Write: " << filename_Gxy_real << "\n";
 
-		std::string filename_Gyx_real = target_foldername + "Gyx_real_2D.csv";
+		std::string filename_Gyx_real = target_foldername_MagnCorrMatrix + "Gyx_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyx_real, filename_Gyx_real);
 		cout << "Write: " << filename_Gyx_real << "\n";
 				
-		std::string filename_Gxz_real = target_foldername + "Gxz_real_2D.csv";
+		std::string filename_Gxz_real = target_foldername_MagnCorrMatrix + "Gxz_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxz_real, filename_Gxz_real);
 		cout << "Write: " << filename_Gxz_real << "\n";
 
-		std::string filename_Gzx_real = target_foldername + "Gzx_real_2D.csv";
+		std::string filename_Gzx_real = target_foldername_MagnCorrMatrix + "Gzx_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzx_real, filename_Gzx_real);
 		cout << "Write: " << filename_Gzx_real << "\n";
 
-		std::string filename_Gyz_real = target_foldername + "Gyz_real_2D.csv";
+		std::string filename_Gyz_real = target_foldername_MagnCorrMatrix + "Gyz_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyz_real, filename_Gyz_real);
 		cout << "Write: " << filename_Gyz_real << "\n";
 				
-		std::string filename_Gzy_real = target_foldername + "Gzy_real_2D.csv";
+		std::string filename_Gzy_real = target_foldername_MagnCorrMatrix + "Gzy_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzy_real, filename_Gzy_real);
 		cout << "Write: " << filename_Gzy_real << "\n";
 
 
-		std::string filename_Gxx_imag = target_foldername + "Gxx_imag_2D.csv";
+		std::string filename_Gxx_imag = target_foldername_MagnCorrMatrix + "Gxx_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxx_imag, filename_Gxx_imag);
 		cout << "Write: " << filename_Gxx_imag << "\n";
 
-		std::string filename_Gyy_imag = target_foldername + "Gyy_imag_2D.csv";
+		std::string filename_Gyy_imag = target_foldername_MagnCorrMatrix + "Gyy_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyy_imag, filename_Gyy_imag);
 		cout << "Write: " << filename_Gyy_imag << "\n";
 
-		std::string filename_Gzz_imag = target_foldername + "Gzz_imag_2D.csv";
+		std::string filename_Gzz_imag = target_foldername_MagnCorrMatrix + "Gzz_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzz_real, filename_Gzz_imag);
 		cout << "Write: " << filename_Gzz_imag << "\n";
 
-		std::string filename_Gxy_imag = target_foldername + "Gxy_imag_2D.csv";
+		std::string filename_Gxy_imag = target_foldername_MagnCorrMatrix + "Gxy_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxy_imag, filename_Gxy_imag);
 		cout << "Write: " << filename_Gxy_imag << "\n";
 
-		std::string filename_Gyx_imag = target_foldername + "Gyx_imag_2D.csv";
+		std::string filename_Gyx_imag = target_foldername_MagnCorrMatrix + "Gyx_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyx_imag, filename_Gyx_imag);
 		cout << "Write: " << filename_Gyx_imag << "\n";
 				
-		std::string filename_Gxz_imag = target_foldername + "Gxz_imag_2D.csv";
+		std::string filename_Gxz_imag = target_foldername_MagnCorrMatrix + "Gxz_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxz_imag, filename_Gxz_imag);
 		cout << "Write: " << filename_Gxz_imag << "\n";
 
-		std::string filename_Gzx_imag = target_foldername + "Gzx_imag_2D.csv";
+		std::string filename_Gzx_imag = target_foldername_MagnCorrMatrix + "Gzx_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzx_imag, filename_Gzx_imag);
 		cout << "Write: " << filename_Gzx_imag << "\n";
 
-		std::string filename_Gyz_imag = target_foldername + "Gyz_imag_2D.csv";
+		std::string filename_Gyz_imag = target_foldername_MagnCorrMatrix + "Gyz_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyz_imag, filename_Gyz_imag);
 		cout << "Write: " << filename_Gyz_imag << "\n";
 				
-		std::string filename_Gzy_imag = target_foldername + "Gzy_imag_2D.csv";
+		std::string filename_Gzy_imag = target_foldername_MagnCorrMatrix + "Gzy_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzy_imag, filename_Gzy_imag);
 		cout << "Write: " << filename_Gzy_imag << "\n";
 		
@@ -1170,11 +1670,13 @@ void free_ScatteringData(ScatteringData *SANSData, \
 
 	free(SANSData->p_Nuc_unpolarized);
 	free(SANSData->p_Mag_unpolarized);
+	free(SANSData->p_Mag_polarized);
 	free(SANSData->p_Mag_chiral);
 	free(SANSData->p_Mag_spin_flip);
 
 	free(SANSData->c_Nuc_unpolarized);
 	free(SANSData->c_Mag_unpolarized);
+	free(SANSData->c_Mag_polarized);
 	free(SANSData->c_Mag_chiral);
 	free(SANSData->c_Mag_spin_flip);
 
@@ -1259,11 +1761,13 @@ void free_ScatteringData(ScatteringData *SANSData, \
 
 	cudaFree(SANSData_gpu->p_Nuc_unpolarized);
 	cudaFree(SANSData_gpu->p_Mag_unpolarized);
+	cudaFree(SANSData_gpu->p_Mag_polarized);
 	cudaFree(SANSData_gpu->p_Mag_chiral);
 	cudaFree(SANSData_gpu->p_Mag_spin_flip);
 
 	cudaFree(SANSData_gpu->c_Nuc_unpolarized);
 	cudaFree(SANSData_gpu->c_Mag_unpolarized);
+	cudaFree(SANSData_gpu->c_Mag_polarized);
 	cudaFree(SANSData_gpu->c_Mag_chiral);
 	cudaFree(SANSData_gpu->c_Mag_spin_flip);
 

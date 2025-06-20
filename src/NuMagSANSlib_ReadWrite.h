@@ -70,6 +70,18 @@ void ReadCSV_double_matrix(unsigned long int N, unsigned long int M, double **da
 	fin.close();
 }
 
+void WriteCSV_float_matrix(unsigned long int N, unsigned long int M, float **data, string filename){
+	ofstream fout;
+	fout.open(filename);
+	for(unsigned long int n=0; n<N; n++){
+		for(unsigned long int m=0; m<M; m++){
+			fout << data[n][m];
+			if(m<M-1) fout << ",";
+		}
+		fout << "\n";
+	}
+	fout.close();
+}
 
 
 

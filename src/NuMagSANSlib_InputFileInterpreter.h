@@ -96,9 +96,19 @@ struct InputFileData{
 	bool output_nuclear_magnetic_SANS_cross_section_1D_flag;
     bool output_spin_flip_magnetic_SANS_cross_section_1D_flag;
     bool output_chiral_magnetic_SANS_cross_section_1D_flag;
+    bool output_pm_spin_flip_SANS_cross_section_1D_flag;
+    bool output_mp_spin_flip_SANS_cross_section_1D_flag;
+    bool output_pp_non_spin_flip_SANS_cross_section_1D_flag;
+    bool output_mm_non_spin_flip_SANS_cross_section_1D_flag;
+    bool output_m_sanspol_cross_section_1D_flag; 
+    bool output_p_sanspol_cross_section_1D_flag;
 
+	bool output_nuclear_pair_distance_distribution_1D_flag;
+	bool output_nuclear_correlation_function_1D_flag;
     bool output_unpolarized_pair_distance_distribution_1D_flag;
     bool output_unpolarized_correlation_function_1D_flag;
+    bool output_polarized_pair_distance_distribution_1D_flag;
+    bool output_polarized_correlation_function_1D_flag;
     bool output_spin_flip_pair_distance_distribution_1D_flag;
     bool output_spin_flip_correlation_function_1D_flag;
     bool output_chiral_pair_distance_distribution_1D_flag;
@@ -240,8 +250,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 	int line_counter = 0;
 
-	bool Check_Flag[58];
-	for(int k=0; k<58; k++){
+	bool Check_Flag[68];
+	for(int k=0; k<68; k++){
 		Check_Flag[k] = false;
 	}
 
@@ -308,7 +318,16 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		parseFloat(line, "Cell_Nuclear_SLD", InputData->cell_nuclear_sld, Check_Flag[55]);
 		parseBool(line, "Polarized_1D", InputData->output_polarized_magnetic_SANS_cross_section_1D_flag, Check_Flag[56]);
 		parseBool(line, "NuclearMagnetic_1D", InputData->output_nuclear_magnetic_SANS_cross_section_1D_flag, Check_Flag[57]);
-
+		parseBool(line, "Polarized_PairDist_1D", InputData->output_polarized_pair_distance_distribution_1D_flag, Check_Flag[58]);
+		parseBool(line, "Polarized_Corr_1D", InputData->output_polarized_correlation_function_1D_flag, Check_Flag[59]);
+		parseBool(line, "Nuclear_PairDist_1D", InputData->output_nuclear_pair_distance_distribution_1D_flag, Check_Flag[60]);
+		parseBool(line, "Nuclear_Corr_1D", InputData->output_nuclear_correlation_function_1D_flag, Check_Flag[61]);
+		parseBool(line, "PM_SpinFlip_1D", InputData->output_pm_spin_flip_SANS_cross_section_1D_flag, Check_Flag[62]);
+		parseBool(line, "MP_SpinFlip_1D", InputData->output_mp_spin_flip_SANS_cross_section_1D_flag, Check_Flag[63]);
+		parseBool(line, "PP_NonSpinFlip_1D", InputData->output_pp_non_spin_flip_SANS_cross_section_1D_flag, Check_Flag[64]);
+		parseBool(line, "MM_NonSpinFlip_1D", InputData->output_mm_non_spin_flip_SANS_cross_section_1D_flag, Check_Flag[65]);
+		parseBool(line, "P_SANSPOL", InputData->output_p_sanspol_cross_section_1D_flag, Check_Flag[66]);
+		parseBool(line, "M_SANSPOL", InputData->output_m_sanspol_cross_section_1D_flag, Check_Flag[67]);
 
 	}		
 
@@ -347,7 +366,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 	// Check the Error Flags
 	bool Error_Detect = true;
-	for(int k = 0; k < 58; k++){
+	for(int k = 0; k < 68; k++){
 		if(Check_Flag[k] != 1){
 			cout << "Error Check Flag " << k << "\n";
 			Error_Detect = false;
