@@ -98,10 +98,19 @@ void AzimuthalAverage(ScatteringData SANSData){
 
              	   SANSData.c_Nuc_unpolarized[i] += SANSData.S_Nuc_1D_unpolarized[j]  * s1 \
              	   								  + SANSData.S_Nuc_1D_unpolarized[j+1] * s2;
+             	   								  
                	   SANSData.c_Mag_unpolarized[i] += SANSData.S_Mag_1D_unpolarized[j]  * s1 \
                	   								  + SANSData.S_Mag_1D_unpolarized[j+1] * s2;
+
+            	   SANSData.c_NucMag[i] += SANSData.S_NucMag_1D[j]  * s1 \
+         	               			     + SANSData.S_NucMag_1D[j+1] * s2;
+               	   								  
                	   SANSData.c_Mag_polarized[i] += SANSData.S_Mag_1D_polarized[j]  * s1 \
                	   							    + SANSData.S_Mag_1D_polarized[j+1] * s2;
+
+               	   SANSData.c_Mag_chiral[i] += SANSData.S_Mag_1D_chiral[j]  * s1 \
+               	                  	   		 + SANSData.S_Mag_1D_chiral[j+1] * s2;
+               	   							    
            		}
 
 		        SANSData.c_Nuc_unpolarized[i] = SANSData.c_Nuc_unpolarized[i]/2.0 * dq;
@@ -109,9 +118,16 @@ void AzimuthalAverage(ScatteringData SANSData){
 
                 SANSData.c_Mag_unpolarized[i] = SANSData.c_Mag_unpolarized[i]/2.0 * dq;
                 SANSData.p_Mag_unpolarized[i] = SANSData.c_Mag_unpolarized[i] * pow(SANSData.r_1D[i], 2);
+
+                SANSData.c_NucMag[i] = SANSData.c_NucMag[i]/2.0 * dq;
+                SANSData.p_NucMag[i] = SANSData.c_NucMag[i] * pow(SANSData.r_1D[i], 2);
    
                 SANSData.c_Mag_polarized[i] = SANSData.c_Mag_polarized[i]/2.0 * dq;
                 SANSData.p_Mag_polarized[i] = SANSData.c_Mag_polarized[i] * pow(SANSData.r_1D[i], 2);
+
+                SANSData.c_Mag_chiral[i] = SANSData.c_Mag_chiral[i]/2.0 * dq;
+                SANSData.p_Mag_chiral[i] = SANSData.c_Mag_chiral[i] * pow(SANSData.r_1D[i], 2);
+
       }
  }
 
@@ -132,7 +148,8 @@ void CorrelationFunction_2D(ScatteringData SANSData){
             c = cos(SANSData.qy_2D[k] * SANSData.ry_2D[i] + SANSData.qz_2D[k] * SANSData.rz_2D[i]);
             SANSData.Corr_Nuc_2D_unpolarized[i] += v * SANSData.S_Nuc_2D_unpolarized[k] * c;
             SANSData.Corr_Mag_2D_unpolarized[i] += v * SANSData.S_Mag_2D_unpolarized[k] * c;
-            SANSData.Corr_Mag_2D_spin_flip[i] += v * SANSData.S_Mag_2D_spin_flip[k] * c;
+            SANSData.Corr_NucMag_2D[i] += v * SANSData.S_NucMag_2D[k] * c;
+            SANSData.Corr_Mag_2D_polarized[i] += v * SANSData.S_Mag_2D_polarized[k] * c;
             SANSData.Corr_Mag_2D_chiral[i] += v * SANSData.S_Mag_2D_chiral[k] * c;
         }
     }

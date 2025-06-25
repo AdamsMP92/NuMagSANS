@@ -78,6 +78,7 @@ struct InputFileData{
     bool Check_InputFile_Flag;
     
     bool output_fourier_correlation_matrix_flag;
+    bool output_unpolarized_nuclear_SANS_cross_section_2D_flag;
     bool output_unpolarized_magnetic_SANS_cross_section_2D_flag;
 	bool output_polarized_magnetic_SANS_cross_section_2D_flag;
 	bool output_nuclear_magnetic_SANS_cross_section_2D_flag;
@@ -104,19 +105,43 @@ struct InputFileData{
     bool output_p_sanspol_cross_section_1D_flag;
 
 	bool output_nuclear_pair_distance_distribution_1D_flag;
+	bool output_unpolarized_pair_distance_distribution_1D_flag;
+	bool output_polarized_pair_distance_distribution_1D_flag;
+	bool output_nuclear_magnetic_pair_distance_distribution_1D_flag;
+	bool output_spin_flip_pair_distance_distribution_1D_flag;
+	bool output_chiral_pair_distance_distribution_1D_flag;
+	bool output_pm_spin_flip_pair_distance_distribution_1D_flag;
+	bool output_mp_spin_flip_pair_distance_distribution_1D_flag;
+	bool output_pp_non_spin_flip_pair_distance_distribution_1D_flag;
+	bool output_mm_non_spin_flip_pair_distance_distribution_1D_flag;
+	bool output_p_sanspol_pair_distance_distribution_1D_flag;
+	bool output_m_sanspol_pair_distance_distribution_1D_flag;
+	
 	bool output_nuclear_correlation_function_1D_flag;
-    bool output_unpolarized_pair_distance_distribution_1D_flag;
-    bool output_unpolarized_correlation_function_1D_flag;
-    bool output_polarized_pair_distance_distribution_1D_flag;
+    bool output_unpolarized_correlation_function_1D_flag; 
     bool output_polarized_correlation_function_1D_flag;
-    bool output_spin_flip_pair_distance_distribution_1D_flag;
+    bool output_nuclear_magnetic_correlation_function_1D_flag;
     bool output_spin_flip_correlation_function_1D_flag;
-    bool output_chiral_pair_distance_distribution_1D_flag;
     bool output_chiral_correlation_function_1D_flag;
+    bool output_pm_spin_flip_correlation_function_1D_flag;
+   	bool output_mp_spin_flip_correlation_function_1D_flag;
+   	bool output_pp_non_spin_flip_correlation_function_1D_flag;
+   	bool output_mm_non_spin_flip_correlation_function_1D_flag;
+   	bool output_p_sanspol_correlation_function_1D_flag;
+   	bool output_m_sanspol_correlation_function_1D_flag;
 
+	bool output_nuclear_correlation_function_2D_flag;
     bool output_unpolarized_correlation_function_2D_flag;
+    bool output_polarized_correlation_function_2D_flag; 
+    bool output_nuclear_magnetic_correlation_function_2D_flag;
     bool output_spin_flip_correlation_function_2D_flag;
     bool output_chiral_correlation_function_2D_flag;
+    bool output_pm_spin_flip_correlation_function_2D_flag; 
+    bool output_mp_spin_flip_correlation_function_2D_flag;
+    bool output_pp_non_spin_flip_correlation_function_2D_flag;
+    bool output_mm_non_spin_flip_correlation_function_2D_flag;
+    bool output_m_sanspol_correlation_function_2D_flag;
+    bool output_p_sanspol_correlation_function_2D_flag;
 
 };
 
@@ -250,8 +275,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 	int line_counter = 0;
 
-	bool Check_Flag[68];
-	for(int k=0; k<68; k++){
+	bool Check_Flag[92];
+	for(int k=0; k<92; k++){
 		Check_Flag[k] = false;
 	}
 
@@ -328,6 +353,31 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		parseBool(line, "MM_NonSpinFlip_1D", InputData->output_mm_non_spin_flip_SANS_cross_section_1D_flag, Check_Flag[65]);
 		parseBool(line, "P_SANSPOL", InputData->output_p_sanspol_cross_section_1D_flag, Check_Flag[66]);
 		parseBool(line, "M_SANSPOL", InputData->output_m_sanspol_cross_section_1D_flag, Check_Flag[67]);
+		parseBool(line, "Nuclear_Corr_2D", InputData->output_nuclear_correlation_function_2D_flag, Check_Flag[68]);
+		parseBool(line, "Polarized_Corr_2D", InputData->output_polarized_correlation_function_2D_flag, Check_Flag[69]);
+		parseBool(line, "NuclearMagnetic_Corr_2D", InputData->output_nuclear_magnetic_correlation_function_2D_flag, Check_Flag[70]);
+		parseBool(line, "PM_SpinFlip_Corr_2D", InputData->output_pm_spin_flip_correlation_function_2D_flag, Check_Flag[71]);
+		parseBool(line, "MP_SpinFlip_Corr_2D", InputData->output_pm_spin_flip_correlation_function_2D_flag, Check_Flag[72]);
+		parseBool(line, "PP_NonSpinFlip_Corr_2D", InputData->output_pp_non_spin_flip_correlation_function_2D_flag, Check_Flag[73]);
+		parseBool(line, "MM_NonSpinFlip_Corr_2D", InputData->output_mm_non_spin_flip_correlation_function_2D_flag, Check_Flag[74]);
+		parseBool(line, "P_SANSPOL_2D", InputData->output_p_sanspol_correlation_function_2D_flag, Check_Flag[75]);
+		parseBool(line, "M_SANSPOL_2D", InputData->output_m_sanspol_correlation_function_2D_flag, Check_Flag[76]);
+		parseBool(line, "NucMag_PairDist_1D", InputData->output_nuclear_magnetic_pair_distance_distribution_1D_flag, Check_Flag[77]);
+		parseBool(line, "PM_SpinFlip_PairDist_1D", InputData->output_pm_spin_flip_pair_distance_distribution_1D_flag, Check_Flag[78]);
+		parseBool(line, "MP_SpinFlip_PairDist_1D", InputData->output_mp_spin_flip_pair_distance_distribution_1D_flag, Check_Flag[79]);
+		parseBool(line, "PP_NonSpinFlip_PairDist_1D", InputData->output_pp_non_spin_flip_pair_distance_distribution_1D_flag, Check_Flag[80]);
+		parseBool(line, "MM_NonSpinFlip_PairDist_1D", InputData->output_mm_non_spin_flip_pair_distance_distribution_1D_flag, Check_Flag[81]);
+		parseBool(line, "P_SANSPOL_PairDist_1D", InputData->output_p_sanspol_pair_distance_distribution_1D_flag, Check_Flag[82]);
+		parseBool(line, "M_SANSPOL_PairDist_1D", InputData->output_m_sanspol_pair_distance_distribution_1D_flag, Check_Flag[83]);
+		parseBool(line, "NucMag_Corr_1D", InputData->output_nuclear_magnetic_correlation_function_1D_flag, Check_Flag[84]);
+		parseBool(line, "PM_SpinFlip_Corr_1D", InputData->output_pm_spin_flip_correlation_function_1D_flag, Check_Flag[85]);
+		parseBool(line, "MP_SpinFlip_Corr_1D", InputData->output_mp_spin_flip_correlation_function_1D_flag, Check_Flag[86]);
+		parseBool(line, "PP_NonSpinFlip_Corr_1D", InputData->output_pp_non_spin_flip_correlation_function_1D_flag, Check_Flag[87]);
+		parseBool(line, "MM_NonSpinFlip_Corr_1D", InputData->output_mm_non_spin_flip_correlation_function_1D_flag, Check_Flag[88]);
+		parseBool(line, "P_SANSPOL_Corr_1D", InputData->output_p_sanspol_correlation_function_1D_flag, Check_Flag[89]);
+		parseBool(line, "M_SANSPOL_Corr_1D", InputData->output_m_sanspol_correlation_function_1D_flag, Check_Flag[90]);
+		parseBool(line, "Nuclear_2D", InputData->output_unpolarized_nuclear_SANS_cross_section_2D_flag, Check_Flag[91]);
+
 
 	}		
 
@@ -366,7 +416,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 	// Check the Error Flags
 	bool Error_Detect = true;
-	for(int k = 0; k < 68; k++){
+	for(int k = 0; k < 92; k++){
 		if(Check_Flag[k] != 1){
 			cout << "Error Check Flag " << k << "\n";
 			Error_Detect = false;
