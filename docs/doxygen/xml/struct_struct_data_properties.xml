@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="struct_struct_data_properties" kind="struct" language="C++" prot="public">
+    <compoundname>StructDataProperties</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_struct_data_properties_1a26c0c8c2e06056e84877fe38e147c9cc" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string StructDataProperties::GlobalFilePath</definition>
+        <argsstring></argsstring>
+        <name>GlobalFilePath</name>
+        <qualifiedname>StructDataProperties::GlobalFilePath</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_StructureDataExplorer.h" line="34" column="8" bodyfile="src/NuMagSANSlib_StructureDataExplorer.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_struct_data_properties_1a7501d7d89fb83269268d873f447c27be" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StructDataProperties::Number_Of_Elements</definition>
+        <argsstring></argsstring>
+        <name>Number_Of_Elements</name>
+        <qualifiedname>StructDataProperties::Number_Of_Elements</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_StructureDataExplorer.h" line="36" column="5" bodyfile="src/NuMagSANSlib_StructureDataExplorer.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/NuMagSANSlib_StructureDataExplorer.h" line="32" column="1" bodyfile="src/NuMagSANSlib_StructureDataExplorer.h" bodystart="32" bodyend="38"/>
+    <listofallmembers>
+      <member refid="struct_struct_data_properties_1a26c0c8c2e06056e84877fe38e147c9cc" prot="public" virt="non-virtual"><scope>StructDataProperties</scope><name>GlobalFilePath</name></member>
+      <member refid="struct_struct_data_properties_1a7501d7d89fb83269268d873f447c27be" prot="public" virt="non-virtual"><scope>StructDataProperties</scope><name>Number_Of_Elements</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

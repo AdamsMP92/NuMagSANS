@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="struct_scaling_factors" kind="struct" language="C++" prot="public">
+    <compoundname>ScalingFactors</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_scaling_factors_1a370d9ed8c52dbd5d317841c781571e7a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::Nuc_SANS_SF</definition>
+        <argsstring></argsstring>
+        <name>Nuc_SANS_SF</name>
+        <qualifiedname>ScalingFactors::Nuc_SANS_SF</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="151" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_scaling_factors_1af18a131c4a0a4ae2fdf61a5f8ebc003b" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::Mag_SANS_SF</definition>
+        <argsstring></argsstring>
+        <name>Mag_SANS_SF</name>
+        <qualifiedname>ScalingFactors::Mag_SANS_SF</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="152" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_scaling_factors_1afbf32476f2f9ab3dd6261dee15ec7d59" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::NucMag_SANS_SF</definition>
+        <argsstring></argsstring>
+        <name>NucMag_SANS_SF</name>
+        <qualifiedname>ScalingFactors::NucMag_SANS_SF</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="153" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_scaling_factors_1aa83cac4460bae96594934b2c51dec900" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::CorrelationMatrix_scaling_factor</definition>
+        <argsstring></argsstring>
+        <name>CorrelationMatrix_scaling_factor</name>
+        <qualifiedname>ScalingFactors::CorrelationMatrix_scaling_factor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="154" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_scaling_factors_1aeb480e4a549b4b8d154dede5a28d0e9c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::CorF_Mag_2D_SF</definition>
+        <argsstring></argsstring>
+        <name>CorF_Mag_2D_SF</name>
+        <qualifiedname>ScalingFactors::CorF_Mag_2D_SF</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="158" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_scaling_factors_1aa4d592f8543b6912facc4321e3cea92c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::Nuc_Corr_SF</definition>
+        <argsstring></argsstring>
+        <name>Nuc_Corr_SF</name>
+        <qualifiedname>ScalingFactors::Nuc_Corr_SF</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="160" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_scaling_factors_1a318a60c7107a945e0688bf7ca7c6a7f6" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::Mag_Corr_SF</definition>
+        <argsstring></argsstring>
+        <name>Mag_Corr_SF</name>
+        <qualifiedname>ScalingFactors::Mag_Corr_SF</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="161" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_scaling_factors_1a5d7e3a63b12b41c183186430a68e8db5" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::NucMag_Corr_SF</definition>
+        <argsstring></argsstring>
+        <name>NucMag_Corr_SF</name>
+        <qualifiedname>ScalingFactors::NucMag_Corr_SF</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="162" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_scaling_factors_1a1d9a346170c604edf8b2048b89110485" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::Nuc_PairDist_SF</definition>
+        <argsstring></argsstring>
+        <name>Nuc_PairDist_SF</name>
+        <qualifiedname>ScalingFactors::Nuc_PairDist_SF</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="164" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_scaling_factors_1a727bba502339d1f72b0d43557cb5a8c5" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::Mag_PairDist_SF</definition>
+        <argsstring></argsstring>
+        <name>Mag_PairDist_SF</name>
+        <qualifiedname>ScalingFactors::Mag_PairDist_SF</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="165" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_scaling_factors_1a7d47b76bb0ad5b484e502afb4dfee422" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ScalingFactors::NucMag_PairDist_SF</definition>
+        <argsstring></argsstring>
+        <name>NucMag_PairDist_SF</name>
+        <qualifiedname>ScalingFactors::NucMag_PairDist_SF</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_SANSData.h" line="166" column="7" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/NuMagSANSlib_SANSData.h" line="149" column="1" bodyfile="src/NuMagSANSlib_SANSData.h" bodystart="149" bodyend="168"/>
+    <listofallmembers>
+      <member refid="struct_scaling_factors_1aeb480e4a549b4b8d154dede5a28d0e9c" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>CorF_Mag_2D_SF</name></member>
+      <member refid="struct_scaling_factors_1aa83cac4460bae96594934b2c51dec900" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>CorrelationMatrix_scaling_factor</name></member>
+      <member refid="struct_scaling_factors_1a318a60c7107a945e0688bf7ca7c6a7f6" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>Mag_Corr_SF</name></member>
+      <member refid="struct_scaling_factors_1a727bba502339d1f72b0d43557cb5a8c5" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>Mag_PairDist_SF</name></member>
+      <member refid="struct_scaling_factors_1af18a131c4a0a4ae2fdf61a5f8ebc003b" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>Mag_SANS_SF</name></member>
+      <member refid="struct_scaling_factors_1aa4d592f8543b6912facc4321e3cea92c" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>Nuc_Corr_SF</name></member>
+      <member refid="struct_scaling_factors_1a1d9a346170c604edf8b2048b89110485" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>Nuc_PairDist_SF</name></member>
+      <member refid="struct_scaling_factors_1a370d9ed8c52dbd5d317841c781571e7a" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>Nuc_SANS_SF</name></member>
+      <member refid="struct_scaling_factors_1a5d7e3a63b12b41c183186430a68e8db5" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>NucMag_Corr_SF</name></member>
+      <member refid="struct_scaling_factors_1a7d47b76bb0ad5b484e502afb4dfee422" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>NucMag_PairDist_SF</name></member>
+      <member refid="struct_scaling_factors_1afbf32476f2f9ab3dd6261dee15ec7d59" prot="public" virt="non-virtual"><scope>ScalingFactors</scope><name>NucMag_SANS_SF</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

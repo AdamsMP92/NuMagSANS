@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="struct_structure_data" kind="struct" language="C++" prot="public">
+    <compoundname>StructureData</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_structure_data_1ac0aaaf5a2e8a45d99a4a3a0983d8c1de" prot="public" static="no" mutable="no">
+        <type>float *</type>
+        <definition>float* StructureData::RotMat</definition>
+        <argsstring></argsstring>
+        <name>RotMat</name>
+        <qualifiedname>StructureData::RotMat</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_StructureData.h" line="33" column="10" bodyfile="src/NuMagSANSlib_StructureData.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_structure_data_1a29ced5753842198d01df66ca523796e2" prot="public" static="no" mutable="no">
+        <type>float *</type>
+        <definition>float* StructureData::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>StructureData::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_StructureData.h" line="34" column="9" bodyfile="src/NuMagSANSlib_StructureData.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_structure_data_1a736d2963c6a852add49ebf34a801c5be" prot="public" static="no" mutable="no">
+        <type>float *</type>
+        <definition>float* StructureData::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>StructureData::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_StructureData.h" line="35" column="9" bodyfile="src/NuMagSANSlib_StructureData.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_structure_data_1aac8947b3623fba3a1b45a1f5a0515f21" prot="public" static="no" mutable="no">
+        <type>float *</type>
+        <definition>float* StructureData::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>StructureData::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_StructureData.h" line="36" column="9" bodyfile="src/NuMagSANSlib_StructureData.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_structure_data_1ab7ffd6ff13e720f91dc582461b447879" prot="public" static="no" mutable="no">
+        <type>unsigned long int *</type>
+        <definition>unsigned long int* StructureData::K</definition>
+        <argsstring></argsstring>
+        <name>K</name>
+        <qualifiedname>StructureData::K</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_StructureData.h" line="37" column="22" bodyfile="src/NuMagSANSlib_StructureData.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/NuMagSANSlib_StructureData.h" line="31" column="1" bodyfile="src/NuMagSANSlib_StructureData.h" bodystart="31" bodyend="39"/>
+    <listofallmembers>
+      <member refid="struct_structure_data_1ab7ffd6ff13e720f91dc582461b447879" prot="public" virt="non-virtual"><scope>StructureData</scope><name>K</name></member>
+      <member refid="struct_structure_data_1ac0aaaf5a2e8a45d99a4a3a0983d8c1de" prot="public" virt="non-virtual"><scope>StructureData</scope><name>RotMat</name></member>
+      <member refid="struct_structure_data_1a29ced5753842198d01df66ca523796e2" prot="public" virt="non-virtual"><scope>StructureData</scope><name>x</name></member>
+      <member refid="struct_structure_data_1a736d2963c6a852add49ebf34a801c5be" prot="public" virt="non-virtual"><scope>StructureData</scope><name>y</name></member>
+      <member refid="struct_structure_data_1aac8947b3623fba3a1b45a1f5a0515f21" prot="public" virt="non-virtual"><scope>StructureData</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1425 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="struct_input_file_data" kind="struct" language="C++" prot="public">
+    <compoundname>InputFileData</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_input_file_data_1a75a6dab3dca86d0ec8b02aee64fb3b55" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string InputFileData::NucDataPath</definition>
+        <argsstring></argsstring>
+        <name>NucDataPath</name>
+        <qualifiedname>InputFileData::NucDataPath</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="38" column="8" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a501e1e6d336fac417b0586aedca456b6" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string InputFileData::MagDataPath</definition>
+        <argsstring></argsstring>
+        <name>MagDataPath</name>
+        <qualifiedname>InputFileData::MagDataPath</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="39" column="8" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a84394ea62c37412c00af8103b7e0ca50" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string InputFileData::StructDataFilename</definition>
+        <argsstring></argsstring>
+        <name>StructDataFilename</name>
+        <qualifiedname>InputFileData::StructDataFilename</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="40" column="8" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a655be2b8449c478617b0c0716370d2e7" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string InputFileData::SANSDataFoldername</definition>
+        <argsstring></argsstring>
+        <name>SANSDataFoldername</name>
+        <qualifiedname>InputFileData::SANSDataFoldername</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="41" column="8" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a6a00f2976eec321ed8eb989e641cb043" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string InputFileData::Fourier_Approach</definition>
+        <argsstring></argsstring>
+        <name>Fourier_Approach</name>
+        <qualifiedname>InputFileData::Fourier_Approach</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="42" column="8" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1aea64a89762c7d0cbb8601b0006fbd049" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::Loop_Modus</definition>
+        <argsstring></argsstring>
+        <name>Loop_Modus</name>
+        <qualifiedname>InputFileData::Loop_Modus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="44" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ae610bf8af68e5540a78e04bc27a7c4b9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InputFileData::Loop_From</definition>
+        <argsstring></argsstring>
+        <name>Loop_From</name>
+        <qualifiedname>InputFileData::Loop_From</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="45" column="5" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a8aa2f0aebe7d3252b5fdc57480a8af73" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InputFileData::Loop_To</definition>
+        <argsstring></argsstring>
+        <name>Loop_To</name>
+        <qualifiedname>InputFileData::Loop_To</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="46" column="5" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a6eff4bf25a4d72309b4d7ad0f035652c" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string InputFileData::User_Selection</definition>
+        <argsstring></argsstring>
+        <name>User_Selection</name>
+        <qualifiedname>InputFileData::User_Selection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="48" column="8" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a7ff569f719e0cdc5f83bd82225fa971b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InputFileData::Number_Of_User_Selections</definition>
+        <argsstring></argsstring>
+        <name>Number_Of_User_Selections</name>
+        <qualifiedname>InputFileData::Number_Of_User_Selections</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="49" column="5" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a58b2cf8ee16763f991971e6b4ae6be83" prot="public" static="no" mutable="no">
+        <type>int *</type>
+        <definition>int* InputFileData::User_Selection_IndexArray</definition>
+        <argsstring></argsstring>
+        <name>User_Selection_IndexArray</name>
+        <qualifiedname>InputFileData::User_Selection_IndexArray</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="50" column="5" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1af97f4375ec38552cbe8835a53daa3dcf" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InputFileData::N_q</definition>
+        <argsstring></argsstring>
+        <name>N_q</name>
+        <qualifiedname>InputFileData::N_q</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="52" column="9" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a0526a133bd3da9650bf36d300abe13bd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InputFileData::N_theta</definition>
+        <argsstring></argsstring>
+        <name>N_theta</name>
+        <qualifiedname>InputFileData::N_theta</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="53" column="9" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a4e41a768657e7bcbb37bce4a571bb93c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InputFileData::N_r</definition>
+        <argsstring></argsstring>
+        <name>N_r</name>
+        <qualifiedname>InputFileData::N_r</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="54" column="9" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a25af83fecaf1d68a9cfaf566755fa17e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int InputFileData::N_alpha</definition>
+        <argsstring></argsstring>
+        <name>N_alpha</name>
+        <qualifiedname>InputFileData::N_alpha</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="55" column="9" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ac538738b4ad337fbe833b944734f4e43" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::q_max</definition>
+        <argsstring></argsstring>
+        <name>q_max</name>
+        <qualifiedname>InputFileData::q_max</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="56" column="11" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a9a14041f49d3aff5acf67d1d18103cfc" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::r_max</definition>
+        <argsstring></argsstring>
+        <name>r_max</name>
+        <qualifiedname>InputFileData::r_max</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="57" column="11" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1adffd27bb7bd5ad66b1ccd40ac4eff953" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::Scattering_Volume_V</definition>
+        <argsstring></argsstring>
+        <name>Scattering_Volume_V</name>
+        <qualifiedname>InputFileData::Scattering_Volume_V</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="59" column="11" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a1eadb6b826943f41f42ec01b18c9c7f1" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::cell_nuclear_sld</definition>
+        <argsstring></argsstring>
+        <name>cell_nuclear_sld</name>
+        <qualifiedname>InputFileData::cell_nuclear_sld</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="60" column="7" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1adf8d7b24f83a70bc2938e6afb68f4980" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::cell_magnetization</definition>
+        <argsstring></argsstring>
+        <name>cell_magnetization</name>
+        <qualifiedname>InputFileData::cell_magnetization</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="61" column="11" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a143216bf680be8a65764de6d848db584" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::cuboid_cell_size_x</definition>
+        <argsstring></argsstring>
+        <name>cuboid_cell_size_x</name>
+        <qualifiedname>InputFileData::cuboid_cell_size_x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="62" column="7" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a742d8f5d3f8dcda4995b3ca8524b6454" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::cuboid_cell_size_y</definition>
+        <argsstring></argsstring>
+        <name>cuboid_cell_size_y</name>
+        <qualifiedname>InputFileData::cuboid_cell_size_y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="63" column="7" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a5fd1aec0db20e09f7feb0a3ae4604dde" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::cuboid_cell_size_z</definition>
+        <argsstring></argsstring>
+        <name>cuboid_cell_size_z</name>
+        <qualifiedname>InputFileData::cuboid_cell_size_z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="64" column="7" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1aca1cb635179a02927b70b07ab3ec16be" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::RotMat_alpha</definition>
+        <argsstring></argsstring>
+        <name>RotMat_alpha</name>
+        <qualifiedname>InputFileData::RotMat_alpha</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="66" column="11" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1af78b3efd6272de0b5478428f8237c867" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::RotMat_beta</definition>
+        <argsstring></argsstring>
+        <name>RotMat_beta</name>
+        <qualifiedname>InputFileData::RotMat_beta</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="67" column="11" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1af8d6759c3689acba13ca328b9af7c36c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::RotMat[9]</definition>
+        <argsstring>[9]</argsstring>
+        <name>RotMat</name>
+        <qualifiedname>InputFileData::RotMat</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="68" column="11" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a71716ea6a66d3a11ba91e9e0381d9e73" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::XYZ_Unit_Factor</definition>
+        <argsstring></argsstring>
+        <name>XYZ_Unit_Factor</name>
+        <qualifiedname>InputFileData::XYZ_Unit_Factor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="69" column="11" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ad508f1a1140ddec6867b0a72cc66f0ce" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float InputFileData::Polarization[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>Polarization</name>
+        <qualifiedname>InputFileData::Polarization</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="71" column="7" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1aeec5b2d404074f4dece821750db6438f" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::NucData_activate_flag</definition>
+        <argsstring></argsstring>
+        <name>NucData_activate_flag</name>
+        <qualifiedname>InputFileData::NucData_activate_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="73" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a2e06e19f15f866f3c4704301a13c4d5a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::MagData_activate_flag</definition>
+        <argsstring></argsstring>
+        <name>MagData_activate_flag</name>
+        <qualifiedname>InputFileData::MagData_activate_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="74" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a6577b428b4f006dcd11e512ca8d549e4" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::StructData_activate_flag</definition>
+        <argsstring></argsstring>
+        <name>StructData_activate_flag</name>
+        <qualifiedname>InputFileData::StructData_activate_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="75" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a048f7b5ac8f313f8f72faaa609449af6" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::ExcludeZeroMoments_flag</definition>
+        <argsstring></argsstring>
+        <name>ExcludeZeroMoments_flag</name>
+        <qualifiedname>InputFileData::ExcludeZeroMoments_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="76" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ab969a5dceb29e8e5dddb264c41a9483b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::Check_InputFile_Flag</definition>
+        <argsstring></argsstring>
+        <name>Check_InputFile_Flag</name>
+        <qualifiedname>InputFileData::Check_InputFile_Flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="78" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ab38ae201be1651bd1cb384dd0714b662" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_fourier_correlation_matrix_flag</definition>
+        <argsstring></argsstring>
+        <name>output_fourier_correlation_matrix_flag</name>
+        <qualifiedname>InputFileData::output_fourier_correlation_matrix_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="80" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a791fc3bf8afeba16b718bb0ecc1bfca7" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_unpolarized_nuclear_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_unpolarized_nuclear_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_unpolarized_nuclear_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="81" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ae987b633261e569d7aa1485187140106" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_unpolarized_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_unpolarized_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_unpolarized_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="82" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a98966e8271f9ea942b813758bd5ed40d" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_polarized_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_polarized_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_polarized_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="83" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a752daa03585311505634ab00c2598128" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_nuclear_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_nuclear_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_nuclear_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="84" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1af0b2aba754bd7ff6d3678684ee9c3ea5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_spin_flip_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_spin_flip_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_spin_flip_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="85" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a59425eedb24a50549faef7cea67ce035" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_chiral_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_chiral_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_chiral_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="86" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a299dd272fa36b6ef691a887aa14c0836" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_pm_spin_flip_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_pm_spin_flip_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_pm_spin_flip_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="87" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a7b1230dedce24a7b0ec33b94f1d0b905" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_mp_spin_flip_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_mp_spin_flip_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_mp_spin_flip_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="88" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1aa68ded2e0a63253c00c085fc7a6ea577" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_pp_non_spin_flip_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_pp_non_spin_flip_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_pp_non_spin_flip_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="89" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a858dccc4f29a643f220aee31a76b1398" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_mm_non_spin_flip_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_mm_non_spin_flip_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_mm_non_spin_flip_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="90" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a3cc73322d5e63688bb7733ff48eab361" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_p_sanspol_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_p_sanspol_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_p_sanspol_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="91" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a2ebcb155b11788250647664516580713" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_m_sanspol_magnetic_SANS_cross_section_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_m_sanspol_magnetic_SANS_cross_section_2D_flag</name>
+        <qualifiedname>InputFileData::output_m_sanspol_magnetic_SANS_cross_section_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="92" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a02bb456be4033718336ac78ecfad2701" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_unpolarized_nuclear_SANS_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_unpolarized_nuclear_SANS_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_unpolarized_nuclear_SANS_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="94" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ab7aafd61e7be4a80b49e9f7b0ff0de85" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_unpolarized_magnetic_SANS_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_unpolarized_magnetic_SANS_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_unpolarized_magnetic_SANS_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="95" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a468131655b86eb2dcc9ad7c2b7bdea1f" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_polarized_magnetic_SANS_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_polarized_magnetic_SANS_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_polarized_magnetic_SANS_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="96" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ab3c113afd70475b0305559e8fd8372af" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_nuclear_magnetic_SANS_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_nuclear_magnetic_SANS_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_nuclear_magnetic_SANS_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="97" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a11e30873edfd4ac41f6afd5b3199259c" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_spin_flip_magnetic_SANS_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_spin_flip_magnetic_SANS_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_spin_flip_magnetic_SANS_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="98" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a7d916c48bed0bcd8373b74304761d851" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_chiral_magnetic_SANS_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_chiral_magnetic_SANS_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_chiral_magnetic_SANS_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="99" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a59a6049c77862f6f4a4fc7d2d4352857" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_pm_spin_flip_SANS_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_pm_spin_flip_SANS_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_pm_spin_flip_SANS_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="100" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ae194dfec59189f24394dbd9c0d167d5d" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_mp_spin_flip_SANS_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_mp_spin_flip_SANS_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_mp_spin_flip_SANS_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="101" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ab08a0cc009024c8364e883626e76bfd2" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_pp_non_spin_flip_SANS_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_pp_non_spin_flip_SANS_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_pp_non_spin_flip_SANS_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="102" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a5d8bb34c868d3d0894e6e80b608c5475" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_mm_non_spin_flip_SANS_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_mm_non_spin_flip_SANS_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_mm_non_spin_flip_SANS_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="103" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ac1489629361f51971b39da24b65f8b56" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_m_sanspol_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_m_sanspol_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_m_sanspol_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="104" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a9af8fad7922146e8f944ffc1974812c5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_p_sanspol_cross_section_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_p_sanspol_cross_section_1D_flag</name>
+        <qualifiedname>InputFileData::output_p_sanspol_cross_section_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="105" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1adf2fb2e68343ad525940e05736e9d220" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_nuclear_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_nuclear_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_nuclear_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="107" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a3f233f8c3164e67ff8932910299af171" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_unpolarized_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_unpolarized_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_unpolarized_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="108" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a0337dfcb58b66580e7881145326685bf" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_polarized_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_polarized_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_polarized_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="109" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a4ab6933007589dc1a2282173f05d262c" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_nuclear_magnetic_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_nuclear_magnetic_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_nuclear_magnetic_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="110" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a82cbbe3a9259da8270ba09f62e0c62ca" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_spin_flip_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_spin_flip_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_spin_flip_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="111" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a384824fa7ce0646b8a01c65b3106998c" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_chiral_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_chiral_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_chiral_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="112" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a929117a68dc5c54fa2d57026fb753e6f" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_pm_spin_flip_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_pm_spin_flip_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_pm_spin_flip_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="113" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a36db2b57edb50e287265f4c93a4b88cb" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_mp_spin_flip_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_mp_spin_flip_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_mp_spin_flip_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="114" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1aa0a20f0df49379fc5087b59f783ed58c" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_pp_non_spin_flip_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_pp_non_spin_flip_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_pp_non_spin_flip_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="115" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a85a5623fca5a8dca30ead3ad863246fd" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_mm_non_spin_flip_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_mm_non_spin_flip_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_mm_non_spin_flip_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="116" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ac620724e315ae5e87b3a1a73f0b138bd" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_p_sanspol_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_p_sanspol_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_p_sanspol_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="117" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1aec011c2fd0239bf488829436bb09a66b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_m_sanspol_pair_distance_distribution_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_m_sanspol_pair_distance_distribution_1D_flag</name>
+        <qualifiedname>InputFileData::output_m_sanspol_pair_distance_distribution_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="118" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a6cfd196bc3d12c5ec08f7f112281f7a7" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_nuclear_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_nuclear_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_nuclear_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="120" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a9eb5afa4d1bf905583bb55b07b974bad" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_unpolarized_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_unpolarized_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_unpolarized_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="121" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1aaaee5e37578e210f1e68afd7b79567b8" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_polarized_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_polarized_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_polarized_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="122" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1adb0cab11fa471074d351918a64d1c22a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_nuclear_magnetic_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_nuclear_magnetic_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_nuclear_magnetic_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="123" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ad3f38cc0b92334bfd2a3e31a199d6e6c" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_spin_flip_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_spin_flip_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_spin_flip_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="124" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a1ade3f6aa27865a762edb17e303a76a5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_chiral_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_chiral_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_chiral_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="125" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a93f85dec730725ad51f00abea2aed7ca" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_pm_spin_flip_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_pm_spin_flip_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_pm_spin_flip_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="126" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a3a64ff4631e796e601f1a915e3a6389b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_mp_spin_flip_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_mp_spin_flip_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_mp_spin_flip_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="127" column="9" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a39623bba2d1591c0d88971bba8af2842" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_pp_non_spin_flip_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_pp_non_spin_flip_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_pp_non_spin_flip_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="128" column="9" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a7c7d77ab1bbdc04f71f96740efc414ef" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_mm_non_spin_flip_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_mm_non_spin_flip_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_mm_non_spin_flip_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="129" column="9" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a849d5b6e8594da756fbd3ef025e51cc5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_p_sanspol_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_p_sanspol_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_p_sanspol_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="130" column="9" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1aeb303976aec3d702f97c4d99715bfeb5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_m_sanspol_correlation_function_1D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_m_sanspol_correlation_function_1D_flag</name>
+        <qualifiedname>InputFileData::output_m_sanspol_correlation_function_1D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="131" column="9" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a98859165d60ffebfdb5a27a3d900f5c2" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_nuclear_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_nuclear_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_nuclear_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="133" column="6" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a30f6fa63d025d086dfcf902e1db8f66b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_unpolarized_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_unpolarized_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_unpolarized_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="134" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ad26d7e96be342f981bcc67ac27078d7d" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_polarized_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_polarized_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_polarized_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="135" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1aaf7d27831fd66032ca1f6177c2f81bdb" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_nuclear_magnetic_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_nuclear_magnetic_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_nuclear_magnetic_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="136" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a4667d0f66a4af8587b68efd87dce2be9" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_spin_flip_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_spin_flip_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_spin_flip_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="137" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a5a23bfa358dc0c6a5e635ac35c054a72" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_chiral_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_chiral_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_chiral_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="138" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1ac52fb427931b9151d70f8d35d6e27652" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_pm_spin_flip_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_pm_spin_flip_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_pm_spin_flip_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="139" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a8fc4b22e937fd054de6e82234f4b4d0f" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_mp_spin_flip_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_mp_spin_flip_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_mp_spin_flip_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="140" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a0b87af0eba6edc3b226c5887790db0de" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_pp_non_spin_flip_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_pp_non_spin_flip_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_pp_non_spin_flip_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="141" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a150ebc5b2cad12d97a1e1304ae3cab23" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_mm_non_spin_flip_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_mm_non_spin_flip_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_mm_non_spin_flip_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="142" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1aa5114b735b7a4b712df944b1d4bd1f20" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_m_sanspol_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_m_sanspol_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_m_sanspol_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="143" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_input_file_data_1a57e8366a69106db25fe4e61c6c9f111b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool InputFileData::output_p_sanspol_correlation_function_2D_flag</definition>
+        <argsstring></argsstring>
+        <name>output_p_sanspol_correlation_function_2D_flag</name>
+        <qualifiedname>InputFileData::output_p_sanspol_correlation_function_2D_flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="144" column="10" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/NuMagSANSlib_InputFileInterpreter.h" line="36" column="1" bodyfile="src/NuMagSANSlib_InputFileInterpreter.h" bodystart="36" bodyend="146"/>
+    <listofallmembers>
+      <member refid="struct_input_file_data_1adf8d7b24f83a70bc2938e6afb68f4980" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>cell_magnetization</name></member>
+      <member refid="struct_input_file_data_1a1eadb6b826943f41f42ec01b18c9c7f1" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>cell_nuclear_sld</name></member>
+      <member refid="struct_input_file_data_1ab969a5dceb29e8e5dddb264c41a9483b" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>Check_InputFile_Flag</name></member>
+      <member refid="struct_input_file_data_1a143216bf680be8a65764de6d848db584" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>cuboid_cell_size_x</name></member>
+      <member refid="struct_input_file_data_1a742d8f5d3f8dcda4995b3ca8524b6454" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>cuboid_cell_size_y</name></member>
+      <member refid="struct_input_file_data_1a5fd1aec0db20e09f7feb0a3ae4604dde" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>cuboid_cell_size_z</name></member>
+      <member refid="struct_input_file_data_1a048f7b5ac8f313f8f72faaa609449af6" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>ExcludeZeroMoments_flag</name></member>
+      <member refid="struct_input_file_data_1a6a00f2976eec321ed8eb989e641cb043" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>Fourier_Approach</name></member>
+      <member refid="struct_input_file_data_1ae610bf8af68e5540a78e04bc27a7c4b9" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>Loop_From</name></member>
+      <member refid="struct_input_file_data_1aea64a89762c7d0cbb8601b0006fbd049" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>Loop_Modus</name></member>
+      <member refid="struct_input_file_data_1a8aa2f0aebe7d3252b5fdc57480a8af73" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>Loop_To</name></member>
+      <member refid="struct_input_file_data_1a2e06e19f15f866f3c4704301a13c4d5a" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>MagData_activate_flag</name></member>
+      <member refid="struct_input_file_data_1a501e1e6d336fac417b0586aedca456b6" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>MagDataPath</name></member>
+      <member refid="struct_input_file_data_1a25af83fecaf1d68a9cfaf566755fa17e" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>N_alpha</name></member>
+      <member refid="struct_input_file_data_1af97f4375ec38552cbe8835a53daa3dcf" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>N_q</name></member>
+      <member refid="struct_input_file_data_1a4e41a768657e7bcbb37bce4a571bb93c" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>N_r</name></member>
+      <member refid="struct_input_file_data_1a0526a133bd3da9650bf36d300abe13bd" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>N_theta</name></member>
+      <member refid="struct_input_file_data_1aeec5b2d404074f4dece821750db6438f" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>NucData_activate_flag</name></member>
+      <member refid="struct_input_file_data_1a75a6dab3dca86d0ec8b02aee64fb3b55" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>NucDataPath</name></member>
+      <member refid="struct_input_file_data_1a7ff569f719e0cdc5f83bd82225fa971b" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>Number_Of_User_Selections</name></member>
+      <member refid="struct_input_file_data_1a1ade3f6aa27865a762edb17e303a76a5" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_chiral_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a5a23bfa358dc0c6a5e635ac35c054a72" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_chiral_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a7d916c48bed0bcd8373b74304761d851" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_chiral_magnetic_SANS_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a59425eedb24a50549faef7cea67ce035" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_chiral_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a384824fa7ce0646b8a01c65b3106998c" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_chiral_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1ab38ae201be1651bd1cb384dd0714b662" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_fourier_correlation_matrix_flag</name></member>
+      <member refid="struct_input_file_data_1aeb303976aec3d702f97c4d99715bfeb5" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_m_sanspol_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1aa5114b735b7a4b712df944b1d4bd1f20" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_m_sanspol_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1ac1489629361f51971b39da24b65f8b56" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_m_sanspol_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a2ebcb155b11788250647664516580713" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_m_sanspol_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1aec011c2fd0239bf488829436bb09a66b" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_m_sanspol_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a7c7d77ab1bbdc04f71f96740efc414ef" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_mm_non_spin_flip_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a150ebc5b2cad12d97a1e1304ae3cab23" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_mm_non_spin_flip_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a858dccc4f29a643f220aee31a76b1398" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_mm_non_spin_flip_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a85a5623fca5a8dca30ead3ad863246fd" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_mm_non_spin_flip_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a5d8bb34c868d3d0894e6e80b608c5475" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_mm_non_spin_flip_SANS_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a3a64ff4631e796e601f1a915e3a6389b" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_mp_spin_flip_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a8fc4b22e937fd054de6e82234f4b4d0f" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_mp_spin_flip_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a7b1230dedce24a7b0ec33b94f1d0b905" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_mp_spin_flip_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a36db2b57edb50e287265f4c93a4b88cb" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_mp_spin_flip_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1ae194dfec59189f24394dbd9c0d167d5d" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_mp_spin_flip_SANS_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a6cfd196bc3d12c5ec08f7f112281f7a7" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_nuclear_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a98859165d60ffebfdb5a27a3d900f5c2" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_nuclear_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1adb0cab11fa471074d351918a64d1c22a" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_nuclear_magnetic_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1aaf7d27831fd66032ca1f6177c2f81bdb" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_nuclear_magnetic_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a4ab6933007589dc1a2282173f05d262c" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_nuclear_magnetic_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1ab3c113afd70475b0305559e8fd8372af" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_nuclear_magnetic_SANS_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a752daa03585311505634ab00c2598128" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_nuclear_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1adf2fb2e68343ad525940e05736e9d220" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_nuclear_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a849d5b6e8594da756fbd3ef025e51cc5" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_p_sanspol_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a57e8366a69106db25fe4e61c6c9f111b" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_p_sanspol_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a9af8fad7922146e8f944ffc1974812c5" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_p_sanspol_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a3cc73322d5e63688bb7733ff48eab361" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_p_sanspol_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1ac620724e315ae5e87b3a1a73f0b138bd" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_p_sanspol_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a93f85dec730725ad51f00abea2aed7ca" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_pm_spin_flip_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1ac52fb427931b9151d70f8d35d6e27652" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_pm_spin_flip_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a299dd272fa36b6ef691a887aa14c0836" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_pm_spin_flip_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a929117a68dc5c54fa2d57026fb753e6f" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_pm_spin_flip_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a59a6049c77862f6f4a4fc7d2d4352857" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_pm_spin_flip_SANS_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1aaaee5e37578e210f1e68afd7b79567b8" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_polarized_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1ad26d7e96be342f981bcc67ac27078d7d" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_polarized_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a468131655b86eb2dcc9ad7c2b7bdea1f" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_polarized_magnetic_SANS_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a98966e8271f9ea942b813758bd5ed40d" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_polarized_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a0337dfcb58b66580e7881145326685bf" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_polarized_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a39623bba2d1591c0d88971bba8af2842" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_pp_non_spin_flip_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a0b87af0eba6edc3b226c5887790db0de" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_pp_non_spin_flip_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1aa68ded2e0a63253c00c085fc7a6ea577" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_pp_non_spin_flip_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1aa0a20f0df49379fc5087b59f783ed58c" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_pp_non_spin_flip_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1ab08a0cc009024c8364e883626e76bfd2" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_pp_non_spin_flip_SANS_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1ad3f38cc0b92334bfd2a3e31a199d6e6c" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_spin_flip_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a4667d0f66a4af8587b68efd87dce2be9" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_spin_flip_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a11e30873edfd4ac41f6afd5b3199259c" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_spin_flip_magnetic_SANS_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1af0b2aba754bd7ff6d3678684ee9c3ea5" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_spin_flip_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a82cbbe3a9259da8270ba09f62e0c62ca" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_spin_flip_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a9eb5afa4d1bf905583bb55b07b974bad" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_unpolarized_correlation_function_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a30f6fa63d025d086dfcf902e1db8f66b" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_unpolarized_correlation_function_2D_flag</name></member>
+      <member refid="struct_input_file_data_1ab7aafd61e7be4a80b49e9f7b0ff0de85" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_unpolarized_magnetic_SANS_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1ae987b633261e569d7aa1485187140106" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_unpolarized_magnetic_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a02bb456be4033718336ac78ecfad2701" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_unpolarized_nuclear_SANS_cross_section_1D_flag</name></member>
+      <member refid="struct_input_file_data_1a791fc3bf8afeba16b718bb0ecc1bfca7" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_unpolarized_nuclear_SANS_cross_section_2D_flag</name></member>
+      <member refid="struct_input_file_data_1a3f233f8c3164e67ff8932910299af171" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>output_unpolarized_pair_distance_distribution_1D_flag</name></member>
+      <member refid="struct_input_file_data_1ad508f1a1140ddec6867b0a72cc66f0ce" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>Polarization</name></member>
+      <member refid="struct_input_file_data_1ac538738b4ad337fbe833b944734f4e43" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>q_max</name></member>
+      <member refid="struct_input_file_data_1a9a14041f49d3aff5acf67d1d18103cfc" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>r_max</name></member>
+      <member refid="struct_input_file_data_1af8d6759c3689acba13ca328b9af7c36c" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>RotMat</name></member>
+      <member refid="struct_input_file_data_1aca1cb635179a02927b70b07ab3ec16be" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>RotMat_alpha</name></member>
+      <member refid="struct_input_file_data_1af78b3efd6272de0b5478428f8237c867" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>RotMat_beta</name></member>
+      <member refid="struct_input_file_data_1a655be2b8449c478617b0c0716370d2e7" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>SANSDataFoldername</name></member>
+      <member refid="struct_input_file_data_1adffd27bb7bd5ad66b1ccd40ac4eff953" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>Scattering_Volume_V</name></member>
+      <member refid="struct_input_file_data_1a6577b428b4f006dcd11e512ca8d549e4" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>StructData_activate_flag</name></member>
+      <member refid="struct_input_file_data_1a84394ea62c37412c00af8103b7e0ca50" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>StructDataFilename</name></member>
+      <member refid="struct_input_file_data_1a6eff4bf25a4d72309b4d7ad0f035652c" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>User_Selection</name></member>
+      <member refid="struct_input_file_data_1a58b2cf8ee16763f991971e6b4ae6be83" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>User_Selection_IndexArray</name></member>
+      <member refid="struct_input_file_data_1a71716ea6a66d3a11ba91e9e0381d9e73" prot="public" virt="non-virtual"><scope>InputFileData</scope><name>XYZ_Unit_Factor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

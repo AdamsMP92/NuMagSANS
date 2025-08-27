@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.14.0" xml:lang="en-US">
+  <compounddef id="struct_mag_data_properties" kind="struct" language="C++" prot="public">
+    <compoundname>MagDataProperties</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_mag_data_properties_1a31efdea3e85994a5f4ea18f20f012388" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string MagDataProperties::GlobalFolderPath</definition>
+        <argsstring></argsstring>
+        <name>GlobalFolderPath</name>
+        <qualifiedname>MagDataProperties::GlobalFolderPath</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_MagDataExplorer.h" line="34" column="8" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mag_data_properties_1a5609ef6b62983edbd082270931dd3551" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string MagDataProperties::SubFolderNames_Nom</definition>
+        <argsstring></argsstring>
+        <name>SubFolderNames_Nom</name>
+        <qualifiedname>MagDataProperties::SubFolderNames_Nom</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_MagDataExplorer.h" line="36" column="8" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mag_data_properties_1a097bc6932c0851d5ad26563fbc2ffea3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MagDataProperties::Number_Of_SubFolders</definition>
+        <argsstring></argsstring>
+        <name>Number_Of_SubFolders</name>
+        <qualifiedname>MagDataProperties::Number_Of_SubFolders</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_MagDataExplorer.h" line="37" column="5" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mag_data_properties_1a5bfff27d494488c82351aecef3419c4a" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string MagDataProperties::SubFolder_FileNames_Nom</definition>
+        <argsstring></argsstring>
+        <name>SubFolder_FileNames_Nom</name>
+        <qualifiedname>MagDataProperties::SubFolder_FileNames_Nom</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_MagDataExplorer.h" line="39" column="8" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mag_data_properties_1a42d4ba8efdc4c802a5bccdc70855706a" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string MagDataProperties::SubFolder_FileNames_Type</definition>
+        <argsstring></argsstring>
+        <name>SubFolder_FileNames_Type</name>
+        <qualifiedname>MagDataProperties::SubFolder_FileNames_Type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_MagDataExplorer.h" line="40" column="12" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mag_data_properties_1ad17dab4b59394822466a4871cce9b218" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MagDataProperties::Number_Of_Files_In_SubFolder</definition>
+        <argsstring></argsstring>
+        <name>Number_Of_Files_In_SubFolder</name>
+        <qualifiedname>MagDataProperties::Number_Of_Files_In_SubFolder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_MagDataExplorer.h" line="41" column="5" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mag_data_properties_1aa6ca9946d72534a1bba811d093b25405" prot="public" static="no" mutable="no">
+        <type>int **</type>
+        <definition>int** MagDataProperties::NumberOfElements</definition>
+        <argsstring></argsstring>
+        <name>NumberOfElements</name>
+        <qualifiedname>MagDataProperties::NumberOfElements</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_MagDataExplorer.h" line="43" column="5" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mag_data_properties_1ac6cd2cf283c81d041f7f1b31401b4859" prot="public" static="no" mutable="no">
+        <type>int **</type>
+        <definition>int** MagDataProperties::NumberOfNonZeroMoments</definition>
+        <argsstring></argsstring>
+        <name>NumberOfNonZeroMoments</name>
+        <qualifiedname>MagDataProperties::NumberOfNonZeroMoments</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_MagDataExplorer.h" line="44" column="5" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mag_data_properties_1ac8b3c53d320e3c696c8d10915760750a" prot="public" static="no" mutable="no">
+        <type>unsigned long int *</type>
+        <definition>unsigned long int* MagDataProperties::TotalAtomNumber</definition>
+        <argsstring></argsstring>
+        <name>TotalAtomNumber</name>
+        <qualifiedname>MagDataProperties::TotalAtomNumber</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_MagDataExplorer.h" line="46" column="19" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mag_data_properties_1a446c71b73d44c40a67bbeb489205b184" prot="public" static="no" mutable="no">
+        <type>unsigned long int *</type>
+        <definition>unsigned long int* MagDataProperties::TotalNZMAtomNumber</definition>
+        <argsstring></argsstring>
+        <name>TotalNZMAtomNumber</name>
+        <qualifiedname>MagDataProperties::TotalNZMAtomNumber</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/NuMagSANSlib_MagDataExplorer.h" line="47" column="19" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/NuMagSANSlib_MagDataExplorer.h" line="32" column="1" bodyfile="src/NuMagSANSlib_MagDataExplorer.h" bodystart="32" bodyend="49"/>
+    <listofallmembers>
+      <member refid="struct_mag_data_properties_1a31efdea3e85994a5f4ea18f20f012388" prot="public" virt="non-virtual"><scope>MagDataProperties</scope><name>GlobalFolderPath</name></member>
+      <member refid="struct_mag_data_properties_1ad17dab4b59394822466a4871cce9b218" prot="public" virt="non-virtual"><scope>MagDataProperties</scope><name>Number_Of_Files_In_SubFolder</name></member>
+      <member refid="struct_mag_data_properties_1a097bc6932c0851d5ad26563fbc2ffea3" prot="public" virt="non-virtual"><scope>MagDataProperties</scope><name>Number_Of_SubFolders</name></member>
+      <member refid="struct_mag_data_properties_1aa6ca9946d72534a1bba811d093b25405" prot="public" virt="non-virtual"><scope>MagDataProperties</scope><name>NumberOfElements</name></member>
+      <member refid="struct_mag_data_properties_1ac6cd2cf283c81d041f7f1b31401b4859" prot="public" virt="non-virtual"><scope>MagDataProperties</scope><name>NumberOfNonZeroMoments</name></member>
+      <member refid="struct_mag_data_properties_1a5bfff27d494488c82351aecef3419c4a" prot="public" virt="non-virtual"><scope>MagDataProperties</scope><name>SubFolder_FileNames_Nom</name></member>
+      <member refid="struct_mag_data_properties_1a42d4ba8efdc4c802a5bccdc70855706a" prot="public" virt="non-virtual"><scope>MagDataProperties</scope><name>SubFolder_FileNames_Type</name></member>
+      <member refid="struct_mag_data_properties_1a5609ef6b62983edbd082270931dd3551" prot="public" virt="non-virtual"><scope>MagDataProperties</scope><name>SubFolderNames_Nom</name></member>
+      <member refid="struct_mag_data_properties_1ac8b3c53d320e3c696c8d10915760750a" prot="public" virt="non-virtual"><scope>MagDataProperties</scope><name>TotalAtomNumber</name></member>
+      <member refid="struct_mag_data_properties_1a446c71b73d44c40a67bbeb489205b184" prot="public" virt="non-virtual"><scope>MagDataProperties</scope><name>TotalNZMAtomNumber</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
