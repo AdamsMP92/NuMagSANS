@@ -60,13 +60,13 @@ Department of Physics and Materials Science, **Nanomagnetism Group** (Prof. Andr
 We greatfully acknowledge financial support from the National Research Fund of Luxembourg (AFR Grant No. 15639149, CORE Grant DeQuSky, and PRIDE MASSENA Grant).
 
 We thank our colleagues for stimulating discussions and valuable scientific exchange: 
-Dr. I. Titov,
-Dr. E. P. Sinaga,
-Dr. V. Kuchkin,
-Dr. A. Stellhorn,
-Dr. D. Honecker,
-Dr. J. Leliaert,
-Dr. E. Jefremovas,
+I. Titov,
+E. P. Sinaga,
+V. Kuchkin,
+A. Stellhorn,
+D. Honecker,
+J. Leliaert,
+E. Jefremovas,
 S. Liscak.
 Their insights and perspectives have indirectly contributed to the conceptual
 and computational development of this work.
