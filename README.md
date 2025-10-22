@@ -1,15 +1,12 @@
 # NuMagSANS
 GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-**A**ngle **N**eutron **S**cattering
 
+![NuMagSANS schematic](fig1.png)
+
 ## Authors
 **Michael P. Adams<sup>1</sup>**, **Andreas Michels<sup>1</sup>**
 
 <sup>1</sup> Department of Physics and Materials Science, University of Luxembourg, 162A Avenue de la Faiencerie, L-1511 Luxembourg, Grand Duchy of Luxembourg
-
-
-![NuMagSANS schematic](fig1.png)
-
-
 
 
 ## 📦 Project Status
