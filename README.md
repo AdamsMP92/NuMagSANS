@@ -46,16 +46,20 @@ It includes a **versatile library of more than 70 response functions**, covering
 These capabilities provide detailed insights into the **structural and magnetic characteristics** of complex systems.  
 Leveraging **GPU acceleration**, *NuMagSANS* achieves **high computational performance and scalability**, making it a **powerful and efficient tool for advanced SANS simulations and data analysis**.
 
-
-
-## Documentation
-https://adamsmp92.github.io/NuMagSANS/
-
 ## How to Cite
 To Do
 
-## License
+## 🧾 License
 MIT License
 
-## Acknowledgements
+## 🎓 Acknowledgements
+
+This project was developed at the [University of Luxembourg](https://www.uni.lu),  
+Department of Physics and Materials Science, **Nanomagnetism Group** (Prof. Andreas Michels).
+
+We gratefully acknowledge financial support from the  
+**Luxembourg National Research Fund (FNR)** under project grants  
+*INTER/DFG/19/14071873 (SANMAG)* and *PRIDE/15/10935404 (NextPhD)*.
+
+## Funding
 Financial support from the National Research Fund of Luxembourg is gratefully acknowledged (AFR Grant No. 15639149).
