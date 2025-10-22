@@ -1,5 +1,5 @@
 # NuMagSANS
-GPU accelerated simulation of nuclear and magnetic small-angle neutron scattering
+GPU accelerated simulation software for **nu**clear and **mag**netic **s**mall-**a**ngle **n**eutron **s*cattering
 
 
 ## Authors
