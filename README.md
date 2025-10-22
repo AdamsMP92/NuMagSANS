@@ -58,7 +58,7 @@ This project was developed at the [University of Luxembourg](https://www.uni.lu)
 Department of Physics and Materials Science, [Nanomagnetism Group](https://nanomaglux.com) (Prof. Andreas Michels).
 
 This work was carried out within the scientific framework of the  
-National Research Fund (FNR) projects AFR 15639149, CORE DeQuSky, and PRIDE MASSENA,  
+[Luxembourg National Research Fund](https://www.fnr.lu) (FNR) projects AFR 15639149, CORE DeQuSky, and PRIDE MASSENA,  
 which have contributed to the broader research environment of this study.
 
 We thank our colleagues for stimulating discussions and valuable scientific exchange: 
