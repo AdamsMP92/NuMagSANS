@@ -59,7 +59,14 @@ Department of Physics and Materials Science, **Nanomagnetism Group** (Prof. Andr
 
 We gratefully acknowledge financial support from the  
 **Luxembourg National Research Fund (FNR)** under project grants  
-*INTER/DFG/19/14071873 (SANMAG)* and *PRIDE/15/10935404 (NextPhD)*.
+*(AFR Grant No. 15639149)* and the *PRIDE MASSENA Grant*.
+
+We thank you collegues for fruitful discussions: 
+Dr. I. Titov
+Dr. E. P. Sinaga
+Dr. V. Kuchkin
+Dr. A. Stellhorn
+S. Liscak
 
 ## Funding
 Financial support from the National Research Fund of Luxembourg is gratefully acknowledged (AFR Grant No. 15639149).
