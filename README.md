@@ -46,7 +46,7 @@ It includes a **versatile library of more than 70 response functions**, covering
 These capabilities provide detailed insights into the **structural and magnetic characteristics** of complex systems.  
 Leveraging **GPU acceleration**, *NuMagSANS* achieves **high computational performance and scalability**, making it a **powerful and efficient tool for advanced SANS simulations and data analysis**.
 
-## How to Cite
+## 📚 How to Cite
 To Do
 
 ## 🧾 License
