@@ -7,20 +7,25 @@ GPU accelerated simulation of nuclear and magnetic small-angle neutron scatterin
 
 <sup>1</sup> Department of Physics and Materials Science, University of Luxembourg, 162A Avenue de la Faiencerie, L-1511 Luxembourg, Grand Duchy of Luxembourg
 
-## About
+## 🧠 About
 
 **NuMagSANS** is a **GPU-accelerated software package** designed for the computation of **nuclear and magnetic small-angle neutron scattering (SANS)** cross sections and correlation functions.  
-The program allows users to import **spatially resolved nuclear-density** and **magnetization data**, offering exceptional flexibility for the analysis of **complex and anisotropic magnetic materials**.
+The program allows users to import discrete datasets representing the **position-dependent nuclear scattering length density** and **magnetization** in real space, providing exceptional flexibility for the analysis of **complex and anisotropic magnetic materials**.
 
-The software provides **full rotational control** of the sample orientation, enabling comprehensive studies of **angular-dependent scattering features**.  
-NuMagSANS further includes a **versatile library of more than 70 response functions**, covering:
+**NuMagSANS** supports simulations across multiple length scales:  
+- **Atomistic systems**, featuring complex crystal lattices — e.g., data generated from atomistic spin-dynamics simulations with *Vampire 5.0*.  
+- **Mesoscopic systems**, such as micromagnetic models — e.g., within toolchains involving *MuMax3* or *OOMMF*.  
+
+The software offers **full rotational control** of the sample orientation, enabling comprehensive studies of **angular-dependent scattering features**.  
+It includes a **versatile library of more than 70 response functions**, covering:
 
 - Two-dimensional SANS cross sections  
 - Correlation functions  
 - Azimuthally averaged quantities  
 
-These capabilities allow users to obtain detailed insights into the **structural and magnetic characteristics** of their systems.  
-By leveraging **GPU acceleration**, NuMagSANS achieves **high computational performance and scalability**, making it a **powerful and efficient tool for advanced SANS simulations and data analysis**.
+These capabilities provide detailed insights into the **structural and magnetic characteristics** of complex systems.  
+Leveraging **GPU acceleration**, *NuMagSANS* achieves **high computational performance and scalability**, making it a **powerful and efficient tool for advanced SANS simulations and data analysis**.
+
 
 
 ## Documentation
