@@ -6,9 +6,12 @@ GPU accelerated simulation of nuclear and magnetic small-angle neutron scatterin
 <sup>1</sup> Department of Physics and Materials Science, University of Luxembourg, 162A Avenue de la Faiencerie, L-1511 Luxembourg, Grand Duchy of Luxembourg
 
 ## Documentation
-
 https://adamsmp92.github.io/NuMagSANS/
 
 ## How to Cite
-
 To Do
+
+## Acknowledgements
+
+## Funding
+Financial support from the National Research Fund of Luxembourg is gratefully acknowledged (AFR Grant No. 15639149).
