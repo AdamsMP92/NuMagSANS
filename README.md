@@ -55,7 +55,7 @@ MIT License
 ## 🎓 Acknowledgements
 
 This project was developed at the [University of Luxembourg](https://www.uni.lu),  
-Department of Physics and Materials Science, **Nanomagnetism Group** (Prof. Andreas Michels).
+Department of Physics and Materials Science, [Nanomagnetism Group](https://nanomaglux.com) (Prof. Andreas Michels).
 
 This work was carried out within the scientific framework of the  
 National Research Fund (FNR) projects AFR 15639149, CORE DeQuSky, and PRIDE MASSENA,  
