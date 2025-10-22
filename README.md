@@ -40,7 +40,7 @@ The software offers **full rotational control** of the sample orientation, enabl
 It includes a **versatile library of more than 70 response functions**, covering:
 
 - 2D SANS cross sections (unpolarized, SANSPOL, POLARIS)
-- azimuthally averaged SANS cross sections
+- 1D SANS cross sections (azimuthal average)
 - 1D correlation functions
 - 1D pair-distance distribution functions
 - 2D correlation functions
