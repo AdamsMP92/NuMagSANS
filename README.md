@@ -1,6 +1,8 @@
 # NuMagSANS
 GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-**A**ngle **N**eutron **S**cattering
 
+![NuMagSANS schematic](docs/figures/numagsans_overview.png)
+
 
 ## Authors
 **Michael P. Adams<sup>1</sup>**, **Andreas Michels<sup>1</sup>**
