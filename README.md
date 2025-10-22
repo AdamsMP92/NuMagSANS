@@ -19,8 +19,6 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 | **Releases** | [![PyPI](https://img.shields.io/pypi/v/numagsans.svg)](https://pypi.org/project/numagsans/) |
 | **Coverage** | [![codecov](https://codecov.io/gh/YOUR_USERNAME/NuMagSANS/branch/main/graph/badge.svg)](https://codecov.io/gh/YOUR_USERNAME/NuMagSANS) |
 | **Documentation** | [![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](https://YOUR_USERNAME.github.io/NuMagSANS/) |
-| **YouTube** | [![YouTube](https://img.shields.io/badge/YouTube-channel-red)](https://www.youtube.com/@YOUR_CHANNEL) |
-| **Binder** | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/YOUR_USERNAME/NuMagSANS/main) |
 | **Platforms** | ![Platforms](https://img.shields.io/badge/platform-linux%20%7C%20macOS%20%7C%20windows-lightgrey) |
 | **Downloads** | [![Downloads](https://img.shields.io/pypi/dm/numagsans.svg)](https://pypistats.org/packages/numagsans) |
 | **License** | [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) |
