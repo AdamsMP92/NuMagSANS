@@ -9,7 +9,7 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 <sup>1</sup> Department of Physics and Materials Science, University of Luxembourg, 162A Avenue de la Faiencerie, L-1511 Luxembourg, Grand Duchy of Luxembourg
 
 
-## 📦 Project Status
+## 📦 Project Status (To Do)
 
 | **Description** | **Badge** |
 |:-----------------|:----------|
