@@ -1,10 +1,10 @@
 // File         : NuMagSANSlib_InputFileInterpreter.h
-// Author       : Michael Philipp ADAMS, M.Sc.
+// Author       : Dr. Michael Philipp ADAMS
 // Company      : University of Luxembourg
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 28 November 2024
+// Version      : 16 October 2025
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
@@ -187,7 +187,8 @@ void parseBool(const std::string& line, const std::string& property, bool& varia
 	if (found != std::string::npos) {
    		variable = (bool) stoi(extract_value(line));
 		flag = true;
-		cout << " -> " << property << " : " << variable << "\n"; 
+		LogSystem::write(" -> " + property + " : " + std::string(variable ? "true" : "false"));
+		//cout << " -> " << property << " : " << variable << "\n"; 
     }
 }
 
@@ -196,7 +197,8 @@ void parseInt(const std::string& line, const std::string& property, int& variabl
 	if (found != std::string::npos) {
    		variable = stoi(extract_value(line));
 		flag = true;
-		cout << " -> " << property << " : " << variable << "\n";
+		LogSystem::write(" -> " + property + " : " + std::to_string(variable));
+		//cout << " -> " << property << " : " << variable << "\n";
     }
 }
 
@@ -205,7 +207,8 @@ void parseFloat(const std::string& line, const std::string& property, float& var
 	if (found != std::string::npos) {
    		variable = stof(extract_value(line));
 		flag = true;
-		cout << " -> " << property << " : " << variable << "\n";
+		LogSystem::write(" -> " + property + " : " + std::to_string(variable));
+		//cout << " -> " << property << " : " << variable << "\n";
     }
 }
 
@@ -214,9 +217,22 @@ void parseString(const std::string& line, const std::string& property, std::stri
 	if (found != std::string::npos) {
    		variable = extract_value(line);
 		flag = true;
-		cout << " -> " << property << " : " << variable << "\n";
+		LogSystem::write(" -> " + property + " : " + variable);
+		//cout << " -> " << property << " : " << variable << "\n";
     }
 }
+
+
+
+void parseStringNoCout(const std::string& line, const std::string& property, std::string& variable, bool& flag){
+        size_t found = line.find(property);
+        if (found != std::string::npos) {
+                variable = extract_value(line);
+                flag = true;
+                //cout << " -> " << property << " : " << variable << "\n";
+    }
+}
+
 
  // Interpreting User_Selection to integer array ##########################################
 void User_Selection_To_Int_Array(int *Idx, int Number_of_Comma, string my_string){
@@ -259,12 +275,45 @@ void Number_Of_Comma_In_String(int *N, string my_string){
      *N = Comma_Counter;
 }
 
+// Pre-Parsing for the initialization of the LogFile System
+void InitializeLogSystem(string filename){
 
+	ifstream fin;
+	fin.open(filename);
+	string line;
+	string string_to_be_interpreted;
+	bool checkFlag = false;
+
+	string SANSDataFoldername;
+
+	while(getline(fin, line)){
+		parseStringNoCout(line, "foldernameSANSData", SANSDataFoldername, checkFlag);
+	}
+	fin.close();
+
+	if(checkFlag){
+		mkdir((SANSDataFoldername + "/").c_str(), 0777);
+        	LogSystem::initLog(SANSDataFoldername + "/NuMagSANSlog.txt");
+        	//LogSystem::write("LogFile Initialized");
+	}
+	else {
+    		std::cerr << "Error: 'foldernameSANSData' not found in input file '"<< filename << "'. Logging not initialized.\n";
+		std::cerr << "Aborting program.\n";
+        	std::exit(EXIT_FAILURE);
+	}
+
+}
+
+// Input File Parsing ###################################################################
 bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
-	cout << "##########################################################################################" << "\n";
-	cout << "## Run - Input File Interpreter ##########################################################" << "\n";
-	cout << "##########################################################################################" << "\n\n";
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("## Run - Input File Interpreter ##########################################################");
+	LogSystem::write("##########################################################################################");
+
+	//cout << "##########################################################################################" << "\n";
+	//cout << "## Run - Input File Interpreter ##########################################################" << "\n";
+	//cout << "##########################################################################################" << "\n\n";
 
 	bool Check_InputFile_Flag = false;
 
@@ -280,7 +329,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		Check_Flag[k] = false;
 	}
 
-	cout << "Interpreter found the following commands:" << "\n\n";
+	LogSystem::write("Interpreter found the following commands:");
+	//cout << "Interpreter found the following commands:" << "\n\n";
 
 	while(getline(fin, line)){
 		line_counter += 1;
@@ -392,10 +442,14 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		InputData->User_Selection_IndexArray = new int[Number_of_Comma+1];
 		User_Selection_To_Int_Array(InputData->User_Selection_IndexArray, Number_of_Comma, InputData->User_Selection);
 
-		cout << "\n\n";
-		cout << "Check UserSelection entries that are transfered to integer array:" << "\n";
+		//cout << "\n\n";
+		//cout << "Check UserSelection entries that are transfered to integer array:" << "\n";
+		
+		LogSystem::write("Check UserSelection entries that are transfered to integer array:");
+
 		for(int k = 0; k < Number_of_Comma+1; k++){
-			cout << "  UserSelection: " << k << " : " << InputData->User_Selection_IndexArray[k] << "\n";
+			LogSystem::write(" UserSelection: " + std::to_string(k) + " : " + std::to_string(InputData->User_Selection_IndexArray[k]));
+			//cout << "  UserSelection: " << k << " : " << InputData->User_Selection_IndexArray[k] << "\n";
 		}
 		InputData->Number_Of_User_Selections = Number_of_Comma + 1;
 	}
@@ -405,20 +459,28 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 	if(Check_Flag[11] && Check_Flag[12]){
 		Compute_RotMat(InputData->RotMat_alpha, InputData->RotMat_beta, InputData->RotMat);
 	}
-	cout << "Rotation Matrix: " << "\n";
-	cout << InputData->RotMat[0] << " " << InputData->RotMat[3] << " " << InputData->RotMat[6] << "\n";
-	cout << InputData->RotMat[1] << " " << InputData->RotMat[4] << " " << InputData->RotMat[7] << "\n";
-	cout << InputData->RotMat[2] << " " << InputData->RotMat[5] << " " << InputData->RotMat[8] << "\n";
-	cout << "\n";
+	LogSystem::write("Rotation Matrix: ");
+	LogSystem::write(std::to_string(InputData->RotMat[0]) + " " + std::to_string(InputData->RotMat[3]) + " " + std::to_string(InputData->RotMat[6]));
+	LogSystem::write(std::to_string(InputData->RotMat[1]) + " " + std::to_string(InputData->RotMat[4]) + " " + std::to_string(InputData->RotMat[7]));
+	LogSystem::write(std::to_string(InputData->RotMat[2]) + " " + std::to_string(InputData->RotMat[5]) + " " + std::to_string(InputData->RotMat[8]));
+	LogSystem::write("");
+	//cout << "Rotation Matrix: " << "\n";
+	//cout << InputData->RotMat[0] << " " << InputData->RotMat[3] << " " << InputData->RotMat[6] << "\n";
+	//cout << InputData->RotMat[1] << " " << InputData->RotMat[4] << " " << InputData->RotMat[7] << "\n";
+	//cout << InputData->RotMat[2] << " " << InputData->RotMat[5] << " " << InputData->RotMat[8] << "\n";
+	//cout << "\n";
 	
 
-	cout << "\n\n";
+	//cout << "\n\n";
+	LogSystem::write("");
+	LogSystem::write("");
 
 	// Check the Error Flags
 	bool Error_Detect = true;
 	for(int k = 0; k < 92; k++){
 		if(Check_Flag[k] != 1){
-			cout << "Error Check Flag " << k << "\n";
+			//cout << "Error Check Flag " << k << "\n";
+			LogSystem::write("Error Check Flag " + std::to_string(k));
 			Error_Detect = false;
 		}
 	}
@@ -428,27 +490,35 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 					  + pow(InputData->Polarization[1], 2) \
 					  + pow(InputData->Polarization[2], 2));
 	if(P_norm == 0){
-		cout << "Error: Polarization magnitude is equal to zero!!" << "\n";
+		LogSystem::write("Error: Polarization magnitude is equal to zero!!");
+		//cout << "Error: Polarization magnitude is equal to zero!!" << "\n";
 	}
 	if(P_norm != 0 && P_norm != 1){
 		InputData->Polarization[0] = (InputData->Polarization[0])/P_norm;
 		InputData->Polarization[1] = (InputData->Polarization[1])/P_norm;
 		InputData->Polarization[2] = (InputData->Polarization[2])/P_norm;
-		cout << "Polarization normalized to 1!" << "\n";
+		//cout << "Polarization is automatically normalized to 1!" << "\n";
+		LogSystem::write("Polarization is automatically normalized to 1!");
 	}
 
 
 
 	// Give information on errors
 	if(Error_Detect){
-		cout << " ->-> No Errors Detected" << "\n";
+		//cout << " ->-> No Errors Detected" << "\n";
+		LogSystem::write(" ->-> No Errors Detected");
 		Check_InputFile_Flag = true;
 	}
 
-	cout << "\n\n";
-	cout << "##########################################################################################" << "\n";
-	cout << "## Stop - Input File Interpreter #########################################################" << "\n";
-	cout << "##########################################################################################" << "\n\n";
+	//cout << "\n\n";
+	//cout << "##########################################################################################" << "\n";
+	//cout << "## Stop - Input File Interpreter #########################################################" << "\n";
+	//cout << "##########################################################################################" << "\n\n";
+
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("## Stop - Input File Interpreter #########################################################");
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("");
 
 	return Check_InputFile_Flag;
 

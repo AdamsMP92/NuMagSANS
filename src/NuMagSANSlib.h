@@ -1,5 +1,5 @@
 // File         : NuMagSANSlib.h
-// Author       : Michael Philipp ADAMS, M.Sc. 
+// Author       : Dr. Michael Philipp ADAMS 
 // Company      : University of Luxembourg
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
@@ -27,6 +27,7 @@
 #include <unistd.h>
 
 //#pragma once
+#include "NuMagSANSlib_LogFile.h"
 #include "NuMagSANSlib_HelperFun.h"
 #include "NuMagSANSlib_StringCompare.h"
 #include "NuMagSANSlib_ReadWrite.h"
@@ -49,9 +50,10 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
                           StructDataProperties* StructDataProp, \
                           int Data_File_Index){
 
-	cout << "################################################################################" << "\n";
-	cout << "## Run - NuMagSANS #############################################################" << "\n";
-	cout << "################################################################################" << "\n\n";
+	LogSystem::write("################################################################################");
+	LogSystem::write("## Run - NuMagSANS #############################################################");
+	LogSystem::write("################################################################################");
+	LogSystem::write("");
 
 	// start time measurement #################################################################
 	auto start_total_time = std::chrono::high_resolution_clock::now();
@@ -86,107 +88,110 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 	// compute 2D SANS cross sections #########################################################
 	int L = (*SANSData.N_q) * (*SANSData.N_theta);
-	cout << "L = " << L << "\n";
+	LogSystem::write("total number of Fourier space bins: " + std::to_string(L));
 	cudaError_t err;
 
 		// Pure Magnetic Scattering Calculator without structure data #####################################################################
 		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 0){
-			cout << "Run: Atomistic_MagSANS_Kernel_dilute" << "\n";
+			LogSystem::write("run: Atomistic_MagSANS_Kernel_dilute");
 			Atomistic_MagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(MagData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
 			err = cudaGetLastError();
 			if (err != cudaSuccess) {
-			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+				LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 			}
 		}
 
 		// Pure Nuclear Scattering Calculator without structure data #######################################################################
 		if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0){
-			cout << "Run: Atomistic_NucSANS_Kernel_dilute" << "\n";
+			LogSystem::write("run: Atomistic_NucSANS_Kernel_dilute");
 			Atomistic_NucSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
 			err = cudaGetLastError();
 			if (err != cudaSuccess) {
-			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+				LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 			}
 		}
 
 		// Combined Magnetic and Nuclear Scattering Calculator without structure data ######################################################
 		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0){
-			cout << "Run: Atomistic_NuMagSANS_Kernel_dilute" << "\n";
+			LogSystem::write("run: Atomistic_NuMagSANS_Kernel_dilute");
 			Atomistic_NuMagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
 			err = cudaGetLastError();
 			if (err != cudaSuccess) {
-			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+				LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 			}
 		}
 
 
 		// Pure Magnetic Scattering Calculator with structure data #########################################################################
 		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 1){
-			cout << "Run: Atomistic_MagSANS_Kernel" << "\n";
+			LogSystem::write("run: Atomistic_MagSANS_Kernel");
 			Atomistic_MagSANS_Kernel<<<(L+255)/256, 256>>>(MagData_gpu, StructData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
 			err = cudaGetLastError();
 			if (err != cudaSuccess) {
-			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+				LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 			}
 		}
 
 		// Pure Nuclear Scattering Calculator with structure data ###########################################################################
 		if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1){
-			cout << "Run: Atomistic_NucSANS_Kernel" << "\n";
+			LogSystem::write("run: Atomistic_NucSANS_Kernel");
 			Atomistic_NucSANS_Kernel<<<(L+255)/256, 256>>>(NucData_gpu, StructData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
 			err = cudaGetLastError();
 			if (err != cudaSuccess) {
-			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+				LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 			}
 		}
 
 		// Combined Magnetic and Nuclear Scattering Calculator with structure data #########################################################
 		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1){
-			cout << "Run: Atomistic_NuMagSANS_Kernel" << "\n";
+			LogSystem::write("run: Atomistic_NuMagSANS_Kernel");
 			Atomistic_NuMagSANS_Kernel<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, StructData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
 			err = cudaGetLastError();
 			if (err != cudaSuccess) {
-			std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+				LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 			}
 		}
 
 
 
 	// compute azimuthal average 1D ###########################################################
+	LogSystem::write("run: azimuthal averaging");
 	AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
 	cudaDeviceSynchronize();
 	err = cudaGetLastError();
 	if (err != cudaSuccess) {
-	    std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+	   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err)); 
 	}
 
 	// compute 1D pair distance distribution and correlation function #########################
+	LogSystem::write("run: 1D correlation functions");
 	DistributionFunctions<<<(L+255), 256>>>(SANSData_gpu);
 	cudaDeviceSynchronize();
 	err = cudaGetLastError();
 	if (err != cudaSuccess) {
-	    std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+	   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 	}
 
 	// compute 2D correlation functions ######################################################
+	LogSystem::write("run: 2D correlation functions");
 	CorrelationFunction_2D<<<(L+255)/256, 256>>>(SANSData_gpu);
 	cudaDeviceSynchronize();
 	err = cudaGetLastError();
 	if (err != cudaSuccess) {
-	    std::cout << "Kernel launch failed: " << cudaGetErrorString(err) << std::endl;
+	   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 	}
 
 	// copy scattering data from GPU to RAM ###################################################
 	copyGPU2RAM_ScatteringData(&SANSData, &SANSData_gpu);
 
 	// scaling of the scattering data on RAM ##################################################
-	cout << "scaling of the scattering data..." << "\n";
+	LogSystem::write("scaling of SANSdata...");
 	scale_ScatteringData(&ScalFactors, &SANSData, InputData);
 
 	// write scattering data to csv files #####################################################
@@ -195,29 +200,38 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 
 	// free memory ############################################################################
+	LogSystem::write("free memory...");
 	if(InputData->NucData_activate_flag){
 		free_NuclearData(&NucData, &NucData_gpu);
+		//cudaFree(NucData_gpu);
+		//std::cout << "Free Nuc Data" << std::endl;
 	}
 
 	if(InputData->MagData_activate_flag){
 		free_MagnetizationData(&MagData, &MagData_gpu);
+		//cudaFree(MagData_gpu);
+		//std::cout << "Free Mag Data" << std::endl;
 	}
 
 	if(InputData->StructData_activate_flag){
 		free_StructureData(&StructData, &StructData_gpu);
+		//cudaFree(StructData_gpu);
+		//std::cout << "Free Struct Data" << std::endl;
 	}
 	
 	free_ScatteringData(&SANSData, &SANSData_gpu);
+	//cudaFree(SANSData_gpu);
 
 	// print result of time measurement #######################################################
-	cout << "\n";		
+	LogSystem::write("");
 	auto finish_total_time = std::chrono::high_resolution_clock::now();	
 	std::chrono::duration<double> elapsed_total_time = finish_total_time - start_total_time;
-	cout << "->-> Total Elapsed Time: " << elapsed_total_time.count() << " s\n";	
-	cout << " \n";
+	LogSystem::write("->-> Total Elapsed Time: " + std::to_string(elapsed_total_time.count()) + " s");
+	LogSystem::write("");
 
-	cout << "################################################################################" << "\n";
-	cout << "## Finished - NuMagSANS ########################################################" << "\n";
-	cout << "################################################################################" << "\n\n\n\n";
-
+	LogSystem::write("################################################################################");
+	LogSystem::write("## Finished - NuMagSANS ########################################################");
+	LogSystem::write("################################################################################");
+	LogSystem::write("");
+	LogSystem::write("");
 }

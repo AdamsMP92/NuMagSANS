@@ -58,7 +58,8 @@ void get_GlobalMagDataPath(std::string Local_MagDataPath, MagDataProperties* Mag
     getcwd(tmp, PATH_MAX);  // Get the current working directory
     std::string tmp_string = tmp;
 	MagDataProp->GlobalFolderPath = tmp_string + "/" + Local_MagDataPath;
-	cout << "found Global MagDataPath: " << MagDataProp->GlobalFolderPath << "\n\n";
+	//cout << "Found Global MagDataPath: " << MagDataProp->GlobalFolderPath << "\n\n";
+	LogSystem::write("Found Global MagDataPath: " + MagDataProp->GlobalFolderPath);
     
 }
 
@@ -85,7 +86,8 @@ void NumberOfNonZeroMagneticMomentsInFile(int *NumberOfNonZeroMoments, int *Numb
 			line_counter += 1;
 		} else{
 			error_counter ++;
-			std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n";
+			//std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n";
+			LogSystem::write("Error in row: " + std::to_string(line_counter + error_counter) + ": " + line);
 		}
 	}
 	fin.close();
@@ -121,7 +123,8 @@ bool check_number_of_elements_in_folders_MagData(MagDataProperties* MagDataProp)
 		current_path = MagDataProp->GlobalFolderPath + "/" + MagDataProp->SubFolderNames_Nom + "_" + std::to_string(k+1);
 		Number_Of_Elements[k] = count_NumberOfElements(current_path);
 	}
-	cout << "\n";
+	//cout << "\n";
+	LogSystem::write("");
 			// check wether number of elements in each subfolder is the same
 	bool Check_Flag = true;
 	for(int k=1; k < MagDataProp->Number_Of_SubFolders; k++){
@@ -131,7 +134,8 @@ bool check_number_of_elements_in_folders_MagData(MagDataProperties* MagDataProp)
 		}
 	}	
 	if(Check_Flag){
-		cout << "Each folder got the same number of elements: " << Number_Of_Elements[0] << "\n";
+		//cout << "Each folder contains the same number of elements: " << Number_Of_Elements[0] << "\n";
+		LogSystem::write("Each folder contains the same number of elements: " + std::to_string(Number_Of_Elements[0]));
 		MagDataProp->Number_Of_Files_In_SubFolder = Number_Of_Elements[0];
 	}
 	return Check_Flag;
@@ -171,7 +175,9 @@ bool check_element_names_MagData(MagDataProperties* MagDataProp){
 		if(FileNames_Type[k] != FileNames_Type[0] || FileNames_Nom[k] != FileNames_Nom[0]){
 			return false;
 		}
-	}cout << "Total Number of sites with non-zero magnetic moments: " << MagDataProp->TotalNZMAtomNumber << "\n";
+	}
+
+	// cout << "total number of sites with non-zero magnetic moments: " << MagDataProp->TotalNZMAtomNumber << "\n";
 
 	// Store correct Nom and Type
 	MagDataProp->SubFolder_FileNames_Nom = FileNames_Nom[0];
@@ -185,8 +191,9 @@ bool check_Subfolders_MagData(MagDataProperties* MagDataProp){
 
 	// count number of subfolders
 	MagDataProp->Number_Of_SubFolders = count_NumberOfFolders(MagDataProp->GlobalFolderPath);
-	cout << "Number of Subfolders: " << MagDataProp->Number_Of_SubFolders << "\n";
-	
+	//cout << "number of subfolders: " << MagDataProp->Number_Of_SubFolders << "\n";
+	LogSystem::write("number of subfolders: " + std::to_string(MagDataProp->Number_Of_SubFolders));
+
 	// Read all subfolder names
 	std::string SubFolderNames[MagDataProp->Number_Of_SubFolders];
 	read_FolderNames(MagDataProp->GlobalFolderPath, SubFolderNames, MagDataProp->Number_Of_SubFolders);
@@ -194,8 +201,11 @@ bool check_Subfolders_MagData(MagDataProperties* MagDataProp){
 	bool FolderNames_CheckFlag = false;
 	CheckStrings_FolderNames(SubFolderNames, MagDataProp->Number_Of_SubFolders, &FolderNames_CheckFlag, &MagDataProp->SubFolderNames_Nom);
 
-	cout << "We found the Nom: " << MagDataProp->SubFolderNames_Nom << "\n";
-	cout << "FolderNames CheckFlag: " << FolderNames_CheckFlag << "\n\n";
+	//cout << "the sub-folder pre-script is: " << MagDataProp->SubFolderNames_Nom << "\n";
+	//cout << "FolderNames CheckFlag: " << FolderNames_CheckFlag << "\n\n";
+
+	LogSystem::write("the sub-folder pre-script is: " + MagDataProp->SubFolderNames_Nom);
+	LogSystem::write("FolderNames CheckFlag: " + std::string(FolderNames_CheckFlag ? "true" : "false"));
 
 	return FolderNames_CheckFlag;
 	
@@ -210,7 +220,8 @@ bool check_Subfolder_FileNames_MagData(MagDataProperties* MagDataProp){
 		bool Element_Names_CheckFlag = check_element_names_MagData(MagDataProp);
 
 		if(Element_Names_CheckFlag){
-			cout << "We found the Nom: " << MagDataProp->SubFolder_FileNames_Nom << ", and the file Type: " << MagDataProp->SubFolder_FileNames_Type << "\n\n";
+			//cout << "the filename pre-script is: " << MagDataProp->SubFolder_FileNames_Nom << ", and the file Type: " << MagDataProp->SubFolder_FileNames_Type << "\n\n";
+			LogSystem::write("the filename pre-script is: " + MagDataProp->SubFolder_FileNames_Nom + ", and the file Type: " + MagDataProp->SubFolder_FileNames_Type);
 			return true;
 		}
 		else{
@@ -246,6 +257,8 @@ bool check_FileDimensions_MagData(MagDataProperties* MagDataProp){
 		}
 	}
 
+
+
 	return true;
 		
 }
@@ -273,9 +286,13 @@ void CountAtomNumbers_MagData(MagDataProperties* MagDataProp){
 // Routine that checks number of subfolders in MagData directory
 bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataProp){
 
-	cout << "##########################################################################################" << "\n";
-	cout << "## Run - MagData Directory Explorer ######################################################" << "\n";
-	cout << "##########################################################################################" << "\n\n";
+	//cout << "##########################################################################################" << "\n";
+	//cout << "## Run - MagData Directory Explorer ######################################################" << "\n";
+	//cout << "##########################################################################################" << "\n\n";
+
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("## Run - MagData Directory Explorer ######################################################");
+	LogSystem::write("##########################################################################################");
 
 	bool CheckFlag = false;
 
@@ -295,13 +312,17 @@ bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataPr
 	CountAtomNumbers_MagData(MagDataProp);
 
 	for(int i = 0; i < MagDataProp->Number_Of_Files_In_SubFolder; i++){
-         cout << "Total Number of Atoms in data set " << i+1 << ": " << MagDataProp->TotalAtomNumber[i] << "\n";
+		//cout << "Total Number of Atoms in data set " << i+1 << ": " << MagDataProp->TotalAtomNumber[i] << "\n";
+		LogSystem::write("Total Number of Atoms in data set " + std::to_string(i+1) + ": " + std::to_string(MagDataProp->TotalAtomNumber[i]));
 	}
 
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("## Stop - MagData Directory Explorer #####################################################");
+	LogSystem::write("##########################################################################################");
 
-	cout << "##########################################################################################" << "\n";
-	cout << "## Stop - MagData Directory Explorer #####################################################" << "\n";
-	cout << "##########################################################################################" << "\n\n";
+	//cout << "##########################################################################################" << "\n";
+	//cout << "## Stop - MagData Directory Explorer #####################################################" << "\n";
+	//cout << "##########################################################################################" << "\n\n";
 
 	if(Subfolder_CheckFlag && Subfolder_Elements_CheckFlag && FileDimensions_CheckFlag){
 		CheckFlag = true;

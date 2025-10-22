@@ -244,19 +244,21 @@ void init_ScalingFactors(ScalingFactors* ScalFactors,\
 
 	}
 
-	cout << "Magnetic SANS scaling factor: " << ScalFactors->Mag_SANS_SF << "\n";
-	cout << "Correlation Matrix scaling factor: " << ScalFactors->CorrelationMatrix_scaling_factor << "\n";
 
-	cout << "nuclear correlation function scaling factor: " << ScalFactors->Nuc_Corr_SF << "\n";
-	cout << "magnetic correlation function scaling factor: " << ScalFactors->Mag_Corr_SF << "\n";
-	cout << "nuclear correlation function distance scaling factor: " << ScalFactors->NucMag_Corr_SF << "\n";
-	
-	cout << "nuclear pair distance scaling factor: " << ScalFactors->Nuc_PairDist_SF << "\n";
-	cout << "magnetic pair distance scaling factor: " << ScalFactors->Mag_PairDist_SF << "\n";
-	cout << "nuclear magnetic pair distance scaling factor: " << ScalFactors->NucMag_PairDist_SF << "\n";
-	
-	cout << "correlation function 2D scaling factor: " << ScalFactors->CorF_Mag_2D_SF << "\n";
-	cout << "\n";
+
+	LogSystem::write("magnetic SANS scaling factor: " + std::to_string(ScalFactors->Mag_SANS_SF));
+	LogSystem::write("correlation Matrix scaling factor: " + std::to_string(ScalFactors->CorrelationMatrix_scaling_factor));
+
+	LogSystem::write("nuclear correlation function scaling factor: " + std::to_string(ScalFactors->Nuc_Corr_SF));
+	LogSystem::write("magnetic correlation function scaling factor: " + std::to_string(ScalFactors->Mag_Corr_SF));
+	LogSystem::write("nuclear correlation function distance scaling factor: " + std::to_string(ScalFactors->NucMag_Corr_SF));
+
+	LogSystem::write("nuclear pair distance scaling factor: " + std::to_string(ScalFactors->Nuc_PairDist_SF));
+	LogSystem::write("magnetic pair distance scaling factor: " + std::to_string(ScalFactors->Mag_PairDist_SF));
+	LogSystem::write("nuclear magnetic pair distance scaling factor: " + std::to_string(ScalFactors->NucMag_PairDist_SF));
+
+	LogSystem::write("correlation function 2D scaling factor: " + std::to_string(ScalFactors->CorF_Mag_2D_SF));
+	LogSystem::write("");
 
 }
 
@@ -265,9 +267,9 @@ void scale_ScatteringData(ScalingFactors* ScalFactors, \
                           ScatteringData* SANSData, \
                           InputFileData* InputData){
 
-	cout << "\n";
-	cout << "scale scattering data..." << "\n";
-	cout << "\n";
+	LogSystem::write("");
+	LogSystem::write("scale scattering data...");
+	LogSystem::write("");
 
 //	unsigned int L = (InputData->N_q) * (InputData->N_theta);
 
@@ -900,9 +902,9 @@ void copyGPU2RAM_ScatteringData(ScatteringData *SANSData, \
 
 	cudaDeviceSynchronize();
 
-	cout << "\n";
-	cout << "Copy data from GPU to RAM..." << "\n";
-	cout << "\n";
+	LogSystem::write("");
+	LogSystem::write("copy SANSdata from GPU to RAM...");
+	LogSystem::write("");
 
 	unsigned int L = (*SANSData->N_q) * (*SANSData->N_theta);
 
@@ -1003,9 +1005,9 @@ void write2CSVtable_ScatteringData(InputFileData *InputData, \
 					     	       ScatteringData *SANSData, \
 					     	       int MagData_File_Index){
 
-	cout << "\n";
-	cout << "write scattering data to csv-files..." << "\n";
-	
+	LogSystem::write("");
+	LogSystem::write("write scattering data to csv-files...");
+
 	unsigned int L = (*SANSData->N_q) * (*SANSData->N_theta);
 	
 	std::string target_foldername = InputData->SANSDataFoldername + "/SANS_" + std::to_string(MagData_File_Index) + "/";
@@ -1187,8 +1189,7 @@ void write2CSVtable_ScatteringData(InputFileData *InputData, \
 			fout << "\n";
 		}
 		fout.close();
-
-		cout << "SANS2D finished..." << "\n";
+		LogSystem::write("SANS2D finished...");
 	}
 
 	// 1D SANS cross sections ####################################################
@@ -1315,9 +1316,7 @@ void write2CSVtable_ScatteringData(InputFileData *InputData, \
 		fout << "\n";
 	}
 	fout.close();
-
-	cout << "SANS1D finished..." << "\n";
-
+	LogSystem::write("SANS1D finished...");
 	}
 	
 
@@ -1561,8 +1560,7 @@ void write2CSVtable_ScatteringData(InputFileData *InputData, \
 			
 		}
 		fout.close();
-
-		cout << "Corr1D finished..." << "\n";
+		LogSystem::write("Corr1D finished...");
 	}
 
 	// Corr 2D ###################################################################################################################################
@@ -1697,7 +1695,7 @@ void write2CSVtable_ScatteringData(InputFileData *InputData, \
 			
 		}
 		fout.close();
-		cout << "Corr2D finished..." << "\n\n";
+		LogSystem::write("Corr2D finished...");
 	}
 	
 }
@@ -1712,171 +1710,166 @@ void write2CSV_ScatteringData(InputFileData *InputData, \
 					     	  ScatteringData *SANSData, \
 					     	  int MagData_File_Index){
 
-	cout << "\n";
-	cout << "write scattering data to csv-files..." << "\n";
+	LogSystem::write("");
+	LogSystem::write("write scattering data to csv-files...");
 
 	unsigned int L = (*SANSData->N_q) * (*SANSData->N_theta);
 
 	std::string target_foldername = InputData->SANSDataFoldername + "/SANS_" + std::to_string(MagData_File_Index) + "/";
 	mkdir(target_foldername.c_str(), 0777);
 
-
-	
-
-
 	std::string filename_qy_2D = target_foldername + "qy_2D.csv";
 	WriteCSV_float_vector(L, SANSData->qy_2D, filename_qy_2D);
-	cout << "Write: " << filename_qy_2D << "\n";
+	LogSystem::write("write: " + filename_qy_2D);
 
 	std::string filename_qz_2D = target_foldername + "qz_2D.csv";
 	WriteCSV_float_vector(L, SANSData->qz_2D, filename_qz_2D);
-	cout << "Write: " << filename_qz_2D << "\n";
-	
+	LogSystem::write("write: " + filename_qz_2D);
+
 	std::string filename_q_2D = target_foldername + "q_2D.csv";
 	WriteCSV_float_vector(L, SANSData->q_2D, filename_q_2D);
-	cout << "Write: " << filename_q_2D << "\n";
-		
+	LogSystem::write("write: " + filename_q_2D);
+
 	std::string filename_theta_2D = target_foldername + "theta_2D.csv";
 	WriteCSV_float_vector(L, SANSData->theta_2D, filename_theta_2D);
-	cout << "Write: " << filename_theta_2D << "\n";
+	LogSystem::write("write: " + filename_theta_2D);
 
 	std::string filename_q_1D = target_foldername + "q_1D.csv";
 	WriteCSV_float_vector(*SANSData->N_q, SANSData->q_1D, filename_q_1D);
-	cout << "Write: " << filename_q_1D << "\n";
-
+	LogSystem::write("write: " + filename_q_1D);
 
 	if(InputData->output_fourier_correlation_matrix_flag){
 
 		std::string target_foldername_MagnCorrMatrix = target_foldername +  "/MagnCorrMatrix/";
 		mkdir(target_foldername_MagnCorrMatrix.c_str(), 0777);
-	
+
 		std::string filename_Gxx_real = target_foldername_MagnCorrMatrix + "Gxx_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxx_real, filename_Gxx_real);
-		cout << "Write: " << filename_Gxx_real << "\n";
+		LogSystem::write("write: " + filename_Gxx_real);
 
 		std::string filename_Gyy_real = target_foldername_MagnCorrMatrix + "Gyy_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyy_real, filename_Gyy_real);
-		cout << "Write: " << filename_Gyy_real << "\n";
+		LogSystem::write("write: " + filename_Gyy_real);
 
 		std::string filename_Gzz_real = target_foldername_MagnCorrMatrix + "Gzz_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzz_real, filename_Gzz_real);
-		cout << "Write: " << filename_Gzz_real << "\n";
+		LogSystem::write("write: " + filename_Gzz_real);
 
 		std::string filename_Gxy_real = target_foldername_MagnCorrMatrix + "Gxy_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxy_real, filename_Gxy_real);
-		cout << "Write: " << filename_Gxy_real << "\n";
+		LogSystem::write("write: " + filename_Gxy_real);
 
 		std::string filename_Gyx_real = target_foldername_MagnCorrMatrix + "Gyx_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyx_real, filename_Gyx_real);
-		cout << "Write: " << filename_Gyx_real << "\n";
-				
+		LogSystem::write("write: " + filename_Gyx_real);
+
 		std::string filename_Gxz_real = target_foldername_MagnCorrMatrix + "Gxz_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxz_real, filename_Gxz_real);
-		cout << "Write: " << filename_Gxz_real << "\n";
+		LogSystem::write("write: " + filename_Gxz_real);
 
 		std::string filename_Gzx_real = target_foldername_MagnCorrMatrix + "Gzx_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzx_real, filename_Gzx_real);
-		cout << "Write: " << filename_Gzx_real << "\n";
+		LogSystem::write("write: " + filename_Gzx_real);
 
 		std::string filename_Gyz_real = target_foldername_MagnCorrMatrix + "Gyz_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyz_real, filename_Gyz_real);
-		cout << "Write: " << filename_Gyz_real << "\n";
-				
+		LogSystem::write("write: " + filename_Gyz_real);
+
 		std::string filename_Gzy_real = target_foldername_MagnCorrMatrix + "Gzy_real_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzy_real, filename_Gzy_real);
-		cout << "Write: " << filename_Gzy_real << "\n";
+		LogSystem::write("write: " + filename_Gzy_real);
 
 
 		std::string filename_Gxx_imag = target_foldername_MagnCorrMatrix + "Gxx_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxx_imag, filename_Gxx_imag);
-		cout << "Write: " << filename_Gxx_imag << "\n";
+		LogSystem::write("write: " + filename_Gxx_imag);
 
 		std::string filename_Gyy_imag = target_foldername_MagnCorrMatrix + "Gyy_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyy_imag, filename_Gyy_imag);
-		cout << "Write: " << filename_Gyy_imag << "\n";
+		LogSystem::write("write: " + filename_Gyy_imag);
 
 		std::string filename_Gzz_imag = target_foldername_MagnCorrMatrix + "Gzz_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzz_real, filename_Gzz_imag);
-		cout << "Write: " << filename_Gzz_imag << "\n";
+		LogSystem::write("write: " + filename_Gzz_imag);
 
 		std::string filename_Gxy_imag = target_foldername_MagnCorrMatrix + "Gxy_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxy_imag, filename_Gxy_imag);
-		cout << "Write: " << filename_Gxy_imag << "\n";
+		LogSystem::write("write: " + filename_Gxy_imag);
 
 		std::string filename_Gyx_imag = target_foldername_MagnCorrMatrix + "Gyx_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyx_imag, filename_Gyx_imag);
-		cout << "Write: " << filename_Gyx_imag << "\n";
-				
+		LogSystem::write("write: " + filename_Gyx_imag);
+
 		std::string filename_Gxz_imag = target_foldername_MagnCorrMatrix + "Gxz_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gxz_imag, filename_Gxz_imag);
-		cout << "Write: " << filename_Gxz_imag << "\n";
+		LogSystem::write("write: " + filename_Gxz_imag);
 
 		std::string filename_Gzx_imag = target_foldername_MagnCorrMatrix + "Gzx_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzx_imag, filename_Gzx_imag);
-		cout << "Write: " << filename_Gzx_imag << "\n";
+		LogSystem::write("write: " + filename_Gzx_imag);
 
 		std::string filename_Gyz_imag = target_foldername_MagnCorrMatrix + "Gyz_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gyz_imag, filename_Gyz_imag);
-		cout << "Write: " << filename_Gyz_imag << "\n";
-				
+		LogSystem::write("write: " + filename_Gyz_imag);
+
 		std::string filename_Gzy_imag = target_foldername_MagnCorrMatrix + "Gzy_imag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->Gzy_imag, filename_Gzy_imag);
-		cout << "Write: " << filename_Gzy_imag << "\n";
-		
+		LogSystem::write("write: " + filename_Gzy_imag);
+
 	}
 
 	if(InputData->output_unpolarized_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_Mag_2D_unpolarized = target_foldername + "S_Mag_2D_unpolarized.csv";
 		WriteCSV_float_vector(L, SANSData->S_Mag_2D_unpolarized, filename_S_Mag_2D_unpolarized);
-		cout << "Write: " << filename_S_Mag_2D_unpolarized << "\n";
+		LogSystem::write("write: " + filename_S_Mag_2D_unpolarized);
 	}
 
 	if(InputData->output_polarized_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_Mag_2D_polarized = target_foldername + "S_Mag_2D_polarized.csv";
 		WriteCSV_float_vector(L, SANSData->S_Mag_2D_polarized, filename_S_Mag_2D_polarized);
-		cout << "Write: " << filename_S_Mag_2D_polarized << "\n";
+		LogSystem::write("write: " + filename_S_Mag_2D_polarized);
 	}
 
 	if(InputData->output_nuclear_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_NucMag_2D = target_foldername + "S_NucMag_2D.csv";
 		WriteCSV_float_vector(L, SANSData->S_NucMag_2D, filename_S_NucMag_2D);
-		cout << "Write: " << filename_S_NucMag_2D << "\n";
+		LogSystem::write("write: " + filename_S_NucMag_2D);
 	}
 
 	if(InputData->output_spin_flip_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_Mag_2D_spin_flip = target_foldername + "S_Mag_2D_spin_flip.csv";
 		WriteCSV_float_vector(L, SANSData->S_Mag_2D_spin_flip, filename_S_Mag_2D_spin_flip);
-		cout << "Write: " << filename_S_Mag_2D_spin_flip << "\n";
+		LogSystem::write("write: " + filename_S_Mag_2D_spin_flip);
 	}
 
 	if(InputData->output_chiral_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_Mag_2D_chiral = target_foldername + "S_Mag_2D_chiral.csv";
 		WriteCSV_float_vector(L, SANSData->S_Mag_2D_chiral, filename_S_Mag_2D_chiral);
-		cout << "Write: " << filename_S_Mag_2D_chiral << "\n";
+		LogSystem::write("write: " + filename_S_Mag_2D_chiral);
 	}
 
 	if(InputData->output_pm_spin_flip_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_Mag_2D_spin_flip_pm = target_foldername + "S_Mag_2D_spin_flip_pm.csv";
 		WriteCSV_float_vector(L, SANSData->S_Mag_2D_spin_flip_pm, filename_S_Mag_2D_spin_flip_pm);
-		cout << "Write: " << filename_S_Mag_2D_spin_flip_pm << "\n";
+		LogSystem::write("write: " + filename_S_Mag_2D_spin_flip_pm);
 	}
 
 	if(InputData->output_mp_spin_flip_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_Mag_2D_spin_flip_mp = target_foldername + "S_Mag_2D_spin_flip_mp.csv";
 		WriteCSV_float_vector(L, SANSData->S_Mag_2D_spin_flip_mp, filename_S_Mag_2D_spin_flip_mp);
-		cout << "Write: " << filename_S_Mag_2D_spin_flip_mp << "\n";
+		LogSystem::write("write: " + filename_S_Mag_2D_spin_flip_mp);
 	}
 
 	if(InputData->output_pp_non_spin_flip_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_Mag_2D_non_spin_flip_pp = target_foldername + "S_Mag_2D_non_spin_flip_pp.csv";
 		WriteCSV_float_vector(L, SANSData->S_Mag_2D_non_spin_flip_pp, filename_S_Mag_2D_non_spin_flip_pp);
-		cout << "Write: " << filename_S_Mag_2D_non_spin_flip_pp << "\n";
+		LogSystem::write("write: " + filename_S_Mag_2D_non_spin_flip_pp);
 	}
 
 	if(InputData->output_mm_non_spin_flip_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_Mag_2D_non_spin_flip_mm = target_foldername + "S_Mag_2D_non_spin_flip_mm.csv";
 		WriteCSV_float_vector(L, SANSData->S_Mag_2D_non_spin_flip_mm, filename_S_Mag_2D_non_spin_flip_mm);
-		cout << "Write: " << filename_S_Mag_2D_non_spin_flip_mm << "\n";
+		LogSystem::write("write: " + filename_S_Mag_2D_non_spin_flip_mm);
 	}
 
 
@@ -1884,13 +1877,13 @@ void write2CSV_ScatteringData(InputFileData *InputData, \
 	if(InputData->output_p_sanspol_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_Mag_2D_sanspol_p = target_foldername + "S_Mag_2D_sanspol_p.csv";
 		WriteCSV_float_vector(L, SANSData->S_Mag_2D_sanspol_p, filename_S_Mag_2D_sanspol_p);
-		cout << "Write: " << filename_S_Mag_2D_sanspol_p << "\n";
+		LogSystem::write("write: " + filename_S_Mag_2D_sanspol_p);
 	}
 
 	if(InputData->output_m_sanspol_magnetic_SANS_cross_section_2D_flag){
 		std::string filename_S_Mag_2D_sanspol_m = target_foldername + "S_Mag_2D_sanspol_m.csv";
 		WriteCSV_float_vector(L, SANSData->S_Mag_2D_sanspol_m, filename_S_Mag_2D_sanspol_m);
-		cout << "Write: " << filename_S_Mag_2D_sanspol_m << "\n";
+		LogSystem::write("write: " + filename_S_Mag_2D_sanspol_m);
 	}
 
 
@@ -1898,120 +1891,121 @@ void write2CSV_ScatteringData(InputFileData *InputData, \
 	if(InputData->output_unpolarized_nuclear_SANS_cross_section_1D_flag){
 		std::string filename_S_Nuc_1D_unpolarized = target_foldername + "S_Nuc_1D_unpolarized.csv";
 		WriteCSV_float_vector((*SANSData->N_q), SANSData->S_Nuc_1D_unpolarized, filename_S_Nuc_1D_unpolarized);
-		cout << "Write: " << filename_S_Nuc_1D_unpolarized << "\n";
+		LogSystem::write("write: " + filename_S_Nuc_1D_unpolarized);
 	}
 
 	if(InputData->output_unpolarized_magnetic_SANS_cross_section_1D_flag){
 		std::string filename_S_Mag_1D_unpolarized = target_foldername + "S_Mag_1D_unpolarized.csv";
 		WriteCSV_float_vector((*SANSData->N_q), SANSData->S_Mag_1D_unpolarized, filename_S_Mag_1D_unpolarized);
-		cout << "Write: " << filename_S_Mag_1D_unpolarized << "\n";
+		LogSystem::write("write: " + filename_S_Mag_1D_unpolarized);
 	}
 
 
 	if(InputData->output_polarized_magnetic_SANS_cross_section_1D_flag){
 		std::string filename_S_Mag_1D_polarized = target_foldername + "S_Mag_1D_polarized.csv";
 		WriteCSV_float_vector((*SANSData->N_q), SANSData->S_Mag_1D_polarized, filename_S_Mag_1D_polarized);
-		cout << "Write: " << filename_S_Mag_1D_polarized << "\n";
+		LogSystem::write("write: " + filename_S_Mag_1D_polarized);
 	}
 
 	if(InputData->output_nuclear_magnetic_SANS_cross_section_1D_flag){
 		std::string filename_S_NucMag_1D = target_foldername + "S_NucMag_1D.csv";
 		WriteCSV_float_vector((*SANSData->N_q), SANSData->S_NucMag_1D, filename_S_NucMag_1D);
-		cout << "Write: " << filename_S_NucMag_1D << "\n";
+		LogSystem::write("write: " + filename_S_NucMag_1D);
 	}
 
 
 	if(InputData->output_spin_flip_magnetic_SANS_cross_section_1D_flag){
 		std::string filename_S_Mag_1D_spin_flip = target_foldername + "S_Mag_1D_spin_flip.csv";
 		WriteCSV_float_vector((*SANSData->N_q), SANSData->S_Mag_1D_spin_flip, filename_S_Mag_1D_spin_flip);
-		cout << "Write: " << filename_S_Mag_1D_spin_flip << "\n";
+		LogSystem::write("write: " + filename_S_Mag_1D_spin_flip);
 	}
 
 	if(InputData->output_chiral_magnetic_SANS_cross_section_1D_flag){
 		std::string filename_S_Mag_1D_chiral = target_foldername + "S_Mag_1D_chiral.csv";
 		WriteCSV_float_vector((*SANSData->N_q), SANSData->S_Mag_1D_chiral, filename_S_Mag_1D_chiral);
-		cout << "Write: " << filename_S_Mag_1D_chiral << "\n";
-	}		
+		LogSystem::write("write: " + filename_S_Mag_1D_chiral);
+	}
 
 
 	L = (*SANSData->N_r) * (*SANSData->N_alpha);
 
 	std::string filename_ry_2D = target_foldername + "ry_2D.csv";
 	WriteCSV_float_vector(L, SANSData->ry_2D, filename_ry_2D);
-	cout << "Write: " << filename_ry_2D << "\n";
-	
+	LogSystem::write("write: " + filename_ry_2D);
+
 	std::string filename_rz_2D = target_foldername + "rz_2D.csv";
 	WriteCSV_float_vector(L, SANSData->rz_2D, filename_rz_2D);
-	cout << "Write: " << filename_rz_2D << "\n";
-	
+	LogSystem::write("write: " + filename_rz_2D);
+
 	std::string filename_r_2D = target_foldername + "r_2D.csv";
 	WriteCSV_float_vector(L, SANSData->r_2D, filename_r_2D);
-	cout << "Write: " << filename_r_2D << "\n";
-	
+	LogSystem::write("write: " + filename_r_2D);
+
 	std::string filename_alpha_2D = target_foldername + "alpha_2D.csv";
 	WriteCSV_float_vector(L, SANSData->alpha_2D, filename_alpha_2D);
-	cout << "Write: " << filename_alpha_2D << "\n";
-	
+	LogSystem::write("write: " + filename_alpha_2D);
+
 	std::string filename_r_1D = target_foldername + "r_1D.csv";
 	WriteCSV_float_vector(*SANSData->N_r, SANSData->r_1D, filename_r_1D);
-	cout << "Write: " << filename_r_1D << "\n";
+	LogSystem::write("write: " + filename_r_1D);
 
 	if(InputData->output_unpolarized_correlation_function_2D_flag){
 		std::string filename_Corr_Mag_2D_unpolarized = target_foldername + "Corr_Mag_2D_unpolarized.csv";
 		WriteCSV_float_vector(L, SANSData->Corr_Mag_2D_unpolarized, filename_Corr_Mag_2D_unpolarized);
-		cout << "Write: " << filename_Corr_Mag_2D_unpolarized << "\n";
+		LogSystem::write("write: " + filename_Corr_Mag_2D_unpolarized);
 	}
 
 	if(InputData->output_spin_flip_correlation_function_2D_flag){
 		std::string filename_Corr_Mag_2D_spin_flip = target_foldername + "Corr_Mag_2D_spin_flip.csv";
 		WriteCSV_float_vector(L, SANSData->Corr_Mag_2D_spin_flip, filename_Corr_Mag_2D_spin_flip);
-		cout << "Write: " << filename_Corr_Mag_2D_spin_flip << "\n";
+		LogSystem::write("write: " + filename_Corr_Mag_2D_spin_flip);
 	}
 
 	if(InputData->output_chiral_correlation_function_2D_flag){
 		std::string filename_Corr_Mag_2D_chiral = target_foldername + "Corr_Mag_2D_chiral.csv";
 		WriteCSV_float_vector(L, SANSData->Corr_Mag_2D_chiral, filename_Corr_Mag_2D_chiral);
-		cout << "Write: " << filename_Corr_Mag_2D_chiral << "\n";
+		LogSystem::write("write: " + filename_Corr_Mag_2D_chiral);
 	}
 
 	if(InputData->output_unpolarized_pair_distance_distribution_1D_flag){
 		std::string filename_p_Mag_unpolarized = target_foldername + "p_Mag_unpolarized.csv";
 		WriteCSV_float_vector((*SANSData->N_r), SANSData->p_Mag_unpolarized, filename_p_Mag_unpolarized);
-		cout << "Write: " << filename_p_Mag_unpolarized << "\n";
+		LogSystem::write("write: " + filename_p_Mag_unpolarized);
 	}
 
 	if(InputData->output_spin_flip_pair_distance_distribution_1D_flag){
 		std::string filename_p_Mag_spin_flip = target_foldername + "p_Mag_spin_flip.csv";
 		WriteCSV_float_vector((*SANSData->N_r), SANSData->p_Mag_spin_flip, filename_p_Mag_spin_flip);
-		cout << "Write: " << filename_p_Mag_spin_flip << "\n";
+		LogSystem::write("write: " + filename_p_Mag_spin_flip);
 	}
 
 	if(InputData->output_chiral_pair_distance_distribution_1D_flag){
 		std::string filename_p_Mag_chiral = target_foldername + "p_Mag_chiral.csv";
 		WriteCSV_float_vector((*SANSData->N_r), SANSData->p_Mag_chiral, filename_p_Mag_chiral);
-		cout << "Write: " << filename_p_Mag_chiral << "\n";
+		LogSystem::write("write: " + filename_p_Mag_chiral);
 	}
 
 	if(InputData->output_unpolarized_correlation_function_1D_flag){
 		std::string filename_c_Mag_unpolarized = target_foldername + "c_Mag_unpolarized.csv";
 		WriteCSV_float_vector((*SANSData->N_r), SANSData->c_Mag_unpolarized, filename_c_Mag_unpolarized);
-		cout << "Write: " << filename_c_Mag_unpolarized << "\n";
+		LogSystem::write("write: " + filename_c_Mag_unpolarized);
 	}
 
 	if(InputData->output_spin_flip_correlation_function_1D_flag){
 		std::string filename_c_Mag_spin_flip = target_foldername + "c_Mag_spin_flip.csv";
 		WriteCSV_float_vector((*SANSData->N_r), SANSData->c_Mag_spin_flip, filename_c_Mag_spin_flip);
-		cout << "Write: " << filename_c_Mag_spin_flip << "\n";
+		LogSystem::write("write: " + filename_c_Mag_spin_flip);
 	}
 
 	if(InputData->output_chiral_correlation_function_1D_flag){
 		std::string filename_c_Mag_chiral = target_foldername + "c_Mag_chiral.csv";
 		WriteCSV_float_vector((*SANSData->N_r), SANSData->c_Mag_chiral, filename_c_Mag_chiral);
-		cout << "Write: " << filename_c_Mag_chiral << "\n";
+		LogSystem::write("write: " + filename_c_Mag_chiral);
 	}
 
-	cout << "\n\n"; 
-	cout << "finished writing data" << "\n"; 
+	LogSystem::write("");
+	LogSystem::write("");
+	LogSystem::write("finished the SANSdata export.");
 
 }
 
@@ -2019,8 +2013,9 @@ void write2CSV_ScatteringData(InputFileData *InputData, \
 void free_ScatteringData(ScatteringData *SANSData, \
 				         ScatteringData *SANSData_gpu){
 
-	cout << "Free SANS Data..." << "\n";
-	cout << "\n";
+	LogSystem::write("free SANSdata...");
+
+//	cudaError_t err;
 
 	free(SANSData->Polarization);
 
@@ -2068,7 +2063,7 @@ void free_ScatteringData(ScatteringData *SANSData, \
 	free(SANSData->Gzx_imag);
 	free(SANSData->Gyz_imag);
 	free(SANSData->Gzy_imag);
-	
+
 	free(SANSData->S_Nuc_2D_unpolarized);
 	free(SANSData->S_Mag_2D_unpolarized);
 	free(SANSData->S_NucMag_2D);
@@ -2134,11 +2129,13 @@ void free_ScatteringData(ScatteringData *SANSData, \
 	free(SANSData->c_Mag_sanspol_p);
 	free(SANSData->c_Mag_sanspol_m);
 
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Polarization);
 	cudaFree(SANSData_gpu->N_q);
 	cudaFree(SANSData_gpu->N_theta);
 	cudaFree(SANSData_gpu->N_r);
 	cudaFree(SANSData_gpu->N_alpha);
+	cudaDeviceSynchronize();
 
 	cudaFree(SANSData_gpu->q_max);
 	cudaFree(SANSData_gpu->r_max);
@@ -2146,106 +2143,189 @@ void free_ScatteringData(ScatteringData *SANSData, \
 	cudaFree(SANSData_gpu->dtheta);
 	cudaFree(SANSData_gpu->dr);
 	cudaFree(SANSData_gpu->dalpha);
+	cudaDeviceSynchronize();
 
 	cudaFree(SANSData_gpu->qy_2D);
 	cudaFree(SANSData_gpu->qz_2D);
 	cudaFree(SANSData_gpu->q_2D);
 	cudaFree(SANSData_gpu->theta_2D);
+	cudaDeviceSynchronize();
 
 	cudaFree(SANSData_gpu->ry_2D);
 	cudaFree(SANSData_gpu->rz_2D);
 	cudaFree(SANSData_gpu->r_2D);
 	cudaFree(SANSData_gpu->alpha_2D);
+	cudaDeviceSynchronize();
 
 	cudaFree(SANSData_gpu->q_1D);
 	cudaFree(SANSData_gpu->r_1D);
+	cudaDeviceSynchronize();
 
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gxx_real);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gyy_real);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gzz_real);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gxy_real);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gyx_real);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gxz_real);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gzx_real);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gyz_real);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gzy_real);
+	cudaDeviceSynchronize();
 
 	cudaFree(SANSData_gpu->Gxx_imag);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gyy_imag);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gzz_imag);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gxy_imag);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gyx_imag);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gxz_imag);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gzx_imag);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gyz_imag);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Gzy_imag);
-	
+	cudaDeviceSynchronize();
+
 	cudaFree(SANSData_gpu->S_Nuc_2D_unpolarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_2D_unpolarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_NucMag_2D);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_2D_polarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_2D_spin_flip);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_2D_chiral);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_2D_spin_flip_pm);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_2D_spin_flip_mp);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_2D_non_spin_flip_pp);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_2D_non_spin_flip_mm);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_2D_sanspol_p);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_2D_sanspol_m);
+	cudaDeviceSynchronize();
 
 	cudaFree(SANSData_gpu->Corr_Nuc_2D_unpolarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_Mag_2D_unpolarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_Mag_2D_polarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_NucMag_2D);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_Mag_2D_spin_flip);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_Mag_2D_chiral);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_Mag_2D_spin_flip_mp);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_Mag_2D_spin_flip_pm);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_Mag_2D_non_spin_flip_pp);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_Mag_2D_non_spin_flip_mm);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_Mag_2D_sanspol_p);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->Corr_Mag_2D_sanspol_m);
+	cudaDeviceSynchronize();
 
 	cudaFree(SANSData_gpu->S_Nuc_1D_unpolarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_1D_unpolarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_NucMag_1D);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_1D_polarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_1D_chiral);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_1D_spin_flip);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_1D_spin_flip_pm);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_1D_spin_flip_mp);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_1D_non_spin_flip_pp);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_1D_non_spin_flip_mm);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_1D_sanspol_p);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->S_Mag_1D_sanspol_m);
+	cudaDeviceSynchronize();
 
 
 	cudaFree(SANSData_gpu->p_Nuc_unpolarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_Mag_unpolarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_Mag_polarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_NucMag);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_Mag_chiral);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_Mag_spin_flip);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_Mag_spin_flip_pm);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_Mag_spin_flip_mp);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_Mag_non_spin_flip_pp);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_Mag_non_spin_flip_mm);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_Mag_sanspol_p);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->p_Mag_sanspol_m);
+	cudaDeviceSynchronize();
 
 	cudaFree(SANSData_gpu->c_Nuc_unpolarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_Mag_unpolarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_Mag_polarized);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_NucMag);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_Mag_chiral);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_Mag_spin_flip);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_Mag_spin_flip_pm);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_Mag_spin_flip_mp);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_Mag_non_spin_flip_pp);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_Mag_non_spin_flip_mm);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_Mag_sanspol_p);
+	cudaDeviceSynchronize();
 	cudaFree(SANSData_gpu->c_Mag_sanspol_m);
+	cudaDeviceSynchronize();
 
-	cudaFree(SANSData_gpu);
+	LogSystem::write("free SANSdata finished.");
 
 }

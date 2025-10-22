@@ -49,10 +49,9 @@ struct NuclearData{
 void allocate_NuclearDataRAM(NuclearData* NucData, \
                              NucDataProperties* NucDataProp, \
                              int NucData_File_Index){
-   
+	LogSystem::write("data file index: " + std::to_string(NucData_File_Index));
+	LogSystem::write("total atom number: " + std::to_string(NucDataProp->TotalAtomNumber[0]));
 
-        cout << "Data File Index: " << NucData_File_Index << "\n";
-        cout << "Total Atom Number: " << NucDataProp->TotalAtomNumber[0] << "\n";
 
 
          unsigned long int K = NucDataProp->Number_Of_SubFolders;
@@ -122,21 +121,21 @@ void allocate_NuclearDataRAM(NuclearData* NucData, \
         cudaMemcpy(NucData_gpu->N_cum, NucData->N_cum, *NucData->K*sizeof(unsigned long int), cudaMemcpyHostToDevice);
         cudaMemcpy(NucData_gpu->N_act, NucData->N_act, *NucData->K*sizeof(unsigned long int), cudaMemcpyHostToDevice);
   
-        cout << " \n";
+	LogSystem::write("");
             // copy data from Host to Device
-        cout << "Copy Data from RAM to GPU...\n";
+	LogSystem::write("copy NucData from RAM to GPU...");
         cudaMemcpy(NucData_gpu->x, NucData->x, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
-        cout << "   x done...\n";
+	LogSystem::write("  x done...");
         cudaMemcpy(NucData_gpu->y, NucData->y, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
-        cout << "   y done...\n";
+	LogSystem::write("  y done...");
         cudaMemcpy(NucData_gpu->z, NucData->z, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
-        cout << "   z done...\n";
+	LogSystem::write("  z done...");
         cudaMemcpy(NucData_gpu->Nuc, NucData->Nuc, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
-        cout << "   Nuc done...\n";
-        cout << " \n";
-        cout << "Data loaded...\n";
-        cout << " \n";
-  
+	LogSystem::write("  n done...");
+	LogSystem::write("");
+	LogSystem::write("data loaded...");
+	LogSystem::write("");
+ 
        cudaMalloc(&NucData_gpu, sizeof(NuclearData));
        cudaMemcpy(NucData_gpu, NucData, sizeof(NuclearData), cudaMemcpyHostToDevice);
   
@@ -147,9 +146,8 @@ void read_NuclearData(NuclearData* NucData, \
                    	  InputFileData* InputData, \
                       int NucData_File_Index){
 
-
-      cout << " \n";
-      cout << "Load Nuclear Data...\n";
+	LogSystem::write("");
+	LogSystem::write("load NucData...");
 
       unsigned long int K = *NucData->K;
 
@@ -178,7 +176,7 @@ void read_NuclearData(NuclearData* NucData, \
                    + "/" + NucDataProp->SubFolder_FileNames_Nom + "_" + to_string(NucData_File_Index)\
                    + "." + NucDataProp->SubFolder_FileNames_Type;
 
-          cout << filename << "\n";
+	LogSystem::write(filename);
 
           fin.open(filename);
           n = 0;
@@ -213,13 +211,13 @@ void read_NuclearData(NuclearData* NucData, \
           if(k<K){
               NucData->N_cum[k] = N_cum;
           }
-        cout << "N_act: " << N_act << ",  " << "N_cum: " << N_cum << "\n";
+	LogSystem::write("N_act: " + std::to_string(N_act) + ", " + "N_cum: " + std::to_string(N_cum));
        }
 
       *NucData->N_avg = (unsigned long int) (((float)N_cum)/((float) K));
-      cout << "N_avg: " << *NucData->N_avg << "\n";
+	LogSystem::write("N_avg: " + std::to_string(*NucData->N_avg));
+	LogSystem::write("read (x,y,z,n) data finished...");
 
-      cout << "(x, y, z, Nuc) - data load done...\n";
 }
 
 
@@ -239,7 +237,9 @@ void init_NuclearData(NuclearData* NucData, \
 void free_NuclearData(NuclearData *NucData, \
                       NuclearData *NucData_gpu){
 
-        cout << "Free Nuclear Data..." << "\n";
+	LogSystem::write("free NucData...");
+
+//	cudaError_t err;
 
       free(NucData->x);
       free(NucData->y);
@@ -253,18 +253,31 @@ void free_NuclearData(NuclearData *NucData, \
       free(NucData->N_act);
       free(NucData->N_avg);
 
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->x);
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->y);
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->z);
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->Nuc);
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->K);
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->TotalAtomNumber);
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->RotMat);
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->NumberOfElements);
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->N_cum);
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->N_act);
+      cudaDeviceSynchronize();
       cudaFree(NucData_gpu->N_avg);
-      cudaFree(NucData_gpu);
+      cudaDeviceSynchronize();
+
+	LogSystem::write("free NucData finished.");
 
 }
 

@@ -143,24 +143,24 @@ void allocate_MagnetizationDataGPU(MagnetizationData* MagData, \
      cudaMemcpy(MagData_gpu->N_cum, MagData->N_cum, *MagData->K*sizeof(unsigned long int), cudaMemcpyHostToDevice);
      cudaMemcpy(MagData_gpu->N_act, MagData->N_act, *MagData->K*sizeof(unsigned long int), cudaMemcpyHostToDevice);
 		
-     cout << " \n";
+	LogSystem::write("");
          // copy data from Host to Device
-     cout << "Copy Data from RAM to GPU...\n";
-     cudaMemcpy(MagData_gpu->x, MagData->x, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
-     cout << "   x done...\n";
-     cudaMemcpy(MagData_gpu->y, MagData->y, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
-     cout << "   y done...\n";
-     cudaMemcpy(MagData_gpu->z, MagData->z, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
-     cout << "   z done...\n";
-     cudaMemcpy(MagData_gpu->mx, MagData->mx, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
-     cout << "   mx done...\n";
-     cudaMemcpy(MagData_gpu->my, MagData->my, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
-     cout << "   my done...\n";
-     cudaMemcpy(MagData_gpu->mz, MagData->mz, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
-     cout << "   mz done...\n";
-     cout << " \n";
-     cout << "Data loaded...\n";
-     cout << " \n";
+	LogSystem::write("copy data from RAM to GPU...");
+	cudaMemcpy(MagData_gpu->x, MagData->x, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
+     	LogSystem::write("  x done...");
+	cudaMemcpy(MagData_gpu->y, MagData->y, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
+     	LogSystem::write("  y done...");
+     	cudaMemcpy(MagData_gpu->z, MagData->z, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
+     	LogSystem::write("  z done...");
+     	cudaMemcpy(MagData_gpu->mx, MagData->mx, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
+	LogSystem::write("  mx done..."); 
+     	cudaMemcpy(MagData_gpu->my, MagData->my, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
+	LogSystem::write("  my done..."); 
+     	cudaMemcpy(MagData_gpu->mz, MagData->mz, TotalAtomNumber*sizeof(float), cudaMemcpyHostToDevice);
+     	LogSystem::write("  mz done...");
+	LogSystem::write("");
+	LogSystem::write("data transfer finished...");
+	LogSystem::write(""); 
 
 	cudaMalloc(&MagData_gpu, sizeof(MagnetizationData)); 
 	cudaMemcpy(MagData_gpu, MagData, sizeof(MagnetizationData), cudaMemcpyHostToDevice);
@@ -173,8 +173,9 @@ void read_MagnetizationData(MagnetizationData* MagData, \
 				            InputFileData* InputData, \
                             int MagData_File_Index){
 
-	 cout << " \n";
-     cout << "Load Magnetization Data...\n";
+
+	LogSystem::write("");
+	LogSystem::write("read magnetization data to RAM...");
 
      unsigned long int K = *MagData->K;
      bool ExcludeZeroMoments_flag = InputData->ExcludeZeroMoments_flag;
@@ -207,9 +208,8 @@ void read_MagnetizationData(MagnetizationData* MagData, \
          filename = MagDataProp->GlobalFolderPath + "/" + MagDataProp->SubFolderNames_Nom + "_" + to_string(k) \
                   + "/" + MagDataProp->SubFolder_FileNames_Nom + "_" + to_string(MagData_File_Index)\
                   + "." + MagDataProp->SubFolder_FileNames_Type;
-                  
-         cout << filename << "\n";
 
+         LogSystem::write(filename);
 
          fin.open(filename);
          n = 0;
@@ -267,14 +267,12 @@ void read_MagnetizationData(MagnetizationData* MagData, \
         if(k<K){
             MagData->N_cum[k] = N_cum;
         }
-        cout << "N_act: " << N_act << ",  " << "N_cum: " << N_cum << "\n";
-
+	LogSystem::write("N_act: " + std::to_string(N_act) + ", " + "N_cum: " + std::to_string(N_cum));
       }
 
       *MagData->N_avg = (unsigned long int) (((float)N_cum)/((float) K));
-      cout << "N_avg: " << *MagData->N_avg << "\n";
-
-     cout << "(x, y, z, mx, my, mz) - data load done...\n";
+	LogSystem::write("N_avg: " + to_string(*MagData->N_avg));
+	LogSystem::write("read (x, y, z, mx, my, mz) data to RAM finished...");
     
  
  }
@@ -295,7 +293,9 @@ void free_MagnetizationData(MagnetizationData *MagData, \
                   MagnetizationData *MagData_gpu){
  
 
-     cout << "Free Magnetization Data..." << "\n";
+	LogSystem::write("free MagData...");
+
+//	cudaError_t err;
 
      free(MagData->x);
      free(MagData->y);
@@ -312,22 +312,37 @@ void free_MagnetizationData(MagnetizationData *MagData, \
      free(MagData->N_act);
      free(MagData->N_avg);
 
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->x);
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->y);
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->z);
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->mx);
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->my);
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->mz);
+     cudaDeviceSynchronize();
 	 cudaFree(MagData_gpu->K);
+     cudaDeviceSynchronize();
 	 cudaFree(MagData_gpu->TotalAtomNumber);
+     cudaDeviceSynchronize();
 	 cudaFree(MagData_gpu->RotMat);
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->NumberOfElements);
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->NumberOfNonZeroMoments);
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->N_cum);
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->N_act);
+     cudaDeviceSynchronize();
      cudaFree(MagData_gpu->N_avg);
+     cudaDeviceSynchronize();
 
-	 cudaFree(MagData_gpu);
+	LogSystem::write("free MagData finished...");
 
 }
 

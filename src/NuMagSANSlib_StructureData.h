@@ -81,18 +81,18 @@ void allocate_StructureDataGPU(StructureData* StructData, \
 	 cudaMemcpy(StructData_gpu->K, StructData->K, sizeof(unsigned long int), cudaMemcpyHostToDevice);
 	 cudaMemcpy(StructData_gpu->RotMat, StructData->RotMat, 9*sizeof(float), cudaMemcpyHostToDevice);
 		
-     cout << " \n";
+	LogSystem::write("");
          // copy data from Host to Device
-     cout << "Copy Data from RAM to GPU...\n";
+	LogSystem::write("copy data from RAM to GPU...");
      cudaMemcpy(StructData_gpu->x, StructData->x, K*sizeof(float), cudaMemcpyHostToDevice);
-     cout << "   x done...\n";
+	LogSystem::write("   x done...");
      cudaMemcpy(StructData_gpu->y, StructData->y, K*sizeof(float), cudaMemcpyHostToDevice);
-     cout << "   y done...\n";
+	LogSystem::write("   y done...");
      cudaMemcpy(StructData_gpu->z, StructData->z, K*sizeof(float), cudaMemcpyHostToDevice);
-     cout << "   z done...\n";
-     cout << " \n";
-     cout << "Data copied...\n";
-     cout << " \n";
+	LogSystem::write("   z done...");
+	LogSystem::write("");
+	LogSystem::write("data transfer finished...");
+	LogSystem::write("");
 
 	cudaMalloc(&StructData_gpu, sizeof(StructureData));
 	cudaMemcpy(StructData_gpu, StructData, sizeof(StructureData), cudaMemcpyHostToDevice);
@@ -104,8 +104,8 @@ void read_StructureData(StructureData* StructData, \
                         StructDataProperties* StructDataProp, \
                         InputFileData* InputData){
 
-	 cout << " \n";
-     cout << "Load Data...\n";
+	LogSystem::write("");
+	LogSystem::write("read StructData...");
 
      //unsigned long int K = *StructData->K;
 
@@ -120,7 +120,7 @@ void read_StructureData(StructureData* StructData, \
 
 
      filename = StructDataProp->GlobalFilePath;
-     cout << filename << "\n";
+	LogSystem::write(filename);
 
 
      fin.open(filename);
@@ -134,7 +134,7 @@ void read_StructureData(StructureData* StructData, \
     }
 
     fin.close();
-    cout << "(x, y, z) - data load done...\n";
+	LogSystem::write("read (x,y,z) StructData finished...");
     
 }
 
@@ -151,19 +151,27 @@ void init_StructureData(StructureData* StructData, \
 
 void free_StructureData(StructureData *StructData, \
                         StructureData *StructData_gpu){
- 
+
+	LogSystem::write("free StructData...");
      free(StructData->x);
      free(StructData->y);
      free(StructData->z);
      free(StructData->K);
      free(StructData->RotMat);
 
+     cudaDeviceSynchronize();
      cudaFree(StructData_gpu->x);
+     cudaDeviceSynchronize();
      cudaFree(StructData_gpu->y);
+     cudaDeviceSynchronize();
      cudaFree(StructData_gpu->z);
+     cudaDeviceSynchronize();
 	 cudaFree(StructData_gpu->K);
+     cudaDeviceSynchronize();
 	 cudaFree(StructData_gpu->RotMat);
-	 cudaFree(StructData);
+     cudaDeviceSynchronize();
+
+	LogSystem::write("free StructData finished.");
 
 }
 

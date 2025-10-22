@@ -57,7 +57,8 @@ void get_GlobalNucDataPath(std::string Local_NucDataPath, NucDataProperties* Nuc
      getcwd(tmp, PATH_MAX);  // Get the current working directory
      std::string tmp_string = tmp;
      NucDataProp->GlobalFolderPath = tmp_string + "/" + Local_NucDataPath;
-     cout << "found Global NucDataPath: " << NucDataProp->GlobalFolderPath << "\n\n";
+	LogSystem::write("found global NucDataPath: " + NucDataProp->GlobalFolderPath);
+	LogSystem::write("");
 
 }
 
@@ -98,8 +99,9 @@ bool check_number_of_elements_in_folders_NucData(NucDataProperties* NucDataProp)
          current_path = NucDataProp->GlobalFolderPath + "/" + NucDataProp->SubFolderNames_Nom + "_" + std::to_string(k+1);
          Number_Of_Elements[k] = count_NumberOfElements(current_path);
      }
-     cout << "\n";
-             // check wether number of elements in each subfolder is the same
+	LogSystem::write("");
+
+      // check whether number of elements in each subfolder is the same
      bool Check_Flag = true;
      for(int k=1; k < NucDataProp->Number_Of_SubFolders; k++){
          if(Number_Of_Elements[k] != Number_Of_Elements[0]){
@@ -108,7 +110,7 @@ bool check_number_of_elements_in_folders_NucData(NucDataProperties* NucDataProp)
          }
      }
      if(Check_Flag){
-         cout << "Each folder got the same number of elements: " << Number_Of_Elements[0] << "\n";
+	LogSystem::write("Each folder got the same number of elements: " + std::to_string(Number_Of_Elements[0]));
          NucDataProp->Number_Of_Files_In_SubFolder = Number_Of_Elements[0];
      }
      return Check_Flag;
@@ -167,7 +169,7 @@ bool check_Subfolders_NucData(NucDataProperties* NucDataProp){
 
      // count number of subfolders
      NucDataProp->Number_Of_SubFolders = count_NumberOfFolders(NucDataProp->GlobalFolderPath);
-     cout << "Number of Subfolders: " << NucDataProp->Number_Of_SubFolders << "\n";
+	LogSystem::write("Number of Subfolders: " + std::to_string(NucDataProp->Number_Of_SubFolders));
 
      // Read all subfolder names
      std::string SubFolderNames[NucDataProp->Number_Of_SubFolders];
@@ -176,8 +178,8 @@ bool check_Subfolders_NucData(NucDataProperties* NucDataProp){
      bool FolderNames_CheckFlag = false;
      CheckStrings_FolderNames(SubFolderNames, NucDataProp->Number_Of_SubFolders, &FolderNames_CheckFlag, &NucDataProp->SubFolderNames_Nom);
 
-     cout << "We found the Nom: " << NucDataProp->SubFolderNames_Nom << "\n";
-     cout << "FolderNames CheckFlag: " << FolderNames_CheckFlag << "\n\n";
+	LogSystem::write("We found the Nom: " + NucDataProp->SubFolderNames_Nom);
+	LogSystem::write("FolderNames CheckFlag: " + std::string(FolderNames_CheckFlag ? "true" : "false"));
 
      return FolderNames_CheckFlag;
 
@@ -193,7 +195,8 @@ bool check_Subfolder_FileNames_NucData(NucDataProperties* NucDataProp){
         bool Element_Names_CheckFlag = check_element_names_NucData(NucDataProp);
 
         if(Element_Names_CheckFlag){
-            cout << "We found the Nom: " << NucDataProp->SubFolder_FileNames_Nom << ", and the file Type: " << NucDataProp->SubFolder_FileNames_Type << "\n\n";
+		LogSystem::write("We found the Nom: " + NucDataProp->SubFolder_FileNames_Nom + ", and the file Type: " + NucDataProp->SubFolder_FileNames_Type);
+		LogSystem::write("");
             return true;
          }
          else{
@@ -252,9 +255,10 @@ void CountAtomNumbers_NucData(NucDataProperties* NucDataProp){
 // Routine that checks number of subfolders in MagData directory
 bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataProp){
 
-     cout << "##########################################################################################" << "\n";
-     cout << "## Run - NucData Directory Explorer ######################################################" << "\n";
-     cout << "##########################################################################################" << "\n\n";
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("## Run - NucData Directory Explorer ######################################################");
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("");
 
      bool CheckFlag = false;
 
@@ -272,12 +276,13 @@ bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataPr
      CountAtomNumbers_NucData(NucDataProp);
 
      for(int i = 0; i < NucDataProp->Number_Of_Files_In_SubFolder; i++){
-         cout << "Total Number of Atoms in data set " << i+1 << ": " << NucDataProp->TotalAtomNumber[i] << "\n";
+	LogSystem::write("total number of atoms in the data set " + std::to_string(i+1) + ": " + std::to_string(NucDataProp->TotalAtomNumber[i]));
      }
 
-     cout << "##########################################################################################" << "\n";
-     cout << "## Stop - NucData Directory Explorer #####################################################" << "\n";
-     cout << "##########################################################################################" << "\n\n";
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("## Stop - NucData Directory Explorer #####################################################");
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("");
 
      if(Subfolder_CheckFlag && Subfolder_Elements_CheckFlag && FileDimensions_CheckFlag){
          CheckFlag = true;
