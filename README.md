@@ -57,7 +57,9 @@ MIT License
 This project was developed at the [University of Luxembourg](https://www.uni.lu),  
 Department of Physics and Materials Science, **Nanomagnetism Group** (Prof. Andreas Michels).
 
-We greatfully acknowledge financial support from the National Research Fund of Luxembourg (AFR Grant No. 15639149, CORE Grant DeQuSky, and PRIDE MASSENA Grant).
+This work was carried out within the scientific framework of the  
+National Research Fund (FNR) projects AFR 15639149, CORE DeQuSky, and PRIDE MASSENA,  
+which have contributed to the broader research environment of this study.
 
 We thank our colleagues for stimulating discussions and valuable scientific exchange: 
 I. Titov,
@@ -71,5 +73,3 @@ S. Liscak.
 Their insights and perspectives have indirectly contributed to the conceptual
 and computational development of this work.
 
-## Funding
-Financial support from the National Research Fund of Luxembourg is gratefully acknowledged (AFR Grant No. 15639149).
