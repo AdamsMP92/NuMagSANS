@@ -34,7 +34,8 @@ https://adamsmp92.github.io/NuMagSANS/
 ## How to Cite
 To Do
 
-## Acknowledgements
+## License
+MIT License
 
-## Funding
+## Acknowledgements
 Financial support from the National Research Fund of Luxembourg is gratefully acknowledged (AFR Grant No. 15639149).
