@@ -7,6 +7,27 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 
 <sup>1</sup> Department of Physics and Materials Science, University of Luxembourg, 162A Avenue de la Faiencerie, L-1511 Luxembourg, Grand Duchy of Luxembourg
 
+
+## Status
+
+## 📦 Project Status
+
+| **Description** | **Badge** |
+|:-----------------|:----------|
+| **Tests** | [![Tests](https://img.shields.io/github/actions/workflow/status/YOUR_USERNAME/NuMagSANS/tests.yml?label=tests)](https://github.com/YOUR_USERNAME/NuMagSANS/actions) |
+| **Linting** | [![pre-commit.ci](https://results.pre-commit.ci/badge/github/YOUR_USERNAME/NuMagSANS/main.svg)](https://results.pre-commit.ci/latest/github/YOUR_USERNAME/NuMagSANS/main) |
+| **Code style** | [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) |
+| **Releases** | [![PyPI](https://img.shields.io/pypi/v/numagsans.svg)](https://pypi.org/project/numagsans/) |
+| **Coverage** | [![codecov](https://codecov.io/gh/YOUR_USERNAME/NuMagSANS/branch/main/graph/badge.svg)](https://codecov.io/gh/YOUR_USERNAME/NuMagSANS) |
+| **Documentation** | [![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](https://YOUR_USERNAME.github.io/NuMagSANS/) |
+| **YouTube** | [![YouTube](https://img.shields.io/badge/YouTube-channel-red)](https://www.youtube.com/@YOUR_CHANNEL) |
+| **Binder** | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/YOUR_USERNAME/NuMagSANS/main) |
+| **Platforms** | ![Platforms](https://img.shields.io/badge/platform-linux%20%7C%20macOS%20%7C%20windows-lightgrey) |
+| **Downloads** | [![Downloads](https://img.shields.io/pypi/dm/numagsans.svg)](https://pypistats.org/packages/numagsans) |
+| **License** | [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) |
+| **DOI** | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxx) |
+
+
 ## 🧠 About
 
 **NuMagSANS** is a **GPU-accelerated software package** designed for the computation of **nuclear and magnetic small-angle neutron scattering (SANS)** cross sections and correlation functions.  
