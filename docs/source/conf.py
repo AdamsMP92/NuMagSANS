@@ -1,31 +1,44 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# For the full list of built-in configuration values, see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
-
 # -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-
-project = 'NuMagSANS'
-copyright = '2025, Michael Philipp Adams'
-author = 'Michael Philipp Adams'
-release = 'beta1'
+project = "NuMagSANS"
+copyright = "©2025, Michael Philipp Adams"
+author = "Michael Philipp Adams"
+release = "beta1"
 
 # -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+extensions = [
+    "breathe",
+    "myst_parser",       # erlaubt Markdown in der Dokumentation
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.todo",
+]
 
-extensions = ["breathe", "myst_parser"]
 breathe_projects = {"NuMagSANS": "../docs/doxygen/xml"}
 breathe_default_project = "NuMagSANS"
-html_theme = "furo"
 
-templates_path = ['_templates']
+templates_path = ["_templates"]
 exclude_patterns = []
-
-language = '[en]'
+language = "en"
 
 # -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+html_theme = "furo"   
 
-html_theme = 'alabaster'
-html_static_path = ['_static']
+html_static_path = ["_static"]
+
+# -- Furo theme options ------------------------------------------------------
+html_theme_options = {
+    "sidebar_hide_name": False,
+    "light_logo": "logo_light.png",
+    "dark_logo": "logo_dark.png",
+    "light_css_variables": {
+        "color-brand-primary": "#4B8BBE",
+        "color-brand-content": "#306998",
+    },
+    "dark_css_variables": {
+        "color-brand-primary": "#FFE873",
+        "color-brand-content": "#FFD43B",
+    },
+}
+
+# -- Optional custom CSS (falls du Feinheiten ändern willst) -----------------
+html_css_files = ["custom.css"]
