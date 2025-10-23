@@ -13,7 +13,6 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 
 | **Description** | **Badge** |
 |:-----------------|:----------|
-| **Tests** | [![Tests](https://img.shields.io/github/actions/workflow/status/AdamsMP92/NuMagSANS/.github/workflows/tests.yml?label=tests)](https://github.com/AdamsMP92/NuMagSANS/actions) |
 | **Linting** | [![pre-commit.ci](https://results.pre-commit.ci/badge/github/YOUR_USERNAME/NuMagSANS/main.svg)](https://results.pre-commit.ci/latest/github/YOUR_USERNAME/NuMagSANS/main) |
 | **Code style** | [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) |
 | **Releases** | [![PyPI](https://img.shields.io/pypi/v/numagsans.svg)](https://pypi.org/project/numagsans/) |
