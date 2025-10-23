@@ -14,8 +14,6 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 | **Description** | **Badge** |
 |:-----------------|:----------|
 | **Linting** | [![pre-commit.ci](https://results.pre-commit.ci/badge/github/YOUR_USERNAME/NuMagSANS/main.svg)](https://results.pre-commit.ci/latest/github/YOUR_USERNAME/NuMagSANS/main) |
-| **Code style** | [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) |
-| **Coverage** | [![codecov](https://codecov.io/gh/YOUR_USERNAME/NuMagSANS/branch/main/graph/badge.svg)](https://codecov.io/gh/YOUR_USERNAME/NuMagSANS) |
 | **Documentation** | [![Docs](https://img.shields.io/badge/docs-adamsmp92.github.io/NuMagSANS/-blue.svg)](https://adamsmp92.github.io/NuMagSANS/) |
 | **Platforms** | ![Platforms](https://img.shields.io/badge/platform-linux%20%7C%20macOS%20%7C%20windows-lightgrey) |
 | **License** | [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) |
