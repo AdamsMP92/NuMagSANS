@@ -21,7 +21,6 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 | **Platforms** | ![Platforms](https://img.shields.io/badge/platform-linux%20%7C%20macOS%20%7C%20windows-lightgrey) |
 | **Downloads** | [![Downloads](https://img.shields.io/pypi/dm/numagsans.svg)](https://pypistats.org/packages/numagsans) |
 | **License** | [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) |
-| **DOI** | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxx) |
 
 
 ## 🧠 About
