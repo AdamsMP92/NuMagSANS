@@ -11,4 +11,4 @@ NuMagSANS is a GPU-accelerated simulation and analysis framework for magnetic sm
 - [API Reference](api_reference.md)
 
 ---
-*copyright by Michael Philipp Adams, 2025*
+*maintained by Michael Philipp Adams, 2025*
