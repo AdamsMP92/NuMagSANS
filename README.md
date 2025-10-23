@@ -13,6 +13,7 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 
 | **Description** | **Badge** |
 |:-----------------|:----------|
+| ** Docs Build ** | [![Docs Build](https://github.com/AdamsMP92/NuMagSANS/actions/workflows/sphinx.yml/badge.svg)](https://github.com/AdamsMP92/NuMagSANS/actions/workflows/sphinx.yml) |
 | **Linting** | [![pre-commit.ci](https://results.pre-commit.ci/badge/github/YOUR_USERNAME/NuMagSANS/main.svg)](https://results.pre-commit.ci/latest/github/YOUR_USERNAME/NuMagSANS/main) |
 | **Documentation** | [![Docs](https://img.shields.io/badge/docs-adamsmp92.github.io/NuMagSANS/-blue.svg)](https://adamsmp92.github.io/NuMagSANS/) |
 | **Platforms** | ![Platforms](https://img.shields.io/badge/platform-linux%20%7C%20windows-lightgrey) |
