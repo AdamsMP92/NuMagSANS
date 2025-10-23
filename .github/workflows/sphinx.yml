@@ -1,4 +1,4 @@
-name: Build and Deploy Docs
+name: Sphinx
 
 on:
   push:
@@ -14,7 +14,8 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: |
-          pip install sphinx furo breathe myst-parser doxygen
+          sudo apt-get update && sudo apt-get install -y doxygen
+          pip install sphinx furo breathe myst-parser
       - name: Build docs
         working-directory: docs
         run: |
