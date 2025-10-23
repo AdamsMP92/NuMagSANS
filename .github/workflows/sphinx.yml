@@ -1,34 +1,25 @@
-name: Build and Deploy Sphinx Docs
+name: Build and Deploy Docs
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Install dependencies
         run: |
           pip install sphinx furo breathe myst-parser doxygen
-
-      - name: Build documentation
+      - name: Build docs
         working-directory: docs
         run: |
-          doxygen Doxyfile || echo "No Doxygen file found"
-          make html
-
+          doxygen Doxyfile || echo "No Doxyfile found"
+          sphinx-build -b html . _build/html
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
