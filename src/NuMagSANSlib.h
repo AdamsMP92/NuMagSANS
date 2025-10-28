@@ -215,7 +215,8 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	copyGPU2RAM_SpectralData(&SpecData, &SpecData_gpu);
 
 	// scaling of the spectral data on RAM ####################################################
-
+	scale_SpectralData(&ScalFactors, &SpecData, InputData);
+	
 	// write spectral data to csv files #######################################################
 	
 	
