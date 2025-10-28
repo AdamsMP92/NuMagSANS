@@ -30,28 +30,26 @@
 using namespace std;
 
 struct SpectralData {
-   unsigned int *Nq;        // number of q-values
-   unsigned int *Ntheta;    // number of theta-values
-   unsigned int *k_max;     // maximum number of modes
-   float *dtheta;           // angular step-size
-
-   float *q;
-
-   // the arrays are single column and contain the angular sine and cosine spectra
-   // the total array length is 2 * Nq * k_max
-   float *I_Nuc_unpolarized;		  // nuclear SANS cross section
-  	float *I_Mag_unpolarized;		  // unpolarized magnetic SANS cross section
-  	float *I_Mag_polarized;			  // polarized magnetic SANS cross section
-  	float *I_NucMag;					      // nuclear-magnetic interference SANS cross section
-  	float *I_Mag_spin_flip;			  // spin-flip magnetic SANS cross section
-  	float *I_Mag_chiral;				    // chiral magnetic SANS cross section
-  	float *I_Mag_spin_flip_pm;		  // pm-spin-flip magnetic SANS cross section
-  	float *I_Mag_spin_flip_mp;		  // mp-spin-flip magnetic SANS cross section
-  	float *I_Mag_non_spin_flip_pp;	// pp-non-spin-flip magnetic SANS cross section
-  	float *I_Mag_non_spin_flip_mm;	// mm-non-spin-flip magnetic SANS cross section
-  	float *I_Mag_sanspol_p;			  // p-sanspol magnetic SANS cross section
-  	float *I_Mag_sanspol_m;			  // m-sanspol magnetic SANS cross section
-
+	unsigned int *Nq;        // number of q-values
+	unsigned int *Ntheta;    // number of theta-values
+	unsigned int *k_max;     // maximum number of modes
+	float *dtheta;           // angular step-size
+	float *q;
+	
+	// the arrays are single column and contain the angular sine and cosine spectra
+	// the total array length is 2 * Nq * (k_max + 1)
+	float *I_Nuc_unpolarized;		  // nuclear SANS cross section
+	float *I_Mag_unpolarized;		  // unpolarized magnetic SANS cross section
+	float *I_Mag_polarized;			  // polarized magnetic SANS cross section
+	float *I_NucMag;					      // nuclear-magnetic interference SANS cross section
+	float *I_Mag_spin_flip;			  // spin-flip magnetic SANS cross section
+	float *I_Mag_chiral;				    // chiral magnetic SANS cross section
+	float *I_Mag_spin_flip_pm;		  // pm-spin-flip magnetic SANS cross section
+	float *I_Mag_spin_flip_mp;		  // mp-spin-flip magnetic SANS cross section
+	float *I_Mag_non_spin_flip_pp;	// pp-non-spin-flip magnetic SANS cross section
+	float *I_Mag_non_spin_flip_mm;	// mm-non-spin-flip magnetic SANS cross section
+	float *I_Mag_sanspol_p;			  // p-sanspol magnetic SANS cross section
+	float *I_Mag_sanspol_m;			  // m-sanspol magnetic SANS cross section
 };
 
  
