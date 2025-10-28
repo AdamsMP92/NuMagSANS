@@ -51,6 +51,13 @@ struct SpectralData {
 	float *I_Mag_sanspol_m;			  // m-sanspol magnetic SANS cross section
 };
 
+
+void scale_SpectralData(SpectralData* SpecData){
+
+
+
+}
+
 void allocate_SpectralData_RAM(InputFileData* InputData, \
                                ScatteringData* SANSData,\ 
                                SpectralData* SpecData){
