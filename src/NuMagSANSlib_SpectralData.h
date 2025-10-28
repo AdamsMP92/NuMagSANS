@@ -230,12 +230,79 @@ void copyGPU2RAM_SpectralData(SpectralData *S, \
 }
 
 
-void write2CSVtable_SpectralData(InputFileData *InputData, \
-					     	     SpectralData *SpecData, \
-					     	     int MagData_File_Index){
+void write2CSV_SpectralData(InputFileData* InputData,
+                            SpectralData* SpecData,
+                            int MagData_File_Index){
+    LogSystem::write("");
+    LogSystem::write("write spectral decomposition data to csv-files...");
 
+    unsigned int Nq    = *SpecData->Nq;
+    unsigned int k_max = *SpecData->k_max;
+    unsigned int L     = (k_max + 1);
+    unsigned int Ltot  = 2 * Nq * L;  // sin + cos arrays combined
 
+    // === Ordner anlegen ===
+    std::string foldername = InputData->SANSDataFoldername +
+                             "/SANS_" + std::to_string(MagData_File_Index) + "/AngularSpectrum/";	
+    mkdir(foldername.c_str(), 0777);
+
+    auto write_component = [&](const std::string& fname, float* data) {
+        std::ofstream fout(foldername + fname);
+        if (!fout.is_open()) {
+            LogSystem::write("Error opening " + fname);
+            return;
+        }
+
+        // --- Header ---
+        fout << "q";
+        for (unsigned int k = 0; k <= k_max; ++k) fout << ",Ic_" << k;
+        for (unsigned int k = 0; k <= k_max; ++k) fout << ",Is_" << k;
+        fout << "\n";
+
+        // --- Daten schreiben ---
+        unsigned int offset_cos = 0;
+        unsigned int offset_sin = Nq * L; // sin arrays beginnen nach allen cos Werten
+
+        for (unsigned int i = 0; i < Nq; ++i) {
+            fout << SpecData->q[i];
+
+            // cos terms
+            for (unsigned int k = 0; k <= k_max; ++k) {
+                unsigned int idx = i + k * Nq + offset_cos;
+                fout << "," << data[idx];
+            }
+
+            // sin terms
+            for (unsigned int k = 0; k <= k_max; ++k) {
+                unsigned int idx = i + k * Nq + offset_sin;
+                fout << "," << data[idx];
+            }
+
+            fout << "\n";
+        }
+
+        fout.close();
+        LogSystem::write(fname + " written.");
+    };
+
+    // === Write each spectrum ===
+    write_component("I_Nuc_unpolarized.csv",      SpecData->I_Nuc_unpolarized);
+    write_component("I_Mag_unpolarized.csv",      SpecData->I_Mag_unpolarized);
+    write_component("I_Mag_polarized.csv",        SpecData->I_Mag_polarized);
+    write_component("I_NucMag.csv",               SpecData->I_NucMag);
+    write_component("I_Mag_chiral.csv",           SpecData->I_Mag_chiral);
+    write_component("I_Mag_spin_flip.csv",        SpecData->I_Mag_spin_flip);
+    write_component("I_Mag_spin_flip_pm.csv",     SpecData->I_Mag_spin_flip_pm);
+    write_component("I_Mag_spin_flip_mp.csv",     SpecData->I_Mag_spin_flip_mp);
+    write_component("I_Mag_non_spin_flip_pp.csv", SpecData->I_Mag_non_spin_flip_pp);
+    write_component("I_Mag_non_spin_flip_mm.csv", SpecData->I_Mag_non_spin_flip_mm);
+    write_component("I_Mag_sanspol_p.csv",        SpecData->I_Mag_sanspol_p);
+    write_component("I_Mag_sanspol_m.csv",        SpecData->I_Mag_sanspol_m);
+
+    LogSystem::write("All spectral CSV files written successfully.");
 }
+
+
 
 
 
