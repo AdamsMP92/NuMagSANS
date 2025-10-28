@@ -4,7 +4,7 @@
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 16 October 2025
+// Version      : 28 October 2025
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
@@ -76,6 +76,9 @@ struct InputFileData{
 	bool ExcludeZeroMoments_flag;
     
     bool Check_InputFile_Flag;
+
+	int k_max; 
+	bool AngularSpec_activate_flag;
     
     bool output_fourier_correlation_matrix_flag;
     bool output_unpolarized_nuclear_SANS_cross_section_2D_flag;
@@ -311,10 +314,6 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 	LogSystem::write("## Run - Input File Interpreter ##########################################################");
 	LogSystem::write("##########################################################################################");
 
-	//cout << "##########################################################################################" << "\n";
-	//cout << "## Run - Input File Interpreter ##########################################################" << "\n";
-	//cout << "##########################################################################################" << "\n\n";
-
 	bool Check_InputFile_Flag = false;
 
 	ifstream fin;
@@ -324,8 +323,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 	int line_counter = 0;
 
-	bool Check_Flag[92];
-	for(int k=0; k<92; k++){
+	bool Check_Flag[94];
+	for(int k=0; k<94; k++){
 		Check_Flag[k] = false;
 	}
 
@@ -427,13 +426,11 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		parseBool(line, "P_SANSPOL_Corr_1D", InputData->output_p_sanspol_correlation_function_1D_flag, Check_Flag[89]);
 		parseBool(line, "M_SANSPOL_Corr_1D", InputData->output_m_sanspol_correlation_function_1D_flag, Check_Flag[90]);
 		parseBool(line, "Nuclear_2D", InputData->output_unpolarized_nuclear_SANS_cross_section_2D_flag, Check_Flag[91]);
-
+		parse(line, "k_max", InputData->k_max, Check_Flag[92]);
+		parseBool(line, "Angular_Spec", InputData->AngularSpec_activate_flag, Check_Flag[93]);
 
 	}		
-
-
 	fin.close();
-
 
 	// Transfer the User_Selection to integer array
 	if(Check_Flag[7]){
@@ -454,7 +451,6 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		InputData->Number_Of_User_Selections = Number_of_Comma + 1;
 	}
 
-
 	// compute rotation matrix
 	if(Check_Flag[11] && Check_Flag[12]){
 		Compute_RotMat(InputData->RotMat_alpha, InputData->RotMat_beta, InputData->RotMat);
@@ -464,20 +460,12 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 	LogSystem::write(std::to_string(InputData->RotMat[1]) + " " + std::to_string(InputData->RotMat[4]) + " " + std::to_string(InputData->RotMat[7]));
 	LogSystem::write(std::to_string(InputData->RotMat[2]) + " " + std::to_string(InputData->RotMat[5]) + " " + std::to_string(InputData->RotMat[8]));
 	LogSystem::write("");
-	//cout << "Rotation Matrix: " << "\n";
-	//cout << InputData->RotMat[0] << " " << InputData->RotMat[3] << " " << InputData->RotMat[6] << "\n";
-	//cout << InputData->RotMat[1] << " " << InputData->RotMat[4] << " " << InputData->RotMat[7] << "\n";
-	//cout << InputData->RotMat[2] << " " << InputData->RotMat[5] << " " << InputData->RotMat[8] << "\n";
-	//cout << "\n";
-	
-
-	//cout << "\n\n";
 	LogSystem::write("");
 	LogSystem::write("");
 
 	// Check the Error Flags
 	bool Error_Detect = true;
-	for(int k = 0; k < 92; k++){
+	for(int k = 0; k < 94; k++){
 		if(Check_Flag[k] != 1){
 			//cout << "Error Check Flag " << k << "\n";
 			LogSystem::write("Error Check Flag " + std::to_string(k));
@@ -501,19 +489,12 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		LogSystem::write("Polarization is automatically normalized to 1!");
 	}
 
-
-
 	// Give information on errors
 	if(Error_Detect){
 		//cout << " ->-> No Errors Detected" << "\n";
 		LogSystem::write(" ->-> No Errors Detected");
 		Check_InputFile_Flag = true;
 	}
-
-	//cout << "\n\n";
-	//cout << "##########################################################################################" << "\n";
-	//cout << "## Stop - Input File Interpreter #########################################################" << "\n";
-	//cout << "##########################################################################################" << "\n\n";
 
 	LogSystem::write("##########################################################################################");
 	LogSystem::write("## Stop - Input File Interpreter #########################################################");
