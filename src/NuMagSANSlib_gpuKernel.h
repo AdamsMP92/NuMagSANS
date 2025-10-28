@@ -25,12 +25,6 @@
 #include <chrono>
 #include <dirent.h>
 #include <unistd.h>
-
-
-
-
-
-#include <cuda_runtime.h>
 #include <math_constants.h>  // für M_PI
 
 // ============================================================================
