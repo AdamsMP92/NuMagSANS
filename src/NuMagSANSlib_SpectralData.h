@@ -58,14 +58,44 @@ void allocate_SpectralData_RAM(InputFileData* InputData, \
                                SpectralData* SpecData){
 
     SpectralData->Nq = (unsigned int*) malloc(sizeof(unsigned int));
+    SpectralData->Ntheta = (unsigned int*) malloc(sizeof(unsigned int));
     SpectralData->k_max = (unsigned int*) malloc(sizeof(unsigned int));
     SpectralData->dtheta = (float*) malloc(sizeof(float));
  
     *SpectralData->Nq = InputData->Nq;
+    *SpectralData->Ntheta = InputData->Ntheta;
     *SpectralData->k_max = InputData->k_max;
     *SpectralData->dtheta = *SANSData->dtheta;
 
+    // --- Allocate spectral arrays ---
+    size_t len = 2 * (*(SpecData->Nq)) * (*(SpecData->k_max)) * sizeof(float);
 
+    SpecData->I_Nuc_2D_unpolarized      = (float*) malloc(len);
+    SpecData->I_Mag_2D_unpolarized      = (float*) malloc(len);
+    SpecData->I_Mag_2D_polarized        = (float*) malloc(len);
+    SpecData->I_NucMag_2D               = (float*) malloc(len);
+    SpecData->I_Mag_2D_spin_flip        = (float*) malloc(len);
+    SpecData->I_Mag_2D_chiral           = (float*) malloc(len);
+    SpecData->I_Mag_2D_spin_flip_pm     = (float*) malloc(len);
+    SpecData->I_Mag_2D_spin_flip_mp     = (float*) malloc(len);
+    SpecData->I_Mag_2D_non_spin_flip_pp = (float*) malloc(len);
+    SpecData->I_Mag_2D_non_spin_flip_mm = (float*) malloc(len);
+    SpecData->I_Mag_2D_sanspol_p        = (float*) malloc(len);
+    SpecData->I_Mag_2D_sanspol_m        = (float*) malloc(len);
+
+    // --- Initialize to zero ---
+    memset(SpecData->I_Nuc_2D_unpolarized, 0, len);
+    memset(SpecData->I_Mag_2D_unpolarized, 0, len);
+    memset(SpecData->I_Mag_2D_polarized, 0, len);
+    memset(SpecData->I_NucMag_2D, 0, len);
+    memset(SpecData->I_Mag_2D_spin_flip, 0, len);
+    memset(SpecData->I_Mag_2D_chiral, 0, len);
+    memset(SpecData->I_Mag_2D_spin_flip_pm, 0, len);
+    memset(SpecData->I_Mag_2D_spin_flip_mp, 0, len);
+    memset(SpecData->I_Mag_2D_non_spin_flip_pp, 0, len);
+    memset(SpecData->I_Mag_2D_non_spin_flip_mm, 0, len);
+    memset(SpecData->I_Mag_2D_sanspol_p, 0, len);
+    memset(SpecData->I_Mag_2D_sanspol_m, 0, len);
  
 }
 
