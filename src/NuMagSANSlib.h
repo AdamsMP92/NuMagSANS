@@ -40,6 +40,7 @@
 #include "NuMagSANSlib_NucData.h"
 #include "NuMagSANSlib_StructureData.h"
 #include "NuMagSANSlib_SANSData.h"
+#include "NuMagSANSlib_SpectralData.h"
 #include "NuMagSANSlib_gpuKernel.h"
 
 using namespace std;
@@ -86,6 +87,10 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	ScalingFactors ScalFactors;
 	init_ScalingFactors(&ScalFactors, InputData, &MagData, &NucData, &SANSData);
 
+	// initialize spectral data ##############################################################
+	SpectralData SpecData, SpecData_gpu;
+	init_SpectralData(InputData, &SpecData, &SpecData_gpu);
+	
 	// compute 2D SANS cross sections #########################################################
 	int L = (*SANSData.N_q) * (*SANSData.N_theta);
 	LogSystem::write("total number of Fourier space bins: " + std::to_string(L));
@@ -187,6 +192,14 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 	}
 
+	// compute angular spectral intensities ###################################################
+	LogSystem::write("run: angular spectrum analyzer");
+
+	err = cudaGetLastError();
+	if (err != cudaSuccess) {
+	   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+	}
+	
 	// copy scattering data from GPU to RAM ###################################################
 	copyGPU2RAM_ScatteringData(&SANSData, &SANSData_gpu);
 
@@ -198,6 +211,11 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	//write2CSV_ScatteringData(InputData, &SANSData, Data_File_Index);
 	write2CSVtable_ScatteringData(InputData, &SANSData, Data_File_Index);
 
+
+	// copy spectral data from GPU to RAM #####################################################
+	copyGPU2RAM_SpectralData(&SpecData, &SpecData_gpu);
+
+	
 
 	// free memory ############################################################################
 	LogSystem::write("free memory...");
@@ -219,9 +237,12 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 		//std::cout << "Free Struct Data" << std::endl;
 	}
 	
+	// free scattering data
 	free_ScatteringData(&SANSData, &SANSData_gpu);
-	//cudaFree(SANSData_gpu);
 
+	// free spectral data
+	free_SpectralData(&SpecData, &SpecData_gpu);
+	
 	// print result of time measurement #######################################################
 	LogSystem::write("");
 	auto finish_total_time = std::chrono::high_resolution_clock::now();	
