@@ -202,6 +202,15 @@ void copyGPU2RAM_SpectralData(SpectralData *S, \
 }
 
 
+void write2CSVtable_SpectralData(InputFileData *InputData, \
+					     	     SpectralData *SpecData, \
+					     	     int MagData_File_Index){
+
+
+}
+
+
+
 void free_SpectralData(SpectralData* S, \
                        SpectralData* S_gpu)
 {
