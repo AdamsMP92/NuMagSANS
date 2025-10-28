@@ -75,7 +75,7 @@ void allocate_SpectralData_RAM(InputFileData* InputData, \
     memcpy(SpecData->q, SANSData->q_1D, (*SpecData->Nq) * sizeof(float));
 
     // allocate spectral arrays
-    size_t len = 2 * (*(SpecData->Nq)) * (*(SpecData->k_max)) * sizeof(float);
+    size_t len = 2 * (*(SpecData->Nq)) * ((*(SpecData->k_max)) + 1) * sizeof(float);
     SpecData->I_Nuc_unpolarized      = (float*) malloc(len);
     SpecData->I_Mag_unpolarized      = (float*) malloc(len);
     SpecData->I_Mag_polarized        = (float*) malloc(len);
@@ -123,7 +123,7 @@ void allocate_SpectralData_GPU(SpectralData* SpecData, \
     unsigned int Nq    = *SpecData->Nq;
     unsigned int k_max = *SpecData->k_max;
     size_t len_q  = Nq * sizeof(float);
-    size_t len_I  = 2 * Nq * k_max * sizeof(float);
+    size_t len_I  = 2 * Nq * (k_max + 1) * sizeof(float);
 
     // Allocate arrays on GPU
     cudaMalloc((void**)&(SpecData_gpu->q), len_q);
@@ -167,7 +167,7 @@ void init_SpectralData(InputFileData *InputData, \
                        SpectralData* SpecData_gpu){
 
      allocate_SpectralData_RAM(InputData, SANSData, SpecData);
-     allocate_SpectralData_GPU(SpecData, SpecData_gpu;
+     allocate_SpectralData_GPU(SpecData, SpecData_gpu);
 
 }
 
@@ -180,7 +180,7 @@ void copyGPU2RAM_SpectralData(SpectralData *S, \
     unsigned int Nq    = *S->Nq;
     unsigned int k_max = *S->k_max;
 
-    size_t len_I = 2 * Nq * k_max * sizeof(float);
+    size_t len_I = 2 * Nq * (k_max + 1) * sizeof(float);
 
     // Copy spectral arrays 
     cudaMemcpy(S->I_Nuc_unpolarized,      S_gpu->I_Nuc_unpolarized,      len_I, cudaMemcpyDeviceToHost);
