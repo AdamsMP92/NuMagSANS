@@ -194,7 +194,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 	// compute angular spectral intensities ###################################################
 	LogSystem::write("run: angular spectrum analyzer");
-
+	CorrelationFunction_2D<<<(L+255)/256, 256>>>ComputeSpectralDecomposition(SANSData_gpu, SpecData_gpu);
 	err = cudaGetLastError();
 	if (err != cudaSuccess) {
 	   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
@@ -208,13 +208,16 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	scale_ScatteringData(&ScalFactors, &SANSData, InputData);
 
 	// write scattering data to csv files #####################################################
-	//write2CSV_ScatteringData(InputData, &SANSData, Data_File_Index);
 	write2CSVtable_ScatteringData(InputData, &SANSData, Data_File_Index);
 
 
 	// copy spectral data from GPU to RAM #####################################################
 	copyGPU2RAM_SpectralData(&SpecData, &SpecData_gpu);
 
+	// scaling of the spectral data on RAM ####################################################
+
+	// write spectral data to csv files #######################################################
+	
 	
 
 	// free memory ############################################################################
