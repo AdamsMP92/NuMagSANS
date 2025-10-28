@@ -107,7 +107,57 @@ void allocate_SpectralData_RAM(InputFileData* InputData, \
 
 void allocate_SpectralData_GPU(SpectralData* SpecData, \
                                SpectralData* SpecData_gpu){
+ 
+    // Allocate scalar members on GPU
+    cudaMalloc(&(SpecData_gpu->Nq),     sizeof(unsigned int));
+    cudaMalloc(&(SpecData_gpu->Ntheta), sizeof(unsigned int));
+    cudaMalloc(&(SpecData_gpu->k_max),  sizeof(unsigned int));
+    cudaMalloc(&(SpecData_gpu->dtheta), sizeof(float));
 
+    // Copy scalar values from host SpecData → device SpecData_gpu
+    cudaMemcpy(SpecData_gpu->Nq,     SpecData->Nq,     sizeof(unsigned int), cudaMemcpyHostToDevice);
+    cudaMemcpy(SpecData_gpu->Ntheta, SpecData->Ntheta, sizeof(unsigned int), cudaMemcpyHostToDevice);
+    cudaMemcpy(SpecData_gpu->k_max,  SpecData->k_max,  sizeof(unsigned int), cudaMemcpyHostToDevice);
+    cudaMemcpy(SpecData_gpu->dtheta, SpecData->dtheta, sizeof(float),        cudaMemcpyHostToDevice);
+
+    unsigned int Nq    = *SpecData->Nq;
+    unsigned int k_max = *SpecData->k_max;
+    size_t len_q  = Nq * sizeof(float);
+    size_t len_I  = 2 * Nq * k_max * sizeof(float);
+
+    // Allocate arrays on GPU
+    cudaMalloc((void**)&(SpecData_gpu->q), len_q);
+    cudaMemcpy(SpecData_gpu->q, SpecData->q, len_q, cudaMemcpyHostToDevice);
+
+    cudaMalloc(&(SpecData_gpu->I_Nuc_unpolarized), len_I);
+    cudaMalloc(&(SpecData_gpu->I_Mag_unpolarized), len_I);
+    cudaMalloc(&(SpecData_gpu->I_Mag_polarized), len_I);
+    cudaMalloc(&(SpecData_gpu->I_NucMag), len_I);
+    cudaMalloc(&(SpecData_gpu->I_Mag_spin_flip), len_I);
+    cudaMalloc(&(SpecData_gpu->I_Mag_chiral), len_I);
+    cudaMalloc(&(SpecData_gpu->I_Mag_spin_flip_pm), len_I);
+    cudaMalloc(&(SpecData_gpu->I_Mag_spin_flip_mp), len_I);
+    cudaMalloc(&(SpecData_gpu->I_Mag_non_spin_flip_pp), len_I);
+    cudaMalloc(&(SpecData_gpu->I_Mag_non_spin_flip_mm), len_I);
+    cudaMalloc(&(SpecData_gpu->I_Mag_sanspol_p), len_I);
+    cudaMalloc(&(SpecData_gpu->I_Mag_sanspol_m), len_I);
+
+    // Initialize GPU arrays with zeros
+    cudaMemset(SpecData_gpu->I_Nuc_unpolarized,      0, len_I);
+    cudaMemset(SpecData_gpu->I_Mag_unpolarized,      0, len_I);
+    cudaMemset(SpecData_gpu->I_Mag_polarized,        0, len_I);
+    cudaMemset(SpecData_gpu->I_NucMag,               0, len_I);
+    cudaMemset(SpecData_gpu->I_Mag_spin_flip,        0, len_I);
+    cudaMemset(SpecData_gpu->I_Mag_chiral,           0, len_I);
+    cudaMemset(SpecData_gpu->I_Mag_spin_flip_pm,     0, len_I);
+    cudaMemset(SpecData_gpu->I_Mag_spin_flip_mp,     0, len_I);
+    cudaMemset(SpecData_gpu->I_Mag_non_spin_flip_pp, 0, len_I);
+    cudaMemset(SpecData_gpu->I_Mag_non_spin_flip_mm, 0, len_I);
+    cudaMemset(SpecData_gpu->I_Mag_sanspol_p,        0, len_I);
+    cudaMemset(SpecData_gpu->I_Mag_sanspol_m,        0, len_I);
+
+    cudaMalloc(&SpecData_gpu, sizeof(SpectralData));
+    cudaMemcpy(SpecData_gpu, SpecData, sizeof(ScatteringData), cudaMemcpyHostToDevice);
  
 }
 
