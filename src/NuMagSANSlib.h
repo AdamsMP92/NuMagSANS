@@ -83,13 +83,13 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	ScatteringData SANSData, SANSData_gpu;
 	init_ScatteringData(InputData, &SANSData, &SANSData_gpu);
 
-	// initialize scaling factors #############################################################
-	ScalingFactors ScalFactors;
-	init_ScalingFactors(&ScalFactors, InputData, &MagData, &NucData, &SANSData);
-
 	// initialize spectral data ##############################################################
 	SpectralData SpecData, SpecData_gpu;
 	init_SpectralData(InputData, &SpecData, &SpecData_gpu);
+	
+	// initialize scaling factors #############################################################
+	ScalingFactors ScalFactors;
+	init_ScalingFactors(&ScalFactors, InputData, &MagData, &NucData, &SANSData);
 	
 	// compute 2D SANS cross sections #########################################################
 	int L = (*SANSData.N_q) * (*SANSData.N_theta);
