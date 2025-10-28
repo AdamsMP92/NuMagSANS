@@ -218,7 +218,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	scale_SpectralData(&ScalFactors, &SpecData, InputData);
 	
 	// write spectral data to csv files #######################################################
-	
+	write2CSV_SpectralData(InputData, &SpecData, Data_File_Index);
 	
 
 	// free memory ############################################################################
