@@ -171,6 +171,37 @@ void init_SpectralData(InputFileData *InputData, \
 
 }
 
+
+void copyGPU2RAM_SpectralData(SpectralData *S, \
+							                       SpectralData *S_gpu){
+
+    cudaDeviceSynchronize();
+
+    unsigned int Nq    = *S->Nq;
+    unsigned int k_max = *S->k_max;
+
+    size_t len_I = 2 * Nq * k_max * sizeof(float);
+
+    // Copy spectral arrays 
+    cudaMemcpy(S->I_Nuc_unpolarized,      S_gpu->I_Nuc_unpolarized,      len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_Mag_unpolarized,      S_gpu->I_Mag_unpolarized,      len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_Mag_polarized,        S_gpu->I_Mag_polarized,        len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_NucMag,               S_gpu->I_NucMag,               len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_Mag_spin_flip,        S_gpu->I_Mag_spin_flip,        len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_Mag_chiral,           S_gpu->I_Mag_chiral,           len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_Mag_spin_flip_pm,     S_gpu->I_Mag_spin_flip_pm,     len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_Mag_spin_flip_mp,     S_gpu->I_Mag_spin_flip_mp,     len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_Mag_non_spin_flip_pp, S_gpu->I_Mag_non_spin_flip_pp, len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_Mag_non_spin_flip_mm, S_gpu->I_Mag_non_spin_flip_mm, len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_Mag_sanspol_p,        S_gpu->I_Mag_sanspol_p,        len_I, cudaMemcpyDeviceToHost);
+    cudaMemcpy(S->I_Mag_sanspol_m,        S_gpu->I_Mag_sanspol_m,        len_I, cudaMemcpyDeviceToHost);
+
+    // === 4. Synchronize to ensure data is ready ===
+    cudaDeviceSynchronize();
+
+}
+
+
 void free_SpectralData(SpectralData* S, \
                        SpectralData* S_gpu)
 {
