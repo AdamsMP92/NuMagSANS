@@ -57,15 +57,15 @@ void allocate_SpectralData_RAM(InputFileData* InputData, \
                                ScatteringData* SANSData,\ 
                                SpectralData* SpecData){
 
-    SpectralData->Nq = (unsigned int*) malloc(sizeof(unsigned int));
-    SpectralData->Ntheta = (unsigned int*) malloc(sizeof(unsigned int));
-    SpectralData->k_max = (unsigned int*) malloc(sizeof(unsigned int));
-    SpectralData->dtheta = (float*) malloc(sizeof(float));
+    SpecData->Nq = (unsigned int*) malloc(sizeof(unsigned int));
+    SpecData->Ntheta = (unsigned int*) malloc(sizeof(unsigned int));
+    SpecData->k_max = (unsigned int*) malloc(sizeof(unsigned int));
+    SpecData->dtheta = (float*) malloc(sizeof(float));
  
-    *SpectralData->Nq = InputData->Nq;
-    *SpectralData->Ntheta = InputData->Ntheta;
-    *SpectralData->k_max = InputData->k_max;
-    *SpectralData->dtheta = *SANSData->dtheta;
+    *SpecData->Nq = InputData->Nq;
+    *SpecData->Ntheta = InputData->Ntheta;
+    *SpecData->k_max = InputData->k_max;
+    *SpecData->dtheta = *SANSData->dtheta;
 
     // --- Allocate spectral arrays ---
     size_t len = 2 * (*(SpecData->Nq)) * (*(SpecData->k_max)) * sizeof(float);
