@@ -1,10 +1,10 @@
 // File         : NuMagSANSlib_gpuKernel.h
-// Author       : Michael Philipp ADAMS, M.Sc.
+// Author       : Dr. Michael Philipp ADAMS
 // Company      : University of Luxembourg
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 28 November 2024
+// Version      : 28 October 2025
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
@@ -38,55 +38,101 @@
 // ============================================================================
 __global__
 void ComputeSpectralDecomposition(ScatteringData SANSData,
-                                  SpectralData SpecData)
-{
+                                  SpectralData SpecData){
+	
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     unsigned int Nq     = *SANSData.N_q;
     unsigned int Ntheta = *SANSData.N_theta;
     unsigned int k_max  = *SpecData.k_max;
     float dtheta        = *SANSData.dtheta;
+	
+	unsigned int SANSidx = 0;
+	unsigned int SPECidx_cos = 0;
+	unsigned int SPECidx_sin = 0;
 
-    if (i >= Nq) return;
+	float sum_Nuc_cos = 0.0f;
+	float sum_Mag_cos = 0.0f;
+	float sum_Pol_cos = 0.0f;
+	float sum_NucMag_cos = 0.0f;
+	float sum_Chiral_cos = 0.0f;
 
-    // Loop over spectral modes k = 0...k_max-1
-    for (unsigned int k = 0; k < k_max; ++k) {
+	float sum_Nuc_sin = 0.0f;
+	float sum_Mag_sin = 0.0f;
+	float sum_Pol_sin = 0.0f;
+	float sum_NucMag_sin = 0.0f;
+	float sum_Chiral_sin = 0.0f;
 
-        float sum_Nuc = 0.0f;
-        float sum_Mag = 0.0f;
-        float sum_Pol = 0.0f;
-        float sum_NucMag = 0.0f;
-        float sum_Chiral = 0.0f;
+	float w = dtheta / (4.0f * (float)M_PI);  // Trapezregel-Gewicht
 
-        // --- integrate over theta using trapezoidal rule ---
-        for (unsigned int j = 0; j < Ntheta - 1; ++j) {
-            float w = 0.5f * dtheta;  // Trapezregel-Gewicht
-            float theta1 = j * dtheta;
-            float theta2 = (j + 1) * dtheta;
+	float phi_cos1 = 0.0f;
+	float phi_cos2 = 0.0f;
+	float phi_sin1 = 0.0f; 
+	float phi_sin2 = 0.0f;
+	
+    if (i < Nq){
+	    for (unsigned int k = 0; k <= k_max; ++k) {
+			
+			sum_Nuc_cos = 0.0f;
+			sum_Mag_cos = 0.0f;
+			sum_Pol_cos = 0.0f;
+			sum_NucMag_cos = 0.0f;
+			sum_Chiral_cos = 0.0f;
+			sum_Nuc_sin = 0.0f;
+			sum_Mag_sin = 0.0f;
+			sum_Pol_sin = 0.0f;
+			sum_NucMag_sin = 0.0f;
+			sum_Chiral_sin = 0.0f;
+			
+	        for (unsigned int j = 0; j < Ntheta - 1; ++j) {
+	          
+	            phi_cos1 = cosf(k * j * dtheta);
+	            phi_cos2 = cosf(k * (j + 1) * dtheta);
+	
+				phi_sin1 = sinf(k * j * dtheta);
+	            phi_sin2 = sinf(k * (j + 1) * dtheta);
+	
+				SANSidx = j + i * Ntheta;
+				
+	            sum_Nuc_cos    += SANSData.S_Nuc_2D_unpolarized[SANSidx] * phi_cos1 \
+								+ SANSData.S_Nuc_2D_unpolarized[SANSidx+1] * phi_cos2;
+	            sum_Mag_cos    += SANSData.S_Mag_2D_unpolarized[SANSidx] * phi_cos1 \
+					        	+ SANSData.S_Mag_2D_unpolarized[SANSidx+1] * phi_cos2;
+	            sum_Pol_cos    += SANSData.S_Mag_2D_polarized[SANSidx] * phi_cos1 \
+								+ SANSData.S_Mag_2D_polarized[SANSidx+1] * phi_cos2;
+	            sum_NucMag_cos += SANSData.S_NucMag_2D[SANSidx] * phi_cos1 \
+								+ SANSData.S_NucMag_2D[SANSidx+1] * phi_cos2;
+	            sum_Chiral_cos += SANSData.S_Mag_2D_chiral[SANSidx] * phi_cos1 \
+								+ SANSData.S_Mag_2D_chiral[SANSidx+1] * phi_cos2;
+	
+				sum_Nuc_sin    += SANSData.S_Nuc_2D_unpolarized[SANSidx] * phi_sin1 \
+								+ SANSData.S_Nuc_2D_unpolarized[SANSidx+1] * phi_sin2;
+	            sum_Mag_sin    += SANSData.S_Mag_2D_unpolarized[SANSidx] * phi_sin1 \
+					        	+ SANSData.S_Mag_2D_unpolarized[SANSidx+1] * phi_sin2;
+	            sum_Pol_sin    += SANSData.S_Mag_2D_polarized[SANSidx] * phi_sin1 \
+								+ SANSData.S_Mag_2D_polarized[SANSidx+1] * phi_sin2;
+	            sum_NucMag_sin += SANSData.S_NucMag_2D[SANSidx] * phi_sin1 \
+								+ SANSData.S_NucMag_2D[SANSidx+1] * phi_sin2;
+	            sum_Chiral_sin += SANSData.S_Mag_2D_chiral[SANSidx] * phi_sin1 \
+								+ SANSData.S_Mag_2D_chiral[SANSidx+1] * phi_sin2;
+				
+	        }
+	
+	        SPECidx_cos = i * k_max + k;
+			SPECidx_sin = i * k_max + k;
+			
+	        SpecData.I_Nuc_unpolarized[SPECidx_cos] = sum_Nuc_cos * w;
+	        SpecData.I_Mag_unpolarized[SPECidx_cos] = sum_Mag_cos * w;
+	        SpecData.I_Mag_polarized[SPECidx_cos]   = sum_Pol_cos * w;
+	        SpecData.I_NucMag[SPECidx_cos]          = sum_NucMag_cos * w;
+	        SpecData.I_Mag_chiral[SPECidx_cos]      = sum_Chiral_cos * w;
 
-            // Beispiel: spektrale Gewichtung (Fourier-Komponente)
-            float phi_k1 = cosf(k * theta1);
-            float phi_k2 = cosf(k * theta2);
-
-            sum_Nuc    += w * (SANSData.S_Nuc_2D_unpolarized[j + i * Ntheta] * phi_k1 +
-                               SANSData.S_Nuc_2D_unpolarized[j + 1 + i * Ntheta] * phi_k2);
-            sum_Mag    += w * (SANSData.S_Mag_2D_unpolarized[j + i * Ntheta] * phi_k1 +
-                               SANSData.S_Mag_2D_unpolarized[j + 1 + i * Ntheta] * phi_k2);
-            sum_Pol    += w * (SANSData.S_Mag_2D_polarized[j + i * Ntheta] * phi_k1 +
-                               SANSData.S_Mag_2D_polarized[j + 1 + i * Ntheta] * phi_k2);
-            sum_NucMag += w * (SANSData.S_NucMag_2D[j + i * Ntheta] * phi_k1 +
-                               SANSData.S_NucMag_2D[j + 1 + i * Ntheta] * phi_k2);
-            sum_Chiral += w * (SANSData.S_Mag_2D_chiral[j + i * Ntheta] * phi_k1 +
-                               SANSData.S_Mag_2D_chiral[j + 1 + i * Ntheta] * phi_k2);
-        }
-
-        // --- Ergebnis in Spektraldaten schreiben ---
-        unsigned int idx = i * k_max + k;
-        SpecData.I_Nuc_unpolarized[idx] = sum_Nuc / (4.0f * (float)M_PI);
-        SpecData.I_Mag_unpolarized[idx] = sum_Mag / (4.0f * (float)M_PI);
-        SpecData.I_Mag_polarized[idx]   = sum_Pol / (4.0f * (float)M_PI);
-        SpecData.I_NucMag[idx]          = sum_NucMag / (4.0f * (float)M_PI);
-        SpecData.I_Mag_chiral[idx]      = sum_Chiral / (4.0f * (float)M_PI);
-    }
+			SpecData.I_Nuc_unpolarized[SPECidx_sin] = sum_Nuc_sin * w;
+	        SpecData.I_Mag_unpolarized[SPECidx_sin] = sum_Mag_sin * w;
+	        SpecData.I_Mag_polarized[SPECidx_sin]   = sum_Pol_sin * w;
+	        SpecData.I_NucMag[SPECidx_sin]          = sum_NucMag_sin * w;
+	        SpecData.I_Mag_chiral[SPECidx_sin]      = sum_Chiral_sin * w;
+		}
+	}
 }
 
 
