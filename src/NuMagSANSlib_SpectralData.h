@@ -192,7 +192,43 @@ void free_SpectralData(SpectralData* S, \
     free(S->I_Mag_non_spin_flip_mm);
     free(S->I_Mag_sanspol_p);
     free(S->I_Mag_sanspol_m);
- 
+
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->Nq); 
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->Ntheta); 
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->k_max);
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->dtheta); 
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->q);
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Nuc_unpolarized); 
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Mag_unpolarized);
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Mag_polarized); 
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_NucMag);
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Mag_spin_flip); 
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Mag_chiral);
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Mag_spin_flip_pm); 
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Mag_spin_flip_mp);
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Mag_non_spin_flip_pp); 
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Mag_non_spin_flip_mm);
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Mag_sanspol_p); 
+    cudaDeviceSynchronize();
+    cudaFree(S_gpu->I_Mag_sanspol_m);
+    cudaDeviceSynchronize();
+
 }
 
 
