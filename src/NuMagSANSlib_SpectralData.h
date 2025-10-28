@@ -156,7 +156,9 @@ void allocate_SpectralData_GPU(SpectralData* SpecData, \
 
     cudaMalloc(&SpecData_gpu, sizeof(SpectralData));
     cudaMemcpy(SpecData_gpu, SpecData, sizeof(ScatteringData), cudaMemcpyHostToDevice);
- 
+
+	cudaDeviceSynchronize();
+	
 }
 
 void init_SpectralData(InputFileData *InputData, \
