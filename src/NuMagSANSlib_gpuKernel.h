@@ -21,7 +21,6 @@
 #include <cuda_runtime.h>
 #include <cublas_v2.h>
 #include <stdexcept>
-#include <math.h>
 #include <chrono>
 #include <dirent.h>
 #include <unistd.h>
@@ -39,6 +38,9 @@ void ComputeSpectralDecomposition(ScatteringData SANSData,
     unsigned int Ntheta = *SANSData.N_theta;
     unsigned int k_max  = *SpecData.k_max;
     float dtheta        = *SANSData.dtheta;
+
+	// total array length for sine and cosine respectively
+	unsigned int L = (k_max + 1) * Nq;
 	
 	unsigned int SANSidx = 0;
 	unsigned int SPECidx_cos = 0;
@@ -56,7 +58,8 @@ void ComputeSpectralDecomposition(ScatteringData SANSData,
 	float sum_NucMag_sin = 0.0f;
 	float sum_Chiral_sin = 0.0f;
 
-	float w = dtheta / (4.0f * (float)M_PI);  // Trapezregel-Gewicht
+	// cofactor 
+	float w = 0.0f;  
 
 	float phi_cos1 = 0.0f;
 	float phi_cos2 = 0.0f;
@@ -71,6 +74,7 @@ void ComputeSpectralDecomposition(ScatteringData SANSData,
 			sum_Pol_cos = 0.0f;
 			sum_NucMag_cos = 0.0f;
 			sum_Chiral_cos = 0.0f;
+			
 			sum_Nuc_sin = 0.0f;
 			sum_Mag_sin = 0.0f;
 			sum_Pol_sin = 0.0f;
@@ -110,9 +114,15 @@ void ComputeSpectralDecomposition(ScatteringData SANSData,
 								+ SANSData.S_Mag_2D_chiral[SANSidx+1] * phi_sin2;
 				
 	        }
-	
-	        SPECidx_cos = i * k_max + k;
-			SPECidx_sin = i * k_max + k;
+
+			if(k==0){
+				w = dtheta/(4.0f * (float)M_PI);
+			}else{
+				w = dtheta/(2.0f * (float)M_PI);
+			}
+			
+	        SPECidx_cos = i + k * Nq;
+			SPECidx_sin = i + k * Nq + L;
 			
 	        SpecData.I_Nuc_unpolarized[SPECidx_cos] = sum_Nuc_cos * w;
 	        SpecData.I_Mag_unpolarized[SPECidx_cos] = sum_Mag_cos * w;
