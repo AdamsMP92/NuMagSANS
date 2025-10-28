@@ -53,13 +53,39 @@ struct SpectralData {
 };
 
  
-inline void allocateAngularSpectrum(SpectralData* SpecData, ScatteringData* ScatData)
-{
-   
-}
+void allocate_SpectralData_RAM(InputFileData* InputData, \
+                               ScatteringData* SANSData,\ 
+                               SpectralData* SpecData){
+
+    SpectralData->Nq = (unsigned int*) malloc(sizeof(unsigned int));
+    SpectralData->k_max = (unsigned int*) malloc(sizeof(unsigned int));
+    SpectralData->dtheta = (float*) malloc(sizeof(float));
+ 
+    *SpectralData->Nq = InputData->Nq;
+    *SpectralData->k_max = InputData->k_max;
+    *SpectralData->dtheta = *SANSData->dtheta;
+
 
  
-inline void freeAngularSpectrum(AngularSpectrum* A)
+}
+
+void allocate_SpectralData_GPU(SpectralData* SpecData, \
+                               SpectralData* SpecData_gpu){
+
+ 
+}
+
+void init_SpectralData(InputFileData *InputData, \
+                       ScatteringData* SANSData, \
+                       SpectralData* SpecData, \
+                       SpectralData* SpecData_gpu){
+
+     allocate_SpectralData_RAM(InputData, SANSData, SpecData);
+     allocate_SpectralData_GPU(SpecData, SpecData_gpu;
+
+}
+
+void free_SpectralData(AngularSpectrum* A)
 {
     
 }
