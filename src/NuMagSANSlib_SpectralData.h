@@ -52,10 +52,33 @@ struct SpectralData {
 };
 
 
-void scale_SpectralData(SpectralData* SpecData){
+void scale_SpectralData(ScalingFactors* ScalFactors, \
+						SpectralData* SpecData, \
+                        InputFileData* InputData){
 
+	unsigned int Nq = *SpecData->Nq;
+	unsigned int k_max = *SpecData->k_max;
+	unsigned int L = 2 * Nq * (k_max + 1);
 
+	for(unsigned long int l=0; l < L; l++){
 
+		// basic SANS cross sections
+		SpecData->I_Nuc_unpolarized[l] = SpecData->I_Nuc_unpolarized[l] * ScalFactors->Nuc_SANS_SF;
+		SpecData->I_Mag_unpolarized[l] = SpecData->I_Mag_unpolarized[l] * ScalFactors->Mag_SANS_SF;
+		SpecData->I_Mag_polarized[l] = SpecData->I_Mag_polarized[l] * ScalFactors->Mag_SANS_SF;;
+		SpecData->I_NucMag[l] = SpecData->I_NucMag[l] * ScalFactors->NucMag_SANS_SF;
+		SpecData->I_Mag_chiral[l] = SpecData->I_Mag_chiral[l] * ScalFactors->Mag_SANS_SF;
+
+		// composed SANS cross sections
+		SpecData->I_Mag_spin_flip[l] = SpecData->I_Mag_unpolarized[l] - SpecData->I_Mag_polarized[l];
+		SpecData->I_Mag_spin_flip_pm[l] = SpecData->I_Mag_spin_flip[l] + SpecData->I_Mag_chiral[l];
+		SpecData->I_Mag_spin_flip_mp[l] = SpecData->I_Mag_spin_flip[l] - SpecData->I_Mag_chiral[l];
+		SpecData->I_Mag_non_spin_flip_pp[l] = SpecData->I_Nuc_unpolarized[l] + SpecData->I_NucMag[l] + SpecData->I_Mag_polarized[l];
+		SpecData->I_Mag_non_spin_flip_mm[l] = SpecData->I_Nuc_unpolarized[l] - SpecData->I_NucMag[l] + SpecData->I_Mag_polarized[l];
+		SpecData->I_Mag_sanspol_p[l] = SpecData->I_Mag_non_spin_flip_pp[l] + SpecData->I_Mag_spin_flip_pm[l];
+		SpecData->I_Mag_sanspol_m[l] = SpecData->I_Mag_non_spin_flip_mm[l] + SpecData->I_Mag_spin_flip_mp[l];
+
+	}
 }
 
 void allocate_SpectralData_RAM(InputFileData* InputData, \
