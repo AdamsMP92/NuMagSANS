@@ -4,7 +4,7 @@
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 23 November 2024
+// Version      : 28 October 2025
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
