@@ -141,6 +141,70 @@ void ComputeSpectralDecomposition(ScatteringData SANSData,
 
 
 
+__global__
+void ComputeAngularSpectrumAmplitudes(SpectralData SpecData){
+
+	int k = blockIdx.x * blockDim.x + threadIdx.x;
+	unsigned int Nq     = *SpecData.Nq;
+	unsigned int k_max  = *SpecData.k_max;
+	unsigned int L = Nq * (k_max + 1);
+
+	float sum_Nuc_cos = 0.0f;
+	float sum_Mag_cos = 0.0f;
+	float sum_Pol_cos = 0.0f;
+	float sum_NucMag_cos = 0.0f;
+	float sum_Chiral_cos = 0.0f;
+
+	float sum_Nuc_sin = 0.0f;
+	float sum_Mag_sin = 0.0f;
+	float sum_Pol_sin = 0.0f;
+	float sum_NucMag_sin = 0.0f;
+	float sum_Chiral_sin = 0.0f;
+
+	unsigned int idx_cos = 0;
+	unsigned int idx_sin = 0;
+	unsigned int idxA_cos = 0;
+	unsigned int idxA_sin = 0;
+
+	if(k > k_max) return;
+
+		for(unsigned int i=0; i<Nq; i++){
+
+			idx_cos = i + k * Nq;
+			idx_sin = i + k * Nq + L;
+
+			sum_Nuc_cos    += SpecData.I_Nuc_unpolarized[idx_cos];
+	        sum_Mag_cos    += SpecData.I_Mag_unpolarized[idx_cos];
+	        sum_Pol_cos    += SpecData.I_Mag_polarized[idx_cos];
+	        sum_NucMag_cos += SpecData.I_NucMag[idx_cos];
+	        sum_Chiral_cos += SpecData.I_Mag_chiral[idx_cos];
+	
+	        sum_Nuc_sin    += SpecData.I_Nuc_unpolarized[idx_sin];
+	        sum_Mag_sin    += SpecData.I_Mag_unpolarized[idx_sin];
+	        sum_Pol_sin    += SpecData.I_Mag_polarized[idx_sin];
+	        sum_NucMag_sin += SpecData.I_NucMag[idx_sin];
+	        sum_Chiral_sin += SpecData.I_Mag_chiral[idx_sin];
+			
+		}
+
+		idxA_cos = k;
+		idxA_sin = k + (k_max + 1);
+
+		SpecData.A_Nuc_unpolarized[idxA_cos] = sum_Nuc_cos;
+        SpecData.A_Mag_unpolarized[idxA_cos] = sum_Mag_cos;
+        SpecData.A_Mag_polarized[idxA_cos]   = sum_Pol_cos;
+        SpecData.A_NucMag[idxA_cos]          = sum_NucMag_cos;
+        SpecData.A_Mag_chiral[idxA_cos]      = sum_Chiral_cos;
+        
+        SpecData.A_Nuc_unpolarized[idxA_sin] = sum_Nuc_sin;  
+        SpecData.A_Mag_unpolarized[idxA_sin] = sum_Mag_sin;
+        SpecData.A_Mag_polarized[idxA_sin]   = sum_Pol_sin;
+        SpecData.A_NucMag[idxA_sin]          = sum_NucMag_sin;
+        SpecData.A_Mag_chiral[idxA_sin]      = sum_Chiral_sin;
+
+}
+
+
 
 // GPU Kernel for the computation of the azimuthally averaged SANS cross section /////////////////////////////////////////////////////////////
 // integration using trapezoidal rule ////////////////////////////////////////////////////////////////////////////////////////////////////////

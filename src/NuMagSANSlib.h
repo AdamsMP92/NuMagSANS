@@ -4,7 +4,7 @@
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
 // Group Leader : Prof. Andreas Michels
-// Version      : 28 October 2025
+// Version      : 29 October 2025
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
@@ -85,7 +85,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 	// initialize spectral data ##############################################################
 	SpectralData SpecData, SpecData_gpu;
-	init_SpectralData(InputData, &SpecData, &SpecData_gpu);
+	init_SpectralData(InputData, &SANSData, &SpecData, &SpecData_gpu);
 	
 	// initialize scaling factors #############################################################
 	ScalingFactors ScalFactors;
@@ -163,8 +163,6 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 			}
 		}
 
-
-
 	// compute azimuthal average 1D ###########################################################
 	LogSystem::write("run: azimuthal averaging");
 	AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
@@ -194,12 +192,22 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 	// compute angular spectral intensities ###################################################
 	LogSystem::write("run: angular spectrum analyzer");
-	CorrelationFunction_2D<<<(L+255)/256, 256>>>ComputeSpectralDecomposition(SANSData_gpu, SpecData_gpu);
+	ComputeSpectralDecomposition<<<(L+255)/256, 256>>>(SANSData_gpu, SpecData_gpu);
 	err = cudaGetLastError();
 	if (err != cudaSuccess) {
 	   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 	}
-	
+
+	// compute angular spectral amplitudes ####################################################
+        LogSystem::write("run: angular amplitude spectrum analyzer");
+	ComputeAngularSpectrumAmplitudes<<<(L+255)/256, 256>>>(SpecData_gpu);
+	err = cudaGetLastError();
+        if (err != cudaSuccess) {
+           LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+        }
+
+
+
 	// copy scattering data from GPU to RAM ###################################################
 	copyGPU2RAM_ScatteringData(&SANSData, &SANSData_gpu);
 
@@ -225,20 +233,14 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	LogSystem::write("free memory...");
 	if(InputData->NucData_activate_flag){
 		free_NuclearData(&NucData, &NucData_gpu);
-		//cudaFree(NucData_gpu);
-		//std::cout << "Free Nuc Data" << std::endl;
 	}
 
 	if(InputData->MagData_activate_flag){
 		free_MagnetizationData(&MagData, &MagData_gpu);
-		//cudaFree(MagData_gpu);
-		//std::cout << "Free Mag Data" << std::endl;
 	}
 
 	if(InputData->StructData_activate_flag){
 		free_StructureData(&StructData, &StructData_gpu);
-		//cudaFree(StructData_gpu);
-		//std::cout << "Free Struct Data" << std::endl;
 	}
 	
 	// free scattering data

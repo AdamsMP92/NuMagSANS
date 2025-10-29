@@ -426,7 +426,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		parseBool(line, "P_SANSPOL_Corr_1D", InputData->output_p_sanspol_correlation_function_1D_flag, Check_Flag[89]);
 		parseBool(line, "M_SANSPOL_Corr_1D", InputData->output_m_sanspol_correlation_function_1D_flag, Check_Flag[90]);
 		parseBool(line, "Nuclear_2D", InputData->output_unpolarized_nuclear_SANS_cross_section_2D_flag, Check_Flag[91]);
-		parse(line, "k_max", InputData->k_max, Check_Flag[92]);
+		parseInt(line, "k_max", InputData->k_max, Check_Flag[92]);
 		parseBool(line, "Angular_Spec", InputData->AngularSpec_activate_flag, Check_Flag[93]);
 
 	}		
