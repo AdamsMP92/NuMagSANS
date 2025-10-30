@@ -29,13 +29,14 @@ The program allows users to import discrete datasets representing the **position
 - **Mesoscopic systems**, such as micromagnetic models — e.g., data generated from micromagnetic simulations with [*MuMax3*](https://mumax.github.io/) or [*OOMMF*](https://math.nist.gov/oommf/).  
 
 The software offers **full rotational control** of the sample orientation, enabling comprehensive studies of **angular-dependent scattering features**.  
-It includes a **versatile library of more than 70 response functions**, covering:
+It includes a **versatile library of more than +100 response functions**, covering:
 
 - 2D SANS cross sections (unpolarized, SANSPOL, POLARIS)
+- 2D correlation functions
 - 1D SANS cross sections (azimuthal average)
 - 1D correlation functions
 - 1D pair-distance distribution functions
-- 2D correlation functions
+- spectral analyser for angular anisotropy
 
 These capabilities provide detailed insights into the **structural and magnetic characteristics** of complex systems.  
 Leveraging **GPU acceleration**, *NuMagSANS* achieves **high computational performance and scalability**, making it a **powerful and efficient tool for advanced SANS simulations and data analysis**.
