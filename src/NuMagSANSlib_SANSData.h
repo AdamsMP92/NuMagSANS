@@ -1636,10 +1636,12 @@ void write2CSVtable_ScatteringData(InputFileData *InputData, \
 			fout << "," << "C_m";
 		}
 
+		fout << "\n";
+		
 		for(unsigned long int n=0; n<L; n++){
 
 			fout << SANSData->rz_2D[n];
-			fout << "," << SANSData->rz_2D[n];
+			fout << "," << SANSData->ry_2D[n];
 			fout << "," << SANSData->r_2D[n];
 			fout << "," << SANSData->alpha_2D[n];
 
