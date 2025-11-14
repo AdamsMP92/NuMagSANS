@@ -41,6 +41,10 @@ It includes a **versatile library of more than +100 response functions**, coveri
 These capabilities provide detailed insights into the **structural and magnetic characteristics** of complex systems.  
 Leveraging **GPU acceleration**, *NuMagSANS* achieves **high computational performance and scalability**, making it a **powerful and efficient tool for advanced SANS simulations and data analysis**.
 
+## 📚 Examples
+
+[*NuMagSANS -- Example 1: Spherical Nanoparticle with Uniform Magnetization (v1.0)*](https://doi.org/10.5281/zenodo.17491221)
+
 ## 📚 How to Cite
 To Do
 
