@@ -41,11 +41,17 @@ It includes a **versatile library of more than +100 response functions**, coveri
 These capabilities provide detailed insights into the **structural and magnetic characteristics** of complex systems.  
 Leveraging **GPU acceleration**, *NuMagSANS* achieves **high computational performance and scalability**, making it a **powerful and efficient tool for advanced SANS simulations and data analysis**.
 
-## 📚 Examples
+## 📂 Example Datasets
 
-- [**NuMagSANS – Example 1:** Spherical Nanoparticle with Uniform Magnetization (v1.0)](https://doi.org/10.5281/zenodo.17491221)  
-- [**NuMagSANS – Example 2:** Spherical Nanoparticle with Linearized Vortex Magnetization (v1.0)](https://doi.org/10.5281/zenodo.17594693)  
-- [**NuMagSANS – Example 3:** MuMax3-Based Simulation Pipeline for an Ensemble of Iron Nanoparticles with Vortex Spin Textures (v1.0)](https://doi.org/10.5281/zenodo.17594946)
+The benchmark datasets associated with **NuMagSANS** are openly available on [Zenodo](https://zenodo.org) and serve as reference examples for validation and reproducibility.  
+Each dataset contains both the **real-space magnetic configuration** (nuclear and magnetic scattering-length density distributions) and the corresponding **SANS observables** computed with *NuMagSANS*, including simulated 2D scattering cross-sections and azimuthally averaged intensity profiles.  
+
+Together, these datasets provide a consistent set of input and output examples that demonstrate the end-to-end workflow of *NuMagSANS* — from magnetic structure generation to Fourier-space analysis of small-angle neutron scattering.
+
+- [**NuMagSANS – Example 1:** Spherical nanoparticle with uniform magnetization (v1.0)](https://doi.org/10.5281/zenodo.17491221)  
+- [**NuMagSANS – Example 2:** Spherical nanoparticle with linearized vortex magnetization (v1.0)](https://doi.org/10.5281/zenodo.17594693)  
+- [**NuMagSANS – Example 3:** MuMax3-based simulation pipeline for an ensemble of iron nanoparticles with vortex spin textures (v1.0)](https://doi.org/10.5281/zenodo.17594946)
+
 
 
 ## 📚 How to Cite
