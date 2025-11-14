@@ -43,9 +43,10 @@ Leveraging **GPU acceleration**, *NuMagSANS* achieves **high computational perfo
 
 ## 📚 Examples
 
-[*NuMagSANS -- Example 1: Spherical Nanoparticle with Uniform Magnetization (v1.0)*](https://doi.org/10.5281/zenodo.17491221)
-[*NuMagSANS -- Example 2: Spherical Nanoparticle with Linearized Vortex Magnetization (v1.0)*](https://doi.org/10.5281/zenodo.17594693)
-[*NuMagSANS -- Example 3: MuMax3-Based Simulation Pipeline for an Ensemble of Iron Nanoparticles with Vortex Spin Textures (v1.0)*](https://doi.org/10.5281/zenodo.17594946)
+- [**NuMagSANS – Example 1:** Spherical Nanoparticle with Uniform Magnetization (v1.0)](https://doi.org/10.5281/zenodo.17491221)  
+- [**NuMagSANS – Example 2:** Spherical Nanoparticle with Linearized Vortex Magnetization (v1.0)](https://doi.org/10.5281/zenodo.17594693)  
+- [**NuMagSANS – Example 3:** MuMax3-Based Simulation Pipeline for an Ensemble of Iron Nanoparticles with Vortex Spin Textures (v1.0)](https://doi.org/10.5281/zenodo.17594946)
+
 
 ## 📚 How to Cite
 To Do
