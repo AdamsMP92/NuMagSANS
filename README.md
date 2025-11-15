@@ -14,6 +14,7 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 | **Description** | **Badge** |
 |:-----------------|:----------|
 | ⚙️ **CUDA Build** | [![CUDA Build](https://github.com/AdamsMP92/NuMagSANS/actions/workflows/cuda-build.yml/badge.svg)](https://github.com/AdamsMP92/NuMagSANS/actions/workflows/cuda-build.yml) |
+| ⚙️ **Docs Build** | [![Docs Build](https://github.com/AdamsMP92/NuMagSANS/actions/workflows/docs.yml/badge.svg)](https://github.com/AdamsMP92/NuMagSANS/actions/workflows/docs.yml) |
 | 📘 **Documentation** | [![Docs](https://img.shields.io/badge/docs-adamsmp92.github.io%2FNuMagSANS-blue.svg)](https://adamsmp92.github.io/NuMagSANS/) |
 | **Platforms** | ![Platforms](https://img.shields.io/badge/platform-linux%20%7C%20windows-lightgrey) |
 | 📄 **License** | [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) |
