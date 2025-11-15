@@ -1,4 +1,4 @@
-name: tests
+name: Cmake Compilation
 
 on:
   push:
