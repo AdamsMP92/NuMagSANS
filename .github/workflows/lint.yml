@@ -17,7 +17,7 @@ jobs:
           clang -x cuda -std=c++11 -D__CUDACC__ -fsyntax-only \
             -I./src -I/usr/local/cuda/include \
             src/NuMagSANSlib_Directory.h \
-            src/NuMagSANSlib_HelperFun.h
-            src/NuMagSANSlib_InputFileInterpreter.h
+            src/NuMagSANSlib_HelperFun.h \
+            src/NuMagSANSlib_InputFileInterpreter.h \
             src/NuMagSANSlib_LogFile.h
           echo "✅ Manual syntax check completed successfully."
