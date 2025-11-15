@@ -5,7 +5,7 @@ SANS Theory
    :caption: Workflows
    :maxdepth: 2
 
-   HalperJohnsonVector
+   HalpernJohnsonVector
 
  
 
