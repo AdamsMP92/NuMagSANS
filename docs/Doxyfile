@@ -1,6 +1,9 @@
-PROJECT_NAME = "NuMagSANS"
-INPUT = ../src
-RECURSIVE = YES
-GENERATE_HTML = NO
-GENERATE_XML = YES
-OUTPUT_DIRECTORY = doxygen
+PROJECT_NAME           = NuMagSANS
+OUTPUT_DIRECTORY       = doxygen
+GENERATE_HTML          = NO
+GENERATE_XML           = YES
+XML_OUTPUT             = xml
+RECURSIVE              = YES
+INPUT                  = ../src
+FILE_PATTERNS          = *.h *.hpp *.cpp *.cu
+QUIET                  = YES
