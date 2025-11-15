@@ -1,0 +1,21 @@
+name: Linting
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install compiler
+        run: sudo apt-get update && sudo apt-get install -y clang
+
+      - name: Check header syntax
+        run: |
+          echo "🔍 Checking all headers in src/"
+          for f in src/*.h src/*.cu; do
+            echo "→ $f"
+            clang -x c++ -std=c++11 -fsyntax-only -I./src "$f" || exit 1
+          done
+          echo "✅ Header syntax check completed successfully."
