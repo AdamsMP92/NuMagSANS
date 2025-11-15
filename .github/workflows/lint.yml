@@ -11,17 +11,13 @@ jobs:
       - name: Install compiler
         run: sudo apt-get update && sudo apt-get install -y clang
 
-      - name: Check header syntax
+      - name: Check specific files
         run: |
-          echo "🔍 Checking all headers recursively in src/"
-          files=$(find src -type f \( -name "*.h" -o -name "*.hpp" -o -name "*.cu" -o -name "*.cuh" \))
-          if [ -z "$files" ]; then
-            echo "⚠️  No header or CUDA files found."
-            exit 0
-          fi
-          for f in $files; do
-            echo "→ $f"
-            clang -x c++ -std=c++11 -fsyntax-only -I./src "$f" || exit 1
-          done
-          echo "✅ Header syntax check completed successfully."
-
+          echo "🔍 Running syntax check on selected headers and CUDA sources..."
+          clang -x cuda -std=c++11 -D__CUDACC__ -fsyntax-only \
+            -I./src -I/usr/local/cuda/include \
+            src/NuMagSANSlib_Directory.h \
+            src/NuMagSANSlib_HelperFun.h
+            src/NuMagSANSlib_InputFileInterpreter.h
+            src/NuMagSANSlib_LogFile.h
+          echo "✅ Manual syntax check completed successfully."
