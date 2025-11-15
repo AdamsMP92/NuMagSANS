@@ -10,12 +10,17 @@ extensions = [
     "breathe",
     "exhale",
     "sphinx.ext.autodoc",
-    "sphinx.ext.mathjax", 
+    "sphinx.ext.mathjax",   # ← wichtig für Rendern der Formeln
 ]
 
 # Markdown + reStructuredText
 source_suffix = [".rst", ".md"]
-myst_enable_extensions = ["colon_fence"]
+
+# MyST-Erweiterungen
+myst_enable_extensions = [
+    "colon_fence",   # deine bisherige Erweiterung
+    "dollarmath",    # ← NEU: aktiviert $$…$$, $…$, \[…\], \(...\)
+]
 
 # Hauptdokument (für GitHub Pages wichtig)
 master_doc = "index"
@@ -32,25 +37,14 @@ breathe_default_project = "NuMagSANS"
 import os
 import textwrap
 
-# Exhale-Konfiguration (vollständig, getestet)
+# Exhale-Konfiguration
 exhale_args = {
-    # Der Ordner in docs/, in dem Exhale seine generierten .rst-Dateien ablegt
     "containmentFolder": "./api",
-
-    # Root-Datei für die API-Referenz
     "rootFileName": "library_root.rst",
     "rootFileTitle": "C++ API Reference",
-
-    # Entfernt den oberen Teil des Pfades in Doxygen-Daten
     "doxygenStripFromPath": "..",
-
-    # GUI-Tree-View in der Seitenleiste
     "createTreeView": True,
-
-    # Doxygen wird *nicht* von Exhale selbst ausgeführt
     "exhaleExecutesDoxygen": False,
-
-    # Optional: weniger Log-Ausgabe
     "verboseBuild": False,
 }
 
