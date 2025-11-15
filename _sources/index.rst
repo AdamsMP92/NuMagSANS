@@ -21,7 +21,5 @@ c10
 
    f(x,y) = x^2 + y^2
 
----
-
-*maintained by Michael Philipp Adams, 2025*
+ 
 
