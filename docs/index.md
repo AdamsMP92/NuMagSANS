@@ -1,14 +1,13 @@
-```{toctree}
-:maxdepth: 2
-:hidden: false
-:caption: Contents
-
-installation
-usage
-api_reference
-```
-
 # NuMagSANS Documentation
+
+.. toctree::
+   :maxdepth: 2
+   :hidden: false
+   :caption: Contents
+
+   installation
+   usage
+   api_reference
 
 Welcome to the **NuMagSANS** documentation!
 
