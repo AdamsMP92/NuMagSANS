@@ -2,12 +2,10 @@ SANS Theory
 =======================
 
 .. toctree::
+   :caption: Workflows
    :maxdepth: 2
-   :caption: Table of Contents
 
-   installation
-   usage
-   api_reference
+   HalperJohnsonVector
 
  
 
