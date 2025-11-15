@@ -1,7 +1,8 @@
 # -- Project information -----------------------------------------------------
 project = "NuMagSANS"
 author = "Michael Philipp Adams"
-copyright = "2025"
+copyright = "2025, Michael P. Adams, Andreas Michels"
+
 
 # -- General configuration ---------------------------------------------------
 extensions = [
