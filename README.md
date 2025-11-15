@@ -62,8 +62,11 @@ If you’d like to contribute code or improve the documentation, please follow t
    ```bash
    git checkout -b feature/your-feature-name
 
-
 ## 📚 How to Cite
+To Do
+
+## ⚙️ Building from source
+
 To Do
 
 ## 🧾 License
