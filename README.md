@@ -65,7 +65,7 @@ If you’d like to contribute code or improve the documentation, please follow t
 ## 📚 How to Cite
 To Do
 
-## ⚙️ Building from source
+## ⚙️ Building from Source
 
 To Do
 
