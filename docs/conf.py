@@ -10,6 +10,7 @@ extensions = [
     "breathe",
     "exhale",
     "sphinx.ext.autodoc",
+    "sphinx.ext.mathjax", 
 ]
 
 # Markdown + reStructuredText
