@@ -52,7 +52,7 @@ exhale_args = {
 }
 
 # -- Options for HTML output -------------------------------------------------
-html_theme = "pydata"
+html_theme = "pydata_sphinx_theme"
 
 
 
