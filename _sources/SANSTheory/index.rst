@@ -11,7 +11,3 @@ SANS Theory
    HalpernJohnsonVector
 
  
-
----
-
-*maintained by Michael Philipp Adams, 2025*
