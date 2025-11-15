@@ -51,6 +51,8 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
                           StructDataProperties* StructDataProp, \
                           int Data_File_Index){
 
+	cudaError_t err;
+	
 	LogSystem::write("################################################################################");
 	LogSystem::write("## Run - NuMagSANS #############################################################");
 	LogSystem::write("################################################################################");
@@ -119,8 +121,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	// compute 2D SANS cross sections #########################################################
 	int L = (*SANSData.N_q) * (*SANSData.N_theta);
 	LogSystem::write("total number of Fourier space bins: " + std::to_string(L));
-	cudaError_t err;
-
+	
 		// Pure Magnetic Scattering Calculator without structure data #####################################################################
 		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 0){
 			LogSystem::write("run: Atomistic_MagSANS_Kernel_dilute");
