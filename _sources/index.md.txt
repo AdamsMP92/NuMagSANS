@@ -2,22 +2,9 @@
 
 Welcome to the **NuMagSANS** documentation!
 
-Dies ist ein TEST
-
 ## Overview
 NuMagSANS is a GPU-accelerated simulation and analysis framework for magnetic small-angle neutron scattering.
-
-```{toctree}
-:maxdepth: 2
-:hidden:
-
-installation
-usage
-api_reference
-
-
-
-
+Hallo
 
 ## Contents
 - [Installation](installation.md)
