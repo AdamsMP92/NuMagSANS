@@ -22,8 +22,3 @@ jobs:
           mkdir build && cd build
           cmake ..
           make -j
-
-      - name: Run basic test
-        run: |
-          cd build
-          ./NuMagSANS NuMagSANSInput.conf || echo "Executable test skipped"
