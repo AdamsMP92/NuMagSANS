@@ -14,7 +14,10 @@ extensions = [
 ]
 
 # Markdown + reStructuredText
-source_suffix = [".rst", ".md"]
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}
 
 # MyST-Erweiterungen
 myst_enable_extensions = [
