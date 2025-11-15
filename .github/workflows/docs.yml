@@ -24,7 +24,7 @@ jobs:
         run: |
           pip install --upgrade pip
           sudo apt-get install -y doxygen
-          pip install sphinx pydata-sphinx-theme breathe exhale myst-parser
+          pip install sphinx pydata-sphinx-theme sphinx-copybutton sphinx-design breathe exhale myst-parser
 
       # Debug: Zeige installierte Pakete (hilft bei Problemen)
       - name: Show installed Python packages
