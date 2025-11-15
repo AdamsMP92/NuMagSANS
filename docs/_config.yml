@@ -1,0 +1,10 @@
+sphinx:
+  config:
+    html_theme_options:
+      navbar_links:
+        - name: "Examples"
+          url: "examples/index.html"
+        - name: "Installation"
+          url: "installation.html"
+        - name: "API Reference"
+          url: "api_reference.html"
