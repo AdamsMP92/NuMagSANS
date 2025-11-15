@@ -10,7 +10,7 @@ extensions = [
     "breathe",
     "exhale",
     "sphinx.ext.autodoc",
-    "sphinx.ext.mathjax",   # ← wichtig für Rendern der Formeln
+    "sphinx.ext.mathjax",
 ]
 
 # Markdown + reStructuredText
@@ -21,26 +21,22 @@ source_suffix = {
 
 # MyST-Erweiterungen
 myst_enable_extensions = [
-    "colon_fence",   # deine bisherige Erweiterung
-    "dollarmath",    # ← NEU: aktiviert $$…$$, $…$, \[…\], \(...\)
+    "colon_fence",
+    "dollarmath",
 ]
 
-# Hauptdokument (für GitHub Pages wichtig)
+# Hauptdokument
 master_doc = "index"
 
 # ---------------------------------------------------------------------------
-# Breathe + Exhale: Doxygen XML Integration
+# Breathe + Exhale
 # ---------------------------------------------------------------------------
-
-# Verweis auf den Ordner, in dem Doxygen das XML erzeugt
-breathe_projects = {"NuMagSANS": "./doxygen/xml"}
-breathe_default_project = "NuMagSANS"
-
-# Exhale benötigt zusätzliche Imports
 import os
 import textwrap
 
-# Exhale-Konfiguration
+breathe_projects = {"NuMagSANS": "./doxygen/xml"}
+breathe_default_project = "NuMagSANS"
+
 exhale_args = {
     "containmentFolder": "./api",
     "rootFileName": "library_root.rst",
@@ -51,13 +47,32 @@ exhale_args = {
     "verboseBuild": False,
 }
 
-# -- Options for HTML output -------------------------------------------------
+# -- Theme settings -----------------------------------------------------------
 html_theme = "pydata_sphinx_theme"
 
+html_theme_options = {
+    "navbar_start": ["navbar-logo"],
+    "navbar_center": ["navbar-nav"],
+    "navbar_end": ["theme-switcher", "navbar-icon-links"],
 
+    # Navigation bar links (top of page)
+    "navbar_links": [
+        {"name": "Home", "url": "index.html"},
+        {"name": "Installation", "url": "installation.html"},
+        {"name": "Usage", "url": "usage.html"},
+        {"name": "API Reference", "url": "api_reference.html"},
+    ],
 
+    # Aktiviert linke Sidebar automatisch
+    "show_nav_level": 2,
+    "navigation_depth": 4,
+}
 
-# -- Autodoc: Python modules from src/ ---------------------------------------
+# Optional: dein Logo (falls vorhanden)
+#html_logo = "_static/logo.png"
+
+# -- Autodoc --------------------------------------------------------------
 import sys
 sys.path.insert(0, os.path.abspath("../src"))
+
 
