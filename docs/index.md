@@ -1,12 +1,21 @@
 # NuMagSANS Documentation
 
-Welcome to the **NuMagSANS** documentation!
+```{toctree}
+:maxdepth: 2
+:hidden: false
+:caption: Contents
 
+installation
+usage
+api_reference
+```
+
+Welcome to the **NuMagSANS** documentation!
 
 ## Overview
 NuMagSANS is a GPU-accelerated simulation and analysis framework for magnetic small-angle neutron scattering.
 
-counter: #3
+counter: #4
 
 $$f(x,y) = x^2 + y^2$$
 
