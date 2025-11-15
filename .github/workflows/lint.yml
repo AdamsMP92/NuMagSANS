@@ -13,9 +13,15 @@ jobs:
 
       - name: Check header syntax
         run: |
-          echo "🔍 Checking all headers in src/"
-          for f in src/*.h src/*.cu; do
+          echo "🔍 Checking all headers recursively in src/"
+          files=$(find src -type f \( -name "*.h" -o -name "*.hpp" -o -name "*.cu" -o -name "*.cuh" \))
+          if [ -z "$files" ]; then
+            echo "⚠️  No header or CUDA files found."
+            exit 0
+          fi
+          for f in $files; do
             echo "→ $f"
             clang -x c++ -std=c++11 -fsyntax-only -I./src "$f" || exit 1
           done
           echo "✅ Header syntax check completed successfully."
+
