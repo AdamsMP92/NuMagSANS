@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get install -y doxygen
-          pip install sphinx furo breathe exhale myst-parser
+          pip install sphinx pydata-sphinx-theme breathe exhale myst-parser
 
       - name: Build documentation
         run: |
