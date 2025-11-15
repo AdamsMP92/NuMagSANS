@@ -1,5 +1,3 @@
-# NuMagSANS Documentation
-
 ```{toctree}
 :maxdepth: 2
 :hidden: false
@@ -9,6 +7,8 @@ installation
 usage
 api_reference
 ```
+
+# NuMagSANS Documentation
 
 Welcome to the **NuMagSANS** documentation!
 
