@@ -63,12 +63,22 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	NuclearData NucData, NucData_gpu;
 	if(InputData->NucData_activate_flag){
 		init_NuclearData(&NucData, &NucData_gpu, NucDataProp, InputData, Data_File_Index);
+		cudaDeviceSynchronize();
+		err = cudaGetLastError();
+		if (err != cudaSuccess) {
+			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+		}
 	}
 	
 	// initialize magnetization data ##########################################################
 	MagnetizationData MagData, MagData_gpu;
 	if(InputData->MagData_activate_flag){
 		init_MagnetizationData(&MagData, &MagData_gpu, MagDataProp, InputData, Data_File_Index);
+		cudaDeviceSynchronize();
+		err = cudaGetLastError();
+		if (err != cudaSuccess) {
+			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+		}
 		//disp_MagnetizationData(&MagData);
 	}
 
@@ -76,16 +86,31 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	StructureData StructData, StructData_gpu;
 	if(InputData->StructData_activate_flag){
 		init_StructureData(&StructData, &StructData_gpu, StructDataProp, InputData);
+		cudaDeviceSynchronize();
+		err = cudaGetLastError();
+		if (err != cudaSuccess) {
+			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+		}
 		//disp_StructureData(&StructData);
 	}
 
 	// initialize scattering data #############################################################
 	ScatteringData SANSData, SANSData_gpu;
 	init_ScatteringData(InputData, &SANSData, &SANSData_gpu);
+	cudaDeviceSynchronize();
+	err = cudaGetLastError();
+	if (err != cudaSuccess) {
+		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+	}
 
 	// initialize spectral data ##############################################################
 	SpectralData SpecData, SpecData_gpu;
 	init_SpectralData(InputData, &SANSData, &SpecData, &SpecData_gpu);
+	cudaDeviceSynchronize();
+	err = cudaGetLastError();
+	if (err != cudaSuccess) {
+		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+	}
 	
 	// initialize scaling factors #############################################################
 	ScalingFactors ScalFactors;
