@@ -10,6 +10,15 @@ extensions = [
     "myst_parser",
 ]
 
+# Damit Markdown-Dateien (index.md) von Sphinx richtig verarbeitet werden
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
+
+# Hauptseite explizit setzen, damit GitHub Pages nicht ins Leere zeigt
+master_doc = 'index'
+
 # Pfad zu den Doxygen-XML-Dateien (relativ zu docs/)
 breathe_projects = {"NuMagSANS": "./doxygen/xml"}
 breathe_default_project = "NuMagSANS"
