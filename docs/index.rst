@@ -14,7 +14,7 @@ Overview
 NuMagSANS is a GPU-accelerated simulation and analysis framework for 
 magnetic small-angle neutron scattering.
 
-c7
+c9
 
 .. math::
 
