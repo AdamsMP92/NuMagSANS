@@ -52,56 +52,9 @@ exhale_args = {
 }
 
 # -- Options for HTML output -------------------------------------------------
-html_theme = "furo"
+html_theme = "pydata"
 
-html_theme_options = {
-    "sidebar_hide_name": False,
 
-    "top_of_page_buttons": [
-        {
-            "type": "link",
-            "text": "Demo",
-            "url": "demo.html",
-            "icon": "octicon-link",
-        },
-        {
-            "type": "link",
-            "text": "Installation",
-            "url": "installation.html",
-            "icon": "octicon-link",
-        },
-        {
-            "type": "link",
-            "text": "Documentation",
-            "url": "index.html",
-            "icon": "octicon-link",
-        },
-        {
-            "type": "link",
-            "text": "Changelog",
-            "url": "changelog.html",
-            "icon": "octicon-link",
-        },
-        {
-            "type": "link",
-            "text": "Help",
-            "url": "help.html",
-            "icon": "octicon-link",
-        },
-        {
-            "type": "link",
-            "text": "Contributing",
-            "url": "contributing.html",
-            "icon": "octicon-link",
-        },
-        {
-            "type": "link",
-            "text": "News",
-            "url": "news.html",
-            "icon": "octicon-link",
-        },
-    ],
-}
 
 
 # -- Autodoc: Python modules from src/ ---------------------------------------
