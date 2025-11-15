@@ -3,28 +3,43 @@ name: Build and Deploy Docs
 on:
   push:
     branches:
-      - '**'
+      - "**"
   pull_request:
     branches: [ main ]
-
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
+      # Stelle sicher, dass Python-Version konsistent ist
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      # Installiere alle benötigten Abhängigkeiten
       - name: Install dependencies
         run: |
+          pip install --upgrade pip
           sudo apt-get install -y doxygen
           pip install sphinx pydata-sphinx-theme breathe exhale myst-parser
 
+      # Debug: Zeige installierte Pakete (hilft bei Problemen)
+      - name: Show installed Python packages
+        run: |
+          pip list
+
+      # Dokumentation bauen
       - name: Build documentation
         run: |
           cd docs
           doxygen Doxyfile
           sphinx-build -b html . _build/html
 
+      # Deployment
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
