@@ -8,7 +8,7 @@ NuMagSANS is a GPU-accelerated simulation and analysis framework for magnetic sm
 
 counter: #1
 
-$f(x,y) = x^2 + y^2$
+$$f(x,y) = x^2 + y^2$$
 
 ## Contents
 - [Installation](installation.md)
