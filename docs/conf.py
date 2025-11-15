@@ -67,6 +67,10 @@ html_theme_options = {
     "secondary_sidebar_items": ["page-toc"],
 }
 
+html_sidebars = {
+    "**": ["sidebar-nav-bs", "sidebar-ethical-ads"],
+}
+
 # -- Python path -------------------------------------------------------------
 import os
 import sys
