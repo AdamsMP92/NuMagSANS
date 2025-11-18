@@ -16,11 +16,12 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 | ⚙️ **CUDA Build** | [![CUDA Build](https://github.com/AdamsMP92/NuMagSANS/actions/workflows/cuda-build.yml/badge.svg)](https://github.com/AdamsMP92/NuMagSANS/actions/workflows/cuda-build.yml) |
 | ⚙️ **Docs Build** | [![Docs Build](https://github.com/AdamsMP92/NuMagSANS/actions/workflows/docs.yml/badge.svg)](https://github.com/AdamsMP92/NuMagSANS/actions/workflows/docs.yml) |
 | 📘 **Documentation** | [![Docs](https://img.shields.io/badge/docs-adamsmp92.github.io%2FNuMagSANS-blue.svg)](https://adamsmp92.github.io/NuMagSANS/) |
-| 🧪 **Example 1** | [![Example](https://img.shields.io/badge/docs-adamsmp92.github.io%2FNuMagSANS-blue.svg)]([[https://adamsmp92.github.io/NuMagSANS/](https://doi.org/10.5281/zenodo.17491221)](https://doi.org/10.5281/zenodo.17491221)) |
-| 🧪 **Example 2** | [![Example](https://img.shields.io/badge/docs-adamsmp92.github.io%2FNuMagSANS-blue.svg)]([[https://adamsmp92.github.io/NuMagSANS/](https://doi.org/10.5281/zenodo.17594693)](https://doi.org/10.5281/zenodo.17594693)) |
-| 🧪 **Example 3** | [![Example](https://img.shields.io/badge/docs-adamsmp92.github.io%2FNuMagSANS-blue.svg)]([[https://adamsmp92.github.io/NuMagSANS/](https://doi.org/10.5281/zenodo.17594946)](https://doi.org/10.5281/zenodo.17594946)) |
+| 🧪 **Example 1** | [![Example](https://img.shields.io/badge/zenodo-Example_1-blue.svg)](https://doi.org/10.5281/zenodo.17491221) |
+| 🧪 **Example 2** | [![Example](https://img.shields.io/badge/zenodo-Example_2-blue.svg)](https://doi.org/10.5281/zenodo.17594693) |
+| 🧪 **Example 3** | [![Example](https://img.shields.io/badge/zenodo-Example_3-blue.svg)](https://doi.org/10.5281/zenodo.17594946) |
 | 🖥️ **Platforms** | ![Platforms](https://img.shields.io/badge/platform-linux%20%7C%20windows-lightgrey) |
 | 📄 **License** | [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) |
+
 
 
 ## 🧠 About
