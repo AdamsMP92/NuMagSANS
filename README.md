@@ -70,7 +70,26 @@ To Do nn
 
 ## ⚙️ Building from Source
 
-To Do
+Clone the NuMagSANS repository:
+
+```bash
+git clone https://github.com/AdamsMP92/NuMagSANS.git
+cd NuMagSANS
+```
+
+The source files are located in the `src/` directory.
+
+Compile NuMagSANS using the NVIDIA CUDA compiler:
+
+```bash
+nvcc -o NuMagSANS src/NuMagSANS.cu
+```
+
+### ⚙️ Requirements
+
+- NVIDIA CUDA Toolkit (including `nvcc`)
+- C++ compiler compatible with the installed CUDA version
+- CUDA-capable NVIDIA GPU
 
 ## 🧾 License
 MIT License
