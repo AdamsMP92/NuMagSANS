@@ -52,7 +52,7 @@ Together, these datasets provide a consistent set of input and output examples t
 
 - [**NuMagSANS – Example 1:** Spherical nanoparticle with uniform magnetization (v1.0)](https://doi.org/10.5281/zenodo.17491221)  
 - [**NuMagSANS – Example 2:** Spherical nanoparticle with linearized vortex magnetization (v1.0)](https://doi.org/10.5281/zenodo.17594693)  
-- [**NuMagSANS – Example 3:** MuMax3-based simulation pipeline for an ensemble of iron nanoparticles with vortex spin textures (v1.0)](https://doi.org/10.5281/zenodo.17594946)
+- [**NuMagSANS – Example 3:** MuMax3-based simulation pipeline for an ensemble of iron nanoparticles with vortex spin textures (v1.1)](https://doi.org/10.5281/zenodo.17931156)
 - [**NuMagSANS – Runtime Experiment:** (v1.0)](https://doi.org/10.5281/zenodo.18187509)
 
 ## 🤝 How to Contribute
