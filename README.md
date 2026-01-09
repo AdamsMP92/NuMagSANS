@@ -66,7 +66,21 @@ If you’d like to contribute code or improve the documentation, please follow t
    git checkout -b feature/your-feature-name
 
 ## 📚 How to Cite
-To Do nn
+
+If you use **NuMagSANS** in your work, please cite the corresponding software and data publications.
+
+A citable software release with a DOI will be provided via Zenodo.
+Until then, please cite this repository as:
+
+```bibtex
+@software{NuMagSANS,
+  author  = {Adams, Michael P.},
+  title   = {NuMagSANS: GPU-accelerated SANS simulations for magnetic nanostructures},
+  year    = {2025},
+  url     = {https://github.com/AdamsMP92/NuMagSANS},
+  license = {MIT}
+}
+```
 
 ## ⚙️ Building from Source
 
