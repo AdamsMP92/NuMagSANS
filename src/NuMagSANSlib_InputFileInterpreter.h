@@ -25,6 +25,8 @@
 #include <chrono>
 #include <dirent.h>
 #include <unistd.h>
+#include <algorithm>
+#include <cctype>
 
 using namespace std;
 
@@ -172,68 +174,124 @@ void Compute_RotMat(float alpha, float beta, float* RotMat){
 
  }
 
+ 
 
-string extract_value(const string &line){
-	size_t equality_symbol_index = line.find("=");
-    size_t semicolon_symbol_index = line.find(";");
-	size_t space_symbol_index = 0;
-	string string_to_be_interpreted = line.substr(equality_symbol_index+1, semicolon_symbol_index-equality_symbol_index-1);
-	while(string_to_be_interpreted.find(" ") <= string_to_be_interpreted.size()){
-                                space_symbol_index = string_to_be_interpreted.find(" ");
-                                string_to_be_interpreted.erase(space_symbol_index, 1);
-        }
-	return string_to_be_interpreted;
+
+
+static std::string trim(const std::string& s)
+{
+    size_t start = s.find_first_not_of(" \t\r\n");
+    size_t end   = s.find_last_not_of(" \t\r\n");
+
+    if (start == std::string::npos)
+        return "";
+
+    return s.substr(start, end - start + 1);
 }
 
-void parseBool(const std::string& line, const std::string& property, bool& variable, bool& flag){
-	size_t found = line.find(property);
-	if (found != std::string::npos) {
-   		variable = (bool) stoi(extract_value(line));
-		flag = true;
-		LogSystem::write(" -> " + property + " : " + std::string(variable ? "true" : "false"));
-		//cout << " -> " << property << " : " << variable << "\n"; 
-    }
-}
+static bool try_extract_value(const std::string& line,
+                              const std::string& property,
+                              std::string& value)
+{
+    // must start with property
+    if (line.rfind(property, 0) != 0)
+        return false;
 
-void parseInt(const std::string& line, const std::string& property, int& variable, bool& flag){
-	size_t found = line.find(property);
-	if (found != std::string::npos) {
-   		variable = stoi(extract_value(line));
-		flag = true;
-		LogSystem::write(" -> " + property + " : " + std::to_string(variable));
-		//cout << " -> " << property << " : " << variable << "\n";
-    }
-}
+    size_t eq_pos = line.find('=');
+    size_t semi_pos = line.find(';');
 
-void parseFloat(const std::string& line, const std::string& property, float& variable, bool& flag){
-	size_t found = line.find(property);
-	if (found != std::string::npos) {
-   		variable = stof(extract_value(line));
-		flag = true;
-		LogSystem::write(" -> " + property + " : " + std::to_string(variable));
-		//cout << " -> " << property << " : " << variable << "\n";
-    }
-}
+    if (eq_pos == std::string::npos ||
+        semi_pos == std::string::npos ||
+        semi_pos <= eq_pos)
+        return false;
 
-void parseString(const std::string& line, const std::string& property, std::string& variable, bool& flag){
-	size_t found = line.find(property);
-	if (found != std::string::npos) {
-   		variable = extract_value(line);
-		flag = true;
-		LogSystem::write(" -> " + property + " : " + variable);
-		//cout << " -> " << property << " : " << variable << "\n";
-    }
+    value = trim(line.substr(eq_pos + 1,
+                             semi_pos - eq_pos - 1));
+
+    return true;
 }
 
 
+ 
 
-void parseStringNoCout(const std::string& line, const std::string& property, std::string& variable, bool& flag){
-        size_t found = line.find(property);
-        if (found != std::string::npos) {
-                variable = extract_value(line);
-                flag = true;
-                //cout << " -> " << property << " : " << variable << "\n";
-    }
+void parseBool(const std::string& line,
+               const std::string& property,
+               bool& variable,
+               bool& flag)
+{
+    std::string value;
+
+    if (!try_extract_value(line, property, value))
+        return;
+
+    variable = static_cast<bool>(std::stoi(value));
+    flag = true;
+
+    LogSystem::write(" -> " + property +
+                     " : " +
+                     std::string(variable ? "true" : "false"));
+}
+
+void parseInt(const std::string& line,
+              const std::string& property,
+              int& variable,
+              bool& flag)
+{
+    std::string value;
+
+    if (!try_extract_value(line, property, value))
+        return;
+
+    variable = std::stoi(value);
+    flag = true;
+
+    LogSystem::write(" -> " + property +
+                     " : " +
+                     std::to_string(variable));
+}
+
+void parseFloat(const std::string& line,
+                const std::string& property,
+                float& variable,
+                bool& flag)
+{
+    std::string value;
+
+    if (!try_extract_value(line, property, value))
+        return;
+
+    variable = std::stof(value);
+    flag = true;
+
+    LogSystem::write(" -> " + property +
+                     " : " +
+                     std::to_string(variable));
+}
+
+void parseString(const std::string& line,
+                 const std::string& property,
+                 std::string& variable,
+                 bool& flag)
+{
+    if (!try_extract_value(line, property, variable))
+        return;
+
+    flag = true;
+
+    LogSystem::write(" -> " + property +
+                     " : " +
+                     variable);
+}
+
+void parseStringNoCout(const std::string& line,
+                       const std::string& property,
+                       std::string& variable,
+                       bool& flag)
+{
+    if (!try_extract_value(line, property, variable))
+        return;
+
+    flag = true;
 }
 
 
@@ -329,8 +387,6 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 	}
 
 	LogSystem::write("Interpreter found the following commands:");
-	//cout << "Interpreter found the following commands:" << "\n\n";
-
 	while(getline(fin, line)){
 		line_counter += 1;
 
@@ -438,15 +494,9 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		Number_Of_Comma_In_String(&Number_of_Comma, InputData->User_Selection);
 		InputData->User_Selection_IndexArray = new int[Number_of_Comma+1];
 		User_Selection_To_Int_Array(InputData->User_Selection_IndexArray, Number_of_Comma, InputData->User_Selection);
-
-		//cout << "\n\n";
-		//cout << "Check UserSelection entries that are transfered to integer array:" << "\n";
-		
 		LogSystem::write("Check UserSelection entries that are transfered to integer array:");
-
 		for(int k = 0; k < Number_of_Comma+1; k++){
 			LogSystem::write(" UserSelection: " + std::to_string(k) + " : " + std::to_string(InputData->User_Selection_IndexArray[k]));
-			//cout << "  UserSelection: " << k << " : " << InputData->User_Selection_IndexArray[k] << "\n";
 		}
 		InputData->Number_Of_User_Selections = Number_of_Comma + 1;
 	}
@@ -467,7 +517,6 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 	bool Error_Detect = true;
 	for(int k = 0; k < 94; k++){
 		if(Check_Flag[k] != 1){
-			//cout << "Error Check Flag " << k << "\n";
 			LogSystem::write("Error Check Flag " + std::to_string(k));
 			Error_Detect = false;
 		}
@@ -479,19 +528,16 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 					  + pow(InputData->Polarization[2], 2));
 	if(P_norm == 0){
 		LogSystem::write("Error: Polarization magnitude is equal to zero!!");
-		//cout << "Error: Polarization magnitude is equal to zero!!" << "\n";
 	}
 	if(P_norm != 0 && P_norm != 1){
 		InputData->Polarization[0] = (InputData->Polarization[0])/P_norm;
 		InputData->Polarization[1] = (InputData->Polarization[1])/P_norm;
 		InputData->Polarization[2] = (InputData->Polarization[2])/P_norm;
-		//cout << "Polarization is automatically normalized to 1!" << "\n";
 		LogSystem::write("Polarization is automatically normalized to 1!");
 	}
 
 	// Give information on errors
 	if(Error_Detect){
-		//cout << " ->-> No Errors Detected" << "\n";
 		LogSystem::write(" ->-> No Errors Detected");
 		Check_InputFile_Flag = true;
 	}
