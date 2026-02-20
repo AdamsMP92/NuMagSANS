@@ -204,19 +204,6 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
     		|| InputData->output_m_sanspol_cross_section_1D_flag
     		|| InputData->output_p_sanspol_cross_section_1D_flag;
 
-	if(compute_1D_azimuthal_average){
-
-		LogSystem::write("run: azimuthal averaging");
-		AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-		   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err)); 
-		}
-
-	}
-
-	// compute 1D pair distance distribution and correlation function #########################
 	bool compute_1D_realspace =
 	       InputData->output_nuclear_pair_distance_distribution_1D_flag
     		|| InputData->output_unpolarized_pair_distance_distribution_1D_flag
@@ -243,6 +230,19 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
     		|| InputData->output_p_sanspol_correlation_function_1D_flag
     		|| InputData->output_m_sanspol_correlation_function_1D_flag;
 
+	if(compute_1D_azimuthal_average || compute_1D_realspace){
+
+		LogSystem::write("run: azimuthal averaging");
+		AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
+		cudaDeviceSynchronize();
+		err = cudaGetLastError();
+		if (err != cudaSuccess) {
+		   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err)); 
+		}
+
+	}
+
+	// compute 1D pair distance distribution and correlation function #########################
 	if(compute_1D_realspace){
 		LogSystem::write("run: 1D correlation functions");
 		DistributionFunctions<<<(L+255), 256>>>(SANSData_gpu);
