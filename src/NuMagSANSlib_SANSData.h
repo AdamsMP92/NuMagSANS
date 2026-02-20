@@ -1041,14 +1041,14 @@ void write2CSVtable_ScatteringData(InputFileData *InputData, \
 		if(InputData->output_fourier_correlation_matrix_flag){
 			fout << "," << "Gxx_real";
 			fout << "," << "Gxx_imag";
-		    fout << "," << "Gyy_real";
+		    	fout << "," << "Gyy_real";
 			fout << "," << "Gyy_imag";
 			fout << "," << "Gzz_real"; 
 			fout << "," << "Gzz_imag"; 
 			fout << "," << "Gxy_real";
 			fout << "," << "Gxy_imag";
 			fout << "," << "Gyx_real";
-			fout << "," << "Gyx_real";
+			fout << "," << "Gyx_imag";
 			fout << "," << "Gxz_real";
 			fout << "," << "Gxz_imag";
 			fout << "," << "Gzx_real";

@@ -409,8 +409,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		parseBool(line, "MP_SpinFlip_Corr_2D", InputData->output_pm_spin_flip_correlation_function_2D_flag, Check_Flag[72]);
 		parseBool(line, "PP_NonSpinFlip_Corr_2D", InputData->output_pp_non_spin_flip_correlation_function_2D_flag, Check_Flag[73]);
 		parseBool(line, "MM_NonSpinFlip_Corr_2D", InputData->output_mm_non_spin_flip_correlation_function_2D_flag, Check_Flag[74]);
-		parseBool(line, "P_SANSPOL_2D", InputData->output_p_sanspol_correlation_function_2D_flag, Check_Flag[75]);
-		parseBool(line, "M_SANSPOL_2D", InputData->output_m_sanspol_correlation_function_2D_flag, Check_Flag[76]);
+		parseBool(line, "P_SANSPOL_Corr_2D", InputData->output_p_sanspol_correlation_function_2D_flag, Check_Flag[75]);
+		parseBool(line, "M_SANSPOL_Corr_2D", InputData->output_m_sanspol_correlation_function_2D_flag, Check_Flag[76]);
 		parseBool(line, "NucMag_PairDist_1D", InputData->output_nuclear_magnetic_pair_distance_distribution_1D_flag, Check_Flag[77]);
 		parseBool(line, "PM_SpinFlip_PairDist_1D", InputData->output_pm_spin_flip_pair_distance_distribution_1D_flag, Check_Flag[78]);
 		parseBool(line, "MP_SpinFlip_PairDist_1D", InputData->output_mp_spin_flip_pair_distance_distribution_1D_flag, Check_Flag[79]);
