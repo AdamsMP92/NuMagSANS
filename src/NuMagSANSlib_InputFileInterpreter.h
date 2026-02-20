@@ -478,8 +478,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		parseBool(line, "MP_SpinFlip_1D", InputData->output_mp_spin_flip_SANS_cross_section_1D_flag, Check_Flag[63]);
 		parseBool(line, "PP_NonSpinFlip_1D", InputData->output_pp_non_spin_flip_SANS_cross_section_1D_flag, Check_Flag[64]);
 		parseBool(line, "MM_NonSpinFlip_1D", InputData->output_mm_non_spin_flip_SANS_cross_section_1D_flag, Check_Flag[65]);
-		parseBool(line, "P_SANSPOL_2D", InputData->output_p_sanspol_cross_section_1D_flag, Check_Flag[66]);
-		parseBool(line, "M_SANSPOL_2D", InputData->output_m_sanspol_cross_section_1D_flag, Check_Flag[67]);
+		parseBool(line, "P_SANSPOL_1D", InputData->output_p_sanspol_cross_section_1D_flag, Check_Flag[66]);
+		parseBool(line, "M_SANSPOL_1D", InputData->output_m_sanspol_cross_section_1D_flag, Check_Flag[67]);
 		parseBool(line, "Nuclear_Corr_2D", InputData->output_nuclear_correlation_function_2D_flag, Check_Flag[68]);
 		parseBool(line, "Polarized_Corr_2D", InputData->output_polarized_correlation_function_2D_flag, Check_Flag[69]);
 		parseBool(line, "NuclearMagnetic_Corr_2D", InputData->output_nuclear_magnetic_correlation_function_2D_flag, Check_Flag[70]);
