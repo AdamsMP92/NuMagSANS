@@ -32,7 +32,7 @@
 #include "NuMagSANSlib_StringCompare.h"
 #include "NuMagSANSlib_ReadWrite.h"
 #include "NuMagSANSlib_Directory.h"
-#include "NuMagSANSlib_InputFileInterpreter.h"
+#include "NuMagSANSlib_InputFileInterpreter2.h"
 #include "NuMagSANSlib_MagDataExplorer.h"
 #include "NuMagSANSlib_NucDataExplorer.h"
 #include "NuMagSANSlib_StructureDataExplorer.h"

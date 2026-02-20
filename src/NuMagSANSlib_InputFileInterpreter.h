@@ -344,7 +344,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		parseString(line, "User_Selection", InputData->User_Selection, Check_Flag[7]);
 		parseFloat(line, "q_max", InputData->q_max, Check_Flag[8]);
 		parseFloat(line, "r_max", InputData->r_max, Check_Flag[9]);
-		parseFloat(line, "XYZ_Unit_Fact", InputData->XYZ_Unit_Factor, Check_Flag[10]);
+		parseFloat(line, "XYZ_Unit_Factor", InputData->XYZ_Unit_Factor, Check_Flag[10]);
 		parseFloat(line, "RotMat_alpha", InputData->RotMat_alpha, Check_Flag[11]);
 		parseFloat(line, "RotMat_beta", InputData->RotMat_beta, Check_Flag[12]);
 		parseBool(line, "Fourier_Gamma", InputData->output_fourier_correlation_matrix_flag, Check_Flag[13]);
