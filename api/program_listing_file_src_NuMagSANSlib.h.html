@@ -596,19 +596,6 @@
 <span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_m_sanspol_cross_section_1D_flag</span>
 <span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_p_sanspol_cross_section_1D_flag</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_1D_azimuthal_average</span><span class="p">){</span>
-
-<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: azimuthal averaging&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="n">AzimuthalAverage</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">        </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">           </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="c1">// compute 1D pair distance distribution and correlation function #########################</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_realspace</span><span class="w"> </span><span class="o">=</span>
 <span class="w">           </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_nuclear_pair_distance_distribution_1D_flag</span>
 <span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_unpolarized_pair_distance_distribution_1D_flag</span>
@@ -635,6 +622,19 @@
 <span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_p_sanspol_correlation_function_1D_flag</span>
 <span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_m_sanspol_correlation_function_1D_flag</span><span class="p">;</span>
 
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_1D_azimuthal_average</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">compute_1D_realspace</span><span class="p">){</span>
+
+<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: azimuthal averaging&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">AzimuthalAverage</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+<span class="w">        </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
+<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">           </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// compute 1D pair distance distribution and correlation function #########################</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_1D_realspace</span><span class="p">){</span>
 <span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: 1D correlation functions&quot;</span><span class="p">);</span>
 <span class="w">        </span><span class="n">DistributionFunctions</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">),</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
