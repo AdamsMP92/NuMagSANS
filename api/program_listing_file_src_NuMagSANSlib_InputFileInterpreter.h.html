@@ -581,29 +581,51 @@
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 <span class="p">}</span>
 
+
 <span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">try_extract_value</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">line</span><span class="p">,</span>
 <span class="w">                              </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">property</span><span class="p">,</span>
 <span class="w">                              </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="c1">// must start with property</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">property</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// Remove leading and trailing whitespace from the entire line</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">trimmed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">trim</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// If the line is shorter than the property name,</span>
+<span class="w">    </span><span class="c1">// it cannot possibly match</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">trimmed</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">property</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">eq_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">line</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="sc">&#39;=&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">semi_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">line</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="sc">&#39;;&#39;</span><span class="p">);</span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">eq_pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="w"> </span><span class="o">||</span>
-<span class="w">        </span><span class="n">semi_pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="w"> </span><span class="o">||</span>
-<span class="w">        </span><span class="n">semi_pos</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">eq_pos</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// The line must start with the exact property name.</span>
+<span class="w">    </span><span class="c1">// This ensures prefix matching but does NOT yet validate</span>
+<span class="w">    </span><span class="c1">// token boundaries.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">trimmed</span><span class="p">.</span><span class="n">compare</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">property</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="n">property</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">trim</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">eq_pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                             </span><span class="n">semi_pos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">eq_pos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="w">    </span><span class="c1">// Position right after the property name</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">property</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Skip any whitespace between the property and the &#39;=&#39; symbol</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">trimmed</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">           </span><span class="n">std</span><span class="o">::</span><span class="n">isspace</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="n">trimmed</span><span class="p">[</span><span class="n">pos</span><span class="p">])))</span>
+<span class="w">        </span><span class="o">++</span><span class="n">pos</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// The next non-whitespace character MUST be &#39;=&#39;.</span>
+<span class="w">    </span><span class="c1">// This enforces an exact key match and prevents</span>
+<span class="w">    </span><span class="c1">// matches like &quot;q_max_extra&quot;.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">trimmed</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">trimmed</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="sc">&#39;=&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Find the terminating semicolon after &#39;=&#39;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">semi_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">trimmed</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="sc">&#39;;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">pos</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">semi_pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Extract the substring between &#39;=&#39; and &#39;;&#39;</span>
+<span class="w">    </span><span class="c1">// and trim surrounding whitespace</span>
+<span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">trim</span><span class="p">(</span><span class="n">trimmed</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">semi_pos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
-
-
 
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">parseBool</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">line</span><span class="p">,</span>

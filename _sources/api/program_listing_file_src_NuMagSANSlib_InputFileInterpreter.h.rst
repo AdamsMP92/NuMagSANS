@@ -201,29 +201,51 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        return s.substr(start, end - start + 1);
    }
    
+   
    static bool try_extract_value(const std::string& line,
                                  const std::string& property,
                                  std::string& value)
    {
-       // must start with property
-       if (line.rfind(property, 0) != 0)
+       // Remove leading and trailing whitespace from the entire line
+       std::string trimmed = trim(line);
+   
+       // If the line is shorter than the property name,
+       // it cannot possibly match
+       if (trimmed.size() < property.size())
            return false;
    
-       size_t eq_pos = line.find('=');
-       size_t semi_pos = line.find(';');
-   
-       if (eq_pos == std::string::npos ||
-           semi_pos == std::string::npos ||
-           semi_pos <= eq_pos)
+       // The line must start with the exact property name.
+       // This ensures prefix matching but does NOT yet validate
+       // token boundaries.
+       if (trimmed.compare(0, property.size(), property) != 0)
            return false;
    
-       value = trim(line.substr(eq_pos + 1,
-                                semi_pos - eq_pos - 1));
+       // Position right after the property name
+       size_t pos = property.size();
+   
+       // Skip any whitespace between the property and the '=' symbol
+       while (pos < trimmed.size() &&
+              std::isspace(static_cast<unsigned char>(trimmed[pos])))
+           ++pos;
+   
+       // The next non-whitespace character MUST be '='.
+       // This enforces an exact key match and prevents
+       // matches like "q_max_extra".
+       if (pos >= trimmed.size() || trimmed[pos] != '=')
+           return false;
+   
+       // Find the terminating semicolon after '='
+       size_t semi_pos = trimmed.find(';', pos);
+       if (semi_pos == std::string::npos)
+           return false;
+   
+       // Extract the substring between '=' and ';'
+       // and trim surrounding whitespace
+       value = trim(trimmed.substr(pos + 1,
+                                   semi_pos - pos - 1));
    
        return true;
    }
-   
-   
     
    
    void parseBool(const std::string& line,
