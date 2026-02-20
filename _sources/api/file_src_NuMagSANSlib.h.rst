@@ -34,7 +34,7 @@ Includes
 
 - ``NuMagSANSlib_HelperFun.h`` (:ref:`file_src_NuMagSANSlib_HelperFun.h`)
 
-- ``NuMagSANSlib_InputFileInterpreter.h`` (:ref:`file_src_NuMagSANSlib_InputFileInterpreter.h`)
+- ``NuMagSANSlib_InputFileInterpreter2.h`` (:ref:`file_src_NuMagSANSlib_InputFileInterpreter2.h`)
 
 - ``NuMagSANSlib_LogFile.h`` (:ref:`file_src_NuMagSANSlib_LogFile.h`)
 

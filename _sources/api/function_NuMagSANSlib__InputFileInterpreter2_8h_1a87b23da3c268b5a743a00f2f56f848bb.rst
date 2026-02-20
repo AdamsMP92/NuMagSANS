@@ -1,9 +1,9 @@
-.. _exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1aca7adf9bfb3cf0d5093d13724c971ed0:
+.. _exhale_function_NuMagSANSlib__InputFileInterpreter2_8h_1a87b23da3c268b5a743a00f2f56f848bb:
 
 Function Compute_RotMat(float, float, float \*)
 ===============================================
 
-- Defined in :ref:`file_src_NuMagSANSlib_InputFileInterpreter.h`
+- Defined in :ref:`file_src_NuMagSANSlib_InputFileInterpreter2.h`
 
 
 Function Documentation

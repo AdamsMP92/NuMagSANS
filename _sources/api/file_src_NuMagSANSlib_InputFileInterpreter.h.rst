@@ -64,12 +64,6 @@ Includes
 
 
 
-Included By
------------
-
-
-- :ref:`file_src_NuMagSANSlib.h`
-
 
 
 
