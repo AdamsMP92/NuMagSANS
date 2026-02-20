@@ -30,6 +30,10 @@ Includes
 --------
 
 
+- ``algorithm``
+
+- ``cctype``
+
 - ``chrono``
 
 - ``cublas_v2.h``
@@ -64,6 +68,12 @@ Includes
 
 
 
+Included By
+-----------
+
+
+- :ref:`file_src_NuMagSANSlib.h`
+
 
 
 
@@ -80,8 +90,6 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1aca7adf9bfb3cf0d5093d13724c971ed0`
 
-- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1adda0f74645157482a1f566e7e0f27331`
-
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a6bc4f8698cc3ea3bcbba027639c74fa8`
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1acefcd1d43e234c479915867da38e9f72`
@@ -97,6 +105,10 @@ Functions
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a2eea907970df3a8cb63d7e544d9c24b8`
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a3bc93c1b63b904fb9952346a88377c5f`
+
+- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a8c7f671a4eaae43db4839df0abcb514a`
+
+- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a02d64c2df3ff5e57036e3b487c9f5a7e`
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a1e5dc883478afe8a376eb5ee8e5abcc5`
 

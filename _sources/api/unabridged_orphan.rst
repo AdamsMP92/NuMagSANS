@@ -50,11 +50,6 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_InputFileInterpreter2.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_src_NuMagSANSlib_LogFile.h.rst
 
 .. toctree::

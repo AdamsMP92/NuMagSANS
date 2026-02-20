@@ -17,7 +17,6 @@ Files
 - :ref:`file_src_NuMagSANSlib_gpuKernel.h`
 - :ref:`file_src_NuMagSANSlib_HelperFun.h`
 - :ref:`file_src_NuMagSANSlib_InputFileInterpreter.h`
-- :ref:`file_src_NuMagSANSlib_InputFileInterpreter2.h`
 - :ref:`file_src_NuMagSANSlib_LogFile.h`
 - :ref:`file_src_NuMagSANSlib_MagData.h`
 - :ref:`file_src_NuMagSANSlib_MagDataExplorer.h`
