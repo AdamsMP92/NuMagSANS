@@ -65,7 +65,7 @@ struct PrefixEntry {
 
 struct SuffixEntry {
     const char* name;
-    OutFlagQuant::* quantity;
+    OutFlag OutFlagQuant::* quantity;
 };
 
 
