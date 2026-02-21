@@ -505,7 +505,7 @@ Program Listing for File NuMagSANSlib_SpectralData.h
            "/AngularSpectrum/";
    
        //mkdir(baseFolder.c_str(), 0777);
-       std::filesystem::create_directories(base_foldername);
+       std::filesystem::create_directories(baseFolder);
    
        // ================================
        // Intensities
