@@ -556,6 +556,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
                    }
                    *opt.target = static_cast<bool>(std::stoi(value));
                    opt.found = true;
+                   LogSystem::write(" -> " + opt.key + " : " + (*opt.target ? "true" : "false"));
                }
            }
    
@@ -567,6 +568,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
                    }
                    *opt.target = static_cast<bool>(std::stoi(value));
                    opt.found = true;
+                   LogSystem::write(" -> " + opt.key + " : " + (*opt.target ? "true" : "false"));
                }
            }
    
@@ -578,6 +580,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
                    }
                    *opt.target = std::stoi(value);
                    opt.found = true;
+                   LogSystem::write(" -> " + opt.key + " : " + std::to_string(*opt.target));
                }
            }
    
@@ -589,6 +592,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
                    }
                    *opt.target = std::stof(value);
                    opt.found = true;
+                   LogSystem::write(" -> " + opt.key + " : " + std::to_string(*opt.target));
                }
            }
    
@@ -600,6 +604,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
                    }
                    *opt.target = value;
                    opt.found = true;
+                   LogSystem::write(" -> " + opt.key + " : " + *opt.target);
                }
            }
    
