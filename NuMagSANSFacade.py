@@ -214,6 +214,26 @@ class NuMagSANSFacade:
 
         return filename
 
+
+    # ------------------------------------------------------------
+    # Clear Config File
+    # ------------------------------------------------------------
+
+    def config_clear(self, config: str | Path, *, confirm: bool = False):
+        """
+        Delete a configuration file.
+        If confirm=False, only deletes files ending in '.conf'.
+        """
+        config = Path(config)
+
+        if not config.exists():
+            return
+
+        if not confirm and config.suffix != ".conf":
+            raise ValueError("Refusing to delete non-.conf file without confirm=True")
+
+        config.unlink()
+
     # ------------------------------------------------------------
     # EXECUTION
     # ------------------------------------------------------------
