@@ -42,6 +42,8 @@ Includes
 
 - ``fstream``
 
+- ``iomanip``
+
 - ``iostream``
 
 - ``math.h``
