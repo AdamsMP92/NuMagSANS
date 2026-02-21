@@ -1762,7 +1762,7 @@ Program Listing for File NuMagSANSlib_SANSData.h
    ){
        std::vector<Column> columns;
    
-       columns.push_back({"q", SANSData->q_1D});
+       columns.push_back("q", SANSData->q_1D);
    
        auto& f = InputData->OutFlags.SANS1D;
    
