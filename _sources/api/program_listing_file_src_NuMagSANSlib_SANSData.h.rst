@@ -1013,722 +1013,831 @@ Program Listing for File NuMagSANSlib_SANSData.h
    
    
    
-   void write2CSVtable_ScatteringData(InputFileData *InputData, \
-                                      ScatteringData *SANSData, \
-                                      int MagData_File_Index){
+   // void write2CSVtable_ScatteringData(InputFileData *InputData, \
+   //                                 ScatteringData *SANSData, \
+   //                                 int MagData_File_Index){
    
-       LogSystem::write("");
-       LogSystem::write("write scattering data to csv-files...");
+   //  LogSystem::write("");
+   //  LogSystem::write("write scattering data to csv-files...");
    
-       unsigned int L = (*SANSData->N_q) * (*SANSData->N_theta);
+   //  unsigned int L = (*SANSData->N_q) * (*SANSData->N_theta);
        
-       std::string target_foldername = InputData->SANSDataFoldername + "/SANS_" + std::to_string(MagData_File_Index) + "/";
-       mkdir(target_foldername.c_str(), 0777);
+   //  std::string target_foldername = InputData->SANSDataFoldername + "/SANS_" + std::to_string(MagData_File_Index) + "/";
+   //  mkdir(target_foldername.c_str(), 0777);
    
-       ofstream fout;
+   //  ofstream fout;
    
-       // 2D SANS cross sections
+   //  // 2D SANS cross sections
    
-       if(InputData->output_fourier_correlation_matrix_flag || any_active(InputData->OutFlags.SANS2D)){
+   //  if(InputData->output_fourier_correlation_matrix_flag || any_active(InputData->OutFlags.SANS2D)){
        
-           std::string filename_SANS2D = target_foldername + "SANS2D.csv"; 
-           fout.open(filename_SANS2D);
-           fout << "qz";
-           fout << "," << "qy";
-           fout << "," << "q";
-           fout << "," << "theta";
+   //      std::string filename_SANS2D = target_foldername + "SANS2D.csv"; 
+   //      fout.open(filename_SANS2D);
+   //      fout << "qz";
+   //      fout << "," << "qy";
+   //      fout << "," << "q";
+   //      fout << "," << "theta";
    
-           if(InputData->output_fourier_correlation_matrix_flag){
-               fout << "," << "Gxx_real";
-               fout << "," << "Gxx_imag";
-               fout << "," << "Gyy_real";
-               fout << "," << "Gyy_imag";
-               fout << "," << "Gzz_real"; 
-               fout << "," << "Gzz_imag"; 
-               fout << "," << "Gxy_real";
-               fout << "," << "Gxy_imag";
-               fout << "," << "Gyx_real";
-               fout << "," << "Gyx_imag";
-               fout << "," << "Gxz_real";
-               fout << "," << "Gxz_imag";
-               fout << "," << "Gzx_real";
-               fout << "," << "Gzx_imag";
-               fout << "," << "Gyz_real"; 
-               fout << "," << "Gyz_imag";
-               fout << "," << "Gzy_real"; 
-               fout << "," << "Gzy_imag";
-           }
+   //      if(InputData->output_fourier_correlation_matrix_flag){
+   //          fout << "," << "Gxx_real";
+   //          fout << "," << "Gxx_imag";
+   //          fout << "," << "Gyy_real";
+   //          fout << "," << "Gyy_imag";
+   //          fout << "," << "Gzz_real"; 
+   //          fout << "," << "Gzz_imag"; 
+   //          fout << "," << "Gxy_real";
+   //          fout << "," << "Gxy_imag";
+   //          fout << "," << "Gyx_real";
+   //          fout << "," << "Gyx_imag";
+   //          fout << "," << "Gxz_real";
+   //          fout << "," << "Gxz_imag";
+   //          fout << "," << "Gzx_real";
+   //          fout << "," << "Gzx_imag";
+   //          fout << "," << "Gyz_real"; 
+   //          fout << "," << "Gyz_imag";
+   //          fout << "," << "Gzy_real"; 
+   //          fout << "," << "Gzy_imag";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.Nuclear){
-               fout << "," << "S_N";
-           }
+   //      if(InputData->OutFlags.SANS2D.Nuclear){
+   //          fout << "," << "S_N";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.Unpolarized){
-               fout << "," << "S_M";
-           }
+   //      if(InputData->OutFlags.SANS2D.Unpolarized){
+   //          fout << "," << "S_M";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.NuclearMagnetic){
-               fout << "," << "S_NM";
-           }
+   //      if(InputData->OutFlags.SANS2D.NuclearMagnetic){
+   //          fout << "," << "S_NM";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.Polarized){
-               fout << "," << "S_P";
-           }
+   //      if(InputData->OutFlags.SANS2D.Polarized){
+   //          fout << "," << "S_P";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.Chiral){
-               fout << "," << "S_chi";
-           }
+   //      if(InputData->OutFlags.SANS2D.Chiral){
+   //          fout << "," << "S_chi";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.SpinFlip){
-               fout << "," << "S_sf";
-           }
+   //      if(InputData->OutFlags.SANS2D.SpinFlip){
+   //          fout << "," << "S_sf";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.PM_SpinFlip){
-               fout << "," << "S_pm";
-           }
+   //      if(InputData->OutFlags.SANS2D.PM_SpinFlip){
+   //          fout << "," << "S_pm";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.MP_SpinFlip){
-               fout << "," << "S_mp";
-           }
+   //      if(InputData->OutFlags.SANS2D.MP_SpinFlip){
+   //          fout << "," << "S_mp";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.PP_NonSpinFlip){
-               fout << "," << "S_pp";
-           }
+   //      if(InputData->OutFlags.SANS2D.PP_NonSpinFlip){
+   //          fout << "," << "S_pp";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.MM_NonSpinFlip){
-               fout << "," << "S_mm";
-           }
+   //      if(InputData->OutFlags.SANS2D.MM_NonSpinFlip){
+   //          fout << "," << "S_mm";
+   //      }
            
-           if(InputData->OutFlags.SANS2D.P_SANSPOL){
-               fout << "," << "S_p";
-           }
+   //      if(InputData->OutFlags.SANS2D.P_SANSPOL){
+   //          fout << "," << "S_p";
+   //      }
    
-           if(InputData->OutFlags.SANS2D.M_SANSPOL){
-               fout << "," << "S_m";
-           }
+   //      if(InputData->OutFlags.SANS2D.M_SANSPOL){
+   //          fout << "," << "S_m";
+   //      }
    
+   //      fout << "\n";
+           
+   //      for(unsigned long int n = 0; n<L; n++){
+   //          fout << SANSData->qz_2D[n];
+   //          fout << "," << SANSData->qy_2D[n];
+   //          fout << "," << SANSData->q_2D[n];
+   //          fout << "," << SANSData->theta_2D[n];
+               
+   //          if(InputData->output_fourier_correlation_matrix_flag){
+   //              fout << "," << SANSData->Gxx_real[n];
+   //              fout << "," << SANSData->Gxx_imag[n];
+   //              fout << "," << SANSData->Gyy_real[n];
+   //              fout << "," << SANSData->Gyy_imag[n];
+   //              fout << "," << SANSData->Gzz_real[n];
+   //              fout << "," << SANSData->Gzz_imag[n];
+   //              fout << "," << SANSData->Gxy_real[n];
+   //              fout << "," << SANSData->Gxy_imag[n];
+   //              fout << "," << SANSData->Gyx_real[n];
+   //              fout << "," << SANSData->Gyx_imag[n];
+   //              fout << "," << SANSData->Gxz_real[n];
+   //              fout << "," << SANSData->Gxz_imag[n];
+   //              fout << "," << SANSData->Gzx_real[n];
+   //              fout << "," << SANSData->Gzx_imag[n];
+   //              fout << "," << SANSData->Gyz_real[n];
+   //              fout << "," << SANSData->Gyz_imag[n];
+   //              fout << "," << SANSData->Gzy_real[n];
+   //              fout << "," << SANSData->Gzy_imag[n];
+   //          }
+   
+   
+   //          if(InputData->OutFlags.SANS2D.Nuclear){
+   //              fout << "," << SANSData->S_Nuc_2D_unpolarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.SANS2D.Unpolarized){
+   //              fout << "," << SANSData->S_Mag_2D_unpolarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.SANS2D.NuclearMagnetic){
+   //              fout << "," << SANSData->S_NucMag_2D[n];
+   //          }
+               
+   //          if(InputData->OutFlags.SANS2D.Polarized){
+   //              fout << "," << SANSData->S_Mag_2D_polarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.SANS2D.Chiral){
+   //              fout << "," << SANSData->S_Mag_2D_chiral[n];
+   //          }
+               
+   //          if(InputData->OutFlags.SANS2D.SpinFlip){
+   //              fout << "," << SANSData->S_Mag_2D_spin_flip[n];
+   //          }
+   
+   //          if(InputData->OutFlags.SANS2D.PM_SpinFlip){
+   //              fout << "," << SANSData->S_Mag_2D_spin_flip_pm[n];
+   //          }
+           
+   //          if(InputData->OutFlags.SANS2D.MP_SpinFlip){
+   //              fout << "," << SANSData->S_Mag_2D_spin_flip_mp[n];
+   //          }
+           
+   //          if(InputData->OutFlags.SANS2D.PP_NonSpinFlip){
+   //              fout << "," << SANSData->S_Mag_2D_non_spin_flip_pp[n];
+   //          }
+           
+   //          if(InputData->OutFlags.SANS2D.MM_NonSpinFlip){
+   //              fout << "," << SANSData->S_Mag_2D_non_spin_flip_mm[n];
+   //          }
+               
+   //          if(InputData->OutFlags.SANS2D.P_SANSPOL){
+   //              fout << "," << SANSData->S_Mag_2D_sanspol_p[n];
+   //          }
+   
+   //          if(InputData->OutFlags.SANS2D.M_SANSPOL){
+   //              fout << "," << SANSData->S_Mag_2D_sanspol_m[n];
+   //          }
+               
+   
+   //          fout << "\n";
+   //      }
+   //      fout.close();
+   //      LogSystem::write("SANS2D finished...");
+   //  }
+   
+   //  // 1D SANS cross sections ####################################################
+   //  if(any_active(InputData->OutFlags.SANS1D)){
+       
+   //  std::string filename_SANS1D = target_foldername + "SANS1D.csv";
+   //  fout.open(filename_SANS1D);
+   
+   //  fout << "q"; 
+   
+   //  if(InputData->OutFlags.SANS1D.Nuclear){
+   //      fout << "," << "I_N";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.Unpolarized){
+   //      fout << "," << "I_M";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.NuclearMagnetic){
+   //      fout << "," << "I_NM";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.Polarized){
+   //      fout << "," << "I_P";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.Chiral){
+   //      fout << "," << "I_chi";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.SpinFlip){
+   //      fout << "," << "I_sf";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.PM_SpinFlip){
+   //      fout << "," << "I_pm";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.MP_SpinFlip){
+   //      fout << "," << "I_mp";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.PP_NonSpinFlip){
+   //      fout << "," << "I_pp";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.MM_NonSpinFlip){
+   //      fout << "," << "I_mm";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.P_SANSPOL){
+   //      fout << "," << "I_p";
+   //  }
+   
+   //  if(InputData->OutFlags.SANS1D.M_SANSPOL){
+   //      fout << "," << "I_m";
+   //  }
+   
+   //  fout << "\n";   
+   
+   //  for(unsigned long int n = 0; n<(*SANSData->N_q); n++){
+   
+   //      fout << SANSData->q_1D[n];
+   
+   //      if(InputData->OutFlags.SANS1D.Nuclear){
+   //          fout << "," << SANSData->S_Nuc_1D_unpolarized[n];
+   //      }
+       
+   //      if(InputData->OutFlags.SANS1D.Unpolarized){
+   //          fout << "," << SANSData->S_Mag_1D_unpolarized[n];
+   //      }
+   
+   //      if(InputData->OutFlags.SANS1D.NuclearMagnetic){
+   //          fout << "," << SANSData->S_NucMag_1D[n];
+   //      }
+       
+   //      if(InputData->OutFlags.SANS1D.Polarized){
+   //          fout << "," << SANSData->S_Mag_1D_polarized[n];
+   //      }
+       
+   //      if(InputData->OutFlags.SANS1D.Chiral){
+   //          fout << "," << SANSData->S_Mag_1D_chiral[n];
+   //      }   
+       
+   //      if(InputData->OutFlags.SANS1D.SpinFlip){
+   //          fout << "," << SANSData->S_Mag_1D_spin_flip[n];
+   //      }
+       
+   //      if(InputData->OutFlags.SANS1D.PM_SpinFlip){
+   //          fout << "," << SANSData->S_Mag_1D_spin_flip_pm[n];
+   //      }
+   
+   //      if(InputData->OutFlags.SANS1D.MP_SpinFlip){
+   //          fout << "," << SANSData->S_Mag_1D_spin_flip_mp[n];
+   //      }
+   
+   //      if(InputData->OutFlags.SANS1D.PP_NonSpinFlip){
+   //          fout << "," << SANSData->S_Mag_1D_non_spin_flip_pp[n];
+   //      }
+   
+   //      if(InputData->OutFlags.SANS1D.MM_NonSpinFlip){
+   //          fout << "," << SANSData->S_Mag_1D_non_spin_flip_mm[n];
+   //      }
+   
+   //      if(InputData->OutFlags.SANS1D.P_SANSPOL){
+   //          fout << "," << SANSData->S_Mag_1D_sanspol_p[n];
+   //      }
+   
+   //      if(InputData->OutFlags.SANS1D.M_SANSPOL){
+   //          fout << "," << SANSData->S_Mag_1D_sanspol_m[n];
+   //      }
+   
+   //      fout << "\n";
+   //  }
+   //  fout.close();
+   //  LogSystem::write("SANS1D finished...");
+   //  }
+       
+   
+   //  // Pair-Distance Distribution 1D ######################################################################
+   
+   //  if(any_active(InputData->OutFlags.Corr1D) || any_active(InputData->OutFlags.PairDist1D)){
+   
+   //      std::string filename_Corr1D = target_foldername + "Corr1D.csv";
+   //      fout.open(filename_Corr1D);
+   
+   //      fout << "r";
+   
+   //      if(InputData->OutFlags.PairDist1D.Nuclear){
+   //          fout << "," << "p_N";
+   //      }
+   
+   //      if(InputData->OutFlags.PairDist1D.Unpolarized){
+   //          fout << "," << "p_M";
+   //      }
+   
+   //      if(InputData->OutFlags.PairDist1D.NuclearMagnetic){
+   //          fout << "," << "p_NM";
+   //      }
+   
+   //      if(InputData->OutFlags.PairDist1D.Polarized){
+   //          fout << "," << "p_P";
+   //      }
+   
+   //      if(InputData->OutFlags.PairDist1D.Chiral){
+   //          fout << "," << "p_chi";
+   //      }
+   
+   //      if(InputData->OutFlags.PairDist1D.SpinFlip){
+   //          fout << "," << "p_sf";
+   //      }
+   
+   //      if(InputData->OutFlags.PairDist1D.PM_SpinFlip){
+   //          fout << "," << "p_pm";
+   //      }
+   
+   //      if(InputData->OutFlags.PairDist1D.MP_SpinFlip){
+   //          fout << "," << "p_mp";
+   //      }
+   
+   //      if(InputData->OutFlags.PairDist1D.PP_NonSpinFlip){
+   //          fout << "," << "p_pp";
+   //      }
+   
+   //      if(InputData->OutFlags.PairDist1D.MM_NonSpinFlip){
+   //          fout << "," << "p_mm";
+   //      }
+           
+   //      if(InputData->OutFlags.PairDist1D.P_SANSPOL){
+   //          fout << "," << "p_p";
+   //      }
+   
+   //      if(InputData->OutFlags.PairDist1D.M_SANSPOL){
+   //          fout << "," << "p_m";
+   //      }
+   
+   
+           
+   
+   //      if(InputData->OutFlags.Corr1D.Nuclear){
+   //          fout << "," << "c_N";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr1D.Unpolarized){
+   //          fout << "," << "c_M";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr1D.NuclearMagnetic){
+   //          fout << "," << "c_NM";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr1D.Polarized){
+   //          fout << "," << "c_P";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr1D.Chiral){
+   //          fout << "," << "c_chi";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr1D.SpinFlip){
+   //          fout << "," << "c_sf";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr1D.PM_SpinFlip){
+   //          fout << "," << "c_pm";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr1D.MP_SpinFlip){
+   //          fout << "," << "c_mp";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr1D.PP_NonSpinFlip){
+   //          fout << "," << "c_pp";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr1D.MM_NonSpinFlip){
+   //          fout << "," << "c_mm";
+   //      }
+           
+   //      if(InputData->OutFlags.Corr1D.P_SANSPOL){
+   //          fout << "," << "c_p";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr1D.M_SANSPOL){
+   //          fout << "," << "c_m";
+   //      }
+           
+   //      fout << "\n";
+   
+   //      for(unsigned long int n = 0; n<(*SANSData->N_r); n++){
+           
+   //          fout << SANSData->r_1D[n];
+   
+   //          if(InputData->OutFlags.PairDist1D.Nuclear){
+   //              fout << "," << SANSData->p_Nuc_unpolarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.PairDist1D.Unpolarized){
+   //              fout << "," << SANSData->p_Mag_unpolarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.PairDist1D.NuclearMagnetic){
+   //              fout << "," << SANSData->p_NucMag[n];
+   //          }
+   
+   //          if(InputData->OutFlags.PairDist1D.Polarized){
+   //              fout << "," << SANSData->p_Mag_polarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.PairDist1D.Chiral){
+   //              fout << "," << SANSData->p_Mag_chiral[n];
+   //          }
+   
+   //          if(InputData->OutFlags.PairDist1D.SpinFlip){
+   //              fout << "," << SANSData->p_Mag_spin_flip[n];
+   //          }
+   
+   //          if(InputData->OutFlags.PairDist1D.PM_SpinFlip){
+   //              fout << "," << SANSData->p_Mag_spin_flip_pm[n];
+   //          }
+       
+   //          if(InputData->OutFlags.PairDist1D.MP_SpinFlip){
+   //              fout << "," << SANSData->p_Mag_spin_flip_mp[n];
+   //          }
+       
+   //          if(InputData->OutFlags.PairDist1D.PP_NonSpinFlip){
+   //              fout << "," << SANSData->p_Mag_non_spin_flip_pp[n];
+   //          }
+       
+   //          if(InputData->OutFlags.PairDist1D.MM_NonSpinFlip){
+   //              fout << "," << SANSData->p_Mag_non_spin_flip_mm[n];
+   //          }
+               
+   //          if(InputData->OutFlags.PairDist1D.P_SANSPOL){
+   //              fout << "," << SANSData->p_Mag_sanspol_p[n];
+   //          }
+       
+   //          if(InputData->OutFlags.PairDist1D.M_SANSPOL){
+   //              fout << "," << SANSData->p_Mag_sanspol_m[n];
+   //          }
+   
+   
+               
+   
+   //          if(InputData->OutFlags.Corr1D.Nuclear){
+   //              fout << "," << SANSData->c_Nuc_unpolarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr1D.Unpolarized){
+   //              fout << "," << SANSData->c_Mag_unpolarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr1D.NuclearMagnetic){
+   //              fout << "," << SANSData->c_NucMag[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr1D.Polarized){
+   //              fout << "," << SANSData->c_Mag_polarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr1D.Chiral){
+   //              fout << "," << SANSData->c_Mag_chiral[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr1D.SpinFlip){
+   //              fout << "," << SANSData->c_Mag_spin_flip[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr1D.PM_SpinFlip){
+   //              fout << "," << SANSData->c_Mag_spin_flip_pm[n];
+   //          }
+       
+   //          if(InputData->OutFlags.Corr1D.MP_SpinFlip){
+   //              fout << "," << SANSData->c_Mag_spin_flip_mp[n];
+   //          }
+       
+   //          if(InputData->OutFlags.Corr1D.PP_NonSpinFlip){
+   //              fout << "," << SANSData->c_Mag_non_spin_flip_pp[n];
+   //          }
+       
+   //          if(InputData->OutFlags.Corr1D.MM_NonSpinFlip){
+   //              fout << "," << SANSData->c_Mag_non_spin_flip_mm[n];
+   //          }
+               
+   //          if(InputData->OutFlags.Corr1D.P_SANSPOL){
+   //              fout << "," << SANSData->c_Mag_sanspol_p[n];
+   //          }
+       
+   //          if(InputData->OutFlags.Corr1D.M_SANSPOL){
+   //              fout << "," << SANSData->c_Mag_sanspol_m[n];
+   //          }
+   
+   //          fout << "\n";
+               
+   //      }
+   //      fout.close();
+   //      LogSystem::write("Corr1D finished...");
+   //  }
+   
+   //  // Corr 2D ###################################################################################################################################
+   
+   //  if(any_active(InputData->OutFlags.Corr2D)){
+   
+   //      L = (*SANSData->N_r) * (*SANSData->N_alpha);
+   
+   //      std::string filename_Corr2D = target_foldername + "Corr2D.csv";
+   //      ofstream fout;
+   //      fout.open(filename_Corr2D);
+   //      fout << "rz";
+   //      fout << "," << "ry";
+   //      fout << "," << "r";
+   //      fout << "," << "alpha";
+   
+   //      if(InputData->OutFlags.Corr2D.Nuclear){
+   //          fout << "," << "C_N";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.Unpolarized){
+   //          fout << "," << "C_M";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.NuclearMagnetic){
+   //          fout << "," << "C_NM";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.Polarized){
+   //          fout << "," << "C_P";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.Chiral){
+   //          fout << "," << "C_chi";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.SpinFlip){
+   //          fout << "," << "C_sf";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.PM_SpinFlip){
+   //          fout << "," << "C_pm";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.MP_SpinFlip){
+   //          fout << "," << "C_mp";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.PP_NonSpinFlip){
+   //          fout << "," << "C_pp";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.MM_NonSpinFlip){
+   //          fout << "," << "C_mm";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.P_SANSPOL){
+   //          fout << "," << "C_p";
+   //      }
+   
+   //      if(InputData->OutFlags.Corr2D.M_SANSPOL){
+   //          fout << "," << "C_m";
+   //      }
+   
+   //      fout << "\n";
+           
+   //      for(unsigned long int n=0; n<L; n++){
+   
+   //          fout << SANSData->rz_2D[n];
+   //          fout << "," << SANSData->ry_2D[n];
+   //          fout << "," << SANSData->r_2D[n];
+   //          fout << "," << SANSData->alpha_2D[n];
+   
+   //          if(InputData->OutFlags.Corr2D.Nuclear){
+   //              fout << "," << SANSData->Corr_Nuc_2D_unpolarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr2D.Unpolarized){
+   //              fout << "," << SANSData->Corr_Mag_2D_unpolarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr2D.NuclearMagnetic){
+   //              fout << "," << SANSData->Corr_NucMag_2D[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr2D.Polarized){
+   //              fout << "," << SANSData->Corr_Mag_2D_polarized[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr2D.Chiral){
+   //              fout << "," << SANSData->Corr_Mag_2D_chiral[n];
+   //          }
+           
+   //          if(InputData->OutFlags.Corr2D.SpinFlip){
+   //              fout << "," << SANSData->Corr_Mag_2D_spin_flip[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr2D.PM_SpinFlip){
+   //              fout << "," << SANSData->Corr_Mag_2D_spin_flip_pm[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr2D.MP_SpinFlip){
+   //              fout << "," << SANSData->Corr_Mag_2D_spin_flip_mp[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr2D.PP_NonSpinFlip){
+   //              fout << "," << SANSData->Corr_Mag_2D_non_spin_flip_pp[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr2D.MM_NonSpinFlip){
+   //              fout << "," << SANSData->Corr_Mag_2D_non_spin_flip_mm[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr2D.P_SANSPOL){
+   //              fout << "," << SANSData->Corr_Mag_2D_sanspol_p[n];
+   //          }
+   
+   //          if(InputData->OutFlags.Corr2D.M_SANSPOL){
+   //              fout << "," << SANSData->Corr_Mag_2D_sanspol_m[n];
+   //          }
+   
+   //          fout << "\n";
+               
+   //      }
+   //      fout.close();
+   //      LogSystem::write("Corr2D finished...");
+   //  }
+       
+   // }
+   
+   
+   // #################################################################################################
+   // #################################################################################################
+   
+   // -------------------------------------------------------------------------------------------------
+   struct Column {
+       std::string name;
+       const double* data;
+   };
+   // -------------------------------------------------------------------------------------------------
+   
+   void writeCSV(
+       const std::string& filename,
+       unsigned long length,
+       const std::vector<Column>& columns
+   ){
+       std::ofstream fout(filename);
+       if(!fout.is_open()){
+           throw std::runtime_error("Could not open file: " + filename);
+       }
+   
+       // Header
+       for(size_t i = 0; i < columns.size(); ++i){
+           fout << columns[i].name;
+           if(i < columns.size() - 1) fout << ",";
+       }
+       fout << "\n";
+   
+       // Data
+       for(unsigned long n = 0; n < length; ++n){
+           for(size_t i = 0; i < columns.size(); ++i){
+               fout << columns[i].data[n];
+               if(i < columns.size() - 1) fout << ",";
+           }
            fout << "\n";
-           
-           for(unsigned long int n = 0; n<L; n++){
-               fout << SANSData->qz_2D[n];
-               fout << "," << SANSData->qy_2D[n];
-               fout << "," << SANSData->q_2D[n];
-               fout << "," << SANSData->theta_2D[n];
-               
-               if(InputData->output_fourier_correlation_matrix_flag){
-                   fout << "," << SANSData->Gxx_real[n];
-                   fout << "," << SANSData->Gxx_imag[n];
-                   fout << "," << SANSData->Gyy_real[n];
-                   fout << "," << SANSData->Gyy_imag[n];
-                   fout << "," << SANSData->Gzz_real[n];
-                   fout << "," << SANSData->Gzz_imag[n];
-                   fout << "," << SANSData->Gxy_real[n];
-                   fout << "," << SANSData->Gxy_imag[n];
-                   fout << "," << SANSData->Gyx_real[n];
-                   fout << "," << SANSData->Gyx_imag[n];
-                   fout << "," << SANSData->Gxz_real[n];
-                   fout << "," << SANSData->Gxz_imag[n];
-                   fout << "," << SANSData->Gzx_real[n];
-                   fout << "," << SANSData->Gzx_imag[n];
-                   fout << "," << SANSData->Gyz_real[n];
-                   fout << "," << SANSData->Gyz_imag[n];
-                   fout << "," << SANSData->Gzy_real[n];
-                   fout << "," << SANSData->Gzy_imag[n];
-               }
-   
-   
-               if(InputData->OutFlags.SANS2D.Nuclear){
-                   fout << "," << SANSData->S_Nuc_2D_unpolarized[n];
-               }
-   
-               if(InputData->OutFlags.SANS2D.Unpolarized){
-                   fout << "," << SANSData->S_Mag_2D_unpolarized[n];
-               }
-   
-               if(InputData->OutFlags.SANS2D.NuclearMagnetic){
-                   fout << "," << SANSData->S_NucMag_2D[n];
-               }
-               
-               if(InputData->OutFlags.SANS2D.Polarized){
-                   fout << "," << SANSData->S_Mag_2D_polarized[n];
-               }
-   
-               if(InputData->OutFlags.SANS2D.Chiral){
-                   fout << "," << SANSData->S_Mag_2D_chiral[n];
-               }
-               
-               if(InputData->OutFlags.SANS2D.SpinFlip){
-                   fout << "," << SANSData->S_Mag_2D_spin_flip[n];
-               }
-   
-               if(InputData->OutFlags.SANS2D.PM_SpinFlip){
-                   fout << "," << SANSData->S_Mag_2D_spin_flip_pm[n];
-               }
-           
-               if(InputData->OutFlags.SANS2D.MP_SpinFlip){
-                   fout << "," << SANSData->S_Mag_2D_spin_flip_mp[n];
-               }
-           
-               if(InputData->OutFlags.SANS2D.PP_NonSpinFlip){
-                   fout << "," << SANSData->S_Mag_2D_non_spin_flip_pp[n];
-               }
-           
-               if(InputData->OutFlags.SANS2D.MM_NonSpinFlip){
-                   fout << "," << SANSData->S_Mag_2D_non_spin_flip_mm[n];
-               }
-               
-               if(InputData->OutFlags.SANS2D.P_SANSPOL){
-                   fout << "," << SANSData->S_Mag_2D_sanspol_p[n];
-               }
-   
-               if(InputData->OutFlags.SANS2D.M_SANSPOL){
-                   fout << "," << SANSData->S_Mag_2D_sanspol_m[n];
-               }
-               
-   
-               fout << "\n";
-           }
-           fout.close();
-           LogSystem::write("SANS2D finished...");
        }
    
-       // 1D SANS cross sections ####################################################
-       if(any_active(InputData->OutFlags.SANS1D)){
-       
-       std::string filename_SANS1D = target_foldername + "SANS1D.csv";
-       fout.open(filename_SANS1D);
-   
-       fout << "q"; 
-   
-       if(InputData->OutFlags.SANS1D.Nuclear){
-           fout << "," << "I_N";
-       }
-   
-       if(InputData->OutFlags.SANS1D.Unpolarized){
-           fout << "," << "I_M";
-       }
-   
-       if(InputData->OutFlags.SANS1D.NuclearMagnetic){
-           fout << "," << "I_NM";
-       }
-   
-       if(InputData->OutFlags.SANS1D.Polarized){
-           fout << "," << "I_P";
-       }
-   
-       if(InputData->OutFlags.SANS1D.Chiral){
-           fout << "," << "I_chi";
-       }
-   
-       if(InputData->OutFlags.SANS1D.SpinFlip){
-           fout << "," << "I_sf";
-       }
-   
-       if(InputData->OutFlags.SANS1D.PM_SpinFlip){
-           fout << "," << "I_pm";
-       }
-   
-       if(InputData->OutFlags.SANS1D.MP_SpinFlip){
-           fout << "," << "I_mp";
-       }
-   
-       if(InputData->OutFlags.SANS1D.PP_NonSpinFlip){
-           fout << "," << "I_pp";
-       }
-   
-       if(InputData->OutFlags.SANS1D.MM_NonSpinFlip){
-           fout << "," << "I_mm";
-       }
-   
-       if(InputData->OutFlags.SANS1D.P_SANSPOL){
-           fout << "," << "I_p";
-       }
-   
-       if(InputData->OutFlags.SANS1D.M_SANSPOL){
-           fout << "," << "I_m";
-       }
-   
-       fout << "\n";   
-   
-       for(unsigned long int n = 0; n<(*SANSData->N_q); n++){
-   
-           fout << SANSData->q_1D[n];
-   
-           if(InputData->OutFlags.SANS1D.Nuclear){
-               fout << "," << SANSData->S_Nuc_1D_unpolarized[n];
-           }
-       
-           if(InputData->OutFlags.SANS1D.Unpolarized){
-               fout << "," << SANSData->S_Mag_1D_unpolarized[n];
-           }
-   
-           if(InputData->OutFlags.SANS1D.NuclearMagnetic){
-               fout << "," << SANSData->S_NucMag_1D[n];
-           }
-       
-           if(InputData->OutFlags.SANS1D.Polarized){
-               fout << "," << SANSData->S_Mag_1D_polarized[n];
-           }
-       
-           if(InputData->OutFlags.SANS1D.Chiral){
-               fout << "," << SANSData->S_Mag_1D_chiral[n];
-           }   
-       
-           if(InputData->OutFlags.SANS1D.SpinFlip){
-               fout << "," << SANSData->S_Mag_1D_spin_flip[n];
-           }
-       
-           if(InputData->OutFlags.SANS1D.PM_SpinFlip){
-               fout << "," << SANSData->S_Mag_1D_spin_flip_pm[n];
-           }
-   
-           if(InputData->OutFlags.SANS1D.MP_SpinFlip){
-               fout << "," << SANSData->S_Mag_1D_spin_flip_mp[n];
-           }
-   
-           if(InputData->OutFlags.SANS1D.PP_NonSpinFlip){
-               fout << "," << SANSData->S_Mag_1D_non_spin_flip_pp[n];
-           }
-   
-           if(InputData->OutFlags.SANS1D.MM_NonSpinFlip){
-               fout << "," << SANSData->S_Mag_1D_non_spin_flip_mm[n];
-           }
-   
-           if(InputData->OutFlags.SANS1D.P_SANSPOL){
-               fout << "," << SANSData->S_Mag_1D_sanspol_p[n];
-           }
-   
-           if(InputData->OutFlags.SANS1D.M_SANSPOL){
-               fout << "," << SANSData->S_Mag_1D_sanspol_m[n];
-           }
-   
-           fout << "\n";
-       }
        fout.close();
-       LogSystem::write("SANS1D finished...");
-       }
-       
-   
-       // Pair-Distance Distribution 1D ######################################################################
-   
-       if(any_active(InputData->OutFlags.Corr1D) || any_active(InputData->OutFlags.PairDist1D)){
-   
-           std::string filename_Corr1D = target_foldername + "Corr1D.csv";
-           fout.open(filename_Corr1D);
-   
-           fout << "r";
-   
-           if(InputData->OutFlags.PairDist1D.Nuclear){
-               fout << "," << "p_N";
-           }
-   
-           if(InputData->OutFlags.PairDist1D.Unpolarized){
-               fout << "," << "p_M";
-           }
-   
-           if(InputData->OutFlags.PairDist1D.NuclearMagnetic){
-               fout << "," << "p_NM";
-           }
-   
-           if(InputData->OutFlags.PairDist1D.Polarized){
-               fout << "," << "p_P";
-           }
-   
-           if(InputData->OutFlags.PairDist1D.Chiral){
-               fout << "," << "p_chi";
-           }
-   
-           if(InputData->OutFlags.PairDist1D.SpinFlip){
-               fout << "," << "p_sf";
-           }
-   
-           if(InputData->OutFlags.PairDist1D.PM_SpinFlip){
-               fout << "," << "p_pm";
-           }
-   
-           if(InputData->OutFlags.PairDist1D.MP_SpinFlip){
-               fout << "," << "p_mp";
-           }
-   
-           if(InputData->OutFlags.PairDist1D.PP_NonSpinFlip){
-               fout << "," << "p_pp";
-           }
-   
-           if(InputData->OutFlags.PairDist1D.MM_NonSpinFlip){
-               fout << "," << "p_mm";
-           }
-           
-           if(InputData->OutFlags.PairDist1D.P_SANSPOL){
-               fout << "," << "p_p";
-           }
-   
-           if(InputData->OutFlags.PairDist1D.M_SANSPOL){
-               fout << "," << "p_m";
-           }
-   
-   
-           
-   
-           if(InputData->OutFlags.Corr1D.Nuclear){
-               fout << "," << "c_N";
-           }
-   
-           if(InputData->OutFlags.Corr1D.Unpolarized){
-               fout << "," << "c_M";
-           }
-   
-           if(InputData->OutFlags.Corr1D.NuclearMagnetic){
-               fout << "," << "c_NM";
-           }
-   
-           if(InputData->OutFlags.Corr1D.Polarized){
-               fout << "," << "c_P";
-           }
-   
-           if(InputData->OutFlags.Corr1D.Chiral){
-               fout << "," << "c_chi";
-           }
-   
-           if(InputData->OutFlags.Corr1D.SpinFlip){
-               fout << "," << "c_sf";
-           }
-   
-           if(InputData->OutFlags.Corr1D.PM_SpinFlip){
-               fout << "," << "c_pm";
-           }
-   
-           if(InputData->OutFlags.Corr1D.MP_SpinFlip){
-               fout << "," << "c_mp";
-           }
-   
-           if(InputData->OutFlags.Corr1D.PP_NonSpinFlip){
-               fout << "," << "c_pp";
-           }
-   
-           if(InputData->OutFlags.Corr1D.MM_NonSpinFlip){
-               fout << "," << "c_mm";
-           }
-           
-           if(InputData->OutFlags.Corr1D.P_SANSPOL){
-               fout << "," << "c_p";
-           }
-   
-           if(InputData->OutFlags.Corr1D.M_SANSPOL){
-               fout << "," << "c_m";
-           }
-           
-           fout << "\n";
-   
-           for(unsigned long int n = 0; n<(*SANSData->N_r); n++){
-           
-               fout << SANSData->r_1D[n];
-   
-               if(InputData->OutFlags.PairDist1D.Nuclear){
-                   fout << "," << SANSData->p_Nuc_unpolarized[n];
-               }
-   
-               if(InputData->OutFlags.PairDist1D.Unpolarized){
-                   fout << "," << SANSData->p_Mag_unpolarized[n];
-               }
-   
-               if(InputData->OutFlags.PairDist1D.NuclearMagnetic){
-                   fout << "," << SANSData->p_NucMag[n];
-               }
-   
-               if(InputData->OutFlags.PairDist1D.Polarized){
-                   fout << "," << SANSData->p_Mag_polarized[n];
-               }
-   
-               if(InputData->OutFlags.PairDist1D.Chiral){
-                   fout << "," << SANSData->p_Mag_chiral[n];
-               }
-   
-               if(InputData->OutFlags.PairDist1D.SpinFlip){
-                   fout << "," << SANSData->p_Mag_spin_flip[n];
-               }
-   
-               if(InputData->OutFlags.PairDist1D.PM_SpinFlip){
-                   fout << "," << SANSData->p_Mag_spin_flip_pm[n];
-               }
-       
-               if(InputData->OutFlags.PairDist1D.MP_SpinFlip){
-                   fout << "," << SANSData->p_Mag_spin_flip_mp[n];
-               }
-       
-               if(InputData->OutFlags.PairDist1D.PP_NonSpinFlip){
-                   fout << "," << SANSData->p_Mag_non_spin_flip_pp[n];
-               }
-       
-               if(InputData->OutFlags.PairDist1D.MM_NonSpinFlip){
-                   fout << "," << SANSData->p_Mag_non_spin_flip_mm[n];
-               }
-               
-               if(InputData->OutFlags.PairDist1D.P_SANSPOL){
-                   fout << "," << SANSData->p_Mag_sanspol_p[n];
-               }
-       
-               if(InputData->OutFlags.PairDist1D.M_SANSPOL){
-                   fout << "," << SANSData->p_Mag_sanspol_m[n];
-               }
-   
-   
-               
-   
-               if(InputData->OutFlags.Corr1D.Nuclear){
-                   fout << "," << SANSData->c_Nuc_unpolarized[n];
-               }
-   
-               if(InputData->OutFlags.Corr1D.Unpolarized){
-                   fout << "," << SANSData->c_Mag_unpolarized[n];
-               }
-   
-               if(InputData->OutFlags.Corr1D.NuclearMagnetic){
-                   fout << "," << SANSData->c_NucMag[n];
-               }
-   
-               if(InputData->OutFlags.Corr1D.Polarized){
-                   fout << "," << SANSData->c_Mag_polarized[n];
-               }
-   
-               if(InputData->OutFlags.Corr1D.Chiral){
-                   fout << "," << SANSData->c_Mag_chiral[n];
-               }
-   
-               if(InputData->OutFlags.Corr1D.SpinFlip){
-                   fout << "," << SANSData->c_Mag_spin_flip[n];
-               }
-   
-               if(InputData->OutFlags.Corr1D.PM_SpinFlip){
-                   fout << "," << SANSData->c_Mag_spin_flip_pm[n];
-               }
-       
-               if(InputData->OutFlags.Corr1D.MP_SpinFlip){
-                   fout << "," << SANSData->c_Mag_spin_flip_mp[n];
-               }
-       
-               if(InputData->OutFlags.Corr1D.PP_NonSpinFlip){
-                   fout << "," << SANSData->c_Mag_non_spin_flip_pp[n];
-               }
-       
-               if(InputData->OutFlags.Corr1D.MM_NonSpinFlip){
-                   fout << "," << SANSData->c_Mag_non_spin_flip_mm[n];
-               }
-               
-               if(InputData->OutFlags.Corr1D.P_SANSPOL){
-                   fout << "," << SANSData->c_Mag_sanspol_p[n];
-               }
-       
-               if(InputData->OutFlags.Corr1D.M_SANSPOL){
-                   fout << "," << SANSData->c_Mag_sanspol_m[n];
-               }
-   
-               fout << "\n";
-               
-           }
-           fout.close();
-           LogSystem::write("Corr1D finished...");
-       }
-   
-       // Corr 2D ###################################################################################################################################
-   
-       if(any_active(InputData->OutFlags.Corr2D)){
-   
-           L = (*SANSData->N_r) * (*SANSData->N_alpha);
-   
-           std::string filename_Corr2D = target_foldername + "Corr2D.csv";
-           ofstream fout;
-           fout.open(filename_Corr2D);
-           fout << "rz";
-           fout << "," << "ry";
-           fout << "," << "r";
-           fout << "," << "alpha";
-   
-           if(InputData->OutFlags.Corr2D.Nuclear){
-               fout << "," << "C_N";
-           }
-   
-           if(InputData->OutFlags.Corr2D.Unpolarized){
-               fout << "," << "C_M";
-           }
-   
-           if(InputData->OutFlags.Corr2D.NuclearMagnetic){
-               fout << "," << "C_NM";
-           }
-   
-           if(InputData->OutFlags.Corr2D.Polarized){
-               fout << "," << "C_P";
-           }
-   
-           if(InputData->OutFlags.Corr2D.Chiral){
-               fout << "," << "C_chi";
-           }
-   
-           if(InputData->OutFlags.Corr2D.SpinFlip){
-               fout << "," << "C_sf";
-           }
-   
-           if(InputData->OutFlags.Corr2D.PM_SpinFlip){
-               fout << "," << "C_pm";
-           }
-   
-           if(InputData->OutFlags.Corr2D.MP_SpinFlip){
-               fout << "," << "C_mp";
-           }
-   
-           if(InputData->OutFlags.Corr2D.PP_NonSpinFlip){
-               fout << "," << "C_pp";
-           }
-   
-           if(InputData->OutFlags.Corr2D.MM_NonSpinFlip){
-               fout << "," << "C_mm";
-           }
-   
-           if(InputData->OutFlags.Corr2D.P_SANSPOL){
-               fout << "," << "C_p";
-           }
-   
-           if(InputData->OutFlags.Corr2D.M_SANSPOL){
-               fout << "," << "C_m";
-           }
-   
-           fout << "\n";
-           
-           for(unsigned long int n=0; n<L; n++){
-   
-               fout << SANSData->rz_2D[n];
-               fout << "," << SANSData->ry_2D[n];
-               fout << "," << SANSData->r_2D[n];
-               fout << "," << SANSData->alpha_2D[n];
-   
-               if(InputData->OutFlags.Corr2D.Nuclear){
-                   fout << "," << SANSData->Corr_Nuc_2D_unpolarized[n];
-               }
-   
-               if(InputData->OutFlags.Corr2D.Unpolarized){
-                   fout << "," << SANSData->Corr_Mag_2D_unpolarized[n];
-               }
-   
-               if(InputData->OutFlags.Corr2D.NuclearMagnetic){
-                   fout << "," << SANSData->Corr_NucMag_2D[n];
-               }
-   
-               if(InputData->OutFlags.Corr2D.Polarized){
-                   fout << "," << SANSData->Corr_Mag_2D_polarized[n];
-               }
-   
-               if(InputData->OutFlags.Corr2D.Chiral){
-                   fout << "," << SANSData->Corr_Mag_2D_chiral[n];
-               }
-           
-               if(InputData->OutFlags.Corr2D.SpinFlip){
-                   fout << "," << SANSData->Corr_Mag_2D_spin_flip[n];
-               }
-   
-               if(InputData->OutFlags.Corr2D.PM_SpinFlip){
-                   fout << "," << SANSData->Corr_Mag_2D_spin_flip_pm[n];
-               }
-   
-               if(InputData->OutFlags.Corr2D.MP_SpinFlip){
-                   fout << "," << SANSData->Corr_Mag_2D_spin_flip_mp[n];
-               }
-   
-               if(InputData->OutFlags.Corr2D.PP_NonSpinFlip){
-                   fout << "," << SANSData->Corr_Mag_2D_non_spin_flip_pp[n];
-               }
-   
-               if(InputData->OutFlags.Corr2D.MM_NonSpinFlip){
-                   fout << "," << SANSData->Corr_Mag_2D_non_spin_flip_mm[n];
-               }
-   
-               if(InputData->OutFlags.Corr2D.P_SANSPOL){
-                   fout << "," << SANSData->Corr_Mag_2D_sanspol_p[n];
-               }
-   
-               if(InputData->OutFlags.Corr2D.M_SANSPOL){
-                   fout << "," << SANSData->Corr_Mag_2D_sanspol_m[n];
-               }
-   
-               fout << "\n";
-               
-           }
-           fout.close();
-           LogSystem::write("Corr2D finished...");
-       }
-       
    }
    
    
    
-   // struct Column2D {
-   //     const char* header;
-   //     const double* data;
-   //     bool enabled;
-   // };
    
-   // void write2CSVtable_ScatteringData(InputFileData *InputData, \
-   //                                     ScatteringData *SANSData, \
-   //                                 int MagData_File_Index)
-   // {
+   std::vector<Column> build_SANS2D_columns(
+       InputFileData* InputData,
+       ScatteringData* SANSData
+   ){
+       std::vector<Column> columns;
    
-   //  std::vector<Column2D> columns;
+       // Coordinates (immer)
+       columns.push_back({"qz",    SANSData->qz_2D});
+       columns.push_back({"qy",    SANSData->qy_2D});
+       columns.push_back({"q",     SANSData->q_2D});
+       columns.push_back({"theta", SANSData->theta_2D});
    
-   //  if (InputData->OutFlags.SANS2D.Nuclear)
-   //      columns.push_back({"S_N", SANSData->S_Nuc_2D_unpolarized, true});
+       // Fourier matrix
+       if(InputData->output_fourier_correlation_matrix_flag){
+           columns.push_back({"Gxx_real", SANSData->Gxx_real});
+           columns.push_back({"Gxx_imag", SANSData->Gxx_imag});
+           columns.push_back({"Gyy_real", SANSData->Gyy_real});
+           columns.push_back({"Gyy_imag", SANSData->Gyy_imag});
+           columns.push_back({"Gzz_real", SANSData->Gzz_real});
+           columns.push_back({"Gzz_imag", SANSData->Gzz_imag});
+           columns.push_back({"Gxy_real", SANSData->Gxy_real});
+           columns.push_back({"Gxy_imag", SANSData->Gxy_imag});
+           columns.push_back({"Gyx_real", SANSData->Gyx_real});
+           columns.push_back({"Gyx_imag", SANSData->Gyx_imag});
+           columns.push_back({"Gxz_real", SANSData->Gxz_real});
+           columns.push_back({"Gxz_imag", SANSData->Gxz_imag});
+           columns.push_back({"Gzx_real", SANSData->Gzx_real});
+           columns.push_back({"Gzx_imag", SANSData->Gzx_imag});
+           columns.push_back({"Gyz_real", SANSData->Gyz_real});
+           columns.push_back({"Gyz_imag", SANSData->Gyz_imag});
+           columns.push_back({"Gzy_real", SANSData->Gzy_real});
+           columns.push_back({"Gzy_imag", SANSData->Gzy_imag});
+       }
    
-   //  if (InputData->OutFlags.SANS2D.Unpolarized)
-   //      columns.push_back({"S_M", SANSData->S_Mag_2D_unpolarized, true});
+       auto& f = InputData->OutFlags.SANS2D;
    
-   //  if (InputData->OutFlags.SANS2D.NuclearMagnetic)
-   //      columns.push_back({"S_NM", SANSData->S_NucMag_2D, true});
+       if(f.Nuclear)            columns.push_back({"S_N",  SANSData->S_Nuc_2D_unpolarized});
+       if(f.Unpolarized)        columns.push_back({"S_M",  SANSData->S_Mag_2D_unpolarized});
+       if(f.NuclearMagnetic)    columns.push_back({"S_NM", SANSData->S_NucMag_2D});
+       if(f.Polarized)          columns.push_back({"S_P",  SANSData->S_Mag_2D_polarized});
+       if(f.Chiral)             columns.push_back({"S_chi",SANSData->S_Mag_2D_chiral});
+       if(f.SpinFlip)           columns.push_back({"S_sf", SANSData->S_Mag_2D_spin_flip});
+       if(f.PM_SpinFlip)        columns.push_back({"S_pm", SANSData->S_Mag_2D_spin_flip_pm});
+       if(f.MP_SpinFlip)        columns.push_back({"S_mp", SANSData->S_Mag_2D_spin_flip_mp});
+       if(f.PP_NonSpinFlip)     columns.push_back({"S_pp", SANSData->S_Mag_2D_non_spin_flip_pp});
+       if(f.MM_NonSpinFlip)     columns.push_back({"S_mm", SANSData->S_Mag_2D_non_spin_flip_mm});
+       if(f.P_SANSPOL)          columns.push_back({"S_p",  SANSData->S_Mag_2D_sanspol_p});
+       if(f.M_SANSPOL)          columns.push_back({"S_m",  SANSData->S_Mag_2D_sanspol_m});
    
-   //  if (InputData->OutFlags.SANS2D.SpinFlip)
-   //      columns.push_back({"S_sf", SANSData->S_Mag_2D_spin_flip, true});
-   
-   //  if (InputData->OutFlags.SANS2D.Chiral)
-   //      columns.push_back({"S_chi", SANSData->S_Mag_2D_chiral, true});
-   
-   //  if (InputData->OutFlags.SANS2D.PM_SpinFlip)
-   //      columns.push_back({"S_pm", SANSData->S_Mag_2D_spin_flip_pm, true});
-   
-   //  if (InputData->OutFlags.SANS2D.MP_SpinFlip)
-   //      columns.push_back({"S_mp", SANSData->S_Mag_2D_spin_flip_mp, true});
-   
-   //  if (InputData->OutFlags.SANS2D.PP_NonSpinFlip)
-   //      columns.push_back({"S_pp", SANSData->S_Mag_2D_non_spin_flip_pp, true});
-   
-   //  if (InputData->OutFlags.SANS2D.MM_NonSpinFlip)
-   //      columns.push_back({"S_mm", SANSData->S_Mag_2D_non_spin_flip_mm, true});
-   
-   //  if (InputData->OutFlags.SANS2D.P_SANSPOL)
-   //      columns.push_back({"S_mm", SANSData->S_Mag_2D_sanspol_p, true});
-   
-   //  if (InputData->OutFlags.SANS2D.M_SANSPOL)
-   //      columns.push_back({"S_mm", SANSData->S_Mag_2D_sanspol_M, true});
-   
-   
-   //  fout << "qz,qy,q,theta";
-   
-   //  for (const auto& col : columns)
-   //      fout << "," << col.header;
-   
-   //  fout << "\n";
-   
-   //  for (size_t n = 0; n < L; ++n) {
-   
-   //     fout << SANSData->qz_2D[n]
-   //          << "," << SANSData->qy_2D[n]
-   //          << "," << SANSData->q_2D[n]
-   //          << "," << SANSData->theta_2D[n];
-   
-   //     for (const auto& col : columns)
-   //         fout << "," << col.data[n];
-   
-   //     fout << "\n";
-   // }
+       return columns;
+   }
    
    
    
-   // }
+   std::vector<Column> build_SANS1D_columns(
+       InputFileData* InputData,
+       ScatteringData* SANSData
+   ){
+       std::vector<Column> columns;
+   
+       columns.push_back({"q", SANSData->q_1D});
+   
+       auto& f = InputData->OutFlags.SANS1D;
+   
+       if(f.Nuclear)            columns.push_back({"I_N",  SANSData->S_Nuc_1D_unpolarized});
+       if(f.Unpolarized)        columns.push_back({"I_M",  SANSData->S_Mag_1D_unpolarized});
+       if(f.NuclearMagnetic)    columns.push_back({"I_NM", SANSData->S_NucMag_1D});
+       if(f.Polarized)          columns.push_back({"I_P",  SANSData->S_Mag_1D_polarized});
+       if(f.Chiral)             columns.push_back({"I_chi",SANSData->S_Mag_1D_chiral});
+       if(f.SpinFlip)           columns.push_back({"I_sf", SANSData->S_Mag_1D_spin_flip});
+       if(f.PM_SpinFlip)        columns.push_back({"I_pm", SANSData->S_Mag_1D_spin_flip_pm});
+       if(f.MP_SpinFlip)        columns.push_back({"I_mp", SANSData->S_Mag_1D_spin_flip_mp});
+       if(f.PP_NonSpinFlip)     columns.push_back({"I_pp", SANSData->S_Mag_1D_non_spin_flip_pp});
+       if(f.MM_NonSpinFlip)     columns.push_back({"I_mm", SANSData->S_Mag_1D_non_spin_flip_mm});
+       if(f.P_SANSPOL)          columns.push_back({"I_p",  SANSData->S_Mag_1D_sanspol_p});
+       if(f.M_SANSPOL)          columns.push_back({"I_m",  SANSData->S_Mag_1D_sanspol_m});
+   
+       return columns;
+   }
+   
+   
+   
+   
+   
+   void write2CSVtable_ScatteringData(
+       InputFileData* InputData,
+       ScatteringData* SANSData,
+       int MagData_File_Index
+   ){
+       LogSystem::write("");
+       LogSystem::write("write scattering data to csv-files...");
+   
+       std::string target_foldername =
+           InputData->SANSDataFoldername + "/SANS_" +
+           std::to_string(MagData_File_Index) + "/";
+   
+       mkdir(target_foldername.c_str(), 0777);
+   
+       // ------------------- SANS2D -------------------
+       if(InputData->output_fourier_correlation_matrix_flag ||
+          any_active(InputData->OutFlags.SANS2D))
+       {
+           unsigned long L = (*SANSData->N_q) * (*SANSData->N_theta);
+   
+           auto columns = build_SANS2D_columns(InputData, SANSData);
+   
+           writeCSV(target_foldername + "SANS2D.csv", L, columns);
+   
+           LogSystem::write("SANS2D finished...");
+       }
+   
+       // ------------------- SANS1D -------------------
+       if(any_active(InputData->OutFlags.SANS1D))
+       {
+           auto columns = build_SANS1D_columns(InputData, SANSData);
+   
+           writeCSV(
+               target_foldername + "SANS1D.csv",
+               (*SANSData->N_q),
+               columns
+           );
+   
+           LogSystem::write("SANS1D finished...");
+       }
+   
+       // Corr1D / Corr2D kannst du exakt gleich strukturieren
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   // #################################################################################################
+   // #################################################################################################
    
    
    void free_ScatteringData(ScatteringData *SANSData, \
