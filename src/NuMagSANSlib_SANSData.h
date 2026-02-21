@@ -1017,7 +1017,7 @@ void write2CSVtable_ScatteringData(InputFileData *InputData, \
 
 	// 2D SANS cross sections
 
-	if(InputData->output_fourier_correlation_matrix_flag || any_active(InputData->SANS2D)){
+	if(InputData->output_fourier_correlation_matrix_flag || any_active(InputData->OutFlags.SANS2D)){
 	
 		std::string filename_SANS2D = target_foldername + "SANS2D.csv";	
 		fout.open(filename_SANS2D);
@@ -1059,7 +1059,7 @@ void write2CSVtable_ScatteringData(InputFileData *InputData, \
 			fout << "," << "S_NM";
 		}
 
-		if(InputData->OutFlags.ANS2D.Polarized){
+		if(InputData->OutFlags.SANS2D.Polarized){
 			fout << "," << "S_P";
 		}
 
@@ -1389,7 +1389,7 @@ void write2CSVtable_ScatteringData(InputFileData *InputData, \
 			fout << "," << "c_mp";
 		}
 
-		if(InputData->OutFlags.Corr1D.PP_SpinFlip){
+		if(InputData->OutFlags.Corr1D.PP_NonSpinFlip){
 			fout << "," << "c_pp";
 		}
 
