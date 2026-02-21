@@ -1653,6 +1653,8 @@ void copyGPU2RAM_ScatteringData(ScatteringData *SANSData, \
 struct Column {
     std::string name;
     const double* data;
+	Column(const std::string& n, const double* d)
+        : name(n), data(d) {}
 };
 // -------------------------------------------------------------------------------------------------
 
@@ -1695,47 +1697,47 @@ std::vector<Column> build_SANS2D_columns(
     std::vector<Column> columns;
 
     // Coordinates (immer)
-    columns.push_back({"qz",    SANSData->qz_2D});
-    columns.push_back({"qy",    SANSData->qy_2D});
-    columns.push_back({"q",     SANSData->q_2D});
-    columns.push_back({"theta", SANSData->theta_2D});
+    columns.emplace_back("qz",    SANSData->qz_2D);
+    columns.emplace_back("qy",    SANSData->qy_2D);
+    columns.emplace_back("q",     SANSData->q_2D);
+    columns.emplace_back("theta", SANSData->theta_2D);
 
     // Fourier matrix
     if(InputData->output_fourier_correlation_matrix_flag){
-        columns.push_back({"Gxx_real", SANSData->Gxx_real});
-        columns.push_back({"Gxx_imag", SANSData->Gxx_imag});
-        columns.push_back({"Gyy_real", SANSData->Gyy_real});
-        columns.push_back({"Gyy_imag", SANSData->Gyy_imag});
-        columns.push_back({"Gzz_real", SANSData->Gzz_real});
-        columns.push_back({"Gzz_imag", SANSData->Gzz_imag});
-        columns.push_back({"Gxy_real", SANSData->Gxy_real});
-        columns.push_back({"Gxy_imag", SANSData->Gxy_imag});
-        columns.push_back({"Gyx_real", SANSData->Gyx_real});
-        columns.push_back({"Gyx_imag", SANSData->Gyx_imag});
-        columns.push_back({"Gxz_real", SANSData->Gxz_real});
-        columns.push_back({"Gxz_imag", SANSData->Gxz_imag});
-        columns.push_back({"Gzx_real", SANSData->Gzx_real});
-        columns.push_back({"Gzx_imag", SANSData->Gzx_imag});
-        columns.push_back({"Gyz_real", SANSData->Gyz_real});
-        columns.push_back({"Gyz_imag", SANSData->Gyz_imag});
-        columns.push_back({"Gzy_real", SANSData->Gzy_real});
-        columns.push_back({"Gzy_imag", SANSData->Gzy_imag});
+        columns.emplace_back("Gxx_real", SANSData->Gxx_real);
+        columns.emplace_back("Gxx_imag", SANSData->Gxx_imag);
+        columns.emplace_back("Gyy_real", SANSData->Gyy_real);
+        columns.emplace_back("Gyy_imag", SANSData->Gyy_imag);
+        columns.emplace_back("Gzz_real", SANSData->Gzz_real);
+        columns.emplace_back("Gzz_imag", SANSData->Gzz_imag);
+        columns.emplace_back("Gxy_real", SANSData->Gxy_real);
+        columns.emplace_back("Gxy_imag", SANSData->Gxy_imag);
+        columns.emplace_back("Gyx_real", SANSData->Gyx_real);
+        columns.emplace_back("Gyx_imag", SANSData->Gyx_imag);
+        columns.emplace_back("Gxz_real", SANSData->Gxz_real);
+        columns.emplace_back("Gxz_imag", SANSData->Gxz_imag);
+        columns.emplace_back("Gzx_real", SANSData->Gzx_real);
+        columns.emplace_back("Gzx_imag", SANSData->Gzx_imag);
+        columns.emplace_back("Gyz_real", SANSData->Gyz_real);
+        columns.emplace_back("Gyz_imag", SANSData->Gyz_imag);
+        columns.emplace_back("Gzy_real", SANSData->Gzy_real);
+        columns.emplace_back("Gzy_imag", SANSData->Gzy_imag);
     }
 
     auto& f = InputData->OutFlags.SANS2D;
 
-    if(f.Nuclear)            columns.push_back({"S_N",  SANSData->S_Nuc_2D_unpolarized});
-    if(f.Unpolarized)        columns.push_back({"S_M",  SANSData->S_Mag_2D_unpolarized});
-    if(f.NuclearMagnetic)    columns.push_back({"S_NM", SANSData->S_NucMag_2D});
-    if(f.Polarized)          columns.push_back({"S_P",  SANSData->S_Mag_2D_polarized});
-    if(f.Chiral)             columns.push_back({"S_chi",SANSData->S_Mag_2D_chiral});
-    if(f.SpinFlip)           columns.push_back({"S_sf", SANSData->S_Mag_2D_spin_flip});
-    if(f.PM_SpinFlip)        columns.push_back({"S_pm", SANSData->S_Mag_2D_spin_flip_pm});
-    if(f.MP_SpinFlip)        columns.push_back({"S_mp", SANSData->S_Mag_2D_spin_flip_mp});
-    if(f.PP_NonSpinFlip)     columns.push_back({"S_pp", SANSData->S_Mag_2D_non_spin_flip_pp});
-    if(f.MM_NonSpinFlip)     columns.push_back({"S_mm", SANSData->S_Mag_2D_non_spin_flip_mm});
-    if(f.P_SANSPOL)          columns.push_back({"S_p",  SANSData->S_Mag_2D_sanspol_p});
-    if(f.M_SANSPOL)          columns.push_back({"S_m",  SANSData->S_Mag_2D_sanspol_m});
+    if(f.Nuclear)            columns.emplace_back("S_N",  SANSData->S_Nuc_2D_unpolarized);
+    if(f.Unpolarized)        columns.emplace_back("S_M",  SANSData->S_Mag_2D_unpolarized);
+    if(f.NuclearMagnetic)    columns.emplace_back("S_NM", SANSData->S_NucMag_2D);
+    if(f.Polarized)          columns.emplace_back("S_P",  SANSData->S_Mag_2D_polarized);
+    if(f.Chiral)             columns.emplace_back("S_chi",SANSData->S_Mag_2D_chiral);
+    if(f.SpinFlip)           columns.emplace_back("S_sf", SANSData->S_Mag_2D_spin_flip);
+    if(f.PM_SpinFlip)        columns.emplace_back("S_pm", SANSData->S_Mag_2D_spin_flip_pm);
+    if(f.MP_SpinFlip)        columns.emplace_back("S_mp", SANSData->S_Mag_2D_spin_flip_mp);
+    if(f.PP_NonSpinFlip)     columns.emplace_back("S_pp", SANSData->S_Mag_2D_non_spin_flip_pp);
+    if(f.MM_NonSpinFlip)     columns.emplace_back("S_mm", SANSData->S_Mag_2D_non_spin_flip_mm);
+    if(f.P_SANSPOL)          columns.emplace_back("S_p",  SANSData->S_Mag_2D_sanspol_p);
+    if(f.M_SANSPOL)          columns.emplace_back("S_m",  SANSData->S_Mag_2D_sanspol_m);
 
     return columns;
 }
@@ -1752,18 +1754,18 @@ std::vector<Column> build_SANS1D_columns(
 
     auto& f = InputData->OutFlags.SANS1D;
 
-    if(f.Nuclear)            columns.push_back({"I_N",  SANSData->S_Nuc_1D_unpolarized});
-    if(f.Unpolarized)        columns.push_back({"I_M",  SANSData->S_Mag_1D_unpolarized});
-    if(f.NuclearMagnetic)    columns.push_back({"I_NM", SANSData->S_NucMag_1D});
-    if(f.Polarized)          columns.push_back({"I_P",  SANSData->S_Mag_1D_polarized});
-    if(f.Chiral)             columns.push_back({"I_chi",SANSData->S_Mag_1D_chiral});
-    if(f.SpinFlip)           columns.push_back({"I_sf", SANSData->S_Mag_1D_spin_flip});
-    if(f.PM_SpinFlip)        columns.push_back({"I_pm", SANSData->S_Mag_1D_spin_flip_pm});
-    if(f.MP_SpinFlip)        columns.push_back({"I_mp", SANSData->S_Mag_1D_spin_flip_mp});
-    if(f.PP_NonSpinFlip)     columns.push_back({"I_pp", SANSData->S_Mag_1D_non_spin_flip_pp});
-    if(f.MM_NonSpinFlip)     columns.push_back({"I_mm", SANSData->S_Mag_1D_non_spin_flip_mm});
-    if(f.P_SANSPOL)          columns.push_back({"I_p",  SANSData->S_Mag_1D_sanspol_p});
-    if(f.M_SANSPOL)          columns.push_back({"I_m",  SANSData->S_Mag_1D_sanspol_m});
+    if(f.Nuclear)            columns.emplace_back("I_N",  SANSData->S_Nuc_1D_unpolarized);
+    if(f.Unpolarized)        columns.emplace_back("I_M",  SANSData->S_Mag_1D_unpolarized);
+    if(f.NuclearMagnetic)    columns.emplace_back("I_NM", SANSData->S_NucMag_1D);
+    if(f.Polarized)          columns.emplace_back("I_P",  SANSData->S_Mag_1D_polarized);
+    if(f.Chiral)             columns.emplace_back("I_chi",SANSData->S_Mag_1D_chiral);
+    if(f.SpinFlip)           columns.emplace_back("I_sf", SANSData->S_Mag_1D_spin_flip);
+    if(f.PM_SpinFlip)        columns.emplace_back("I_pm", SANSData->S_Mag_1D_spin_flip_pm);
+    if(f.MP_SpinFlip)        columns.emplace_back("I_mp", SANSData->S_Mag_1D_spin_flip_mp);
+    if(f.PP_NonSpinFlip)     columns.emplace_back("I_pp", SANSData->S_Mag_1D_non_spin_flip_pp);
+    if(f.MM_NonSpinFlip)     columns.emplace_back("I_mm", SANSData->S_Mag_1D_non_spin_flip_mm);
+    if(f.P_SANSPOL)          columns.emplace_back("I_p",  SANSData->S_Mag_1D_sanspol_p);
+    if(f.M_SANSPOL)          columns.emplace_back("I_m",  SANSData->S_Mag_1D_sanspol_m);
 
     return columns;
 }
