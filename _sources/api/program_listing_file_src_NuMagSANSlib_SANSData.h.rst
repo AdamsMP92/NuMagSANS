@@ -1664,8 +1664,8 @@ Program Listing for File NuMagSANSlib_SANSData.h
    // -------------------------------------------------------------------------------------------------
    struct Column {
        std::string name;
-       const double* data;
-       Column(const std::string& n, const double* d)
+       const float* data;
+       Column(const std::string& n, const float* d)
            : name(n), data(d) {}
    };
    // -------------------------------------------------------------------------------------------------
