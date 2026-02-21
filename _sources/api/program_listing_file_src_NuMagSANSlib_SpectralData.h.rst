@@ -383,125 +383,273 @@ Program Listing for File NuMagSANSlib_SpectralData.h
    }
    
    
-   void write2CSV_SpectralData(InputFileData* InputData, \
-                               SpectralData* SpecData, \
-                               int MagData_File_Index){
+   // void write2CSV_SpectralData(InputFileData* InputData, \
+   //                             SpectralData* SpecData, \
+   //                             int MagData_File_Index){
+   //     LogSystem::write("");
+   //     LogSystem::write("write spectral decomposition data to csv-files...");
+   
+   //     unsigned int Nq    = *SpecData->Nq;
+   //     unsigned int k_max = *SpecData->k_max;
+   //     unsigned int L     = (k_max + 1);
+   //     //unsigned int Ltot  = 2 * Nq * L;  // sin + cos arrays combined
+   
+   //     // === Ordner anlegen ===
+   //     std::string foldername = InputData->SANSDataFoldername +
+   //                              "/SANS_" + std::to_string(MagData_File_Index) + "/AngularSpectrum/";    
+   //     mkdir(foldername.c_str(), 0777);
+   
+   //  // =====================================================
+   //     // (1) Hilfsfunktion: Spektral-Intensitäten I(q,k)
+   //     // =====================================================
+   
+   //     auto write_component = [&](const std::string& fname, float* data) {
+   //         std::ofstream fout(foldername + fname);
+   //         if (!fout.is_open()) {
+   //             LogSystem::write("Error opening " + fname);
+   //             return;
+   //         }
+   
+   //         // --- Header ---
+   //         fout << "q";
+   //         for (unsigned int k = 0; k <= k_max; ++k) fout << ",Ic_" << k;
+   //         for (unsigned int k = 0; k <= k_max; ++k) fout << ",Is_" << k;
+   //         fout << "\n";
+   
+   //         // --- Daten schreiben ---
+   //         unsigned int offset_cos = 0;
+   //         unsigned int offset_sin = Nq * L; // sin arrays beginnen nach allen cos Werten
+   
+   //         for (unsigned int i = 0; i < Nq; ++i) {
+   //             fout << SpecData->q[i];
+   
+   //             // cos terms
+   //             for (unsigned int k = 0; k <= k_max; ++k) {
+   //                 unsigned int idx = i + k * Nq + offset_cos;
+   //                 fout << "," << data[idx];
+   //             }
+   
+   //             // sin terms
+   //             for (unsigned int k = 0; k <= k_max; ++k) {
+   //                 unsigned int idx = i + k * Nq + offset_sin;
+   //                 fout << "," << data[idx];
+   //             }
+   
+   //             fout << "\n";
+   //         }
+   
+   //         fout.close();
+   //         LogSystem::write(fname + " written.");
+   //     };
+   
+   
+   //  // =====================================================
+   //     // (2) Hilfsfunktion: Amplituden A(k)
+   //     // =====================================================
+   //     auto write_amplitude = [&](const std::string& fname, float* A_array) {
+   //         std::ofstream fout(foldername + fname);
+   //         if (!fout.is_open()) {
+   //             LogSystem::write("Error opening " + fname);
+   //             return;
+   //         }
+   
+   //         // --- Header ---
+   //         fout << "k,A_cos,A_sin\n";
+   
+   //         for (unsigned int k = 0; k <= k_max; ++k) {
+   //             float A_cos = A_array[k];
+   //             float A_sin = A_array[k + (k_max + 1)];
+   //             fout << k << "," << A_cos << "," << A_sin << "\n";
+   //         }
+   
+   //         fout.close();
+   //         LogSystem::write(fname + " written.");
+   //     };
+   
+   //     std::string intensityFolder = foldername + "Intensities/";
+   //     mkdir(intensityFolder.c_str(), 0777);
+   
+   //     // === Write each spectrum ===
+   //     write_component("Intensities/I_Nuc_unpolarized.csv",      SpecData->I_Nuc_unpolarized);
+   //     write_component("Intensities/I_Mag_unpolarized.csv",      SpecData->I_Mag_unpolarized);
+   //     write_component("Intensities/I_Mag_polarized.csv",        SpecData->I_Mag_polarized);
+   //     write_component("Intensities/I_NucMag.csv",               SpecData->I_NucMag);
+   //     write_component("Intensities/I_Mag_chiral.csv",           SpecData->I_Mag_chiral);
+   //     write_component("Intensities/I_Mag_spin_flip.csv",        SpecData->I_Mag_spin_flip);
+   //     write_component("Intensities/I_Mag_spin_flip_pm.csv",     SpecData->I_Mag_spin_flip_pm);
+   //     write_component("Intensities/I_Mag_spin_flip_mp.csv",     SpecData->I_Mag_spin_flip_mp);
+   //     write_component("Intensities/I_Mag_non_spin_flip_pp.csv", SpecData->I_Mag_non_spin_flip_pp);
+   //     write_component("Intensities/I_Mag_non_spin_flip_mm.csv", SpecData->I_Mag_non_spin_flip_mm);
+   //     write_component("Intensities/I_Mag_sanspol_p.csv",        SpecData->I_Mag_sanspol_p);
+   //     write_component("Intensities/I_Mag_sanspol_m.csv",        SpecData->I_Mag_sanspol_m);
+   
+   
+   //  // =====================================================
+   //     // (4) Export der Angular-Amplituden A(k)
+   //     // =====================================================
+   //     std::string ampFolder = foldername + "Amplitudes/";
+   //     mkdir(ampFolder.c_str(), 0777);
+   
+   //     write_amplitude("Amplitudes/A_Nuc_unpolarized.csv",      SpecData->A_Nuc_unpolarized);
+   //     write_amplitude("Amplitudes/A_Mag_unpolarized.csv",      SpecData->A_Mag_unpolarized);
+   //     write_amplitude("Amplitudes/A_Mag_polarized.csv",        SpecData->A_Mag_polarized);
+   //     write_amplitude("Amplitudes/A_NucMag.csv",               SpecData->A_NucMag);
+   //     write_amplitude("Amplitudes/A_Mag_chiral.csv",           SpecData->A_Mag_chiral);
+   //     write_amplitude("Amplitudes/A_Mag_spin_flip.csv",        SpecData->A_Mag_spin_flip);
+   //     write_amplitude("Amplitudes/A_Mag_spin_flip_pm.csv",     SpecData->A_Mag_spin_flip_pm);
+   //     write_amplitude("Amplitudes/A_Mag_spin_flip_mp.csv",     SpecData->A_Mag_spin_flip_mp);
+   //     write_amplitude("Amplitudes/A_Mag_non_spin_flip_pp.csv", SpecData->A_Mag_non_spin_flip_pp);
+   //     write_amplitude("Amplitudes/A_Mag_non_spin_flip_mm.csv", SpecData->A_Mag_non_spin_flip_mm);
+   //     write_amplitude("Amplitudes/A_Mag_sanspol_p.csv",        SpecData->A_Mag_sanspol_p);
+   //     write_amplitude("Amplitudes/A_Mag_sanspol_m.csv",        SpecData->A_Mag_sanspol_m);
+   
+   //     LogSystem::write("All spectral CSV files written successfully.");
+   // }
+   
+   
+   // #################################################################################################
+   // #################################################################################################
+   
+   struct SpectralComponent {
+       const char* name;
+       const float* data;   // raw pointer
+   };
+   
+   
+   void write_spectral_csv(
+       const std::string& folder,
+       const SpectralComponent& comp,
+       SpectralData* SpecData)
+   {
+       unsigned int Nq    = *SpecData->Nq;
+       unsigned int k_max = *SpecData->k_max;
+       unsigned int L     = k_max + 1;
+   
+       std::ofstream fout(folder + std::string(comp.name) + ".csv");
+   
+       // Header
+       fout << "q";
+       for (unsigned int k = 0; k <= k_max; ++k) fout << ",Ic_" << k;
+       for (unsigned int k = 0; k <= k_max; ++k) fout << ",Is_" << k;
+       fout << "\n";
+   
+       unsigned int offset_cos = 0;
+       unsigned int offset_sin = Nq * L;
+   
+       for (unsigned int i = 0; i < Nq; ++i)
+       {
+           fout << SpecData->q[i];
+   
+           for (unsigned int k = 0; k <= k_max; ++k)
+               fout << "," << comp.data[i + k * Nq + offset_cos];
+   
+           for (unsigned int k = 0; k <= k_max; ++k)
+               fout << "," << comp.data[i + k * Nq + offset_sin];
+   
+           fout << "\n";
+       }
+   }
+   
+   
+   void write_amplitude_csv(
+       const std::string& folder,
+       const SpectralComponent& comp,
+       SpectralData* SpecData)
+   {
+       unsigned int k_max = *SpecData->k_max;
+       unsigned int L     = k_max + 1;
+   
+       std::ofstream fout(folder + std::string(comp.name) + ".csv");
+       if(!fout.is_open()){
+           LogSystem::write("Error opening amplitude file: " + std::string(comp.name));
+           return;
+       }
+   
+       fout << "k,A_cos,A_sin\n";
+   
+       for(unsigned int k = 0; k <= k_max; ++k)
+       {
+           float A_cos = comp.data[k];
+           float A_sin = comp.data[k + L];
+           fout << k << "," << A_cos << "," << A_sin << "\n";
+       }
+   }
+   
+   
+   std::vector<SpectralComponent> build_spectral_intensities(SpectralData* SpecData)
+   {
+       return {
+           {"I_Nuc_unpolarized",      SpecData->I_Nuc_unpolarized},
+           {"I_Mag_unpolarized",      SpecData->I_Mag_unpolarized},
+           {"I_Mag_polarized",        SpecData->I_Mag_polarized},
+           {"I_NucMag",               SpecData->I_NucMag},
+           {"I_Mag_chiral",           SpecData->I_Mag_chiral},
+           {"I_Mag_spin_flip",        SpecData->I_Mag_spin_flip},
+           {"I_Mag_spin_flip_pm",     SpecData->I_Mag_spin_flip_pm},
+           {"I_Mag_spin_flip_mp",     SpecData->I_Mag_spin_flip_mp},
+           {"I_Mag_non_spin_flip_pp", SpecData->I_Mag_non_spin_flip_pp},
+           {"I_Mag_non_spin_flip_mm", SpecData->I_Mag_non_spin_flip_mm},
+           {"I_Mag_sanspol_p",        SpecData->I_Mag_sanspol_p},
+           {"I_Mag_sanspol_m",        SpecData->I_Mag_sanspol_m}
+       };
+   }
+   
+   std::vector<SpectralComponent> build_spectral_amplitudes(SpectralData* SpecData)
+   {
+       return {
+           {"A_Nuc_unpolarized",      SpecData->A_Nuc_unpolarized},
+           {"A_Mag_unpolarized",      SpecData->A_Mag_unpolarized},
+           {"A_Mag_polarized",        SpecData->A_Mag_polarized},
+           {"A_NucMag",               SpecData->A_NucMag},
+           {"A_Mag_chiral",           SpecData->A_Mag_chiral},
+           {"A_Mag_spin_flip",        SpecData->A_Mag_spin_flip},
+           {"A_Mag_spin_flip_pm",     SpecData->A_Mag_spin_flip_pm},
+           {"A_Mag_spin_flip_mp",     SpecData->A_Mag_spin_flip_mp},
+           {"A_Mag_non_spin_flip_pp", SpecData->A_Mag_non_spin_flip_pp},
+           {"A_Mag_non_spin_flip_mm", SpecData->A_Mag_non_spin_flip_mm},
+           {"A_Mag_sanspol_p",        SpecData->A_Mag_sanspol_p},
+           {"A_Mag_sanspol_m",        SpecData->A_Mag_sanspol_m}
+       };
+   }
+   
+   
+   
+   void write2CSV_SpectralData(
+       InputFileData* InputData,
+       SpectralData* SpecData,
+       int MagData_File_Index)
+   {
        LogSystem::write("");
        LogSystem::write("write spectral decomposition data to csv-files...");
    
-       unsigned int Nq    = *SpecData->Nq;
-       unsigned int k_max = *SpecData->k_max;
-       unsigned int L     = (k_max + 1);
-       //unsigned int Ltot  = 2 * Nq * L;  // sin + cos arrays combined
+       std::string baseFolder =
+           InputData->SANSDataFoldername +
+           "/SANS_" + std::to_string(MagData_File_Index) +
+           "/AngularSpectrum/";
    
-       // === Ordner anlegen ===
-       std::string foldername = InputData->SANSDataFoldername +
-                                "/SANS_" + std::to_string(MagData_File_Index) + "/AngularSpectrum/";   
-       mkdir(foldername.c_str(), 0777);
+       mkdir(baseFolder.c_str(), 0777);
    
-       // =====================================================
-       // (1) Hilfsfunktion: Spektral-Intensitäten I(q,k)
-       // =====================================================
-   
-       auto write_component = [&](const std::string& fname, float* data) {
-           std::ofstream fout(foldername + fname);
-           if (!fout.is_open()) {
-               LogSystem::write("Error opening " + fname);
-               return;
-           }
-   
-           // --- Header ---
-           fout << "q";
-           for (unsigned int k = 0; k <= k_max; ++k) fout << ",Ic_" << k;
-           for (unsigned int k = 0; k <= k_max; ++k) fout << ",Is_" << k;
-           fout << "\n";
-   
-           // --- Daten schreiben ---
-           unsigned int offset_cos = 0;
-           unsigned int offset_sin = Nq * L; // sin arrays beginnen nach allen cos Werten
-   
-           for (unsigned int i = 0; i < Nq; ++i) {
-               fout << SpecData->q[i];
-   
-               // cos terms
-               for (unsigned int k = 0; k <= k_max; ++k) {
-                   unsigned int idx = i + k * Nq + offset_cos;
-                   fout << "," << data[idx];
-               }
-   
-               // sin terms
-               for (unsigned int k = 0; k <= k_max; ++k) {
-                   unsigned int idx = i + k * Nq + offset_sin;
-                   fout << "," << data[idx];
-               }
-   
-               fout << "\n";
-           }
-   
-           fout.close();
-           LogSystem::write(fname + " written.");
-       };
-   
-   
-       // =====================================================
-       // (2) Hilfsfunktion: Amplituden A(k)
-       // =====================================================
-       auto write_amplitude = [&](const std::string& fname, float* A_array) {
-           std::ofstream fout(foldername + fname);
-           if (!fout.is_open()) {
-               LogSystem::write("Error opening " + fname);
-               return;
-           }
-   
-           // --- Header ---
-           fout << "k,A_cos,A_sin\n";
-   
-           for (unsigned int k = 0; k <= k_max; ++k) {
-               float A_cos = A_array[k];
-               float A_sin = A_array[k + (k_max + 1)];
-               fout << k << "," << A_cos << "," << A_sin << "\n";
-           }
-   
-           fout.close();
-           LogSystem::write(fname + " written.");
-       };
-   
-       std::string intensityFolder = foldername + "Intensities/";
+       // ================================
+       // Intensities
+       // ================================
+       std::string intensityFolder = baseFolder + "Intensities/";
        mkdir(intensityFolder.c_str(), 0777);
    
-       // === Write each spectrum ===
-       write_component("Intensities/I_Nuc_unpolarized.csv",      SpecData->I_Nuc_unpolarized);
-       write_component("Intensities/I_Mag_unpolarized.csv",      SpecData->I_Mag_unpolarized);
-       write_component("Intensities/I_Mag_polarized.csv",        SpecData->I_Mag_polarized);
-       write_component("Intensities/I_NucMag.csv",               SpecData->I_NucMag);
-       write_component("Intensities/I_Mag_chiral.csv",           SpecData->I_Mag_chiral);
-       write_component("Intensities/I_Mag_spin_flip.csv",        SpecData->I_Mag_spin_flip);
-       write_component("Intensities/I_Mag_spin_flip_pm.csv",     SpecData->I_Mag_spin_flip_pm);
-       write_component("Intensities/I_Mag_spin_flip_mp.csv",     SpecData->I_Mag_spin_flip_mp);
-       write_component("Intensities/I_Mag_non_spin_flip_pp.csv", SpecData->I_Mag_non_spin_flip_pp);
-       write_component("Intensities/I_Mag_non_spin_flip_mm.csv", SpecData->I_Mag_non_spin_flip_mm);
-       write_component("Intensities/I_Mag_sanspol_p.csv",        SpecData->I_Mag_sanspol_p);
-       write_component("Intensities/I_Mag_sanspol_m.csv",        SpecData->I_Mag_sanspol_m);
+       auto intensities = build_spectral_intensities(SpecData);
    
+       for(const auto& comp : intensities)
+           write_spectral_csv(intensityFolder, comp, SpecData);
    
-       // =====================================================
-       // (4) Export der Angular-Amplituden A(k)
-       // =====================================================
-       std::string ampFolder = foldername + "Amplitudes/";
+       // ================================
+       // Amplitudes
+       // ================================
+       std::string ampFolder = baseFolder + "Amplitudes/";
        mkdir(ampFolder.c_str(), 0777);
    
-       write_amplitude("Amplitudes/A_Nuc_unpolarized.csv",      SpecData->A_Nuc_unpolarized);
-       write_amplitude("Amplitudes/A_Mag_unpolarized.csv",      SpecData->A_Mag_unpolarized);
-       write_amplitude("Amplitudes/A_Mag_polarized.csv",        SpecData->A_Mag_polarized);
-       write_amplitude("Amplitudes/A_NucMag.csv",               SpecData->A_NucMag);
-       write_amplitude("Amplitudes/A_Mag_chiral.csv",           SpecData->A_Mag_chiral);
-       write_amplitude("Amplitudes/A_Mag_spin_flip.csv",        SpecData->A_Mag_spin_flip);
-       write_amplitude("Amplitudes/A_Mag_spin_flip_pm.csv",     SpecData->A_Mag_spin_flip_pm);
-       write_amplitude("Amplitudes/A_Mag_spin_flip_mp.csv",     SpecData->A_Mag_spin_flip_mp);
-       write_amplitude("Amplitudes/A_Mag_non_spin_flip_pp.csv", SpecData->A_Mag_non_spin_flip_pp);
-       write_amplitude("Amplitudes/A_Mag_non_spin_flip_mm.csv", SpecData->A_Mag_non_spin_flip_mm);
-       write_amplitude("Amplitudes/A_Mag_sanspol_p.csv",        SpecData->A_Mag_sanspol_p);
-       write_amplitude("Amplitudes/A_Mag_sanspol_m.csv",        SpecData->A_Mag_sanspol_m);
+       auto amplitudes = build_spectral_amplitudes(SpecData);
+   
+       for(const auto& comp : amplitudes)
+           write_amplitude_csv(ampFolder, comp, SpecData);
    
        LogSystem::write("All spectral CSV files written successfully.");
    }
@@ -509,6 +657,14 @@ Program Listing for File NuMagSANSlib_SpectralData.h
    
    
    
+   
+   
+   
+   
+   
+   
+   // #################################################################################################
+   // #################################################################################################
    
    void free_SpectralData(SpectralData* S, \
                           SpectralData* S_gpu)

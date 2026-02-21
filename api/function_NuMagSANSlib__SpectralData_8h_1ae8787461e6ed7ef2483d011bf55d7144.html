@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>File NuMagSANSlib_SpectralData.h &#8212; NuMagSANS  documentation</title>
+    <title>Function write_spectral_csv &#8212; NuMagSANS  documentation</title>
   
   
   
@@ -50,7 +50,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/file_src_NuMagSANSlib_SpectralData.h';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/function_NuMagSANSlib__SpectralData_8h_1ae8787461e6ed7ef2483d011bf55d7144';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -325,10 +325,7 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="program_listing_file_src_NuMagSANSlib_SpectralData.h.html">Program Listing for File NuMagSANSlib_SpectralData.h</a></li>
-</ul>
-</div>
+  <div class="bd-toc-item navbar-nav"></div>
 </nav></div>
         <div class="sidebar-primary-item">
 <div id="ethical-ad-placement"
@@ -374,7 +371,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">File NuMagSANSlib_SpectralData.h</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Function write_spectral_csv</span></li>
   </ul>
 </nav>
 </div>
@@ -391,76 +388,18 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="file-numagsanslib-spectraldata-h">
-<span id="file-src-numagsanslib-spectraldata-h"></span><h1>File NuMagSANSlib_SpectralData.h<a class="headerlink" href="#file-numagsanslib-spectraldata-h" title="Link to this heading">#</a></h1>
-<p>↰ <a class="reference internal" href="dir_src.html#dir-src"><span class="std std-ref">Parent directory</span></a> (<code class="docutils literal notranslate"><span class="pre">src</span></code>)</p>
-<nav class="contents local" id="contents">
-<p class="topic-title">Contents</p>
+  <section id="function-write-spectral-csv">
+<span id="exhale-function-numagsanslib-spectraldata-8h-1ae8787461e6ed7ef2483d011bf55d7144"></span><h1>Function write_spectral_csv<a class="headerlink" href="#function-write-spectral-csv" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p><a class="reference internal" href="#definition-src-numagsanslib-spectraldata-h" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_SpectralData.h</span></code>)</a></p></li>
-<li><p><a class="reference internal" href="#includes" id="id2">Includes</a></p></li>
-<li><p><a class="reference internal" href="#included-by" id="id3">Included By</a></p></li>
-<li><p><a class="reference internal" href="#classes" id="id4">Classes</a></p></li>
-<li><p><a class="reference internal" href="#functions" id="id5">Functions</a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_src_NuMagSANSlib_SpectralData.h.html#file-src-numagsanslib-spectraldata-h"><span class="std std-ref">File NuMagSANSlib_SpectralData.h</span></a></p></li>
 </ul>
-</nav>
-<section id="definition-src-numagsanslib-spectraldata-h">
-<h2>Definition (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_SpectralData.h</span></code>)<a class="headerlink" href="#definition-src-numagsanslib-spectraldata-h" title="Link to this heading">#</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="program_listing_file_src_NuMagSANSlib_SpectralData.h.html">Program Listing for File NuMagSANSlib_SpectralData.h</a></li>
-</ul>
-</div>
-</section>
-<section id="includes">
-<h2>Includes<a class="headerlink" href="#includes" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">chrono</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cublas_v2.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cuda_runtime.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">dirent.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fstream</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">iostream</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">math.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sstream</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">stdexcept</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">stdlib.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sys/stat.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sys/types.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">time.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">unistd.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">vector</span></code></p></li>
-</ul>
-</section>
-<section id="included-by">
-<h2>Included By<a class="headerlink" href="#included-by" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="file_src_NuMagSANSlib.h.html#file-src-numagsanslib-h"><span class="std std-ref">File NuMagSANSlib.h</span></a></p></li>
-</ul>
-</section>
-<section id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="structSpectralComponent.html#exhale-struct-structspectralcomponent"><span class="std std-ref">Struct SpectralComponent</span></a></p></li>
-<li><p><a class="reference internal" href="structSpectralData.html#exhale-struct-structspectraldata"><span class="std std-ref">Struct SpectralData</span></a></p></li>
-</ul>
-</section>
-<section id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1acb9135d16a51f32de612d0d1df2b240a.html#exhale-function-numagsanslib-spectraldata-8h-1acb9135d16a51f32de612d0d1df2b240a"><span class="std std-ref">Function allocate_SpectralData_GPU</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1a4cbc8c7e8fda43eed1b4e5d3fc444bc9.html#exhale-function-numagsanslib-spectraldata-8h-1a4cbc8c7e8fda43eed1b4e5d3fc444bc9"><span class="std std-ref">Function allocate_SpectralData_RAM</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1a1739fc2e55484804e4bbf18087a4b55c.html#exhale-function-numagsanslib-spectraldata-8h-1a1739fc2e55484804e4bbf18087a4b55c"><span class="std std-ref">Function build_spectral_amplitudes</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1a8a7e126f3def2309abc240d32b83ff93.html#exhale-function-numagsanslib-spectraldata-8h-1a8a7e126f3def2309abc240d32b83ff93"><span class="std std-ref">Function build_spectral_intensities</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1abe4dac570bc3a1180bec49577b414240.html#exhale-function-numagsanslib-spectraldata-8h-1abe4dac570bc3a1180bec49577b414240"><span class="std std-ref">Function copyGPU2RAM_SpectralData</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1af721a6fe90dded02410a3d0796d25722.html#exhale-function-numagsanslib-spectraldata-8h-1af721a6fe90dded02410a3d0796d25722"><span class="std std-ref">Function free_SpectralData</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1a2c1330d3f44ebdf27e565ee186d4e217.html#exhale-function-numagsanslib-spectraldata-8h-1a2c1330d3f44ebdf27e565ee186d4e217"><span class="std std-ref">Function init_SpectralData</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1a0d4b1eedc53fe4332025323dab1cf84d.html#exhale-function-numagsanslib-spectraldata-8h-1a0d4b1eedc53fe4332025323dab1cf84d"><span class="std std-ref">Function scale_SpectralData</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1abf5ac75ed24e56fa77aede12518be3ff.html#exhale-function-numagsanslib-spectraldata-8h-1abf5ac75ed24e56fa77aede12518be3ff"><span class="std std-ref">Function write2CSV_SpectralData</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1af826282cdb8830b8f87c418cd8487439.html#exhale-function-numagsanslib-spectraldata-8h-1af826282cdb8830b8f87c418cd8487439"><span class="std std-ref">Function write_amplitude_csv</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__SpectralData_8h_1ae8787461e6ed7ef2483d011bf55d7144.html#exhale-function-numagsanslib-spectraldata-8h-1ae8787461e6ed7ef2483d011bf55d7144"><span class="std std-ref">Function write_spectral_csv</span></a></p></li>
-</ul>
+<section id="function-documentation">
+<h2>Function Documentation<a class="headerlink" href="#function-documentation" title="Link to this heading">#</a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418write_spectral_csvRKNSt6stringERK17SpectralComponentP12SpectralData">
+<span id="_CPPv318write_spectral_csvRKNSt6stringERK17SpectralComponentP12SpectralData"></span><span id="_CPPv218write_spectral_csvRKNSt6stringERK17SpectralComponentP12SpectralData"></span><span id="write_spectral_csv__ssCR.SpectralComponentCR.SpectralDataP"></span><span class="target" id="NuMagSANSlib__SpectralData_8h_1ae8787461e6ed7ef2483d011bf55d7144"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_spectral_csv</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">folder</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="structSpectralComponent.html#_CPPv417SpectralComponent" title="SpectralComponent"><span class="n"><span class="pre">SpectralComponent</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comp</span></span>, <a class="reference internal" href="structSpectralData.html#_CPPv412SpectralData" title="SpectralData"><span class="n"><span class="pre">SpectralData</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">SpecData</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418write_spectral_csvRKNSt6stringERK17SpectralComponentP12SpectralData" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
 </section>
 </section>
 
@@ -493,11 +432,10 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-src-numagsanslib-spectraldata-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_SpectralData.h</span></code>)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#includes">Includes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#included-by">Included By</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-documentation">Function Documentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv418write_spectral_csvRKNSt6stringERK17SpectralComponentP12SpectralData"><code class="docutils literal notranslate"><span class="pre">write_spectral_csv()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
