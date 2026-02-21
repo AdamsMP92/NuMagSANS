@@ -492,15 +492,15 @@ void write2CSV_SpectralData(
         "/SANS_" + std::to_string(MagData_File_Index) +
         "/AngularSpectrum/";
 
-    mkdir(baseFolder.c_str(), 0777);
-    //std::filesystem::create_directories(base_foldername);
+    //mkdir(baseFolder.c_str(), 0777);
+    std::filesystem::create_directories(base_foldername);
 
     // ================================
     // Intensities
     // ================================
     std::string intensityFolder = baseFolder + "Intensities/";
-    mkdir(intensityFolder.c_str(), 0777);
-    //std::filesystem::create_directories(intensityFolder);
+    //mkdir(intensityFolder.c_str(), 0777);
+    std::filesystem::create_directories(intensityFolder);
 
     auto intensities = build_spectral_intensities(SpecData);
 
@@ -511,8 +511,8 @@ void write2CSV_SpectralData(
     // Amplitudes
     // ================================
     std::string ampFolder = baseFolder + "Amplitudes/";
-    mkdir(ampFolder.c_str(), 0777);
-    //std::filesystem::create_directories(ampFolder);
+    //mkdir(ampFolder.c_str(), 0777);
+    std::filesystem::create_directories(ampFolder);
 
     auto amplitudes = build_spectral_amplitudes(SpecData);
 
