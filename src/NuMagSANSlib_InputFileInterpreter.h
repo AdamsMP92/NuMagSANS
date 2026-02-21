@@ -226,75 +226,6 @@ static bool try_extract_value(const std::string& line,
 }
  
 
-void parseBool(const std::string& line,
-               const std::string& property,
-               bool& variable,
-               bool& flag)
-{
-    std::string value;
-
-    if (!try_extract_value(line, property, value))
-        return;
-
-    variable = static_cast<bool>(std::stoi(value));
-    flag = true;
-
-    LogSystem::write(" -> " + property +
-                     " : " +
-                     std::string(variable ? "true" : "false"));
-}
-
-void parseInt(const std::string& line,
-              const std::string& property,
-              int& variable,
-              bool& flag)
-{
-    std::string value;
-
-    if (!try_extract_value(line, property, value))
-        return;
-
-    variable = std::stoi(value);
-    flag = true;
-
-    LogSystem::write(" -> " + property +
-                     " : " +
-                     std::to_string(variable));
-}
-
-void parseFloat(const std::string& line,
-                const std::string& property,
-                float& variable,
-                bool& flag)
-{
-    std::string value;
-
-    if (!try_extract_value(line, property, value))
-        return;
-
-    variable = std::stof(value);
-    flag = true;
-
-    LogSystem::write(" -> " + property +
-                     " : " +
-                     std::to_string(variable));
-}
-
-void parseString(const std::string& line,
-                 const std::string& property,
-                 std::string& variable,
-                 bool& flag)
-{
-    if (!try_extract_value(line, property, variable))
-        return;
-
-    flag = true;
-
-    LogSystem::write(" -> " + property +
-                     " : " +
-                     variable);
-}
-
 void parseStringNoCout(const std::string& line,
                        const std::string& property,
                        std::string& variable,
@@ -305,9 +236,6 @@ void parseStringNoCout(const std::string& line,
 
     flag = true;
 }
-
-
-
 
 static std::vector<int> parse_int_list(const std::string& s)
 {
@@ -329,8 +257,6 @@ static std::vector<int> parse_int_list(const std::string& s)
 
     return result;
 }
-
-
 
  // Interpreting User_Selection to integer array ##########################################
 void User_Selection_To_Int_Array(int *Idx, int Number_of_Comma, string my_string){
@@ -415,11 +341,6 @@ struct Option {
     bool required;
     bool found = false;
 };
-
-
-
-
-
 
 bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
