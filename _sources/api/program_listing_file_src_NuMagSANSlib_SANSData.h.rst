@@ -37,6 +37,7 @@ Program Listing for File NuMagSANSlib_SANSData.h
    #include <chrono>
    #include <dirent.h>
    #include <unistd.h>
+   #include <filesystem>
    
    using namespace std;
    
@@ -1012,7 +1013,7 @@ Program Listing for File NuMagSANSlib_SANSData.h
    }
    
    // #################################################################################################
-   // Write Backend ###################################################################################
+   // CSV Writer Backend ###################################################################################
    // #################################################################################################
    
    // -------------------------------------------------------------------------------------------------
@@ -1227,7 +1228,8 @@ Program Listing for File NuMagSANSlib_SANSData.h
            InputData->SANSDataFoldername + "/SANS_" +
            std::to_string(MagData_File_Index) + "/";
    
-       mkdir(target_foldername.c_str(), 0777);
+       //mkdir(target_foldername.c_str(), 0777);
+       std::filesystem::create_directories(target_foldername);
    
        // ------------------- SANS2D -------------------
        if(InputData->output_fourier_correlation_matrix_flag ||

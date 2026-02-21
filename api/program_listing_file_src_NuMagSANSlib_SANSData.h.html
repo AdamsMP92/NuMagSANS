@@ -417,6 +417,7 @@
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dirent.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;filesystem&gt;</span>
 
 <span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
 
@@ -1392,7 +1393,7 @@
 <span class="p">}</span>
 
 <span class="c1">// #################################################################################################</span>
-<span class="c1">// Write Backend ###################################################################################</span>
+<span class="c1">// CSV Writer Backend ###################################################################################</span>
 <span class="c1">// #################################################################################################</span>
 
 <span class="c1">// -------------------------------------------------------------------------------------------------</span>
@@ -1607,7 +1608,8 @@
 <span class="w">        </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">SANSDataFoldername</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;/SANS_&quot;</span><span class="w"> </span><span class="o">+</span>
 <span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">MagData_File_Index</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">mkdir</span><span class="p">(</span><span class="n">target_foldername</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="w"> </span><span class="mo">0777</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">//mkdir(target_foldername.c_str(), 0777);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">create_directories</span><span class="p">(</span><span class="n">target_foldername</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// ------------------- SANS2D -------------------</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_fourier_correlation_matrix_flag</span><span class="w"> </span><span class="o">||</span>

@@ -417,6 +417,7 @@
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dirent.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;filesystem&gt;</span>
 
 <span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
 
@@ -884,12 +885,14 @@
 <span class="w">        </span><span class="s">&quot;/AngularSpectrum/&quot;</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">mkdir</span><span class="p">(</span><span class="n">baseFolder</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="w"> </span><span class="mo">0777</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">//std::filesystem::create_directories(base_foldername);</span>
 
 <span class="w">    </span><span class="c1">// ================================</span>
 <span class="w">    </span><span class="c1">// Intensities</span>
 <span class="w">    </span><span class="c1">// ================================</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">intensityFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">baseFolder</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;Intensities/&quot;</span><span class="p">;</span>
 <span class="w">    </span><span class="n">mkdir</span><span class="p">(</span><span class="n">intensityFolder</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="w"> </span><span class="mo">0777</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">//std::filesystem::create_directories(intensityFolder);</span>
 
 <span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">intensities</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">build_spectral_intensities</span><span class="p">(</span><span class="n">SpecData</span><span class="p">);</span>
 
@@ -901,6 +904,7 @@
 <span class="w">    </span><span class="c1">// ================================</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">ampFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">baseFolder</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;Amplitudes/&quot;</span><span class="p">;</span>
 <span class="w">    </span><span class="n">mkdir</span><span class="p">(</span><span class="n">ampFolder</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="w"> </span><span class="mo">0777</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">//std::filesystem::create_directories(ampFolder);</span>
 
 <span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">amplitudes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">build_spectral_amplitudes</span><span class="p">(</span><span class="n">SpecData</span><span class="p">);</span>
 
