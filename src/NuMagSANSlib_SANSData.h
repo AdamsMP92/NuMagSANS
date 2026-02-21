@@ -1652,8 +1652,8 @@ void copyGPU2RAM_ScatteringData(ScatteringData *SANSData, \
 // -------------------------------------------------------------------------------------------------
 struct Column {
     std::string name;
-    const double* data;
-	Column(const std::string& n, const double* d)
+    const float* data;
+	Column(const std::string& n, const float* d)
         : name(n), data(d) {}
 };
 // -------------------------------------------------------------------------------------------------
