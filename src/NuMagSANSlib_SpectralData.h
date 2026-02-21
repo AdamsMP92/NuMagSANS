@@ -493,7 +493,7 @@ void write2CSV_SpectralData(
         "/AngularSpectrum/";
 
     //mkdir(baseFolder.c_str(), 0777);
-    std::filesystem::create_directories(base_foldername);
+    std::filesystem::create_directories(baseFolder);
 
     // ================================
     // Intensities
