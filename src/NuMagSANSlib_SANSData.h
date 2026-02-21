@@ -1014,67 +1014,24 @@ struct Column {
 };
 // -------------------------------------------------------------------------------------------------
 
-// void writeCSV(
-//     const std::string& filename,
-//     unsigned long length,
-//     const std::vector<Column>& columns
-// ){
-//     std::ofstream fout(filename);
-//     if(!fout.is_open()){
-//         throw std::runtime_error("Could not open file: " + filename);
-//     }
-
-//     // Header
-//     for(size_t i = 0; i < columns.size(); ++i){
-//         fout << columns[i].name;
-//         if(i < columns.size() - 1) fout << ",";
-//     }
-//     fout << "\n";
-
-//     // Data
-//     for(unsigned long n = 0; n < length; ++n){
-//         for(size_t i = 0; i < columns.size(); ++i){
-//             fout << columns[i].data[n];
-//             if(i < columns.size() - 1) fout << ",";
-//         }
-//         fout << "\n";
-//     }
-
-//     fout.close();
-// }
-
-
-
-
-
- 
-
 void writeCSV(
     const std::string& filename,
     unsigned long length,
     const std::vector<Column>& columns
 ){
-    std::ofstream fout(filename, std::ios::out | std::ios::binary);
+    std::ofstream fout(filename);
     if(!fout.is_open()){
         throw std::runtime_error("Could not open file: " + filename);
     }
 
-    // ---- Stream-Buffer (1 MB)
-    static char buffer[1 << 20];
-    fout.rdbuf()->pubsetbuf(buffer, sizeof(buffer));
-
-    // ---- f 
-    fout << std::scientific;
-    fout << std::setprecision(9);   
-
-    // ---------------- Header ----------------
+    // Header
     for(size_t i = 0; i < columns.size(); ++i){
         fout << columns[i].name;
         if(i < columns.size() - 1) fout << ",";
     }
     fout << "\n";
 
-    // ---------------- Data ----------------
+    // Data
     for(unsigned long n = 0; n < length; ++n){
         for(size_t i = 0; i < columns.size(); ++i){
             fout << columns[i].data[n];
@@ -1082,18 +1039,9 @@ void writeCSV(
         }
         fout << "\n";
     }
+
+    fout.close();
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 std::vector<Column> build_SANS2D_columns(
