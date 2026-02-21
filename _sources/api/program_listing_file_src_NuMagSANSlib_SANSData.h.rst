@@ -1784,6 +1784,81 @@ Program Listing for File NuMagSANSlib_SANSData.h
    
    
    
+   std::vector<Column> build_Corr1D_columns(
+       InputFileData* InputData,
+       ScatteringData* SANSData
+   ){
+       std::vector<Column> columns;
+   
+       // r always first
+       columns.emplace_back("r", SANSData->r_1D);
+   
+       auto& p = InputData->OutFlags.PairDist1D;
+       auto& c = InputData->OutFlags.Corr1D;
+   
+       // ---------- Pair Distribution p_*
+       if(p.Nuclear)         columns.emplace_back("p_N",  SANSData->p_Nuc_unpolarized);
+       if(p.Unpolarized)     columns.emplace_back("p_M",  SANSData->p_Mag_unpolarized);
+       if(p.NuclearMagnetic) columns.emplace_back("p_NM", SANSData->p_NucMag);
+       if(p.Polarized)       columns.emplace_back("p_P",  SANSData->p_Mag_polarized);
+       if(p.Chiral)          columns.emplace_back("p_chi",SANSData->p_Mag_chiral);
+       if(p.SpinFlip)        columns.emplace_back("p_sf", SANSData->p_Mag_spin_flip);
+       if(p.PM_SpinFlip)     columns.emplace_back("p_pm", SANSData->p_Mag_spin_flip_pm);
+       if(p.MP_SpinFlip)     columns.emplace_back("p_mp", SANSData->p_Mag_spin_flip_mp);
+       if(p.PP_NonSpinFlip)  columns.emplace_back("p_pp", SANSData->p_Mag_non_spin_flip_pp);
+       if(p.MM_NonSpinFlip)  columns.emplace_back("p_mm", SANSData->p_Mag_non_spin_flip_mm);
+       if(p.P_SANSPOL)       columns.emplace_back("p_p",  SANSData->p_Mag_sanspol_p);
+       if(p.M_SANSPOL)       columns.emplace_back("p_m",  SANSData->p_Mag_sanspol_m);
+   
+       // ---------- Correlation c_*
+       if(c.Nuclear)         columns.emplace_back("c_N",  SANSData->c_Nuc_unpolarized);
+       if(c.Unpolarized)     columns.emplace_back("c_M",  SANSData->c_Mag_unpolarized);
+       if(c.NuclearMagnetic) columns.emplace_back("c_NM", SANSData->c_NucMag);
+       if(c.Polarized)       columns.emplace_back("c_P",  SANSData->c_Mag_polarized);
+       if(c.Chiral)          columns.emplace_back("c_chi",SANSData->c_Mag_chiral);
+       if(c.SpinFlip)        columns.emplace_back("c_sf", SANSData->c_Mag_spin_flip);
+       if(c.PM_SpinFlip)     columns.emplace_back("c_pm", SANSData->c_Mag_spin_flip_pm);
+       if(c.MP_SpinFlip)     columns.emplace_back("c_mp", SANSData->c_Mag_spin_flip_mp);
+       if(c.PP_NonSpinFlip)  columns.emplace_back("c_pp", SANSData->c_Mag_non_spin_flip_pp);
+       if(c.MM_NonSpinFlip)  columns.emplace_back("c_mm", SANSData->c_Mag_non_spin_flip_mm);
+       if(c.P_SANSPOL)       columns.emplace_back("c_p",  SANSData->c_Mag_sanspol_p);
+       if(c.M_SANSPOL)       columns.emplace_back("c_m",  SANSData->c_Mag_sanspol_m);
+   
+       return columns;
+   }
+   
+   
+   std::vector<Column> build_Corr2D_columns(
+       InputFileData* InputData,
+       ScatteringData* SANSData
+   ){
+       std::vector<Column> columns;
+   
+       // ---- Coordinates (immer)
+       columns.emplace_back("rz",    SANSData->rz_2D);
+       columns.emplace_back("ry",    SANSData->ry_2D);
+       columns.emplace_back("r",     SANSData->r_2D);
+       columns.emplace_back("alpha", SANSData->alpha_2D);
+   
+       auto& f = InputData->OutFlags.Corr2D;
+   
+       // ---- Correlation terms
+       if(f.Nuclear)         columns.emplace_back("C_N",  SANSData->Corr_Nuc_2D_unpolarized);
+       if(f.Unpolarized)     columns.emplace_back("C_M",  SANSData->Corr_Mag_2D_unpolarized);
+       if(f.NuclearMagnetic) columns.emplace_back("C_NM", SANSData->Corr_NucMag_2D);
+       if(f.Polarized)       columns.emplace_back("C_P",  SANSData->Corr_Mag_2D_polarized);
+       if(f.Chiral)          columns.emplace_back("C_chi",SANSData->Corr_Mag_2D_chiral);
+       if(f.SpinFlip)        columns.emplace_back("C_sf", SANSData->Corr_Mag_2D_spin_flip);
+       if(f.PM_SpinFlip)     columns.emplace_back("C_pm", SANSData->Corr_Mag_2D_spin_flip_pm);
+       if(f.MP_SpinFlip)     columns.emplace_back("C_mp", SANSData->Corr_Mag_2D_spin_flip_mp);
+       if(f.PP_NonSpinFlip)  columns.emplace_back("C_pp", SANSData->Corr_Mag_2D_non_spin_flip_pp);
+       if(f.MM_NonSpinFlip)  columns.emplace_back("C_mm", SANSData->Corr_Mag_2D_non_spin_flip_mm);
+       if(f.P_SANSPOL)       columns.emplace_back("C_p",  SANSData->Corr_Mag_2D_sanspol_p);
+       if(f.M_SANSPOL)       columns.emplace_back("C_m",  SANSData->Corr_Mag_2D_sanspol_m);
+   
+       return columns;
+   }
+   
    
    
    void write2CSVtable_ScatteringData(
@@ -1827,15 +1902,35 @@ Program Listing for File NuMagSANSlib_SANSData.h
            LogSystem::write("SANS1D finished...");
        }
    
-       // Corr1D / Corr2D kannst du exakt gleich strukturieren
+       
+       // ------------------- Corr1D -------------------
+       if(any_active(InputData->OutFlags.Corr1D) ||
+       any_active(InputData->OutFlags.PairDist1D))
+       {
+           auto columns = build_Corr1D_columns(InputData, SANSData);
+   
+           writeCSV(target_foldername + "Corr1D.csv",
+                   (*SANSData->N_r),
+                   columns);
+   
+           LogSystem::write("Corr1D finished...");
+       }
+   
+       // ------------------- Corr2D -------------------
+       if(any_active(InputData->OutFlags.Corr2D))
+       {
+           unsigned long L = (*SANSData->N_r) * (*SANSData->N_alpha);
+   
+           auto columns = build_Corr2D_columns(InputData, SANSData);
+   
+           writeCSV(target_foldername + "Corr2D.csv",
+                   L,
+                   columns);
+   
+           LogSystem::write("Corr2D finished...");
+       }
+   
    }
-   
-   
-   
-   
-   
-   
-   
    
    
    // #################################################################################################

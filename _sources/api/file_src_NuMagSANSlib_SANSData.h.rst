@@ -92,6 +92,10 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a52fcd7001c4876233f9d7a8819c0d929`
 
+- :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a7d7f4e7c84f399b8f1ed92d7a3a21b2a`
+
+- :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a6389509075c5968a43c9a8d98149b1d0`
+
 - :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a648dcc397e5b2572374e8de42ba47844`
 
 - :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a973c30569344b63663f9bb891416eb30`
