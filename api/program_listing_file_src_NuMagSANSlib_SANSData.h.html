@@ -1409,7 +1409,7 @@
 
 <span class="w">    </span><span class="c1">// 2D SANS cross sections</span>
 
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_fourier_correlation_matrix_flag</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">SANS2D</span><span class="p">)){</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_fourier_correlation_matrix_flag</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">SANS2D</span><span class="p">)){</span>
 
 <span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">filename_SANS2D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">target_foldername</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;SANS2D.csv&quot;</span><span class="p">;</span>
 <span class="w">        </span><span class="n">fout</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename_SANS2D</span><span class="p">);</span>
@@ -1451,7 +1451,7 @@
 <span class="w">            </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;S_NM&quot;</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">ANS2D</span><span class="p">.</span><span class="n">Polarized</span><span class="p">){</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">SANS2D</span><span class="p">.</span><span class="n">Polarized</span><span class="p">){</span>
 <span class="w">            </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;S_P&quot;</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 
@@ -1781,7 +1781,7 @@
 <span class="w">            </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;c_mp&quot;</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">Corr1D</span><span class="p">.</span><span class="n">PP_SpinFlip</span><span class="p">){</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">Corr1D</span><span class="p">.</span><span class="n">PP_NonSpinFlip</span><span class="p">){</span>
 <span class="w">            </span><span class="n">fout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;c_pp&quot;</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 
