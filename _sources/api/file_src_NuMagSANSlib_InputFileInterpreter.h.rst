@@ -108,14 +108,6 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1aaf88bbc3980593eeea76ed0e882580dd`
 
-- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a5be1fdd2696d045e4d7b94e5bde85c82`
-
-- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a88942996e0fc9665de5a06adc9bcf232`
-
-- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1aebf7e344864cea31da1e6c7d87e20965`
-
-- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a88e141f69427c96644952c88600004d7`
-
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a2eea907970df3a8cb63d7e544d9c24b8`
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a3bc93c1b63b904fb9952346a88377c5f`

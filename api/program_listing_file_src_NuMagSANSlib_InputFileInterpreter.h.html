@@ -618,75 +618,6 @@
 <span class="p">}</span>
 
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">parseBool</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">line</span><span class="p">,</span>
-<span class="w">               </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">property</span><span class="p">,</span>
-<span class="w">               </span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">variable</span><span class="p">,</span>
-<span class="w">               </span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">flag</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">try_extract_value</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="w"> </span><span class="n">property</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">))</span>
-<span class="w">        </span><span class="k">return</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stoi</span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
-<span class="w">    </span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot; -&gt; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                     </span><span class="s">&quot; : &quot;</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                     </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">variable</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span><span class="p">));</span>
-<span class="p">}</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">parseInt</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">line</span><span class="p">,</span>
-<span class="w">              </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">property</span><span class="p">,</span>
-<span class="w">              </span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">variable</span><span class="p">,</span>
-<span class="w">              </span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">flag</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">try_extract_value</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="w"> </span><span class="n">property</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">))</span>
-<span class="w">        </span><span class="k">return</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">stoi</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
-<span class="w">    </span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot; -&gt; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                     </span><span class="s">&quot; : &quot;</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                     </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">variable</span><span class="p">));</span>
-<span class="p">}</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">parseFloat</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">line</span><span class="p">,</span>
-<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">property</span><span class="p">,</span>
-<span class="w">                </span><span class="kt">float</span><span class="o">&amp;</span><span class="w"> </span><span class="n">variable</span><span class="p">,</span>
-<span class="w">                </span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">flag</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">try_extract_value</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="w"> </span><span class="n">property</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">))</span>
-<span class="w">        </span><span class="k">return</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">stof</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
-<span class="w">    </span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot; -&gt; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                     </span><span class="s">&quot; : &quot;</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                     </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">variable</span><span class="p">));</span>
-<span class="p">}</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">parseString</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">line</span><span class="p">,</span>
-<span class="w">                 </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">property</span><span class="p">,</span>
-<span class="w">                 </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">variable</span><span class="p">,</span>
-<span class="w">                 </span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">flag</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">try_extract_value</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="w"> </span><span class="n">property</span><span class="p">,</span><span class="w"> </span><span class="n">variable</span><span class="p">))</span>
-<span class="w">        </span><span class="k">return</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot; -&gt; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                     </span><span class="s">&quot; : &quot;</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                     </span><span class="n">variable</span><span class="p">);</span>
-<span class="p">}</span>
-
 <span class="kt">void</span><span class="w"> </span><span class="nf">parseStringNoCout</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">line</span><span class="p">,</span>
 <span class="w">                       </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">property</span><span class="p">,</span>
 <span class="w">                       </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">variable</span><span class="p">,</span>
@@ -697,9 +628,6 @@
 
 <span class="w">    </span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
-
-
-
 
 <span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parse_int_list</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">)</span>
 <span class="p">{</span>
@@ -721,8 +649,6 @@
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
 <span class="p">}</span>
-
-
 
 <span class="w"> </span><span class="c1">// Interpreting User_Selection to integer array ##########################################</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">User_Selection_To_Int_Array</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">Idx</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Number_of_Comma</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="n">my_string</span><span class="p">){</span>
@@ -807,11 +733,6 @@
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">required</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">found</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="p">};</span>
-
-
-
-
-
 
 <span class="kt">bool</span><span class="w"> </span><span class="nf">ReadCSV__Input_File_Interpreter</span><span class="p">(</span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">InputFileData</span><span class="o">*</span><span class="n">InputData</span><span class="p">){</span>
 
