@@ -25,6 +25,7 @@
 #include <chrono>
 #include <dirent.h>
 #include <unistd.h>
+#include <filesystem>
 
 using namespace std;
 
@@ -1000,7 +1001,7 @@ void copyGPU2RAM_ScatteringData(ScatteringData *SANSData, \
 }
 
 // #################################################################################################
-// Write Backend ###################################################################################
+// CSV Writer Backend ###################################################################################
 // #################################################################################################
 
 // -------------------------------------------------------------------------------------------------
@@ -1215,7 +1216,8 @@ void write2CSVtable_ScatteringData(
         InputData->SANSDataFoldername + "/SANS_" +
         std::to_string(MagData_File_Index) + "/";
 
-    mkdir(target_foldername.c_str(), 0777);
+    //mkdir(target_foldername.c_str(), 0777);
+	std::filesystem::create_directories(target_foldername);
 
     // ------------------- SANS2D -------------------
     if(InputData->output_fourier_correlation_matrix_flag ||
