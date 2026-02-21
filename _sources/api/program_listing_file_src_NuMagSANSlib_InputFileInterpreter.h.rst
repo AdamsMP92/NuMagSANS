@@ -77,7 +77,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
    struct SuffixEntry {
        const char* name;
-       OutFlagQuant::* quantity;
+       OutFlag OutFlagQuant::* quantity;
    };
    
    
