@@ -544,6 +544,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 				}
 				*opt.target = static_cast<bool>(std::stoi(value));
 				opt.found = true;
+				LogSystem::write(" -> " + opt.key + " : " + (*opt.target ? "true" : "false"));
 			}
 		}
 
@@ -555,6 +556,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 				}
 				*opt.target = static_cast<bool>(std::stoi(value));
 				opt.found = true;
+				LogSystem::write(" -> " + opt.key + " : " + (*opt.target ? "true" : "false"));
 			}
 		}
 
@@ -566,6 +568,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 				}
 				*opt.target = std::stoi(value);
 				opt.found = true;
+				LogSystem::write(" -> " + opt.key + " : " + std::to_string(*opt.target));
 			}
 		}
 
@@ -577,6 +580,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 				}
 				*opt.target = std::stof(value);
 				opt.found = true;
+				LogSystem::write(" -> " + opt.key + " : " + std::to_string(*opt.target));
 			}
 		}
 
@@ -588,6 +592,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 				}
 				*opt.target = value;
 				opt.found = true;
+				LogSystem::write(" -> " + opt.key + " : " + *opt.target);
 			}
 		}
 
