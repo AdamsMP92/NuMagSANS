@@ -202,47 +202,11 @@ Program Listing for File NuMagSANSlib.h
            }
    
        // compute azimuthal average 1D ###########################################################
-       bool compute_1D_azimuthal_average =
-              InputData->output_unpolarized_nuclear_SANS_cross_section_1D_flag
-               || InputData->output_unpolarized_magnetic_SANS_cross_section_1D_flag
-               || InputData->output_polarized_magnetic_SANS_cross_section_1D_flag
-               || InputData->output_nuclear_magnetic_SANS_cross_section_1D_flag
-               || InputData->output_spin_flip_magnetic_SANS_cross_section_1D_flag
-               || InputData->output_chiral_magnetic_SANS_cross_section_1D_flag
-               || InputData->output_pm_spin_flip_SANS_cross_section_1D_flag
-               || InputData->output_mp_spin_flip_SANS_cross_section_1D_flag
-               || InputData->output_pp_non_spin_flip_SANS_cross_section_1D_flag
-               || InputData->output_mm_non_spin_flip_SANS_cross_section_1D_flag
-               || InputData->output_m_sanspol_cross_section_1D_flag
-               || InputData->output_p_sanspol_cross_section_1D_flag;
+       bool compute_1D_azimuthal_average = any_active(InputData->OutFlags.SANS1D);
+       bool compute_1D_corr = any_active(InputData->OutFlags.Corr1D);
+       bool compute_1D_pair = any_active(InputData->OutFlags.PairDist1D);
    
-       bool compute_1D_realspace =
-              InputData->output_nuclear_pair_distance_distribution_1D_flag
-               || InputData->output_unpolarized_pair_distance_distribution_1D_flag
-               || InputData->output_polarized_pair_distance_distribution_1D_flag
-               || InputData->output_nuclear_magnetic_pair_distance_distribution_1D_flag
-               || InputData->output_spin_flip_pair_distance_distribution_1D_flag
-               || InputData->output_chiral_pair_distance_distribution_1D_flag
-               || InputData->output_pm_spin_flip_pair_distance_distribution_1D_flag
-               || InputData->output_mp_spin_flip_pair_distance_distribution_1D_flag
-               || InputData->output_pp_non_spin_flip_pair_distance_distribution_1D_flag
-               || InputData->output_mm_non_spin_flip_pair_distance_distribution_1D_flag
-               || InputData->output_p_sanspol_pair_distance_distribution_1D_flag
-               || InputData->output_m_sanspol_pair_distance_distribution_1D_flag
-               || InputData->output_nuclear_correlation_function_1D_flag
-               || InputData->output_unpolarized_correlation_function_1D_flag
-               || InputData->output_polarized_correlation_function_1D_flag
-               || InputData->output_nuclear_magnetic_correlation_function_1D_flag
-               || InputData->output_spin_flip_correlation_function_1D_flag
-               || InputData->output_chiral_correlation_function_1D_flag
-               || InputData->output_pm_spin_flip_correlation_function_1D_flag
-               || InputData->output_mp_spin_flip_correlation_function_1D_flag
-               || InputData->output_pp_non_spin_flip_correlation_function_1D_flag
-               || InputData->output_mm_non_spin_flip_correlation_function_1D_flag
-               || InputData->output_p_sanspol_correlation_function_1D_flag
-               || InputData->output_m_sanspol_correlation_function_1D_flag;
-   
-       if(compute_1D_azimuthal_average || compute_1D_realspace){
+       if(compute_1D_azimuthal_average || compute_1D_corr || compute_1D_pair){
    
            LogSystem::write("run: azimuthal averaging");
            AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
@@ -255,7 +219,7 @@ Program Listing for File NuMagSANSlib.h
        }
    
        // compute 1D pair distance distribution and correlation function #########################
-       if(compute_1D_realspace){
+       if(compute_1D_corr || compute_1D_pair){
            LogSystem::write("run: 1D correlation functions");
            DistributionFunctions<<<(L+255), 256>>>(SANSData_gpu);
            cudaDeviceSynchronize();
@@ -266,20 +230,7 @@ Program Listing for File NuMagSANSlib.h
        }
    
        // compute 2D correlation functions ######################################################
-       bool compute_2D_correlation =
-              InputData->output_nuclear_correlation_function_2D_flag
-               || InputData->output_unpolarized_correlation_function_2D_flag
-               || InputData->output_polarized_correlation_function_2D_flag
-               || InputData->output_nuclear_magnetic_correlation_function_2D_flag
-               || InputData->output_spin_flip_correlation_function_2D_flag
-               || InputData->output_chiral_correlation_function_2D_flag
-               || InputData->output_pm_spin_flip_correlation_function_2D_flag
-               || InputData->output_mp_spin_flip_correlation_function_2D_flag
-               || InputData->output_pp_non_spin_flip_correlation_function_2D_flag
-               || InputData->output_mm_non_spin_flip_correlation_function_2D_flag
-               || InputData->output_m_sanspol_correlation_function_2D_flag
-               || InputData->output_p_sanspol_correlation_function_2D_flag;    
-   
+       bool compute_2D_correlation = any_active(InputData->OutFlags.Corr2D);   
    
        if(compute_2D_correlation){
            LogSystem::write("run: 2D correlation functions");

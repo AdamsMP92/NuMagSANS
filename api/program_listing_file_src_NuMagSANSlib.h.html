@@ -582,47 +582,11 @@
 <span class="w">        </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// compute azimuthal average 1D ###########################################################</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_azimuthal_average</span><span class="w"> </span><span class="o">=</span>
-<span class="w">           </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_unpolarized_nuclear_SANS_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_unpolarized_magnetic_SANS_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_polarized_magnetic_SANS_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_nuclear_magnetic_SANS_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_spin_flip_magnetic_SANS_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_chiral_magnetic_SANS_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_pm_spin_flip_SANS_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_mp_spin_flip_SANS_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_pp_non_spin_flip_SANS_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_mm_non_spin_flip_SANS_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_m_sanspol_cross_section_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_p_sanspol_cross_section_1D_flag</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_azimuthal_average</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">SANS1D</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_corr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">Corr1D</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_pair</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">PairDist1D</span><span class="p">);</span>
 
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_realspace</span><span class="w"> </span><span class="o">=</span>
-<span class="w">           </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_nuclear_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_unpolarized_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_polarized_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_nuclear_magnetic_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_spin_flip_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_chiral_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_pm_spin_flip_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_mp_spin_flip_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_pp_non_spin_flip_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_mm_non_spin_flip_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_p_sanspol_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_m_sanspol_pair_distance_distribution_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_nuclear_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_unpolarized_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_polarized_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_nuclear_magnetic_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_spin_flip_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_chiral_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_pm_spin_flip_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_mp_spin_flip_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_pp_non_spin_flip_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_mm_non_spin_flip_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_p_sanspol_correlation_function_1D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_m_sanspol_correlation_function_1D_flag</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_1D_azimuthal_average</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">compute_1D_realspace</span><span class="p">){</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_1D_azimuthal_average</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">compute_1D_corr</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">compute_1D_pair</span><span class="p">){</span>
 
 <span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: azimuthal averaging&quot;</span><span class="p">);</span>
 <span class="w">        </span><span class="n">AzimuthalAverage</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
@@ -635,7 +599,7 @@
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// compute 1D pair distance distribution and correlation function #########################</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_1D_realspace</span><span class="p">){</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_1D_corr</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">compute_1D_pair</span><span class="p">){</span>
 <span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: 1D correlation functions&quot;</span><span class="p">);</span>
 <span class="w">        </span><span class="n">DistributionFunctions</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">),</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
 <span class="w">        </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
@@ -646,20 +610,7 @@
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// compute 2D correlation functions ######################################################</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_2D_correlation</span><span class="w"> </span><span class="o">=</span>
-<span class="w">           </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_nuclear_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_unpolarized_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_polarized_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_nuclear_magnetic_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_spin_flip_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_chiral_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_pm_spin_flip_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_mp_spin_flip_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_pp_non_spin_flip_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_mm_non_spin_flip_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_m_sanspol_correlation_function_2D_flag</span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">output_p_sanspol_correlation_function_2D_flag</span><span class="p">;</span>
-
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_2D_correlation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">Corr2D</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_2D_correlation</span><span class="p">){</span>
 <span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: 2D correlation functions&quot;</span><span class="p">);</span>

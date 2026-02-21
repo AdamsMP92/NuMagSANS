@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>File NuMagSANSlib_InputFileInterpreter.h &#8212; NuMagSANS  documentation</title>
+    <title>Function parse_int_list &#8212; NuMagSANS  documentation</title>
   
   
   
@@ -50,7 +50,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/file_src_NuMagSANSlib_InputFileInterpreter.h';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/function_NuMagSANSlib__InputFileInterpreter_8h_1aaf88bbc3980593eeea76ed0e882580dd';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -325,10 +325,7 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="program_listing_file_src_NuMagSANSlib_InputFileInterpreter.h.html">Program Listing for File NuMagSANSlib_InputFileInterpreter.h</a></li>
-</ul>
-</div>
+  <div class="bd-toc-item navbar-nav"></div>
 </nav></div>
         <div class="sidebar-primary-item">
 <div id="ethical-ad-placement"
@@ -374,7 +371,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">File NuMagSANSlib_InputFileInterpreter.h</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Function parse_int_list</span></li>
   </ul>
 </nav>
 </div>
@@ -391,85 +388,18 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="file-numagsanslib-inputfileinterpreter-h">
-<span id="file-src-numagsanslib-inputfileinterpreter-h"></span><h1>File NuMagSANSlib_InputFileInterpreter.h<a class="headerlink" href="#file-numagsanslib-inputfileinterpreter-h" title="Link to this heading">#</a></h1>
-<p>↰ <a class="reference internal" href="dir_src.html#dir-src"><span class="std std-ref">Parent directory</span></a> (<code class="docutils literal notranslate"><span class="pre">src</span></code>)</p>
-<nav class="contents local" id="contents">
-<p class="topic-title">Contents</p>
+  <section id="function-parse-int-list">
+<span id="exhale-function-numagsanslib-inputfileinterpreter-8h-1aaf88bbc3980593eeea76ed0e882580dd"></span><h1>Function parse_int_list<a class="headerlink" href="#function-parse-int-list" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p><a class="reference internal" href="#definition-src-numagsanslib-inputfileinterpreter-h" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_InputFileInterpreter.h</span></code>)</a></p></li>
-<li><p><a class="reference internal" href="#includes" id="id2">Includes</a></p></li>
-<li><p><a class="reference internal" href="#included-by" id="id3">Included By</a></p></li>
-<li><p><a class="reference internal" href="#classes" id="id4">Classes</a></p></li>
-<li><p><a class="reference internal" href="#functions" id="id5">Functions</a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_src_NuMagSANSlib_InputFileInterpreter.h.html#file-src-numagsanslib-inputfileinterpreter-h"><span class="std std-ref">File NuMagSANSlib_InputFileInterpreter.h</span></a></p></li>
 </ul>
-</nav>
-<section id="definition-src-numagsanslib-inputfileinterpreter-h">
-<h2>Definition (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_InputFileInterpreter.h</span></code>)<a class="headerlink" href="#definition-src-numagsanslib-inputfileinterpreter-h" title="Link to this heading">#</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="program_listing_file_src_NuMagSANSlib_InputFileInterpreter.h.html">Program Listing for File NuMagSANSlib_InputFileInterpreter.h</a></li>
-</ul>
-</div>
-</section>
-<section id="includes">
-<h2>Includes<a class="headerlink" href="#includes" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">algorithm</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cctype</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">chrono</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cublas_v2.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cuda_runtime.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">dirent.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fstream</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">iostream</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">math.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sstream</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">stdexcept</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">stdlib.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sys/stat.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sys/types.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">time.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">unistd.h</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">vector</span></code></p></li>
-</ul>
-</section>
-<section id="included-by">
-<h2>Included By<a class="headerlink" href="#included-by" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="file_src_NuMagSANSlib.h.html#file-src-numagsanslib-h"><span class="std std-ref">File NuMagSANSlib.h</span></a></p></li>
-</ul>
-</section>
-<section id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="structInputFileData.html#exhale-struct-structinputfiledata"><span class="std std-ref">Struct InputFileData</span></a></p></li>
-<li><p><a class="reference internal" href="structOption.html#exhale-struct-structoption"><span class="std std-ref">Template Struct Option</span></a></p></li>
-<li><p><a class="reference internal" href="structOutFlag.html#exhale-struct-structoutflag"><span class="std std-ref">Struct OutFlag</span></a></p></li>
-<li><p><a class="reference internal" href="structOutFlagQuant.html#exhale-struct-structoutflagquant"><span class="std std-ref">Struct OutFlagQuant</span></a></p></li>
-<li><p><a class="reference internal" href="structPrefixEntry.html#exhale-struct-structprefixentry"><span class="std std-ref">Struct PrefixEntry</span></a></p></li>
-<li><p><a class="reference internal" href="structSuffixEntry.html#exhale-struct-structsuffixentry"><span class="std std-ref">Struct SuffixEntry</span></a></p></li>
-</ul>
-</section>
-<section id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1ab9089ec0e3e9531695edc2885e7b467b.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1ab9089ec0e3e9531695edc2885e7b467b"><span class="std std-ref">Function any_active</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1aca7adf9bfb3cf0d5093d13724c971ed0.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1aca7adf9bfb3cf0d5093d13724c971ed0"><span class="std std-ref">Function Compute_RotMat</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1a6bc4f8698cc3ea3bcbba027639c74fa8.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1a6bc4f8698cc3ea3bcbba027639c74fa8"><span class="std std-ref">Function InitializeLogSystem</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1acefcd1d43e234c479915867da38e9f72.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1acefcd1d43e234c479915867da38e9f72"><span class="std std-ref">Function Number_Of_Comma_In_String</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1aaf88bbc3980593eeea76ed0e882580dd.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1aaf88bbc3980593eeea76ed0e882580dd"><span class="std std-ref">Function parse_int_list</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1a5be1fdd2696d045e4d7b94e5bde85c82.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1a5be1fdd2696d045e4d7b94e5bde85c82"><span class="std std-ref">Function parseBool</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1a88942996e0fc9665de5a06adc9bcf232.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1a88942996e0fc9665de5a06adc9bcf232"><span class="std std-ref">Function parseFloat</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1aebf7e344864cea31da1e6c7d87e20965.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1aebf7e344864cea31da1e6c7d87e20965"><span class="std std-ref">Function parseInt</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1a88e141f69427c96644952c88600004d7.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1a88e141f69427c96644952c88600004d7"><span class="std std-ref">Function parseString</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1a2eea907970df3a8cb63d7e544d9c24b8.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1a2eea907970df3a8cb63d7e544d9c24b8"><span class="std std-ref">Function parseStringNoCout</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1af1d18191ffd0c277737ff516e4ea8d8c.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1af1d18191ffd0c277737ff516e4ea8d8c"><span class="std std-ref">Function ReadCSV__Input_File_InterpreterNEW</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1a8c7f671a4eaae43db4839df0abcb514a.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1a8c7f671a4eaae43db4839df0abcb514a"><span class="std std-ref">Function trim</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1a02d64c2df3ff5e57036e3b487c9f5a7e.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1a02d64c2df3ff5e57036e3b487c9f5a7e"><span class="std std-ref">Function try_extract_value</span></a></p></li>
-<li><p><a class="reference internal" href="function_NuMagSANSlib__InputFileInterpreter_8h_1a1e5dc883478afe8a376eb5ee8e5abcc5.html#exhale-function-numagsanslib-inputfileinterpreter-8h-1a1e5dc883478afe8a376eb5ee8e5abcc5"><span class="std std-ref">Function User_Selection_To_Int_Array</span></a></p></li>
-</ul>
+<section id="function-documentation">
+<h2>Function Documentation<a class="headerlink" href="#function-documentation" title="Link to this heading">#</a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414parse_int_listRKNSt6stringE">
+<span id="_CPPv314parse_int_listRKNSt6stringE"></span><span id="_CPPv214parse_int_listRKNSt6stringE"></span><span id="parse_int_list__ssCR"></span><span class="target" id="NuMagSANSlib__InputFileInterpreter_8h_1aaf88bbc3980593eeea76ed0e882580dd"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">parse_int_list</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414parse_int_listRKNSt6stringE" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
 </section>
 </section>
 
@@ -502,11 +432,10 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-src-numagsanslib-inputfileinterpreter-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_InputFileInterpreter.h</span></code>)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#includes">Includes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#included-by">Included By</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-documentation">Function Documentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414parse_int_listRKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">parse_int_list()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

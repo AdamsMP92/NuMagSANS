@@ -83,16 +83,30 @@ Classes
 
 - :ref:`exhale_struct_structInputFileData`
 
+- :ref:`exhale_struct_structOption`
+
+- :ref:`exhale_struct_structOutFlag`
+
+- :ref:`exhale_struct_structOutFlagQuant`
+
+- :ref:`exhale_struct_structPrefixEntry`
+
+- :ref:`exhale_struct_structSuffixEntry`
+
 
 Functions
 ---------
 
+
+- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1ab9089ec0e3e9531695edc2885e7b467b`
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1aca7adf9bfb3cf0d5093d13724c971ed0`
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a6bc4f8698cc3ea3bcbba027639c74fa8`
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1acefcd1d43e234c479915867da38e9f72`
+
+- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1aaf88bbc3980593eeea76ed0e882580dd`
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a5be1fdd2696d045e4d7b94e5bde85c82`
 
@@ -104,7 +118,7 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a2eea907970df3a8cb63d7e544d9c24b8`
 
-- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a3bc93c1b63b904fb9952346a88377c5f`
+- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1af1d18191ffd0c277737ff516e4ea8d8c`
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a8c7f671a4eaae43db4839df0abcb514a`
 
