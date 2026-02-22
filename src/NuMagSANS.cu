@@ -106,7 +106,7 @@ int main(int argc, char* argv[]){
 		}
 	}else{
 		LogSystem::write("user selecting active...");
-		for(int k = 0; k < InputData.Number_Of_User_Selections; k++){
+		for(int k = 0; k < InputData.User_Selection_IndexArray.size(); k++){
 			Data_File_Index = InputData.User_Selection_IndexArray[k];
 
 			cudaMemGetInfo(&free_bytes, &total_bytes);
