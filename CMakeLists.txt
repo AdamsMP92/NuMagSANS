@@ -12,9 +12,14 @@ if(CMAKE_CUDA_COMPILER)
     message(STATUS "✅ CUDA compiler found: ${CMAKE_CUDA_COMPILER}")
 
     # Set CUDA standard
-    set(CMAKE_CUDA_STANDARD 11)
+    set(CMAKE_CUDA_STANDARD 17)
     set(CMAKE_CUDA_STANDARD_REQUIRED ON)
     set(CMAKE_CUDA_EXTENSIONS OFF)
+
+    # Make sure host compiler also uses C++17
+    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    set(CMAKE_CXX_EXTENSIONS OFF)
 
     # Add executable
     add_executable(NuMagSANS src/NuMagSANS.cu)
