@@ -8,6 +8,10 @@
 // OS           : Linux Ubuntu
 // Language     : CUDA C++
 
+
+ 
+
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -69,8 +73,134 @@ struct SuffixEntry {
 };
 
 
+
+/**
+ * \ingroup InputParameters
+ * \struct InputFileData
+ * \brief Central configuration container for a NuMagSANS simulation run.
+ *
+ * This structure stores all parameters parsed from the user input file,
+ * including geometry, discretization, physical constants, polarization
+ * settings, and output control flags.
+ */
 struct InputFileData{
 
+	 /// Path to nuclear real-space data directory
+	string NucDataPath;
+
+    /// Path to magnetic real-space data directory
+	string MagDataPath;
+
+    /// CSV file containing structural information
+	string StructDataFilename;
+
+    /// Output directory for computed SANS data
+	string SANSDataFoldername;
+
+    /// Fourier computation approach (e.g., "Direct", "FFT")
+	string Fourier_Approach;
+
+    /// Activate loop mode over dataset indices
+	bool Loop_Modus;
+
+    /// Starting index for loop mode
+	int Loop_From;
+
+    /// Final index for loop mode
+	int Loop_To;
+	
+    /// User-defined dataset selection string
+	string User_Selection;
+
+    /// Parsed dataset index list
+	std::vector<int> User_Selection_IndexArray;
+
+    // --- Discretization parameters ---
+
+    /// Number of q-points
+    int N_q; 
+
+    /// Number of azimuthal angles
+    int N_theta;
+
+    /// Number of radial points for correlation functions
+    int N_r; 
+
+    /// Number of angular alpha points
+    int N_alpha;
+
+    /// Maximum scattering vector magnitude [1/nm]
+    float q_max;
+
+    /// Maximum real-space radius [nm]
+    float r_max;
+
+    // --- Physical parameters ---
+
+    /// Total scattering volume [nm^3]
+    float Scattering_Volume_V;
+
+    /// Nuclear scattering length density of a cell
+	float cell_nuclear_sld;
+
+    /// Saturation magnetization per cell
+    float cell_magnetization;
+
+    /// Cuboid cell size in x-direction [nm]
+	float cuboid_cell_size_x;
+
+    /// Cuboid cell size in y-direction [nm]
+	float cuboid_cell_size_y;
+
+    /// Cuboid cell size in z-direction [nm]
+	float cuboid_cell_size_z;
+    
+    // --- Rotation matrix ---
+
+    /// Euler rotation angle alpha [rad]
+    float RotMat_alpha;
+
+    /// Euler rotation angle beta [rad]
+    float RotMat_beta;
+
+    /// 3x3 rotation matrix (row-major)
+    float RotMat[9];
+
+    /// Unit conversion factor for coordinate scaling
+    float XYZ_Unit_Factor;
+
+    // --- Polarization vector ---
+
+    /// Polarization vector (Px, Py, Pz)
+	float Polarization[3];
+
+    // --- Activation flags ---
+
+    /// Enable nuclear data input
+	bool NucData_activate_flag; 
+
+    /// Enable magnetic data input
+	bool MagData_activate_flag;
+
+    /// Enable structural data input
+	bool StructData_activate_flag;
+
+    /// Exclude zero-moment cells from computation
+	bool ExcludeZeroMoments_flag;
+    
+    /// Validate input file before execution
+    bool Check_InputFile_Flag;
+
+    /// Maximum Fourier summation index
+	int k_max; 
+
+    /// Activate angular spectrum evaluation
+	bool AngularSpec_activate_flag;
+    
+    /// Output full Fourier correlation matrix
+    bool output_fourier_correlation_matrix_flag;
+
+	/*
 	string NucDataPath;
 	string MagDataPath;
 	string StructDataFilename;
@@ -116,7 +246,7 @@ struct InputFileData{
 	bool AngularSpec_activate_flag;
     
     bool output_fourier_correlation_matrix_flag;
-
+	*/
 	OutFlagQuant OutFlags{};
 
 };
