@@ -20,6 +20,10 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    // OS           : Linux Ubuntu
    // Language     : CUDA C++
    
+   
+    
+   
+   
    #include <iostream>
    #include <fstream>
    #include <sstream>
@@ -81,8 +85,90 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    };
    
    
+   
    struct InputFileData{
    
+       string NucDataPath;
+   
+       string MagDataPath;
+   
+       string StructDataFilename;
+   
+       string SANSDataFoldername;
+   
+       string Fourier_Approach;
+   
+       bool Loop_Modus;
+   
+       int Loop_From;
+   
+       int Loop_To;
+       
+       string User_Selection;
+   
+       std::vector<int> User_Selection_IndexArray;
+   
+       // --- Discretization parameters ---
+   
+       int N_q; 
+   
+       int N_theta;
+   
+       int N_r; 
+   
+       int N_alpha;
+   
+       float q_max;
+   
+       float r_max;
+   
+       // --- Physical parameters ---
+   
+       float Scattering_Volume_V;
+   
+       float cell_nuclear_sld;
+   
+       float cell_magnetization;
+   
+       float cuboid_cell_size_x;
+   
+       float cuboid_cell_size_y;
+   
+       float cuboid_cell_size_z;
+       
+       // --- Rotation matrix ---
+   
+       float RotMat_alpha;
+   
+       float RotMat_beta;
+   
+       float RotMat[9];
+   
+       float XYZ_Unit_Factor;
+   
+       // --- Polarization vector ---
+   
+       float Polarization[3];
+   
+       // --- Activation flags ---
+   
+       bool NucData_activate_flag; 
+   
+       bool MagData_activate_flag;
+   
+       bool StructData_activate_flag;
+   
+       bool ExcludeZeroMoments_flag;
+       
+       bool Check_InputFile_Flag;
+   
+       int k_max; 
+   
+       bool AngularSpec_activate_flag;
+       
+       bool output_fourier_correlation_matrix_flag;
+   
+       /*
        string NucDataPath;
        string MagDataPath;
        string StructDataFilename;
@@ -128,7 +214,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        bool AngularSpec_activate_flag;
        
        bool output_fourier_correlation_matrix_flag;
-   
+       */
        OutFlagQuant OutFlags{};
    
    };

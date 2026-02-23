@@ -400,6 +400,10 @@
 <span class="c1">// OS           : Linux Ubuntu</span>
 <span class="c1">// Language     : CUDA C++</span>
 
+
+
+
+
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sstream&gt;</span>
@@ -461,54 +465,136 @@
 <span class="p">};</span>
 
 
+
 <span class="k">struct</span><span class="w"> </span><span class="nc">InputFileData</span><span class="p">{</span>
 
 <span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">NucDataPath</span><span class="p">;</span>
+
 <span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">MagDataPath</span><span class="p">;</span>
+
 <span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">StructDataFilename</span><span class="p">;</span>
+
 <span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">SANSDataFoldername</span><span class="p">;</span>
+
 <span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">Fourier_Approach</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">Loop_Modus</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Loop_From</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Loop_To</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">User_Selection</span><span class="p">;</span>
+
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">User_Selection_IndexArray</span><span class="p">;</span>
 
+<span class="w">    </span><span class="c1">// --- Discretization parameters ---</span>
+
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">N_q</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">N_theta</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">N_r</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">N_alpha</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">q_max</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">r_max</span><span class="p">;</span>
 
+<span class="w">    </span><span class="c1">// --- Physical parameters ---</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Scattering_Volume_V</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">cell_nuclear_sld</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">cell_magnetization</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">cuboid_cell_size_x</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">cuboid_cell_size_y</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">cuboid_cell_size_z</span><span class="p">;</span>
 
+<span class="w">    </span><span class="c1">// --- Rotation matrix ---</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">RotMat_alpha</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">RotMat_beta</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">RotMat</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">XYZ_Unit_Factor</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// --- Polarization vector ---</span>
 
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Polarization</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 
+<span class="w">    </span><span class="c1">// --- Activation flags ---</span>
+
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">NucData_activate_flag</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">MagData_activate_flag</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">StructData_activate_flag</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">ExcludeZeroMoments_flag</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">Check_InputFile_Flag</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">k_max</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">AngularSpec_activate_flag</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">output_fourier_correlation_matrix_flag</span><span class="p">;</span>
 
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">    string NucDataPath;</span>
+<span class="cm">    string MagDataPath;</span>
+<span class="cm">    string StructDataFilename;</span>
+<span class="cm">    string SANSDataFoldername;</span>
+<span class="cm">    string Fourier_Approach;</span>
+
+<span class="cm">    bool Loop_Modus;</span>
+<span class="cm">    int Loop_From;</span>
+<span class="cm">    int Loop_To;</span>
+
+<span class="cm">    string User_Selection;</span>
+<span class="cm">    std::vector&lt;int&gt; User_Selection_IndexArray;</span>
+
+<span class="cm">    int N_q;</span>
+<span class="cm">    int N_theta;</span>
+<span class="cm">    int N_r;</span>
+<span class="cm">    int N_alpha;</span>
+<span class="cm">    float q_max;</span>
+<span class="cm">    float r_max;</span>
+
+<span class="cm">    float Scattering_Volume_V;</span>
+<span class="cm">    float cell_nuclear_sld;</span>
+<span class="cm">    float cell_magnetization;</span>
+<span class="cm">    float cuboid_cell_size_x;</span>
+<span class="cm">    float cuboid_cell_size_y;</span>
+<span class="cm">    float cuboid_cell_size_z;</span>
+
+<span class="cm">    float RotMat_alpha;</span>
+<span class="cm">    float RotMat_beta;</span>
+<span class="cm">    float RotMat[9];</span>
+<span class="cm">    float XYZ_Unit_Factor;</span>
+
+<span class="cm">    float Polarization[3];</span>
+
+<span class="cm">    bool NucData_activate_flag;</span>
+<span class="cm">    bool MagData_activate_flag;</span>
+<span class="cm">    bool StructData_activate_flag;</span>
+<span class="cm">    bool ExcludeZeroMoments_flag;</span>
+
+<span class="cm">    bool Check_InputFile_Flag;</span>
+
+<span class="cm">    int k_max;</span>
+<span class="cm">    bool AngularSpec_activate_flag;</span>
+
+<span class="cm">    bool output_fourier_correlation_matrix_flag;</span>
+<span class="cm">    */</span>
 <span class="w">    </span><span class="n">OutFlagQuant</span><span class="w"> </span><span class="n">OutFlags</span><span class="p">{};</span>
 
 <span class="p">};</span>
