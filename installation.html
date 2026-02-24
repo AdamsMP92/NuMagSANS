@@ -406,34 +406,49 @@
                   
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h1>
-<p>NuMagSANS is a GPU-accelerated computational engine and requires
-a working CUDA toolchain.</p>
-<section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
-<p>The following software must be available on your system:</p>
-<ul class="simple">
-<li><p><strong>CMake</strong> &gt;= 3.18</p></li>
-<li><p><strong>CUDA Toolkit</strong> (nvcc in PATH)</p></li>
-<li><p>A C++17 compatible compiler (e.g. GCC &gt;= 9)</p></li>
-<li><p>A CUDA-capable NVIDIA GPU</p></li>
-</ul>
-<p>To verify CUDA availability:</p>
+<p>NuMagSANS requires a working CUDA toolchain and a C++17-compatible compiler.</p>
+<p>This section provides a quick system check followed by the build steps.</p>
+<section id="test-your-system">
+<h2>Test Your System<a class="headerlink" href="#test-your-system" title="Link to this heading">#</a></h2>
+<p>Before building NuMagSANS, verify that the required tools are available.</p>
+<ol class="arabic simple">
+<li><p>Check for a CUDA-capable GPU:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi
+</pre></div>
+</div>
+<p>You should see your GPU listed.</p>
+<ol class="arabic simple" start="2">
+<li><p>Check CUDA toolkit (nvcc):</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvcc<span class="w"> </span>--version
 </pre></div>
 </div>
-<p>To verify CMake:</p>
+<p>This should print the CUDA compiler version.</p>
+<ol class="arabic simple" start="3">
+<li><p>Check CMake:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--version
 </pre></div>
 </div>
+<p>CMake version 3.18 or newer is required.</p>
+<ol class="arabic simple" start="4">
+<li><p>Check your C++ compiler:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>--version
+</pre></div>
+</div>
+<p>Make sure it supports C++17 (GCC &gt;= 9 recommended).</p>
+<p>If all commands run without errors, your system is ready.</p>
 </section>
-<section id="build-from-source">
-<h2>Build from Source<a class="headerlink" href="#build-from-source" title="Link to this heading">#</a></h2>
+<section id="build-numagsans">
+<h2>Build NuMagSANS<a class="headerlink" href="#build-numagsans" title="Link to this heading">#</a></h2>
 <p>Clone the repository:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AdamsMP92/NuMagSANS.git
 <span class="nb">cd</span><span class="w"> </span>NuMagSANS
 </pre></div>
 </div>
-<p>Configure the project:</p>
+<p>Configure:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build
 </pre></div>
 </div>
@@ -441,22 +456,21 @@ a working CUDA toolchain.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
 </pre></div>
 </div>
-<p>The executable will be located at:</p>
+<p>The executable will be created at:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">build</span><span class="o">/</span><span class="n">NuMagSANS</span>
 </pre></div>
 </div>
 </section>
-<section id="specifying-gpu-architecture-optional">
-<h2>Specifying GPU Architecture (Optional)<a class="headerlink" href="#specifying-gpu-architecture-optional" title="Link to this heading">#</a></h2>
+<section id="optional-specify-gpu-architecture">
+<h2>Optional: Specify GPU Architecture<a class="headerlink" href="#optional-specify-gpu-architecture" title="Link to this heading">#</a></h2>
 <p>If you want to manually specify the CUDA architecture:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span><span class="m">80</span>
 </pre></div>
 </div>
-<p>Replace <code class="docutils literal notranslate"><span class="pre">80</span></code> with the architecture matching your GPU.</p>
 </section>
 <section id="hpc-cluster-example">
 <h2>HPC Cluster Example<a class="headerlink" href="#hpc-cluster-example" title="Link to this heading">#</a></h2>
-<p>On many clusters, CUDA must be loaded as a module:</p>
+<p>On many clusters:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>cuda
 module<span class="w"> </span>load<span class="w"> </span>gcc
 
@@ -464,22 +478,6 @@ cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>
 cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
 </pre></div>
 </div>
-</section>
-<section id="debug-build">
-<h2>Debug Build<a class="headerlink" href="#debug-build" title="Link to this heading">#</a></h2>
-<p>To build in debug mode:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
-cmake<span class="w"> </span>--build<span class="w"> </span>build
-</pre></div>
-</div>
-</section>
-<section id="installation-optional">
-<h2>Installation (Optional)<a class="headerlink" href="#installation-optional" title="Link to this heading">#</a></h2>
-<p>To install the executable system-wide:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--install<span class="w"> </span>build
-</pre></div>
-</div>
-<p>This will place the executable in the configured installation prefix.</p>
 </section>
 </section>
 
@@ -530,12 +528,10 @@ cmake<span class="w"> </span>--build<span class="w"> </span>build
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-from-source">Build from Source</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specifying-gpu-architecture-optional">Specifying GPU Architecture (Optional)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-system">Test Your System</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-numagsans">Build NuMagSANS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-specify-gpu-architecture">Optional: Specify GPU Architecture</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hpc-cluster-example">HPC Cluster Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debug-build">Debug Build</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-optional">Installation (Optional)</a></li>
 </ul>
   </nav></div>
 

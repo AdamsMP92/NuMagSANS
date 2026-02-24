@@ -1,34 +1,57 @@
 Installation
 ============
 
-NuMagSANS is a GPU-accelerated computational engine and requires
-a working CUDA toolchain.
+NuMagSANS requires a working CUDA toolchain and a C++17-compatible compiler.
 
-Prerequisites
--------------
+This section provides a quick system check followed by the build steps.
 
-The following software must be available on your system:
 
-- **CMake** >= 3.18
-- **CUDA Toolkit** (nvcc in PATH)
-- A C++17 compatible compiler (e.g. GCC >= 9)
-- A CUDA-capable NVIDIA GPU
+Test Your System
+----------------
 
-To verify CUDA availability:
+Before building NuMagSANS, verify that the required tools are available.
+
+1) Check for a CUDA-capable GPU:
+
+.. code-block:: bash
+
+   nvidia-smi
+
+You should see your GPU listed.
+
+
+2) Check CUDA toolkit (nvcc):
 
 .. code-block:: bash
 
    nvcc --version
 
-To verify CMake:
+This should print the CUDA compiler version.
+
+
+3) Check CMake:
 
 .. code-block:: bash
 
    cmake --version
 
+CMake version 3.18 or newer is required.
 
-Build from Source
------------------
+
+4) Check your C++ compiler:
+
+.. code-block:: bash
+
+   g++ --version
+
+Make sure it supports C++17 (GCC >= 9 recommended).
+
+
+If all commands run without errors, your system is ready.
+
+
+Build NuMagSANS
+---------------
 
 Clone the repository:
 
@@ -37,7 +60,7 @@ Clone the repository:
    git clone https://github.com/AdamsMP92/NuMagSANS.git
    cd NuMagSANS
 
-Configure the project:
+Configure:
 
 .. code-block:: bash
 
@@ -49,15 +72,15 @@ Compile:
 
    cmake --build build -j
 
-The executable will be located at:
+The executable will be created at:
 
 ::
 
    build/NuMagSANS
 
 
-Specifying GPU Architecture (Optional)
---------------------------------------
+Optional: Specify GPU Architecture
+-----------------------------------
 
 If you want to manually specify the CUDA architecture:
 
@@ -65,13 +88,11 @@ If you want to manually specify the CUDA architecture:
 
    cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=80
 
-Replace ``80`` with the architecture matching your GPU.
-
 
 HPC Cluster Example
 -------------------
 
-On many clusters, CUDA must be loaded as a module:
+On many clusters:
 
 .. code-block:: bash
 
@@ -80,26 +101,3 @@ On many clusters, CUDA must be loaded as a module:
 
    cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=80
    cmake --build build -j
-
-
-Debug Build
------------
-
-To build in debug mode:
-
-.. code-block:: bash
-
-   cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
-   cmake --build build
-
-
-Installation (Optional)
------------------------
-
-To install the executable system-wide:
-
-.. code-block:: bash
-
-   cmake --install build
-
-This will place the executable in the configured installation prefix.
