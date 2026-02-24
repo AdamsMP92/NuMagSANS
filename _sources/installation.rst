@@ -34,7 +34,7 @@ Clone the repository:
 
 .. code-block:: bash
 
-   git clone https://github.com/<your-username>/NuMagSANS
+   git clone https://github.com/AdamsMP92/NuMagSANS.git
    cd NuMagSANS
 
 Configure the project:
