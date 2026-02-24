@@ -62,17 +62,11 @@ The following publications demonstrate theoretical developments,
 methodological advances, and scientific applications related to
 NuMagSANS and polarized magnetic small-angle neutron scattering.
 
-2026
-----
-
 **NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems.**  
 M. P. Adams, A. Michels  
 Submitted to J. Appl. Cryst. (2026)  
 DOI: https://doi.org/10.48550/arXiv.2601.18444  
 ArXiv: https://doi.org/10.48550/arXiv.2601.18444
-
-2025
-----
 
 **Micromagnetic structure of oxidized magnetite nanoparticles: sharp structural versus diffuse magnetic interface.**  
 E. M. Jefremovas, M. P. Adams, L. Gandarias, L. Marcano, J. Alonso,  
@@ -85,10 +79,6 @@ ArXiv: https://doi.org/10.48550/arXiv/2506.20571
 M. P. Adams  
 Doctoral Thesis, University of Luxembourg (2025)  
 DOI: https://hdl.handle.net/10993/65624
-
-
-2024
-----
 
 **Neutron scattering signature of the Dzyaloshinskii–Moriya interaction in nanoparticles.**  
 E. P. Sinaga, M. P. Adams, E. H. Hasdeo, A. Michels  
@@ -108,10 +98,6 @@ Phys. Rev. B 109, 024429 (2024)
 DOI: https://doi.org/10.1103/PhysRevB.109.024429  
 ArXiv: https://doi.org/10.48550/arXiv.2311.05706
 
-
-2023
-----
-
 **On the angular anisotropy of the randomly averaged magnetic neutron scattering cross section of nanoparticles.**  
 M. P. Adams, E. P. Sinaga, A. Michels  
 IUCrJ 10, 261–269 (2023)  
@@ -124,9 +110,6 @@ E. H. Hasdeo, J. Leliaert, P. Bender, D. Honecker, A. Michels
 Phys. Rev. B 107, 014416 (2023)  
 DOI: https://doi.org/10.1103/PhysRevB.107.014416  
 ArXiv: https://doi.org/10.48550/arXiv.2207.09164
-
-2022
-----
 
 **Magnetic neutron scattering from spherical nanoparticles with Néel surface anisotropy: atomistic simulations.**  
 M. P. Adams, A. Michels, H. Kachkachi  
