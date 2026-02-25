@@ -3,7 +3,7 @@ from typing import Iterable
 import subprocess
 
 
-class NuMagSANSFacade:
+class NuMagSANS:
 
     # ------------------------------------------------------------
     # Output naming structure (mirrors C++ logic)
