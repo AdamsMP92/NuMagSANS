@@ -79,14 +79,22 @@ The executable will be created at:
    build/NuMagSANS
 
 
-Optional: Specify GPU Architecture
------------------------------------
+Common Issues
+-------------
 
-If you want to manually specify the CUDA architecture:
+If compilation fails with an error like:
 
-.. code-block:: bash
+  "No space left on device"
 
-   cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=80
+your system temporary directory (/tmp) may be full.
+This can happen on shared HPC systems.
+
+You can fix this by setting a private temporary directory:
+
+   mkdir -p $HOME/tmp
+   export TMPDIR=$HOME/tmp
+
+Then re-run CMake.
 
 
 HPC Cluster Example
@@ -96,8 +104,10 @@ On many clusters:
 
 .. code-block:: bash
 
-   module load cuda
-   module load gcc
+   module load gcc/13.2.0
+   module load python/3.11.7
+   module load cuda/12.6.2
+   module load cmake/3.27.9
 
    cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=80
    cmake --build build -j
