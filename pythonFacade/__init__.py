@@ -5,6 +5,6 @@ Provides a high-level Python facade for executing the
 NuMagSANS CUDA backend.
 """
 
-from .NuMagSANSFacade import NuMagSANSFacade
+from .NuMagSANSFacade import NuMagSANS
 
-__all__ = ["NuMagSANSFacade"]
+__all__ = ["NuMagSANS"]
