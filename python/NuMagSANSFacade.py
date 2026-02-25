@@ -47,11 +47,24 @@ class NuMagSANSFacade:
 
     def __init__(
         self,
-        executable: str | Path = "./NuMagSANS",
+        executable: str | Path | None = None,
         workdir: str | Path | None = None,
     ):
+        # Projekt-Root bestimmen (eine Ebene über python/)
+        project_root = Path(__file__).resolve().parents[1]
+
+        if executable is None:
+            # Bevorzuge build/NuMagSANS
+            candidate = project_root / "build" / "NuMagSANS"
+
+            if candidate.exists():
+                executable = candidate
+            else:
+                # Fallback (falls jemand manuell kopiert hat)
+                executable = project_root / "NuMagSANS"
+
         self.executable = Path(executable).resolve()
-        self.workdir = Path(workdir).resolve() if workdir else Path.cwd()
+        self.workdir = Path(workdir).resolve() if workdir else project_root
 
     # ------------------------------------------------------------
     # CONFIG GENERATION
