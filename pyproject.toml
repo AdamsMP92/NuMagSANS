@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "NuMagSANS"
+version = "0.1.0"
+description = "NuMagSANS Python interface"
+authors = [
+    {name = "Michael P. Adams"}
+]
+requires-python = ">=3.9"
+
+[tool.setuptools.packages.find]
+where = ["."]
