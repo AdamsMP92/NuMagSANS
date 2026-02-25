@@ -461,18 +461,28 @@
 </pre></div>
 </div>
 </section>
-<section id="optional-specify-gpu-architecture">
-<h2>Optional: Specify GPU Architecture<a class="headerlink" href="#optional-specify-gpu-architecture" title="Link to this heading">#</a></h2>
-<p>If you want to manually specify the CUDA architecture:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span><span class="m">80</span>
-</pre></div>
-</div>
+<section id="common-issues">
+<h2>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading">#</a></h2>
+<p>If compilation fails with an error like:</p>
+<blockquote>
+<div><p>“No space left on device”</p>
+</div></blockquote>
+<p>your system temporary directory (/tmp) may be full.
+This can happen on shared HPC systems.</p>
+<p>You can fix this by setting a private temporary directory:</p>
+<blockquote>
+<div><p>mkdir -p $HOME/tmp
+export TMPDIR=$HOME/tmp</p>
+</div></blockquote>
+<p>Then re-run CMake.</p>
 </section>
 <section id="hpc-cluster-example">
 <h2>HPC Cluster Example<a class="headerlink" href="#hpc-cluster-example" title="Link to this heading">#</a></h2>
 <p>On many clusters:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>cuda
-module<span class="w"> </span>load<span class="w"> </span>gcc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>gcc/13.2.0
+module<span class="w"> </span>load<span class="w"> </span>python/3.11.7
+module<span class="w"> </span>load<span class="w"> </span>cuda/12.6.2
+module<span class="w"> </span>load<span class="w"> </span>cmake/3.27.9
 
 cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span><span class="m">80</span>
 cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
@@ -530,7 +540,7 @@ cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-system">Test Your System</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-numagsans">Build NuMagSANS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-specify-gpu-architecture">Optional: Specify GPU Architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-issues">Common Issues</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hpc-cluster-example">HPC Cluster Example</a></li>
 </ul>
   </nav></div>
