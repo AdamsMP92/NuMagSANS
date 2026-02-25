@@ -104,10 +104,11 @@ On many clusters:
 
 .. code-block:: bash
 
-   module load gcc/13.2.0
-   module load python/3.11.7
-   module load cuda/12.6.2
-   module load cmake/3.27.9
+   module load gcc
+   module load python
+   module load cuda
+   module load cmake
 
-   cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=80
+   cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=native
    cmake --build build -j
+

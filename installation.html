@@ -479,12 +479,12 @@ export TMPDIR=$HOME/tmp</p>
 <section id="hpc-cluster-example">
 <h2>HPC Cluster Example<a class="headerlink" href="#hpc-cluster-example" title="Link to this heading">#</a></h2>
 <p>On many clusters:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>gcc/13.2.0
-module<span class="w"> </span>load<span class="w"> </span>python/3.11.7
-module<span class="w"> </span>load<span class="w"> </span>cuda/12.6.2
-module<span class="w"> </span>load<span class="w"> </span>cmake/3.27.9
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>gcc
+module<span class="w"> </span>load<span class="w"> </span>python
+module<span class="w"> </span>load<span class="w"> </span>cuda
+module<span class="w"> </span>load<span class="w"> </span>cmake
 
-cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span><span class="m">80</span>
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
 cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
 </pre></div>
 </div>
