@@ -69,7 +69,8 @@ Program Listing for File NuMagSANSlib_MagDataExplorer.h
        char tmp[PATH_MAX];
        getcwd(tmp, PATH_MAX);  // Get the current working directory
        std::string tmp_string = tmp;
-       MagDataProp->GlobalFolderPath = tmp_string + "/" + Local_MagDataPath;
+       //MagDataProp->GlobalFolderPath = tmp_string + "/" + Local_MagDataPath;
+       MagDataProp->GlobalFolderPath = Local_MagDataPath;
        //cout << "Found Global MagDataPath: " << MagDataProp->GlobalFolderPath << "\n\n";
        LogSystem::write("Found Global MagDataPath: " + MagDataProp->GlobalFolderPath);
        
