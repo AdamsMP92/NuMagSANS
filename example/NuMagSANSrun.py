@@ -6,13 +6,14 @@ BASE_DIR = Path(__file__).resolve().parent
 facade = NuMagSANS()
 
 # filename of the NuMagSANS-Config file
-config = "NuMagSANSInput_temp.conf"
+config = BASE_DIR / "NuMagSANSInput_temp.conf"
 
 # Config schreiben
 facade.write_config(
     config, 
     MagData_activate=1, 
     MagDataPath=str(BASE_DIR / "RealSpaceData" / "MagData"),
+    foldernameSANSData=str(BASE_DIR / "NuMagSANS_Output"),
     Fourier_Approach="atomistic",
     User_Selection=[1, 2, 3],
     Scattering_Volume_V=2.618e-24,
