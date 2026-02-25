@@ -1,7 +1,7 @@
-from NuMagSANSFacade import NuMagSANSFacade
+from NuMagSANS import NuMagSANS
 
 # NuMagSANSFacade object
-facade = NuMagSANSFacade()
+facade = NuMagSANS()
 
 # filename of the NuMagSANS-Config file
 config = "NuMagSANSInput_temp.conf"
