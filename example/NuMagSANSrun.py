@@ -1,4 +1,6 @@
 from NuMagSANS import NuMagSANS
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
 
 # NuMagSANSFacade object
 facade = NuMagSANS()
@@ -10,7 +12,7 @@ config = "NuMagSANSInput_temp.conf"
 facade.write_config(
     config, 
     MagData_activate=1, 
-    MagDataPath="RealSpaceData/MagData/",
+    MagDataPath=str(BASE_DIR / "RealSpaceData" / "MagData"),
     Fourier_Approach="atomistic",
     User_Selection=[1, 2, 3],
     Scattering_Volume_V=2.618e-24,
