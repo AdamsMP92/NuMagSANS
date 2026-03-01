@@ -202,66 +202,48 @@ Program Listing for File NuMagSANSlib.h
            }
    
        // compute azimuthal average 1D ###########################################################
-       bool compute_1D_azimuthal_average = any_active(InputData->OutFlags.SANS1D);
-       bool compute_1D_corr = any_active(InputData->OutFlags.Corr1D);
-       bool compute_1D_pair = any_active(InputData->OutFlags.PairDist1D);
-   
-       if(compute_1D_azimuthal_average || compute_1D_corr || compute_1D_pair){
-   
-           LogSystem::write("run: azimuthal averaging");
-           AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-              LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err)); 
-           }
-   
+       LogSystem::write("run: azimuthal averaging");
+       AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
+       cudaDeviceSynchronize();
+       err = cudaGetLastError();
+       if (err != cudaSuccess) {
+          LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err)); 
        }
    
        // compute 1D pair distance distribution and correlation function #########################
-       if(compute_1D_corr || compute_1D_pair){
-           LogSystem::write("run: 1D correlation functions");
-           DistributionFunctions<<<(L+255), 256>>>(SANSData_gpu);
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-           }
+       LogSystem::write("run: 1D correlation functions");
+       DistributionFunctions<<<(L+255), 256>>>(SANSData_gpu);
+       cudaDeviceSynchronize();
+       err = cudaGetLastError();
+       if (err != cudaSuccess) {
+          LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
        }
    
        // compute 2D correlation functions ######################################################
-       bool compute_2D_correlation = any_active(InputData->OutFlags.Corr2D);   
-   
-       if(compute_2D_correlation){
-           LogSystem::write("run: 2D correlation functions");
-           CorrelationFunction_2D<<<(L+255)/256, 256>>>(SANSData_gpu);
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-              LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-           }
+       LogSystem::write("run: 2D correlation functions");
+       CorrelationFunction_2D<<<(L+255)/256, 256>>>(SANSData_gpu);
+       cudaDeviceSynchronize();
+       err = cudaGetLastError();
+       if (err != cudaSuccess) {
+          LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
        }
-   
    
        // compute angular spectral intensities ###################################################
-       if(InputData->AngularSpec_activate_flag){
-       
-           LogSystem::write("run: angular spectrum analyzer");
-           ComputeSpectralDecomposition<<<(L+255)/256, 256>>>(SANSData_gpu, SpecData_gpu);
-           err = cudaGetLastError();
+       LogSystem::write("run: angular spectrum analyzer");
+       ComputeSpectralDecomposition<<<(L+255)/256, 256>>>(SANSData_gpu, SpecData_gpu);
+       err = cudaGetLastError();
+       if (err != cudaSuccess) {
+          LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+       }
+   
+       // compute angular spectral amplitudes ####################################################
+           LogSystem::write("run: angular amplitude spectrum analyzer");
+       ComputeAngularSpectrumAmplitudes<<<(L+255)/256, 256>>>(SpecData_gpu);
+       err = cudaGetLastError();
            if (err != cudaSuccess) {
               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
            }
    
-       // compute angular spectral amplitudes ####################################################
-               LogSystem::write("run: angular amplitude spectrum analyzer");
-           ComputeAngularSpectrumAmplitudes<<<(L+255)/256, 256>>>(SpecData_gpu);
-           err = cudaGetLastError();
-               if (err != cudaSuccess) {
-                   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-               }
-   
-       }
    
    
        // copy scattering data from GPU to RAM ###################################################
@@ -274,16 +256,16 @@ Program Listing for File NuMagSANSlib.h
        // write scattering data to csv files #####################################################
        write2CSVtable_ScatteringData(InputData, &SANSData, Data_File_Index);
    
-       if(InputData->AngularSpec_activate_flag){
-           // copy spectral data from GPU to RAM #####################################################
-           copyGPU2RAM_SpectralData(&SpecData, &SpecData_gpu);
    
-           // scaling of the spectral data on RAM ####################################################
-           scale_SpectralData(&ScalFactors, &SpecData, InputData);
+       // copy spectral data from GPU to RAM #####################################################
+       copyGPU2RAM_SpectralData(&SpecData, &SpecData_gpu);
+   
+       // scaling of the spectral data on RAM ####################################################
+       scale_SpectralData(&ScalFactors, &SpecData, InputData);
        
-           // write spectral data to csv files #######################################################
-           write2CSV_SpectralData(InputData, &SpecData, Data_File_Index);
-       }
+       // write spectral data to csv files #######################################################
+       write2CSV_SpectralData(InputData, &SpecData, Data_File_Index);
+       
    
        // free memory ############################################################################
        LogSystem::write("free memory...");

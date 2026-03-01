@@ -161,13 +161,6 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="library_root.html">
-    C++ API Reference
-  </a>
-</li>
-
-
-<li class="nav-item ">
   <a class="nav-link nav-external" href="https://github.com/AdamsMP92/NuMagSANS">
     NuMagSANS GitHub
   </a>
@@ -275,13 +268,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../SANSTheory/index.html">
     SANS Theory
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="library_root.html">
-    C++ API Reference
   </a>
 </li>
 
@@ -596,66 +582,48 @@
 <span class="w">        </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// compute azimuthal average 1D ###########################################################</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_azimuthal_average</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">SANS1D</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_corr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">Corr1D</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_pair</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">PairDist1D</span><span class="p">);</span>
-
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_1D_azimuthal_average</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">compute_1D_corr</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">compute_1D_pair</span><span class="p">){</span>
-
-<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: azimuthal averaging&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="n">AzimuthalAverage</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">        </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">           </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">        </span><span class="p">}</span>
-
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: azimuthal averaging&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">AzimuthalAverage</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// compute 1D pair distance distribution and correlation function #########################</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_1D_corr</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">compute_1D_pair</span><span class="p">){</span>
-<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: 1D correlation functions&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="n">DistributionFunctions</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">),</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">        </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: 1D correlation functions&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DistributionFunctions</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">),</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// compute 2D correlation functions ######################################################</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_2D_correlation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">Corr2D</span><span class="p">);</span>
-
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">compute_2D_correlation</span><span class="p">){</span>
-<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: 2D correlation functions&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="n">CorrelationFunction_2D</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">        </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">           </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: 2D correlation functions&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">CorrelationFunction_2D</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
 <span class="w">    </span><span class="p">}</span>
-
 
 <span class="w">    </span><span class="c1">// compute angular spectral intensities ###################################################</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">AngularSpec_activate_flag</span><span class="p">){</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: angular spectrum analyzer&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ComputeSpectralDecomposition</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: angular spectrum analyzer&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="n">ComputeSpectralDecomposition</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SANSData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">);</span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// compute angular spectral amplitudes ####################################################</span>
+<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: angular amplitude spectrum analyzer&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ComputeAngularSpectrumAmplitudes</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SpecData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">           </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
 <span class="w">        </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// compute angular spectral amplitudes ####################################################</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: angular amplitude spectrum analyzer&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="n">ComputeAngularSpectrumAmplitudes</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">SpecData_gpu</span><span class="p">);</span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">            </span><span class="p">}</span>
-
-<span class="w">    </span><span class="p">}</span>
 
 
 <span class="w">    </span><span class="c1">// copy scattering data from GPU to RAM ###################################################</span>
@@ -668,16 +636,16 @@
 <span class="w">    </span><span class="c1">// write scattering data to csv files #####################################################</span>
 <span class="w">    </span><span class="n">write2CSVtable_ScatteringData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">AngularSpec_activate_flag</span><span class="p">){</span>
-<span class="w">        </span><span class="c1">// copy spectral data from GPU to RAM #####################################################</span>
-<span class="w">        </span><span class="n">copyGPU2RAM_SpectralData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
 
-<span class="w">        </span><span class="c1">// scaling of the spectral data on RAM ####################################################</span>
-<span class="w">        </span><span class="n">scale_SpectralData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// copy spectral data from GPU to RAM #####################################################</span>
+<span class="w">    </span><span class="n">copyGPU2RAM_SpectralData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
 
-<span class="w">        </span><span class="c1">// write spectral data to csv files #######################################################</span>
-<span class="w">        </span><span class="n">write2CSV_SpectralData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// scaling of the spectral data on RAM ####################################################</span>
+<span class="w">    </span><span class="n">scale_SpectralData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// write spectral data to csv files #######################################################</span>
+<span class="w">    </span><span class="n">write2CSV_SpectralData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
+
 
 <span class="w">    </span><span class="c1">// free memory ############################################################################</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;free memory...&quot;</span><span class="p">);</span>

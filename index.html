@@ -50,6 +50,8 @@
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script src="_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
     <script src="_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -157,13 +159,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="SANSTheory/index.html">
     SANS Theory
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="api/library_root.html">
-    C++ API Reference
   </a>
 </li>
 
@@ -287,13 +282,6 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="api/library_root.html">
-    C++ API Reference
-  </a>
-</li>
-
-
-<li class="nav-item ">
   <a class="nav-link nav-external" href="https://github.com/AdamsMP92/NuMagSANS">
     NuMagSANS GitHub
   </a>
@@ -375,108 +363,17 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="toctree-wrapper compound">
-</div>
-<section id="numagsans-documentation">
+  <section id="numagsans-documentation">
 <h1>NuMagSANS Documentation<a class="headerlink" href="#numagsans-documentation" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+</div>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>NuMagSANS is a GPU-accelerated computational engine for the simulation
-and analysis of nuclear and magnetic small-angle neutron scattering (SANS).</p>
-<p>The framework enables atomistic and micromagnetic SANS calculations,
-including polarization-resolved channels, correlation functions,
-and spectral decomposition.</p>
-<p>NuMagSANS is designed as a deterministic single-run computational engine
-with a clear execution pipeline and reproducible output.</p>
-</section>
-<section id="key-features">
-<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>GPU-accelerated atomistic SANS computation</p></li>
-<li><p>Full polarization analysis (spin-flip, non-spin-flip, chiral terms)</p></li>
-<li><p>2D and 1D scattering cross sections</p></li>
-<li><p>Correlation functions and pair distribution functions</p></li>
-<li><p>Spectral decomposition of scattering amplitudes</p></li>
-<li><p>Python facade for simplified workflow integration</p></li>
-</ul>
-</section>
-<section id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="installation.html"><span class="doc">Installation</span></a></p></li>
-<li><p><a class="reference internal" href="usage.html"><span class="doc">Usage</span></a></p></li>
-<li><p><a class="reference internal" href="SANSTheory/index.html"><span class="doc">SANS Theory</span></a></p></li>
-<li><p><a class="reference internal" href="api/library_root.html"><span class="doc">C++ API Reference</span></a></p></li>
-</ul>
-</section>
-<section id="related-publications">
-<h2>Related Publications<a class="headerlink" href="#related-publications" title="Link to this heading">#</a></h2>
-<p>If you use NuMagSANS in your work, please cite:</p>
-<p><strong>NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems.</strong>
-M. P. Adams, A. Michels
-Submitted to J. Appl. Cryst. (2026)
-DOI: <a class="reference external" href="https://doi.org/10.48550/arXiv.2601.18444">https://doi.org/10.48550/arXiv.2601.18444</a></p>
-</section>
-</section>
-<section id="applications-and-related-publications">
-<h1>Applications and Related Publications<a class="headerlink" href="#applications-and-related-publications" title="Link to this heading">#</a></h1>
-<p>The following publications demonstrate theoretical developments,
-methodological advances, and scientific applications related to
-NuMagSANS and polarized magnetic small-angle neutron scattering.</p>
-<p><strong>NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems.</strong>
-M. P. Adams, A. Michels
-Submitted to J. Appl. Cryst. (2026)
-DOI: <a class="reference external" href="https://doi.org/10.48550/arXiv.2601.18444">https://doi.org/10.48550/arXiv.2601.18444</a>
-ArXiv: <a class="reference external" href="https://doi.org/10.48550/arXiv.2601.18444">https://doi.org/10.48550/arXiv.2601.18444</a></p>
-<p><strong>Micromagnetic structure of oxidized magnetite nanoparticles: sharp structural versus diffuse magnetic interface.</strong>
-E. M. Jefremovas, M. P. Adams, L. Gandarias, L. Marcano, J. Alonso,
-A. Michels, J. Leliaert
-Nanoscale 17, 26203–26213 (2025)
-DOI: <a class="reference external" href="https://doi.org/10.1039/D5NR02700D">https://doi.org/10.1039/D5NR02700D</a>
-ArXiv: <a class="reference external" href="https://doi.org/10.48550/arXiv/2506.20571">https://doi.org/10.48550/arXiv/2506.20571</a></p>
-<p><strong>Magnetic Small-Angle Neutron Scattering From Nanoparticles: Theory and Simulation of Surface Anisotropy and Magnetodipolar Interaction Effects Beyond the Superspin Model.</strong>
-M. P. Adams
-Doctoral Thesis, University of Luxembourg (2025)
-DOI: <a class="reference external" href="https://hdl.handle.net/10993/65624">https://hdl.handle.net/10993/65624</a></p>
-<p><strong>Neutron scattering signature of the Dzyaloshinskii–Moriya interaction in nanoparticles.</strong>
-E. P. Sinaga, M. P. Adams, E. H. Hasdeo, A. Michels
-Phys. Rev. B 110, 054404 (2024)
-DOI: <a class="reference external" href="https://doi.org/10.1103/PhysRevB.110.054404">https://doi.org/10.1103/PhysRevB.110.054404</a>
-ArXiv: <a class="reference external" href="https://doi.org/10.48550/arXiv.2402.00558">https://doi.org/10.48550/arXiv.2402.00558</a></p>
-<p><strong>Framework for polarized magnetic neutron scattering from nanoparticle assemblies with vortex-type spin textures.</strong>
-M. P. Adams, E. P. Sinaga, S. Liscak, A. Michels
-Phys. Rev. B 110, 014420 (2024)
-DOI: <a class="reference external" href="https://doi.org/10.1103/PhysRevB.110.014420">https://doi.org/10.1103/PhysRevB.110.014420</a>
-ArXiv: <a class="reference external" href="https://doi.org/10.48550/arXiv.2404.15826">https://doi.org/10.48550/arXiv.2404.15826</a></p>
-<p><strong>Signature of surface anisotropy in the spin-flip neutron scattering cross section of spherical nanoparticles: atomistic simulations and analytical theory.</strong>
-M. P. Adams, E. P. Sinaga, H. Kachkachi, A. Michels
-Phys. Rev. B 109, 024429 (2024)
-DOI: <a class="reference external" href="https://doi.org/10.1103/PhysRevB.109.024429">https://doi.org/10.1103/PhysRevB.109.024429</a>
-ArXiv: <a class="reference external" href="https://doi.org/10.48550/arXiv.2311.05706">https://doi.org/10.48550/arXiv.2311.05706</a></p>
-<p><strong>On the angular anisotropy of the randomly averaged magnetic neutron scattering cross section of nanoparticles.</strong>
-M. P. Adams, E. P. Sinaga, A. Michels
-IUCrJ 10, 261–269 (2023)
-DOI: <a class="reference external" href="https://doi.org/10.1107/S205225252300180X">https://doi.org/10.1107/S205225252300180X</a>
-ArXiv: <a class="reference external" href="https://doi.org/10.48550/arXiv.2210.08406">https://doi.org/10.48550/arXiv.2210.08406</a></p>
-<p><strong>Micromagnetic simulation of neutron scattering from spherical nanoparticles: effect of pore-type defects.</strong>
-E. P. Sinaga, M. P. Adams, M. Bersweiler, L. G. Vivas,
-E. H. Hasdeo, J. Leliaert, P. Bender, D. Honecker, A. Michels
-Phys. Rev. B 107, 014416 (2023)
-DOI: <a class="reference external" href="https://doi.org/10.1103/PhysRevB.107.014416">https://doi.org/10.1103/PhysRevB.107.014416</a>
-ArXiv: <a class="reference external" href="https://doi.org/10.48550/arXiv.2207.09164">https://doi.org/10.48550/arXiv.2207.09164</a></p>
-<p><strong>Magnetic neutron scattering from spherical nanoparticles with Néel surface anisotropy: atomistic simulations.</strong>
-M. P. Adams, A. Michels, H. Kachkachi
-J. Appl. Cryst. 55, 1488–1499 (2022)
-DOI: <a class="reference external" href="https://doi.org/10.1107/S1600576722008949">https://doi.org/10.1107/S1600576722008949</a>
-ArXiv: <a class="reference external" href="https://doi.org/10.48550/arXiv.2205.07552">https://doi.org/10.48550/arXiv.2205.07552</a></p>
-<p><strong>Magnetic neutron scattering from spherical nanoparticles with Néel surface anisotropy: analytical treatment.</strong>
-M. P. Adams, A. Michels, H. Kachkachi
-J. Appl. Cryst. 55, 1475–1487 (2022)
-DOI: <a class="reference external" href="https://doi.org/10.1107/S1600576722008925">https://doi.org/10.1107/S1600576722008925</a>
-ArXiv: <a class="reference external" href="https://doi.org/10.48550/arXiv.2205.07549">https://doi.org/10.48550/arXiv.2205.07549</a></p>
-<section id="license">
-<h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
-<p>NuMagSANS is released under the &lt;Your License&gt; License.</p>
+<p>NuMagSANS is a GPU-accelerated simulation and analysis framework for
+magnetic small-angle neutron scattering.</p>
+<p>c10</p>
+<div class="math notranslate nohighlight">
+\[f(x,y) = x^2 + y^2\]</div>
 </section>
 </section>
 
@@ -518,19 +415,8 @@ ArXiv: <a class="reference external" href="https://doi.org/10.48550/arXiv.2205.0
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NuMagSANS Documentation</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#related-publications">Related Publications</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-and-related-publications">Applications and Related Publications</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
-</ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>

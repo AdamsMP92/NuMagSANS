@@ -163,13 +163,6 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="api/library_root.html">
-    C++ API Reference
-  </a>
-</li>
-
-
-<li class="nav-item ">
   <a class="nav-link nav-external" href="https://github.com/AdamsMP92/NuMagSANS">
     NuMagSANS GitHub
   </a>
@@ -234,10 +227,6 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
-  
 </div>
 
     </header>
@@ -281,13 +270,6 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="SANSTheory/index.html">
     SANS Theory
-  </a>
-</li>
-
-
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="api/library_root.html">
-    C++ API Reference
   </a>
 </li>
 
@@ -406,149 +388,7 @@
                   
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h1>
-<p>NuMagSANS requires a working CUDA toolchain and a C++17-compatible compiler.</p>
-<p>This section provides a quick system check followed by build and Python installation steps.</p>
-<section id="test-your-system">
-<h2>Test Your System<a class="headerlink" href="#test-your-system" title="Link to this heading">#</a></h2>
-<p>Before building NuMagSANS, verify that the required tools are available.</p>
-<ol class="arabic simple">
-<li><p>Check for a CUDA-capable GPU:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi
-</pre></div>
-</div>
-<p>You should see your GPU listed.</p>
-<ol class="arabic simple" start="2">
-<li><p>Check CUDA toolkit (nvcc):</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvcc<span class="w"> </span>--version
-</pre></div>
-</div>
-<p>This should print the CUDA compiler version.</p>
-<ol class="arabic simple" start="3">
-<li><p>Check CMake:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--version
-</pre></div>
-</div>
-<p>CMake version 3.18 or newer is required.</p>
-<ol class="arabic simple" start="4">
-<li><p>Check your C++ compiler:</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>--version
-</pre></div>
-</div>
-<p>Make sure it supports C++17 (GCC &gt;= 9 recommended).</p>
-<p>If all commands run without errors, your system is ready.</p>
-</section>
-<section id="build-numagsans">
-<h2>Build NuMagSANS<a class="headerlink" href="#build-numagsans" title="Link to this heading">#</a></h2>
-<p>Clone the repository:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AdamsMP92/NuMagSANS.git
-<span class="nb">cd</span><span class="w"> </span>NuMagSANS
-</pre></div>
-</div>
-<p>Configure:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
-</pre></div>
-</div>
-<p>Compile:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
-</pre></div>
-</div>
-<p>The executable will be created at:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">build</span><span class="o">/</span><span class="n">NuMagSANS</span>
-</pre></div>
-</div>
-</section>
-<section id="python-interface-installation">
-<h2>Python Interface Installation<a class="headerlink" href="#python-interface-installation" title="Link to this heading">#</a></h2>
-<p>NuMagSANS provides a Python interface for configuration and execution.
-It is strongly recommended to install it inside a virtual environment.</p>
-<section id="create-a-virtual-environment">
-<h3>Create a Virtual Environment<a class="headerlink" href="#create-a-virtual-environment" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-</pre></div>
-</div>
-<p>Activate it:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-</pre></div>
-</div>
-<p>Upgrade pip (recommended):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
-</pre></div>
-</div>
-</section>
-<section id="install-numagsans-editable-mode">
-<h3>Install NuMagSANS (Editable Mode)<a class="headerlink" href="#install-numagsans-editable-mode" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</pre></div>
-</div>
-<p>This makes the package available as:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">NuMagSANS</span><span class="w"> </span><span class="kn">import</span> <span class="n">NuMagSANS</span>
-</pre></div>
-</div>
-<p>Verify installation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from NuMagSANS import NuMagSANS; print(&#39;Installation successful&#39;)&quot;</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="running-an-example">
-<h2>Running an Example<a class="headerlink" href="#running-an-example" title="Link to this heading">#</a></h2>
-<p>After building and installing:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>example
-python<span class="w"> </span>NuMagSANSrun.py
-</pre></div>
-</div>
-</section>
-<section id="common-issues">
-<h2>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading">#</a></h2>
-<section id="no-space-left-on-device">
-<h3>“No space left on device”<a class="headerlink" href="#no-space-left-on-device" title="Link to this heading">#</a></h3>
-<p>If compilation fails with an error like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">No</span> <span class="n">space</span> <span class="n">left</span> <span class="n">on</span> <span class="n">device</span>
-</pre></div>
-</div>
-<p>your system temporary directory (/tmp) may be full.
-This can happen on shared HPC systems.</p>
-<p>You can fix this by setting a private temporary directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/tmp
-<span class="nb">export</span><span class="w"> </span><span class="nv">TMPDIR</span><span class="o">=</span><span class="nv">$HOME</span>/tmp
-</pre></div>
-</div>
-<p>Then re-run CMake.</p>
-</section>
-</section>
-<section id="hpc-cluster-example">
-<h2>HPC Cluster Example<a class="headerlink" href="#hpc-cluster-example" title="Link to this heading">#</a></h2>
-<p>On many clusters:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>gcc
-module<span class="w"> </span>load<span class="w"> </span>python
-module<span class="w"> </span>load<span class="w"> </span>cuda
-module<span class="w"> </span>load<span class="w"> </span>cmake
-
-cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
-cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
-</pre></div>
-</div>
-<p>If using the Python interface on HPC:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>NuMagSANS
-python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</pre></div>
-</div>
-</section>
-<section id="important-note-on-paths">
-<h2>Important Note on Paths<a class="headerlink" href="#important-note-on-paths" title="Link to this heading">#</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>NuMagSANS expects absolute paths in the configuration file.</p>
-<p>The Python interface automatically resolves paths relative to the example script.
-This ensures deterministic behaviour independent of the current working directory.</p>
-</div>
-</section>
+<p>test</p>
 </section>
 
 
@@ -585,37 +425,6 @@ This ensures deterministic behaviour independent of the current working director
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-system">Test Your System</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-numagsans">Build NuMagSANS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-interface-installation">Python Interface Installation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-virtual-environment">Create a Virtual Environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-numagsans-editable-mode">Install NuMagSANS (Editable Mode)</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-an-example">Running an Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-issues">Common Issues</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-space-left-on-device">“No space left on device”</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hpc-cluster-example">HPC Cluster Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#important-note-on-paths">Important Note on Paths</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
