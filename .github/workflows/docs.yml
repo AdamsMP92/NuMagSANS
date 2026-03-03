@@ -2,8 +2,7 @@ name: Build and Deploy Docs
 
 on:
   push:
-    branches:
-      - "**"
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
