@@ -58,7 +58,8 @@ Program Listing for File NuMagSANSlib_StructureDataExplorer.h
        char tmp[PATH_MAX];
        getcwd(tmp, PATH_MAX);  // Get the current working directory
        std::string tmp_string = tmp;
-       StructDataProp->GlobalFilePath = tmp_string + "/" + Local_StructDataPath;
+       //StructDataProp->GlobalFilePath = tmp_string + "/" + Local_StructDataPath;
+       StructDataProp->GlobalFilePath = Local_StructDataPath;
        cout << "found Global StructDataPath: " << StructDataProp->GlobalFilePath << "\n\n";
        
    }

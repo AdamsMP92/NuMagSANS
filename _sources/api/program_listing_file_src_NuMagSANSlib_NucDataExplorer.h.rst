@@ -68,7 +68,8 @@ Program Listing for File NuMagSANSlib_NucDataExplorer.h
         char tmp[PATH_MAX];
         getcwd(tmp, PATH_MAX);  // Get the current working directory
         std::string tmp_string = tmp;
-        NucDataProp->GlobalFolderPath = tmp_string + "/" + Local_NucDataPath;
+        //NucDataProp->GlobalFolderPath = tmp_string + "/" + Local_NucDataPath;
+       NucDataProp->GlobalFolderPath = Local_NucDataPath;
        LogSystem::write("found global NucDataPath: " + NucDataProp->GlobalFolderPath);
        LogSystem::write("");
    
