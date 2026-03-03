@@ -55,6 +55,8 @@ Together, these datasets provide a consistent set of input and output examples t
 - [**NuMagSANS – Example 3:** MuMax3-based simulation pipeline for an ensemble of iron nanoparticles with vortex spin textures (v1.1)](https://doi.org/10.5281/zenodo.17931156)
 - [**NuMagSANS – Runtime Experiment:** (v1.0)](https://doi.org/10.5281/zenodo.18187509)
 
+- [**NuMagSANS** (v1.0.0)](https://doi.org/10.5281/zenodo.18824364)
+
 ## 🤝 How to Contribute
 
 Contributions, bug reports, and feature suggestions are always welcome!  
