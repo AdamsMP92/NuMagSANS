@@ -1,93 +1,89 @@
 Usage
 =====
 
-NuMagSANS can be executed through the Python interface, which provides a
-convenient way to generate configuration files and run simulations.
+NuMagSANS can be executed through the Python interface, which allows
+users to generate configuration files and run simulations programmatically.
 
-The repository contains an example dataset and script demonstrating a
-minimal workflow.
+The repository contains a minimal example together with a small dataset.
 
----
-
-## Quick Example
+Quick Example
+-------------
 
 Navigate to the example directory:
 
-```bash
-cd example
-```
+.. code-block:: bash
+
+   cd example
 
 Run the example script:
 
-```bash
-python NuMagSANSrun.py
-```
+.. code-block:: bash
 
-The simulation will generate output data in the directory:
+   python NuMagSANSrun.py
 
-```
-example/NuMagSANS_Output
-```
+The simulation will generate output data in:
 
----
+::
 
-## Example Script
+   example/NuMagSANS_Output
 
-The following Python script demonstrates a minimal NuMagSANS workflow.
 
-```python
-from NuMagSANS import NuMagSANS
-from pathlib import Path
+Example Script
+--------------
 
-BASE_DIR = Path(__file__).resolve().parent
+The following script demonstrates a minimal NuMagSANS workflow.
 
-# Create NuMagSANS facade object
-facade = NuMagSANS()
+.. code-block:: python
 
-# Temporary configuration file
-config = BASE_DIR / "NuMagSANSInput_temp.conf"
+   from NuMagSANS import NuMagSANS
+   from pathlib import Path
 
-# Write configuration file
-facade.write_config(
-    config,
-    MagData_activate=1,
-    MagDataPath=str(BASE_DIR / "RealSpaceData" / "MagData"),
-    foldernameSANSData=str(BASE_DIR / "NuMagSANS_Output"),
-    Fourier_Approach="atomistic",
-    User_Selection=[1, 2, 3],
-    Scattering_Volume_V=2.618e-24,
-    enable_outputs=["SpinFlip_2D", "SpinFlip_1D"]
-)
+   BASE_DIR = Path(__file__).resolve().parent
 
-# Run NuMagSANS simulation
-facade.run(config)
+   # Create NuMagSANS facade object
+   facade = NuMagSANS()
 
-# Remove temporary configuration file
-facade.config_clear(config)
-```
+   # Temporary configuration file
+   config = BASE_DIR / "NuMagSANSInput_temp.conf"
 
----
+   # Write configuration file
+   facade.write_config(
+       config,
+       MagData_activate=1,
+       MagDataPath=str(BASE_DIR / "RealSpaceData" / "MagData"),
+       foldernameSANSData=str(BASE_DIR / "NuMagSANS_Output"),
+       Fourier_Approach="atomistic",
+       User_Selection=[1, 2, 3],
+       Scattering_Volume_V=2.618e-24,
+       enable_outputs=["SpinFlip_2D", "SpinFlip_1D"]
+   )
 
-## Description of the Workflow
+   # Run NuMagSANS simulation
+   facade.run(config)
 
-The example script performs the following steps:
+   # Remove temporary configuration file
+   facade.config_clear(config)
 
-1. **Create a NuMagSANS interface object**
-2. **Generate a temporary configuration file**
-3. **Specify simulation parameters and input data**
-4. **Run the NuMagSANS executable**
-5. **Remove the temporary configuration file**
 
-The required magnetization data are provided in the repository:
+Workflow Description
+--------------------
 
-```
-example/RealSpaceData/MagData
-```
+The example performs the following steps:
 
-Simulation results will be written to:
+1. Create a ``NuMagSANS`` interface object.
+2. Generate a temporary configuration file.
+3. Specify simulation parameters and input data.
+4. Execute the NuMagSANS simulation.
+5. Remove the temporary configuration file.
 
-```
-example/NuMagSANS_Output
-```
+Input data are provided in the repository:
 
----
+::
+
+   example/RealSpaceData/MagData
+
+Simulation results are written to:
+
+::
+
+   example/NuMagSANS_Output
