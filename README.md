@@ -147,7 +147,7 @@ pip install -e .
 For detailed installation instructions, system checks, and HPC usage see the documentation:
 
 ➡️ **Documentation:**  
-https://numagsans.readthedocs.io
+https://adamsmp92.github.io/NuMagSANS/installation.html
 
 ## 🧾 License
 MIT License
