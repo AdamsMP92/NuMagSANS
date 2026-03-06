@@ -9,45 +9,129 @@ This section provides a quick system check followed by build and Python installa
 Test Your System
 ----------------
 
-Before building NuMagSANS, verify that the required tools are available.
+Before building NuMagSANS, verify that the required tools are available on your system.
 
-1) Check for a CUDA-capable GPU:
+The following checks ensure that CUDA, the compiler toolchain, and the build system are correctly installed.
+
+1) Check for a CUDA-capable GPU
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
    nvidia-smi
 
-You should see your GPU listed.
+This command should display your GPU and the installed driver version.
+
+Typical output may look like:
+
+::
+
+   +-----------------------------------------------------------------------------+
+   | NVIDIA-SMI 535.xx       Driver Version: 535.xx       CUDA Version: 12.x     |
+   | GPU  Name                    Persistence-M | Bus-Id        Disp.A | Volatile |
+   | 0    NVIDIA RTX 3080                         Off  | 00000000:01:00.0  Off     |
+   +-----------------------------------------------------------------------------+
+
+If this command fails:
+
+- Ensure that an **NVIDIA GPU** is installed.
+- Install the **NVIDIA driver** for your system.
+- On HPC systems, you may need to load a module:
+
+.. code-block:: bash
+
+   module load cuda
 
 
-2) Check CUDA toolkit (nvcc):
+2) Check the CUDA Toolkit
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
    nvcc --version
 
-This should print the CUDA compiler version.
+Typical output:
+
+::
+
+   nvcc: NVIDIA (R) Cuda compiler driver
+   release 12.3, V12.3.x
+
+NuMagSANS generally works with **CUDA 11 or newer**.
+
+If ``nvcc`` is not found:
+
+- Ensure the CUDA toolkit is installed.
+- Add CUDA to your PATH, for example:
+
+.. code-block:: bash
+
+   export PATH=/usr/local/cuda/bin:$PATH
 
 
-3) Check CMake:
+3) Check CMake
+^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
    cmake --version
 
-CMake version 3.18 or newer is required.
+Expected output:
+
+::
+
+   cmake version 3.22.1
+
+NuMagSANS requires **CMake 3.18 or newer**.
+
+If CMake is missing:
+
+Install it via your system package manager.
+
+Examples:
+
+.. code-block:: bash
+
+   sudo apt install cmake
+
+or on HPC systems:
+
+.. code-block:: bash
+
+   module load cmake
 
 
-4) Check your C++ compiler:
+4) Check your C++ compiler
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
    g++ --version
 
-Make sure it supports C++17 (GCC >= 9 recommended).
+Example output:
 
-If all commands run without errors, your system is ready.
+::
 
+   g++ (GCC) 11.4.0
+
+Your compiler must support **C++17**.
+
+Recommended versions:
+
+- GCC ≥ 9
+- Clang ≥ 10
+
+If your compiler is too old:
+
+- Install a newer GCC version
+- or load a module on HPC systems:
+
+.. code-block:: bash
+
+   module load gcc
+
+
+If all commands run successfully, your system is ready to build NuMagSANS.
 
 Build NuMagSANS
 ---------------
