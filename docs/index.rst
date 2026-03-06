@@ -56,7 +56,7 @@ Submitted to J. Appl. Cryst. (2026)
 DOI: https://doi.org/10.48550/arXiv.2601.18444
 
 Applications and Related Publications
-======================================
+-------------------------------------
 
 The following publications demonstrate theoretical developments,
 methodological advances, and scientific applications related to
