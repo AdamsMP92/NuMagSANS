@@ -69,20 +69,46 @@ If you’d like to contribute code or improve the documentation, please follow t
 
 ## 📚 How to Cite
 
-If you use **NuMagSANS** in your work, please cite the corresponding software and data publications.
+If you use **NuMagSANS** in your research, please cite both the **software release** and the **associated publication**.
 
-A citable software release with a DOI will be provided via Zenodo.
-Until then, please cite this repository as:
+### Software (Zenodo)
 
 ```bibtex
-@software{NuMagSANS,
-  author  = {Adams, Michael P.},
-  title   = {NuMagSANS: GPU-accelerated SANS simulations for magnetic nanostructures},
-  year    = {2025},
-  url     = {https://github.com/AdamsMP92/NuMagSANS},
-  license = {MIT}
+@software{adams2026numagsans,
+  author    = {Adams, Michael P.},
+  title     = {NuMagSANS},
+  version   = {1.0.0},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.18824364},
+  url       = {https://doi.org/10.5281/zenodo.18824364}
 }
 ```
+
+### Paper
+
+```bibtex
+@article{adams2026numagsans_paper,
+  author        = {Adams, Michael P. and Michels, Andreas},
+  title         = {NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems},
+  journal       = {arXiv preprint},
+  year          = {2026},
+  eprint        = {2601.18444},
+  archivePrefix = {arXiv},
+  primaryClass  = {cond-mat.mtrl-sci},
+  doi           = {10.48550/arXiv.2601.18444}
+}
+```
+
+### Short citation
+
+If you prefer a short citation format:
+
+Adams, M. P. (2026). *NuMagSANS (v1.0.0).* Zenodo. https://doi.org/10.5281/zenodo.18824364
+
+and
+
+Adams, M. P., & Michels, A. (2026). *NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems.* arXiv:2601.18444.
 
 ## ⚙️ Building from Source
 
