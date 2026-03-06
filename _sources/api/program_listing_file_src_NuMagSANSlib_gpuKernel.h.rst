@@ -269,23 +269,23 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
           unsigned int N_r = *SANSData.N_r;
           unsigned int N_q = *SANSData.N_q;
           float dq = *SANSData.dq;
-          float qr1 = 0.0;
-          float qr2 = 0.0;
+          float qr1 = 0.0f;
+          float qr2 = 0.0f;
           bool b1 = false; 
           bool b2 = false; 
-          float s1 = 0.0;
-          float s2 = 0.0;
+          float s1 = 0.0f;
+          float s2 = 0.0f;
      
           if(i < N_r){
                   for(int j=0; j<N_q-1; j++){
      
                       qr1 = SANSData.q_1D[j] * SANSData.r_1D[i];
                       b1 = (qr1 == 0.0f);
-                      s1 = (sin(qr1)/(qr1 + (float)b1) + (float)b1) * pow(SANSData.q_1D[j], 2);
+                      s1 = (sinf(qr1)/(qr1 + (float)b1) + (float)b1) * pow(SANSData.q_1D[j], 2);
                       
                       qr2 = SANSData.q_1D[j+1] * SANSData.r_1D[i];
                       b2 = (qr2 == 0.0f);
-                      s2 = (sin(qr2)/(qr2 + (float)b2) + (float)b2) * pow(SANSData.q_1D[j+1], 2);
+                      s2 = (sinf(qr2)/(qr2 + (float)b2) + (float)b2) * pow(SANSData.q_1D[j+1], 2);
    
                       SANSData.c_Nuc_unpolarized[i] += SANSData.S_Nuc_1D_unpolarized[j]  * s1 \
                                                      + SANSData.S_Nuc_1D_unpolarized[j+1] * s2;
@@ -332,11 +332,11 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
        int L_fourier = (*SANSData.N_q) * (*SANSData.N_theta);
        float v = 1.0/((float) L_fourier);
        int L_real = (*SANSData.N_r) * (*SANSData.N_alpha);
-       float c = 0.0;
+       float c = 0.0f;
    
        if(i < L_real){
            for(int k = 0; k<L_fourier; k++){
-               c = cos(SANSData.qy_2D[k] * SANSData.ry_2D[i] + SANSData.qz_2D[k] * SANSData.rz_2D[i]);
+               c = cosf(SANSData.qy_2D[k] * SANSData.ry_2D[i] + SANSData.qz_2D[k] * SANSData.rz_2D[i]);
                SANSData.Corr_Nuc_2D_unpolarized[i] += v * SANSData.S_Nuc_2D_unpolarized[k] * c;
                SANSData.Corr_Mag_2D_unpolarized[i] += v * SANSData.S_Mag_2D_unpolarized[k] * c;
                SANSData.Corr_NucMag_2D[i] += v * SANSData.S_NucMag_2D[k] * c;
@@ -471,8 +471,8 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
                    Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];
    
                    // cosine and sine values
-                   cos_val = cos(Psi);
-                   sin_val = sin(Psi);
+                   cos_val = cosf(Psi);
+                   sin_val = sinf(Psi);
    
                    // cosine and sine summations
                    mx_real += MagData.mx[l+N_cum] * cos_val;
@@ -493,8 +493,8 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
                Mz_imag = MagData.RotMat[2] * mx_imag + MagData.RotMat[5] * my_imag + MagData.RotMat[8] * mz_imag;
    
    
-               cos_theta = cos(SANSData.theta_2D[i]);
-               sin_theta = sin(SANSData.theta_2D[i]);
+               cos_theta = cosf(SANSData.theta_2D[i]);
+               sin_theta = sinf(SANSData.theta_2D[i]);
    
                // real-parts of the Halpern-Johnson vector
                Qx_real = (-Mx_real);
@@ -630,8 +630,8 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
                    Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];
    
                    // cosine and sine values
-                   cos_val = cos(Psi);
-                   sin_val = sin(Psi);
+                   cos_val = cosf(Psi);
+                   sin_val = sinf(Psi);
    
                    // cosine- and sine-summations
                    Nuc_real += NucData.Nuc[l+N_cum] * cos_val;
@@ -802,8 +802,8 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
                Mz_imag = MagData.RotMat[2] * mx_imag + MagData.RotMat[5] * my_imag + MagData.RotMat[8] * mz_imag;
    
    
-               cos_theta = cos(SANSData.theta_2D[i]);
-               sin_theta = sin(SANSData.theta_2D[i]);
+               cos_theta = cosf(SANSData.theta_2D[i]);
+               sin_theta = sinf(SANSData.theta_2D[i]);
    
                // real-parts of the Halpern-Johnson vector
                Qx_real = (-Mx_real);
@@ -985,8 +985,8 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
                    Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];
    
                    // cosine and sine values
-                   cos_val = cos(Psi);
-                   sin_val = sin(Psi);
+                   cos_val = cosf(Psi);
+                   sin_val = sinf(Psi);
    
                    // cosine and sine summations
                    mx_real += MagData.mx[l+N_cum] * cos_val;
@@ -1008,8 +1008,8 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
    
            }
    
-           cos_theta = cos(SANSData.theta_2D[i]);
-           sin_theta = sin(SANSData.theta_2D[i]);
+           cos_theta = cosf(SANSData.theta_2D[i]);
+           sin_theta = sinf(SANSData.theta_2D[i]);
    
            // real-parts of the Halpern-Johnson vector
            Qx_real = (-Mx_real);
@@ -1151,8 +1151,8 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
                    Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];
    
                    // cosine and sine values
-                   cos_val = cos(Psi);
-                   sin_val = sin(Psi);
+                   cos_val = cosf(Psi);
+                   sin_val = sinf(Psi);
    
                    nuc_real += NucData.Nuc[l+N_cum] * cos_val;
                    nuc_imag -= NucData.Nuc[l+N_cum] * sin_val;
@@ -1293,8 +1293,8 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
                    Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];
    
                    // cosine and sine values
-                   cos_val = cos(Psi);
-                   sin_val = sin(Psi);
+                   cos_val = cosf(Psi);
+                   sin_val = sinf(Psi);
    
                    // cosine and sine summations
                    nuc_real += NucData.Nuc[l+N_cum] * cos_val;
@@ -1323,8 +1323,8 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
    
            }
    
-           cos_theta = cos(SANSData.theta_2D[i]);
-           sin_theta = sin(SANSData.theta_2D[i]);
+           cos_theta = cosf(SANSData.theta_2D[i]);
+           sin_theta = sinf(SANSData.theta_2D[i]);
    
            // real-parts of the Halpern-Johnson vector
            Qx_real = (-Mx_real);
