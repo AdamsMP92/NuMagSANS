@@ -410,36 +410,98 @@
 <p>This section provides a quick system check followed by build and Python installation steps.</p>
 <section id="test-your-system">
 <h2>Test Your System<a class="headerlink" href="#test-your-system" title="Link to this heading">#</a></h2>
-<p>Before building NuMagSANS, verify that the required tools are available.</p>
-<ol class="arabic simple">
-<li><p>Check for a CUDA-capable GPU:</p></li>
-</ol>
+<p>Before building NuMagSANS, verify that the required tools are available on your system.</p>
+<p>The following checks ensure that CUDA, the compiler toolchain, and the build system are correctly installed.</p>
+<section id="check-for-a-cuda-capable-gpu">
+<h3>1) Check for a CUDA-capable GPU<a class="headerlink" href="#check-for-a-cuda-capable-gpu" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi
 </pre></div>
 </div>
-<p>You should see your GPU listed.</p>
-<ol class="arabic simple" start="2">
-<li><p>Check CUDA toolkit (nvcc):</p></li>
-</ol>
+<p>This command should display your GPU and the installed driver version.</p>
+<p>Typical output may look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">NVIDIA</span><span class="o">-</span><span class="n">SMI</span> <span class="mf">535.</span><span class="n">xx</span>       <span class="n">Driver</span> <span class="n">Version</span><span class="p">:</span> <span class="mf">535.</span><span class="n">xx</span>       <span class="n">CUDA</span> <span class="n">Version</span><span class="p">:</span> <span class="mf">12.</span><span class="n">x</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">GPU</span>  <span class="n">Name</span>                    <span class="n">Persistence</span><span class="o">-</span><span class="n">M</span> <span class="o">|</span> <span class="n">Bus</span><span class="o">-</span><span class="n">Id</span>        <span class="n">Disp</span><span class="o">.</span><span class="n">A</span> <span class="o">|</span> <span class="n">Volatile</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">0</span>    <span class="n">NVIDIA</span> <span class="n">RTX</span> <span class="mi">3080</span>                         <span class="n">Off</span>  <span class="o">|</span> <span class="mi">00000000</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mf">00.0</span>  <span class="n">Off</span>     <span class="o">|</span>
+<span class="o">+-----------------------------------------------------------------------------+</span>
+</pre></div>
+</div>
+<p>If this command fails:</p>
+<ul class="simple">
+<li><p>Ensure that an <strong>NVIDIA GPU</strong> is installed.</p></li>
+<li><p>Install the <strong>NVIDIA driver</strong> for your system.</p></li>
+<li><p>On HPC systems, you may need to load a module:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>cuda
+</pre></div>
+</div>
+</section>
+<section id="check-the-cuda-toolkit">
+<h3>2) Check the CUDA Toolkit<a class="headerlink" href="#check-the-cuda-toolkit" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvcc<span class="w"> </span>--version
 </pre></div>
 </div>
-<p>This should print the CUDA compiler version.</p>
-<ol class="arabic simple" start="3">
-<li><p>Check CMake:</p></li>
-</ol>
+<p>Typical output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nvcc</span><span class="p">:</span> <span class="n">NVIDIA</span> <span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Cuda</span> <span class="n">compiler</span> <span class="n">driver</span>
+<span class="n">release</span> <span class="mf">12.3</span><span class="p">,</span> <span class="n">V12</span><span class="mf">.3</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+<p>NuMagSANS generally works with <strong>CUDA 11 or newer</strong>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> is not found:</p>
+<ul class="simple">
+<li><p>Ensure the CUDA toolkit is installed.</p></li>
+<li><p>Add CUDA to your PATH, for example:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/usr/local/cuda/bin:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+</section>
+<section id="check-cmake">
+<h3>3) Check CMake<a class="headerlink" href="#check-cmake" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--version
 </pre></div>
 </div>
-<p>CMake version 3.18 or newer is required.</p>
-<ol class="arabic simple" start="4">
-<li><p>Check your C++ compiler:</p></li>
-</ol>
+<p>Expected output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="n">version</span> <span class="mf">3.22.1</span>
+</pre></div>
+</div>
+<p>NuMagSANS requires <strong>CMake 3.18 or newer</strong>.</p>
+<p>If CMake is missing:</p>
+<p>Install it via your system package manager.</p>
+<p>Examples:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>cmake
+</pre></div>
+</div>
+<p>or on HPC systems:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>cmake
+</pre></div>
+</div>
+</section>
+<section id="check-your-c-compiler">
+<h3>4) Check your C++ compiler<a class="headerlink" href="#check-your-c-compiler" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>--version
 </pre></div>
 </div>
-<p>Make sure it supports C++17 (GCC &gt;= 9 recommended).</p>
-<p>If all commands run without errors, your system is ready.</p>
+<p>Example output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">++</span> <span class="p">(</span><span class="n">GCC</span><span class="p">)</span> <span class="mf">11.4.0</span>
+</pre></div>
+</div>
+<p>Your compiler must support <strong>C++17</strong>.</p>
+<p>Recommended versions:</p>
+<ul class="simple">
+<li><p>GCC ≥ 9</p></li>
+<li><p>Clang ≥ 10</p></li>
+</ul>
+<p>If your compiler is too old:</p>
+<ul class="simple">
+<li><p>Install a newer GCC version</p></li>
+<li><p>or load a module on HPC systems:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>gcc
+</pre></div>
+</div>
+<p>If all commands run successfully, your system is ready to build NuMagSANS.</p>
+</section>
 </section>
 <section id="build-numagsans">
 <h2>Build NuMagSANS<a class="headerlink" href="#build-numagsans" title="Link to this heading">#</a></h2>
@@ -598,7 +660,13 @@ This ensures deterministic behaviour independent of the current working director
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-system">Test Your System</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-system">Test Your System</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-for-a-cuda-capable-gpu">1) Check for a CUDA-capable GPU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-the-cuda-toolkit">2) Check the CUDA Toolkit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-cmake">3) Check CMake</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-c-compiler">4) Check your C++ compiler</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-numagsans">Build NuMagSANS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-interface-installation">Python Interface Installation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-virtual-environment">Create a Virtual Environment</a></li>
