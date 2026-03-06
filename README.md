@@ -110,28 +110,44 @@ and
 
 Adams, M. P., & Michels, A. (2026). *NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems.* arXiv:2601.18444.
 
-## ⚙️ Building from Source
+## ⚙️ Installation
 
-Clone the NuMagSANS repository:
+NuMagSANS requires a CUDA-capable GPU and a working CUDA toolchain.
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/AdamsMP92/NuMagSANS.git
 cd NuMagSANS
 ```
 
-The source files are located in the `src/` directory.
-
-Compile NuMagSANS using the NVIDIA CUDA compiler:
+Build using CMake:
 
 ```bash
-nvcc -o NuMagSANS src/NuMagSANS.cu
+cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=native
+cmake --build build -j
 ```
 
-### ⚙️ Requirements
+The executable will be located at:
 
-- NVIDIA CUDA Toolkit (including `nvcc`)
-- C++ compiler compatible with the installed CUDA version
-- CUDA-capable NVIDIA GPU
+```
+build/NuMagSANS
+```
+
+### Python interface (optional)
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+```
+
+### Full installation guide
+
+For detailed installation instructions, system checks, and HPC usage see the documentation:
+
+➡️ **Documentation:**  
+https://numagsans.readthedocs.io
 
 ## 🧾 License
 MIT License
