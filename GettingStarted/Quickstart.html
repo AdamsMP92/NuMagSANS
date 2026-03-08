@@ -389,24 +389,47 @@
 <p>NuMagSANS can be executed through the Python interface, which allows
 users to generate configuration files and run simulations programmatically.</p>
 <p>The repository contains a minimal example together with a small dataset.</p>
-<section id="quick-example">
-<h2>Quick Example<a class="headerlink" href="#quick-example" title="Link to this heading">#</a></h2>
-<p>Navigate to the example directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>example
-</pre></div>
-</div>
-<p>Run the example script:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>NuMagSANSrun.py
-</pre></div>
-</div>
-<p>The simulation will generate output data in:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="o">/</span><span class="n">NuMagSANS_Output</span>
+<section id="quick-build-numagsans">
+<h2>Quick Build NuMagSANS<a class="headerlink" href="#quick-build-numagsans" title="Link to this heading">#</a></h2>
+<p>The following command lines
+1. download NuMagSANS from GitHub
+2. compile the C++/cuda source code using cmake
+3. create a virtual environment
+4. install the NuMagSANS python interface
+5. run the NuMagSANS example script</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AdamsMP92/NuMagSANS.git
+<span class="nb">cd</span><span class="w"> </span>NuMagSANS
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
+python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from NuMagSANS import NuMagSANS; print(&#39;Installation successful&#39;)&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>example
+python<span class="w"> </span>NuMagSANSrun.py
 </pre></div>
 </div>
 </section>
 <section id="example-script">
 <h2>Example Script<a class="headerlink" href="#example-script" title="Link to this heading">#</a></h2>
-<p>The following script demonstrates a minimal NuMagSANS workflow.</p>
+<p>The following example script demonstrates a minimal NuMagSANS workflow.</p>
+<p>This example performs the following steps:</p>
+<ol class="arabic simple">
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">NuMagSANS</span></code> interface object.</p></li>
+<li><p>Generate a temporary configuration file.</p></li>
+<li><p>Specify simulation parameters and input data.</p></li>
+<li><p>Execute the NuMagSANS simulation.</p></li>
+<li><p>Remove the temporary configuration file.</p></li>
+</ol>
+<p>Input data are provided in the repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="o">/</span><span class="n">RealSpaceData</span><span class="o">/</span><span class="n">MagData</span>
+</pre></div>
+</div>
+<p>Simulation results are written to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="o">/</span><span class="n">NuMagSANS_Output</span>
+</pre></div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">NuMagSANS</span><span class="w"> </span><span class="kn">import</span> <span class="n">NuMagSANS</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
@@ -435,25 +458,6 @@ users to generate configuration files and run simulations programmatically.</p>
 
 <span class="c1"># Remove temporary configuration file</span>
 <span class="n">facade</span><span class="o">.</span><span class="n">config_clear</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="workflow-description">
-<h2>Workflow Description<a class="headerlink" href="#workflow-description" title="Link to this heading">#</a></h2>
-<p>The example performs the following steps:</p>
-<ol class="arabic simple">
-<li><p>Create a <code class="docutils literal notranslate"><span class="pre">NuMagSANS</span></code> interface object.</p></li>
-<li><p>Generate a temporary configuration file.</p></li>
-<li><p>Specify simulation parameters and input data.</p></li>
-<li><p>Execute the NuMagSANS simulation.</p></li>
-<li><p>Remove the temporary configuration file.</p></li>
-</ol>
-<p>Input data are provided in the repository:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="o">/</span><span class="n">RealSpaceData</span><span class="o">/</span><span class="n">MagData</span>
-</pre></div>
-</div>
-<p>Simulation results are written to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="o">/</span><span class="n">NuMagSANS_Output</span>
 </pre></div>
 </div>
 </section>
@@ -506,9 +510,8 @@ users to generate configuration files and run simulations programmatically.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-example">Quick Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-build-numagsans">Quick Build NuMagSANS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-description">Workflow Description</a></li>
 </ul>
   </nav></div>
 
