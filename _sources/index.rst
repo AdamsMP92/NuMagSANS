@@ -3,7 +3,7 @@
    :hidden:
 
    installation
-   usage
+   quickstart
    SANSTheory/index
    api/library_root
 
