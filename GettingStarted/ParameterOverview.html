@@ -394,20 +394,37 @@
 NuMagSANS backend executable. The parameters listed below correspond
 directly to entries in the generated configuration file and control
 the physical model and numerical settings of the simulation.</p>
-<section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">numagsans</span><span class="w"> </span><span class="kn">import</span> <span class="n">NuMagSANS</span>
+<section id="example-script">
+<h2>Example Script<a class="headerlink" href="#example-script" title="Link to this heading">#</a></h2>
+<p>The following script demonstrates a minimal NuMagSANS workflow.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">NuMagSANS</span><span class="w"> </span><span class="kn">import</span> <span class="n">NuMagSANS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
-<span class="n">sim</span> <span class="o">=</span> <span class="n">NuMagSANS</span><span class="p">()</span>
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
 
-<span class="n">cfg</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
-    <span class="s2">&quot;simulation.conf&quot;</span><span class="p">,</span>
-    <span class="n">q_max</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
-    <span class="n">Number_Of_q_Points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Unpolarized_2D&quot;</span><span class="p">]</span>
+<span class="c1"># Create NuMagSANS facade object</span>
+<span class="n">facade</span> <span class="o">=</span> <span class="n">NuMagSANS</span><span class="p">()</span>
+
+<span class="c1"># Temporary configuration file</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;NuMagSANSInput_temp.conf&quot;</span>
+
+<span class="c1"># Write configuration file</span>
+<span class="n">facade</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="n">config</span><span class="p">,</span>
+    <span class="n">MagData_activate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">MagDataPath</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;RealSpaceData&quot;</span> <span class="o">/</span> <span class="s2">&quot;MagData&quot;</span><span class="p">),</span>
+    <span class="n">foldernameSANSData</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;NuMagSANS_Output&quot;</span><span class="p">),</span>
+    <span class="n">Fourier_Approach</span><span class="o">=</span><span class="s2">&quot;atomistic&quot;</span><span class="p">,</span>
+    <span class="n">User_Selection</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="n">Scattering_Volume_V</span><span class="o">=</span><span class="mf">2.618e-24</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;SpinFlip_2D&quot;</span><span class="p">,</span> <span class="s2">&quot;SpinFlip_1D&quot;</span><span class="p">]</span>
 <span class="p">)</span>
 
-<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+<span class="c1"># Run NuMagSANS simulation</span>
+<span class="n">facade</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+<span class="c1"># Remove temporary configuration file</span>
+<span class="n">facade</span><span class="o">.</span><span class="n">config_clear</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -723,7 +740,7 @@ simulation execution.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-paths">Data Paths</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-selection">Data Selection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-approach">Fourier Approach</a></li>
