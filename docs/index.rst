@@ -2,8 +2,6 @@
    :maxdepth: 2
    :hidden:
 
-   installation
-   quickstart
    GettingStarted/index
    api/library_root
 
@@ -39,8 +37,6 @@ Key Features
 Getting Started
 ---------------
 
-- :doc:`installation`
-- :doc:`quickstart`
 - :doc:`GettingStarted/index`
 - :doc:`api/library_root`
 
