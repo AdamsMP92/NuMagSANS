@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Installation &#8212; NuMagSANS  documentation</title>
+    <title>Detailled Installation &#8212; NuMagSANS  documentation</title>
   
   
   
@@ -315,7 +315,7 @@
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Detailled Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ParameterOverview.html">Parameter Overview</a></li>
 </ul>
 </div>
@@ -367,7 +367,7 @@
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">Getting Started</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Installation</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Detailled Installation</span></li>
   </ul>
 </nav>
 </div>
@@ -384,32 +384,10 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h1>
+  <section id="detailled-installation">
+<h1>Detailled Installation<a class="headerlink" href="#detailled-installation" title="Link to this heading">#</a></h1>
 <p>NuMagSANS requires a working CUDA toolchain and a C++17-compatible compiler.</p>
 <p>This section provides a quick system check followed by build and Python installation steps.</p>
-<section id="quick-build-numagsans">
-<h2>Quick Build NuMagSANS<a class="headerlink" href="#quick-build-numagsans" title="Link to this heading">#</a></h2>
-<p>The following command lines
-(1) download NuMagSANS from GitHub
-(2) compile the C++/cuda source code using cmake
-(3) create a virtual environment
-(4) install the NuMagSANS python interface
-(5) run the NuMagSANS example script</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AdamsMP92/NuMagSANS.git
-<span class="nb">cd</span><span class="w"> </span>NuMagSANS
-cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
-cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
-python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from NuMagSANS import NuMagSANS; print(&#39;Installation successful&#39;)&quot;</span>
-<span class="nb">cd</span><span class="w"> </span>example
-python<span class="w"> </span>NuMagSANSrun.py
-</pre></div>
-</div>
-</section>
 <section id="test-your-system">
 <h2>Test Your System<a class="headerlink" href="#test-your-system" title="Link to this heading">#</a></h2>
 <p>Before building NuMagSANS, verify that the required tools are available on your system.</p>
@@ -662,7 +640,6 @@ This ensures deterministic behaviour independent of the current working director
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-build-numagsans">Quick Build NuMagSANS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-system">Test Your System</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-for-a-cuda-capable-gpu">1) Check for a CUDA-capable GPU</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-the-cuda-toolkit">2) Check the CUDA Toolkit</a></li>
