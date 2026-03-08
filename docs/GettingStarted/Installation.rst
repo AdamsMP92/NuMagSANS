@@ -5,6 +5,28 @@ NuMagSANS requires a working CUDA toolchain and a C++17-compatible compiler.
 
 This section provides a quick system check followed by build and Python installation steps.
 
+Quick Build NuMagSANS
+---------------------
+
+.. code-block:: bash
+
+   git clone https://github.com/AdamsMP92/NuMagSANS.git
+   cd NuMagSANS
+   cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=native
+   cmake --build build -j
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install --upgrade pip
+   pip install -e .
+   python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
+
+Test run
+^^^^^^^^
+
+.. code-block:: bash
+
+   cd example
+   python NuMagSANSrun.py
 
 Test Your System
 ----------------
