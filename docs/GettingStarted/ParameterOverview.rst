@@ -258,21 +258,3 @@ Typical examples include:
 +---------------------+---------------------------------------------+
 | ``SpinFlip_1D``     | Radially averaged spin-flip scattering      |
 +---------------------+---------------------------------------------+
-
-
-Generated Configuration File
-----------------------------
-
-The Python interface generates a configuration file containing the
-parameters listed above.
-
-Example snippet:
-
-.. code-block:: text
-
-    Cell_Magnetization = 486000;
-    q_max = 3.0;
-    Number_Of_q_Points = 1000;
-
-This file is then passed to the NuMagSANS backend executable during
-simulation execution.
