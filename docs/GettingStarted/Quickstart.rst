@@ -6,32 +6,55 @@ users to generate configuration files and run simulations programmatically.
 
 The repository contains a minimal example together with a small dataset.
 
-Quick Example
--------------
+Quick Build NuMagSANS
+---------------------
 
-Navigate to the example directory:
+The following command lines 
+1. download NuMagSANS from GitHub
+2. compile the C++/cuda source code using cmake
+3. create a virtual environment
+4. install the NuMagSANS python interface
+5. run the NuMagSANS example script
 
 .. code-block:: bash
 
+   git clone https://github.com/AdamsMP92/NuMagSANS.git
+   cd NuMagSANS
+   cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=native
+   cmake --build build -j
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install --upgrade pip
+   pip install -e .
+   python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
    cd example
-
-Run the example script:
-
-.. code-block:: bash
-
    python NuMagSANSrun.py
-
-The simulation will generate output data in:
-
-::
-
-   example/NuMagSANS_Output
 
 
 Example Script
 --------------
 
-The following script demonstrates a minimal NuMagSANS workflow.
+The following example script demonstrates a minimal NuMagSANS workflow.
+
+This example performs the following steps:
+
+1. Create a ``NuMagSANS`` interface object.
+2. Generate a temporary configuration file.
+3. Specify simulation parameters and input data.
+4. Execute the NuMagSANS simulation.
+5. Remove the temporary configuration file.
+
+Input data are provided in the repository:
+
+::
+
+   example/RealSpaceData/MagData
+
+Simulation results are written to:
+
+::
+
+   example/NuMagSANS_Output
 
 .. code-block:: python
 
@@ -65,25 +88,3 @@ The following script demonstrates a minimal NuMagSANS workflow.
    facade.config_clear(config)
 
 
-Workflow Description
---------------------
-
-The example performs the following steps:
-
-1. Create a ``NuMagSANS`` interface object.
-2. Generate a temporary configuration file.
-3. Specify simulation parameters and input data.
-4. Execute the NuMagSANS simulation.
-5. Remove the temporary configuration file.
-
-Input data are provided in the repository:
-
-::
-
-   example/RealSpaceData/MagData
-
-Simulation results are written to:
-
-::
-
-   example/NuMagSANS_Output
