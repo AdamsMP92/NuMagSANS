@@ -1,5 +1,5 @@
-write_config Parameter Reference
-================================
+Parameter Overview
+==================
 
 NuMagSANS simulations are configured using the Python function
 
