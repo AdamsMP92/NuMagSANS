@@ -40,7 +40,7 @@ Getting Started
 ---------------
 
 - :doc:`installation`
-- :doc:`usage`
+- :doc:`quickstart`
 - :doc:`SANSTheory/index`
 - :doc:`api/library_root`
 
