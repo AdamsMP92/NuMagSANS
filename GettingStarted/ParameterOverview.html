@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; NuMagSANS  documentation</title>
+    <title>write_config Parameter Reference &#8212; NuMagSANS  documentation</title>
   
   
   
@@ -353,7 +353,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">&lt;no title&gt;</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">write_config Parameter Reference</span></li>
   </ul>
 </nav>
 </div>
@@ -370,7 +370,298 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
+  <section id="write-config-parameter-reference">
+<h1>write_config Parameter Reference<a class="headerlink" href="#write-config-parameter-reference" title="Link to this heading">#</a></h1>
+<p>NuMagSANS simulations are configured using the Python function</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NuMagSANS</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function generates a configuration file that is passed to the
+NuMagSANS backend executable. The parameters listed below correspond
+directly to entries in the generated configuration file and control
+the physical model and numerical settings of the simulation.</p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">numagsans</span><span class="w"> </span><span class="kn">import</span> <span class="n">NuMagSANS</span>
+
+<span class="n">sim</span> <span class="o">=</span> <span class="n">NuMagSANS</span><span class="p">()</span>
+
+<span class="n">cfg</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="s2">&quot;simulation.conf&quot;</span><span class="p">,</span>
+    <span class="n">q_max</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+    <span class="n">Number_Of_q_Points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Unpolarized_2D&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="data-paths">
+<h2>Data Paths<a class="headerlink" href="#data-paths" title="Link to this heading">#</a></h2>
+<p>These parameters define where the simulation reads input data and where
+results are written.</p>
+</section>
+<section id="data-selection">
+<h2>Data Selection<a class="headerlink" href="#data-selection" title="Link to this heading">#</a></h2>
+<p>These flags control which datasets are used by the simulation.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NucData_activate</span></code></p></td>
+<td><p>Activate nuclear scattering data</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData_activate</span></code></p></td>
+<td><p>Activate magnetic moment data</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">StructData_activate</span></code></p></td>
+<td><p>Activate structural data input</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Exclude_Zero_Moments</span></code></p></td>
+<td><p>Ignore atoms or cells with zero magnetic moment</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="fourier-approach">
+<h2>Fourier Approach<a class="headerlink" href="#fourier-approach" title="Link to this heading">#</a></h2>
+<p>Defines how the Fourier transform from real space to reciprocal space
+is performed.</p>
+</section>
+<section id="loop-control">
+<h2>Loop Control<a class="headerlink" href="#loop-control" title="Link to this heading">#</a></h2>
+<p>These parameters control batch simulations or repeated calculations.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Loop_Modus</span></code></p></td>
+<td><p>Enable looping over simulation indices</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Loop_From</span></code></p></td>
+<td><p>First index used in loop simulations</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Loop_To</span></code></p></td>
+<td><p>Last index used in loop simulations</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">User_Selection</span></code></p></td>
+<td><p>Explicit list of selected indices</p></td>
+<td><p>[1]</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="units">
+<h2>Units<a class="headerlink" href="#units" title="Link to this heading">#</a></h2>
+<p>Conversion factors for coordinate units.</p>
+</section>
+<section id="micromagnetic-parameters">
+<h2>Micromagnetic Parameters<a class="headerlink" href="#micromagnetic-parameters" title="Link to this heading">#</a></h2>
+<p>Parameters describing the magnetic properties of discretized simulation
+cells.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Cell_Nuclear_SLD</span></code></p></td>
+<td><p>Nuclear scattering length density of the cell</p></td>
+<td><p>8e14</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><code class="docutils literal notranslate"><span class="pre">Cell_Magnetization</span></code> | Magnetization inside the discretized cell</p></td>
+<td><p>486e3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Cuboid_Cell_Size</span></code></p></td>
+<td><p>Dimensions of the discretization cell (x,y,z)</p></td>
+<td><p>(2,2,2)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="scattering-volume">
+<h2>Scattering Volume<a class="headerlink" href="#scattering-volume" title="Link to this heading">#</a></h2>
+<p>Defines the physical scattering volume used for normalization.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p><code class="docutils literal notranslate"><span class="pre">Scattering_Volume_V</span></code> | Effective scattering volume</p></td>
+<td><p>2.618e-24</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="rotation-of-the-sample">
+<h2>Rotation of the Sample<a class="headerlink" href="#rotation-of-the-sample" title="Link to this heading">#</a></h2>
+<p>These parameters define the orientation of the sample relative to the
+scattering geometry.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RotMat_alpha</span></code></p></td>
+<td><p>Rotation angle around x-axis</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RotMat_beta</span></code></p></td>
+<td><p>Rotation angle around y-axis</p></td>
+<td><p>0.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="neutron-polarization">
+<h2>Neutron Polarization<a class="headerlink" href="#neutron-polarization" title="Link to this heading">#</a></h2>
+<p>Defines the polarization vector of the incoming neutron beam.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Polarization</span></code></p></td>
+<td><p>Polarization vector (Px, Py, Pz)</p></td>
+<td><p>(0,0,1)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="reciprocal-space-sampling">
+<h2>Reciprocal Space Sampling<a class="headerlink" href="#reciprocal-space-sampling" title="Link to this heading">#</a></h2>
+<p>Controls the resolution of the scattering calculation.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Number_Of_q_Points</span></code></p></td>
+<td><p>Number of sampled q values</p></td>
+<td><p>1000</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Number_Of_theta_Points</span></code></p></td>
+<td><p>Number of angular sampling points</p></td>
+<td><p>1000</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Number_Of_r_Points</span></code></p></td>
+<td><p>Sampling points in real-space correlations</p></td>
+<td><p>1000</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Number_Of_alpha_Points</span></code></p></td>
+<td><p>Angular resolution for correlation analysis</p></td>
+<td><p>1000</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">q_max</span></code></p></td>
+<td><p>Maximum scattering vector</p></td>
+<td><p>3.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">r_max</span></code></p></td>
+<td><p>Maximum real-space distance</p></td>
+<td><p>15.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="angular-spectrum">
+<h2>Angular Spectrum<a class="headerlink" href="#angular-spectrum" title="Link to this heading">#</a></h2>
+<p>Settings for angular spectrum calculations.</p>
+</section>
+<section id="output-selection">
+<h2>Output Selection<a class="headerlink" href="#output-selection" title="Link to this heading">#</a></h2>
+<p>Simulation outputs are controlled through the <code class="docutils literal notranslate"><span class="pre">enable_outputs</span></code> argument.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="s2">&quot;simulation.conf&quot;</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;Unpolarized_2D&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SpinFlip_2D&quot;</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Each output corresponds to a specific scattering quantity calculated by
+the backend. Internally these outputs are written to the output folder
+defined by <code class="docutils literal notranslate"><span class="pre">foldernameSANSData</span></code>.</p>
+<p>Typical examples include:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Output</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nuclear_2D</span></code></p></td>
+<td><p>Nuclear scattering intensity (2D detector)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Unpolarized_2D</span></code></p></td>
+<td><p>Total unpolarized scattering cross section</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SpinFlip_2D</span></code></p></td>
+<td><p>Spin-flip magnetic scattering</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Nuclear_1D</span></code></p></td>
+<td><p>Radially averaged nuclear scattering</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SpinFlip_1D</span></code></p></td>
+<td><p>Radially averaged spin-flip scattering</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="generated-configuration-file">
+<h2>Generated Configuration File<a class="headerlink" href="#generated-configuration-file" title="Link to this heading">#</a></h2>
+<p>The Python interface generates a configuration file containing the
+parameters listed above.</p>
+<p>Example snippet:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Cell_Magnetization = 486000;
+q_max = 3.0;
+Number_Of_q_Points = 1000;
+</pre></div>
+</div>
+<p>This file is then passed to the NuMagSANS backend executable during
+simulation execution.</p>
+</section>
+</section>
+
 
                 </article>
               
@@ -399,9 +690,22 @@
     <i class="fa-solid fa-list"></i> On this page
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-paths">Data Paths</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-selection">Data Selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-approach">Fourier Approach</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-control">Loop Control</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#units">Units</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#micromagnetic-parameters">Micromagnetic Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scattering-volume">Scattering Volume</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rotation-of-the-sample">Rotation of the Sample</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neutron-polarization">Neutron Polarization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reciprocal-space-sampling">Reciprocal Space Sampling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#angular-spectrum">Angular Spectrum</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-selection">Output Selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generated-configuration-file">Generated Configuration File</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
