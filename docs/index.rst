@@ -4,7 +4,7 @@
 
    installation
    quickstart
-   SANSTheory/index
+   GettingStarted/index
    api/library_root
 
 
@@ -41,7 +41,7 @@ Getting Started
 
 - :doc:`installation`
 - :doc:`quickstart`
-- :doc:`SANSTheory/index`
+- :doc:`GettingStarted/index`
 - :doc:`api/library_root`
 
 
