@@ -8,6 +8,13 @@ This section provides a quick system check followed by build and Python installa
 Quick Build NuMagSANS
 ---------------------
 
+The following command lines 
+(1) download NuMagSANS from GitHub
+(2) compile the C++/cuda source code using cmake
+(3) create a virtual environment
+(4) install the NuMagSANS python interface
+(5) run the NuMagSANS example script
+
 .. code-block:: bash
 
    git clone https://github.com/AdamsMP92/NuMagSANS.git
@@ -19,15 +26,9 @@ Quick Build NuMagSANS
    pip install --upgrade pip
    pip install -e .
    python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
-
-Test run
-^^^^^^^^
-
-.. code-block:: bash
-
    cd example
    python NuMagSANSrun.py
-
+   
 Test Your System
 ----------------
 
