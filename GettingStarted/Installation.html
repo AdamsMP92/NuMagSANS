@@ -388,6 +388,27 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h1>
 <p>NuMagSANS requires a working CUDA toolchain and a C++17-compatible compiler.</p>
 <p>This section provides a quick system check followed by build and Python installation steps.</p>
+<section id="quick-build-numagsans">
+<h2>Quick Build NuMagSANS<a class="headerlink" href="#quick-build-numagsans" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AdamsMP92/NuMagSANS.git
+<span class="nb">cd</span><span class="w"> </span>NuMagSANS
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
+python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from NuMagSANS import NuMagSANS; print(&#39;Installation successful&#39;)&quot;</span>
+</pre></div>
+</div>
+<section id="test-run">
+<h3>Test run<a class="headerlink" href="#test-run" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>example
+python<span class="w"> </span>NuMagSANSrun.py
+</pre></div>
+</div>
+</section>
+</section>
 <section id="test-your-system">
 <h2>Test Your System<a class="headerlink" href="#test-your-system" title="Link to this heading">#</a></h2>
 <p>Before building NuMagSANS, verify that the required tools are available on your system.</p>
@@ -640,6 +661,10 @@ This ensures deterministic behaviour independent of the current working director
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-build-numagsans">Quick Build NuMagSANS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-run">Test run</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-system">Test Your System</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-for-a-cuda-capable-gpu">1) Check for a CUDA-capable GPU</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-the-cuda-toolkit">2) Check the CUDA Toolkit</a></li>
