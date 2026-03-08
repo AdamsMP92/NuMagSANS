@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Getting Started &#8212; NuMagSANS  documentation</title>
+    <title>Quickstart &#8212; NuMagSANS  documentation</title>
   
   
   
@@ -50,7 +50,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/Quickstart';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -232,6 +232,10 @@
   
 
   
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
 </div>
 
     </header>
@@ -241,8 +245,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -334,6 +336,12 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+        <div class="sidebar-primary-item">
 <div id="ethical-ad-placement"
       class="flat"
       data-ea-publisher="readthedocs"
@@ -377,7 +385,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Getting Started</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Quickstart</span></li>
   </ul>
 </nav>
 </div>
@@ -394,29 +402,79 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#test-your-system">Test Your System</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#build-numagsans">Build NuMagSANS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#python-interface-installation">Python Interface Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#running-an-example">Running an Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#common-issues">Common Issues</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#hpc-cluster-example">HPC Cluster Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Installation.html#important-note-on-paths">Important Note on Paths</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#quick-example">Quick Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#example-script">Example Script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#workflow-description">Workflow Description</a></li>
-</ul>
-</li>
-</ul>
+  <section id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading">#</a></h1>
+<p>NuMagSANS can be executed through the Python interface, which allows
+users to generate configuration files and run simulations programmatically.</p>
+<p>The repository contains a minimal example together with a small dataset.</p>
+<section id="quick-example">
+<h2>Quick Example<a class="headerlink" href="#quick-example" title="Link to this heading">#</a></h2>
+<p>Navigate to the example directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>example
+</pre></div>
 </div>
+<p>Run the example script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>NuMagSANSrun.py
+</pre></div>
+</div>
+<p>The simulation will generate output data in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="o">/</span><span class="n">NuMagSANS_Output</span>
+</pre></div>
+</div>
+</section>
+<section id="example-script">
+<h2>Example Script<a class="headerlink" href="#example-script" title="Link to this heading">#</a></h2>
+<p>The following script demonstrates a minimal NuMagSANS workflow.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">NuMagSANS</span><span class="w"> </span><span class="kn">import</span> <span class="n">NuMagSANS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+
+<span class="c1"># Create NuMagSANS facade object</span>
+<span class="n">facade</span> <span class="o">=</span> <span class="n">NuMagSANS</span><span class="p">()</span>
+
+<span class="c1"># Temporary configuration file</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;NuMagSANSInput_temp.conf&quot;</span>
+
+<span class="c1"># Write configuration file</span>
+<span class="n">facade</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="n">config</span><span class="p">,</span>
+    <span class="n">MagData_activate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">MagDataPath</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;RealSpaceData&quot;</span> <span class="o">/</span> <span class="s2">&quot;MagData&quot;</span><span class="p">),</span>
+    <span class="n">foldernameSANSData</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;NuMagSANS_Output&quot;</span><span class="p">),</span>
+    <span class="n">Fourier_Approach</span><span class="o">=</span><span class="s2">&quot;atomistic&quot;</span><span class="p">,</span>
+    <span class="n">User_Selection</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="n">Scattering_Volume_V</span><span class="o">=</span><span class="mf">2.618e-24</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;SpinFlip_2D&quot;</span><span class="p">,</span> <span class="s2">&quot;SpinFlip_1D&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Run NuMagSANS simulation</span>
+<span class="n">facade</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+<span class="c1"># Remove temporary configuration file</span>
+<span class="n">facade</span><span class="o">.</span><span class="n">config_clear</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="workflow-description">
+<h2>Workflow Description<a class="headerlink" href="#workflow-description" title="Link to this heading">#</a></h2>
+<p>The example performs the following steps:</p>
+<ol class="arabic simple">
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">NuMagSANS</span></code> interface object.</p></li>
+<li><p>Generate a temporary configuration file.</p></li>
+<li><p>Specify simulation parameters and input data.</p></li>
+<li><p>Execute the NuMagSANS simulation.</p></li>
+<li><p>Remove the temporary configuration file.</p></li>
+</ol>
+<p>Input data are provided in the repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="o">/</span><span class="n">RealSpaceData</span><span class="o">/</span><span class="n">MagData</span>
+</pre></div>
+</div>
+<p>Simulation results are written to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="o">/</span><span class="n">NuMagSANS_Output</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -435,6 +493,26 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-example">Quick Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-description">Workflow Description</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
