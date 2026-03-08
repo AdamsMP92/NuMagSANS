@@ -12,23 +12,42 @@ NuMagSANS backend executable. The parameters listed below correspond
 directly to entries in the generated configuration file and control
 the physical model and numerical settings of the simulation.
 
-Example
--------
+
+Example Script
+--------------
+
+The following script demonstrates a minimal NuMagSANS workflow.
 
 .. code-block:: python
 
-    from numagsans import NuMagSANS
+   from NuMagSANS import NuMagSANS
+   from pathlib import Path
 
-    sim = NuMagSANS()
+   BASE_DIR = Path(__file__).resolve().parent
 
-    cfg = sim.write_config(
-        "simulation.conf",
-        q_max=3.0,
-        Number_Of_q_Points=1000,
-        enable_outputs=["Unpolarized_2D"]
-    )
+   # Create NuMagSANS facade object
+   facade = NuMagSANS()
 
-    sim.run(cfg)
+   # Temporary configuration file
+   config = BASE_DIR / "NuMagSANSInput_temp.conf"
+
+   # Write configuration file
+   facade.write_config(
+       config,
+       MagData_activate=1,
+       MagDataPath=str(BASE_DIR / "RealSpaceData" / "MagData"),
+       foldernameSANSData=str(BASE_DIR / "NuMagSANS_Output"),
+       Fourier_Approach="atomistic",
+       User_Selection=[1, 2, 3],
+       Scattering_Volume_V=2.618e-24,
+       enable_outputs=["SpinFlip_2D", "SpinFlip_1D"]
+   )
+
+   # Run NuMagSANS simulation
+   facade.run(config)
+
+   # Remove temporary configuration file
+   facade.config_clear(config)
 
 
 Data Paths
