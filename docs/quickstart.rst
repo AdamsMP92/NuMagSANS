@@ -1,5 +1,5 @@
-Usage
-=====
+Quickstart
+==========
 
 NuMagSANS can be executed through the Python interface, which allows
 users to generate configuration files and run simulations programmatically.
