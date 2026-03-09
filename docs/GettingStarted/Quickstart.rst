@@ -11,12 +11,25 @@ Quick System Check
 
 The following command check your system. 
 
+Linux
+^^^^^
+
 .. code-block:: bash
 
    nvidia-smi
    nvcc --version
    cmake --version
    g++ --version
+
+Windows PowerShell
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: powershell
+
+   nvidia-smi
+   nvcc --version
+   cmake --version
+   cl
 
 Quick Build NuMagSANS
 ---------------------
