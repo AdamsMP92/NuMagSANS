@@ -34,7 +34,8 @@ The following command lines
 Example Script
 --------------
 
-The following example script demonstrates a minimal NuMagSANS workflow.
+The following provides a quick overivew on the NuMagSANS example that is executed in the last step of the Quick build. 
+It demonstrates a minimal NuMagSANS workflow.
 
 This example performs the following steps:
 
