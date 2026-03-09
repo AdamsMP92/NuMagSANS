@@ -392,12 +392,24 @@ users to generate configuration files and run simulations programmatically.</p>
 <section id="quick-system-check">
 <h2>Quick System Check<a class="headerlink" href="#quick-system-check" title="Link to this heading">#</a></h2>
 <p>The following command check your system.</p>
+<section id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi
 nvcc<span class="w"> </span>--version
 cmake<span class="w"> </span>--version
 g++<span class="w"> </span>--version
 </pre></div>
 </div>
+</section>
+<section id="windows-powershell">
+<h3>Windows PowerShell<a class="headerlink" href="#windows-powershell" title="Link to this heading">#</a></h3>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">nvidia-smi</span>
+<span class="n">nvcc</span> <span class="p">-</span><span class="n">-version</span>
+<span class="n">cmake</span> <span class="p">-</span><span class="n">-version</span>
+<span class="n">cl</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="quick-build-numagsans">
 <h2>Quick Build NuMagSANS<a class="headerlink" href="#quick-build-numagsans" title="Link to this heading">#</a></h2>
@@ -409,8 +421,8 @@ g++<span class="w"> </span>--version
 <li><p>install the NuMagSANS python interface</p></li>
 <li><p>run the NuMagSANS example script</p></li>
 </ol>
-<section id="linux">
-<h3>Linux<a class="headerlink" href="#linux" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h3>Linux<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AdamsMP92/NuMagSANS.git
 <span class="nb">cd</span><span class="w"> </span>NuMagSANS
 cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
@@ -425,8 +437,8 @@ python3<span class="w"> </span>NuMagSANSrun.py
 </pre></div>
 </div>
 </section>
-<section id="windows-powershell">
-<h3>Windows PowerShell<a class="headerlink" href="#windows-powershell" title="Link to this heading">#</a></h3>
+<section id="id2">
+<h3>Windows PowerShell<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">://</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">AdamsMP92</span><span class="p">/</span><span class="n">NuMagSANS</span><span class="p">.</span><span class="n">git</span>
 <span class="nb">cd </span><span class="n">NuMagSANS</span>
 <span class="n">cmake</span> <span class="n">-S</span> <span class="p">.</span> <span class="n">-B</span> <span class="n">build</span> <span class="n">-DCMAKE_CUDA_ARCHITECTURES</span><span class="p">=</span><span class="n">native</span>
@@ -542,10 +554,14 @@ It demonstrates a minimal NuMagSANS workflow.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-system-check">Quick System Check</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-build-numagsans">Quick Build NuMagSANS</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-system-check">Quick System Check</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linux">Linux</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-powershell">Windows PowerShell</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-build-numagsans">Quick Build NuMagSANS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Linux</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Windows PowerShell</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a></li>
