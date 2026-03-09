@@ -17,7 +17,8 @@ The following command lines
 4. install the NuMagSANS python interface
 5. run the NuMagSANS example script
 
-(Linux)
+Linux
+^^^^^
 
 .. code-block:: bash
 
@@ -33,7 +34,8 @@ The following command lines
    cd example
    python3 NuMagSANSrun.py
 
-(Windows power shell)
+Windows PowerShell
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
    
@@ -41,13 +43,13 @@ The following command lines
    cd NuMagSANS
    cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=native
    cmake --build build -j
-   python3 -m venv .venv
+   python -m venv .venv
    .venv\Scripts\Activate.ps1
    pip install --upgrade pip
    pip install -e .
-   python3 -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
+   python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
    cd example
-   python3 NuMagSANSrun.py
+   python NuMagSANSrun.py
 
 Example Script
 --------------
