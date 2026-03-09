@@ -2,14 +2,14 @@ from NuMagSANS import NuMagSANS
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 
-# NuMagSANSFacade object
-facade = NuMagSANS()
+# NuMagSANS object
+sim = NuMagSANS()
 
 # filename of the NuMagSANS-Config file
 config = BASE_DIR / "NuMagSANSInput_temp.conf"
 
 # Config schreiben
-facade.write_config(
+sim.write_config(
     config, 
     MagData_activate=1, 
     MagDataPath=str(BASE_DIR / "RealSpaceData" / "MagData"),
@@ -21,7 +21,7 @@ facade.write_config(
 )
 
 # Run NuMagSANS
-facade.run(config)
+sim.run(config)
 
 # Delete temporary config file
-facade.config_clear(config)
+sim.config_clear(config)
