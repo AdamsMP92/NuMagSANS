@@ -386,15 +386,15 @@
                   
   <section id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading">#</a></h1>
-<p>NuMagSANS can be executed through the Python interface, which allows
+<p>NuMagSANS can be executed through the python interface, which allows
 users to generate configuration files and run simulations programmatically.</p>
 <p>The repository contains a minimal example together with a small dataset.</p>
 <section id="quick-build-numagsans">
 <h2>Quick Build NuMagSANS<a class="headerlink" href="#quick-build-numagsans" title="Link to this heading">#</a></h2>
-<p>The following command lines</p>
+<p>The following commands</p>
 <ol class="arabic simple">
 <li><p>download NuMagSANS from GitHub</p></li>
-<li><p>compile the C++/cuda source code using cmake</p></li>
+<li><p>compile the C++/CUDA source code using CMake</p></li>
 <li><p>create a virtual environment</p></li>
 <li><p>install the NuMagSANS python interface</p></li>
 <li><p>run the NuMagSANS example script</p></li>
@@ -417,24 +417,24 @@ python3<span class="w"> </span>NuMagSANSrun.py
 </section>
 <section id="windows-powershell">
 <h3>Windows PowerShell<a class="headerlink" href="#windows-powershell" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AdamsMP92/NuMagSANS.git
-<span class="nb">cd</span><span class="w"> </span>NuMagSANS
-cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
-cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
-python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-.venv<span class="se">\S</span>cripts<span class="se">\A</span>ctivate.ps1
-pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from NuMagSANS import NuMagSANS; print(&#39;Installation successful&#39;)&quot;</span>
-<span class="nb">cd</span><span class="w"> </span>example
-python<span class="w"> </span>NuMagSANSrun.py
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">://</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">AdamsMP92</span><span class="p">/</span><span class="n">NuMagSANS</span><span class="p">.</span><span class="n">git</span>
+<span class="nb">cd </span><span class="n">NuMagSANS</span>
+<span class="n">cmake</span> <span class="n">-S</span> <span class="p">.</span> <span class="n">-B</span> <span class="n">build</span> <span class="n">-DCMAKE_CUDA_ARCHITECTURES</span><span class="p">=</span><span class="n">native</span>
+<span class="n">cmake</span> <span class="p">-</span><span class="n">-build</span> <span class="n">build</span> <span class="n">-j</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">venv</span> <span class="p">.</span><span class="n">venv</span>
+<span class="p">.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-upgrade</span> <span class="n">pip</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">-e</span> <span class="p">.</span>
+<span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;from NuMagSANS import NuMagSANS; print(&#39;Installation successful&#39;)&quot;</span>
+<span class="nb">cd </span><span class="n">example</span>
+<span class="n">python</span> <span class="n">NuMagSANSrun</span><span class="p">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="example-script">
 <h2>Example Script<a class="headerlink" href="#example-script" title="Link to this heading">#</a></h2>
-<p>The following provides a quick overivew on the NuMagSANS example that is executed in the last step of the Quick build.
+<p>The following provides a quick overview on the NuMagSANS example that is executed in the last step of the Quick build.
 It demonstrates a minimal NuMagSANS workflow.</p>
 <p>This example performs the following steps:</p>
 <ol class="arabic simple">
@@ -457,7 +457,7 @@ It demonstrates a minimal NuMagSANS workflow.</p>
 
 <span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
 
-<span class="c1"># Create NuMagSANS facade object</span>
+<span class="c1"># Create NuMagSANS interface object</span>
 <span class="n">facade</span> <span class="o">=</span> <span class="n">NuMagSANS</span><span class="p">()</span>
 
 <span class="c1"># Temporary configuration file</span>

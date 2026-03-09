@@ -1,7 +1,7 @@
 Quickstart
 ==========
 
-NuMagSANS can be executed through the Python interface, which allows
+NuMagSANS can be executed through the python interface, which allows
 users to generate configuration files and run simulations programmatically.
 
 The repository contains a minimal example together with a small dataset.
@@ -9,10 +9,10 @@ The repository contains a minimal example together with a small dataset.
 Quick Build NuMagSANS
 ---------------------
 
-The following command lines 
+The following commands
 
 1. download NuMagSANS from GitHub
-2. compile the C++/cuda source code using cmake
+2. compile the C++/CUDA source code using CMake
 3. create a virtual environment
 4. install the NuMagSANS python interface
 5. run the NuMagSANS example script
@@ -37,7 +37,7 @@ Linux
 Windows PowerShell
 ^^^^^^^^^^^^^^^^^^
 
-.. code-block:: bash
+.. code-block:: powershell
    
    git clone https://github.com/AdamsMP92/NuMagSANS.git
    cd NuMagSANS
@@ -54,7 +54,7 @@ Windows PowerShell
 Example Script
 --------------
 
-The following provides a quick overivew on the NuMagSANS example that is executed in the last step of the Quick build. 
+The following provides a quick overview on the NuMagSANS example that is executed in the last step of the Quick build. 
 It demonstrates a minimal NuMagSANS workflow.
 
 This example performs the following steps:
@@ -84,7 +84,7 @@ Simulation results are written to:
 
    BASE_DIR = Path(__file__).resolve().parent
 
-   # Create NuMagSANS facade object
+   # Create NuMagSANS interface object
    facade = NuMagSANS()
 
    # Temporary configuration file
