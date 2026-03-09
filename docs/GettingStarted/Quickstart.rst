@@ -110,13 +110,13 @@ Simulation results are written to:
    BASE_DIR = Path(__file__).resolve().parent
 
    # Create NuMagSANS interface object
-   facade = NuMagSANS()
+   sim = NuMagSANS()
 
    # Temporary configuration file
    config = BASE_DIR / "NuMagSANSInput_temp.conf"
 
    # Write configuration file
-   facade.write_config(
+   sim.write_config(
        config,
        MagData_activate=1,
        MagDataPath=str(BASE_DIR / "RealSpaceData" / "MagData"),
@@ -128,9 +128,9 @@ Simulation results are written to:
    )
 
    # Run NuMagSANS simulation
-   facade.run(config)
+   sim.run(config)
 
    # Remove temporary configuration file
-   facade.config_clear(config)
+   sim.config_clear(config)
 
 
