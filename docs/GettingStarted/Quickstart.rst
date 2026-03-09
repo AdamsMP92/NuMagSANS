@@ -13,10 +13,10 @@ The following command check your system.
 
 .. code-block:: bash
 
-nvidia-smi
-nvcc --version
-cmake --version
-g++ --version
+   nvidia-smi
+   nvcc --version
+   cmake --version
+   g++ --version
 
 Quick Build NuMagSANS
 ---------------------
