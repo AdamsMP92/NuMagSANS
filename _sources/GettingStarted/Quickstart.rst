@@ -6,6 +6,18 @@ users to generate configuration files and run simulations programmatically.
 
 The repository contains a minimal example together with a small dataset.
 
+Quick System Check
+------------------
+
+The following command check your system. 
+
+.. code-block:: bash
+
+nvidia-smi
+nvcc --version
+cmake --version
+g++ --version
+
 Quick Build NuMagSANS
 ---------------------
 
