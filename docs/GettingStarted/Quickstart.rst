@@ -20,6 +20,7 @@ Linux
    nvcc --version
    cmake --version
    g++ --version
+   python --version
 
 Windows PowerShell
 ^^^^^^^^^^^^^^^^^^
@@ -30,6 +31,7 @@ Windows PowerShell
    nvcc --version
    cmake --version
    cl
+   python --version
 
 Quick Build NuMagSANS
 ---------------------
