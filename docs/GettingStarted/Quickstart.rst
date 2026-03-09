@@ -27,9 +27,9 @@ The following command lines
    source .venv/bin/activate
    pip install --upgrade pip
    pip install -e .
-   python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
+   python3 -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
    cd example
-   python NuMagSANSrun.py
+   python3 NuMagSANSrun.py
 
 
 Example Script
