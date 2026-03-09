@@ -480,13 +480,13 @@ It demonstrates a minimal NuMagSANS workflow.</p>
 <span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
 
 <span class="c1"># Create NuMagSANS interface object</span>
-<span class="n">facade</span> <span class="o">=</span> <span class="n">NuMagSANS</span><span class="p">()</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">NuMagSANS</span><span class="p">()</span>
 
 <span class="c1"># Temporary configuration file</span>
 <span class="n">config</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;NuMagSANSInput_temp.conf&quot;</span>
 
 <span class="c1"># Write configuration file</span>
-<span class="n">facade</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
     <span class="n">config</span><span class="p">,</span>
     <span class="n">MagData_activate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">MagDataPath</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;RealSpaceData&quot;</span> <span class="o">/</span> <span class="s2">&quot;MagData&quot;</span><span class="p">),</span>
@@ -498,10 +498,10 @@ It demonstrates a minimal NuMagSANS workflow.</p>
 <span class="p">)</span>
 
 <span class="c1"># Run NuMagSANS simulation</span>
-<span class="n">facade</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
 <span class="c1"># Remove temporary configuration file</span>
-<span class="n">facade</span><span class="o">.</span><span class="n">config_clear</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">config_clear</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
