@@ -10,6 +10,7 @@ Quick Build NuMagSANS
 ---------------------
 
 The following command lines 
+
 1. download NuMagSANS from GitHub
 2. compile the C++/cuda source code using cmake
 3. create a virtual environment

@@ -391,12 +391,14 @@ users to generate configuration files and run simulations programmatically.</p>
 <p>The repository contains a minimal example together with a small dataset.</p>
 <section id="quick-build-numagsans">
 <h2>Quick Build NuMagSANS<a class="headerlink" href="#quick-build-numagsans" title="Link to this heading">#</a></h2>
-<p>The following command lines
-1. download NuMagSANS from GitHub
-2. compile the C++/cuda source code using cmake
-3. create a virtual environment
-4. install the NuMagSANS python interface
-5. run the NuMagSANS example script</p>
+<p>The following command lines</p>
+<ol class="arabic simple">
+<li><p>download NuMagSANS from GitHub</p></li>
+<li><p>compile the C++/cuda source code using cmake</p></li>
+<li><p>create a virtual environment</p></li>
+<li><p>install the NuMagSANS python interface</p></li>
+<li><p>run the NuMagSANS example script</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AdamsMP92/NuMagSANS.git
 <span class="nb">cd</span><span class="w"> </span>NuMagSANS
 cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
