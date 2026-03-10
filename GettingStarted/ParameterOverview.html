@@ -50,6 +50,8 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/ParameterOverview';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -635,23 +637,25 @@ scattering geometry.</p>
 <h2>Angular Spectrum<a class="headerlink" href="#angular-spectrum" title="Link to this heading">#</a></h2>
 <p>Settings for angular spectrum calculations.</p>
 </section>
-<section id="output-selection">
-<h2>Output Selection<a class="headerlink" href="#output-selection" title="Link to this heading">#</a></h2>
-<p>Simulation outputs are controlled through the <code class="docutils literal notranslate"><span class="pre">enable_outputs</span></code> argument.</p>
-<p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
-    <span class="s2">&quot;simulation.conf&quot;</span><span class="p">,</span>
-    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span>
-        <span class="s2">&quot;Unpolarized_2D&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;SpinFlip_2D&quot;</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>Each output corresponds to a specific scattering quantity calculated by
-the backend. Internally these outputs are written to the output folder
-defined by <code class="docutils literal notranslate"><span class="pre">foldernameSANSData</span></code>.</p>
-<p>Typical examples include:</p>
+<section id="output-options">
+<h2>Output Options<a class="headerlink" href="#output-options" title="Link to this heading">#</a></h2>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_2D</span></code></dt><dd><p>Nuclear scattering intensity on a 2D detector.</p>
+<p>Corresponds to <span class="math notranslate nohighlight">\(I_N(q_x, q_y)\)</span>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_2D</span></code></dt><dd><p>Total unpolarized scattering cross section.</p>
+<p><span class="math notranslate nohighlight">\(I(q_x, q_y) = I_N + I_M\)</span>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_2D</span></code></dt><dd><p>Spin-flip magnetic scattering.</p>
+<p><span class="math notranslate nohighlight">\(I^{+-}(q_x, q_y)\)</span>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_1D</span></code></dt><dd><p>Radially averaged nuclear scattering.</p>
+<p><span class="math notranslate nohighlight">\(I_N(q)\)</span>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_1D</span></code></dt><dd><p>Radially averaged spin-flip scattering.</p>
+<p><span class="math notranslate nohighlight">\(I^{+-}(q)\)</span>.</p>
+</dd>
+</dl>
 </section>
 </section>
 
@@ -714,7 +718,7 @@ defined by <code class="docutils literal notranslate"><span class="pre">folderna
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neutron-polarization">Neutron Polarization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reciprocal-space-sampling">Reciprocal Space Sampling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#angular-spectrum">Angular Spectrum</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-selection">Output Selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-options">Output Options</a></li>
 </ul>
   </nav></div>
 
