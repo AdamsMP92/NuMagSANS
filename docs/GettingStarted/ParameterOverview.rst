@@ -228,6 +228,28 @@ Output Options
 2D SANS cross sections
 ^^^^^^^^^^^^^^^^^^^^^^
 
+In NuMagSANS, the incoming neutron beam is defined to propagate along the
+:math:`x`-axis, such that the corresponding wave vector satisfies
+:math:`\mathbf{k}_0 \parallel \mathbf{e}_x`. The two-dimensional detector
+plane is oriented perpendicular to the incident beam direction. The
+scattering vector :math:`\mathbf{q}` on the detector can therefore be
+written as
+
+.. math::
+
+    \mathbf{q} =
+    \begin{bmatrix}
+        q_x \\
+        q_y \\
+        q_z
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0 \\
+        q \sin\theta \\
+        q \cos\theta
+    \end{bmatrix}.
+
 ``Nuclear_2D``
     Nuclear SANS cross section on the 2D detector.
 
@@ -360,14 +382,154 @@ Output Options
         \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
 
 Azimuthally averaged SANS cross sections
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``Nuclear_1D``
-    Radially averaged nuclear scattering.
+    Azimuthally averaged nuclear SANS cross section.
 
-    :math:`I_N(q)`.
+    .. math::
+
+        I_{\mathrm{N}}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+        \, d\theta
+
+``Unpolarized_1D``
+    Azimuthally averaged unpolarized magnetic SANS cross section.
+
+    .. math::
+
+        I_{\mathrm{M}}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+        \, d\theta
+
+``Polarized_1D``
+    Azimuthally averaged polarized magnetic SANS cross section.
+
+    .. math::
+
+        I_{\mathrm{P}}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+        \, d\theta
+
+``NuclearMagnetic_1D``
+    Azimuthally averaged nuclear–magnetic interference cross section.
+
+    .. math::
+
+        I_{\mathrm{NM}}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+        \, d\theta
+
+``Chiral_1D``
+    Azimuthally averaged chiral SANS cross section.
+
+    .. math::
+
+        I_{\chi}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+        \, d\theta
 
 ``SpinFlip_1D``
-    Radially averaged spin-flip scattering.
+    Azimuthally averaged spin-flip SANS cross section.
 
-    :math:`I^{+-}(q)`.
+    .. math::
+
+        I_{\mathrm{sf}}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+        \, d\theta
+
+``PM_SpinFlip_1D``
+    Azimuthally averaged spin-flip SANS cross section for the
+    :math:`(+,-)` polarization channel.
+
+    .. math::
+
+        I^{+-}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+        \, d\theta
+
+``MP_SpinFlip_1D``
+    Azimuthally averaged spin-flip SANS cross section for the
+    :math:`(-,+)` polarization channel.
+
+    .. math::
+
+        I^{-+}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+        \, d\theta
+
+``PP_NonSpinFlip_1D``
+    Azimuthally averaged non-spin-flip SANS cross section for the
+    :math:`(+,+)` polarization channel.
+
+    .. math::
+
+        I^{++}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+        \, d\theta
+
+``MM_NonSpinFlip_1D``
+    Azimuthally averaged non-spin-flip SANS cross section for the
+    :math:`(-,-)` polarization channel.
+
+    .. math::
+
+        I^{--}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+        \, d\theta
+
+``P_SANSPOL_1D``
+    Azimuthally averaged SANSPOL cross section for positive neutron
+    polarization.
+
+    .. math::
+
+        I^{+}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+        \, d\theta
+
+``M_SANSPOL_1D``
+    Azimuthally averaged SANSPOL cross section for negative neutron
+    polarization.
+
+    .. math::
+
+        I^{-}(q)
+        =
+        \frac{1}{2\pi}
+        \int_{0}^{2\pi}
+        \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+        \, d\theta
