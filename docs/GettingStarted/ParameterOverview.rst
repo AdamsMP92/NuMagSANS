@@ -533,3 +533,146 @@ Azimuthally averaged SANS cross sections
         \int_{0}^{2\pi}
         \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
         \, d\theta
+
+1D Correlation functions
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+In addition to the azimuthally averaged SANS cross sections :math:`I(q)`,
+NuMagSANS can compute the corresponding real-space correlation functions
+:math:`c(r)`. These functions are obtained from the scattering intensity
+via a spherical Bessel transform
+
+.. math::
+
+    c(r)
+    =
+    \int_{0}^{\infty}
+    I(q)\, j_0(qr)\, q^2 \, dq ,
+
+where :math:`j_0(x)` denotes the spherical Bessel function of order zero,
+
+.. math::
+
+    j_0(x) = \frac{\sin x}{x}.
+
+The following correlation functions can be calculated.
+
+``Nuclear_Corr_1D``
+    Correlation function of the nuclear SANS cross section.
+
+    .. math::
+
+        c_{\mathrm{N}}(r)
+        =
+        \int_{0}^{\infty}
+        I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq
+
+``Unpolarized_Corr_1D``
+    Correlation function of the unpolarized magnetic SANS cross section.
+
+    .. math::
+
+        c_{\mathrm{M}}(r)
+        =
+        \int_{0}^{\infty}
+        I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq
+
+``Polarized_Corr_1D``
+    Correlation function of the polarized magnetic SANS cross section.
+
+    .. math::
+
+        c_{\mathrm{P}}(r)
+        =
+        \int_{0}^{\infty}
+        I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq
+
+``NuclearMagnetic_Corr_1D``
+    Correlation function of the nuclear–magnetic interference SANS cross section.
+
+    .. math::
+
+        c_{\mathrm{NM}}(r)
+        =
+        \int_{0}^{\infty}
+        I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq
+
+``Chiral_Corr_1D``
+    Correlation function of the chiral SANS cross section.
+
+    .. math::
+
+        c_{\chi}(r)
+        =
+        \int_{0}^{\infty}
+        I_{\chi}(q)\, j_0(qr)\, q^2 \, dq
+
+``SpinFlip_Corr_1D``
+    Correlation function of the spin-flip SANS cross section.
+
+    .. math::
+
+        c_{\mathrm{sf}}(r)
+        =
+        \int_{0}^{\infty}
+        I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq
+
+``PM_SpinFlip_Corr_1D``
+    Correlation function of the :math:`(+,-)` spin-flip channel.
+
+    .. math::
+
+        c^{+-}(r)
+        =
+        \int_{0}^{\infty}
+        I^{+-}(q)\, j_0(qr)\, q^2 \, dq
+
+``MP_SpinFlip_Corr_1D``
+    Correlation function of the :math:`(-,+)` spin-flip channel.
+
+    .. math::
+
+        c^{-+}(r)
+        =
+        \int_{0}^{\infty}
+        I^{-+}(q)\, j_0(qr)\, q^2 \, dq
+
+``PP_NonSpinFlip_Corr_1D``
+    Correlation function of the :math:`(+,+)` non-spin-flip channel.
+
+    .. math::
+
+        c^{++}(r)
+        =
+        \int_{0}^{\infty}
+        I^{++}(q)\, j_0(qr)\, q^2 \, dq
+
+``MM_NonSpinFlip_Corr_1D``
+    Correlation function of the :math:`(-,-)` non-spin-flip channel.
+
+    .. math::
+
+        c^{--}(r)
+        =
+        \int_{0}^{\infty}
+        I^{--}(q)\, j_0(qr)\, q^2 \, dq
+
+``P_SANSPOL_Corr_1D``
+    Correlation function of the SANSPOL :math:`(+ )` channel.
+
+    .. math::
+
+        c^{+}(r)
+        =
+        \int_{0}^{\infty}
+        I^{+}(q)\, j_0(qr)\, q^2 \, dq
+
+``M_SANSPOL_Corr_1D``
+    Correlation function of the SANSPOL :math:`(- )` channel.
+
+    .. math::
+
+        c^{-}(r)
+        =
+        \int_{0}^{\infty}
+        I^{-}(q)\, j_0(qr)\, q^2 \, dq
