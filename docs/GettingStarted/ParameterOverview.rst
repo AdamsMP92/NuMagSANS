@@ -250,6 +250,8 @@ written as
         q \cos\theta
     \end{bmatrix}.
 
+In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{cm}^{-1}`.
+
 ``Nuclear_2D``
     Nuclear SANS cross section on the 2D detector.
 
@@ -586,6 +588,8 @@ The following two-dimensional correlation functions can be calculated.
 1D Azimuthally averaged SANS cross sections
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+In NuMagSANS the 1D SANS cross sections are exported in units of :math:`\mathrm{cm}^{-1}`.
+
 ``Nuclear_1D``
     Azimuthally averaged nuclear SANS cross section.
 
@@ -757,6 +761,7 @@ where :math:`j_0(x)` denotes the spherical Bessel function of order zero,
 
     j_0(x) = \frac{\sin x}{x}.
 
+In NuMagSANS the 1D correlation functions are exported in units of :math:`\mathrm{nm}^{-4}`.
 The following correlation functions can be calculated.
 
 ``Nuclear_Corr_1D``
@@ -901,6 +906,7 @@ can also be written as
     \int_{0}^{\infty}
     I(q)\, j_0(qr)\, q^2 \, dq .
 
+In NuMagSANS the 1D pair-distance distribution functions are exported in units of :math:`\mathrm{nm}^{-2}`.
 The following pair-distance distribution functions can be calculated.
 
 ``Nuclear_PairDist_1D``
