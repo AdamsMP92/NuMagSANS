@@ -1,4 +1,0 @@
-Halper-Johnson Vector
-====================
-
-
