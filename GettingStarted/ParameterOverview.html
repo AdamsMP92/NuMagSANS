@@ -639,25 +639,27 @@ scattering geometry.</p>
 </section>
 <section id="output-options">
 <h2>Output Options<a class="headerlink" href="#output-options" title="Link to this heading">#</a></h2>
+<section id="d-sans-cross-sections">
+<h3>2D SANS cross sections<a class="headerlink" href="#d-sans-cross-sections" title="Link to this heading">#</a></h3>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">Nuclear_2D</span></code></dt><dd><p>Nuclear SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
 =
-\frac{8\pi^3}{V}\, |\widetilde{N}(\mathbf{q})|^2\]</div>
+\frac{8\pi^3}{V}\, |\widetilde{N}|^2\]</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_2D</span></code></dt><dd><p>Unpolarized magnetic SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
 =
-\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}(\mathbf{q})|^2\]</div>
+\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}|^2\]</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">Polarized_2D</span></code></dt><dd><p>Auxiliary polarized magnetic SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
 =
 \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
-\left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}(\mathbf{q})\right|^2\]</div>
+\left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}\right|^2\]</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_2D</span></code></dt><dd><p>Nuclear–magnetic SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
@@ -670,9 +672,9 @@ scattering geometry.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 =
-\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
+-i\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
 \hat{\mathbf{P}}\cdot
-\left(\widetilde{\mathbf{Q}}(\mathbf{q})\times\widetilde{\mathbf{Q}}^{\ast}(\mathbf{q})\right)\]</div>
+\left(\widetilde{\mathbf{Q}}\times\widetilde{\mathbf{Q}}^{\ast}\right)\]</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_2D</span></code></dt><dd><p>Spin-flip SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
@@ -682,6 +684,63 @@ scattering geometry.</p>
 -
 \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)\]</div>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PM_SpinFlip_2D</span></code></dt><dd><p>Spin-flip SANS cross section on the 2D detector.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+=
+\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
++
+\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MP_SpinFlip_2D</span></code></dt><dd><p>Spin-flip SANS cross section on the 2D detector.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+=
+\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+-
+\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PP_NonSpinFlip_2D</span></code></dt><dd><p>Non-spin-flip SANS cross section on the 2D detector.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+=
+\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
++
+\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
++
+\frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MM_NonSpinFlip_2D</span></code></dt><dd><p>Non-spin-flip SANS cross section on the 2D detector.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+=
+\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+-
+\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
++
+\frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">P_SANSPOL_2D</span></code></dt><dd><p>Non-Spin-flip SANS cross section on the 2D detector.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+=
+\frac{d\Sigma^{++}}{d\Omega}(q,\theta)
++
+\frac{d\Sigma^{+-}}{d\Omega}(q,\theta)\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">M_SANSPOL_2D</span></code></dt><dd><p>Non-Spin-flip SANS cross section on the 2D detector.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+=
+\frac{d\Sigma^{--}}{d\Omega}(q,\theta)
++
+\frac{d\Sigma^{-+}}{d\Omega}(q,\theta)\]</div>
+</dd>
+</dl>
+</section>
+<section id="azimuthally-averaged-sans-cross-sections">
+<h3>Azimuthally averaged SANS cross sections<a class="headerlink" href="#azimuthally-averaged-sans-cross-sections" title="Link to this heading">#</a></h3>
+<dl>
 <dt><code class="docutils literal notranslate"><span class="pre">Nuclear_1D</span></code></dt><dd><p>Radially averaged nuclear scattering.</p>
 <p><span class="math notranslate nohighlight">\(I_N(q)\)</span>.</p>
 </dd>
@@ -689,6 +748,7 @@ scattering geometry.</p>
 <p><span class="math notranslate nohighlight">\(I^{+-}(q)\)</span>.</p>
 </dd>
 </dl>
+</section>
 </section>
 </section>
 
@@ -751,7 +811,11 @@ scattering geometry.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neutron-polarization">Neutron Polarization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reciprocal-space-sampling">Reciprocal Space Sampling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#angular-spectrum">Angular Spectrum</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-options">Output Options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-options">Output Options</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-sans-cross-sections">2D SANS cross sections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#azimuthally-averaged-sans-cross-sections">Azimuthally averaged SANS cross sections</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
