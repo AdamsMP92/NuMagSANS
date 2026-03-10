@@ -50,9 +50,6 @@ The following script demonstrates a minimal NuMagSANS workflow.
    sim.config_clear(config)
 
 
-Simulation Mode
----------------
-
 Data Paths and Data Selection
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -120,16 +117,54 @@ These parameters control batch simulations or repeated calculations.
 +-------------------+---------------------------------------------------+---------+
 
 
-Units
------
+Constant Parameters
+-------------------
 
-Conversion factors for coordinate units.
+``XYZ_Unit_Factor``
 
-+-------------------+---------------------------------------------------+---------+
-| Parameter         | Description                                       | Default |
-+===================+===================================================+=========+
-| ``XYZ_Unit_Factor`` | Scaling factor applied to spatial coordinates    | 1       |
-+-------------------+---------------------------------------------------+---------+
+    Conversion factors for coordinate units. Scaling factor applied to spatial coordinates.
+    This parameter is equal to ``1``, if the positional input data is in units of :math:`\mathrm{nm}`.
+    Default value ``1``
+
+``Scattering_Volume_V``
+    Effective scattering volume in units of :math:`\mathrm{m}^3`
+    Default value ``2.618e-24``
+
+``RotMat_alpha``
+    Rotation angle in degree. Rotates the sample
+    Default value ``0.0``
+
+``RotMat_beta``
+    Rotation angle in degree. Rotates the sample in the :math:`x-y`-plane.
+    Default value ``0.0``
+
+``Polarization``
+    Polarization vector (Px, Py, Pz). Defines the polarization vector of the incoming neutron beam.
+    Default ``(0,0,1)``
+
+``Number_Of_q_Points``
+    Number of sampled q values in Fourier space.
+    Default value ``1000``
+
+``Number_Of_theta_Points``
+    Number of angular sampling points in Fourier space.
+    Default value ``1000``
+
+``Number_Of_r_Points``
+    Number of sampled q values in real space (correlation).
+    Default value ``1000``
+
+``Number_Of_alpha_Points``
+    Number of angular sampling points in real space (correlation).
+    Default value ``1000``
+
+``q_max``
+    Maximum scattering vector in Fourier space in units of :math:`\mathrm{nm}^{-1}`
+    Default value ``3.0``
+
+``r_max``
+    Maximum real-space correlation distance in units of :math:`\mathrm{nm}`.
+    Default value ``15.0 ``
 
 
 Micromagnetic Parameters
@@ -147,81 +182,6 @@ cells.
 +----------------------+----------------------------------------------------+-----------+
 | ``Cuboid_Cell_Size`` | Dimensions of the discretization cell (x,y,z)      | (2,2,2)   |
 +----------------------+----------------------------------------------------+-----------+
-
-
-Scattering Volume
------------------
-
-Defines the physical scattering volume used for normalization.
-
-+----------------------+----------------------------------------------------+-----------+
-| Parameter            | Description                                        | Default   |
-+======================+====================================================+===========+
-| ``Scattering_Volume_V`` | Effective scattering volume                     | 2.618e-24 |
-+----------------------+----------------------------------------------------+-----------+
-
-
-Rotation of the Sample
-----------------------
-
-These parameters define the orientation of the sample relative to the
-scattering geometry.
-
-+-------------------+---------------------------------------------------+---------+
-| Parameter         | Description                                       | Default |
-+===================+===================================================+=========+
-| ``RotMat_alpha``  | Rotation angle around x-axis                      | 0.0     |
-+-------------------+---------------------------------------------------+---------+
-| ``RotMat_beta``   | Rotation angle around y-axis                      | 0.0     |
-+-------------------+---------------------------------------------------+---------+
-
-
-Neutron Polarization
---------------------
-
-Defines the polarization vector of the incoming neutron beam.
-
-+-------------------+---------------------------------------------------+-----------+
-| Parameter         | Description                                       | Default   |
-+===================+===================================================+===========+
-| ``Polarization``  | Polarization vector (Px, Py, Pz)                  | (0,0,1)   |
-+-------------------+---------------------------------------------------+-----------+
-
-
-Reciprocal Space Sampling
--------------------------
-
-Controls the resolution of the scattering calculation.
-
-+-----------------------------+--------------------------------------------+---------+
-| Parameter                   | Description                                | Default |
-+=============================+============================================+=========+
-| ``Number_Of_q_Points``      | Number of sampled q values                 | 1000    |
-+-----------------------------+--------------------------------------------+---------+
-| ``Number_Of_theta_Points``  | Number of angular sampling points          | 1000    |
-+-----------------------------+--------------------------------------------+---------+
-| ``Number_Of_r_Points``      | Sampling points in real-space correlations | 1000    |
-+-----------------------------+--------------------------------------------+---------+
-| ``Number_Of_alpha_Points``  | Angular resolution for correlation analysis| 1000    |
-+-----------------------------+--------------------------------------------+---------+
-| ``q_max``                   | Maximum scattering vector                  | 3.0     |
-+-----------------------------+--------------------------------------------+---------+
-| ``r_max``                   | Maximum real-space distance                | 15.0    |
-+-----------------------------+--------------------------------------------+---------+
-
-
-Angular Spectrum
-----------------
-
-Settings for angular spectrum calculations.
-
-+---------------+----------------------------------------------------+---------+
-| Parameter     | Description                                        | Default |
-+===============+====================================================+=========+
-| ``k_max``     | Maximum angular wave number                        | 10      |
-+---------------+----------------------------------------------------+---------+
-| ``Angular_Spec`` | Enable angular spectrum calculation              | 0      |
-+---------------+----------------------------------------------------+---------+
 
 
 Output Options
@@ -1042,3 +1002,17 @@ The following pair-distance distribution functions can be calculated.
         r^2
         \int_{0}^{\infty}
         I^{-}(q)\, j_0(qr)\, q^2 \, dq
+
+
+Angular Spectrum
+----------------
+
+Settings for angular spectrum calculations.
+
+``k_max``
+    Maximum angular wave number.
+    Default value ``10``
+
+``Angular_Spec``
+    Enable angular spectrum calculation. (binary selection)
+    Default value ``0``

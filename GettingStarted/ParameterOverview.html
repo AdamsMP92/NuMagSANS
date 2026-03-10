@@ -429,9 +429,6 @@ the physical model and numerical settings of the simulation.</p>
 <span class="n">sim</span><span class="o">.</span><span class="n">config_clear</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="simulation-mode">
-<h2>Simulation Mode<a class="headerlink" href="#simulation-mode" title="Link to this heading">#</a></h2>
 <section id="data-paths-and-data-selection">
 <h3>Data Paths and Data Selection<a class="headerlink" href="#data-paths-and-data-selection" title="Link to this heading">#</a></h3>
 <p>These parameters define where the simulation reads input data and where
@@ -493,9 +490,46 @@ is performed.</p>
 </table>
 </div>
 </section>
-<section id="units">
-<h2>Units<a class="headerlink" href="#units" title="Link to this heading">#</a></h2>
-<p>Conversion factors for coordinate units.</p>
+<section id="constant-parameters">
+<h2>Constant Parameters<a class="headerlink" href="#constant-parameters" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">XYZ_Unit_Factor</span></code></p>
+<blockquote>
+<div><p>Conversion factors for coordinate units. Scaling factor applied to spatial coordinates.
+This parameter is equal to <code class="docutils literal notranslate"><span class="pre">1</span></code>, if the positional input data is in units of <span class="math notranslate nohighlight">\(\mathrm{nm}\)</span>.
+Default value <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</div></blockquote>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">Scattering_Volume_V</span></code></dt><dd><p>Effective scattering volume in units of <span class="math notranslate nohighlight">\(\mathrm{m}^3\)</span>
+Default value <code class="docutils literal notranslate"><span class="pre">2.618e-24</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RotMat_alpha</span></code></dt><dd><p>Rotation angle in degree. Rotates the sample
+Default value <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RotMat_beta</span></code></dt><dd><p>Rotation angle in degree. Rotates the sample in the <span class="math notranslate nohighlight">\(x-y\)</span>-plane.
+Default value <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Polarization</span></code></dt><dd><p>Polarization vector (Px, Py, Pz). Defines the polarization vector of the incoming neutron beam.
+Default <code class="docutils literal notranslate"><span class="pre">(0,0,1)</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Number_Of_q_Points</span></code></dt><dd><p>Number of sampled q values in Fourier space.
+Default value <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Number_Of_theta_Points</span></code></dt><dd><p>Number of angular sampling points in Fourier space.
+Default value <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Number_Of_r_Points</span></code></dt><dd><p>Number of sampled q values in real space (correlation).
+Default value <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Number_Of_alpha_Points</span></code></dt><dd><p>Number of angular sampling points in real space (correlation).
+Default value <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">q_max</span></code></dt><dd><p>Maximum scattering vector in Fourier space in units of <span class="math notranslate nohighlight">\(\mathrm{nm}^{-1}\)</span>
+Default value <code class="docutils literal notranslate"><span class="pre">3.0</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">r_max</span></code></dt><dd><p>Maximum real-space correlation distance in units of <span class="math notranslate nohighlight">\(\mathrm{nm}\)</span>.
+Default value <a href="#id1"><span class="problematic" id="id2">``</span></a>15.0 ``</p>
+</dd>
+</dl>
 </section>
 <section id="micromagnetic-parameters">
 <h2>Micromagnetic Parameters<a class="headerlink" href="#micromagnetic-parameters" title="Link to this heading">#</a></h2>
@@ -519,127 +553,6 @@ cells.</p>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Cuboid_Cell_Size</span></code></p></td>
 <td><p>Dimensions of the discretization cell (x,y,z)</p></td>
 <td><p>(2,2,2)</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="scattering-volume">
-<h2>Scattering Volume<a class="headerlink" href="#scattering-volume" title="Link to this heading">#</a></h2>
-<p>Defines the physical scattering volume used for normalization.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Default</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td colspan="2"><p><code class="docutils literal notranslate"><span class="pre">Scattering_Volume_V</span></code> | Effective scattering volume</p></td>
-<td><p>2.618e-24</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="rotation-of-the-sample">
-<h2>Rotation of the Sample<a class="headerlink" href="#rotation-of-the-sample" title="Link to this heading">#</a></h2>
-<p>These parameters define the orientation of the sample relative to the
-scattering geometry.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Default</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RotMat_alpha</span></code></p></td>
-<td><p>Rotation angle around x-axis</p></td>
-<td><p>0.0</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RotMat_beta</span></code></p></td>
-<td><p>Rotation angle around y-axis</p></td>
-<td><p>0.0</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="neutron-polarization">
-<h2>Neutron Polarization<a class="headerlink" href="#neutron-polarization" title="Link to this heading">#</a></h2>
-<p>Defines the polarization vector of the incoming neutron beam.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Default</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Polarization</span></code></p></td>
-<td><p>Polarization vector (Px, Py, Pz)</p></td>
-<td><p>(0,0,1)</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="reciprocal-space-sampling">
-<h2>Reciprocal Space Sampling<a class="headerlink" href="#reciprocal-space-sampling" title="Link to this heading">#</a></h2>
-<p>Controls the resolution of the scattering calculation.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Default</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Number_Of_q_Points</span></code></p></td>
-<td><p>Number of sampled q values</p></td>
-<td><p>1000</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Number_Of_theta_Points</span></code></p></td>
-<td><p>Number of angular sampling points</p></td>
-<td><p>1000</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Number_Of_r_Points</span></code></p></td>
-<td><p>Sampling points in real-space correlations</p></td>
-<td><p>1000</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Number_Of_alpha_Points</span></code></p></td>
-<td><p>Angular resolution for correlation analysis</p></td>
-<td><p>1000</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">q_max</span></code></p></td>
-<td><p>Maximum scattering vector</p></td>
-<td><p>3.0</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">r_max</span></code></p></td>
-<td><p>Maximum real-space distance</p></td>
-<td><p>15.0</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="angular-spectrum">
-<h2>Angular Spectrum<a class="headerlink" href="#angular-spectrum" title="Link to this heading">#</a></h2>
-<p>Settings for angular spectrum calculations.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Default</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">k_max</span></code></p></td>
-<td><p>Maximum angular wave number</p></td>
-<td><p>10</p></td>
-</tr>
-<tr class="row-odd"><td colspan="3"><p><code class="docutils literal notranslate"><span class="pre">Angular_Spec</span></code> | Enable angular spectrum calculation              | 0</p></td>
 </tr>
 </tbody>
 </table>
@@ -1030,8 +943,8 @@ polarization.</p>
 </dd>
 </dl>
 </section>
-<section id="id1">
-<h3>1D Correlation functions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="id3">
+<h3>1D Correlation functions<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>In addition to the azimuthally averaged SANS cross sections <span class="math notranslate nohighlight">\(I(q)\)</span>,
 NuMagSANS can compute the corresponding real-space correlation functions
 <span class="math notranslate nohighlight">\(c(r)\)</span>. These functions are obtained from the scattering intensity
@@ -1250,6 +1163,18 @@ I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 </dl>
 </section>
 </section>
+<section id="angular-spectrum">
+<h2>Angular Spectrum<a class="headerlink" href="#angular-spectrum" title="Link to this heading">#</a></h2>
+<p>Settings for angular spectrum calculations.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">k_max</span></code></dt><dd><p>Maximum angular wave number.
+Default value <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Angular_Spec</span></code></dt><dd><p>Enable angular spectrum calculation. (binary selection)
+Default value <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
+</dl>
+</section>
 </section>
 
 
@@ -1299,28 +1224,23 @@ I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-mode">Simulation Mode</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-paths-and-data-selection">Data Paths and Data Selection</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-approach">Fourier Approach</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-control">Loop Control</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#units">Units</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-parameters">Constant Parameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#micromagnetic-parameters">Micromagnetic Parameters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scattering-volume">Scattering Volume</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rotation-of-the-sample">Rotation of the Sample</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neutron-polarization">Neutron Polarization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reciprocal-space-sampling">Reciprocal Space Sampling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#angular-spectrum">Angular Spectrum</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-options">Output Options</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-sans-cross-sections">2D SANS cross sections</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-correlation-functions">2D correlation functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-azimuthally-averaged-sans-cross-sections">1D Azimuthally averaged SANS cross sections</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1D Correlation functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1D Correlation functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-pair-distance-distribution-functions">1D Pair-distance distribution functions</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#angular-spectrum">Angular Spectrum</a></li>
 </ul>
   </nav></div>
 
