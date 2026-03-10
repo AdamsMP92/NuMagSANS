@@ -641,22 +641,46 @@ scattering geometry.</p>
 <h2>Output Options<a class="headerlink" href="#output-options" title="Link to this heading">#</a></h2>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">Nuclear_2D</span></code></dt><dd><p>Nuclear SANS cross section on the 2D detector.</p>
-<p>Formula <span class="math notranslate nohighlight">\(\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V} |N|^2\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+=
+\frac{8\pi^3}{V}\, |\widetilde{N}(\mathbf{q})|^2\]</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_2D</span></code></dt><dd><p>Unpolarized magnetic SANS cross section on the 2D detector.</p>
-<p>Formula <span class="math notranslate nohighlight">\(\frac{d\Sigma_{\mathrm{M}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}}^2 |\mathbf{Q}|^2\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+=
+\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}(\mathbf{q})|^2\]</div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Polarized_2D</span></code></dt><dd><p>Auxilliary polarized magnetic SANS cross section on the 2D detector.</p>
-<p>Formula <span class="math notranslate nohighlight">\(\frac{d\Sigma_{\mathrm{P}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}}^2 |\hat{\mathbf{P}}\cdot\mathbf{Q}|^2\)</span>.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">Polarized_2D</span></code></dt><dd><p>Auxiliary polarized magnetic SANS cross section on the 2D detector.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+=
+\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
+\left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}(\mathbf{q})\right|^2\]</div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_2D</span></code></dt><dd><p>Nuclear-Magnetic SANS cross section on the 2D detector.</p>
-<p>Formula <span class="math notranslate nohighlight">\(\frac{d\Sigma_{\mathrm{NM}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}} |\hat{\mathbf{P}}\cdot\mathbf{Q}|^2\)</span>.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_2D</span></code></dt><dd><p>Nuclear–magnetic SANS cross section on the 2D detector.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+=
+\frac{8\pi^3}{V}\, b_{\mathrm{H}}
+\hat{\mathbf{P}}\cdot\left[\widetilde{N}\widetilde{\mathbf{Q}}^{\ast}+\widetilde{N}^{\ast}\widetilde{\mathbf{Q}}\right]\]</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">Chiral_2D</span></code></dt><dd><p>Chiral SANS cross section on the 2D detector.</p>
-<p>Formula <span class="math notranslate nohighlight">\(\frac{d\Sigma_{\chi}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}}^2 \hat{\mathbf{P}}\hat{\mathbf{P}}\cdot\left(\mathbf{Q}\times\mathbf{Q}^{\ast}\right)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+=
+\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
+\hat{\mathbf{P}}\cdot
+\left(\widetilde{\mathbf{Q}}(\mathbf{q})\times\widetilde{\mathbf{Q}}^{\ast}(\mathbf{q})\right)\]</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_2D</span></code></dt><dd><p>Spin-flip SANS cross section on the 2D detector.</p>
-<p>Formula <span class="math notranslate nohighlight">\(\frac{d\Sigma_{\mathrm{sf}}{d\Omega}(q,\theta) = \frac{d\Sigma_{\mathrm{M}}{d\Omega}(q,\theta) - \frac{d\Sigma_{\mathrm{P}}{d\Omega}(q,\theta)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+=
+\frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+-
+\frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)\]</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">Nuclear_1D</span></code></dt><dd><p>Radially averaged nuclear scattering.</p>
 <p><span class="math notranslate nohighlight">\(I_N(q)\)</span>.</p>
