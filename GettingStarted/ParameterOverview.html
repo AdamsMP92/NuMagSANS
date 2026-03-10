@@ -641,6 +641,25 @@ scattering geometry.</p>
 <h2>Output Options<a class="headerlink" href="#output-options" title="Link to this heading">#</a></h2>
 <section id="d-sans-cross-sections">
 <h3>2D SANS cross sections<a class="headerlink" href="#d-sans-cross-sections" title="Link to this heading">#</a></h3>
+<p>In NuMagSANS, the incoming neutron beam is defined to propagate along the
+<span class="math notranslate nohighlight">\(x\)</span>-axis, such that the corresponding wave vector satisfies
+<span class="math notranslate nohighlight">\(\mathbf{k}_0 \parallel \mathbf{e}_x\)</span>. The two-dimensional detector
+plane is oriented perpendicular to the incident beam direction. The
+scattering vector <span class="math notranslate nohighlight">\(\mathbf{q}\)</span> on the detector can therefore be
+written as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{q} =
+\begin{bmatrix}
+    q_x \\
+    q_y \\
+    q_z
+\end{bmatrix}
+=
+\begin{bmatrix}
+    0 \\
+    q \sin\theta \\
+    q \cos\theta
+\end{bmatrix}.\end{split}\]</div>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">Nuclear_2D</span></code></dt><dd><p>Nuclear SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
@@ -741,11 +760,119 @@ scattering geometry.</p>
 <section id="azimuthally-averaged-sans-cross-sections">
 <h3>Azimuthally averaged SANS cross sections<a class="headerlink" href="#azimuthally-averaged-sans-cross-sections" title="Link to this heading">#</a></h3>
 <dl>
-<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_1D</span></code></dt><dd><p>Radially averaged nuclear scattering.</p>
-<p><span class="math notranslate nohighlight">\(I_N(q)\)</span>.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_1D</span></code></dt><dd><p>Azimuthally averaged nuclear SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[I_{\mathrm{N}}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_1D</span></code></dt><dd><p>Radially averaged spin-flip scattering.</p>
-<p><span class="math notranslate nohighlight">\(I^{+-}(q)\)</span>.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_1D</span></code></dt><dd><p>Azimuthally averaged unpolarized magnetic SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[I_{\mathrm{M}}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Polarized_1D</span></code></dt><dd><p>Azimuthally averaged polarized magnetic SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[I_{\mathrm{P}}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_1D</span></code></dt><dd><p>Azimuthally averaged nuclear–magnetic interference cross section.</p>
+<div class="math notranslate nohighlight">
+\[I_{\mathrm{NM}}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Chiral_1D</span></code></dt><dd><p>Azimuthally averaged chiral SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[I_{\chi}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_1D</span></code></dt><dd><p>Azimuthally averaged spin-flip SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[I_{\mathrm{sf}}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PM_SpinFlip_1D</span></code></dt><dd><p>Azimuthally averaged spin-flip SANS cross section for the
+<span class="math notranslate nohighlight">\((+,-)\)</span> polarization channel.</p>
+<div class="math notranslate nohighlight">
+\[I^{+-}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MP_SpinFlip_1D</span></code></dt><dd><p>Azimuthally averaged spin-flip SANS cross section for the
+<span class="math notranslate nohighlight">\((-,+)\)</span> polarization channel.</p>
+<div class="math notranslate nohighlight">
+\[I^{-+}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PP_NonSpinFlip_1D</span></code></dt><dd><p>Azimuthally averaged non-spin-flip SANS cross section for the
+<span class="math notranslate nohighlight">\((+,+)\)</span> polarization channel.</p>
+<div class="math notranslate nohighlight">
+\[I^{++}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MM_NonSpinFlip_1D</span></code></dt><dd><p>Azimuthally averaged non-spin-flip SANS cross section for the
+<span class="math notranslate nohighlight">\((-,-)\)</span> polarization channel.</p>
+<div class="math notranslate nohighlight">
+\[I^{--}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">P_SANSPOL_1D</span></code></dt><dd><p>Azimuthally averaged SANSPOL cross section for positive neutron
+polarization.</p>
+<div class="math notranslate nohighlight">
+\[I^{+}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">M_SANSPOL_1D</span></code></dt><dd><p>Azimuthally averaged SANSPOL cross section for negative neutron
+polarization.</p>
+<div class="math notranslate nohighlight">
+\[I^{-}(q)
+=
+\frac{1}{2\pi}
+\int_{0}^{2\pi}
+\frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+\, d\theta\]</div>
 </dd>
 </dl>
 </section>
