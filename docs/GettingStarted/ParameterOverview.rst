@@ -225,6 +225,9 @@ Settings for angular spectrum calculations.
 Output Options
 --------------
 
+2D SANS cross sections
+^^^^^^^^^^^^^^^^^^^^^^
+
 ``Nuclear_2D``
     Nuclear SANS cross section on the 2D detector.
 
@@ -232,7 +235,7 @@ Output Options
 
         \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
         =
-        \frac{8\pi^3}{V}\, |\widetilde{N}(\mathbf{q})|^2
+        \frac{8\pi^3}{V}\, |\widetilde{N}|^2
 
 ``Unpolarized_2D``
     Unpolarized magnetic SANS cross section on the 2D detector.
@@ -241,7 +244,7 @@ Output Options
 
         \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
         =
-        \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}(\mathbf{q})|^2
+        \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}|^2
 
 ``Polarized_2D``
     Auxiliary polarized magnetic SANS cross section on the 2D detector.
@@ -251,7 +254,7 @@ Output Options
         \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
         =
         \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
-        \left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}(\mathbf{q})\right|^2
+        \left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}\right|^2
 
 ``NuclearMagnetic_2D``
     Nuclear–magnetic SANS cross section on the 2D detector.
@@ -270,9 +273,9 @@ Output Options
 
         \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
         =
-        \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
+        -i\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
         \hat{\mathbf{P}}\cdot
-        \left(\widetilde{\mathbf{Q}}(\mathbf{q})\times\widetilde{\mathbf{Q}}^{\ast}(\mathbf{q})\right)
+        \left(\widetilde{\mathbf{Q}}\times\widetilde{\mathbf{Q}}^{\ast}\right)
 
 ``SpinFlip_2D``
     Spin-flip SANS cross section on the 2D detector.
@@ -284,6 +287,80 @@ Output Options
         \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
         -
         \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+
+``PM_SpinFlip_2D``
+    Spin-flip SANS cross section on the 2D detector.
+
+    .. math::
+
+        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+        +
+        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+
+``MP_SpinFlip_2D``
+    Spin-flip SANS cross section on the 2D detector.
+
+    .. math::
+
+        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+        -
+        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+
+
+``PP_NonSpinFlip_2D``
+    Non-spin-flip SANS cross section on the 2D detector.
+
+    .. math::
+
+        \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+        +
+        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+        +
+        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+
+``MM_NonSpinFlip_2D``
+    Non-spin-flip SANS cross section on the 2D detector.
+
+    .. math::
+
+        \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+        -
+        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+        +
+        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+
+``P_SANSPOL_2D``
+    Non-Spin-flip SANS cross section on the 2D detector.
+
+    .. math::
+
+        \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+        +
+        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+
+``M_SANSPOL_2D``
+    Non-Spin-flip SANS cross section on the 2D detector.
+
+    .. math::
+
+        \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+        +
+        \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+
+Azimuthally averaged SANS cross sections
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``Nuclear_1D``
     Radially averaged nuclear scattering.
