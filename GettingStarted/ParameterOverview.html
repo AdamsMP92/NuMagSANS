@@ -430,41 +430,32 @@ the physical model and numerical settings of the simulation.</p>
 </pre></div>
 </div>
 </section>
-<section id="data-paths">
-<h2>Data Paths<a class="headerlink" href="#data-paths" title="Link to this heading">#</a></h2>
+<section id="simulation-mode">
+<h2>Simulation Mode<a class="headerlink" href="#simulation-mode" title="Link to this heading">#</a></h2>
+<section id="data-paths-and-data-selection">
+<h3>Data Paths and Data Selection<a class="headerlink" href="#data-paths-and-data-selection" title="Link to this heading">#</a></h3>
 <p>These parameters define where the simulation reads input data and where
 results are written.</p>
-</section>
-<section id="data-selection">
-<h2>Data Selection<a class="headerlink" href="#data-selection" title="Link to this heading">#</a></h2>
-<p>These flags control which datasets are used by the simulation.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Parameter</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Default</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NucData_activate</span></code></p></td>
-<td><p>Activate nuclear scattering data</p></td>
-<td><p>0</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData_activate</span></code></p></td>
-<td><p>Activate magnetic moment data</p></td>
-<td><p>0</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">StructData_activate</span></code></p></td>
-<td><p>Activate structural data input</p></td>
-<td><p>0</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Exclude_Zero_Moments</span></code></p></td>
-<td><p>Ignore atoms or cells with zero magnetic moment</p></td>
-<td><p>0</p></td>
-</tr>
-</tbody>
-</table>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">NucDataPath</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/NucData</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NucData_activate</span></code></dt><dd><p>Default value 0</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MagDataPath</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/MagData</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MagData_activate</span></code></dt><dd><p>Default value 0</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">StructDataFilename</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/StructData.csv</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">StructData_activate</span></code></dt><dd><p>Default value 0</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">foldernameSANSData</span></code></dt><dd><p>Default <code class="docutils literal notranslate"><span class="pre">NuMagSANS_Output</span></code></p>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Exclude_Zero_Moments</span></code></div>
 </div>
+</section>
 </section>
 <section id="fourier-approach">
 <h2>Fourier Approach<a class="headerlink" href="#fourier-approach" title="Link to this heading">#</a></h2>
@@ -1309,8 +1300,10 @@ I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-paths">Data Paths</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-selection">Data Selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-mode">Simulation Mode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-paths-and-data-selection">Data Paths and Data Selection</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-approach">Fourier Approach</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-control">Loop Control</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#units">Units</a></li>

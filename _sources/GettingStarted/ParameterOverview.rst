@@ -50,41 +50,43 @@ The following script demonstrates a minimal NuMagSANS workflow.
    sim.config_clear(config)
 
 
-Data Paths
-----------
+Simulation Mode
+---------------
+
+Data Paths and Data Selection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 These parameters define where the simulation reads input data and where
 results are written.
 
-+---------------------+------------------------------------------------------------+------------------------------+
-| Parameter           | Description                                                | Default                      |
-+=====================+============================================================+==============================+
-| ``NucDataPath``     | Path to nuclear real-space scattering data                 | ``RealSpaceData/NucData``    |
-+---------------------+------------------------------------------------------------+------------------------------+
-| ``MagDataPath``     | Path to magnetic real-space moment data                    | ``RealSpaceData/MagData``    |
-+---------------------+------------------------------------------------------------+------------------------------+
-| ``StructDataFilename`` | Structural data file describing atomic positions       | ``RealSpaceData/StructData.csv`` |
-+---------------------+------------------------------------------------------------+------------------------------+
-| ``foldernameSANSData`` | Output directory where scattering data is written      | ``NuMagSANS_Output``         |
-+---------------------+------------------------------------------------------------+------------------------------+
+``NucDataPath``  
+    Default path ``RealSpaceData/NucData``
+
+``NucData_activate``
+    Default value 0
+
+``MagDataPath`` 
+    Default path ``RealSpaceData/MagData``
+
+``MagData_activate``
+    Default value 0
+
+``StructDataFilename``
+    Default path ``RealSpaceData/StructData.csv``
+
+``StructData_activate``
+    Default value 0
+
+``foldernameSANSData``
+    Default ``NuMagSANS_Output``
 
 
-Data Selection
---------------
 
-These flags control which datasets are used by the simulation.
 
-+-------------------------+-----------------------------------------------------------+---------+
-| Parameter               | Description                                               | Default |
-+=========================+===========================================================+=========+
-| ``NucData_activate``    | Activate nuclear scattering data                          | 0       |
-+-------------------------+-----------------------------------------------------------+---------+
-| ``MagData_activate``    | Activate magnetic moment data                             | 0       |
-+-------------------------+-----------------------------------------------------------+---------+
-| ``StructData_activate`` | Activate structural data input                            | 0       |
-+-------------------------+-----------------------------------------------------------+---------+
-| ``Exclude_Zero_Moments``| Ignore atoms or cells with zero magnetic moment           | 0       |
-+-------------------------+-----------------------------------------------------------+---------+
+
+
+| ``Exclude_Zero_Moments``
+ 
 
 
 Fourier Approach
