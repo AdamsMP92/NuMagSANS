@@ -63,7 +63,7 @@ html_theme_options = {
     ],
     "header_links_before_dropdown": 6,
     "logo": {
-        "text": "Documentation",
+        "text": " ",
     },
     "secondary_sidebar_items": ["page-toc"],
 }
