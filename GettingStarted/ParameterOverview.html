@@ -636,6 +636,23 @@ scattering geometry.</p>
 <section id="angular-spectrum">
 <h2>Angular Spectrum<a class="headerlink" href="#angular-spectrum" title="Link to this heading">#</a></h2>
 <p>Settings for angular spectrum calculations.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">k_max</span></code></p></td>
+<td><p>Maximum angular wave number</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-odd"><td colspan="3"><p><code class="docutils literal notranslate"><span class="pre">Angular_Spec</span></code> | Enable angular spectrum calculation              | 0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="output-options">
 <h2>Output Options<a class="headerlink" href="#output-options" title="Link to this heading">#</a></h2>
@@ -757,8 +774,152 @@ written as</p>
 </dd>
 </dl>
 </section>
-<section id="azimuthally-averaged-sans-cross-sections">
-<h3>Azimuthally averaged SANS cross sections<a class="headerlink" href="#azimuthally-averaged-sans-cross-sections" title="Link to this heading">#</a></h3>
+<section id="d-correlation-functions">
+<h3>2D correlation functions<a class="headerlink" href="#d-correlation-functions" title="Link to this heading">#</a></h3>
+<p>NuMagSANS can compute two-dimensional real-space correlation functions from
+the detector-plane SANS cross sections. The real-space vector in the detector
+plane is parameterized as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf r =
+\begin{bmatrix}
+    0 \\
+    r\sin\alpha \\
+    r\cos\alpha
+\end{bmatrix},\end{split}\]</div>
+<p>while the scattering vector in reciprocal space is written as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf q =
+\begin{bmatrix}
+    0 \\
+    q\sin\theta \\
+    q\cos\theta
+\end{bmatrix}.\end{split}\]</div>
+<p>Using these parametrizations the scalar product becomes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf q\cdot\mathbf r = qr\cos(\theta-\alpha).\]</div>
+<p>The two-dimensional correlation functions are obtained from the SANS cross
+sections via the cosine transform</p>
+<div class="math notranslate nohighlight">
+\[C(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta .\]</div>
+<p>The following two-dimensional correlation functions can be calculated.</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_Corr_2D</span></code></dt><dd><p>2D correlation function of the nuclear SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[C_{\mathrm N}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma_{\mathrm N}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_Corr_2D</span></code></dt><dd><p>2D correlation function of the unpolarized magnetic SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[C_{\mathrm M}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma_{\mathrm M}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Polarized_Corr_2D</span></code></dt><dd><p>2D correlation function of the polarized magnetic SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[C_{\mathrm P}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma_{\mathrm P}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_Corr_2D</span></code></dt><dd><p>2D correlation function of the nuclear–magnetic interference SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[C_{\mathrm{NM}}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_Corr_2D</span></code></dt><dd><p>2D correlation function of the spin-flip SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[C_{\mathrm{sf}}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Chiral_Corr_2D</span></code></dt><dd><p>2D correlation function of the chiral SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[C_{\chi}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PM_SpinFlip_Corr_2D</span></code></dt><dd><p>2D correlation function of the <span class="math notranslate nohighlight">\((+,-)\)</span> spin-flip channel.</p>
+<div class="math notranslate nohighlight">
+\[C^{+-}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MP_SpinFlip_Corr_2D</span></code></dt><dd><p>2D correlation function of the <span class="math notranslate nohighlight">\((-,+)\)</span> spin-flip channel.</p>
+<div class="math notranslate nohighlight">
+\[C^{-+}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PP_NonSpinFlip_Corr_2D</span></code></dt><dd><p>2D correlation function of the <span class="math notranslate nohighlight">\((+,+)\)</span> non-spin-flip channel.</p>
+<div class="math notranslate nohighlight">
+\[C^{++}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MM_NonSpinFlip_Corr_2D</span></code></dt><dd><p>2D correlation function of the <span class="math notranslate nohighlight">\((-,-)\)</span> non-spin-flip channel.</p>
+<div class="math notranslate nohighlight">
+\[C^{--}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">P_SANSPOL_Corr_2D</span></code></dt><dd><p>2D correlation function of the SANSPOL <span class="math notranslate nohighlight">\((+ )\)</span> channel.</p>
+<div class="math notranslate nohighlight">
+\[C^{+}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">M_SANSPOL_Corr_2D</span></code></dt><dd><p>2D correlation function of the SANSPOL <span class="math notranslate nohighlight">\((- )\)</span> channel.</p>
+<div class="math notranslate nohighlight">
+\[C^{-}(r,\alpha)
+=
+\int_{0}^{\infty}\int_{0}^{2\pi}
+\frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+\cos\left(qr\cos(\theta-\alpha)\right)
+q\,dq\,d\theta\]</div>
+</dd>
+</dl>
+</section>
+<section id="d-azimuthally-averaged-sans-cross-sections">
+<h3>1D Azimuthally averaged SANS cross sections<a class="headerlink" href="#d-azimuthally-averaged-sans-cross-sections" title="Link to this heading">#</a></h3>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">Nuclear_1D</span></code></dt><dd><p>Azimuthally averaged nuclear SANS cross section.</p>
 <div class="math notranslate nohighlight">
@@ -876,8 +1037,8 @@ polarization.</p>
 </dd>
 </dl>
 </section>
-<section id="d-correlation-functions">
-<h3>1D Correlation functions<a class="headerlink" href="#d-correlation-functions" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h3>1D Correlation functions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>In addition to the azimuthally averaged SANS cross sections <span class="math notranslate nohighlight">\(I(q)\)</span>,
 NuMagSANS can compute the corresponding real-space correlation functions
 <span class="math notranslate nohighlight">\(c(r)\)</span>. These functions are obtained from the scattering intensity
@@ -978,8 +1139,8 @@ I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 </dd>
 </dl>
 </section>
-<section id="pair-distance-distribution-functions">
-<h3>Pair-distance distribution functions<a class="headerlink" href="#pair-distance-distribution-functions" title="Link to this heading">#</a></h3>
+<section id="d-pair-distance-distribution-functions">
+<h3>1D Pair-distance distribution functions<a class="headerlink" href="#d-pair-distance-distribution-functions" title="Link to this heading">#</a></h3>
 <p>In addition to the correlation functions <span class="math notranslate nohighlight">\(c(r)\)</span>, NuMagSANS can compute
 the corresponding pair-distance distribution functions <span class="math notranslate nohighlight">\(p(r)\)</span>. These
 functions are obtained from the correlation functions via</p>
@@ -1157,9 +1318,10 @@ I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#angular-spectrum">Angular Spectrum</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-options">Output Options</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-sans-cross-sections">2D SANS cross sections</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#azimuthally-averaged-sans-cross-sections">Azimuthally averaged SANS cross sections</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-correlation-functions">1D Correlation functions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pair-distance-distribution-functions">Pair-distance distribution functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-correlation-functions">2D correlation functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-azimuthally-averaged-sans-cross-sections">1D Azimuthally averaged SANS cross sections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1D Correlation functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-pair-distance-distribution-functions">1D Pair-distance distribution functions</a></li>
 </ul>
 </li>
 </ul>

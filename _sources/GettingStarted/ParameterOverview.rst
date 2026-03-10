@@ -218,7 +218,7 @@ Settings for angular spectrum calculations.
 +===============+====================================================+=========+
 | ``k_max``     | Maximum angular wave number                        | 10      |
 +---------------+----------------------------------------------------+---------+
-| ``Angular_Spec`` | Enable angular spectrum calculation              | 0       |
+| ``Angular_Spec`` | Enable angular spectrum calculation              | 0      |
 +---------------+----------------------------------------------------+---------+
 
 
@@ -381,8 +381,210 @@ written as
         +
         \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
 
-Azimuthally averaged SANS cross sections
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2D correlation functions
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+NuMagSANS can compute two-dimensional real-space correlation functions from
+the detector-plane SANS cross sections. The real-space vector in the detector
+plane is parameterized as
+
+.. math::
+
+    \mathbf r =
+    \begin{bmatrix}
+        0 \\
+        r\sin\alpha \\
+        r\cos\alpha
+    \end{bmatrix},
+
+while the scattering vector in reciprocal space is written as
+
+.. math::
+
+    \mathbf q =
+    \begin{bmatrix}
+        0 \\
+        q\sin\theta \\
+        q\cos\theta
+    \end{bmatrix}.
+
+Using these parametrizations the scalar product becomes
+
+.. math::
+
+    \mathbf q\cdot\mathbf r = qr\cos(\theta-\alpha).
+
+The two-dimensional correlation functions are obtained from the SANS cross
+sections via the cosine transform
+
+.. math::
+
+    C(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta .
+
+The following two-dimensional correlation functions can be calculated.
+
+``Nuclear_Corr_2D``
+    2D correlation function of the nuclear SANS cross section.
+
+    .. math::
+
+        C_{\mathrm N}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma_{\mathrm N}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``Unpolarized_Corr_2D``
+    2D correlation function of the unpolarized magnetic SANS cross section.
+
+    .. math::
+
+        C_{\mathrm M}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma_{\mathrm M}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``Polarized_Corr_2D``
+    2D correlation function of the polarized magnetic SANS cross section.
+
+    .. math::
+
+        C_{\mathrm P}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma_{\mathrm P}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``NuclearMagnetic_Corr_2D``
+    2D correlation function of the nuclear–magnetic interference SANS cross section.
+
+    .. math::
+
+        C_{\mathrm{NM}}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``SpinFlip_Corr_2D``
+    2D correlation function of the spin-flip SANS cross section.
+
+    .. math::
+
+        C_{\mathrm{sf}}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``Chiral_Corr_2D``
+    2D correlation function of the chiral SANS cross section.
+
+    .. math::
+
+        C_{\chi}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``PM_SpinFlip_Corr_2D``
+    2D correlation function of the :math:`(+,-)` spin-flip channel.
+
+    .. math::
+
+        C^{+-}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``MP_SpinFlip_Corr_2D``
+    2D correlation function of the :math:`(-,+)` spin-flip channel.
+
+    .. math::
+
+        C^{-+}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``PP_NonSpinFlip_Corr_2D``
+    2D correlation function of the :math:`(+,+)` non-spin-flip channel.
+
+    .. math::
+
+        C^{++}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``MM_NonSpinFlip_Corr_2D``
+    2D correlation function of the :math:`(-,-)` non-spin-flip channel.
+
+    .. math::
+
+        C^{--}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``P_SANSPOL_Corr_2D``
+    2D correlation function of the SANSPOL :math:`(+ )` channel.
+
+    .. math::
+
+        C^{+}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+
+``M_SANSPOL_Corr_2D``
+    2D correlation function of the SANSPOL :math:`(- )` channel.
+
+    .. math::
+
+        C^{-}(r,\alpha)
+        =
+        \int_{0}^{\infty}\int_{0}^{2\pi}
+        \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+        \cos\left(qr\cos(\theta-\alpha)\right)
+        q\,dq\,d\theta
+
+1D Azimuthally averaged SANS cross sections
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``Nuclear_1D``
     Azimuthally averaged nuclear SANS cross section.
@@ -677,8 +879,8 @@ The following correlation functions can be calculated.
         \int_{0}^{\infty}
         I^{-}(q)\, j_0(qr)\, q^2 \, dq
 
-Pair-distance distribution functions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1D Pair-distance distribution functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In addition to the correlation functions :math:`c(r)`, NuMagSANS can compute
 the corresponding pair-distance distribution functions :math:`p(r)`. These
