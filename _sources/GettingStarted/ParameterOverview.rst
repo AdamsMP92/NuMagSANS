@@ -226,19 +226,35 @@ Output Options
 --------------
 
 ``Nuclear_2D``
-    Nuclear scattering intensity on a 2D detector.
+    Nuclear SANS cross section on the 2D detector.
 
-    Corresponds to :math:`I_N(q_x, q_y)`.
+    Formula :math:`\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V} |N|^2`.
 
 ``Unpolarized_2D``
-    Total unpolarized scattering cross section.
+    Unpolarized magnetic SANS cross section on the 2D detector.
 
-    :math:`I(q_x, q_y) = I_N + I_M`.
+    Formula :math:`\frac{d\Sigma_{\mathrm{M}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}}^2 |\mathbf{Q}|^2`.
+
+``Polarized_2D``
+    Auxilliary polarized magnetic SANS cross section on the 2D detector.
+
+    Formula :math:`\frac{d\Sigma_{\mathrm{P}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}}^2 |\hat{\mathbf{P}}\cdot\mathbf{Q}|^2`.
+
+``NuclearMagnetic_2D``
+    Nuclear-Magnetic SANS cross section on the 2D detector.
+
+    Formula :math:`\frac{d\Sigma_{\mathrm{NM}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}} |\hat{\mathbf{P}}\cdot\mathbf{Q}|^2`.
+
+``Chiral_2D``
+    Chiral SANS cross section on the 2D detector.
+
+    Formula :math:`\frac{d\Sigma_{\chi}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}}^2 \hat{\mathbf{P}}\hat{\mathbf{P}}\cdot\left(\mathbf{Q}\times\mathbf{Q}^{\ast}\right)`.
 
 ``SpinFlip_2D``
-    Spin-flip magnetic scattering.
+    Spin-flip SANS cross section on the 2D detector.
 
-    :math:`I^{+-}(q_x, q_y)`.
+    Formula :math:`\frac{d\Sigma_{\mathrm{sf}}{d\Omega}(q,\theta) = \frac{d\Sigma_{\mathrm{M}}{d\Omega}(q,\theta) - \frac{d\Sigma_{\mathrm{P}}{d\Omega}(q,\theta)`.
+
 
 ``Nuclear_1D``
     Radially averaged nuclear scattering.
