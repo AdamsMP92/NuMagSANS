@@ -676,3 +676,159 @@ The following correlation functions can be calculated.
         =
         \int_{0}^{\infty}
         I^{-}(q)\, j_0(qr)\, q^2 \, dq
+
+Pair-distance distribution functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In addition to the correlation functions :math:`c(r)`, NuMagSANS can compute
+the corresponding pair-distance distribution functions :math:`p(r)`. These
+functions are obtained from the correlation functions via
+
+.. math::
+
+    p(r) = r^2 c(r).
+
+Using the definition of :math:`c(r)`, the pair-distance distribution function
+can also be written as
+
+.. math::
+
+    p(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I(q)\, j_0(qr)\, q^2 \, dq .
+
+The following pair-distance distribution functions can be calculated.
+
+``Nuclear_PairDist_1D``
+    Pair-distance distribution function of the nuclear SANS cross section.
+
+    .. math::
+
+        p_{\mathrm{N}}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq
+
+``Unpolarized_PairDist_1D``
+    Pair-distance distribution function of the unpolarized magnetic SANS cross section.
+
+    .. math::
+
+        p_{\mathrm{M}}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq
+
+``Polarized_PairDist_1D``
+    Pair-distance distribution function of the polarized magnetic SANS cross section.
+
+    .. math::
+
+        p_{\mathrm{P}}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq
+
+``NuclearMagnetic_PairDist_1D``
+    Pair-distance distribution function of the nuclear–magnetic interference SANS cross section.
+
+    .. math::
+
+        p_{\mathrm{NM}}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq
+
+``Chiral_PairDist_1D``
+    Pair-distance distribution function of the chiral SANS cross section.
+
+    .. math::
+
+        p_{\chi}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I_{\chi}(q)\, j_0(qr)\, q^2 \, dq
+
+``SpinFlip_PairDist_1D``
+    Pair-distance distribution function of the spin-flip SANS cross section.
+
+    .. math::
+
+        p_{\mathrm{sf}}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq
+
+``PM_SpinFlip_PairDist_1D``
+    Pair-distance distribution function of the :math:`(+,-)` spin-flip channel.
+
+    .. math::
+
+        p^{+-}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I^{+-}(q)\, j_0(qr)\, q^2 \, dq
+
+``MP_SpinFlip_PairDist_1D``
+    Pair-distance distribution function of the :math:`(-,+)` spin-flip channel.
+
+    .. math::
+
+        p^{-+}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I^{-+}(q)\, j_0(qr)\, q^2 \, dq
+
+``PP_NonSpinFlip_PairDist_1D``
+    Pair-distance distribution function of the :math:`(+,+)` non-spin-flip channel.
+
+    .. math::
+
+        p^{++}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I^{++}(q)\, j_0(qr)\, q^2 \, dq
+
+``MM_NonSpinFlip_PairDist_1D``
+    Pair-distance distribution function of the :math:`(-,-)` non-spin-flip channel.
+
+    .. math::
+
+        p^{--}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I^{--}(q)\, j_0(qr)\, q^2 \, dq
+
+``P_SANSPOL_PairDist_1D``
+    Pair-distance distribution function of the SANSPOL :math:`(+ )` channel.
+
+    .. math::
+
+        p^{+}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I^{+}(q)\, j_0(qr)\, q^2 \, dq
+
+``M_SANSPOL_PairDist_1D``
+    Pair-distance distribution function of the SANSPOL :math:`(- )` channel.
+
+    .. math::
+
+        p^{-}(r)
+        =
+        r^2
+        \int_{0}^{\infty}
+        I^{-}(q)\, j_0(qr)\, q^2 \, dq
