@@ -228,33 +228,62 @@ Output Options
 ``Nuclear_2D``
     Nuclear SANS cross section on the 2D detector.
 
-    Formula :math:`\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V} |N|^2`.
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+        =
+        \frac{8\pi^3}{V}\, |\widetilde{N}(\mathbf{q})|^2
 
 ``Unpolarized_2D``
     Unpolarized magnetic SANS cross section on the 2D detector.
 
-    Formula :math:`\frac{d\Sigma_{\mathrm{M}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}}^2 |\mathbf{Q}|^2`.
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+        =
+        \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}(\mathbf{q})|^2
 
 ``Polarized_2D``
-    Auxilliary polarized magnetic SANS cross section on the 2D detector.
+    Auxiliary polarized magnetic SANS cross section on the 2D detector.
 
-    Formula :math:`\frac{d\Sigma_{\mathrm{P}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}}^2 |\hat{\mathbf{P}}\cdot\mathbf{Q}|^2`.
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+        =
+        \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
+        \left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}(\mathbf{q})\right|^2
 
 ``NuclearMagnetic_2D``
-    Nuclear-Magnetic SANS cross section on the 2D detector.
+    Nuclear–magnetic SANS cross section on the 2D detector.
 
-    Formula :math:`\frac{d\Sigma_{\mathrm{NM}}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}} |\hat{\mathbf{P}}\cdot\mathbf{Q}|^2`.
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+        =
+        \frac{8\pi^3}{V}\, b_{\mathrm{H}}
+        \hat{\mathbf{P}}\cdot\left[\widetilde{N}\widetilde{\mathbf{Q}}^{\ast}+\widetilde{N}^{\ast}\widetilde{\mathbf{Q}}\right]
 
 ``Chiral_2D``
     Chiral SANS cross section on the 2D detector.
 
-    Formula :math:`\frac{d\Sigma_{\chi}{d\Omega}(q,\theta) = \frac{8\pi^3}{V}b_{\mathrm{H}}^2 \hat{\mathbf{P}}\hat{\mathbf{P}}\cdot\left(\mathbf{Q}\times\mathbf{Q}^{\ast}\right)`.
+    .. math::
+
+        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+        =
+        \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
+        \hat{\mathbf{P}}\cdot
+        \left(\widetilde{\mathbf{Q}}(\mathbf{q})\times\widetilde{\mathbf{Q}}^{\ast}(\mathbf{q})\right)
 
 ``SpinFlip_2D``
     Spin-flip SANS cross section on the 2D detector.
 
-    Formula :math:`\frac{d\Sigma_{\mathrm{sf}}{d\Omega}(q,\theta) = \frac{d\Sigma_{\mathrm{M}}{d\Omega}(q,\theta) - \frac{d\Sigma_{\mathrm{P}}{d\Omega}(q,\theta)`.
+    .. math::
 
+        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+        -
+        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
 
 ``Nuclear_1D``
     Radially averaged nuclear scattering.
