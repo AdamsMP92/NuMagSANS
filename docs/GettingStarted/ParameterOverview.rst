@@ -121,7 +121,6 @@ Constant Parameters
 -------------------
 
 ``XYZ_Unit_Factor``
-
     Conversion factors for coordinate units. Scaling factor applied to spatial coordinates.
     This parameter is equal to ``1``, if the positional input data is in units of :math:`\mathrm{nm}`.
     Default value ``1``
