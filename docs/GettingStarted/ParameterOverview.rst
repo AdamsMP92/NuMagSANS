@@ -248,7 +248,7 @@ Typical examples include:
 +---------------------+---------------------------------------------+
 | Output              | Description                                 |
 +=====================+=============================================+
-| ``Nuclear_2D``      | Nuclear scattering intensity (2D detector)  |
+| ``Nuclear_2D``      | Nuclear scattering intensity :math:`\frac{d\Sigma_{N}}{d\Omega}`  |
 +---------------------+---------------------------------------------+
 | ``Unpolarized_2D``  | Total unpolarized scattering cross section  |
 +---------------------+---------------------------------------------+
