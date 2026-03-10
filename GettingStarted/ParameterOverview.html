@@ -876,6 +876,108 @@ polarization.</p>
 </dd>
 </dl>
 </section>
+<section id="d-correlation-functions">
+<h3>1D Correlation functions<a class="headerlink" href="#d-correlation-functions" title="Link to this heading">#</a></h3>
+<p>In addition to the azimuthally averaged SANS cross sections <span class="math notranslate nohighlight">\(I(q)\)</span>,
+NuMagSANS can compute the corresponding real-space correlation functions
+<span class="math notranslate nohighlight">\(c(r)\)</span>. These functions are obtained from the scattering intensity
+via a spherical Bessel transform</p>
+<div class="math notranslate nohighlight">
+\[c(r)
+=
+\int_{0}^{\infty}
+I(q)\, j_0(qr)\, q^2 \, dq ,\]</div>
+<p>where <span class="math notranslate nohighlight">\(j_0(x)\)</span> denotes the spherical Bessel function of order zero,</p>
+<div class="math notranslate nohighlight">
+\[j_0(x) = \frac{\sin x}{x}.\]</div>
+<p>The following correlation functions can be calculated.</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_Corr_1D</span></code></dt><dd><p>Correlation function of the nuclear SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[c_{\mathrm{N}}(r)
+=
+\int_{0}^{\infty}
+I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_Corr_1D</span></code></dt><dd><p>Correlation function of the unpolarized magnetic SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[c_{\mathrm{M}}(r)
+=
+\int_{0}^{\infty}
+I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Polarized_Corr_1D</span></code></dt><dd><p>Correlation function of the polarized magnetic SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[c_{\mathrm{P}}(r)
+=
+\int_{0}^{\infty}
+I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_Corr_1D</span></code></dt><dd><p>Correlation function of the nuclear–magnetic interference SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[c_{\mathrm{NM}}(r)
+=
+\int_{0}^{\infty}
+I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Chiral_Corr_1D</span></code></dt><dd><p>Correlation function of the chiral SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[c_{\chi}(r)
+=
+\int_{0}^{\infty}
+I_{\chi}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_Corr_1D</span></code></dt><dd><p>Correlation function of the spin-flip SANS cross section.</p>
+<div class="math notranslate nohighlight">
+\[c_{\mathrm{sf}}(r)
+=
+\int_{0}^{\infty}
+I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PM_SpinFlip_Corr_1D</span></code></dt><dd><p>Correlation function of the <span class="math notranslate nohighlight">\((+,-)\)</span> spin-flip channel.</p>
+<div class="math notranslate nohighlight">
+\[c^{+-}(r)
+=
+\int_{0}^{\infty}
+I^{+-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MP_SpinFlip_Corr_1D</span></code></dt><dd><p>Correlation function of the <span class="math notranslate nohighlight">\((-,+)\)</span> spin-flip channel.</p>
+<div class="math notranslate nohighlight">
+\[c^{-+}(r)
+=
+\int_{0}^{\infty}
+I^{-+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PP_NonSpinFlip_Corr_1D</span></code></dt><dd><p>Correlation function of the <span class="math notranslate nohighlight">\((+,+)\)</span> non-spin-flip channel.</p>
+<div class="math notranslate nohighlight">
+\[c^{++}(r)
+=
+\int_{0}^{\infty}
+I^{++}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MM_NonSpinFlip_Corr_1D</span></code></dt><dd><p>Correlation function of the <span class="math notranslate nohighlight">\((-,-)\)</span> non-spin-flip channel.</p>
+<div class="math notranslate nohighlight">
+\[c^{--}(r)
+=
+\int_{0}^{\infty}
+I^{--}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">P_SANSPOL_Corr_1D</span></code></dt><dd><p>Correlation function of the SANSPOL <span class="math notranslate nohighlight">\((+ )\)</span> channel.</p>
+<div class="math notranslate nohighlight">
+\[c^{+}(r)
+=
+\int_{0}^{\infty}
+I^{+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">M_SANSPOL_Corr_1D</span></code></dt><dd><p>Correlation function of the SANSPOL <span class="math notranslate nohighlight">\((- )\)</span> channel.</p>
+<div class="math notranslate nohighlight">
+\[c^{-}(r)
+=
+\int_{0}^{\infty}
+I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+</dd>
+</dl>
+</section>
 </section>
 </section>
 
@@ -941,6 +1043,7 @@ polarization.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-options">Output Options</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-sans-cross-sections">2D SANS cross sections</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#azimuthally-averaged-sans-cross-sections">Azimuthally averaged SANS cross sections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-correlation-functions">1D Correlation functions</a></li>
 </ul>
 </li>
 </ul>
