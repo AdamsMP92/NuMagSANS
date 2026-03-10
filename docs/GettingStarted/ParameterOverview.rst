@@ -222,39 +222,30 @@ Settings for angular spectrum calculations.
 +---------------+----------------------------------------------------+---------+
 
 
-Output Selection
-----------------
+Output Options
+--------------
 
-Simulation outputs are controlled through the ``enable_outputs`` argument.
+``Nuclear_2D``
+    Nuclear scattering intensity on a 2D detector.
 
-Example:
+    Corresponds to :math:`I_N(q_x, q_y)`.
 
-.. code-block:: python
+``Unpolarized_2D``
+    Total unpolarized scattering cross section.
 
-    sim.write_config(
-        "simulation.conf",
-        enable_outputs=[
-            "Unpolarized_2D",
-            "SpinFlip_2D"
-        ]
-    )
+    :math:`I(q_x, q_y) = I_N + I_M`.
 
-Each output corresponds to a specific scattering quantity calculated by
-the backend. Internally these outputs are written to the output folder
-defined by ``foldernameSANSData``.
+``SpinFlip_2D``
+    Spin-flip magnetic scattering.
 
-Typical examples include:
+    :math:`I^{+-}(q_x, q_y)`.
 
-+---------------------+---------------------------------------------+
-| Output              | Description                                 |
-+=====================+=============================================+
-| ``Nuclear_2D``      | Nuclear scattering intensity :math:`\frac{d\Sigma_{N}}{d\Omega}`  |
-+---------------------+---------------------------------------------+
-| ``Unpolarized_2D``  | Total unpolarized scattering cross section  |
-+---------------------+---------------------------------------------+
-| ``SpinFlip_2D``     | Spin-flip magnetic scattering               |
-+---------------------+---------------------------------------------+
-| ``Nuclear_1D``      | Radially averaged nuclear scattering        |
-+---------------------+---------------------------------------------+
-| ``SpinFlip_1D``     | Radially averaged spin-flip scattering      |
-+---------------------+---------------------------------------------+
+``Nuclear_1D``
+    Radially averaged nuclear scattering.
+
+    :math:`I_N(q)`.
+
+``SpinFlip_1D``
+    Radially averaged spin-flip scattering.
+
+    :math:`I^{+-}(q)`.
