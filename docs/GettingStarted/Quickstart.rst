@@ -49,7 +49,6 @@ https://hpc-docs.uni.lu
 
 .. code-block:: bash
 
-   # start interactive GPU session
    salloc -p interactive --gpus 1 --cpus-per-gpu 1 --mem 8G --time=60
 
    module purge
@@ -65,7 +64,6 @@ https://computational-science.mpsd.mpg.de/about.html
 
 .. code-block:: bash
 
-   # start interactive GPU session
    salloc -p gpu-interactive --gpus 1 --cpus-per-gpu 1 --mem 8G --time=60
 
    module purge
