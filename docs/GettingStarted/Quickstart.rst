@@ -33,6 +33,49 @@ Windows PowerShell
    cl
    python --version
 
+HPC Example Environments
+------------------------
+
+Many HPC clusters provide software through environment modules.
+Module names and partitions vary between systems.
+
+The following examples illustrate typical setups on two HPC systems.
+Adjust the module names according to your cluster.
+
+Example: IRIS HPC (University of Luxembourg)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+https://hpc-docs.uni.lu
+
+.. code-block:: bash
+
+   # start interactive GPU session
+   salloc -p interactive --gpus 1 --cpus-per-gpu 1 --mem 8G --time=60
+
+   module purge
+   module load lib/GDRCopy/2.4-GCCcore-13.2.0
+   module load lang/Python/3.11.5-GCCcore-13.2.0
+   module load system/CUDA/12.6.0
+   module load devel/CMake/3.27.6-GCCcore-13.2.0
+
+Example: MPSD HPC (Hamburg)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+https://computational-science.mpsd.mpg.de/about.html
+
+.. code-block:: bash
+
+   # start interactive GPU session
+   salloc -p gpu-interactive --gpus 1 --cpus-per-gpu 1 --mem 8G --time=60
+
+   module purge
+   mpsd-modules 25c native
+
+   module load gcc/13.2.0
+   module load python/3.11.7
+   module load cuda/12.6.2
+   module load cmake/3.27.9
+
 Quick Build NuMagSANS
 ---------------------
 
