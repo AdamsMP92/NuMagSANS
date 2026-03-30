@@ -226,28 +226,27 @@ Program Listing for File NuMagSANSlib_NucDataExplorer.h
    bool check_FileDimensions_NucData(NucDataProperties* NucDataProp){
    
         string filename;
-   
+        bool safe_mode = 1;
         // allocate memory
         NucDataProp->NumberOfElements = new int*[NucDataProp->Number_Of_SubFolders];
         for(int i = 0; i < NucDataProp->Number_Of_SubFolders; i++){
             NucDataProp->NumberOfElements[i] = new int[NucDataProp->Number_Of_Files_In_SubFolder];
         }
-   
         // read the file information
         for(int i = 0; i < NucDataProp->Number_Of_SubFolders; i++){
             for(int j = 0; j < NucDataProp->Number_Of_Files_In_SubFolder; j++){
-   
-                filename = NucDataProp->GlobalFolderPath + "/" + NucDataProp->SubFolderNames_Nom + "_" + std::to_string(i+1) + "/" \
-                         + NucDataProp->SubFolder_FileNames_Nom + "_" + std::to_string(j+1)  + "." + NucDataProp->SubFolder_FileNames_Type;
-   
-               // NumberOfNonZeroMagneticMomentsInFile(&NucDataProp->NumberOfNonZeroMoments[i][j], &NucDataProp->NumberOfElements[i][j], filename);
-               NumberOfEntriesInNucFile(&NucDataProp->NumberOfElements[i][j], filename);
-   
+               if(safe_mode || i == 0){
+                   filename = NucDataProp->GlobalFolderPath + "/" + NucDataProp->SubFolderNames_Nom + "_" + std::to_string(i+1) + "/" \
+                           + NucDataProp->SubFolder_FileNames_Nom + "_" + std::to_string(j+1)  + "." + NucDataProp->SubFolder_FileNames_Type;
+                   // NumberOfNonZeroMagneticMomentsInFile(&NucDataProp->NumberOfNonZeroMoments[i][j], &NucDataProp->NumberOfElements[i][j], filename);
+                   NumberOfEntriesInNucFile(&NucDataProp->NumberOfElements[i][j], filename);
+               }
+               else{
+                   NucDataProp->NumberOfElements[i][j] = NucDataProp->NumberOfElements[i][0];
+               }
             }
        }
-   
        return true;
-   
    }
    
    
