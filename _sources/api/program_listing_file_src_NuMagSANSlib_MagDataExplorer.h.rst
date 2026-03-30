@@ -109,6 +109,36 @@ Program Listing for File NuMagSANSlib_MagDataExplorer.h
    
    }
    
+   void NumberOfNonZeroMagneticMomentsInFile2(
+       int* NumberOfNonZeroMoments,
+       int* NumberOfColumns,
+       const std::string& filename
+   ){
+       std::ifstream fin(filename);
+       if (!fin) {
+           LogSystem::write("Could not open file: " + filename);
+           *NumberOfColumns = 0;
+           *NumberOfNonZeroMoments = 0;
+           return;
+       }
+   
+       float x, y, z, mx, my, mz;
+       int line_counter = 0;
+       int moment_counter = 0;
+   
+       while (fin >> x >> y >> z >> mx >> my >> mz) {
+           if (mx != 0.0f || my != 0.0f || mz != 0.0f) {
+               ++moment_counter;
+           }
+           ++line_counter;
+       }
+   
+       *NumberOfColumns = line_counter;
+       *NumberOfNonZeroMoments = moment_counter;
+   }
+   
+   
+   
    void CountColumnsAndRowsInMagDataFile(int *Number_Of_Rows, int *Number_Of_Columns, string filename){
    
        ifstream fin;
@@ -265,7 +295,7 @@ Program Listing for File NuMagSANSlib_MagDataExplorer.h
                filename = MagDataProp->GlobalFolderPath + "/" + MagDataProp->SubFolderNames_Nom + "_" + std::to_string(i+1) + "/" \
                         + MagDataProp->SubFolder_FileNames_Nom + "_" + std::to_string(j+1)  + "." + MagDataProp->SubFolder_FileNames_Type;
    
-               NumberOfNonZeroMagneticMomentsInFile(&MagDataProp->NumberOfNonZeroMoments[i][j], &MagDataProp->NumberOfElements[i][j], filename);
+               NumberOfNonZeroMagneticMomentsInFile2(&MagDataProp->NumberOfNonZeroMoments[i][j], &MagDataProp->NumberOfElements[i][j], filename);
    
            }
        }

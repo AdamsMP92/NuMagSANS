@@ -106,3 +106,5 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__MagDataExplorer_8h_1ab9d58c2b094feed3f3b8772a4af1710f`
 
+- :ref:`exhale_function_NuMagSANSlib__MagDataExplorer_8h_1aa2aad7b1b3c8cbdf931983998af34dc1`
+
