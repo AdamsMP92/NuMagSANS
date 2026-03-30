@@ -267,7 +267,7 @@ bool check_Subfolder_FileNames_MagData(MagDataProperties* MagDataProp){
 bool check_FileDimensions_MagData(MagDataProperties* MagDataProp){
 
 	string filename;
-
+	bool safe_mode = 1;
 	// allocate memory
 	MagDataProp->NumberOfElements = new int*[MagDataProp->Number_Of_SubFolders];
 	MagDataProp->NumberOfNonZeroMoments = new int*[MagDataProp->Number_Of_SubFolders];
@@ -275,23 +275,21 @@ bool check_FileDimensions_MagData(MagDataProperties* MagDataProp){
 		MagDataProp->NumberOfElements[i] = new int[MagDataProp->Number_Of_Files_In_SubFolder];
 		MagDataProp->NumberOfNonZeroMoments[i] = new int[MagDataProp->Number_Of_Files_In_SubFolder];
 	} 
-
 	// read the file information
 	for(int i = 0; i < MagDataProp->Number_Of_SubFolders; i++){
 		for(int j = 0; j < MagDataProp->Number_Of_Files_In_SubFolder; j++){		
-		
-			filename = MagDataProp->GlobalFolderPath + "/" + MagDataProp->SubFolderNames_Nom + "_" + std::to_string(i+1) + "/" \
-	    		     + MagDataProp->SubFolder_FileNames_Nom + "_" + std::to_string(j+1)  + "." + MagDataProp->SubFolder_FileNames_Type;
-
-			NumberOfNonZeroMagneticMomentsInFile2(&MagDataProp->NumberOfNonZeroMoments[i][j], &MagDataProp->NumberOfElements[i][j], filename);
-
+			if(safe_mode || i == 0){
+				filename = MagDataProp->GlobalFolderPath + "/" + MagDataProp->SubFolderNames_Nom + "_" + std::to_string(i+1) + "/" \
+	    		     	 + MagDataProp->SubFolder_FileNames_Nom + "_" + std::to_string(j+1)  + "." + MagDataProp->SubFolder_FileNames_Type;
+				NumberOfNonZeroMagneticMomentsInFile2(&MagDataProp->NumberOfNonZeroMoments[i][j], &MagDataProp->NumberOfElements[i][j], filename);
+			}
+			else{
+				MagDataProp->NumberOfNonZeroMoments[i][j] = MagDataProp->NumberOfNonZeroMoments[i][0];
+				MagDataProp->NumberOfElements[i][j]  = MagDataProp->NumberOfElements[i][0];
+			}
 		}
 	}
-
-
-
 	return true;
-		
 }
 
 
