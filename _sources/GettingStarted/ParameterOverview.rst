@@ -92,30 +92,30 @@ Fourier Approach
 Defines how the Fourier transform from real space to reciprocal space
 is performed.
 
-+-------------------+----------------------------------------------------+-----------+
-| Parameter         | Description                                        | Default   |
-+===================+====================================================+===========+
-| ``Fourier_Approach`` | Method used for Fourier transformation          | ``atomistic`` |
-+-------------------+----------------------------------------------------+-----------+
-
+``Fourier_Approach``
+    Default ``atomistic``
+    Options: ``atomistic``, ``micromagnetic``
 
 Loop Control
 ------------
 
 These parameters control batch simulations or repeated calculations.
 
-+-------------------+---------------------------------------------------+---------+
-| Parameter         | Description                                       | Default |
-+===================+===================================================+=========+
-| ``Loop_Modus``    | Enable looping over simulation indices            | 0       |
-+-------------------+---------------------------------------------------+---------+
-| ``Loop_From``     | First index used in loop simulations              | 1       |
-+-------------------+---------------------------------------------------+---------+
-| ``Loop_To``       | Last index used in loop simulations               | 20      |
-+-------------------+---------------------------------------------------+---------+
-| ``User_Selection``| Explicit list of selected indices                 | [1]     |
-+-------------------+---------------------------------------------------+---------+
+``Loop_Modus``
+    Description: Enable looping over simulation indices
+    Default ``0``
 
+``Loop_From``
+    Description: First index used in loop simulations 
+    Default ``1``
+
+``Loop_To``
+    Description: Last index used in loop simulations
+    Default ``20``
+
+``User_Selection``
+    Description: Explicit list of selected indices
+    Default ``[1]``
 
 Constant Parameters
 -------------------
@@ -172,16 +172,17 @@ Micromagnetic Parameters
 Parameters describing the magnetic properties of discretized simulation
 cells.
 
-+----------------------+----------------------------------------------------+-----------+
-| Parameter            | Description                                        | Default   |
-+======================+====================================================+===========+
-| ``Cell_Nuclear_SLD`` | Nuclear scattering length density of the cell      | 8e14      |
-+----------------------+----------------------------------------------------+-----------+
-| ``Cell_Magnetization`` | Magnetization inside the discretized cell        | 486e3     |
-+----------------------+----------------------------------------------------+-----------+
-| ``Cuboid_Cell_Size`` | Dimensions of the discretization cell (x,y,z)      | (2,2,2)   |
-+----------------------+----------------------------------------------------+-----------+
+``Cell_Nuclear_SLD``
+    Description: Nuclear scattering length density of the cell
+    Default ``8e14``
 
+``Cell_Magnetization``
+    Description: Magnetization inside the discretized cell
+    Default ``486e3``
+
+``Cuboid_Cell_Size``
+    Description: Dimensions of the discretization cell (x,y,z)
+    Default ``(2,2,2)``
 
 Output Options
 --------------
