@@ -95,7 +95,7 @@ A companion dataset to the corresponding article, providing the simulation and v
 | *Preprint*: https://doi.org/10.48550/arXiv.2603.29830
 |
 
-.. image:: fig11.png
+.. image:: fig11.jpg
    :width: 60%
    :alt: Polarized SANS example
    :align: center
