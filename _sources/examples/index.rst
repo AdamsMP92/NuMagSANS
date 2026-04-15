@@ -7,7 +7,7 @@ Example 1
 ---------
 | Description: Uniformly magnetized spherical nanoparticle benchmark.
 This example provides the 3D structural and magnetic configuration of a homogeneous spherical nanoparticle together with the corresponding NuMagSANS input and output files. It is intended as a simple benchmark and validation case for testing nuclear and magnetic SANS calculations against a well-defined reference geometry.
-
+|
 | Zenodo Link: https://doi.org/10.5281/zenodo.17491221
 | Reference: M. P. Adams, A. Michels, arXiv:2601.18444
 | Preprint: https://doi.org/10.48550/arXiv.2601.18444
