@@ -2,8 +2,9 @@
    :maxdepth: 2
    :hidden:
 
-   GettingStarted/index
-   api/library_root
+   Home <index>
+   Getting Started <GettingStarted/index>
+   Examples <examples/index>
 
 
 NuMagSANS Documentation
