@@ -52,7 +52,6 @@ html_sourcelink_suffix = ""
 
 html_theme_options = {
     "external_links": [
-        {"name": "Home", "url": "https://adamsmp92.github.io/NuMagSANS/index.html"},
         {"name": "GitHub Repository", "url": "https://github.com/AdamsMP92/NuMagSANS"},
     ],
     "icon_links": [
