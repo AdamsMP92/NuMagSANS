@@ -50,7 +50,7 @@ Example 3
 
 | Zenodo Link: https://doi.org/10.5281/zenodo.17931156
 | Reference: M. P. Adams, A. Michels, arXiv:2601.18444
-| Preprint: https://doi.org/10.48550/arXiv.2601.18444
+| Preprint: https://doi.org/10.48550/arXiv.2601.18444
 |
 
 .. image:: fig9.png
