@@ -91,7 +91,7 @@ Example 5
 A companion dataset to the corresponding article, providing the simulation and visualization workflow for polarized spin-flip SANS from spherical nanoparticles with vortex-like magnetization states. The record includes scripts for generating real-space magnetic configurations, running NuMagSANS, mapping the resulting 2D scattering patterns across parameter space, and reproducing the associated manuscript figures.
 
 | *Zenodo Link*: https://doi.org/10.5281/zenodo.19348079
-| *Reference*: M. P. Adams, A. Michels, arXiv.2603.29830
+| *Reference*: M. P. Adams, E. M. Jefremovas, A. Michels, arXiv.2603.29830
 | *Preprint*: https://doi.org/10.48550/arXiv.2603.29830
 |
 
