@@ -122,4 +122,4 @@ ArXiv: https://doi.org/10.48550/arXiv.2205.07549
 License
 -------
 
-NuMagSANS is released under the <Your License> License.
+NuMagSANS is released under the MIT License.
