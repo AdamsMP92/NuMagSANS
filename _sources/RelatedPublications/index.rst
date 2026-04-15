@@ -68,7 +68,7 @@ NuMagSANS and polarized magnetic small-angle neutron scattering.
 |      DOI: https://doi.org/10.1103/PhysRevB.107.014416  
 |      Preprint: https://doi.org/10.48550/arXiv.2207.09164
 |
-| [2] **Magnetic neutron scattering from spherical nanoparticles with Néel surface anisotropy: atomistic simulations.**  
+|[2] **Magnetic neutron scattering from spherical nanoparticles with Néel surface anisotropy: atomistic simulations.**  
 |      M. P. Adams, A. Michels, H. Kachkachi  
 |      J. Appl. Cryst. 55, 1488–1499 (2022)  
 |      DOI: https://doi.org/10.1107/S1600576722008949  
