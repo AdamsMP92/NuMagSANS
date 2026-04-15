@@ -15,28 +15,28 @@ The following publications demonstrate theoretical developments,
 methodological advances, and scientific applications related to
 NuMagSANS and polarized magnetic small-angle neutron scattering.
 
-[11] **Angular anisotropy landscape of vortex ensembles in polarized small-angle neutron scattering.**  
-      M. P. Adams, E. M. Jefremovas, A. Michels  
-      Submitted to Phys. Rev. Research (2026)  
-      DOI: https://doi.org/10.48550/arXiv.2603.29830 
-      Preprint: https://doi.org/10.48550/arXiv.2603.29830
+| [11] **Angular anisotropy landscape of vortex ensembles in polarized small-angle neutron scattering.**  
+|      M. P. Adams, E. M. Jefremovas, A. Michels  
+|      Submitted to Phys. Rev. Research (2026)  
+|      DOI: https://doi.org/10.48550/arXiv.2603.29830 
+|      Preprint: https://doi.org/10.48550/arXiv.2603.29830
 
-[10] **NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron          scattering observables of complex systems.**  
-      M. P. Adams, A. Michels  
-      Submitted to J. Appl. Cryst. (2026)  
-      DOI: https://doi.org/10.48550/arXiv.2601.18444  
-      Preprint: https://doi.org/10.48550/arXiv.2601.18444
+| [10] **NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron          scattering observables of complex systems.**  
+|      M. P. Adams, A. Michels  
+|      Submitted to J. Appl. Cryst. (2026)  
+|      DOI: https://doi.org/10.48550/arXiv.2601.18444  
+|      Preprint: https://doi.org/10.48550/arXiv.2601.18444
 
-[9] **Micromagnetic structure of oxidized magnetite nanoparticles: sharp structural versus diffuse magnetic interface.**  
-      E. M. Jefremovas, M. P. Adams, L. Gandarias, L. Marcano, J. Alonso, A. Michels, J. Leliaert  
-      Nanoscale 17, 26203–26213 (2025)  
-      DOI: https://doi.org/10.1039/D5NR02700D  
-      Preprint: https://doi.org/10.48550/arXiv/2506.20571
+| [9] **Micromagnetic structure of oxidized magnetite nanoparticles: sharp structural versus diffuse magnetic interface.**  
+|      E. M. Jefremovas, M. P. Adams, L. Gandarias, L. Marcano, J. Alonso, A. Michels, J. Leliaert  
+|      Nanoscale 17, 26203–26213 (2025)  
+|      DOI: https://doi.org/10.1039/D5NR02700D  
+|      Preprint: https://doi.org/10.48550/arXiv/2506.20571
 
-[8] **Magnetic Small-Angle Neutron Scattering From Nanoparticles: Theory and Simulation of Surface Anisotropy and Magnetodipolar Interaction Effects Beyond the Superspin Model.**  
-      M. P. Adams  
-      Doctoral Thesis, University of Luxembourg (2025)  
-      DOI: https://hdl.handle.net/10993/65624
+| [8] **Magnetic Small-Angle Neutron Scattering From Nanoparticles: Theory and Simulation of Surface Anisotropy and Magnetodipolar Interaction Effects Beyond the Superspin Model.**  
+|      M. P. Adams  
+|      Doctoral Thesis, University of Luxembourg (2025)  
+|      DOI: https://hdl.handle.net/10993/65624
 
 [7] **Neutron scattering signature of the Dzyaloshinskii–Moriya interaction in nanoparticles.**  
       E. P. Sinaga, M. P. Adams, E. H. Hasdeo, A. Michels  
