@@ -62,7 +62,7 @@ NuMagSANS and polarized magnetic small-angle neutron scattering.
 |      DOI: https://doi.org/10.1107/S205225252300180X  
 |      Preprint: https://doi.org/10.48550/arXiv.2210.08406
 |
-| [3] **Micromagnetic simulation of neutron scattering from spherical nanoparticles: effect of pore-type defects.**  
+| [3] **Micromagnetic simulation of neutron scattering from spherical nanoparticles: effect of pore-type defects.**  
 |      E. P. Sinaga, M. P. Adams, M. Bersweiler, L. G. Vivas, E. H. Hasdeo, J. Leliaert, P. Bender, D. Honecker, A. Michels  
 |      Phys. Rev. B 107, 014416 (2023)  
 |      DOI: https://doi.org/10.1103/PhysRevB.107.014416  
