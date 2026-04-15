@@ -44,6 +44,7 @@ Example 2
    :align: center
 |
 |
+
 Example 3
 ---------
 
@@ -51,10 +52,10 @@ Example 3
 | Reference: M. P. Adams, A. Michels, arXiv:2601.18444
 | Preprint: https://doi.org/10.48550/arXiv.2601.18444
 |
+
 .. image:: fig9.png
    :width: 60%
    :alt: Polarized SANS example
    :align: center
-
 
 
