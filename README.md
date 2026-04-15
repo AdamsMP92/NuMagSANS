@@ -4,9 +4,11 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 ![NuMagSANS schematic](figures/fig1.png)
 
 ## 🧑‍🔬 Authors
-**Michael P. Adams<sup>1</sup>**, **Andreas Michels<sup>1</sup>**
+**Michael P. Adams<sup>1,2</sup>**, **Andreas Michels<sup>1</sup>**
 
 <sup>1</sup> Department of Physics and Materials Science, University of Luxembourg, 162A Avenue de la Faiencerie, L-1511 Luxembourg, Grand Duchy of Luxembourg
+
+<sup>2</sup> Max Planck Institute for the Structure and Dynamics of Matter, Luruper Ch 149, D-22761 Hamburg, Germany
 
 
 ## 📦 Project Status
