@@ -50,7 +50,7 @@ NuMagSANS and polarized magnetic small-angle neutron scattering.
 |      DOI: https://doi.org/10.1103/PhysRevB.110.014420  
 |      Preprint: https://doi.org/10.48550/arXiv.2404.15826
 |
-| [5] **Signature of surface anisotropy in the spin-flip neutron scattering cross section of spherical nanoparticles: atomistic simulations and analytical theory.**  
+| [5] **Signature of surface anisotropy in the spin-flip neutron scattering cross section of spherical nanoparticles: atomistic simulations and analytical theory.**  
 |      M. P. Adams, E. P. Sinaga, H. Kachkachi, A. Michels  
 |      Phys. Rev. B 109, 024429 (2024)  
 |      DOI: https://doi.org/10.1103/PhysRevB.109.024429  
