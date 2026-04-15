@@ -23,7 +23,6 @@ and spectral decomposition.
 NuMagSANS is designed as a deterministic single-run computational engine
 with a clear execution pipeline and reproducible output.
 
-
 Key Features
 ------------
 
@@ -33,14 +32,6 @@ Key Features
 - Correlation functions and pair distribution functions
 - Spectral decomposition of scattering amplitudes
 - Python facade for simplified workflow integration
-
-
-Getting Started
----------------
-
-- :doc:`GettingStarted/index`
-- :doc:`api/library_root`
-
 
 Corresponding Publication
 -------------------------
