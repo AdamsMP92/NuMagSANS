@@ -12,12 +12,15 @@ This example provides the 3D structural and magnetic configuration of a homogene
 | Reference: M. P. Adams, A. Michels, arXiv:2601.18444
 | Preprint: https://doi.org/10.48550/arXiv.2601.18444
 |
+
 .. image:: fig5.png
    :width: 60%
    :alt: Polarized SANS example
    :align: center
+
 |
 |
+
 .. image:: fig6.png
    :width: 60%
    :alt: Polarized SANS example
