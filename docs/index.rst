@@ -4,7 +4,7 @@
 
    Home <index>
    Getting Started <GettingStarted/index>
-   Examples <examples/index>
+   Example Gallery <examples/index>
    Related Publications <RelatedPublications/index>
 
 
