@@ -5,6 +5,7 @@
    Home <index>
    Getting Started <GettingStarted/index>
    Examples <examples/index>
+   Related Publications <RelatedPublications/index>
 
 
 NuMagSANS Documentation
