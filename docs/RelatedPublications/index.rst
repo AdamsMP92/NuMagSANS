@@ -39,7 +39,7 @@ NuMagSANS and polarized magnetic small-angle neutron scattering.
 |      DOI: https://hdl.handle.net/10993/65624
 |
 | [7] **Neutron scattering signature of the Dzyaloshinskii–Moriya interaction in nanoparticles.**  
-|     E. P. Sinaga, M. P. Adams, E. H. Hasdeo, A. Michels  
+|      E. P. Sinaga, M. P. Adams, E. H. Hasdeo, A. Michels  
 |      Phys. Rev. B 110, 054404 (2024)  
 |      DOI: https://doi.org/10.1103/PhysRevB.110.054404  
 |      Preprint: https://doi.org/10.48550/arXiv.2402.00558
