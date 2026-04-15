@@ -8,12 +8,18 @@
    Examples <examples/index>
    Related Publications <RelatedPublications/index>
 
-Applications and Related Publications
--------------------------------------
+Related Publications
+--------------------
 
 The following publications demonstrate theoretical developments,
 methodological advances, and scientific applications related to
 NuMagSANS and polarized magnetic small-angle neutron scattering.
+
+[11] **Angular anisotropy landscape of vortex ensembles in polarized small-angle neutron scattering.**  
+M. P. Adams, E. M. Jefremovas, A. Michels  
+Submitted to Phys. Rev. Research (2026)  
+DOI: https://doi.org/10.48550/arXiv.2603.29830 
+ArXiv: https://doi.org/10.48550/arXiv.2603.29830
 
 [10] **NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems.**  
 M. P. Adams, A. Michels  
