@@ -17,7 +17,7 @@ Overview
 NuMagSANS is a GPU-accelerated computational engine for the simulation
 and analysis of nuclear and magnetic small-angle neutron scattering (SANS).
 
-Its aim is to provide the complete set of experimentally accessible SANS cross sections and associated observables, including unpolarized measurements as well as spin-resolved and spin-polarized channels such as SANSPOL and POLARIS. Contributions from nuclear and magnetic scattering can be treated separately or in combination, making the framework applicable beyond purely magnetic scattering problems.
+The aim of NuMagSANS is to provide the complete set of experimentally accessible SANS cross sections and associated observables, including unpolarized measurements as well as spin-resolved and spin-polarized channels such as SANSPOL and POLARIS. Contributions from nuclear and magnetic scattering can be treated separately or in combination, making the framework applicable beyond purely magnetic scattering problems.
 
 NuMagSANS is designed as a deterministic single-run computational engine
 with a clear execution pipeline and reproducible output.
