@@ -16,7 +16,7 @@ methodological advances, and scientific applications related to
 NuMagSANS and polarized magnetic small-angle neutron scattering.
 
 2026
-----
+^^^^
 
 | [11] **Angular anisotropy landscape of vortex ensembles in polarized small-angle neutron scattering.**  
 |      M. P. Adams, E. M. Jefremovas, A. Michels  
@@ -31,7 +31,7 @@ NuMagSANS and polarized magnetic small-angle neutron scattering.
 |      Preprint: https://doi.org/10.48550/arXiv.2601.18444
 
 2025
-----
+^^^^
 
 | [9] **Micromagnetic structure of oxidized magnetite nanoparticles: sharp structural versus diffuse magnetic interface.**  
 |      E. M. Jefremovas, M. P. Adams, L. Gandarias, L. Marcano, J. Alonso, A. Michels, J. Leliaert  
@@ -45,7 +45,7 @@ NuMagSANS and polarized magnetic small-angle neutron scattering.
 |      DOI: https://hdl.handle.net/10993/65624
 
 2024
-----
+^^^^
 
 | [7] **Neutron scattering signature of the Dzyaloshinskii–Moriya interaction in nanoparticles.**  
 |      E. P. Sinaga, M. P. Adams, E. H. Hasdeo, A. Michels  
@@ -66,7 +66,7 @@ NuMagSANS and polarized magnetic small-angle neutron scattering.
 |      Preprint: https://doi.org/10.48550/arXiv.2311.05706
 
 2023
-----
+^^^^
 
 | [4] **On the angular anisotropy of the randomly averaged magnetic neutron scattering cross section of nanoparticles.**  
 |      M. P. Adams, E. P. Sinaga, A. Michels  
@@ -81,7 +81,7 @@ NuMagSANS and polarized magnetic small-angle neutron scattering.
 |      Preprint: https://doi.org/10.48550/arXiv.2207.09164
 
 2022
-----
+^^^^
 
 | [2] **Magnetic neutron scattering from spherical nanoparticles with Néel surface anisotropy: atomistic simulations.**  
 |      M. P. Adams, A. Michels, H. Kachkachi  
