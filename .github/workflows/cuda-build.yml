@@ -19,7 +19,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt-get update
+          rm -rf /var/lib/apt/lists/*
+          apt-get clean
+          for i in 1 2 3; do
+            apt-get update && break || sleep 15
+          done
           apt-get install -y cmake g++ make
 
       - name: Show CUDA version
