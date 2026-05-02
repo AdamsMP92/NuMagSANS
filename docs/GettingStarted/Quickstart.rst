@@ -47,9 +47,15 @@ Example: IRIS HPC (University of Luxembourg)
 
 https://hpc-docs.uni.lu
 
+Login to a interactive gpu node:
+
 .. code-block:: bash
 
    salloc -p interactive --gpus 1 --cpus-per-gpu 1 --mem 8G --time=60
+
+Load required modules:
+
+.. code-block:: bash
 
    module purge
    module load lib/GDRCopy/2.4-GCCcore-13.2.0
@@ -62,9 +68,15 @@ Example: MPSD HPC (Hamburg)
 
 https://computational-science.mpsd.mpg.de/about.html
 
+Login to a interactive gpu node:
+
 .. code-block:: bash
 
    salloc -p gpu-interactive --gpus 1 --cpus-per-gpu 1 --mem 8G --time=60
+
+Load required modules:
+
+.. code-block:: bash
 
    module purge
    mpsd-modules 25c native
