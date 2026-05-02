@@ -444,9 +444,12 @@ Adjust the module names according to your cluster.</p>
 <section id="example-iris-hpc-university-of-luxembourg">
 <h3>Example: IRIS HPC (University of Luxembourg)<a class="headerlink" href="#example-iris-hpc-university-of-luxembourg" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://hpc-docs.uni.lu">https://hpc-docs.uni.lu</a></p>
+<p>Login to a interactive gpu node:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>salloc<span class="w"> </span>-p<span class="w"> </span>interactive<span class="w"> </span>--gpus<span class="w"> </span><span class="m">1</span><span class="w"> </span>--cpus-per-gpu<span class="w"> </span><span class="m">1</span><span class="w"> </span>--mem<span class="w"> </span>8G<span class="w"> </span>--time<span class="o">=</span><span class="m">60</span>
-
-module<span class="w"> </span>purge
+</pre></div>
+</div>
+<p>Load required modules:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>purge
 module<span class="w"> </span>load<span class="w"> </span>lib/GDRCopy/2.4-GCCcore-13.2.0
 module<span class="w"> </span>load<span class="w"> </span>lang/Python/3.11.5-GCCcore-13.2.0
 module<span class="w"> </span>load<span class="w"> </span>system/CUDA/12.6.0
@@ -457,9 +460,12 @@ module<span class="w"> </span>load<span class="w"> </span>devel/CMake/3.27.6-GCC
 <section id="example-mpsd-hpc-hamburg">
 <h3>Example: MPSD HPC (Hamburg)<a class="headerlink" href="#example-mpsd-hpc-hamburg" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://computational-science.mpsd.mpg.de/about.html">https://computational-science.mpsd.mpg.de/about.html</a></p>
+<p>Login to a interactive gpu node:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>salloc<span class="w"> </span>-p<span class="w"> </span>gpu-interactive<span class="w"> </span>--gpus<span class="w"> </span><span class="m">1</span><span class="w"> </span>--cpus-per-gpu<span class="w"> </span><span class="m">1</span><span class="w"> </span>--mem<span class="w"> </span>8G<span class="w"> </span>--time<span class="o">=</span><span class="m">60</span>
-
-module<span class="w"> </span>purge
+</pre></div>
+</div>
+<p>Load required modules:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>purge
 mpsd-modules<span class="w"> </span>25c<span class="w"> </span>native
 
 module<span class="w"> </span>load<span class="w"> </span>gcc/13.2.0
