@@ -408,23 +408,27 @@
                   
   <section id="quickstart-installation">
 <h1>Quickstart Installation<a class="headerlink" href="#quickstart-installation" title="Link to this heading">#</a></h1>
-<p>NuMagSANS can be executed through the python interface, which allows
+<p>NuMagSANS can be executed through the Python interface, which allows
 users to generate configuration files and run simulations programmatically.</p>
 <p>The repository contains a minimal example together with a small dataset.</p>
 <section id="example-installation-in-hpc-environments">
-<h2>Example Installation in HPC Environments<a class="headerlink" href="#example-installation-in-hpc-environments" title="Link to this heading">#</a></h2>
+<h2>Example installation in HPC environments<a class="headerlink" href="#example-installation-in-hpc-environments" title="Link to this heading">#</a></h2>
 <p>Many HPC clusters provide software through environment modules.
-Module names and partitions vary between systems.</p>
+Module names and GPU partitions vary between systems.</p>
 <p>The following examples illustrate typical setups on two HPC systems.
-Adjust the module names according to your cluster.</p>
+Adjust the module names and partitions according to your local cluster setup.</p>
 <section id="example-iris-hpc-university-of-luxembourg">
 <h3>Example: IRIS HPC (University of Luxembourg)<a class="headerlink" href="#example-iris-hpc-university-of-luxembourg" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://hpc-docs.uni.lu">https://hpc-docs.uni.lu</a></p>
-<p>Login to a interactive gpu node:</p>
+<ol class="arabic simple">
+<li><p>Allocate an interactive GPU node:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>salloc<span class="w"> </span>-p<span class="w"> </span>interactive<span class="w"> </span>--gpus<span class="w"> </span><span class="m">1</span><span class="w"> </span>--cpus-per-gpu<span class="w"> </span><span class="m">1</span><span class="w"> </span>--mem<span class="w"> </span>8G<span class="w"> </span>--time<span class="o">=</span><span class="m">60</span>
 </pre></div>
 </div>
-<p>Load required modules:</p>
+<ol class="arabic simple" start="2">
+<li><p>Load the required modules:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>purge
 module<span class="w"> </span>load<span class="w"> </span>lib/GDRCopy/2.4-GCCcore-13.2.0
 module<span class="w"> </span>load<span class="w"> </span>lang/Python/3.11.5-GCCcore-13.2.0
@@ -432,7 +436,9 @@ module<span class="w"> </span>load<span class="w"> </span>system/CUDA/12.6.0
 module<span class="w"> </span>load<span class="w"> </span>devel/CMake/3.27.6-GCCcore-13.2.0
 </pre></div>
 </div>
-<p>Check if the required modules are activated:</p>
+<ol class="arabic simple" start="3">
+<li><p>Verify that the required tools are available:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi
 nvcc<span class="w"> </span>--version
 cmake<span class="w"> </span>--version
@@ -441,45 +447,37 @@ python<span class="w"> </span>--version
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
-<li><p>Build NuMagSANS using the following commands:</p></li>
-</ol>
-<ol class="arabic simple">
-<li><p>download NuMagSANS from GitHub</p></li>
-<li><p>compile the C++/CUDA source code using CMake</p></li>
-<li><p>create a virtual environment</p></li>
-<li><p>install the NuMagSANS python interface</p></li>
-<li><p>run the NuMagSANS example script</p></li>
+<li><p>In the same shell session, clone, build, and test NuMagSANS:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AdamsMP92/NuMagSANS.git
 <span class="nb">cd</span><span class="w"> </span>NuMagSANS
 cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
 cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
-python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
 <span class="nb">source</span><span class="w"> </span>.venv/bin/activate
 pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from NuMagSANS import NuMagSANS; print(&#39;Installation successful&#39;)&quot;</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from NuMagSANS import NuMagSANS; print(&#39;Installation successful&#39;)&quot;</span>
 <span class="nb">cd</span><span class="w"> </span>example
-python3<span class="w"> </span>NuMagSANSrun.py
+python<span class="w"> </span>NuMagSANSrun.py
 </pre></div>
 </div>
 </section>
 <section id="example-mpsd-hpc-hamburg">
 <h3>Example: MPSD HPC (Hamburg)<a class="headerlink" href="#example-mpsd-hpc-hamburg" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://computational-science.mpsd.mpg.de/about.html">https://computational-science.mpsd.mpg.de/about.html</a></p>
-<p>We assume you are logged in at a mpsd cluster login-node.</p>
+<p>We assume that you are logged in on an MPSD cluster login node.</p>
 <ol class="arabic simple">
-<li><p>Login to a interactive gpu node:</p></li>
+<li><p>Allocate an interactive GPU node:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>salloc<span class="w"> </span>-p<span class="w"> </span>gpu-interactive<span class="w"> </span>--gpus<span class="w"> </span><span class="m">1</span><span class="w"> </span>--cpus-per-gpu<span class="w"> </span><span class="m">1</span><span class="w"> </span>--mem<span class="w"> </span>8G<span class="w"> </span>--time<span class="o">=</span><span class="m">60</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>Load required modules:</p></li>
+<li><p>Load the required modules:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>purge
 mpsd-modules<span class="w"> </span>25c<span class="w"> </span>native
-
 module<span class="w"> </span>load<span class="w"> </span>gcc/13.2.0
 module<span class="w"> </span>load<span class="w"> </span>python/3.11.7
 module<span class="w"> </span>load<span class="w"> </span>cuda/12.6.2
@@ -487,7 +485,7 @@ module<span class="w"> </span>load<span class="w"> </span>cmake/3.27.9
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li><p>Check if the required modules are activated:</p></li>
+<li><p>Verify that the required tools are available:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi
 nvcc<span class="w"> </span>--version
@@ -497,26 +495,19 @@ python<span class="w"> </span>--version
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
-<li><p>Build NuMagSANS using the following commands:</p></li>
-</ol>
-<ol class="arabic simple">
-<li><p>download NuMagSANS from GitHub</p></li>
-<li><p>compile the C++/CUDA source code using CMake</p></li>
-<li><p>create a virtual environment</p></li>
-<li><p>install the NuMagSANS python interface</p></li>
-<li><p>run the NuMagSANS example script</p></li>
+<li><p>In the same shell session, clone, build, and test NuMagSANS:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AdamsMP92/NuMagSANS.git
 <span class="nb">cd</span><span class="w"> </span>NuMagSANS
 cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_CUDA_ARCHITECTURES<span class="o">=</span>native
 cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
-python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
 <span class="nb">source</span><span class="w"> </span>.venv/bin/activate
 pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from NuMagSANS import NuMagSANS; print(&#39;Installation successful&#39;)&quot;</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from NuMagSANS import NuMagSANS; print(&#39;Installation successful&#39;)&quot;</span>
 <span class="nb">cd</span><span class="w"> </span>example
-python3<span class="w"> </span>NuMagSANSrun.py
+python<span class="w"> </span>NuMagSANSrun.py
 </pre></div>
 </div>
 </section>
@@ -570,7 +561,7 @@ python3<span class="w"> </span>NuMagSANSrun.py
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-installation-in-hpc-environments">Example Installation in HPC Environments</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-installation-in-hpc-environments">Example installation in HPC environments</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-iris-hpc-university-of-luxembourg">Example: IRIS HPC (University of Luxembourg)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-mpsd-hpc-hamburg">Example: MPSD HPC (Hamburg)</a></li>
 </ul>
