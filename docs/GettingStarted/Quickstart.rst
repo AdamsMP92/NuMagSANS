@@ -63,6 +63,16 @@ Load required modules:
    module load system/CUDA/12.6.0
    module load devel/CMake/3.27.6-GCCcore-13.2.0
 
+Check if the required modules are activated:
+
+.. code-block:: bash
+
+   nvidia-smi
+   nvcc --version
+   cmake --version
+   g++ --version
+   python --version
+
 Example: MPSD HPC (Hamburg)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -85,6 +95,16 @@ Load required modules:
    module load python/3.11.7
    module load cuda/12.6.2
    module load cmake/3.27.9
+
+Check if the required modules are activated:
+
+.. code-block:: bash
+
+   nvidia-smi
+   nvcc --version
+   cmake --version
+   g++ --version
+   python --version
 
 Quick Build NuMagSANS
 ---------------------
