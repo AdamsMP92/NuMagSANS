@@ -4,12 +4,14 @@ GPU accelerated simulation software for **Nu**clear and **Mag**netic **S**mall-*
 ![NuMagSANS schematic](docs/_static/NuMagSANSlogo.png)
 
 ## 🧑‍🔬 Authors
-**Michael P. Adams<sup>1,2</sup>**, **Andreas Michels<sup>2</sup>**
+**Michael P. Adams<sup>1,2</sup>**, **Andreas Michels<sup>3</sup>**
 
 
 <sup>1</sup> Max Planck Institute for the Structure and Dynamics of Matter, Luruper Ch 149, D-22761 Hamburg, Germany
 
-<sup>2</sup> Department of Physics and Materials Science, University of Luxembourg, 162A Avenue de la Faiencerie, L-1511 Luxembourg, Grand Duchy of Luxembourg
+<sup>2</sup> Center for Free-Electron Laser Science (CFEL), Notkestrasse 85, D-22607 Hamburg, Germany
+
+<sup>3</sup> Department of Physics and Materials Science, University of Luxembourg, 162A Avenue de la Faiencerie, L-1511 Luxembourg, Grand Duchy of Luxembourg
 
 
 
@@ -91,26 +93,18 @@ If you use **NuMagSANS** in your research, please cite both the **software relea
 
 ```bibtex
 @article{adams2026numagsans_paper,
-  author        = {Adams, Michael P. and Michels, Andreas},
-  title         = {NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems},
-  journal       = {arXiv preprint},
-  year          = {2026},
-  eprint        = {2601.18444},
-  archivePrefix = {arXiv},
-  primaryClass  = {cond-mat.mtrl-sci},
-  doi           = {10.48550/arXiv.2601.18444}
+author = "Adams, Michael P. and Michels, Andreas",
+title = "{{\it NuMagSANS}: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems}",
+journal = "Journal of Applied Crystallography",
+year = "2026",
+volume = "59",
+number = "3",
+pages = "",
+month = "Jun",
+doi = {10.1107/S160057672600258X},
+url = {https://doi.org/10.1107/S160057672600258X},
 }
 ```
-
-### Short citation
-
-If you prefer a short citation format:
-
-Adams, M. P. (2026). *NuMagSANS (v1.0.0).* Zenodo. https://doi.org/10.5281/zenodo.18824364
-
-and
-
-Adams, M. P., & Michels, A. (2026). *NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems.* arXiv:2601.18444.
 
 ## 🧾 License
 MIT License
