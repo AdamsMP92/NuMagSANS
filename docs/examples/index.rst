@@ -112,6 +112,7 @@ Example 6
 A companion dataset to the corresponding article on the neutron-scattering signature of the Dzyaloshinskii–Moriya interaction in spherical FeGe nanoparticles. The record supports the simulation and analysis of randomly averaged spin-flip SANS cross sections, the chiral function, and pair-distance distribution functions, highlighting that a nonzero chiral signal emerges only when the DMI is included.
 
 | *Reference*: E. P. Sinaga, M. P. Adams, E. H. Hasdeo, A. Michels, Phys. Rev. B 110, 054404 (2024)
+| *DOI*: https://doi.org/10.1103/PhysRevB.110.054404
 | *Preprint*: https://doi.org/10.48550/arXiv.2402.00558
 |
 
