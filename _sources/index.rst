@@ -38,9 +38,9 @@ Corresponding Publication
 If you use NuMagSANS in your work, please cite:
 
 **NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems.**  
-M. P. Adams, A. Michels  
-Submitted to J. Appl. Cryst. (2026)  
-DOI: https://doi.org/10.48550/arXiv.2601.18444
+Reference: M. P. Adams, A. Michels, J. Appl. Cryst. 59, 3 (2026)
+DOI: https://doi.org/10.1107/S160057672600258X
+Preprint: https://doi.org/10.48550/arXiv.2601.18444
 
 License
 -------
