@@ -37,25 +37,30 @@ Corresponding Publication
 
 If you use NuMagSANS in your work, please cite:
 
-**NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems.**  
-Reference: M. P. Adams, A. Michels, J. Appl. Cryst. 59, 3 (2026)
-DOI: https://doi.org/10.1107/S160057672600258X
-Preprint: https://doi.org/10.48550/arXiv.2601.18444
+**NuMagSANS: a GPU-accelerated open-source software package for the
+generic computation of nuclear and magnetic small-angle neutron scattering
+observables of complex systems.**
 
-```bibtex
+M. P. Adams and A. Michels, *Journal of Applied Crystallography* **59**,
+3 (2026).
+
+- DOI: `10.1107/S160057672600258X <https://doi.org/10.1107/S160057672600258X>`_
+- Preprint: `arXiv:2601.18444 <https://doi.org/10.48550/arXiv.2601.18444>`_
+
+.. code-block:: bibtex
+
    @article{adams2026numagsans_paper,
-   author = "Adams, Michael P. and Michels, Andreas",
-   title = "{{\it NuMagSANS}: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems}",
-   journal = "Journal of Applied Crystallography",
-   year = "2026",
-   volume = "59",
-   number = "3",
-   pages = "",
-   month = "Jun",
-   doi = {10.1107/S160057672600258X},
-   url = {https://doi.org/10.1107/S160057672600258X},
+     author  = {Adams, Michael P. and Michels, Andreas},
+     title   = {{\it NuMagSANS}: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems},
+     journal = {Journal of Applied Crystallography},
+     year    = {2026},
+     volume  = {59},
+     number  = {3},
+     pages   = {},
+     month   = {Jun},
+     doi     = {10.1107/S160057672600258X},
+     url     = {https://doi.org/10.1107/S160057672600258X},
    }
-```
 
 License
 -------
