@@ -42,6 +42,21 @@ Reference: M. P. Adams, A. Michels, J. Appl. Cryst. 59, 3 (2026)
 DOI: https://doi.org/10.1107/S160057672600258X
 Preprint: https://doi.org/10.48550/arXiv.2601.18444
 
+```bibtex
+   @article{adams2026numagsans_paper,
+   author = "Adams, Michael P. and Michels, Andreas",
+   title = "{{\it NuMagSANS}: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron scattering observables of complex systems}",
+   journal = "Journal of Applied Crystallography",
+   year = "2026",
+   volume = "59",
+   number = "3",
+   pages = "",
+   month = "Jun",
+   doi = {10.1107/S160057672600258X},
+   url = {https://doi.org/10.1107/S160057672600258X},
+   }
+```
+
 License
 -------
 
