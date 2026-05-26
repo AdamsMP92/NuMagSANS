@@ -1,4 +1,4 @@
-.. _exhale_function_NuMagSANSlib__MagDataExplorer_8h_1aaab2c79f0c94bdb48e88606c27369b65:
+.. _exhale_function_NuMagSANSlib__MagDataExplorer_8h_1a39f2d22c11e196cf99af56afacc63bc6:
 
 Function check_FileDimensions_MagData
 =====================================
@@ -10,5 +10,5 @@ Function Documentation
 ----------------------
 
 
-.. doxygenfunction:: check_FileDimensions_MagData(MagDataProperties *)
+.. doxygenfunction:: check_FileDimensions_MagData(MagDataProperties *, bool)
    :project: NuMagSANS

@@ -1,4 +1,4 @@
-.. _exhale_function_NuMagSANSlib__NucDataExplorer_8h_1a0ab57901976061414dceaf8073640ade:
+.. _exhale_function_NuMagSANSlib__NucDataExplorer_8h_1ae5004ed0646a9c1288f065053c3bdc46:
 
 Function NucData_Observer
 =========================
@@ -10,5 +10,5 @@ Function Documentation
 ----------------------
 
 
-.. doxygenfunction:: NucData_Observer(std::string, NucDataProperties *)
+.. doxygenfunction:: NucData_Observer(std::string, NucDataProperties *, bool)
    :project: NuMagSANS

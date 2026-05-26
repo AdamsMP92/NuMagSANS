@@ -96,6 +96,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        string RotDataFilename;
    
+       bool FastLoad_flag = false;
+   
        string SANSDataFoldername;
    
        string Fourier_Approach;
@@ -504,6 +506,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            {"MagData_activate", &InputData->MagData_activate_flag, true},
            {"StructData_activate", &InputData->StructData_activate_flag, true},
            {"RotData_activate", &InputData->RotData_activate_flag, true},
+           {"FastLoad", &InputData->FastLoad_flag, false},
            {"Exclude_Zero_Moments", &InputData->ExcludeZeroMoments_flag, true},
            {"Angular_Spec", &InputData->AngularSpec_activate_flag, true},
            {"Fourier_Gamma", &InputData->output_fourier_correlation_matrix_flag, true}
@@ -709,5 +712,3 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        return ok;
    
    }
-   
-   

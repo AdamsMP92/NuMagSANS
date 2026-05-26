@@ -1,4 +1,4 @@
-.. _exhale_function_NuMagSANSlib__NucDataExplorer_8h_1abbbe392ade6325f893e638579a21dab1:
+.. _exhale_function_NuMagSANSlib__NucDataExplorer_8h_1adf80e4ba807f9e5e80cc63cfb43b0806:
 
 Function check_FileDimensions_NucData
 =====================================
@@ -10,5 +10,5 @@ Function Documentation
 ----------------------
 
 
-.. doxygenfunction:: check_FileDimensions_NucData(NucDataProperties *)
+.. doxygenfunction:: check_FileDimensions_NucData(NucDataProperties *, bool)
    :project: NuMagSANS

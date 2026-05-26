@@ -46,7 +46,7 @@ Program Listing for File NuMagSANS.cu
        MagDataProperties MagDataProp;
        bool Check_MagData_Flag;
        if(InputData.MagData_activate_flag){
-           Check_MagData_Flag = MagData_Observer(InputData.MagDataPath, &MagDataProp);
+           Check_MagData_Flag = MagData_Observer(InputData.MagDataPath, &MagDataProp, InputData.FastLoad_flag);
            if(Check_MagData_Flag != true){
                LogSystem::write(" ->-> Error in MagData!");
                LogSystem::write("");
@@ -59,7 +59,7 @@ Program Listing for File NuMagSANS.cu
        NucDataProperties NucDataProp;
        bool Check_NucData_Flag;
        if(InputData.NucData_activate_flag){
-           Check_NucData_Flag = NucData_Observer(InputData.NucDataPath, &NucDataProp);
+           Check_NucData_Flag = NucData_Observer(InputData.NucDataPath, &NucDataProp, InputData.FastLoad_flag);
            if(Check_NucData_Flag != true){
                LogSystem::write(" ->->Error in NucData!");
                LogSystem::write("");
@@ -153,5 +153,3 @@ Program Listing for File NuMagSANS.cu
        return 0;
        
    }
-   
-   
