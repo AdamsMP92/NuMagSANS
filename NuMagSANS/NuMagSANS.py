@@ -78,12 +78,15 @@ class NuMagSANS:
         NucDataPath="RealSpaceData/NucData",
         MagDataPath="RealSpaceData/MagData",
         StructDataFilename="RealSpaceData/StructData.csv",
+        RotDataFilename="RealSpaceData/RotData.csv",
         foldernameSANSData="NuMagSANS_Output",
 
         # selection
         NucData_activate=0,
         MagData_activate=0,
         StructData_activate=0,
+        RotData_activate=0,
+        FastLoad=0,
         Exclude_Zero_Moments=0,
 
         # fourier
@@ -148,6 +151,7 @@ class NuMagSANS:
             W("NucDataPath", NucDataPath)
             W("MagDataPath", MagDataPath)
             W("StructDataFilename", StructDataFilename)
+            W("RotDataFilename", RotDataFilename)
             W("foldernameSANSData", foldernameSANSData)
 
             # ---------------------------
@@ -156,6 +160,8 @@ class NuMagSANS:
             W("NucData_activate", NucData_activate)
             W("MagData_activate", MagData_activate)
             W("StructData_activate", StructData_activate)
+            W("RotData_activate", RotData_activate)
+            W("FastLoad", FastLoad)
             W("Exclude_Zero_Moments", Exclude_Zero_Moments)
 
             # ---------------------------

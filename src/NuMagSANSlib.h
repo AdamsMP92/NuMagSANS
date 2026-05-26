@@ -36,9 +36,11 @@
 #include "NuMagSANSlib_MagDataExplorer.h"
 #include "NuMagSANSlib_NucDataExplorer.h"
 #include "NuMagSANSlib_StructureDataExplorer.h"
+#include "NuMagSANSlib_RotationDataExplorer.h"
 #include "NuMagSANSlib_MagData.h"
 #include "NuMagSANSlib_NucData.h"
 #include "NuMagSANSlib_StructureData.h"
+#include "NuMagSANSlib_RotationData.h"
 #include "NuMagSANSlib_SANSData.h"
 #include "NuMagSANSlib_SpectralData.h"
 #include "NuMagSANSlib_gpuKernel.h"
@@ -49,6 +51,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 					      NucDataProperties* NucDataProp,\
                           MagDataProperties* MagDataProp,\
                           StructDataProperties* StructDataProp, \
+						  RotDataProperties* RotDataProp, \
                           int Data_File_Index){
 
 	cudaError_t err;
@@ -60,6 +63,12 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 	// start time measurement #################################################################
 	auto start_total_time = std::chrono::high_resolution_clock::now();
+
+	// record GPU memory state before data initialization ######################################
+	size_t free_bytes_before_data_load, total_bytes_before_data_load;
+	size_t free_bytes_after_data_load, total_bytes_after_data_load;
+	cudaMemGetInfo(&free_bytes_before_data_load, &total_bytes_before_data_load);
+	double used_mb_before_data_load = (total_bytes_before_data_load - free_bytes_before_data_load) / 1024.0 / 1024.0;
 
 	// initialize nuclear data ################################################################
 	NuclearData NucData, NucData_gpu;
@@ -96,6 +105,17 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 		//disp_StructureData(&StructData);
 	}
 
+	// initialize rotation data ##############################################################
+	RotationData RotData, RotData_gpu;
+	if(InputData->RotData_activate_flag){
+		init_RotationData(&RotData, &RotData_gpu, RotDataProp, InputData);
+		cudaDeviceSynchronize();
+		err = cudaGetLastError();
+		if (err != cudaSuccess) {
+			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+		}
+	}
+
 	// initialize scattering data #############################################################
 	ScatteringData SANSData, SANSData_gpu;
 	init_ScatteringData(InputData, &SANSData, &SANSData_gpu);
@@ -113,6 +133,14 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	if (err != cudaSuccess) {
 		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 	}
+
+	// report GPU memory state after data initialization #######################################
+	cudaMemGetInfo(&free_bytes_after_data_load, &total_bytes_after_data_load);
+	double used_mb_after_data_load = (total_bytes_after_data_load - free_bytes_after_data_load) / 1024.0 / 1024.0;
+	double loaded_data_mb = used_mb_after_data_load - used_mb_before_data_load;
+	LogSystem::write("");
+	LogSystem::write("GPU Memory Check after data load: cummulated bytes: " + std::to_string(loaded_data_mb) + " MB, free bytes: " + std::to_string(free_bytes_after_data_load / 1024.0 / 1024.0) + " MB");
+	LogSystem::write("");
 	
 	// initialize scaling factors #############################################################
 	ScalingFactors ScalFactors;
@@ -122,8 +150,8 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	int L = (*SANSData.N_q) * (*SANSData.N_theta);
 	LogSystem::write("total number of Fourier space bins: " + std::to_string(L));
 	
-		// Pure Magnetic Scattering Calculator without structure data #####################################################################
-		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 0){
+			// Pure Magnetic Scattering Calculator without structure data #####################################################################
+			if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 0){
 			LogSystem::write("run: Atomistic_MagSANS_Kernel_dilute");
 			Atomistic_MagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(MagData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
@@ -133,8 +161,8 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 			}
 		}
 
-		// Pure Nuclear Scattering Calculator without structure data #######################################################################
-		if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0){
+			// Pure Nuclear Scattering Calculator without structure data #######################################################################
+			if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 0){
 			LogSystem::write("run: Atomistic_NucSANS_Kernel_dilute");
 			Atomistic_NucSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
@@ -144,8 +172,8 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 			}
 		}
 
-		// Combined Magnetic and Nuclear Scattering Calculator without structure data ######################################################
-		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0){
+			// Combined Magnetic and Nuclear Scattering Calculator without structure data ######################################################
+			if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 0){
 			LogSystem::write("run: Atomistic_NuMagSANS_Kernel_dilute");
 			Atomistic_NuMagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
@@ -156,8 +184,8 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 		}
 
 
-		// Pure Magnetic Scattering Calculator with structure data #########################################################################
-		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 1){
+			// Pure Magnetic Scattering Calculator with structure data #########################################################################
+			if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 0){
 			LogSystem::write("run: Atomistic_MagSANS_Kernel");
 			Atomistic_MagSANS_Kernel<<<(L+255)/256, 256>>>(MagData_gpu, StructData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
@@ -167,8 +195,8 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 			}
 		}
 
-		// Pure Nuclear Scattering Calculator with structure data ###########################################################################
-		if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1){
+			// Pure Nuclear Scattering Calculator with structure data ###########################################################################
+			if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 0){
 			LogSystem::write("run: Atomistic_NucSANS_Kernel");
 			Atomistic_NucSANS_Kernel<<<(L+255)/256, 256>>>(NucData_gpu, StructData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
@@ -178,8 +206,8 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 			}
 		}
 
-		// Combined Magnetic and Nuclear Scattering Calculator with structure data #########################################################
-		if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1){
+			// Combined Magnetic and Nuclear Scattering Calculator with structure data #########################################################
+			if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 0){
 			LogSystem::write("run: Atomistic_NuMagSANS_Kernel");
 			Atomistic_NuMagSANS_Kernel<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, StructData_gpu, SANSData_gpu);
 			cudaDeviceSynchronize();
@@ -187,9 +215,75 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 			if (err != cudaSuccess) {
 				LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 			}
-		}
+			}
 
-	// compute azimuthal average 1D ###########################################################
+			// Pure Magnetic Scattering Calculator with rotation data and without structure data ##############################################
+			if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 1){
+				LogSystem::write("run: Atomistic_MagSANS_Kernel_RotDilute");
+				Atomistic_MagSANS_Kernel_RotDilute<<<(L+255)/256, 256>>>(MagData_gpu, RotData_gpu, SANSData_gpu);
+				cudaDeviceSynchronize();
+				err = cudaGetLastError();
+				if (err != cudaSuccess) {
+					LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+				}
+			}
+
+			// Pure Nuclear Scattering Calculator with rotation data and without structure data ###############################################
+			if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 1){
+				LogSystem::write("run: Atomistic_NucSANS_Kernel_RotDilute");
+				Atomistic_NucSANS_Kernel_RotDilute<<<(L+255)/256, 256>>>(NucData_gpu, RotData_gpu, SANSData_gpu);
+				cudaDeviceSynchronize();
+				err = cudaGetLastError();
+				if (err != cudaSuccess) {
+					LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+				}
+			}
+
+			// Combined Magnetic and Nuclear Scattering Calculator with rotation data and without structure data ###############################
+			if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 1){
+				LogSystem::write("run: Atomistic_NuMagSANS_Kernel_RotDilute");
+				Atomistic_NuMagSANS_Kernel_RotDilute<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, RotData_gpu, SANSData_gpu);
+				cudaDeviceSynchronize();
+				err = cudaGetLastError();
+				if (err != cudaSuccess) {
+					LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+				}
+			}
+
+			// Pure Magnetic Scattering Calculator with structure and rotation data ###########################################################
+			if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 1){
+				LogSystem::write("run: Atomistic_MagSANS_Kernel_StructRot");
+				Atomistic_MagSANS_Kernel_StructRot<<<(L+255)/256, 256>>>(MagData_gpu, StructData_gpu, RotData_gpu, SANSData_gpu);
+				cudaDeviceSynchronize();
+				err = cudaGetLastError();
+				if (err != cudaSuccess) {
+					LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+				}
+			}
+
+			// Pure Nuclear Scattering Calculator with structure and rotation data ############################################################
+			if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 1){
+				LogSystem::write("run: Atomistic_NucSANS_Kernel_StructRot");
+				Atomistic_NucSANS_Kernel_StructRot<<<(L+255)/256, 256>>>(NucData_gpu, StructData_gpu, RotData_gpu, SANSData_gpu);
+				cudaDeviceSynchronize();
+				err = cudaGetLastError();
+				if (err != cudaSuccess) {
+					LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+				}
+			}
+
+			// Combined Magnetic and Nuclear Scattering Calculator with structure and rotation data ############################################
+			if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 1){
+				LogSystem::write("run: Atomistic_NuMagSANS_Kernel_StructRot");
+				Atomistic_NuMagSANS_Kernel_StructRot<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, StructData_gpu, RotData_gpu, SANSData_gpu);
+				cudaDeviceSynchronize();
+				err = cudaGetLastError();
+				if (err != cudaSuccess) {
+					LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+				}
+			}
+
+		// compute azimuthal average 1D ###########################################################
 	bool compute_1D_azimuthal_average = any_active(InputData->OutFlags.SANS1D);
 	bool compute_1D_corr = any_active(InputData->OutFlags.Corr1D);
 	bool compute_1D_pair = any_active(InputData->OutFlags.PairDist1D);
@@ -285,6 +379,10 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 	if(InputData->StructData_activate_flag){
 		free_StructureData(&StructData, &StructData_gpu);
+	}
+
+	if(InputData->RotData_activate_flag){
+		free_RotationData(&RotData, &RotData_gpu);
 	}
 	
 	// free scattering data

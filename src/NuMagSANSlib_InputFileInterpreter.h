@@ -94,6 +94,12 @@ struct InputFileData{
     /// CSV file containing structural information
 	string StructDataFilename;
 
+	/// CSV file containing rotational information
+	string RotDataFilename;
+
+	/// Skip repeated MagData dimension checks for faster data import
+	bool FastLoad_flag = false;
+
     /// Output directory for computed SANS data
 	string SANSDataFoldername;
 
@@ -184,6 +190,9 @@ struct InputFileData{
 
     /// Enable structural data input
 	bool StructData_activate_flag;
+
+	/// Enable rotation data input
+	bool RotData_activate_flag;
 
     /// Exclude zero-moment cells from computation
 	bool ExcludeZeroMoments_flag;
@@ -282,15 +291,15 @@ void Compute_RotMat(float alpha, float beta, float* RotMat){
 	 alpha = alpha * M_PI/180.0;
 	 beta = beta * M_PI/180.0;
 
-     RotMat[0] = cos(alpha) * cos(beta);
-     RotMat[1] = cos(alpha) * sin(beta);
-     RotMat[2] = -sin(alpha);
-     RotMat[3] = -sin(beta);
-     RotMat[4] = cos(beta);
+     RotMat[0] = cosf(alpha) * cosf(beta);
+     RotMat[1] = cosf(alpha) * sinf(beta);
+     RotMat[2] = -sinf(alpha);
+     RotMat[3] = -sinf(beta);
+     RotMat[4] = cosf(beta);
      RotMat[5] = 0;
-     RotMat[6] = cos(beta) * sin(alpha);
-     RotMat[7] = sin(alpha) * sin(beta);
-     RotMat[8] = cos(alpha);
+     RotMat[6] = cosf(beta) * sinf(alpha);
+     RotMat[7] = sinf(alpha) * sinf(beta);
+     RotMat[8] = cosf(alpha);
 
  }
 
@@ -531,6 +540,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"NucData_activate", &InputData->NucData_activate_flag, true},
 		{"MagData_activate", &InputData->MagData_activate_flag, true},
 		{"StructData_activate", &InputData->StructData_activate_flag, true},
+		{"RotData_activate", &InputData->RotData_activate_flag, true},
+		{"FastLoad", &InputData->FastLoad_flag, false},
 		{"Exclude_Zero_Moments", &InputData->ExcludeZeroMoments_flag, true},
 		{"Angular_Spec", &InputData->AngularSpec_activate_flag, true},
 		{"Fourier_Gamma", &InputData->output_fourier_correlation_matrix_flag, true}
@@ -576,6 +587,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"NucDataPath", &InputData->NucDataPath, true},
 		{"MagDataPath", &InputData->MagDataPath, true},
 		{"StructDataFilename", &InputData->StructDataFilename, true},
+		{"RotDataFilename", &InputData->RotDataFilename, true},
 		{"foldernameSANSData", &InputData->SANSDataFoldername, true},
 		{"Fourier_Approach", &InputData->Fourier_Approach, true},
 		{"User_Selection", &InputData->User_Selection, true}
@@ -686,9 +698,9 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 
 	// Check Polarization
-	float P_norm = sqrt(pow(InputData->Polarization[0], 2) \
-					  + pow(InputData->Polarization[1], 2) \
-					  + pow(InputData->Polarization[2], 2));
+	float P_norm = sqrtf(powf(InputData->Polarization[0], 2) \
+					  + powf(InputData->Polarization[1], 2) \
+					  + powf(InputData->Polarization[2], 2));
 	if(P_norm == 0){
 		LogSystem::write("Error: Polarization magnitude is equal to zero!!");
 	}
@@ -735,5 +747,3 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 	return ok;
 
 }
-
-

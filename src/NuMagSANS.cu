@@ -34,7 +34,7 @@ int main(int argc, char* argv[]){
 	MagDataProperties MagDataProp;
 	bool Check_MagData_Flag;
 	if(InputData.MagData_activate_flag){
-		Check_MagData_Flag = MagData_Observer(InputData.MagDataPath, &MagDataProp);
+		Check_MagData_Flag = MagData_Observer(InputData.MagDataPath, &MagDataProp, InputData.FastLoad_flag);
 		if(Check_MagData_Flag != true){
 			LogSystem::write(" ->-> Error in MagData!");
 			LogSystem::write("");
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]){
 	NucDataProperties NucDataProp;
 	bool Check_NucData_Flag;
 	if(InputData.NucData_activate_flag){
-		Check_NucData_Flag = NucData_Observer(InputData.NucDataPath, &NucDataProp);
+		Check_NucData_Flag = NucData_Observer(InputData.NucDataPath, &NucDataProp, InputData.FastLoad_flag);
 		if(Check_NucData_Flag != true){
 			LogSystem::write(" ->->Error in NucData!");
 			LogSystem::write("");
@@ -63,6 +63,18 @@ int main(int argc, char* argv[]){
 		Check_StructData_Flag = StructData_Observer(InputData.StructDataFilename, &StructDataProp);
 		if(Check_StructData_Flag != true){
 			LogSystem::write(" ->-> Error in StructData!");
+			LogSystem::write("");
+			LogSystem::write("");
+		}
+	}
+
+	// RotDataExplorer ##########################################################################
+	RotDataProperties RotDataProp;
+	bool Check_RotData_Flag;
+	if(InputData.RotData_activate_flag){
+		Check_RotData_Flag = RotData_Observer(InputData.RotDataFilename, &RotDataProp);
+		if(Check_RotData_Flag != true){
+			LogSystem::write(" ->-> Error in RotData!");
 			LogSystem::write("");
 			LogSystem::write("");
 		}
@@ -95,7 +107,7 @@ int main(int argc, char* argv[]){
 			cudaMemGetInfo(&free_bytes, &total_bytes);
 			used_mb1 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
 
-			NuMagSANS_Calculator(&InputData, &NucDataProp, &MagDataProp, &StructDataProp, Data_File_Index);
+			NuMagSANS_Calculator(&InputData, &NucDataProp, &MagDataProp, &StructDataProp, &RotDataProp, Data_File_Index);
 
 			cudaMemGetInfo(&free_bytes, &total_bytes);
 			used_mb2 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
@@ -112,7 +124,7 @@ int main(int argc, char* argv[]){
 			cudaMemGetInfo(&free_bytes, &total_bytes);
 			used_mb1 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
 
-			NuMagSANS_Calculator(&InputData, &NucDataProp, &MagDataProp, &StructDataProp, Data_File_Index);
+			NuMagSANS_Calculator(&InputData, &NucDataProp, &MagDataProp, &StructDataProp, &RotDataProp, Data_File_Index);
 
 			cudaMemGetInfo(&free_bytes, &total_bytes);
 			used_mb2 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
@@ -129,5 +141,3 @@ int main(int argc, char* argv[]){
 	return 0;
 	
 }
-
-

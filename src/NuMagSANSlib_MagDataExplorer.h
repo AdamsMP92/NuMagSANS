@@ -264,10 +264,9 @@ bool check_Subfolder_FileNames_MagData(MagDataProperties* MagDataProp){
 	}	
 }
 
-bool check_FileDimensions_MagData(MagDataProperties* MagDataProp){
+bool check_FileDimensions_MagData(MagDataProperties* MagDataProp, bool FastLoad){
 
 	string filename;
-	bool safe_mode = 1;
 	// allocate memory
 	MagDataProp->NumberOfElements = new int*[MagDataProp->Number_Of_SubFolders];
 	MagDataProp->NumberOfNonZeroMoments = new int*[MagDataProp->Number_Of_SubFolders];
@@ -278,7 +277,7 @@ bool check_FileDimensions_MagData(MagDataProperties* MagDataProp){
 	// read the file information
 	for(int i = 0; i < MagDataProp->Number_Of_SubFolders; i++){
 		for(int j = 0; j < MagDataProp->Number_Of_Files_In_SubFolder; j++){		
-			if(safe_mode || i == 0){
+			if(!FastLoad || j == 0){
 				filename = MagDataProp->GlobalFolderPath + "/" + MagDataProp->SubFolderNames_Nom + "_" + std::to_string(i+1) + "/" \
 	    		     	 + MagDataProp->SubFolder_FileNames_Nom + "_" + std::to_string(j+1)  + "." + MagDataProp->SubFolder_FileNames_Type;
 				NumberOfNonZeroMagneticMomentsInFile2(&MagDataProp->NumberOfNonZeroMoments[i][j], &MagDataProp->NumberOfElements[i][j], filename);
@@ -313,7 +312,7 @@ void CountAtomNumbers_MagData(MagDataProperties* MagDataProp){
 
 
 // Routine that checks number of subfolders in MagData directory
-bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataProp){
+bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataProp, bool FastLoad){
 
 	//cout << "##########################################################################################" << "\n";
 	//cout << "## Run - MagData Directory Explorer ######################################################" << "\n";
@@ -322,6 +321,7 @@ bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataPr
 	LogSystem::write("##########################################################################################");
 	LogSystem::write("## Run - MagData Directory Explorer ######################################################");
 	LogSystem::write("##########################################################################################");
+	LogSystem::write("FastLoad mode: " + std::string(FastLoad ? "true" : "false"));
 
 	bool CheckFlag = false;
 
@@ -335,7 +335,7 @@ bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataPr
 	bool Subfolder_Elements_CheckFlag = check_Subfolder_FileNames_MagData(MagDataProp);
 
 
-	bool FileDimensions_CheckFlag = check_FileDimensions_MagData(MagDataProp);
+	bool FileDimensions_CheckFlag = check_FileDimensions_MagData(MagDataProp, FastLoad);
 
 
 	CountAtomNumbers_MagData(MagDataProp);
@@ -360,4 +360,3 @@ bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataPr
 	return CheckFlag;
 
 }
-

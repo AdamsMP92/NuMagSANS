@@ -211,10 +211,9 @@ bool check_Subfolder_FileNames_NucData(NucDataProperties* NucDataProp){
 
 
 
-bool check_FileDimensions_NucData(NucDataProperties* NucDataProp){
+bool check_FileDimensions_NucData(NucDataProperties* NucDataProp, bool FastLoad){
 
      string filename;
-	 bool safe_mode = 1;
      // allocate memory
      NucDataProp->NumberOfElements = new int*[NucDataProp->Number_Of_SubFolders];
      for(int i = 0; i < NucDataProp->Number_Of_SubFolders; i++){
@@ -223,10 +222,10 @@ bool check_FileDimensions_NucData(NucDataProperties* NucDataProp){
      // read the file information
      for(int i = 0; i < NucDataProp->Number_Of_SubFolders; i++){
          for(int j = 0; j < NucDataProp->Number_Of_Files_In_SubFolder; j++){
-			if(safe_mode || i == 0){
-            	filename = NucDataProp->GlobalFolderPath + "/" + NucDataProp->SubFolderNames_Nom + "_" + std::to_string(i+1) + "/" \
-                      	+ NucDataProp->SubFolder_FileNames_Nom + "_" + std::to_string(j+1)  + "." + NucDataProp->SubFolder_FileNames_Type;
-            	// NumberOfNonZeroMagneticMomentsInFile(&NucDataProp->NumberOfNonZeroMoments[i][j], &NucDataProp->NumberOfElements[i][j], filename);
+			if(!FastLoad || j == 0){
+				filename = NucDataProp->GlobalFolderPath + "/" + NucDataProp->SubFolderNames_Nom + "_" + std::to_string(i+1) + "/" \
+						  + NucDataProp->SubFolder_FileNames_Nom + "_" + std::to_string(j+1)  + "." + NucDataProp->SubFolder_FileNames_Type;
+				// NumberOfNonZeroMagneticMomentsInFile(&NucDataProp->NumberOfNonZeroMoments[i][j], &NucDataProp->NumberOfElements[i][j], filename);
 				NumberOfEntriesInNucFile(&NucDataProp->NumberOfElements[i][j], filename);
 			}
 			else{
@@ -253,11 +252,12 @@ void CountAtomNumbers_NucData(NucDataProperties* NucDataProp){
 
 
 // Routine that checks number of subfolders in MagData directory
-bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataProp){
+bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataProp, bool FastLoad){
 
 	LogSystem::write("##########################################################################################");
 	LogSystem::write("## Run - NucData Directory Explorer ######################################################");
 	LogSystem::write("##########################################################################################");
+	LogSystem::write("FastLoad mode: " + std::string(FastLoad ? "true" : "false"));
 	LogSystem::write("");
 
      bool CheckFlag = false;
@@ -271,7 +271,7 @@ bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataPr
      // Check the files in each subfolder
      bool Subfolder_Elements_CheckFlag = check_Subfolder_FileNames_NucData(NucDataProp);
 
-     bool FileDimensions_CheckFlag = check_FileDimensions_NucData(NucDataProp);
+     bool FileDimensions_CheckFlag = check_FileDimensions_NucData(NucDataProp, FastLoad);
 
      CountAtomNumbers_NucData(NucDataProp);
 
@@ -291,5 +291,3 @@ bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataPr
      return CheckFlag;
 
 }
-
-
