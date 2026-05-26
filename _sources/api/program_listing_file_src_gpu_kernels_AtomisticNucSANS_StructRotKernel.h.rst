@@ -63,6 +63,9 @@ Program Listing for File AtomisticNucSANS_StructRotKernel.h
        float Nuc_real = 0.0;
        float Nuc_imag = 0.0;
    
+       float xr = 0.0;
+       float yr = 0.0;
+       float zr = 0.0;
        float Y = 0.0;
        float Z = 0.0;
    
@@ -77,23 +80,35 @@ Program Listing for File AtomisticNucSANS_StructRotKernel.h
        if(i < L){
            for(int k=0; k < K; k++){
    
-               nuc_real = 0.0;
-               nuc_imag = 0.0;
+       nuc_real = 0.0;
+       nuc_imag = 0.0;
    
                N_cum = NucData.N_cum[k];
                N_act = NucData.N_act[k];
    
                for(int l=0; l < N_act; l++){
+   
+                   // individual position rotation
+                   xr = RotData.RotMat[9*k+0] * NucData.x[l+N_cum] \
+                      + RotData.RotMat[9*k+3] * NucData.y[l+N_cum] \
+                      + RotData.RotMat[9*k+6] * NucData.z[l+N_cum];
+                   yr = RotData.RotMat[9*k+1] * NucData.x[l+N_cum] \
+                      + RotData.RotMat[9*k+4] * NucData.y[l+N_cum] \
+                      + RotData.RotMat[9*k+7] * NucData.z[l+N_cum];
+                   zr = RotData.RotMat[9*k+2] * NucData.x[l+N_cum] \
+                      + RotData.RotMat[9*k+5] * NucData.y[l+N_cum] \
+                      + RotData.RotMat[9*k+8] * NucData.z[l+N_cum];
+   
                    // atomic position composition
-                   //X = MagData.RotMat[0] * (MagData.x[l+k*N] + StructData.x[k]) \
-                   //  + MagData.RotMat[3] * (MagData.y[l+k*N] + StructData.y[k]) \
-                   // + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
-                   Y = NucData.RotMat[1] * (NucData.x[l+N_cum] + StructData.x[k]) \
-                     + NucData.RotMat[4] * (NucData.y[l+N_cum] + StructData.y[k]) \
-                     + NucData.RotMat[7] * (NucData.z[l+N_cum] + StructData.z[k]);
-                   Z = NucData.RotMat[2] * (NucData.x[l+N_cum] + StructData.x[k]) \
-                     + NucData.RotMat[5] * (NucData.y[l+N_cum] + StructData.y[k]) \
-                     + NucData.RotMat[8] * (NucData.z[l+N_cum] + StructData.z[k]);
+                   //X = NucData.RotMat[0] * (xr + StructData.x[k]) \
+                   //  + NucData.RotMat[3] * (yr + StructData.y[k]) \
+                   // + NucData.RotMat[6] * (zr + StructData.z[k]);
+                   Y = NucData.RotMat[1] * (xr + StructData.x[k]) \
+                      + NucData.RotMat[4] * (yr + StructData.y[k]) \
+                      + NucData.RotMat[7] * (zr + StructData.z[k]);
+                   Z = NucData.RotMat[2] * (xr + StructData.x[k]) \
+                      + NucData.RotMat[5] * (yr + StructData.y[k]) \
+                      + NucData.RotMat[8] * (zr + StructData.z[k]);
    
                    // phase function
                    Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];

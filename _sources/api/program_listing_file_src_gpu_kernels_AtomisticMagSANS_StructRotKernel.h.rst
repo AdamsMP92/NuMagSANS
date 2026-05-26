@@ -92,6 +92,12 @@ Program Listing for File AtomisticMagSANS_StructRotKernel.h
        float Qz_real = 0.0;
        float Qz_imag = 0.0;
    
+       float xr = 0.0;
+       float yr = 0.0;
+       float zr = 0.0;
+       float mxr = 0.0;
+       float myr = 0.0;
+       float mzr = 0.0;
      //float X = 0.0;
        float Y = 0.0;
        float Z = 0.0;
@@ -120,16 +126,38 @@ Program Listing for File AtomisticMagSANS_StructRotKernel.h
                N_act = MagData.N_act[k];
    
                for(int l=0; l < N_act; l++){
+   
+                   // individual position rotation
+                   xr = RotData.RotMat[9*k+0] * MagData.x[l+N_cum] \
+                      + RotData.RotMat[9*k+3] * MagData.y[l+N_cum] \
+                      + RotData.RotMat[9*k+6] * MagData.z[l+N_cum];
+                   yr = RotData.RotMat[9*k+1] * MagData.x[l+N_cum] \
+                      + RotData.RotMat[9*k+4] * MagData.y[l+N_cum] \
+                      + RotData.RotMat[9*k+7] * MagData.z[l+N_cum];
+                   zr = RotData.RotMat[9*k+2] * MagData.x[l+N_cum] \
+                      + RotData.RotMat[9*k+5] * MagData.y[l+N_cum] \
+                      + RotData.RotMat[9*k+8] * MagData.z[l+N_cum];
+   
+                   mxr = RotData.RotMat[9*k+0] * MagData.mx[l+N_cum] \
+                      + RotData.RotMat[9*k+3] * MagData.my[l+N_cum] \
+                      + RotData.RotMat[9*k+6] * MagData.mz[l+N_cum];
+                   myr = RotData.RotMat[9*k+1] * MagData.mx[l+N_cum] \
+                      + RotData.RotMat[9*k+4] * MagData.my[l+N_cum] \
+                      + RotData.RotMat[9*k+7] * MagData.mz[l+N_cum];
+                   mzr = RotData.RotMat[9*k+2] * MagData.mx[l+N_cum] \
+                      + RotData.RotMat[9*k+5] * MagData.my[l+N_cum] \
+                      + RotData.RotMat[9*k+8] * MagData.mz[l+N_cum];
+   
                    // atomic position composition
-                   //X = MagData.RotMat[0] * (MagData.x[l+k*N] + StructData.x[k]) \
-                   //  + MagData.RotMat[3] * (MagData.y[l+k*N] + StructData.y[k]) \
-                   // + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
-                   Y = MagData.RotMat[1] * (MagData.x[l+N_cum] + StructData.x[k]) \
-                     + MagData.RotMat[4] * (MagData.y[l+N_cum] + StructData.y[k]) \
-                     + MagData.RotMat[7] * (MagData.z[l+N_cum] + StructData.z[k]);
-                   Z = MagData.RotMat[2] * (MagData.x[l+N_cum] + StructData.x[k]) \
-                     + MagData.RotMat[5] * (MagData.y[l+N_cum] + StructData.y[k]) \
-                     + MagData.RotMat[8] * (MagData.z[l+N_cum] + StructData.z[k]);
+                   //X = MagData.RotMat[0] * (xr + StructData.x[k]) \
+                   //  + MagData.RotMat[3] * (yr + StructData.y[k]) \
+                   // + MagData.RotMat[6] * (zr + StructData.z[k]);
+                   Y = MagData.RotMat[1] * (xr + StructData.x[k]) \
+                      + MagData.RotMat[4] * (yr + StructData.y[k]) \
+                      + MagData.RotMat[7] * (zr + StructData.z[k]);
+                   Z = MagData.RotMat[2] * (xr + StructData.x[k]) \
+                      + MagData.RotMat[5] * (yr + StructData.y[k]) \
+                      + MagData.RotMat[8] * (zr + StructData.z[k]);
    
                    // phase function
                    Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];
@@ -139,12 +167,12 @@ Program Listing for File AtomisticMagSANS_StructRotKernel.h
                    sin_val = sinf(Psi);
    
                    // cosine and sine summations
-                   mx_real += MagData.mx[l+N_cum] * cos_val;
-                   mx_imag -= MagData.mx[l+N_cum] * sin_val;
-                   my_real += MagData.my[l+N_cum] * cos_val;
-                   my_imag -= MagData.my[l+N_cum] * sin_val;
-                   mz_real += MagData.mz[l+N_cum] * cos_val;
-                   mz_imag -= MagData.mz[l+N_cum] * sin_val;
+                   mx_real += mxr * cos_val;
+                   mx_imag -= mxr * sin_val;
+                   my_real += myr * cos_val;
+                   my_imag -= myr * sin_val;
+                   mz_real += mzr * cos_val;
+                   mz_imag -= mzr * sin_val;
    
                }
    

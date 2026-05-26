@@ -91,6 +91,12 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
        float Qz_real = 0.0;
        float Qz_imag = 0.0;
    
+       float xr = 0.0;
+       float yr = 0.0;
+       float zr = 0.0;
+       float mxr = 0.0;
+       float myr = 0.0;
+       float mzr = 0.0;
    
      //float X = 0.0;
        float Y = 0.0;
@@ -105,23 +111,23 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
    
        unsigned long int N_cum = 0;
        unsigned long int N_act = 0;
-    
+   
        if(i < L){
            for(int k=0; k < K; k++){
    
                mx_real = 0.0;
                mx_imag = 0.0;
-               my_real = 0.0; 
+               my_real = 0.0;
                my_imag = 0.0;
-               mz_real = 0.0; 
+               mz_real = 0.0;
                mz_imag = 0.0;
    
-               Mx_real = 0.0;
-               Mx_imag = 0.0;
-               My_real = 0.0;
-               My_imag = 0.0;
-               Mz_real = 0.0;
-               Mz_imag = 0.0;
+       Mx_real = 0.0;
+       Mx_imag = 0.0;
+       My_real = 0.0;
+       My_imag = 0.0;
+       Mz_real = 0.0;
+       Mz_imag = 0.0;
    
                Qx_real = 0.0;
                Qx_imag = 0.0;
@@ -134,16 +140,38 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
                N_act = MagData.N_act[k];
    
                for(int l=0; l < N_act; l++){
+   
+                   // individual position rotation
+                   xr = RotData.RotMat[9*k+0] * MagData.x[l+N_cum] \
+                      + RotData.RotMat[9*k+3] * MagData.y[l+N_cum] \
+                      + RotData.RotMat[9*k+6] * MagData.z[l+N_cum];
+                   yr = RotData.RotMat[9*k+1] * MagData.x[l+N_cum] \
+                      + RotData.RotMat[9*k+4] * MagData.y[l+N_cum] \
+                      + RotData.RotMat[9*k+7] * MagData.z[l+N_cum];
+                   zr = RotData.RotMat[9*k+2] * MagData.x[l+N_cum] \
+                      + RotData.RotMat[9*k+5] * MagData.y[l+N_cum] \
+                      + RotData.RotMat[9*k+8] * MagData.z[l+N_cum];
+   
+                   mxr = RotData.RotMat[9*k+0] * MagData.mx[l+N_cum] \
+                       + RotData.RotMat[9*k+3] * MagData.my[l+N_cum] \
+                      + RotData.RotMat[9*k+6] * MagData.mz[l+N_cum];
+                   myr = RotData.RotMat[9*k+1] * MagData.mx[l+N_cum] \
+                      + RotData.RotMat[9*k+4] * MagData.my[l+N_cum] \
+                      + RotData.RotMat[9*k+7] * MagData.mz[l+N_cum];
+                   mzr = RotData.RotMat[9*k+2] * MagData.mx[l+N_cum] \
+                      + RotData.RotMat[9*k+5] * MagData.my[l+N_cum] \
+                      + RotData.RotMat[9*k+8] * MagData.mz[l+N_cum];
+   
                    // atomic position composition
-                   //X = MagData.RotMat[0] * (MagData.x[l+k*N] + StructData.x[k]) \
-                   //  + MagData.RotMat[3] * (MagData.y[l+k*N] + StructData.y[k]) \
-                   // + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);
-                   Y = MagData.RotMat[1] * MagData.x[l+N_cum] \
-                     + MagData.RotMat[4] * MagData.y[l+N_cum] \
-                     + MagData.RotMat[7] * MagData.z[l+N_cum];
-                   Z = MagData.RotMat[2] * MagData.x[l+N_cum] \
-                     + MagData.RotMat[5] * MagData.y[l+N_cum] \
-                     + MagData.RotMat[8] * MagData.z[l+N_cum];
+                   //X = MagData.RotMat[0] * xr \
+                   //  + MagData.RotMat[3] * yr \
+                   // + MagData.RotMat[6] * zr;
+                   Y = MagData.RotMat[1] * xr \
+                      + MagData.RotMat[4] * yr \
+                      + MagData.RotMat[7] * zr;
+                   Z = MagData.RotMat[2] * xr \
+                      + MagData.RotMat[5] * yr \
+                      + MagData.RotMat[8] * zr;
    
                    // phase function
                    Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];
@@ -153,12 +181,12 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
                    sin_val = sinf(Psi);
    
                    // cosine and sine summations
-                   mx_real += MagData.mx[l+N_cum] * cos_val;
-                   mx_imag -= MagData.mx[l+N_cum] * sin_val;
-                   my_real += MagData.my[l+N_cum] * cos_val;
-                   my_imag -= MagData.my[l+N_cum] * sin_val;
-                   mz_real += MagData.mz[l+N_cum] * cos_val;
-                   mz_imag -= MagData.mz[l+N_cum] * sin_val;
+                   mx_real += mxr * cos_val;
+                   mx_imag -= mxr * sin_val;
+                   my_real += myr * cos_val;
+                   my_imag -= myr * sin_val;
+                   mz_real += mzr * cos_val;
+                   mz_imag -= mzr * sin_val;
    
                }
    
