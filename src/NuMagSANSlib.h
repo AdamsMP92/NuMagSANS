@@ -64,6 +64,12 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	// start time measurement #################################################################
 	auto start_total_time = std::chrono::high_resolution_clock::now();
 
+	// record GPU memory state before data initialization ######################################
+	size_t free_bytes_before_data_load, total_bytes_before_data_load;
+	size_t free_bytes_after_data_load, total_bytes_after_data_load;
+	cudaMemGetInfo(&free_bytes_before_data_load, &total_bytes_before_data_load);
+	double used_mb_before_data_load = (total_bytes_before_data_load - free_bytes_before_data_load) / 1024.0 / 1024.0;
+
 	// initialize nuclear data ################################################################
 	NuclearData NucData, NucData_gpu;
 	if(InputData->NucData_activate_flag){
@@ -127,6 +133,12 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	if (err != cudaSuccess) {
 		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
 	}
+
+	// report GPU memory state after data initialization #######################################
+	cudaMemGetInfo(&free_bytes_after_data_load, &total_bytes_after_data_load);
+	double used_mb_after_data_load = (total_bytes_after_data_load - free_bytes_after_data_load) / 1024.0 / 1024.0;
+	double loaded_data_mb = used_mb_after_data_load - used_mb_before_data_load;
+	LogSystem::write("GPU Memory Check after data load: loaded data: " + std::to_string(loaded_data_mb) + " MB, used bytes: " + std::to_string(used_mb_after_data_load) + " MB, free bytes: " + std::to_string(free_bytes_after_data_load / 1024.0 / 1024.0) + " MB");
 	
 	// initialize scaling factors #############################################################
 	ScalingFactors ScalFactors;
