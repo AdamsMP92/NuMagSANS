@@ -15,6 +15,7 @@ from UniformSphere import (
 BASE_DIR = Path(__file__).resolve().parent
 CONFIG = BASE_DIR / "NuMagSANSInput_temp.conf"
 OUTPUT_DIR = BASE_DIR / "NuMagSANS_Output"
+REAL_SPACE_DIR = BASE_DIR / "RealSpaceData"
 
 N_ITERATIONS = 5
 SEED = 12345
@@ -122,13 +123,24 @@ def print_summary_table(results: list[dict]) -> None:
     print(f"\nmean MSE: {np.mean(mse_values):.6e}")
 
 
+def cleanup_generated_data() -> None:
+    """Remove generated test input and output data."""
+
+    for path in (REAL_SPACE_DIR, OUTPUT_DIR):
+        if path.exists():
+            shutil.rmtree(path)
+
+
 def main() -> None:
     """Run five random non-overlapping two-sphere checks."""
 
     sim = NuMagSANS()
     rng = np.random.default_rng(SEED)
-    results = [run_single_case(sim, index, rng) for index in range(1, N_ITERATIONS + 1)]
-    print_summary_table(results)
+    try:
+        results = [run_single_case(sim, index, rng) for index in range(1, N_ITERATIONS + 1)]
+        print_summary_table(results)
+    finally:
+        cleanup_generated_data()
 
 
 if __name__ == "__main__":
