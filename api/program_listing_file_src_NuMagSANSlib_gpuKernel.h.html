@@ -683,7 +683,7 @@
 
 
 <span class="c1">// computes in the first step the correlation function c(r) and the by multiplication with r^2 the pair-distance function</span>
-<span class="w"> </span><span class="c1">// here we take into account the limit of sin(x)/x at x-&gt; 0 and so the singularity is fixed</span>
+<span class="w"> </span><span class="c1">// here we take into account the limit of sinf(x)/x at x-&gt; 0 and so the singularity is fixed</span>
 <span class="w"> </span><span class="n">__global__</span>
 <span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">DistributionFunctions</span><span class="p">(</span><span class="n">ScatteringData</span><span class="w"> </span><span class="n">SANSData</span><span class="p">){</span>
 
@@ -707,11 +707,11 @@
 
 <span class="w">                   </span><span class="n">qr1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">q_1D</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <span class="w">                   </span><span class="n">b1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">qr1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">);</span>
-<span class="w">                   </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sinf</span><span class="p">(</span><span class="n">qr1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">qr1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">b1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">b1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">q_1D</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">                   </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sinf</span><span class="p">(</span><span class="n">qr1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">qr1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">b1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">b1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">powf</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">q_1D</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
 <span class="w">                   </span><span class="n">qr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">q_1D</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <span class="w">                   </span><span class="n">b2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">qr2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">);</span>
-<span class="w">                   </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sinf</span><span class="p">(</span><span class="n">qr2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">qr2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">b2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">b2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">q_1D</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">                   </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sinf</span><span class="p">(</span><span class="n">qr2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">qr2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">b2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">b2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">powf</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">q_1D</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
 <span class="w">                   </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Nuc_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">S_Nuc_1D_unpolarized</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span>\
 <span class="w">                                                  </span><span class="o">+</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">S_Nuc_1D_unpolarized</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">s2</span><span class="p">;</span>
@@ -731,19 +731,19 @@
 <span class="w">                </span><span class="p">}</span>
 
 <span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Nuc_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Nuc_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dq</span><span class="p">;</span>
-<span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">p_Nuc_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Nuc_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">p_Nuc_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Nuc_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">powf</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
 <span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dq</span><span class="p">;</span>
-<span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">p_Mag_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">p_Mag_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">powf</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
 <span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_NucMag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_NucMag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dq</span><span class="p">;</span>
-<span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">p_NucMag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_NucMag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">p_NucMag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_NucMag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">powf</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
 <span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_polarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_polarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dq</span><span class="p">;</span>
-<span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">p_Mag_polarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_polarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">p_Mag_polarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_polarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">powf</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
 <span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_chiral</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_chiral</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dq</span><span class="p">;</span>
-<span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">p_Mag_chiral</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_chiral</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">                </span><span class="n">SANSData</span><span class="p">.</span><span class="n">p_Mag_chiral</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">c_Mag_chiral</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">powf</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">r_1D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 
 <span class="w">      </span><span class="p">}</span>
 <span class="w"> </span><span class="p">}</span>
@@ -809,7 +809,7 @@
 <span class="cm">    unsigned long int K = *MagData.K;</span>
 <span class="cm">    unsigned long int W = *MagData.TotalAtomNumber;</span>
 
-<span class="cm">    //float v = 1.0/((float)  (*MagData.K)) * pow(1.0/((float) (*MagData.N)), 2); // pre factor</span>
+<span class="cm">    //float v = 1.0/((float)  (*MagData.K)) * powf(1.0/((float) (*MagData.N)), 2); // pre factor</span>
 <span class="cm">    //float v = 1.0/((float) W);</span>
 <span class="cm">    float v = 1.0/((float) W) * 1.0/((float) N_avg);</span>
 <span class="cm">    int i = blockIdx.x * blockDim.x + threadIdx.x;</span>
@@ -945,9 +945,9 @@
 <span class="cm">            SANSData.S_NucMag_2D[i] += 0.0;</span>
 
 <span class="cm">            // polarized magnetic SANS cross section projected in the (qz, qy)-plane</span>
-<span class="cm">            SANSData.S_Mag_2D_polarized[i] += v * pow(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \</span>
-<span class="cm">                                            + v * pow(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \</span>
-<span class="cm">                                            + v * pow(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \</span>
+<span class="cm">            SANSData.S_Mag_2D_polarized[i] += v * powf(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \</span>
+<span class="cm">                                            + v * powf(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \</span>
+<span class="cm">                                            + v * powf(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \</span>
 <span class="cm">                                            + v * 2.0 * Px * Py * (Qx_real * Qy_real + Qx_imag * Qy_imag) \</span>
 <span class="cm">                                            + v * 2.0 * Px * Pz * (Qx_real * Qz_real + Qx_imag * Qz_imag) \</span>
 <span class="cm">                                            + v * 2.0 * Py * Pz * (Qy_real * Qz_real + Qy_imag * Qz_imag);</span>
@@ -1013,7 +1013,7 @@
 <span class="cm">    unsigned long int N_avg = *NucData.N_avg;</span>
 <span class="cm">    unsigned long int W = *NucData.TotalAtomNumber;</span>
 
-<span class="cm">    //float v = 1.0/((float)  (*NucData.K)) * pow(1.0/((float) (*NucData.N)), 2); // pre factor</span>
+<span class="cm">    //float v = 1.0/((float)  (*NucData.K)) * powf(1.0/((float) (*NucData.N)), 2); // pre factor</span>
 <span class="cm">    float v = 1.0/((float) W) * 1.0/((float) N_avg);;</span>
 
 <span class="cm">    int i = blockIdx.x * blockDim.x + threadIdx.x;</span>
@@ -1109,7 +1109,7 @@
 <span class="cm">    unsigned long int K = *MagData.K;</span>
 <span class="cm">    unsigned long int W = *MagData.TotalAtomNumber;</span>
 
-<span class="cm">    //float v = (1.0/((float) K)) * pow(1.0/((float) N), 2); // pre factor</span>
+<span class="cm">    //float v = (1.0/((float) K)) * powf(1.0/((float) N), 2); // pre factor</span>
 <span class="cm">    float v = 1.0/((float) W) * 1.0/((float) N_avg);</span>
 <span class="cm">    int i = blockIdx.x * blockDim.x + threadIdx.x;</span>
 
@@ -1201,8 +1201,8 @@
 <span class="cm">                Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];</span>
 
 <span class="cm">                // cosine and sine values</span>
-<span class="cm">                cos_val = cos(Psi);</span>
-<span class="cm">                sin_val = sin(Psi);</span>
+<span class="cm">                cos_val = cosf(Psi);</span>
+<span class="cm">                sin_val = sinf(Psi);</span>
 
 <span class="cm">                // cosine and sine summations</span>
 <span class="cm">                nuc_real += NucData.Nuc[l+N_cum] * cos_val;</span>
@@ -1255,9 +1255,9 @@
 <span class="cm">                                     + 2.0 * v * Pz * (nuc_real * Qz_real + nuc_imag * Qz_imag);</span>
 
 <span class="cm">            // polarized magnetic SANS cross section projected in the (qz, qy)-plane</span>
-<span class="cm">            SANSData.S_Mag_2D_polarized[i] += v * pow(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \</span>
-<span class="cm">                                            + v * pow(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \</span>
-<span class="cm">                                            + v * pow(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \</span>
+<span class="cm">            SANSData.S_Mag_2D_polarized[i] += v * powf(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \</span>
+<span class="cm">                                            + v * powf(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \</span>
+<span class="cm">                                            + v * powf(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \</span>
 <span class="cm">                                            + v * 2.0 * Px * Py * (Qx_real * Qy_real + Qx_imag * Qy_imag) \</span>
 <span class="cm">                                            + v * 2.0 * Px * Pz * (Qx_real * Qz_real + Qx_imag * Qz_imag) \</span>
 <span class="cm">                                            + v * 2.0 * Py * Pz * (Qy_real * Qz_real + Qy_imag * Qz_imag);</span>
@@ -1335,7 +1335,7 @@
 <span class="cm">    unsigned long int N_avg = *MagData.N_avg;</span>
 <span class="cm">    unsigned long int W = *MagData.TotalAtomNumber;</span>
 
-<span class="cm">    //float v = 1.0/((float)  (*MagData.K)) * pow(1.0/((float) (*MagData.N)), 2); // pre factor</span>
+<span class="cm">    //float v = 1.0/((float)  (*MagData.K)) * powf(1.0/((float) (*MagData.N)), 2); // pre factor</span>
 <span class="cm">    float v =  1.0/((float) W) * 1.0/((float) N_avg);</span>
 
 <span class="cm">    int i = blockIdx.x * blockDim.x + threadIdx.x;</span>
@@ -1457,9 +1457,9 @@
 <span class="cm">        SANSData.S_NucMag_2D[i] = 0.0;</span>
 
 <span class="cm">        // polarized magnetic SANS cross section projected in the (qz, qy)-plane</span>
-<span class="cm">        SANSData.S_Mag_2D_polarized[i] = v * pow(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \</span>
-<span class="cm">                                       + v * pow(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \</span>
-<span class="cm">                                       + v * pow(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \</span>
+<span class="cm">        SANSData.S_Mag_2D_polarized[i] = v * powf(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \</span>
+<span class="cm">                                       + v * powf(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \</span>
+<span class="cm">                                       + v * powf(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \</span>
 <span class="cm">                                       + v * 2.0 * Px * Py * (Qx_real * Qy_real + Qx_imag * Qy_imag) \</span>
 <span class="cm">                                       + v * 2.0 * Px * Pz * (Qx_real * Qz_real + Qx_imag * Qz_imag) \</span>
 <span class="cm">                                       + v * 2.0 * Py * Pz * (Qy_real * Qz_real + Qy_imag * Qz_imag);</span>
@@ -1527,7 +1527,7 @@
 <span class="cm">    unsigned long int K = *NucData.K;</span>
 <span class="cm">    unsigned long int W = *NucData.TotalAtomNumber;</span>
 
-<span class="cm">    //float v = 1.0/((float)  (*NucData.K)) * pow(1.0/((float) (*NucData.N)), 2); // pre factor</span>
+<span class="cm">    //float v = 1.0/((float)  (*NucData.K)) * powf(1.0/((float) (*NucData.N)), 2); // pre factor</span>
 <span class="cm">    float v = 1.0/((float) W) * 1.0/((float) N_avg);</span>
 
 <span class="cm">    int i = blockIdx.x * blockDim.x + threadIdx.x;</span>
@@ -1632,7 +1632,7 @@
 <span class="cm">    unsigned long int K = *MagData.K;</span>
 <span class="cm">    unsigned long int W = *MagData.TotalAtomNumber;</span>
 
-<span class="cm">    //float v = (1.0/((float) K)) * pow(1.0/((float) N), 2); // pre factor</span>
+<span class="cm">    //float v = (1.0/((float) K)) * powf(1.0/((float) N), 2); // pre factor</span>
 <span class="cm">    float v = 1.0/((float) W) * 1.0/((float) N_avg);</span>
 
 <span class="cm">    int i = blockIdx.x * blockDim.x + threadIdx.x;</span>
@@ -1773,9 +1773,9 @@
 <span class="cm">                                + 2.0 * v * Pz * (Nuc_real * Qz_real + Nuc_imag * Qz_imag);</span>
 
 <span class="cm">        // polarized magnetic SANS cross section projected in the (qz, qy)-plane</span>
-<span class="cm">        SANSData.S_Mag_2D_polarized[i] = v * pow(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \</span>
-<span class="cm">                                       + v * pow(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \</span>
-<span class="cm">                                       + v * pow(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \</span>
+<span class="cm">        SANSData.S_Mag_2D_polarized[i] = v * powf(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \</span>
+<span class="cm">                                       + v * powf(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \</span>
+<span class="cm">                                       + v * powf(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \</span>
 <span class="cm">                                       + v * 2.0 * Px * Py * (Qx_real * Qy_real + Qx_imag * Qy_imag) \</span>
 <span class="cm">                                       + v * 2.0 * Px * Pz * (Qx_real * Qz_real + Qx_imag * Qz_imag) \</span>
 <span class="cm">                                       + v * 2.0 * Py * Pz * (Qy_real * Qz_real + Qy_imag * Qz_imag);</span>

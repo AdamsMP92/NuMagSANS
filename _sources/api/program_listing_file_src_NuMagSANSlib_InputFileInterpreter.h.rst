@@ -256,15 +256,15 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
         alpha = alpha * M_PI/180.0;
         beta = beta * M_PI/180.0;
    
-        RotMat[0] = cos(alpha) * cos(beta);
-        RotMat[1] = cos(alpha) * sin(beta);
-        RotMat[2] = -sin(alpha);
-        RotMat[3] = -sin(beta);
-        RotMat[4] = cos(beta);
+        RotMat[0] = cosf(alpha) * cosf(beta);
+        RotMat[1] = cosf(alpha) * sinf(beta);
+        RotMat[2] = -sinf(alpha);
+        RotMat[3] = -sinf(beta);
+        RotMat[4] = cosf(beta);
         RotMat[5] = 0;
-        RotMat[6] = cos(beta) * sin(alpha);
-        RotMat[7] = sin(alpha) * sin(beta);
-        RotMat[8] = cos(alpha);
+        RotMat[6] = cosf(beta) * sinf(alpha);
+        RotMat[7] = sinf(alpha) * sinf(beta);
+        RotMat[8] = cosf(alpha);
    
     }
    
@@ -663,9 +663,9 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
    
        // Check Polarization
-       float P_norm = sqrt(pow(InputData->Polarization[0], 2) \
-                         + pow(InputData->Polarization[1], 2) \
-                         + pow(InputData->Polarization[2], 2));
+       float P_norm = sqrtf(powf(InputData->Polarization[0], 2) \
+                         + powf(InputData->Polarization[1], 2) \
+                         + powf(InputData->Polarization[2], 2));
        if(P_norm == 0){
            LogSystem::write("Error: Polarization magnitude is equal to zero!!");
        }

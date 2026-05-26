@@ -223,10 +223,10 @@ Program Listing for File NuMagSANSlib_SANSData.h
    
        if(InputData->Fourier_Approach == "atomistic"){
    
-           ScalFactors->Nuc_SANS_SF = ((float) W) * ((float) N_avg) * pow(n_B, 2)/V * 1e-2;
-           ScalFactors->Mag_SANS_SF = ((float) W) * ((float) N_avg) * pow(mu_B * b_H, 2)/V * 1e-2;  // scaling factor for the SANS cross sections
+           ScalFactors->Nuc_SANS_SF = ((float) W) * ((float) N_avg) * powf(n_B, 2)/V * 1e-2;
+           ScalFactors->Mag_SANS_SF = ((float) W) * ((float) N_avg) * powf(mu_B * b_H, 2)/V * 1e-2;  // scaling factor for the SANS cross sections
            ScalFactors->NucMag_SANS_SF = ((float) W) * ((float) N_avg) * (n_B * mu_B * b_H)/V * 1e-2;
-           ScalFactors->CorrelationMatrix_scaling_factor = pow(((float) N_avg) * mu_B, 2)/(8.0*pow(M_PI, 3));   // scaling factor for the Fourier correlation functions
+           ScalFactors->CorrelationMatrix_scaling_factor = powf(((float) N_avg) * mu_B, 2)/(8.0*powf(M_PI, 3));   // scaling factor for the Fourier correlation functions
            
            ScalFactors->Nuc_Corr_SF = ScalFactors->Nuc_SANS_SF * 1e-7;
            ScalFactors->Mag_Corr_SF = ScalFactors->Mag_SANS_SF * 1e-7;
@@ -241,10 +241,10 @@ Program Listing for File NuMagSANSlib_SANSData.h
        }
        else if(InputData->Fourier_Approach == "micromagnetic"){
    
-           ScalFactors->Nuc_SANS_SF = ((float) W) * ((float) N_avg) * pow(n_length, 2)/V * 1e-2;
-           ScalFactors->Mag_SANS_SF = ((float) W) * ((float) N_avg) * pow(mag_moment * b_H, 2)/V * 1e-2; // scaling factor for the SANS cross sections
+           ScalFactors->Nuc_SANS_SF = ((float) W) * ((float) N_avg) * powf(n_length, 2)/V * 1e-2;
+           ScalFactors->Mag_SANS_SF = ((float) W) * ((float) N_avg) * powf(mag_moment * b_H, 2)/V * 1e-2; // scaling factor for the SANS cross sections
            ScalFactors->NucMag_SANS_SF = ((float) W) * ((float) N_avg) * (n_length * mag_moment * b_H)/V * 1e-2;
-           ScalFactors->CorrelationMatrix_scaling_factor = pow(((float) N_avg) * mag_moment, 2)/(8.0*pow(M_PI, 3));     // scaling factor for the Fourier correlation functions
+           ScalFactors->CorrelationMatrix_scaling_factor = powf(((float) N_avg) * mag_moment, 2)/(8.0*powf(M_PI, 3));     // scaling factor for the Fourier correlation functions
    
            ScalFactors->Nuc_Corr_SF = ScalFactors->Nuc_SANS_SF * 1e-7;
            ScalFactors->Mag_Corr_SF = ScalFactors->Mag_SANS_SF * 1e-7;
@@ -518,8 +518,8 @@ Program Listing for File NuMagSANSlib_SANSData.h
            
                SANSData->q_2D[j + i * (InputData->N_theta)] = SANSData->q_1D[i];
                SANSData->theta_2D[j + i * (InputData->N_theta)] = j * (*SANSData->dtheta);
-               SANSData->qy_2D[j + i * (InputData->N_theta)] = SANSData->q_1D[i] * sin(j * (*SANSData->dtheta));
-               SANSData->qz_2D[j + i * (InputData->N_theta)] = SANSData->q_1D[i] * cos(j * (*SANSData->dtheta));
+               SANSData->qy_2D[j + i * (InputData->N_theta)] = SANSData->q_1D[i] * sinf(j * (*SANSData->dtheta));
+               SANSData->qz_2D[j + i * (InputData->N_theta)] = SANSData->q_1D[i] * cosf(j * (*SANSData->dtheta));
                
                SANSData->Gxx_real[j + i * (InputData->N_theta)] = 0.0;
                SANSData->Gyy_real[j + i * (InputData->N_theta)] = 0.0;
@@ -638,8 +638,8 @@ Program Listing for File NuMagSANSlib_SANSData.h
    
                SANSData->r_2D[j + i * (InputData->N_alpha)] = i * (*SANSData->dr);
                SANSData->alpha_2D[j + i * (InputData->N_alpha)] = j * (*SANSData->dalpha);
-               SANSData->ry_2D[j + i * (InputData->N_alpha)] = SANSData->r_1D[i] * sin(j * (*SANSData->dalpha));
-               SANSData->rz_2D[j + i * (InputData->N_alpha)] = SANSData->r_1D[i] * cos(j * (*SANSData->dalpha));
+               SANSData->ry_2D[j + i * (InputData->N_alpha)] = SANSData->r_1D[i] * sinf(j * (*SANSData->dalpha));
+               SANSData->rz_2D[j + i * (InputData->N_alpha)] = SANSData->r_1D[i] * cosf(j * (*SANSData->dalpha));
    
                SANSData->Corr_Nuc_2D_unpolarized[j + i * (InputData->N_alpha)] = 0.0;
                SANSData->Corr_Mag_2D_unpolarized[j + i * (InputData->N_alpha)] = 0.0;
