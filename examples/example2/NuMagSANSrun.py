@@ -41,7 +41,13 @@ def relative_mse(reference: np.ndarray, prediction: np.ndarray) -> float:
     return mse if norm == 0.0 else mse / norm
 
 
-def run_single_case(sim: NuMagSANS, iteration: int, rng: np.random.Generator) -> float:
+def format_vector(vector: tuple[float, float, float]) -> str:
+    """Return a compact vector string for terminal tables."""
+
+    return "(" + ", ".join(f"{value: .3f}" for value in vector) + ")"
+
+
+def run_single_case(sim: NuMagSANS, iteration: int, rng: np.random.Generator) -> dict:
     """Generate one random two-sphere case, run NuMagSANS, and compare SpinFlip_1D."""
 
     spheres = random_two_sphere_case(rng)
@@ -88,7 +94,35 @@ def run_single_case(sim: NuMagSANS, iteration: int, rng: np.random.Generator) ->
     mse = relative_mse(numagsans_spin_flip, analytic_spin_flip)
 
     print(f"iteration {iteration}: relative MSE = {mse:.6e}")
-    return mse
+    return {
+        "iteration": iteration,
+        "mse": mse,
+        "scattering_volume": scattering_volume,
+        "spheres": spheres,
+    }
+
+
+def print_summary_table(results: list[dict]) -> None:
+    """Print MSE values together with the generated two-sphere parameters."""
+
+    print("\nSummary:")
+    print(f"{'it':>2} {'MSE':>12} {'particle':>8} {'R':>8} {'a':>8} {'position':>30} {'magnetization':>30}")
+    for result in results:
+        for particle_index, sphere in enumerate(result["spheres"], start=1):
+            mse = f"{result['mse']:.6e}" if particle_index == 1 else ""
+            iteration = str(result["iteration"]) if particle_index == 1 else ""
+            print(
+                f"{iteration:>2} {mse:>12} {particle_index:>8} "
+                f"{sphere.radius:8.3f} {sphere.spacing:8.3f} "
+                f"{format_vector(sphere.center):>30} "
+                f"{format_vector(sphere.magnetization):>30}"
+            )
+
+    mse_values = np.asarray([result["mse"] for result in results], dtype=float)
+    print("\nMSE values:")
+    for mse in mse_values:
+        print(f"{mse:.6e}")
+    print(f"mean MSE: {np.mean(mse_values):.6e}")
 
 
 def main() -> None:
@@ -96,11 +130,8 @@ def main() -> None:
 
     sim = NuMagSANS()
     rng = np.random.default_rng(SEED)
-    mse_values = [run_single_case(sim, index, rng) for index in range(1, N_ITERATIONS + 1)]
-
-    print("MSE values:")
-    for mse in mse_values:
-        print(f"{mse:.6e}")
+    results = [run_single_case(sim, index, rng) for index in range(1, N_ITERATIONS + 1)]
+    print_summary_table(results)
 
 
 if __name__ == "__main__":
