@@ -463,11 +463,45 @@ the physical model and numerical settings of the simulation.</p>
 <span class="n">sim</span><span class="o">.</span><span class="n">config_clear</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
 <section id="data-paths-and-data-selection">
-<h3>Data Paths and Data Selection<a class="headerlink" href="#data-paths-and-data-selection" title="Link to this heading">#</a></h3>
+<h2>Data Paths and Data Selection<a class="headerlink" href="#data-paths-and-data-selection" title="Link to this heading">#</a></h2>
 <p>These parameters define where the simulation reads input data and where
 results are written.</p>
-<dl class="simple">
+<p>NuMagSANS separates local object data from optional assembly metadata:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data layer</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Typical file layout</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span></code></p></td>
+<td><p>Local magnetic moment data of one or more objects.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MagData/Object_1/m_1.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">MagData/Object_2/m_1.csv</span></code>, …</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span></code></p></td>
+<td><p>Local nuclear scattering-length-density data of one or more objects.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NucData/Object_1/n_1.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">NucData/Object_2/n_1.csv</span></code>, …</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">StructData</span></code></p></td>
+<td><p>Object-center translations. One row per object with <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">y</span> <span class="pre">z</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RotData</span></code></p></td>
+<td><p>Object-wise local rotations. One row per object with ZYZ Euler angles <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">beta</span> <span class="pre">gamma</span></code> in radians.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This separation allows several system types to be represented with the same
+backend: fully materialized micromagnetic or atomistic datasets can be imported
+directly through <code class="docutils literal notranslate"><span class="pre">MagData</span></code> and/or <code class="docutils literal notranslate"><span class="pre">NucData</span></code>, while object-based assemblies
+can additionally use <code class="docutils literal notranslate"><span class="pre">StructData</span></code> and <code class="docutils literal notranslate"><span class="pre">RotData</span></code> to translate and rotate
+local object data without rewriting the object files.</p>
+<dl>
 <dt><code class="docutils literal notranslate"><span class="pre">NucDataPath</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/NucData</span></code></p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">NucData_activate</span></code></dt><dd><p>Default value 0</p>
@@ -480,12 +514,66 @@ results are written.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">StructData_activate</span></code></dt><dd><p>Default value 0</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RotDataFilename</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/RotData.csv</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RotData_activate</span></code></dt><dd><p>Default value 0</p>
+<p>If activated, <code class="docutils literal notranslate"><span class="pre">RotDataFilename</span></code> is read as an object-wise rotation table.
+The file must contain one row per object and three columns:
+<code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">beta</span> <span class="pre">gamma</span></code>. The convention is
+<span class="math notranslate nohighlight">\(R = R_z(\alpha) R_y(\beta) R_z(\gamma)\)</span>, with angles in radians.</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">foldernameSANSData</span></code></dt><dd><p>Default <code class="docutils literal notranslate"><span class="pre">NuMagSANS_Output</span></code></p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">FastLoad</span></code></dt><dd><p>Default value 0</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, NuMagSANS skips repeated dimension checks for all files
+beyond the first data file inside each object folder. This can accelerate
+import for large datasets. It assumes that, within each object folder, all
+magnetic or nuclear data files have the same number of rows. Different
+objects may still have different numbers of rows.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Exclude_Zero_Moments</span></code></dt><dd><p>Default value 0</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, rows with zero magnetic moment are excluded from imported
+magnetic datasets.</p>
+</dd>
 </dl>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">Exclude_Zero_Moments</span></code></div>
+<section id="supported-data-layer-combinations">
+<h3>Supported Data-Layer Combinations<a class="headerlink" href="#supported-data-layer-combinations" title="Link to this heading">#</a></h3>
+<p>The atomistic backend supports pure magnetic, pure nuclear, and combined
+nuclear-magnetic calculations. Each of these can be evaluated without assembly
+metadata, with <code class="docutils literal notranslate"><span class="pre">StructData</span></code>, with <code class="docutils literal notranslate"><span class="pre">RotData</span></code>, or with both <code class="docutils literal notranslate"><span class="pre">StructData</span></code> and
+<code class="docutils literal notranslate"><span class="pre">RotData</span></code>.</p>
+<p>The main combinations are:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Active layers</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span></code></p></td>
+<td><p>Pure magnetic scattering from local real-space data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span></code></p></td>
+<td><p>Pure nuclear scattering from local real-space data.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">NucData</span></code></p></td>
+<td><p>Combined nuclear-magnetic scattering from local real-space data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">+</span> <span class="pre">StructData</span></code></p></td>
+<td><p>Local objects are translated by object-center positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Local objects are rotated individually before scattering is computed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">+</span> <span class="pre">StructData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Local objects are individually rotated and then placed at object-center positions.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
+<p>This makes it possible to use NuMagSANS both for large fully materialized
+simulation datasets and for object-based assembly models where local objects
+are reused with different positions and orientations.</p>
 </section>
 </section>
 <section id="fourier-approach">
@@ -501,8 +589,8 @@ Options: <code class="docutils literal notranslate"><span class="pre">atomistic<
 <section id="loop-control">
 <h2>Loop Control<a class="headerlink" href="#loop-control" title="Link to this heading">#</a></h2>
 <p>These parameters control batch simulations or repeated calculations.</p>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">Loop_Modus</span></code></dt><dd><p>Description: Enable looping over simulation indices
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">Loop_Modus</span></code></dt><dd><p>Description: Enable looping over selected data-file indices.
 Default <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">Loop_From</span></code></dt><dd><p>Description: First index used in loop simulations
@@ -513,12 +601,15 @@ Default <code class="docutils literal notranslate"><span class="pre">20</span></
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">User_Selection</span></code></dt><dd><p>Description: Explicit list of selected indices
 Default <code class="docutils literal notranslate"><span class="pre">[1]</span></code></p>
+<p>If <code class="docutils literal notranslate"><span class="pre">Loop_Modus</span> <span class="pre">=</span> <span class="pre">0</span></code>, only the listed file indices are evaluated. If
+<code class="docutils literal notranslate"><span class="pre">Loop_Modus</span> <span class="pre">=</span> <span class="pre">1</span></code>, the index range from <code class="docutils literal notranslate"><span class="pre">Loop_From</span></code> to <code class="docutils literal notranslate"><span class="pre">Loop_To</span></code> is
+used.</p>
 </dd>
 </dl>
 </section>
 <section id="constant-parameters">
 <h2>Constant Parameters<a class="headerlink" href="#constant-parameters" title="Link to this heading">#</a></h2>
-<dl class="simple">
+<dl>
 <dt><code class="docutils literal notranslate"><span class="pre">XYZ_Unit_Factor</span></code></dt><dd><p>Conversion factors for coordinate units. Scaling factor applied to spatial coordinates.
 This parameter is equal to <code class="docutils literal notranslate"><span class="pre">1</span></code>, if the positional input data is in units of <span class="math notranslate nohighlight">\(\mathrm{nm}\)</span>.
 Default value <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
@@ -526,11 +617,15 @@ Default value <code class="docutils literal notranslate"><span class="pre">1</sp
 <dt><code class="docutils literal notranslate"><span class="pre">Scattering_Volume_V</span></code></dt><dd><p>Effective scattering volume in units of <span class="math notranslate nohighlight">\(\mathrm{m}^3\)</span>
 Default value <code class="docutils literal notranslate"><span class="pre">2.618e-24</span></code></p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotMat_alpha</span></code></dt><dd><p>Rotation angle in degree. Rotates the sample
+<dt><code class="docutils literal notranslate"><span class="pre">RotMat_alpha</span></code></dt><dd><p>Global sample rotation angle in degree.
 Default value <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotMat_beta</span></code></dt><dd><p>Rotation angle in degree. Rotates the sample in the <span class="math notranslate nohighlight">\(x-y\)</span>-plane.
+<dt><code class="docutils literal notranslate"><span class="pre">RotMat_beta</span></code></dt><dd><p>Global sample rotation angle in degree. Rotates the sample in the
+<span class="math notranslate nohighlight">\(x-y\)</span>-plane.
 Default value <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
+<p>These two angles define a global rotation of the complete imported system.
+They are independent of <code class="docutils literal notranslate"><span class="pre">RotData</span></code>, which defines object-wise local
+rotations.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">Polarization</span></code></dt><dd><p>Polarization vector (Px, Py, Pz). Defines the polarization vector of the incoming neutron beam.
 Default <code class="docutils literal notranslate"><span class="pre">(0,0,1)</span></code></p>
@@ -1237,8 +1332,9 @@ Default value <code class="docutils literal notranslate"><span class="pre">0</sp
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-paths-and-data-selection">Data Paths and Data Selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-paths-and-data-selection">Data Paths and Data Selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-data-layer-combinations">Supported Data-Layer Combinations</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-approach">Fourier Approach</a></li>

@@ -51,10 +51,37 @@ The following script demonstrates a minimal NuMagSANS workflow.
 
 
 Data Paths and Data Selection
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 These parameters define where the simulation reads input data and where
 results are written.
+
+NuMagSANS separates local object data from optional assembly metadata:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Data layer
+     - Purpose
+     - Typical file layout
+   * - ``MagData``
+     - Local magnetic moment data of one or more objects.
+     - ``MagData/Object_1/m_1.csv``, ``MagData/Object_2/m_1.csv``, ...
+   * - ``NucData``
+     - Local nuclear scattering-length-density data of one or more objects.
+     - ``NucData/Object_1/n_1.csv``, ``NucData/Object_2/n_1.csv``, ...
+   * - ``StructData``
+     - Object-center translations. One row per object with ``x y z``.
+     - ``StructData.csv``
+   * - ``RotData``
+     - Object-wise local rotations. One row per object with ZYZ Euler angles ``alpha beta gamma`` in radians.
+     - ``RotData.csv``
+
+This separation allows several system types to be represented with the same
+backend: fully materialized micromagnetic or atomistic datasets can be imported
+directly through ``MagData`` and/or ``NucData``, while object-based assemblies
+can additionally use ``StructData`` and ``RotData`` to translate and rotate
+local object data without rewriting the object files.
 
 ``NucDataPath``  
     Default path ``RealSpaceData/NucData``
@@ -74,16 +101,67 @@ results are written.
 ``StructData_activate``
     Default value 0
 
+``RotDataFilename``
+    Default path ``RealSpaceData/RotData.csv``
+
+``RotData_activate``
+    Default value 0
+
+    If activated, ``RotDataFilename`` is read as an object-wise rotation table.
+    The file must contain one row per object and three columns:
+    ``alpha beta gamma``. The convention is
+    :math:`R = R_z(\alpha) R_y(\beta) R_z(\gamma)`, with angles in radians.
+
 ``foldernameSANSData``
     Default ``NuMagSANS_Output``
 
+``FastLoad``
+    Default value 0
+
+    If set to ``1``, NuMagSANS skips repeated dimension checks for all files
+    beyond the first data file inside each object folder. This can accelerate
+    import for large datasets. It assumes that, within each object folder, all
+    magnetic or nuclear data files have the same number of rows. Different
+    objects may still have different numbers of rows.
+
+``Exclude_Zero_Moments``
+    Default value 0
+
+    If set to ``1``, rows with zero magnetic moment are excluded from imported
+    magnetic datasets.
 
 
+Supported Data-Layer Combinations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+The atomistic backend supports pure magnetic, pure nuclear, and combined
+nuclear-magnetic calculations. Each of these can be evaluated without assembly
+metadata, with ``StructData``, with ``RotData``, or with both ``StructData`` and
+``RotData``.
 
+The main combinations are:
 
-| ``Exclude_Zero_Moments``
- 
+.. list-table::
+   :header-rows: 1
+
+   * - Active layers
+     - Interpretation
+   * - ``MagData``
+     - Pure magnetic scattering from local real-space data.
+   * - ``NucData``
+     - Pure nuclear scattering from local real-space data.
+   * - ``MagData + NucData``
+     - Combined nuclear-magnetic scattering from local real-space data.
+   * - ``... + StructData``
+     - Local objects are translated by object-center positions.
+   * - ``... + RotData``
+     - Local objects are rotated individually before scattering is computed.
+   * - ``... + StructData + RotData``
+     - Local objects are individually rotated and then placed at object-center positions.
+
+This makes it possible to use NuMagSANS both for large fully materialized
+simulation datasets and for object-based assembly models where local objects
+are reused with different positions and orientations.
 
 
 Fourier Approach
@@ -102,7 +180,7 @@ Loop Control
 These parameters control batch simulations or repeated calculations.
 
 ``Loop_Modus``
-    Description: Enable looping over simulation indices
+    Description: Enable looping over selected data-file indices.
     Default ``0``
 
 ``Loop_From``
@@ -117,6 +195,10 @@ These parameters control batch simulations or repeated calculations.
     Description: Explicit list of selected indices
     Default ``[1]``
 
+    If ``Loop_Modus = 0``, only the listed file indices are evaluated. If
+    ``Loop_Modus = 1``, the index range from ``Loop_From`` to ``Loop_To`` is
+    used.
+
 Constant Parameters
 -------------------
 
@@ -130,12 +212,17 @@ Constant Parameters
     Default value ``2.618e-24``
 
 ``RotMat_alpha``
-    Rotation angle in degree. Rotates the sample
+    Global sample rotation angle in degree.
     Default value ``0.0``
 
 ``RotMat_beta``
-    Rotation angle in degree. Rotates the sample in the :math:`x-y`-plane.
+    Global sample rotation angle in degree. Rotates the sample in the
+    :math:`x-y`-plane.
     Default value ``0.0``
+
+    These two angles define a global rotation of the complete imported system.
+    They are independent of ``RotData``, which defines object-wise local
+    rotations.
 
 ``Polarization``
     Polarization vector (Px, Py, Pz). Defines the polarization vector of the incoming neutron beam.
