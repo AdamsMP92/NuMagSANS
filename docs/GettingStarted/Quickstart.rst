@@ -4,7 +4,8 @@ Quickstart Installation
 NuMagSANS can be executed through the Python interface, which allows
 users to generate configuration files and run simulations programmatically.
 
-The repository contains a minimal example together with a small dataset.
+The repository contains two example workflows that can be used as installation
+checks after the package has been built and installed.
 
 Example installation in HPC environments
 ----------------------------------------
@@ -59,7 +60,9 @@ https://hpc-docs.uni.lu
    pip install --upgrade pip
    pip install -e .
    python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
-   cd example
+   cd examples/example1
+   python NuMagSANSrun.py
+   cd ../example2
    python NuMagSANSrun.py
 
 Example: MPSD HPC (Hamburg)
@@ -109,5 +112,7 @@ We assume that you are logged in on an MPSD cluster login node.
    pip install --upgrade pip
    pip install -e .
    python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
-   cd example
+   cd examples/example1
+   python NuMagSANSrun.py
+   cd ../example2
    python NuMagSANSrun.py

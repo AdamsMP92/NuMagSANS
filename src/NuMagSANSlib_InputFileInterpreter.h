@@ -97,6 +97,9 @@ struct InputFileData{
 	/// CSV file containing rotational information
 	string RotDataFilename;
 
+	/// Skip repeated MagData dimension checks for faster data import
+	bool FastLoad_flag = false;
+
     /// Output directory for computed SANS data
 	string SANSDataFoldername;
 
@@ -538,6 +541,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"MagData_activate", &InputData->MagData_activate_flag, true},
 		{"StructData_activate", &InputData->StructData_activate_flag, true},
 		{"RotData_activate", &InputData->RotData_activate_flag, true},
+		{"FastLoad", &InputData->FastLoad_flag, false},
 		{"Exclude_Zero_Moments", &InputData->ExcludeZeroMoments_flag, true},
 		{"Angular_Spec", &InputData->AngularSpec_activate_flag, true},
 		{"Fourier_Gamma", &InputData->output_fourier_correlation_matrix_flag, true}
@@ -743,5 +747,3 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 	return ok;
 
 }
-
-
