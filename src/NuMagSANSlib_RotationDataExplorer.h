@@ -53,8 +53,7 @@ void get_GlobalRotDataPath(std::string Local_RotDataPath,
     // RotDataProp->GlobalFilePath = tmp_string + "/" + Local_RotDataPath;
     RotDataProp->GlobalFilePath = Local_RotDataPath;
 
-    cout << "found Global RotDataPath: "
-         << RotDataProp->GlobalFilePath << "\n\n";
+    LogSystem::write("found Global RotDataPath: " + RotDataProp->GlobalFilePath);
 }
 
 
@@ -91,9 +90,10 @@ void NumberOfEntriesInRotationFile(int *NumberOfColumns,
 bool RotData_Observer(std::string Local_RotDataPath,
                       RotDataProperties* RotDataProp){
 
-    cout << "##########################################################################################" << "\n";
-    cout << "## Run - Rotation File Explorer ##########################################################" << "\n";
-    cout << "##########################################################################################" << "\n\n";
+    LogSystem::write("##########################################################################################");
+    LogSystem::write("## Run - Rotation File Explorer ##########################################################");
+    LogSystem::write("##########################################################################################");
+    LogSystem::write("");
 
     bool CheckFlag = false;
 
@@ -104,12 +104,14 @@ bool RotData_Observer(std::string Local_RotDataPath,
     NumberOfEntriesInRotationFile(&RotDataProp->Number_Of_Elements,
                                   RotDataProp->GlobalFilePath);
 
-    cout << "Number of Entries: "
-         << RotDataProp->Number_Of_Elements << "\n\n";
+    LogSystem::write("Number of Entries: " + std::to_string(RotDataProp->Number_Of_Elements));
+    LogSystem::write("");
 
-    cout << "##########################################################################################" << "\n";
-    cout << "## Stop - Rotation File Explorer #########################################################" << "\n";
-    cout << "##########################################################################################" << "\n\n\n\n";
+    LogSystem::write("##########################################################################################");
+    LogSystem::write("## Stop - Rotation File Explorer #########################################################");
+    LogSystem::write("##########################################################################################");
+    LogSystem::write("");
+    LogSystem::write("");
 
     if(RotDataProp->Number_Of_Elements != 0){
         CheckFlag = true;

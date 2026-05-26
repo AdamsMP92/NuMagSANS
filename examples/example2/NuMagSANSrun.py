@@ -119,10 +119,7 @@ def print_summary_table(results: list[dict]) -> None:
             )
 
     mse_values = np.asarray([result["mse"] for result in results], dtype=float)
-    print("\nMSE values:")
-    for mse in mse_values:
-        print(f"{mse:.6e}")
-    print(f"mean MSE: {np.mean(mse_values):.6e}")
+    print(f"\nmean MSE: {np.mean(mse_values):.6e}")
 
 
 def main() -> None:

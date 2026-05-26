@@ -48,7 +48,7 @@ void get_GlobalStructDataPath(std::string Local_StructDataPath, StructDataProper
     std::string tmp_string = tmp;
 	//StructDataProp->GlobalFilePath = tmp_string + "/" + Local_StructDataPath;
 	StructDataProp->GlobalFilePath = Local_StructDataPath;
-	cout << "found Global StructDataPath: " << StructDataProp->GlobalFilePath << "\n\n";
+	LogSystem::write("found Global StructDataPath: " + StructDataProp->GlobalFilePath);
     
 }
 
@@ -79,9 +79,10 @@ void NumberOfEntriesInStructureFile(int *NumberOfColumns, string filename){
 // Routine that checks number of subfolders in MagData directory
 bool StructData_Observer(std::string Local_StructDataPath, StructDataProperties*StructDataProp){
 
-	cout << "##########################################################################################" << "\n";
-	cout << "## Run - Structure File Explorer #########################################################" << "\n";
-	cout << "##########################################################################################" << "\n\n";
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("## Run - Structure File Explorer #########################################################");
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("");
 
 	bool CheckFlag = false;
 
@@ -90,12 +91,15 @@ bool StructData_Observer(std::string Local_StructDataPath, StructDataProperties*
 
 	// count number of entries in the structure data file
 	NumberOfEntriesInStructureFile(&StructDataProp->Number_Of_Elements, StructDataProp->GlobalFilePath);
-	cout << "Number of Entries: " << StructDataProp->Number_Of_Elements << "\n\n";
+	LogSystem::write("Number of Entries: " + std::to_string(StructDataProp->Number_Of_Elements));
+	LogSystem::write("");
 
 
-	cout << "##########################################################################################" << "\n";
-	cout << "## Stop - Structure File Explorer ########################################################" << "\n";
-	cout << "##########################################################################################" << "\n\n\n\n";
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("## Stop - Structure File Explorer ########################################################");
+	LogSystem::write("##########################################################################################");
+	LogSystem::write("");
+	LogSystem::write("");
 
 	if(StructDataProp->Number_Of_Elements != 0){
 		CheckFlag = true;
@@ -104,4 +108,3 @@ bool StructData_Observer(std::string Local_StructDataPath, StructDataProperties*
 	return CheckFlag;
 
 }
-
