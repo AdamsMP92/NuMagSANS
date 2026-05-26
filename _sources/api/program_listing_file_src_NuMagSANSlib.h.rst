@@ -48,9 +48,11 @@ Program Listing for File NuMagSANSlib.h
    #include "NuMagSANSlib_MagDataExplorer.h"
    #include "NuMagSANSlib_NucDataExplorer.h"
    #include "NuMagSANSlib_StructureDataExplorer.h"
+   #include "NuMagSANSlib_RotationDataExplorer.h"
    #include "NuMagSANSlib_MagData.h"
    #include "NuMagSANSlib_NucData.h"
    #include "NuMagSANSlib_StructureData.h"
+   #include "NuMagSANSlib_RotationData.h"
    #include "NuMagSANSlib_SANSData.h"
    #include "NuMagSANSlib_SpectralData.h"
    #include "NuMagSANSlib_gpuKernel.h"
@@ -61,6 +63,7 @@ Program Listing for File NuMagSANSlib.h
                              NucDataProperties* NucDataProp,\
                              MagDataProperties* MagDataProp,\
                              StructDataProperties* StructDataProp, \
+                             RotDataProperties* RotDataProp, \
                              int Data_File_Index){
    
        cudaError_t err;
@@ -106,6 +109,17 @@ Program Listing for File NuMagSANSlib.h
                LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
            }
            //disp_StructureData(&StructData);
+       }
+   
+       // initialize rotation data ##############################################################
+       RotationData RotData, RotData_gpu;
+       if(InputData->RotData_activate_flag){
+           init_RotationData(&RotData, &RotData_gpu, RotDataProp, InputData);
+           cudaDeviceSynchronize();
+           err = cudaGetLastError();
+           if (err != cudaSuccess) {
+               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+           }
        }
    
        // initialize scattering data #############################################################
@@ -297,6 +311,10 @@ Program Listing for File NuMagSANSlib.h
    
        if(InputData->StructData_activate_flag){
            free_StructureData(&StructData, &StructData_gpu);
+       }
+   
+       if(InputData->RotData_activate_flag){
+           free_RotationData(&RotData, &RotData_gpu);
        }
        
        // free scattering data

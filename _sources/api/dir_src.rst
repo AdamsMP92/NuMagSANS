@@ -7,6 +7,11 @@ Directory src
 
 *Directory path:* ``src``
 
+Subdirectories
+--------------
+
+- :ref:`dir__home_runner_work_NuMagSANS_NuMagSANS_src_gpu_kernels`
+
 
 Files
 -----
@@ -23,6 +28,8 @@ Files
 - :ref:`file_src_NuMagSANSlib_NucData.h`
 - :ref:`file_src_NuMagSANSlib_NucDataExplorer.h`
 - :ref:`file_src_NuMagSANSlib_ReadWrite.h`
+- :ref:`file_src_NuMagSANSlib_RotationData.h`
+- :ref:`file_src_NuMagSANSlib_RotationDataExplorer.h`
 - :ref:`file_src_NuMagSANSlib_SANSData.h`
 - :ref:`file_src_NuMagSANSlib_SpectralData.h`
 - :ref:`file_src_NuMagSANSlib_StringCompare.h`

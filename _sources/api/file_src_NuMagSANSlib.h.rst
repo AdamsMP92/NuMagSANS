@@ -48,6 +48,10 @@ Includes
 
 - ``NuMagSANSlib_ReadWrite.h`` (:ref:`file_src_NuMagSANSlib_ReadWrite.h`)
 
+- ``NuMagSANSlib_RotationData.h`` (:ref:`file_src_NuMagSANSlib_RotationData.h`)
+
+- ``NuMagSANSlib_RotationDataExplorer.h`` (:ref:`file_src_NuMagSANSlib_RotationDataExplorer.h`)
+
 - ``NuMagSANSlib_SANSData.h`` (:ref:`file_src_NuMagSANSlib_SANSData.h`)
 
 - ``NuMagSANSlib_SpectralData.h`` (:ref:`file_src_NuMagSANSlib_SpectralData.h`)
@@ -108,5 +112,5 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_NuMagSANSlib_8h_1a72e11694028733642d03ac72c80d3bc2`
+- :ref:`exhale_function_NuMagSANSlib_8h_1a3402897a6b66c8a503dc9a46e85fc494`
 

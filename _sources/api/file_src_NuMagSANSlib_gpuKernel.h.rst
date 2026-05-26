@@ -40,6 +40,30 @@ Includes
 
 - ``fstream``
 
+- ``gpu_kernels/AtomisticMagSANS_DiluteKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticMagSANS_DiluteKernel.h`)
+
+- ``gpu_kernels/AtomisticMagSANS_RotDiluteKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticMagSANS_RotDiluteKernel.h`)
+
+- ``gpu_kernels/AtomisticMagSANS_StructKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticMagSANS_StructKernel.h`)
+
+- ``gpu_kernels/AtomisticMagSANS_StructRotKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticMagSANS_StructRotKernel.h`)
+
+- ``gpu_kernels/AtomisticNuMagSANS_DiluteKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticNuMagSANS_DiluteKernel.h`)
+
+- ``gpu_kernels/AtomisticNuMagSANS_RotDiluteKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticNuMagSANS_RotDiluteKernel.h`)
+
+- ``gpu_kernels/AtomisticNuMagSANS_StructKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticNuMagSANS_StructKernel.h`)
+
+- ``gpu_kernels/AtomisticNuMagSANS_StructRotKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticNuMagSANS_StructRotKernel.h`)
+
+- ``gpu_kernels/AtomisticNucSANS_DiluteKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticNucSANS_DiluteKernel.h`)
+
+- ``gpu_kernels/AtomisticNucSANS_RotDiluteKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticNucSANS_RotDiluteKernel.h`)
+
+- ``gpu_kernels/AtomisticNucSANS_StructKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticNucSANS_StructKernel.h`)
+
+- ``gpu_kernels/AtomisticNucSANS_StructRotKernel.h`` (:ref:`file_src_gpu_kernels_AtomisticNucSANS_StructRotKernel.h`)
+
 - ``iostream``
 
 - ``math.h``
@@ -78,18 +102,6 @@ Included By
 Functions
 ---------
 
-
-- :ref:`exhale_function_NuMagSANSlib__gpuKernel_8h_1a03fe3737cf00a324a3192e9c392b239f`
-
-- :ref:`exhale_function_NuMagSANSlib__gpuKernel_8h_1ab5b52817203d79998ffddd5d355385a3`
-
-- :ref:`exhale_function_NuMagSANSlib__gpuKernel_8h_1afcff5b059c2ff211584add3d6eb8674e`
-
-- :ref:`exhale_function_NuMagSANSlib__gpuKernel_8h_1a9187ff7f73fe4ff8e5056b14561327a5`
-
-- :ref:`exhale_function_NuMagSANSlib__gpuKernel_8h_1aa4d108485f63a449875ef858d969f4bb`
-
-- :ref:`exhale_function_NuMagSANSlib__gpuKernel_8h_1ae1563d7dcb643484ca0cb1d7f4d24dc3`
 
 - :ref:`exhale_function_NuMagSANSlib__gpuKernel_8h_1add20a9fc6080a68c8f791dac8524f9c3`
 

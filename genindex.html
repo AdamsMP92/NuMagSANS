@@ -26,8 +26,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -36,10 +36,10 @@
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=b457a862" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
@@ -193,11 +193,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -210,8 +217,7 @@
           
           
           
-          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -298,11 +304,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -315,8 +328,7 @@
           
           
           
-          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -396,10 +408,14 @@
 </li>
       <li><a href="api/function_NuMagSANSlib__NucData_8h_1acfa234613c2c26a8c65af60e4be94646.html#_CPPv423allocate_NuclearDataRAMP11NuclearDataP17NucDataPropertiesi">allocate_NuclearDataRAM (C++ function)</a>
 </li>
-      <li><a href="api/function_NuMagSANSlib__SANSData_8h_1ac9466dcc1c50f559d5941bbabe7a27b0.html#_CPPv427allocate_ScatteringData_GPUP14ScatteringDataP14ScatteringData">allocate_ScatteringData_GPU (C++ function)</a>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1aa26b0717ea8d2fba155fae61b9e581ce.html#_CPPv424allocate_RotationDataGPUP12RotationDataP12RotationData">allocate_RotationDataGPU (C++ function)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1ae9bb0a8f7976fb14b626f611e349da3c.html#_CPPv424allocate_RotationDataRAMP12RotationDataP17RotDataPropertiesP13InputFileData">allocate_RotationDataRAM (C++ function)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/function_NuMagSANSlib__SANSData_8h_1ac9466dcc1c50f559d5941bbabe7a27b0.html#_CPPv427allocate_ScatteringData_GPUP14ScatteringDataP14ScatteringData">allocate_ScatteringData_GPU (C++ function)</a>
+</li>
       <li><a href="api/function_NuMagSANSlib__SANSData_8h_1a52fcd7001c4876233f9d7a8819c0d929.html#_CPPv427allocate_ScatteringData_RAMP13InputFileDataP14ScatteringData">allocate_ScatteringData_RAM (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__SpectralData_8h_1acb9135d16a51f32de612d0d1df2b240a.html#_CPPv425allocate_SpectralData_GPUP12SpectralDataP12SpectralData">allocate_SpectralData_GPU (C++ function)</a>
@@ -520,6 +536,8 @@
 </li>
       <li><a href="api/function_NuMagSANSlib__NucData_8h_1ac18d529580b96f85e98c357de106884e.html#_CPPv416free_NuclearDataP11NuclearDataP11NuclearData">free_NuclearData (C++ function)</a>
 </li>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1a601e2439425e2b740ae3c89606fa4b4a.html#_CPPv417free_RotationDataP12RotationDataP12RotationData">free_RotationData (C++ function)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/function_NuMagSANSlib__SANSData_8h_1a72adc7dce05a37a748a374bfbf745dac.html#_CPPv419free_ScatteringDataP14ScatteringDataP14ScatteringData">free_ScatteringData (C++ function)</a>
@@ -536,9 +554,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/function_NuMagSANSlib__MagDataExplorer_8h_1a95d14cddb255ac51ae84f20c8ba0addf.html#_CPPv421get_GlobalMagDataPathNSt6stringEP17MagDataProperties">get_GlobalMagDataPath (C++ function)</a>
 </li>
+      <li><a href="api/function_NuMagSANSlib__NucDataExplorer_8h_1a8b80f1113633b2e09bb2200b42dcd1a9.html#_CPPv421get_GlobalNucDataPathNSt6stringEP17NucDataProperties">get_GlobalNucDataPath (C++ function)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/function_NuMagSANSlib__NucDataExplorer_8h_1a8b80f1113633b2e09bb2200b42dcd1a9.html#_CPPv421get_GlobalNucDataPathNSt6stringEP17NucDataProperties">get_GlobalNucDataPath (C++ function)</a>
+      <li><a href="api/function_NuMagSANSlib__RotationDataExplorer_8h_1a545f365b6f3b0e35067b14460c958a7c.html#_CPPv421get_GlobalRotDataPathNSt6stringEP17RotDataProperties">get_GlobalRotDataPath (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__StructureDataExplorer_8h_1a58a17ad09b21c2149d432a49b3835e92.html#_CPPv424get_GlobalStructDataPathNSt6stringEP20StructDataProperties">get_GlobalStructDataPath (C++ function)</a>
 </li>
@@ -551,6 +571,8 @@
       <li><a href="api/function_NuMagSANSlib__MagData_8h_1ad4703ab5696f8b5a629940f4f475a083.html#_CPPv422init_MagnetizationDataP17MagnetizationDataP17MagnetizationDataP17MagDataPropertiesP13InputFileDatai">init_MagnetizationData (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__NucData_8h_1a86b3fee9207d91942f6fb4bddbc6e180.html#_CPPv416init_NuclearDataP11NuclearDataP11NuclearDataP17NucDataPropertiesP13InputFileDatai">init_NuclearData (C++ function)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1af1711c58f9cab15754e5a7a03a1f861c.html#_CPPv417init_RotationDataP12RotationDataP12RotationDataP17RotDataPropertiesP13InputFileData">init_RotationData (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__SANSData_8h_1ad4c9883888ddf5b6a9b7b2ebd694a252.html#_CPPv419init_ScalingFactorsP14ScalingFactorsP13InputFileDataP17MagnetizationDataP11NuclearDataP14ScatteringData">init_ScalingFactors (C++ function)</a>
 </li>
@@ -618,6 +640,10 @@
 </li>
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData5r_maxE">InputFileData::r_max (C++ member)</a>
 </li>
+      <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData21RotData_activate_flagE">InputFileData::RotData_activate_flag (C++ member)</a>
+</li>
+      <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData15RotDataFilenameE">InputFileData::RotDataFilename (C++ member)</a>
+</li>
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData6RotMatE">InputFileData::RotMat (C++ member)</a>
 </li>
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData12RotMat_alphaE">InputFileData::RotMat_alpha (C++ member)</a>
@@ -644,12 +670,14 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/function_NuMagSANSlib__LogFile_8h_1a18763d3ac6bb2d099a9a08e6febf3248.html#_CPPv4N9LogSystem5closeEv">LogSystem::close (C++ function)</a>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1a7389a1437acf1c3292c56be812098f64.html#_CPPv415LeftMultiply3x3PfPKf">LeftMultiply3x3 (C++ function)</a>
 </li>
-      <li><a href="api/function_NuMagSANSlib__LogFile_8h_1a42c691ae814d46ddb66602aac27aed1f.html#_CPPv4N9LogSystem7initLogERKNSt6stringE">LogSystem::initLog (C++ function)</a>
+      <li><a href="api/function_NuMagSANSlib__LogFile_8h_1a18763d3ac6bb2d099a9a08e6febf3248.html#_CPPv4N9LogSystem5closeEv">LogSystem::close (C++ function)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/function_NuMagSANSlib__LogFile_8h_1a42c691ae814d46ddb66602aac27aed1f.html#_CPPv4N9LogSystem7initLogERKNSt6stringE">LogSystem::initLog (C++ function)</a>
+</li>
       <li><a href="api/variable_NuMagSANSlib__LogFile_8h_1af7a4b34a504b47208965374f4999663f.html#_CPPv4N9LogSystem7logFileE">LogSystem::logFile (C++ member)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__LogFile_8h_1adc8fe42e36af0610cda3f70aaa9f6dd2.html#_CPPv4N9LogSystem5writeERKNSt6stringE">LogSystem::write (C++ function)</a>
@@ -686,10 +714,10 @@
 </li>
       <li><a href="api/structMagnetizationData.html#_CPPv417MagnetizationData">MagnetizationData (C++ struct)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/structMagnetizationData.html#_CPPv4N17MagnetizationData1KE">MagnetizationData::K (C++ member)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/structMagnetizationData.html#_CPPv4N17MagnetizationData2mxE">MagnetizationData::mx (C++ member)</a>
 </li>
       <li><a href="api/structMagnetizationData.html#_CPPv4N17MagnetizationData2myE">MagnetizationData::my (C++ member)</a>
@@ -715,6 +743,8 @@
       <li><a href="api/structMagnetizationData.html#_CPPv4N17MagnetizationData1yE">MagnetizationData::y (C++ member)</a>
 </li>
       <li><a href="api/structMagnetizationData.html#_CPPv4N17MagnetizationData1zE">MagnetizationData::z (C++ member)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1accbf966962f110a0419d59a8ce991fcb.html#_CPPv422Multiply_RotmatZYZ_3x3fffPf">Multiply_RotmatZYZ_3x3 (C++ function)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -768,11 +798,13 @@
 </li>
       <li><a href="api/structNuclearData.html#_CPPv4N11NuclearData1zE">NuclearData::z (C++ member)</a>
 </li>
-      <li><a href="api/function_NuMagSANSlib_8h_1a72e11694028733642d03ac72c80d3bc2.html#_CPPv420NuMagSANS_CalculatorP13InputFileDataP17NucDataPropertiesP17MagDataPropertiesP20StructDataPropertiesi">NuMagSANS_Calculator (C++ function)</a>
+      <li><a href="api/function_NuMagSANSlib_8h_1a3402897a6b66c8a503dc9a46e85fc494.html#_CPPv420NuMagSANS_CalculatorP13InputFileDataP17NucDataPropertiesP17MagDataPropertiesP20StructDataPropertiesP17RotDataPropertiesi">NuMagSANS_Calculator (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__InputFileInterpreter_8h_1acefcd1d43e234c479915867da38e9f72.html#_CPPv425Number_Of_Comma_In_StringPi6string">Number_Of_Comma_In_String (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__NucDataExplorer_8h_1ac4cdc190f0c967bd14df16acbab72e21.html#_CPPv424NumberOfEntriesInNucFilePi6string">NumberOfEntriesInNucFile (C++ function)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationDataExplorer_8h_1a2cbe85bd885d00ccbdd1b94fa071c5c9.html#_CPPv429NumberOfEntriesInRotationFilePi6string">NumberOfEntriesInRotationFile (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__StructureDataExplorer_8h_1a3909ee63c9271d46be60c8450abed7b4.html#_CPPv430NumberOfEntriesInStructureFilePi6string">NumberOfEntriesInStructureFile (C++ function)</a>
 </li>
@@ -866,10 +898,10 @@
 </li>
       <li><a href="api/function_NuMagSANSlib__NucData_8h_1a72544420950aed1d1b53a6ef65d413b2.html#_CPPv416read_NuclearDataP11NuclearDataP17NucDataPropertiesP13InputFileDatai">read_NuclearData (C++ function)</a>
 </li>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1a27347f831387370e56e03a2be16486db.html#_CPPv417read_RotationDataP12RotationDataP17RotDataPropertiesP13InputFileData">read_RotationData (C++ function)</a>
+</li>
       <li><a href="api/function_NuMagSANSlib__StructureData_8h_1ab2fe043bbe61848f9ed86db2772a9009.html#_CPPv418read_StructureDataP13StructureDataP20StructDataPropertiesP13InputFileData">read_StructureData (C++ function)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/function_NuMagSANSlib__InputFileInterpreter_8h_1a3bc93c1b63b904fb9952346a88377c5f.html#_CPPv431ReadCSV__Input_File_Interpreter6stringP13InputFileData">ReadCSV__Input_File_Interpreter (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__ReadWrite_8h_1a3a46c2cacc1c51d9571e864574ef0d03.html#_CPPv421ReadCSV_double_matrixmmPPd6string">ReadCSV_double_matrix (C++ function)</a>
@@ -877,6 +909,36 @@
       <li><a href="api/function_NuMagSANSlib__ReadWrite_8h_1a84439060fad2677b8640d637a9b14e61.html#_CPPv421ReadCSV_double_vectormPd6string">ReadCSV_double_vector (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__ReadWrite_8h_1ab183c1f4b26db174e36d04fd2fc2335d.html#_CPPv420ReadCSV_float_vectormPf6string">ReadCSV_float_vector (C++ function)</a>
+</li>
+      <li><a href="api/structRotationData.html#_CPPv412RotationData">RotationData (C++ struct)</a>
+</li>
+      <li><a href="api/structRotationData.html#_CPPv4N12RotationData5alphaE">RotationData::alpha (C++ member)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/structRotationData.html#_CPPv4N12RotationData4betaE">RotationData::beta (C++ member)</a>
+</li>
+      <li><a href="api/structRotationData.html#_CPPv4N12RotationData5gammaE">RotationData::gamma (C++ member)</a>
+</li>
+      <li><a href="api/structRotationData.html#_CPPv4N12RotationData1KE">RotationData::K (C++ member)</a>
+</li>
+      <li><a href="api/structRotationData.html#_CPPv4N12RotationData6RotMatE">RotationData::RotMat (C++ member)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1a9a8b8f198af3e7d4d66b40b5c3222baf.html#_CPPv416RotationMatrix_yfPf">RotationMatrix_y (C++ function)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1aad084dea7403eac3c503f5f9e5d03a34.html#_CPPv416RotationMatrix_zfPf">RotationMatrix_z (C++ function)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationDataExplorer_8h_1a347131ce0a4982993fd5ca5b9de2f972.html#_CPPv416RotData_ObserverNSt6stringEP17RotDataProperties">RotData_Observer (C++ function)</a>
+</li>
+      <li><a href="api/structRotDataProperties.html#_CPPv417RotDataProperties">RotDataProperties (C++ struct)</a>
+</li>
+      <li><a href="api/structRotDataProperties.html#_CPPv4N17RotDataProperties14GlobalFilePathE">RotDataProperties::GlobalFilePath (C++ member)</a>
+</li>
+      <li><a href="api/structRotDataProperties.html#_CPPv4N17RotDataProperties18Number_Of_ElementsE">RotDataProperties::Number_Of_Elements (C++ member)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1a6f713d13b96beaef29a7c9093fba2e71.html#_CPPv413RotMat_selectmPfPf">RotMat_select (C++ function)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1a43cec2ffef6bfe1b4a0ea20a2bddbc09.html#_CPPv412RotMat_storemPfPf">RotMat_store (C++ function)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1290,8 +1352,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1325,7 +1387,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
 </p></div>
       
     </div>

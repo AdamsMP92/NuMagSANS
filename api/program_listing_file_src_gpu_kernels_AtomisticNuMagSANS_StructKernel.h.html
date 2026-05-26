@@ -1,0 +1,725 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Program Listing for File AtomisticNuMagSANS_StructKernel.h &#8212; NuMagSANS  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=b457a862" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+    <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/program_listing_file_src_gpu_kernels_AtomisticNuMagSANS_StructKernel.h';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/NuMagSANScut.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/NuMagSANScut.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title"> </p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../GettingStarted/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../RelatedPublications/index.html">
+    Related Publications
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/AdamsMP92/NuMagSANS">
+    GitHub Repository
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../GettingStarted/index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../RelatedPublications/index.html">
+    Related Publications
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/AdamsMP92/NuMagSANS">
+    GitHub Repository
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Program Listing for File AtomisticNuMagSANS_StructKernel.h</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Program Listing for File AtomisticNuMagSANS_StructKernel.h</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="program-listing-for-file-atomisticnumagsans-structkernel-h">
+<span id="program-listing-file-src-gpu-kernels-atomisticnumagsans-structkernel-h"></span><h1>Program Listing for File AtomisticNuMagSANS_StructKernel.h<a class="headerlink" href="#program-listing-for-file-atomisticnumagsans-structkernel-h" title="Link to this heading">#</a></h1>
+<p>↰ <a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_StructKernel.h.html#file-src-gpu-kernels-atomisticnumagsans-structkernel-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticNuMagSANS_StructKernel.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
+
+<span class="c1">// Computes combined nuclear and magnetic atomistic SANS for an explicitly</span>
+<span class="c1">// structured system.</span>
+<span class="c1">// Active data layers:</span>
+<span class="c1">//   - NuclearData: local nuclear scattering length density data.</span>
+<span class="c1">//   - MagnetizationData: local magnetic moments.</span>
+<span class="c1">//   - StructureData: object-center translations.</span>
+<span class="c1">// Inactive data layers:</span>
+<span class="c1">//   - RotationData</span>
+<span class="c1">// Use case:</span>
+<span class="c1">//   Nuclear-magnetic scattering from an assembly with explicit object</span>
+<span class="c1">//   positions, where all objects share the same local orientation convention.</span>
+<span class="c1">//</span>
+<span class="c1">// Placeholder for:</span>
+<span class="c1">// Atomistic_NuMagSANS_Kernel</span>
+
+
+<span class="n">__global__</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">Atomistic_NuMagSANS_Kernel</span><span class="p">(</span><span class="n">NuclearData</span><span class="w"> </span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                                </span><span class="n">MagnetizationData</span><span class="w"> </span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                                </span><span class="n">StructureData</span><span class="w"> </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                                </span><span class="n">ScatteringData</span><span class="w"> </span><span class="n">SANSData</span><span class="p">){</span>
+
+<span class="w">    </span><span class="c1">// Input information:</span>
+<span class="w">    </span><span class="c1">// N     : number of atoms</span>
+<span class="w">    </span><span class="c1">// L     : number of points in Fourier space L = N_q*N_theta</span>
+<span class="w">    </span><span class="c1">// K     : number of particles</span>
+<span class="w">    </span><span class="c1">// x     : x-real-space position data in units of nano-meters</span>
+<span class="w">    </span><span class="c1">// y     : y-real-space position data in units of nano-meters</span>
+<span class="w">    </span><span class="c1">// z     : z-real-space position data in units of nano-meters</span>
+<span class="w">    </span><span class="c1">// mx    : mx-real-space magnetic moment data in units of Bohr-Magneton</span>
+<span class="w">    </span><span class="c1">// my    : my-real-space magnetic moment data in units of Bohr-Magneton</span>
+<span class="w">    </span><span class="c1">// mz    : mz-real-space magnetci moment data in units of Bohr-Magneton</span>
+<span class="w">    </span><span class="c1">// qy    : qy-Fourier-space coordinate in units of inverse nano-meters</span>
+<span class="w">    </span><span class="c1">// qz    : qz-Fourier-space coordinate in units of inverse nano-meters</span>
+<span class="w">    </span><span class="c1">// theta : theta-angle in Fourier space [theta = arctan2(qz, qy)] in radiant</span>
+
+<span class="w">    </span><span class="c1">// output information:</span>
+<span class="w">    </span><span class="c1">// Gxx_real: real-part of the xx-component of the Fourier-space correlation function of the magnetization</span>
+<span class="w">    </span><span class="c1">// Gxx_imag: imaginary-part of the xx-component of the Fourier-space correlation function of the magnetization ...</span>
+
+<span class="w">    </span><span class="c1">// dSigma_dOmega_M_unpolarized  : magnetic unpolarized SANS cross section</span>
+<span class="w">    </span><span class="c1">// dSigma_dOmega_M_spin_flip    : magnetic spin-flip SANS cross section (sum of pm and mp )/2</span>
+<span class="w">    </span><span class="c1">// dSigma_dOmega_M_chiral       : magnetic chiral SANS cross section (difference of pm and mp)/2</span>
+<span class="w">    </span><span class="c1">// dSigma_dOmega_M_spin_flip_pm : magnetic pm spin-flip SANS cross section</span>
+<span class="w">    </span><span class="c1">// dSigma_dOmega_M_spin_flip_mp : magnetic mp spin-flip SANS cross section</span>
+
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">SANSData</span><span class="p">.</span><span class="n">N_q</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">SANSData</span><span class="p">.</span><span class="n">N_theta</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N_avg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">MagData</span><span class="p">.</span><span class="n">N_avg</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">MagData</span><span class="p">.</span><span class="n">K</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">MagData</span><span class="p">.</span><span class="n">TotalAtomNumber</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">//float v = (1.0/((float) K)) * pow(1.0/((float) N), 2); // pre factor</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="o">/</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="n">W</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1.0</span><span class="o">/</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="n">N_avg</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Px</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Polarization</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Py</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Polarization</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Pz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Polarization</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">mx_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">mx_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">my_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">my_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">mz_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">mz_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Mx_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Mx_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">My_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">My_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Mz_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Mz_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Qx_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Qx_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Qy_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Qy_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Qz_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Qz_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">nuc_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">nuc_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Nuc_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Nuc_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">   </span><span class="c1">// float X = 0.0;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Psi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">cos_theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">sin_theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">cos_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">sin_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N_cum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N_act</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">L</span><span class="p">){</span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">K</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">){</span>
+
+<span class="w">            </span><span class="n">mx_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">mx_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">my_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">my_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">mz_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">mz_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">nuc_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">nuc_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">N_cum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">N_cum</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+<span class="w">            </span><span class="n">N_act</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">N_act</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+
+<span class="w">            </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N_act</span><span class="p">;</span><span class="w"> </span><span class="n">l</span><span class="o">++</span><span class="p">){</span>
+
+<span class="w">                </span><span class="c1">// atomic position composition</span>
+<span class="w">                </span><span class="c1">//X = MagData.RotMat[0] * (MagData.x[l+k*N] + StructData.x[k]) \</span>
+<span class="c1">                //  + MagData.RotMat[3] * (MagData.y[l+k*N] + StructData.y[k]) \</span>
+<span class="c1">                // + MagData.RotMat[6] * (MagData.z[l+k*N] + StructData.z[k]);</span>
+<span class="w">                </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">MagData</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">StructData</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="w"> </span>\
+<span class="w">                  </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">MagData</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">StructData</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="w"> </span>\
+<span class="w">                  </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">MagData</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">StructData</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>
+<span class="w">                </span><span class="n">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">MagData</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">StructData</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="w"> </span>\
+<span class="w">                  </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">MagData</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">StructData</span><span class="p">.</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="w"> </span>\
+<span class="w">                  </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">MagData</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">StructData</span><span class="p">.</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>
+
+<span class="w">                </span><span class="c1">// phase function</span>
+<span class="w">                </span><span class="n">Psi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">qy_2D</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Z</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">.</span><span class="n">qz_2D</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="w">                </span><span class="c1">// cosine and sine values</span>
+<span class="w">                </span><span class="n">cos_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cosf</span><span class="p">(</span><span class="n">Psi</span><span class="p">);</span>
+<span class="w">                </span><span class="n">sin_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sinf</span><span class="p">(</span><span class="n">Psi</span><span class="p">);</span>
+
+<span class="w">                </span><span class="c1">// cosine and sine summations</span>
+<span class="w">                </span><span class="n">nuc_real</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">NucData</span><span class="p">.</span><span class="n">Nuc</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos_val</span><span class="p">;</span>
+<span class="w">                </span><span class="n">nuc_imag</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">NucData</span><span class="p">.</span><span class="n">Nuc</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin_val</span><span class="p">;</span>
+
+<span class="w">                </span><span class="n">mx_real</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">mx</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos_val</span><span class="p">;</span>
+<span class="w">                </span><span class="n">mx_imag</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">mx</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin_val</span><span class="p">;</span>
+<span class="w">                </span><span class="n">my_real</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">my</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos_val</span><span class="p">;</span>
+<span class="w">                </span><span class="n">my_imag</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">my</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin_val</span><span class="p">;</span>
+<span class="w">                </span><span class="n">mz_real</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">mz</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos_val</span><span class="p">;</span>
+<span class="w">                </span><span class="n">mz_imag</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">mz</span><span class="p">[</span><span class="n">l</span><span class="o">+</span><span class="n">N_cum</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin_val</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="n">Nuc_real</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">nuc_real</span><span class="p">;</span>
+<span class="w">            </span><span class="n">Nuc_imag</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">nuc_imag</span><span class="p">;</span>
+
+<span class="w">            </span><span class="c1">// rotations of the magnetization fourier components real part</span>
+<span class="w">            </span><span class="n">Mx_real</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mx_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">my_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mz_real</span><span class="p">;</span>
+<span class="w">            </span><span class="n">My_real</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mx_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">my_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mz_real</span><span class="p">;</span>
+<span class="w">            </span><span class="n">Mz_real</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mx_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">my_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mz_real</span><span class="p">;</span>
+
+<span class="w">            </span><span class="c1">// rotations of the magnetization fourier components imaginary part</span>
+<span class="w">            </span><span class="n">Mx_imag</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mx_imag</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">my_imag</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mz_imag</span><span class="p">;</span>
+<span class="w">            </span><span class="n">My_imag</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mx_imag</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">my_imag</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mz_imag</span><span class="p">;</span>
+<span class="w">            </span><span class="n">Mz_imag</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mx_imag</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">my_imag</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MagData</span><span class="p">.</span><span class="n">RotMat</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mz_imag</span><span class="p">;</span>
+
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">cos_theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cosf</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">theta_2D</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">sin_theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sinf</span><span class="p">(</span><span class="n">SANSData</span><span class="p">.</span><span class="n">theta_2D</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+<span class="w">        </span><span class="c1">// real-parts of the Halpern-Johnson vector</span>
+<span class="w">        </span><span class="n">Qx_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">Mx_real</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Qy_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Mz_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin_theta</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">My_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos_theta</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos_theta</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Qz_real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">My_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos_theta</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Mz_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin_theta</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin_theta</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// imaginary-parts of the Halpern-Johnson vector</span>
+<span class="w">        </span><span class="n">Qx_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">Mx_imag</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Qy_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Mz_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin_theta</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">My_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos_theta</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos_theta</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Qz_imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">My_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cos_theta</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Mz_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin_theta</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin_theta</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// nuclear SANS cross section projected in (qz, qy)-plane</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">S_Nuc_2D_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Nuc_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Nuc_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Nuc_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Nuc_imag</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// unpolarized magnetic SANS cross section projected in (qz, qy)-plane</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">S_Mag_2D_unpolarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qx_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qx_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Qx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qx_imag</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                         </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qy_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qy_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Qy_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qy_imag</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                         </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qz_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Qz_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_imag</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// nuclear magnetic interference SANS cross section projected in (qz, qy)-plane</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">S_NucMag_2D</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Px</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Nuc_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qx_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Nuc_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qx_imag</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                </span><span class="o">+</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Py</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Nuc_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qy_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Nuc_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qy_imag</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                </span><span class="o">+</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Pz</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Nuc_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Nuc_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_imag</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// polarized magnetic SANS cross section projected in the (qz, qy)-plane</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">S_Mag_2D_polarized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">Px</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qx_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qx_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Qx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qx_imag</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                       </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">Py</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qy_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qy_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Qy_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qy_imag</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                       </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pow</span><span class="p">(</span><span class="n">Pz</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qz_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Qz_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_imag</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                       </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Px</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Py</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qx_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qy_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Qx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qy_imag</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                       </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Px</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Pz</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qx_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Qx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_imag</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                       </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Py</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Pz</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qy_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Qy_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_imag</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// chiral magnetic SANS cross section in (qz, qy)-plane</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">S_Mag_2D_chiral</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Px</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qy_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_real</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Qz_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qy_real</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                    </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Py</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qz_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qx_real</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Qx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qz_real</span><span class="p">)</span><span class="w"> </span>\
+<span class="w">                                    </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Pz</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Qx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qy_real</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Qy_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Qx_real</span><span class="p">);</span>
+
+
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gxx_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="o">*</span><span class="p">(</span><span class="n">Mx_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mx_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Mx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mx_imag</span><span class="p">);</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gxx_imag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gyy_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="o">*</span><span class="p">(</span><span class="n">My_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">My_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">My_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">My_imag</span><span class="p">);</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gyy_imag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gzz_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="o">*</span><span class="p">(</span><span class="n">Mz_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mz_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Mz_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mz_imag</span><span class="p">);</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gzz_imag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gxy_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="o">*</span><span class="p">(</span><span class="n">Mx_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">My_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Mx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">My_imag</span><span class="p">);</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gxy_imag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="o">*</span><span class="p">(</span><span class="n">Mx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">My_real</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Mx_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">My_imag</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gyx_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gxy_real</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gyx_imag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gxy_imag</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gxz_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="o">*</span><span class="p">(</span><span class="n">Mx_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mz_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Mx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mz_imag</span><span class="p">);</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gxz_imag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="o">*</span><span class="p">(</span><span class="n">Mx_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mz_real</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Mx_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mz_imag</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gzx_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gxz_real</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gzx_imag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gxy_imag</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gyz_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="o">*</span><span class="p">(</span><span class="n">My_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mz_real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">My_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mz_imag</span><span class="p">);</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gyz_imag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="o">*</span><span class="p">(</span><span class="n">My_imag</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mz_real</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">My_real</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mz_imag</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gzx_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gyz_real</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gzx_imag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">SANSData</span><span class="p">.</span><span class="n">Gyz_imag</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Michael P. Adams, Andreas Michels.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=b457a862" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -194,11 +194,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -211,8 +218,7 @@
           
           
           
-          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -303,11 +309,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -320,8 +333,7 @@
           
           
           
-          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -397,7 +409,13 @@
 <h2>Directories<a class="headerlink" href="#directories" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="dir__home_runner_work_NuMagSANS_NuMagSANS_src_gpu_kernels.html">Directory gpu_kernels</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="dir_src.html">Directory src</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dir_src.html#subdirectories">Subdirectories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dir_src.html#files">Files</a></li>
 </ul>
 </li>
@@ -406,6 +424,162 @@
 </section>
 <section id="files">
 <h2>Files<a class="headerlink" href="#files" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_DiluteKernel.h.html">File AtomisticMagSANS_DiluteKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_DiluteKernel.h.html#definition-src-gpu-kernels-atomisticmagsans-dilutekernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticMagSANS_DiluteKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticMagSANS_DiluteKernel.h.html">Program Listing for File AtomisticMagSANS_DiluteKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_DiluteKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_DiluteKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_RotDiluteKernel.h.html">File AtomisticMagSANS_RotDiluteKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_RotDiluteKernel.h.html#definition-src-gpu-kernels-atomisticmagsans-rotdilutekernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticMagSANS_RotDiluteKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticMagSANS_RotDiluteKernel.h.html">Program Listing for File AtomisticMagSANS_RotDiluteKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_RotDiluteKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_RotDiluteKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_StructKernel.h.html">File AtomisticMagSANS_StructKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_StructKernel.h.html#definition-src-gpu-kernels-atomisticmagsans-structkernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticMagSANS_StructKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticMagSANS_StructKernel.h.html">Program Listing for File AtomisticMagSANS_StructKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_StructKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_StructKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_StructRotKernel.h.html">File AtomisticMagSANS_StructRotKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_StructRotKernel.h.html#definition-src-gpu-kernels-atomisticmagsans-structrotkernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticMagSANS_StructRotKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticMagSANS_StructRotKernel.h.html">Program Listing for File AtomisticMagSANS_StructRotKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_StructRotKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticMagSANS_StructRotKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_DiluteKernel.h.html">File AtomisticNucSANS_DiluteKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_DiluteKernel.h.html#definition-src-gpu-kernels-atomisticnucsans-dilutekernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticNucSANS_DiluteKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticNucSANS_DiluteKernel.h.html">Program Listing for File AtomisticNucSANS_DiluteKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_DiluteKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_DiluteKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_RotDiluteKernel.h.html">File AtomisticNucSANS_RotDiluteKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_RotDiluteKernel.h.html#definition-src-gpu-kernels-atomisticnucsans-rotdilutekernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticNucSANS_RotDiluteKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticNucSANS_RotDiluteKernel.h.html">Program Listing for File AtomisticNucSANS_RotDiluteKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_RotDiluteKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_RotDiluteKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_StructKernel.h.html">File AtomisticNucSANS_StructKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_StructKernel.h.html#definition-src-gpu-kernels-atomisticnucsans-structkernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticNucSANS_StructKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticNucSANS_StructKernel.h.html">Program Listing for File AtomisticNucSANS_StructKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_StructKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_StructKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_StructRotKernel.h.html">File AtomisticNucSANS_StructRotKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_StructRotKernel.h.html#definition-src-gpu-kernels-atomisticnucsans-structrotkernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticNucSANS_StructRotKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticNucSANS_StructRotKernel.h.html">Program Listing for File AtomisticNucSANS_StructRotKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_StructRotKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNucSANS_StructRotKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_DiluteKernel.h.html">File AtomisticNuMagSANS_DiluteKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_DiluteKernel.h.html#definition-src-gpu-kernels-atomisticnumagsans-dilutekernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticNuMagSANS_DiluteKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticNuMagSANS_DiluteKernel.h.html">Program Listing for File AtomisticNuMagSANS_DiluteKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_DiluteKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_DiluteKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_RotDiluteKernel.h.html">File AtomisticNuMagSANS_RotDiluteKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_RotDiluteKernel.h.html#definition-src-gpu-kernels-atomisticnumagsans-rotdilutekernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticNuMagSANS_RotDiluteKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticNuMagSANS_RotDiluteKernel.h.html">Program Listing for File AtomisticNuMagSANS_RotDiluteKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_RotDiluteKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_RotDiluteKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_StructKernel.h.html">File AtomisticNuMagSANS_StructKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_StructKernel.h.html#definition-src-gpu-kernels-atomisticnumagsans-structkernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticNuMagSANS_StructKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticNuMagSANS_StructKernel.h.html">Program Listing for File AtomisticNuMagSANS_StructKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_StructKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_StructKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_StructRotKernel.h.html">File AtomisticNuMagSANS_StructRotKernel.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_StructRotKernel.h.html#definition-src-gpu-kernels-atomisticnumagsans-structrotkernel-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/gpu_kernels/AtomisticNuMagSANS_StructRotKernel.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_gpu_kernels_AtomisticNuMagSANS_StructRotKernel.h.html">Program Listing for File AtomisticNuMagSANS_StructRotKernel.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_StructRotKernel.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_gpu_kernels_AtomisticNuMagSANS_StructRotKernel.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="file_src_NuMagSANS.cu.html">File NuMagSANS.cu</a><ul>
@@ -580,6 +754,36 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_NuMagSANSlib_RotationData.h.html">File NuMagSANSlib_RotationData.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_RotationData.h.html#definition-src-numagsanslib-rotationdata-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_RotationData.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_NuMagSANSlib_RotationData.h.html">Program Listing for File NuMagSANSlib_RotationData.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_RotationData.h.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_RotationData.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_RotationData.h.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_RotationData.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_src_NuMagSANSlib_RotationDataExplorer.h.html">File NuMagSANSlib_RotationDataExplorer.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_RotationDataExplorer.h.html#definition-src-numagsanslib-rotationdataexplorer-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_RotationDataExplorer.h</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_NuMagSANSlib_RotationDataExplorer.h.html">Program Listing for File NuMagSANSlib_RotationDataExplorer.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_RotationDataExplorer.h.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_RotationDataExplorer.h.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_RotationDataExplorer.h.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_RotationDataExplorer.h.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="file_src_NuMagSANSlib_SANSData.h.html">File NuMagSANSlib_SANSData.h</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="file_src_NuMagSANSlib_SANSData.h.html#definition-src-numagsanslib-sansdata-h">Definition (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_SANSData.h</span></code>)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="program_listing_file_src_NuMagSANSlib_SANSData.h.html">Program Listing for File NuMagSANSlib_SANSData.h</a></li>
@@ -684,7 +888,9 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directories">Directories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directories">Directories</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#files">Files</a><ul class="nav section-nav flex-column">
 </ul>
 </li>
@@ -704,8 +910,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -739,7 +945,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
 </p></div>
       
     </div>

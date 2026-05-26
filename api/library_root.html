@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=b457a862" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -194,11 +194,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -211,8 +218,7 @@
           
           
           
-          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
       
@@ -303,11 +309,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -320,8 +333,7 @@
           
           
           
-          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
 </ul></div>
         
@@ -398,7 +410,7 @@
 <ul class="treeView" id="class-treeView">
   <li>
     <ul class="collapsibleList">
-      <li>Struct <a href="structColumn.html#exhale-struct-structColumn">Column</a></li><li>Struct <a href="structInputFileData.html#exhale-struct-structInputFileData">InputFileData</a></li><li>Struct <a href="structMagDataProperties.html#exhale-struct-structMagDataProperties">MagDataProperties</a></li><li>Struct <a href="structMagnetizationData.html#exhale-struct-structMagnetizationData">MagnetizationData</a></li><li>Struct <a href="structNucDataProperties.html#exhale-struct-structNucDataProperties">NucDataProperties</a></li><li>Struct <a href="structNuclearData.html#exhale-struct-structNuclearData">NuclearData</a></li><li>Template Struct <a href="structOption.html#exhale-struct-structOption">Option</a></li><li>Struct <a href="structOutFlag.html#exhale-struct-structOutFlag">OutFlag</a></li><li>Struct <a href="structOutFlagQuant.html#exhale-struct-structOutFlagQuant">OutFlagQuant</a></li><li>Struct <a href="structPrefixEntry.html#exhale-struct-structPrefixEntry">PrefixEntry</a></li><li>Struct <a href="structScalingFactors.html#exhale-struct-structScalingFactors">ScalingFactors</a></li><li>Struct <a href="structScatteringData.html#exhale-struct-structScatteringData">ScatteringData</a></li><li>Struct <a href="structSpectralComponent.html#exhale-struct-structSpectralComponent">SpectralComponent</a></li><li>Struct <a href="structSpectralData.html#exhale-struct-structSpectralData">SpectralData</a></li><li>Struct <a href="structStructDataProperties.html#exhale-struct-structStructDataProperties">StructDataProperties</a></li><li>Struct <a href="structStructureData.html#exhale-struct-structStructureData">StructureData</a></li><li class="lastChild">Struct <a href="structSuffixEntry.html#exhale-struct-structSuffixEntry">SuffixEntry</a></li>
+      <li>Struct <a href="structColumn.html#exhale-struct-structColumn">Column</a></li><li>Struct <a href="structInputFileData.html#exhale-struct-structInputFileData">InputFileData</a></li><li>Struct <a href="structMagDataProperties.html#exhale-struct-structMagDataProperties">MagDataProperties</a></li><li>Struct <a href="structMagnetizationData.html#exhale-struct-structMagnetizationData">MagnetizationData</a></li><li>Struct <a href="structNucDataProperties.html#exhale-struct-structNucDataProperties">NucDataProperties</a></li><li>Struct <a href="structNuclearData.html#exhale-struct-structNuclearData">NuclearData</a></li><li>Template Struct <a href="structOption.html#exhale-struct-structOption">Option</a></li><li>Struct <a href="structOutFlag.html#exhale-struct-structOutFlag">OutFlag</a></li><li>Struct <a href="structOutFlagQuant.html#exhale-struct-structOutFlagQuant">OutFlagQuant</a></li><li>Struct <a href="structPrefixEntry.html#exhale-struct-structPrefixEntry">PrefixEntry</a></li><li>Struct <a href="structRotationData.html#exhale-struct-structRotationData">RotationData</a></li><li>Struct <a href="structRotDataProperties.html#exhale-struct-structRotDataProperties">RotDataProperties</a></li><li>Struct <a href="structScalingFactors.html#exhale-struct-structScalingFactors">ScalingFactors</a></li><li>Struct <a href="structScatteringData.html#exhale-struct-structScatteringData">ScatteringData</a></li><li>Struct <a href="structSpectralComponent.html#exhale-struct-structSpectralComponent">SpectralComponent</a></li><li>Struct <a href="structSpectralData.html#exhale-struct-structSpectralData">SpectralData</a></li><li>Struct <a href="structStructDataProperties.html#exhale-struct-structStructDataProperties">StructDataProperties</a></li><li>Struct <a href="structStructureData.html#exhale-struct-structStructureData">StructureData</a></li><li class="lastChild">Struct <a href="structSuffixEntry.html#exhale-struct-structSuffixEntry">SuffixEntry</a></li>
     </ul>
   </li><!-- only tree view element -->
 </ul><!-- /treeView class-treeView --></section>
@@ -407,7 +419,7 @@
 <ul class="treeView" id="file-treeView">
   <li>
     <ul class="collapsibleList">
-      <li class="lastChild">Directory <a href="dir_src.html#dir-src">src</a><ul><li>File <a href="file_src_NuMagSANS.cu.html#file-src-NuMagSANS.cu">NuMagSANS.cu</a></li><li>File <a href="file_src_NuMagSANSlib.h.html#file-src-NuMagSANSlib.h">NuMagSANSlib.h</a></li><li>File <a href="file_src_NuMagSANSlib_Directory.h.html#file-src-NuMagSANSlib-Directory.h">NuMagSANSlib_Directory.h</a></li><li>File <a href="file_src_NuMagSANSlib_gpuKernel.h.html#file-src-NuMagSANSlib-gpuKernel.h">NuMagSANSlib_gpuKernel.h</a></li><li>File <a href="file_src_NuMagSANSlib_HelperFun.h.html#file-src-NuMagSANSlib-HelperFun.h">NuMagSANSlib_HelperFun.h</a></li><li>File <a href="file_src_NuMagSANSlib_InputFileInterpreter.h.html#file-src-NuMagSANSlib-InputFileInterpreter.h">NuMagSANSlib_InputFileInterpreter.h</a></li><li>File <a href="file_src_NuMagSANSlib_LogFile.h.html#file-src-NuMagSANSlib-LogFile.h">NuMagSANSlib_LogFile.h</a></li><li>File <a href="file_src_NuMagSANSlib_MagData.h.html#file-src-NuMagSANSlib-MagData.h">NuMagSANSlib_MagData.h</a></li><li>File <a href="file_src_NuMagSANSlib_MagDataExplorer.h.html#file-src-NuMagSANSlib-MagDataExplorer.h">NuMagSANSlib_MagDataExplorer.h</a></li><li>File <a href="file_src_NuMagSANSlib_NucData.h.html#file-src-NuMagSANSlib-NucData.h">NuMagSANSlib_NucData.h</a></li><li>File <a href="file_src_NuMagSANSlib_NucDataExplorer.h.html#file-src-NuMagSANSlib-NucDataExplorer.h">NuMagSANSlib_NucDataExplorer.h</a></li><li>File <a href="file_src_NuMagSANSlib_ReadWrite.h.html#file-src-NuMagSANSlib-ReadWrite.h">NuMagSANSlib_ReadWrite.h</a></li><li>File <a href="file_src_NuMagSANSlib_SANSData.h.html#file-src-NuMagSANSlib-SANSData.h">NuMagSANSlib_SANSData.h</a></li><li>File <a href="file_src_NuMagSANSlib_SpectralData.h.html#file-src-NuMagSANSlib-SpectralData.h">NuMagSANSlib_SpectralData.h</a></li><li>File <a href="file_src_NuMagSANSlib_StringCompare.h.html#file-src-NuMagSANSlib-StringCompare.h">NuMagSANSlib_StringCompare.h</a></li><li>File <a href="file_src_NuMagSANSlib_StructureData.h.html#file-src-NuMagSANSlib-StructureData.h">NuMagSANSlib_StructureData.h</a></li><li class="lastChild">File <a href="file_src_NuMagSANSlib_StructureDataExplorer.h.html#file-src-NuMagSANSlib-StructureDataExplorer.h">NuMagSANSlib_StructureDataExplorer.h</a></li></ul></li>
+      <li>Directory <a href="dir_src.html#dir-src">src</a><ul><li>File <a href="file_src_NuMagSANS.cu.html#file-src-NuMagSANS.cu">NuMagSANS.cu</a></li><li>File <a href="file_src_NuMagSANSlib.h.html#file-src-NuMagSANSlib.h">NuMagSANSlib.h</a></li><li>File <a href="file_src_NuMagSANSlib_Directory.h.html#file-src-NuMagSANSlib-Directory.h">NuMagSANSlib_Directory.h</a></li><li>File <a href="file_src_NuMagSANSlib_gpuKernel.h.html#file-src-NuMagSANSlib-gpuKernel.h">NuMagSANSlib_gpuKernel.h</a></li><li>File <a href="file_src_NuMagSANSlib_HelperFun.h.html#file-src-NuMagSANSlib-HelperFun.h">NuMagSANSlib_HelperFun.h</a></li><li>File <a href="file_src_NuMagSANSlib_InputFileInterpreter.h.html#file-src-NuMagSANSlib-InputFileInterpreter.h">NuMagSANSlib_InputFileInterpreter.h</a></li><li>File <a href="file_src_NuMagSANSlib_LogFile.h.html#file-src-NuMagSANSlib-LogFile.h">NuMagSANSlib_LogFile.h</a></li><li>File <a href="file_src_NuMagSANSlib_MagData.h.html#file-src-NuMagSANSlib-MagData.h">NuMagSANSlib_MagData.h</a></li><li>File <a href="file_src_NuMagSANSlib_MagDataExplorer.h.html#file-src-NuMagSANSlib-MagDataExplorer.h">NuMagSANSlib_MagDataExplorer.h</a></li><li>File <a href="file_src_NuMagSANSlib_NucData.h.html#file-src-NuMagSANSlib-NucData.h">NuMagSANSlib_NucData.h</a></li><li>File <a href="file_src_NuMagSANSlib_NucDataExplorer.h.html#file-src-NuMagSANSlib-NucDataExplorer.h">NuMagSANSlib_NucDataExplorer.h</a></li><li>File <a href="file_src_NuMagSANSlib_ReadWrite.h.html#file-src-NuMagSANSlib-ReadWrite.h">NuMagSANSlib_ReadWrite.h</a></li><li>File <a href="file_src_NuMagSANSlib_RotationData.h.html#file-src-NuMagSANSlib-RotationData.h">NuMagSANSlib_RotationData.h</a></li><li>File <a href="file_src_NuMagSANSlib_RotationDataExplorer.h.html#file-src-NuMagSANSlib-RotationDataExplorer.h">NuMagSANSlib_RotationDataExplorer.h</a></li><li>File <a href="file_src_NuMagSANSlib_SANSData.h.html#file-src-NuMagSANSlib-SANSData.h">NuMagSANSlib_SANSData.h</a></li><li>File <a href="file_src_NuMagSANSlib_SpectralData.h.html#file-src-NuMagSANSlib-SpectralData.h">NuMagSANSlib_SpectralData.h</a></li><li>File <a href="file_src_NuMagSANSlib_StringCompare.h.html#file-src-NuMagSANSlib-StringCompare.h">NuMagSANSlib_StringCompare.h</a></li><li>File <a href="file_src_NuMagSANSlib_StructureData.h.html#file-src-NuMagSANSlib-StructureData.h">NuMagSANSlib_StructureData.h</a></li><li class="lastChild">File <a href="file_src_NuMagSANSlib_StructureDataExplorer.h.html#file-src-NuMagSANSlib-StructureDataExplorer.h">NuMagSANSlib_StructureDataExplorer.h</a></li></ul></li><li>File <a href="file_src_gpu_kernels_AtomisticMagSANS_DiluteKernel.h.html#file-src-gpu-kernels-AtomisticMagSANS-DiluteKernel.h">AtomisticMagSANS_DiluteKernel.h</a></li><li>File <a href="file_src_gpu_kernels_AtomisticMagSANS_RotDiluteKernel.h.html#file-src-gpu-kernels-AtomisticMagSANS-RotDiluteKernel.h">AtomisticMagSANS_RotDiluteKernel.h</a></li><li>File <a href="file_src_gpu_kernels_AtomisticMagSANS_StructKernel.h.html#file-src-gpu-kernels-AtomisticMagSANS-StructKernel.h">AtomisticMagSANS_StructKernel.h</a></li><li>File <a href="file_src_gpu_kernels_AtomisticMagSANS_StructRotKernel.h.html#file-src-gpu-kernels-AtomisticMagSANS-StructRotKernel.h">AtomisticMagSANS_StructRotKernel.h</a></li><li>File <a href="file_src_gpu_kernels_AtomisticNucSANS_DiluteKernel.h.html#file-src-gpu-kernels-AtomisticNucSANS-DiluteKernel.h">AtomisticNucSANS_DiluteKernel.h</a></li><li>File <a href="file_src_gpu_kernels_AtomisticNucSANS_RotDiluteKernel.h.html#file-src-gpu-kernels-AtomisticNucSANS-RotDiluteKernel.h">AtomisticNucSANS_RotDiluteKernel.h</a></li><li>File <a href="file_src_gpu_kernels_AtomisticNucSANS_StructKernel.h.html#file-src-gpu-kernels-AtomisticNucSANS-StructKernel.h">AtomisticNucSANS_StructKernel.h</a></li><li>File <a href="file_src_gpu_kernels_AtomisticNucSANS_StructRotKernel.h.html#file-src-gpu-kernels-AtomisticNucSANS-StructRotKernel.h">AtomisticNucSANS_StructRotKernel.h</a></li><li>File <a href="file_src_gpu_kernels_AtomisticNuMagSANS_DiluteKernel.h.html#file-src-gpu-kernels-AtomisticNuMagSANS-DiluteKernel.h">AtomisticNuMagSANS_DiluteKernel.h</a></li><li>File <a href="file_src_gpu_kernels_AtomisticNuMagSANS_RotDiluteKernel.h.html#file-src-gpu-kernels-AtomisticNuMagSANS-RotDiluteKernel.h">AtomisticNuMagSANS_RotDiluteKernel.h</a></li><li>File <a href="file_src_gpu_kernels_AtomisticNuMagSANS_StructKernel.h.html#file-src-gpu-kernels-AtomisticNuMagSANS-StructKernel.h">AtomisticNuMagSANS_StructKernel.h</a></li><li class="lastChild">File <a href="file_src_gpu_kernels_AtomisticNuMagSANS_StructRotKernel.h.html#file-src-gpu-kernels-AtomisticNuMagSANS-StructRotKernel.h">AtomisticNuMagSANS_StructRotKernel.h</a></li>
     </ul>
   </li><!-- only tree view element -->
 </ul><!-- /treeView file-treeView --></section>
@@ -456,6 +468,7 @@
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData11NucDataPathE"><code class="docutils literal notranslate"><span class="pre">NucDataPath</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData11MagDataPathE"><code class="docutils literal notranslate"><span class="pre">MagDataPath</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData18StructDataFilenameE"><code class="docutils literal notranslate"><span class="pre">StructDataFilename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData15RotDataFilenameE"><code class="docutils literal notranslate"><span class="pre">RotDataFilename</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData18SANSDataFoldernameE"><code class="docutils literal notranslate"><span class="pre">SANSDataFoldername</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData16Fourier_ApproachE"><code class="docutils literal notranslate"><span class="pre">Fourier_Approach</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData10Loop_ModusE"><code class="docutils literal notranslate"><span class="pre">Loop_Modus</span></code></a></li>
@@ -483,6 +496,7 @@
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData21NucData_activate_flagE"><code class="docutils literal notranslate"><span class="pre">NucData_activate_flag</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData21MagData_activate_flagE"><code class="docutils literal notranslate"><span class="pre">MagData_activate_flag</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData24StructData_activate_flagE"><code class="docutils literal notranslate"><span class="pre">StructData_activate_flag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData21RotData_activate_flagE"><code class="docutils literal notranslate"><span class="pre">RotData_activate_flag</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData23ExcludeZeroMoments_flagE"><code class="docutils literal notranslate"><span class="pre">ExcludeZeroMoments_flag</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData20Check_InputFile_FlagE"><code class="docutils literal notranslate"><span class="pre">Check_InputFile_Flag</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structInputFileData.html#_CPPv4N13InputFileData5k_maxE"><code class="docutils literal notranslate"><span class="pre">k_max</span></code></a></li>
@@ -659,6 +673,39 @@
 <li class="toctree-l3"><a class="reference internal" href="structPrefixEntry.html#_CPPv411PrefixEntry"><code class="docutils literal notranslate"><span class="pre">PrefixEntry</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="structPrefixEntry.html#_CPPv4N11PrefixEntry4nameE"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="structPrefixEntry.html#_CPPv4N11PrefixEntry6memberE"><code class="docutils literal notranslate"><span class="pre">member</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structRotationData.html">Struct RotationData</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structRotationData.html#struct-documentation">Struct Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="structRotationData.html#_CPPv412RotationData"><code class="docutils literal notranslate"><span class="pre">RotationData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structRotationData.html#_CPPv4N12RotationData5alphaE"><code class="docutils literal notranslate"><span class="pre">alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structRotationData.html#_CPPv4N12RotationData4betaE"><code class="docutils literal notranslate"><span class="pre">beta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structRotationData.html#_CPPv4N12RotationData5gammaE"><code class="docutils literal notranslate"><span class="pre">gamma</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structRotationData.html#_CPPv4N12RotationData6RotMatE"><code class="docutils literal notranslate"><span class="pre">RotMat</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structRotationData.html#_CPPv4N12RotationData1KE"><code class="docutils literal notranslate"><span class="pre">K</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structRotDataProperties.html">Struct RotDataProperties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structRotDataProperties.html#struct-documentation">Struct Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="structRotDataProperties.html#_CPPv417RotDataProperties"><code class="docutils literal notranslate"><span class="pre">RotDataProperties</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structRotDataProperties.html#_CPPv4N17RotDataProperties14GlobalFilePathE"><code class="docutils literal notranslate"><span class="pre">GlobalFilePath</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structRotDataProperties.html#_CPPv4N17RotDataProperties18Number_Of_ElementsE"><code class="docutils literal notranslate"><span class="pre">Number_Of_Elements</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -957,6 +1004,28 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1aa26b0717ea8d2fba155fae61b9e581ce.html">Function allocate_RotationDataGPU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1aa26b0717ea8d2fba155fae61b9e581ce.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1aa26b0717ea8d2fba155fae61b9e581ce.html#_CPPv424allocate_RotationDataGPUP12RotationDataP12RotationData"><code class="docutils literal notranslate"><span class="pre">allocate_RotationDataGPU()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1ae9bb0a8f7976fb14b626f611e349da3c.html">Function allocate_RotationDataRAM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1ae9bb0a8f7976fb14b626f611e349da3c.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1ae9bb0a8f7976fb14b626f611e349da3c.html#_CPPv424allocate_RotationDataRAMP12RotationDataP17RotDataPropertiesP13InputFileData"><code class="docutils literal notranslate"><span class="pre">allocate_RotationDataRAM()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__SANSData_8h_1ac9466dcc1c50f559d5941bbabe7a27b0.html">Function allocate_ScatteringData_GPU</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__SANSData_8h_1ac9466dcc1c50f559d5941bbabe7a27b0.html#function-documentation">Function Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__SANSData_8h_1ac9466dcc1c50f559d5941bbabe7a27b0.html#_CPPv427allocate_ScatteringData_GPUP14ScatteringDataP14ScatteringData"><code class="docutils literal notranslate"><span class="pre">allocate_ScatteringData_GPU()</span></code></a></li>
@@ -1034,48 +1103,96 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1a03fe3737cf00a324a3192e9c392b239f.html">Function Atomistic_MagSANS_Kernel</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1a03fe3737cf00a324a3192e9c392b239f.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticMagSANS__StructKernel_8h_1a03fe3737cf00a324a3192e9c392b239f.html">Function Atomistic_MagSANS_Kernel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticMagSANS__StructKernel_8h_1a03fe3737cf00a324a3192e9c392b239f.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1ab5b52817203d79998ffddd5d355385a3.html">Function Atomistic_MagSANS_Kernel_dilute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1ab5b52817203d79998ffddd5d355385a3.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticMagSANS__DiluteKernel_8h_1ab5b52817203d79998ffddd5d355385a3.html">Function Atomistic_MagSANS_Kernel_dilute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticMagSANS__DiluteKernel_8h_1ab5b52817203d79998ffddd5d355385a3.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1afcff5b059c2ff211584add3d6eb8674e.html">Function Atomistic_NucSANS_Kernel</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1afcff5b059c2ff211584add3d6eb8674e.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticMagSANS__RotDiluteKernel_8h_1a73cc5cb8455cc488dd7cdf5c3065a90f.html">Function Atomistic_MagSANS_Kernel_RotDilute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticMagSANS__RotDiluteKernel_8h_1a73cc5cb8455cc488dd7cdf5c3065a90f.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1a9187ff7f73fe4ff8e5056b14561327a5.html">Function Atomistic_NucSANS_Kernel_dilute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1a9187ff7f73fe4ff8e5056b14561327a5.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticMagSANS__StructRotKernel_8h_1a5f202a0ea72f0bf222496e2f3c566778.html">Function Atomistic_MagSANS_Kernel_StructRot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticMagSANS__StructRotKernel_8h_1a5f202a0ea72f0bf222496e2f3c566778.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1aa4d108485f63a449875ef858d969f4bb.html">Function Atomistic_NuMagSANS_Kernel</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1aa4d108485f63a449875ef858d969f4bb.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticNucSANS__StructKernel_8h_1afcff5b059c2ff211584add3d6eb8674e.html">Function Atomistic_NucSANS_Kernel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticNucSANS__StructKernel_8h_1afcff5b059c2ff211584add3d6eb8674e.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1ae1563d7dcb643484ca0cb1d7f4d24dc3.html">Function Atomistic_NuMagSANS_Kernel_dilute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__gpuKernel_8h_1ae1563d7dcb643484ca0cb1d7f4d24dc3.html#function-documentation">Function Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticNucSANS__DiluteKernel_8h_1a9187ff7f73fe4ff8e5056b14561327a5.html">Function Atomistic_NucSANS_Kernel_dilute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticNucSANS__DiluteKernel_8h_1a9187ff7f73fe4ff8e5056b14561327a5.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticNucSANS__RotDiluteKernel_8h_1a02de0c07a6bcee5550f1eb1d123678c8.html">Function Atomistic_NucSANS_Kernel_RotDilute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticNucSANS__RotDiluteKernel_8h_1a02de0c07a6bcee5550f1eb1d123678c8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticNucSANS__StructRotKernel_8h_1aad89710a3353724493a8a491b12e1a14.html">Function Atomistic_NucSANS_Kernel_StructRot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticNucSANS__StructRotKernel_8h_1aad89710a3353724493a8a491b12e1a14.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticNuMagSANS__StructKernel_8h_1aa4d108485f63a449875ef858d969f4bb.html">Function Atomistic_NuMagSANS_Kernel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticNuMagSANS__StructKernel_8h_1aa4d108485f63a449875ef858d969f4bb.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticNuMagSANS__DiluteKernel_8h_1ae1563d7dcb643484ca0cb1d7f4d24dc3.html">Function Atomistic_NuMagSANS_Kernel_dilute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticNuMagSANS__DiluteKernel_8h_1ae1563d7dcb643484ca0cb1d7f4d24dc3.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticNuMagSANS__RotDiluteKernel_8h_1a2fd795e69e027c1d25a324c796984274.html">Function Atomistic_NuMagSANS_Kernel_RotDilute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticNuMagSANS__RotDiluteKernel_8h_1a2fd795e69e027c1d25a324c796984274.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_AtomisticNuMagSANS__StructRotKernel_8h_1acc8b6ca0c1b12322333e0b5673b3893a.html">Function Atomistic_NuMagSANS_Kernel_StructRot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_AtomisticNuMagSANS__StructRotKernel_8h_1acc8b6ca0c1b12322333e0b5673b3893a.html#function-documentation">Function Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -1507,6 +1624,17 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a601e2439425e2b740ae3c89606fa4b4a.html">Function free_RotationData</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a601e2439425e2b740ae3c89606fa4b4a.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a601e2439425e2b740ae3c89606fa4b4a.html#_CPPv417free_RotationDataP12RotationDataP12RotationData"><code class="docutils literal notranslate"><span class="pre">free_RotationData()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__SANSData_8h_1a72adc7dce05a37a748a374bfbf745dac.html">Function free_ScatteringData</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__SANSData_8h_1a72adc7dce05a37a748a374bfbf745dac.html#function-documentation">Function Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__SANSData_8h_1a72adc7dce05a37a748a374bfbf745dac.html#_CPPv419free_ScatteringDataP14ScatteringDataP14ScatteringData"><code class="docutils literal notranslate"><span class="pre">free_ScatteringData()</span></code></a></li>
@@ -1562,6 +1690,17 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationDataExplorer_8h_1a545f365b6f3b0e35067b14460c958a7c.html">Function get_GlobalRotDataPath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationDataExplorer_8h_1a545f365b6f3b0e35067b14460c958a7c.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationDataExplorer_8h_1a545f365b6f3b0e35067b14460c958a7c.html#_CPPv421get_GlobalRotDataPathNSt6stringEP17RotDataProperties"><code class="docutils literal notranslate"><span class="pre">get_GlobalRotDataPath()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__StructureDataExplorer_8h_1a58a17ad09b21c2149d432a49b3835e92.html">Function get_GlobalStructDataPath</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__StructureDataExplorer_8h_1a58a17ad09b21c2149d432a49b3835e92.html#function-documentation">Function Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__StructureDataExplorer_8h_1a58a17ad09b21c2149d432a49b3835e92.html#_CPPv424get_GlobalStructDataPathNSt6stringEP20StructDataProperties"><code class="docutils literal notranslate"><span class="pre">get_GlobalStructDataPath()</span></code></a></li>
@@ -1587,6 +1726,17 @@
 <li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__NucData_8h_1a86b3fee9207d91942f6fb4bddbc6e180.html">Function init_NuclearData</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__NucData_8h_1a86b3fee9207d91942f6fb4bddbc6e180.html#function-documentation">Function Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__NucData_8h_1a86b3fee9207d91942f6fb4bddbc6e180.html#_CPPv416init_NuclearDataP11NuclearDataP11NuclearDataP17NucDataPropertiesP13InputFileDatai"><code class="docutils literal notranslate"><span class="pre">init_NuclearData()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1af1711c58f9cab15754e5a7a03a1f861c.html">Function init_RotationData</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1af1711c58f9cab15754e5a7a03a1f861c.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1af1711c58f9cab15754e5a7a03a1f861c.html#_CPPv417init_RotationDataP12RotationDataP12RotationDataP17RotDataPropertiesP13InputFileData"><code class="docutils literal notranslate"><span class="pre">init_RotationData()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1650,6 +1800,17 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a7389a1437acf1c3292c56be812098f64.html">Function LeftMultiply3x3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a7389a1437acf1c3292c56be812098f64.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a7389a1437acf1c3292c56be812098f64.html#_CPPv415LeftMultiply3x3PfPKf"><code class="docutils literal notranslate"><span class="pre">LeftMultiply3x3()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__LogFile_8h_1a18763d3ac6bb2d099a9a08e6febf3248.html">Function LogSystem::close</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__LogFile_8h_1a18763d3ac6bb2d099a9a08e6febf3248.html#function-documentation">Function Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__LogFile_8h_1a18763d3ac6bb2d099a9a08e6febf3248.html#_CPPv4N9LogSystem5closeEv"><code class="docutils literal notranslate"><span class="pre">close()</span></code></a></li>
@@ -1694,6 +1855,17 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1accbf966962f110a0419d59a8ce991fcb.html">Function Multiply_RotmatZYZ_3x3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1accbf966962f110a0419d59a8ce991fcb.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1accbf966962f110a0419d59a8ce991fcb.html#_CPPv422Multiply_RotmatZYZ_3x3fffPf"><code class="docutils literal notranslate"><span class="pre">Multiply_RotmatZYZ_3x3()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__NucDataExplorer_8h_1a0ab57901976061414dceaf8073640ade.html">Function NucData_Observer</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__NucDataExplorer_8h_1a0ab57901976061414dceaf8073640ade.html#function-documentation">Function Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__NucDataExplorer_8h_1a0ab57901976061414dceaf8073640ade.html#_CPPv416NucData_ObserverNSt6stringEP17NucDataProperties"><code class="docutils literal notranslate"><span class="pre">NucData_Observer()</span></code></a></li>
@@ -1705,9 +1877,9 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib_8h_1a72e11694028733642d03ac72c80d3bc2.html">Function NuMagSANS_Calculator</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib_8h_1a72e11694028733642d03ac72c80d3bc2.html#function-documentation">Function Documentation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib_8h_1a72e11694028733642d03ac72c80d3bc2.html#_CPPv420NuMagSANS_CalculatorP13InputFileDataP17NucDataPropertiesP17MagDataPropertiesP20StructDataPropertiesi"><code class="docutils literal notranslate"><span class="pre">NuMagSANS_Calculator()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib_8h_1a3402897a6b66c8a503dc9a46e85fc494.html">Function NuMagSANS_Calculator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib_8h_1a3402897a6b66c8a503dc9a46e85fc494.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib_8h_1a3402897a6b66c8a503dc9a46e85fc494.html#_CPPv420NuMagSANS_CalculatorP13InputFileDataP17NucDataPropertiesP17MagDataPropertiesP20StructDataPropertiesP17RotDataPropertiesi"><code class="docutils literal notranslate"><span class="pre">NuMagSANS_Calculator()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1730,6 +1902,17 @@
 <li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__NucDataExplorer_8h_1ac4cdc190f0c967bd14df16acbab72e21.html">Function NumberOfEntriesInNucFile</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__NucDataExplorer_8h_1ac4cdc190f0c967bd14df16acbab72e21.html#function-documentation">Function Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__NucDataExplorer_8h_1ac4cdc190f0c967bd14df16acbab72e21.html#_CPPv424NumberOfEntriesInNucFilePi6string"><code class="docutils literal notranslate"><span class="pre">NumberOfEntriesInNucFile()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationDataExplorer_8h_1a2cbe85bd885d00ccbdd1b94fa071c5c9.html">Function NumberOfEntriesInRotationFile</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationDataExplorer_8h_1a2cbe85bd885d00ccbdd1b94fa071c5c9.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationDataExplorer_8h_1a2cbe85bd885d00ccbdd1b94fa071c5c9.html#_CPPv429NumberOfEntriesInRotationFilePi6string"><code class="docutils literal notranslate"><span class="pre">NumberOfEntriesInRotationFile()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1826,6 +2009,17 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a27347f831387370e56e03a2be16486db.html">Function read_RotationData</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a27347f831387370e56e03a2be16486db.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a27347f831387370e56e03a2be16486db.html#_CPPv417read_RotationDataP12RotationDataP17RotDataPropertiesP13InputFileData"><code class="docutils literal notranslate"><span class="pre">read_RotationData()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__StructureData_8h_1ab2fe043bbe61848f9ed86db2772a9009.html">Function read_StructureData</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__StructureData_8h_1ab2fe043bbe61848f9ed86db2772a9009.html#function-documentation">Function Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__StructureData_8h_1ab2fe043bbe61848f9ed86db2772a9009.html#_CPPv418read_StructureDataP13StructureDataP20StructDataPropertiesP13InputFileData"><code class="docutils literal notranslate"><span class="pre">read_StructureData()</span></code></a></li>
@@ -1873,6 +2067,61 @@
 <li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__ReadWrite_8h_1ab183c1f4b26db174e36d04fd2fc2335d.html">Function ReadCSV_float_vector</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__ReadWrite_8h_1ab183c1f4b26db174e36d04fd2fc2335d.html#function-documentation">Function Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__ReadWrite_8h_1ab183c1f4b26db174e36d04fd2fc2335d.html#_CPPv420ReadCSV_float_vectormPf6string"><code class="docutils literal notranslate"><span class="pre">ReadCSV_float_vector()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a9a8b8f198af3e7d4d66b40b5c3222baf.html">Function RotationMatrix_y</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a9a8b8f198af3e7d4d66b40b5c3222baf.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a9a8b8f198af3e7d4d66b40b5c3222baf.html#_CPPv416RotationMatrix_yfPf"><code class="docutils literal notranslate"><span class="pre">RotationMatrix_y()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1aad084dea7403eac3c503f5f9e5d03a34.html">Function RotationMatrix_z</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1aad084dea7403eac3c503f5f9e5d03a34.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1aad084dea7403eac3c503f5f9e5d03a34.html#_CPPv416RotationMatrix_zfPf"><code class="docutils literal notranslate"><span class="pre">RotationMatrix_z()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationDataExplorer_8h_1a347131ce0a4982993fd5ca5b9de2f972.html">Function RotData_Observer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationDataExplorer_8h_1a347131ce0a4982993fd5ca5b9de2f972.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationDataExplorer_8h_1a347131ce0a4982993fd5ca5b9de2f972.html#_CPPv416RotData_ObserverNSt6stringEP17RotDataProperties"><code class="docutils literal notranslate"><span class="pre">RotData_Observer()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a6f713d13b96beaef29a7c9093fba2e71.html">Function RotMat_select</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a6f713d13b96beaef29a7c9093fba2e71.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a6f713d13b96beaef29a7c9093fba2e71.html#_CPPv413RotMat_selectmPfPf"><code class="docutils literal notranslate"><span class="pre">RotMat_select()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a43cec2ffef6bfe1b4a0ea20a2bddbc09.html">Function RotMat_store</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a43cec2ffef6bfe1b4a0ea20a2bddbc09.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_NuMagSANSlib__RotationData_8h_1a43cec2ffef6bfe1b4a0ea20a2bddbc09.html#_CPPv412RotMat_storemPfPf"><code class="docutils literal notranslate"><span class="pre">RotMat_store()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2155,8 +2404,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -2190,7 +2439,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
 </p></div>
       
     </div>
