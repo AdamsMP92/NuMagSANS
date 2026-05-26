@@ -1,4 +1,4 @@
-// File         : NuMagSANSlib_MagData.h
+// File         : NuMagSANSlib_StructureData.h
 // Author       : Michael Philipp ADAMS, M.Sc.
 // Company      : University of Luxembourg
 // Department   : Department of Physics and Materials Sciences
@@ -68,18 +68,18 @@ void allocate_StructureDataRAM(StructureData* StructData, \
 
 
 void allocate_StructureDataGPU(StructureData* StructData, \
-                            StructureData* StructData_gpu){
+                               StructureData* StructData_gpu){
 
      unsigned long int K = *StructData->K;
 	
-	 cudaMalloc(&StructData_gpu->x, K*sizeof(float));
+	cudaMalloc(&StructData_gpu->x, K*sizeof(float));
      cudaMalloc(&StructData_gpu->y, K*sizeof(float));
      cudaMalloc(&StructData_gpu->z, K*sizeof(float));
      cudaMalloc(&StructData_gpu->K, sizeof(unsigned long int));
-	 cudaMalloc(&StructData_gpu->RotMat, 9*sizeof(float));
+	cudaMalloc(&StructData_gpu->RotMat, 9*sizeof(float));
 
-	 cudaMemcpy(StructData_gpu->K, StructData->K, sizeof(unsigned long int), cudaMemcpyHostToDevice);
-	 cudaMemcpy(StructData_gpu->RotMat, StructData->RotMat, 9*sizeof(float), cudaMemcpyHostToDevice);
+	cudaMemcpy(StructData_gpu->K, StructData->K, sizeof(unsigned long int), cudaMemcpyHostToDevice);
+	cudaMemcpy(StructData_gpu->RotMat, StructData->RotMat, 9*sizeof(float), cudaMemcpyHostToDevice);
 		
 	LogSystem::write("");
          // copy data from Host to Device

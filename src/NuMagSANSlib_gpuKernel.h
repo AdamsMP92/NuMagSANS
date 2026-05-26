@@ -26,6 +26,32 @@
 #include <unistd.h>
 #include <math_constants.h>  // für M_PI
 
+// Future split-kernel include structure:
+//
+// This file can remain the central umbrella header for all GPU kernels.
+// Once the kernel split is activated, the atomistic kernels can be included
+// from the dedicated headers below and the corresponding in-file definitions
+// can be removed from this file.
+//
+
+
+#include "gpu_kernels/AtomisticMagSANS_DiluteKernel.h"
+#include "gpu_kernels/AtomisticNucSANS_DiluteKernel.h"
+#include "gpu_kernels/AtomisticNuMagSANS_DiluteKernel.h"
+
+#include "gpu_kernels/AtomisticMagSANS_StructKernel.h"
+#include "gpu_kernels/AtomisticNucSANS_StructKernel.h"
+#include "gpu_kernels/AtomisticNuMagSANS_StructKernel.h"
+
+#include "gpu_kernels/AtomisticMagSANS_RotDiluteKernel.h"
+#include "gpu_kernels/AtomisticNucSANS_RotDiluteKernel.h"
+#include "gpu_kernels/AtomisticNuMagSANS_RotDiluteKernel.h"
+
+#include "gpu_kernels/AtomisticMagSANS_StructRotKernel.h"
+#include "gpu_kernels/AtomisticNucSANS_StructRotKernel.h"
+#include "gpu_kernels/AtomisticNuMagSANS_StructRotKernel.h"
+
+
 // ============================================================================
 // GPU Kernel: compute angular spectra from 2D scattering data
 // ============================================================================
@@ -336,7 +362,7 @@ void CorrelationFunction_2D(ScatteringData SANSData){
 
 
 
-
+/*
 
 __global__
 void Atomistic_MagSANS_Kernel_dilute(MagnetizationData MagData,\
@@ -864,9 +890,6 @@ void Atomistic_NuMagSANS_Kernel_dilute(NuclearData NucData,\
 
 
 
-
-
-
 __global__
 void Atomistic_MagSANS_Kernel(MagnetizationData MagData,\
 							  StructureData StructData, \
@@ -1380,3 +1403,6 @@ void Atomistic_NuMagSANS_Kernel(NuclearData NucData, \
 
 	}
 }
+
+
+*/

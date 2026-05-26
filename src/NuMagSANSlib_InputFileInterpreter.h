@@ -94,6 +94,9 @@ struct InputFileData{
     /// CSV file containing structural information
 	string StructDataFilename;
 
+	/// CSV file containing rotational information
+	string RotDataFilename;
+
     /// Output directory for computed SANS data
 	string SANSDataFoldername;
 
@@ -184,6 +187,9 @@ struct InputFileData{
 
     /// Enable structural data input
 	bool StructData_activate_flag;
+
+	/// Enable rotation data input
+	bool RotData_activate_flag;
 
     /// Exclude zero-moment cells from computation
 	bool ExcludeZeroMoments_flag;
@@ -531,6 +537,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"NucData_activate", &InputData->NucData_activate_flag, true},
 		{"MagData_activate", &InputData->MagData_activate_flag, true},
 		{"StructData_activate", &InputData->StructData_activate_flag, true},
+		{"RotData_activate", &InputData->RotData_activate_flag, true},
 		{"Exclude_Zero_Moments", &InputData->ExcludeZeroMoments_flag, true},
 		{"Angular_Spec", &InputData->AngularSpec_activate_flag, true},
 		{"Fourier_Gamma", &InputData->output_fourier_correlation_matrix_flag, true}
@@ -576,6 +583,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"NucDataPath", &InputData->NucDataPath, true},
 		{"MagDataPath", &InputData->MagDataPath, true},
 		{"StructDataFilename", &InputData->StructDataFilename, true},
+		{"RotDataFilename", &InputData->RotDataFilename, true},
 		{"foldernameSANSData", &InputData->SANSDataFoldername, true},
 		{"Fourier_Approach", &InputData->Fourier_Approach, true},
 		{"User_Selection", &InputData->User_Selection, true}

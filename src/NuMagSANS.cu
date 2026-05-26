@@ -68,6 +68,18 @@ int main(int argc, char* argv[]){
 		}
 	}
 
+	// RotDataExplorer ##########################################################################
+	RotDataProperties RotDataProp;
+	bool Check_RotData_Flag;
+	if(InputData.RotData_activate_flag){
+		Check_RotData_Flag = RotData_Observer(InputData.RotDataFilename, &RotDataProp);
+		if(Check_RotData_Flag != true){
+			LogSystem::write(" ->-> Error in RotData!");
+			LogSystem::write("");
+			LogSystem::write("");
+		}
+	}
+
 	// Check Consistency of InputData and MagDataProp ############################################
 
 
@@ -95,7 +107,7 @@ int main(int argc, char* argv[]){
 			cudaMemGetInfo(&free_bytes, &total_bytes);
 			used_mb1 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
 
-			NuMagSANS_Calculator(&InputData, &NucDataProp, &MagDataProp, &StructDataProp, Data_File_Index);
+			NuMagSANS_Calculator(&InputData, &NucDataProp, &MagDataProp, &StructDataProp, &RotDataProp, Data_File_Index);
 
 			cudaMemGetInfo(&free_bytes, &total_bytes);
 			used_mb2 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
@@ -112,7 +124,7 @@ int main(int argc, char* argv[]){
 			cudaMemGetInfo(&free_bytes, &total_bytes);
 			used_mb1 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
 
-			NuMagSANS_Calculator(&InputData, &NucDataProp, &MagDataProp, &StructDataProp, Data_File_Index);
+			NuMagSANS_Calculator(&InputData, &NucDataProp, &MagDataProp, &StructDataProp, &RotDataProp, Data_File_Index);
 
 			cudaMemGetInfo(&free_bytes, &total_bytes);
 			used_mb2 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
