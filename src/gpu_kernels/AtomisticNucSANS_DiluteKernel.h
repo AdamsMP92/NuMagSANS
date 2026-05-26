@@ -36,7 +36,7 @@ void Atomistic_NucSANS_Kernel_dilute(NuclearData NucData,\
 	unsigned long int N_avg = *NucData.N_avg;
 	unsigned long int W = *NucData.TotalAtomNumber;
 
-	//float v = 1.0/((float)  (*NucData.K)) * pow(1.0/((float) (*NucData.N)), 2); // pre factor
+	//float v = 1.0/((float)  (*NucData.K)) * powf(1.0/((float) (*NucData.N)), 2); // pre factor
 	float v = 1.0/((float) W) * 1.0/((float) N_avg);;
 
 	int i = blockIdx.x * blockDim.x + threadIdx.x;

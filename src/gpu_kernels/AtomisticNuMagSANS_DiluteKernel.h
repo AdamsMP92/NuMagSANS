@@ -49,7 +49,7 @@ void Atomistic_NuMagSANS_Kernel_dilute(NuclearData NucData,\
 	unsigned long int K = *MagData.K;
 	unsigned long int W = *MagData.TotalAtomNumber;
 
-	//float v = (1.0/((float) K)) * pow(1.0/((float) N), 2); // pre factor
+	//float v = (1.0/((float) K)) * powf(1.0/((float) N), 2); // pre factor
 	float v = 1.0/((float) W) * 1.0/((float) N_avg);
 	int i = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -141,8 +141,8 @@ void Atomistic_NuMagSANS_Kernel_dilute(NuclearData NucData,\
 				Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];
 
 				// cosine and sine values
-				cos_val = cos(Psi);
-				sin_val = sin(Psi);
+				cos_val = cosf(Psi);
+				sin_val = sinf(Psi);
 
 				// cosine and sine summations
 				nuc_real += NucData.Nuc[l+N_cum] * cos_val;
@@ -195,9 +195,9 @@ void Atomistic_NuMagSANS_Kernel_dilute(NuclearData NucData,\
 									 + 2.0 * v * Pz * (nuc_real * Qz_real + nuc_imag * Qz_imag);
 
 			// polarized magnetic SANS cross section projected in the (qz, qy)-plane
-			SANSData.S_Mag_2D_polarized[i] += v * pow(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \
-										    + v * pow(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \
-										    + v * pow(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \
+			SANSData.S_Mag_2D_polarized[i] += v * powf(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \
+										    + v * powf(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \
+										    + v * powf(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \
 										    + v * 2.0 * Px * Py * (Qx_real * Qy_real + Qx_imag * Qy_imag) \
 										    + v * 2.0 * Px * Pz * (Qx_real * Qz_real + Qx_imag * Qz_imag) \
 										    + v * 2.0 * Py * Pz * (Qy_real * Qz_real + Qy_imag * Qz_imag);

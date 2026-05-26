@@ -153,8 +153,8 @@ void RotationMatrix_z(float alpha, float* Rz){
     //       R1, R4, R7, 
     //       R2, R5, R8] 
 
-    float c = cos(alpha);
-    float s = sin(alpha);
+    float c = cosf(alpha);
+    float s = sinf(alpha);
 
     Rz[0] = c;
     Rz[1] = s;
@@ -179,8 +179,8 @@ void RotationMatrix_y(float alpha, float* Ry){
     //       R1, R4, R7, 
     //       R2, R5, R8] 
 
-    float c = cos(alpha);
-    float s = sin(alpha);
+    float c = cosf(alpha);
+    float s = sinf(alpha);
 
     Ry[0] = c;
     Ry[1] = 0.0;
