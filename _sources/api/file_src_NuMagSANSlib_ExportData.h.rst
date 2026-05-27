@@ -28,12 +28,6 @@ Definition (``src/NuMagSANSlib_ExportData.h``)
 
 
 
-Included By
------------
-
-
-- :ref:`file_src_NuMagSANSlib.h`
-
 
 
 
