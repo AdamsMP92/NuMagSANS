@@ -6,13 +6,13 @@ inline void CheckKernelLaunch(cudaError_t err){
 	}
 }
 
-inline void SelectKernelRun(InputFileData* InputData,
-							NuclearData* NucData_gpu,
-							MagnetizationData* MagData_gpu,
-							StructureData* StructData_gpu,
-							RotationData* RotData_gpu,
-							ScatteringData* SANSData,
-							ScatteringData* SANSData_gpu){
+inline void SelectKernelRunMulti(InputFileData* InputData,
+								NuclearData* NucData_gpu,
+								MagnetizationData* MagData_gpu,
+								StructureData* StructData_gpu,
+								RotationData* RotData_gpu,
+								ScatteringData* SANSData,
+								ScatteringData* SANSData_gpu){
 
 	cudaError_t err;
 	int L = (*SANSData->N_q) * (*SANSData->N_theta);
@@ -125,4 +125,19 @@ inline void SelectKernelRun(InputFileData* InputData,
 		err = cudaGetLastError();
 		CheckKernelLaunch(err);
 	}
+}
+
+
+inline void SelectKernelRun(InputFileData* InputData, 
+							NuMagSANSData* Data){
+
+
+	SelectKernelRunMulti(InputData,
+						 &Data->NucData_gpu,
+						 &Data->MagData_gpu,
+						 &Data->StructData_gpu,
+						 &Data->RotData_gpu,
+						 &Data->SANSData,
+						 &Data->SANSData_gpu);
+
 }
