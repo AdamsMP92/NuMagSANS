@@ -58,6 +58,7 @@ Program Listing for File NuMagSANSlib.h
    #include "NuMagSANSlib_SANSData.h"
    #include "NuMagSANSlib_SpectralData.h"
    #include "NuMagSANSlib_gpuKernel.h"
+   #include "NuMagSANSlib_InitializeData.h"
    #include "NuMagSANSlib_ExportData.h"
    #include "NuMagSANSlib_FreeData.h"
    
@@ -83,69 +84,93 @@ Program Listing for File NuMagSANSlib.h
        // start time measurement #################################################################
        TimeMeasure TotalTime = StartTimeMeasure();
    
-       // initialize nuclear data ################################################################
+   
+   
        NuclearData NucData, NucData_gpu;
-       if(InputData->NucData_activate_flag){
-           init_NuclearData(&NucData, &NucData_gpu, NucDataProp, InputData, Data_File_Index);
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-           }
-       }
+       MagnetizationData MagData, MagData_gpu;
+       StructureData StructData, StructData_gpu;
+       RotationData RotData, RotData_gpu;
+       ScatteringData SANSData, SANSData_gpu;
+       SpectralData SpecData, SpecData_gpu;
+   
+   
+   
+       
+       // initialize nuclear data ################################################################
+       // if(InputData->NucData_activate_flag){
+       //  init_NuclearData(&NucData, &NucData_gpu, NucDataProp, InputData, Data_File_Index);
+       //  cudaDeviceSynchronize();
+       //  err = cudaGetLastError();
+       //  if (err != cudaSuccess) {
+       //      LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+       //  }
+       // }
        
        // initialize magnetization data ##########################################################
-       MagnetizationData MagData, MagData_gpu;
-       if(InputData->MagData_activate_flag){
-           init_MagnetizationData(&MagData, &MagData_gpu, MagDataProp, InputData, Data_File_Index);
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-           }
-           //disp_MagnetizationData(&MagData);
-       }
+       // if(InputData->MagData_activate_flag){
+       //  init_MagnetizationData(&MagData, &MagData_gpu, MagDataProp, InputData, Data_File_Index);
+       //  cudaDeviceSynchronize();
+       //  err = cudaGetLastError();
+       //  if (err != cudaSuccess) {
+       //      LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+       //  }
+       //  //disp_MagnetizationData(&MagData);
+       // }
    
        // initialize structure data ##############################################################
-       StructureData StructData, StructData_gpu;
-       if(InputData->StructData_activate_flag){
-           init_StructureData(&StructData, &StructData_gpu, StructDataProp, InputData);
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-           }
-           //disp_StructureData(&StructData);
-       }
+       // if(InputData->StructData_activate_flag){
+       //  init_StructureData(&StructData, &StructData_gpu, StructDataProp, InputData);
+       //  cudaDeviceSynchronize();
+       //  err = cudaGetLastError();
+       //  if (err != cudaSuccess) {
+       //      LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+       //  }
+       //  //disp_StructureData(&StructData);
+       // }
    
        // initialize rotation data ##############################################################
-       RotationData RotData, RotData_gpu;
-       if(InputData->RotData_activate_flag){
-           init_RotationData(&RotData, &RotData_gpu, RotDataProp, InputData);
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-           }
-       }
+       // if(InputData->RotData_activate_flag){
+       //  init_RotationData(&RotData, &RotData_gpu, RotDataProp, InputData);
+       //  cudaDeviceSynchronize();
+       //  err = cudaGetLastError();
+       //  if (err != cudaSuccess) {
+       //      LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+       //  }
+       // }
    
        // initialize scattering data #############################################################
-       ScatteringData SANSData, SANSData_gpu;
-       init_ScatteringData(InputData, &SANSData, &SANSData_gpu);
-       cudaDeviceSynchronize();
-       err = cudaGetLastError();
-       if (err != cudaSuccess) {
-           LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-       }
+       // init_ScatteringData(InputData, &SANSData, &SANSData_gpu);
+       // cudaDeviceSynchronize();
+       // err = cudaGetLastError();
+       // if (err != cudaSuccess) {
+       //  LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+       // }
    
        // initialize spectral data ##############################################################
-       SpectralData SpecData, SpecData_gpu;
-       init_SpectralData(InputData, &SANSData, &SpecData, &SpecData_gpu);
-       cudaDeviceSynchronize();
-       err = cudaGetLastError();
-       if (err != cudaSuccess) {
-           LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-       }
+       // init_SpectralData(InputData, &SANSData, &SpecData, &SpecData_gpu);
+       // cudaDeviceSynchronize();
+       // err = cudaGetLastError();
+       // if (err != cudaSuccess) {
+       //  LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+       // }
+   
+       InitializeData(InputData,
+                      NucDataProp,
+                      MagDataProp,
+                      StructDataProp,
+                      RotDataProp,
+                      &NucData, &NucData_gpu,
+                      &MagData, &MagData_gpu,
+                      &StructData, &StructData_gpu,
+                      &RotData, &RotData_gpu,
+                      &SANSData, &SANSData_gpu,
+                      &SpecData, &SpecData_gpu,
+                      Data_File_Index);
+   
+   
+   
+   
+   
    
        LogCurrentGPUMemoryDifference(MemoryBeforeRun);
        
@@ -354,26 +379,6 @@ Program Listing for File NuMagSANSlib.h
    
    
        // copy scattering data from GPU to RAM ###################################################
-       // copyGPU2RAM_ScatteringData(&SANSData, &SANSData_gpu);
-   
-       // scaling of the scattering data on RAM ##################################################
-       // LogSystem::write("scaling of SANSdata...");
-       // scale_ScatteringData(&ScalFactors, &SANSData, InputData);
-   
-       // write scattering data to csv files #####################################################
-       // write2CSVtable_ScatteringData(InputData, &SANSData, Data_File_Index);
-   
-       // if(InputData->AngularSpec_activate_flag){
-       //  // copy spectral data from GPU to RAM #####################################################
-       //  copyGPU2RAM_SpectralData(&SpecData, &SpecData_gpu);
-   
-       //  // scaling of the spectral data on RAM ####################################################
-       //  scale_SpectralData(&ScalFactors, &SpecData, InputData);
-       
-       //  // write spectral data to csv files #######################################################
-       //  write2CSV_SpectralData(InputData, &SpecData, Data_File_Index);
-       // }
-   
        ExportData(InputData,
                   &ScalFactors,
                   &SANSData, &SANSData_gpu,
