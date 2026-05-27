@@ -105,6 +105,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 					&MagData_gpu,
 					&StructData_gpu,
 					&RotData_gpu,
+					&SANSData,
 					&SANSData_gpu);
 
 
