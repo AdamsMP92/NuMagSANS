@@ -28,6 +28,7 @@
 
 //#pragma once
 #include "NuMagSANSlib_LogFile.h"
+#include "NuMagSANSlib_MemoryInfo.h"
 #include "NuMagSANSlib_HelperFun.h"
 #include "NuMagSANSlib_StringCompare.h"
 #include "NuMagSANSlib_ReadWrite.h"
@@ -61,14 +62,17 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	LogSystem::write("################################################################################");
 	LogSystem::write("");
 
+	GPUMemoryInfo MemoryBeforeRun = GetGPUMemoryInfo();
+ 	LogCurrentGPUMemoryDifference(MemoryBeforeRun);
+
 	// start time measurement #################################################################
 	auto start_total_time = std::chrono::high_resolution_clock::now();
 
 	// record GPU memory state before data initialization ######################################
-	size_t free_bytes_before_data_load, total_bytes_before_data_load;
-	size_t free_bytes_after_data_load, total_bytes_after_data_load;
-	cudaMemGetInfo(&free_bytes_before_data_load, &total_bytes_before_data_load);
-	double used_mb_before_data_load = (total_bytes_before_data_load - free_bytes_before_data_load) / 1024.0 / 1024.0;
+	// size_t free_bytes_before_data_load, total_bytes_before_data_load;
+	// size_t free_bytes_after_data_load, total_bytes_after_data_load;
+	// cudaMemGetInfo(&free_bytes_before_data_load, &total_bytes_before_data_load);
+	// double used_mb_before_data_load = (total_bytes_before_data_load - free_bytes_before_data_load) / 1024.0 / 1024.0;
 
 	// initialize nuclear data ################################################################
 	NuclearData NucData, NucData_gpu;
@@ -135,12 +139,13 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	}
 
 	// report GPU memory state after data initialization #######################################
-	cudaMemGetInfo(&free_bytes_after_data_load, &total_bytes_after_data_load);
-	double used_mb_after_data_load = (total_bytes_after_data_load - free_bytes_after_data_load) / 1024.0 / 1024.0;
-	double loaded_data_mb = used_mb_after_data_load - used_mb_before_data_load;
-	LogSystem::write("");
-	LogSystem::write("GPU Memory Check after data load: cummulated bytes: " + std::to_string(loaded_data_mb) + " MB, free bytes: " + std::to_string(free_bytes_after_data_load / 1024.0 / 1024.0) + " MB");
-	LogSystem::write("");
+	// cudaMemGetInfo(&free_bytes_after_data_load, &total_bytes_after_data_load);
+	// double used_mb_after_data_load = (total_bytes_after_data_load - free_bytes_after_data_load) / 1024.0 / 1024.0;
+	// double loaded_data_mb = used_mb_after_data_load - used_mb_before_data_load;
+	// LogSystem::write("");
+	// LogSystem::write("GPU Memory Check after data load: cummulated bytes: " + std::to_string(loaded_data_mb) + " MB, free bytes: " + std::to_string(free_bytes_after_data_load / 1024.0 / 1024.0) + " MB");
+	// LogSystem::write("");
+	LogCurrentGPUMemoryDifference(MemoryBeforeRun);
 	
 	// initialize scaling factors #############################################################
 	ScalingFactors ScalFactors;
@@ -397,6 +402,8 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	std::chrono::duration<double> elapsed_total_time = finish_total_time - start_total_time;
 	LogSystem::write("->-> Total Elapsed Time: " + std::to_string(elapsed_total_time.count()) + " s");
 	LogSystem::write("");
+
+	LogCurrentGPUMemoryDifference(MemoryBeforeRun);
 
 	LogSystem::write("################################################################################");
 	LogSystem::write("## Finished - NuMagSANS ########################################################");
