@@ -87,6 +87,15 @@ Program Listing for File NuMagSANSlib_RotationData.h
                 perror("Memory allocation failed");
                 exit(EXIT_FAILURE);
         }
+   }
+   
+   
+   void DefaultSet_RotationDataRAM(RotationData* RotData, \
+                                   RotDataProperties* RotDataProp, \
+                                   InputFileData* InputData){
+   
+   
+        unsigned long int K = RotDataProp->Number_Of_Elements;
    
         *RotData->K = K;
    
@@ -120,6 +129,9 @@ Program Listing for File NuMagSANSlib_RotationData.h
         }  
    }
    
+   
+   
+   
    void allocate_RotationDataGPU(RotationData* RotData, \
                                  RotationData* RotData_gpu){
    
@@ -130,27 +142,34 @@ Program Listing for File NuMagSANSlib_RotationData.h
        cudaMalloc(&RotData_gpu->gamma, K*sizeof(float));
        cudaMalloc(&RotData_gpu->K, sizeof(unsigned long int));
        cudaMalloc(&RotData_gpu->RotMat, 9*K*sizeof(float));
+        
+   }
+   
+   void copy_RotationDataRAM2GPU(RotationData* RotData, \
+                                 RotationData* RotData_gpu){
+   
+        unsigned long int K = *RotData->K;
+       
    
        cudaMemcpy(RotData_gpu->K, RotData->K, sizeof(unsigned long int), cudaMemcpyHostToDevice);
        cudaMemcpy(RotData_gpu->RotMat, RotData->RotMat, 9*K*sizeof(float), cudaMemcpyHostToDevice);
-           
+   
        LogSystem::write("");
-            // copy data from Host to Device
        LogSystem::write("copy data from RAM to GPU...");
-        cudaMemcpy(RotData_gpu->alpha, RotData->alpha, K*sizeof(float), cudaMemcpyHostToDevice);
+       cudaMemcpy(RotData_gpu->alpha, RotData->alpha, K*sizeof(float), cudaMemcpyHostToDevice);
        LogSystem::write("   alpha done...");
-        cudaMemcpy(RotData_gpu->beta, RotData->beta, K*sizeof(float), cudaMemcpyHostToDevice);
+       cudaMemcpy(RotData_gpu->beta, RotData->beta, K*sizeof(float), cudaMemcpyHostToDevice);
        LogSystem::write("   beta done...");
-        cudaMemcpy(RotData_gpu->gamma, RotData->gamma, K*sizeof(float), cudaMemcpyHostToDevice);
+       cudaMemcpy(RotData_gpu->gamma, RotData->gamma, K*sizeof(float), cudaMemcpyHostToDevice);
        LogSystem::write("   gamma done...");
        LogSystem::write("");
        LogSystem::write("data transfer finished...");
        LogSystem::write("");
    
-       cudaMalloc(&RotData_gpu, sizeof(RotationData));
-       cudaMemcpy(RotData_gpu, RotData, sizeof(RotationData), cudaMemcpyHostToDevice);
-        
    }
+   
+   
+   
    
    
    // the followin section defins rotation matrix operations 
@@ -354,8 +373,10 @@ Program Listing for File NuMagSANSlib_RotationData.h
                            InputFileData* InputData){
    
        allocate_RotationDataRAM(RotData, RotDataProp, InputData);
+       DefaultSet_RotationDataRAM(RotData, RotDataProp, InputData);
        read_RotationData(RotData, RotDataProp, InputData);
        allocate_RotationDataGPU(RotData, RotData_gpu);
+       copy_RotationDataRAM2GPU(RotData, RotData_gpu);
       
    }
    
@@ -389,4 +410,3 @@ Program Listing for File NuMagSANSlib_RotationData.h
    
        LogSystem::write("free RotationData finished.");
    }
-   

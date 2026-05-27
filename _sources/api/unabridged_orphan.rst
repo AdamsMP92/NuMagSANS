@@ -95,7 +95,22 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_src_NuMagSANSlib_Data.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_src_NuMagSANSlib_Directory.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_NuMagSANSlib_ExportData.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_NuMagSANSlib_FreeData.h.rst
 
 .. toctree::
    :maxdepth: 5
@@ -110,7 +125,22 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_src_NuMagSANSlib_InitializeData.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_src_NuMagSANSlib_InputFileInterpreter.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_NuMagSANSlib_KernelPostprocess.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_NuMagSANSlib_KernelSelector.h.rst
 
 .. toctree::
    :maxdepth: 5
@@ -126,6 +156,11 @@ Files
    :maxdepth: 5
 
    file_src_NuMagSANSlib_MagDataExplorer.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_NuMagSANSlib_MemoryInfo.h.rst
 
 .. toctree::
    :maxdepth: 5
@@ -176,3 +211,8 @@ Files
    :maxdepth: 5
 
    file_src_NuMagSANSlib_StructureDataExplorer.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_NuMagSANSlib_TimeMeasure.h.rst

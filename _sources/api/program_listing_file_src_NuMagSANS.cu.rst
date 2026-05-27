@@ -108,41 +108,18 @@ Program Listing for File NuMagSANS.cu
        //mkdir((InputData.SANSDataFoldername + "/").c_str(), 0777);    
    
        int Data_File_Index;
-       size_t free_bytes, total_bytes;
-       double used_mb1, used_mb2;
-       double cummulated_mb = 0.0;
        if(InputData.Loop_Modus){
            LogSystem::write("loop modus active...");
            for(int k = InputData.Loop_From; k <= InputData.Loop_To; k++){
                Data_File_Index = k;
-   
-               cudaMemGetInfo(&free_bytes, &total_bytes);
-               used_mb1 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
-   
                NuMagSANS_Calculator(&InputData, &NucDataProp, &MagDataProp, &StructDataProp, &RotDataProp, Data_File_Index);
-   
-               cudaMemGetInfo(&free_bytes, &total_bytes);
-               used_mb2 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
-               cummulated_mb += used_mb2 - used_mb1;
-   
-               LogSystem::write("GPU Memory Check: cummulated bytes: " + std::to_string(cummulated_mb) + " MB, free bytes: " + std::to_string(free_bytes / 1024.0 /1024.0) + " MB");
    
            }
        }else{
            LogSystem::write("user selecting active...");
            for(int k = 0; k < InputData.User_Selection_IndexArray.size(); k++){
                Data_File_Index = InputData.User_Selection_IndexArray[k];
-   
-               cudaMemGetInfo(&free_bytes, &total_bytes);
-               used_mb1 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
-   
                NuMagSANS_Calculator(&InputData, &NucDataProp, &MagDataProp, &StructDataProp, &RotDataProp, Data_File_Index);
-   
-               cudaMemGetInfo(&free_bytes, &total_bytes);
-               used_mb2 = (total_bytes - free_bytes) / 1024.0 / 1024.0;
-               cummulated_mb += used_mb2 - used_mb1;
-   
-               LogSystem::write("GPU Memory Check: cummulated bytes: " + std::to_string(cummulated_mb) + " MB, free bytes: " + std::to_string(free_bytes / 1024.0 /1024.0) + " MB");
    
            }
        }

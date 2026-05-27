@@ -30,17 +30,31 @@ Includes
 --------
 
 
+- ``NuMagSANSlib_Data.h`` (:ref:`file_src_NuMagSANSlib_Data.h`)
+
 - ``NuMagSANSlib_Directory.h`` (:ref:`file_src_NuMagSANSlib_Directory.h`)
+
+- ``NuMagSANSlib_ExportData.h`` (:ref:`file_src_NuMagSANSlib_ExportData.h`)
+
+- ``NuMagSANSlib_FreeData.h`` (:ref:`file_src_NuMagSANSlib_FreeData.h`)
 
 - ``NuMagSANSlib_HelperFun.h`` (:ref:`file_src_NuMagSANSlib_HelperFun.h`)
 
+- ``NuMagSANSlib_InitializeData.h`` (:ref:`file_src_NuMagSANSlib_InitializeData.h`)
+
 - ``NuMagSANSlib_InputFileInterpreter.h`` (:ref:`file_src_NuMagSANSlib_InputFileInterpreter.h`)
+
+- ``NuMagSANSlib_KernelPostprocess.h`` (:ref:`file_src_NuMagSANSlib_KernelPostprocess.h`)
+
+- ``NuMagSANSlib_KernelSelector.h`` (:ref:`file_src_NuMagSANSlib_KernelSelector.h`)
 
 - ``NuMagSANSlib_LogFile.h`` (:ref:`file_src_NuMagSANSlib_LogFile.h`)
 
 - ``NuMagSANSlib_MagData.h`` (:ref:`file_src_NuMagSANSlib_MagData.h`)
 
 - ``NuMagSANSlib_MagDataExplorer.h`` (:ref:`file_src_NuMagSANSlib_MagDataExplorer.h`)
+
+- ``NuMagSANSlib_MemoryInfo.h`` (:ref:`file_src_NuMagSANSlib_MemoryInfo.h`)
 
 - ``NuMagSANSlib_NucData.h`` (:ref:`file_src_NuMagSANSlib_NucData.h`)
 
@@ -61,6 +75,8 @@ Includes
 - ``NuMagSANSlib_StructureData.h`` (:ref:`file_src_NuMagSANSlib_StructureData.h`)
 
 - ``NuMagSANSlib_StructureDataExplorer.h`` (:ref:`file_src_NuMagSANSlib_StructureDataExplorer.h`)
+
+- ``NuMagSANSlib_TimeMeasure.h`` (:ref:`file_src_NuMagSANSlib_TimeMeasure.h`)
 
 - ``NuMagSANSlib_gpuKernel.h`` (:ref:`file_src_NuMagSANSlib_gpuKernel.h`)
 

@@ -88,6 +88,10 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1ae9bb0a8f7976fb14b626f611e349da3c`
 
+- :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1ab300afc3dd8a98c31a9da33402bc5e98`
+
+- :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1ac73a124932fba38876b7ea8a26724b39`
+
 - :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1a601e2439425e2b740ae3c89606fa4b4a`
 
 - :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1af1711c58f9cab15754e5a7a03a1f861c`
