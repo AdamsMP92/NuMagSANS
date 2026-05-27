@@ -458,6 +458,7 @@
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_SANSData.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_SpectralData.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_gpuKernel.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_FreeData.h&quot;</span>
 
 <span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
 
@@ -773,35 +774,37 @@
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// free memory ############################################################################</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;free memory...&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="p">){</span>
-<span class="w">        </span><span class="n">free_NuclearData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">NucData_gpu</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// LogSystem::write(&quot;free memory...&quot;);</span>
+<span class="w">    </span><span class="c1">// if(InputData-&gt;NucData_activate_flag){</span>
+<span class="w">    </span><span class="c1">//  free_NuclearData(&amp;NucData, &amp;NucData_gpu);</span>
+<span class="w">    </span><span class="c1">// }</span>
 
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="p">){</span>
-<span class="w">        </span><span class="n">free_MagnetizationData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MagData_gpu</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// if(InputData-&gt;MagData_activate_flag){</span>
+<span class="w">    </span><span class="c1">//  free_MagnetizationData(&amp;MagData, &amp;MagData_gpu);</span>
+<span class="w">    </span><span class="c1">// }</span>
 
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="p">){</span>
-<span class="w">        </span><span class="n">free_StructureData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">StructData_gpu</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// if(InputData-&gt;StructData_activate_flag){</span>
+<span class="w">    </span><span class="c1">//  free_StructureData(&amp;StructData, &amp;StructData_gpu);</span>
+<span class="w">    </span><span class="c1">// }</span>
 
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="p">){</span>
-<span class="w">        </span><span class="n">free_RotationData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">RotData_gpu</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// if(InputData-&gt;RotData_activate_flag){</span>
+<span class="w">    </span><span class="c1">//  free_RotationData(&amp;RotData, &amp;RotData_gpu);</span>
+<span class="w">    </span><span class="c1">// }</span>
 
-<span class="w">    </span><span class="c1">// free scattering data</span>
-<span class="w">    </span><span class="n">free_ScatteringData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// // free scattering data</span>
+<span class="w">    </span><span class="c1">// free_ScatteringData(&amp;SANSData, &amp;SANSData_gpu);</span>
 
-<span class="w">    </span><span class="c1">// free spectral data</span>
-<span class="w">    </span><span class="n">free_SpectralData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// // free spectral data</span>
+<span class="w">    </span><span class="c1">// free_SpectralData(&amp;SpecData, &amp;SpecData_gpu);</span>
 
-<span class="w">    </span><span class="c1">// print result of time measurement #######################################################</span>
-<span class="w">    </span><span class="c1">// LogSystem::write(&quot;&quot;);</span>
-<span class="w">    </span><span class="c1">// auto finish_total_time = std::chrono::high_resolution_clock::now();</span>
-<span class="w">    </span><span class="c1">// std::chrono::duration&lt;double&gt; elapsed_total_time = finish_total_time - start_total_time;</span>
-<span class="w">    </span><span class="c1">// LogSystem::write(&quot;-&gt;-&gt; Total Elapsed Time: &quot; + std::to_string(elapsed_total_time.count()) + &quot; s&quot;);</span>
-<span class="w">    </span><span class="c1">// LogSystem::write(&quot;&quot;);</span>
+<span class="w">    </span><span class="n">FreeData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">             </span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span>
+<span class="w">             </span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="n">NucData_gpu</span><span class="p">,</span>
+<span class="w">             </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span>
+<span class="w">             </span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span>
+<span class="w">             </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">,</span>
+<span class="w">             </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">);</span>
+
 <span class="w">    </span><span class="c1">// print result of time measurement #######################################################</span>
 <span class="w">    </span><span class="n">LogElapsedTime</span><span class="p">(</span><span class="n">TotalTime</span><span class="p">);</span>
 

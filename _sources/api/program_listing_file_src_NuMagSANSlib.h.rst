@@ -58,6 +58,7 @@ Program Listing for File NuMagSANSlib.h
    #include "NuMagSANSlib_SANSData.h"
    #include "NuMagSANSlib_SpectralData.h"
    #include "NuMagSANSlib_gpuKernel.h"
+   #include "NuMagSANSlib_FreeData.h"
    
    using namespace std;
    
@@ -373,35 +374,37 @@ Program Listing for File NuMagSANSlib.h
        }
    
        // free memory ############################################################################
-       LogSystem::write("free memory...");
-       if(InputData->NucData_activate_flag){
-           free_NuclearData(&NucData, &NucData_gpu);
-       }
+       // LogSystem::write("free memory...");
+       // if(InputData->NucData_activate_flag){
+       //  free_NuclearData(&NucData, &NucData_gpu);
+       // }
    
-       if(InputData->MagData_activate_flag){
-           free_MagnetizationData(&MagData, &MagData_gpu);
-       }
+       // if(InputData->MagData_activate_flag){
+       //  free_MagnetizationData(&MagData, &MagData_gpu);
+       // }
    
-       if(InputData->StructData_activate_flag){
-           free_StructureData(&StructData, &StructData_gpu);
-       }
+       // if(InputData->StructData_activate_flag){
+       //  free_StructureData(&StructData, &StructData_gpu);
+       // }
    
-       if(InputData->RotData_activate_flag){
-           free_RotationData(&RotData, &RotData_gpu);
-       }
+       // if(InputData->RotData_activate_flag){
+       //  free_RotationData(&RotData, &RotData_gpu);
+       // }
        
-       // free scattering data
-       free_ScatteringData(&SANSData, &SANSData_gpu);
+       // // free scattering data
+       // free_ScatteringData(&SANSData, &SANSData_gpu);
    
-       // free spectral data
-       free_SpectralData(&SpecData, &SpecData_gpu);
+       // // free spectral data
+       // free_SpectralData(&SpecData, &SpecData_gpu);
+   
+       FreeData(InputData,
+                MagData, MagData_gpu,
+                NucData, NucData_gpu,
+                StructData, StructData_gpu,
+                RotData, RotData_gpu,
+                SANSData, SANSData_gpu,
+                SpecData, SpecData_gpu);
        
-       // print result of time measurement #######################################################
-       // LogSystem::write("");
-       // auto finish_total_time = std::chrono::high_resolution_clock::now();  
-       // std::chrono::duration<double> elapsed_total_time = finish_total_time - start_total_time;
-       // LogSystem::write("->-> Total Elapsed Time: " + std::to_string(elapsed_total_time.count()) + " s");
-       // LogSystem::write("");
        // print result of time measurement #######################################################
        LogElapsedTime(TotalTime);
    

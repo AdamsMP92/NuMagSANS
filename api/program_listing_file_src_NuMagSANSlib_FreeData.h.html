@@ -412,29 +412,65 @@
 <p>↰ <a class="reference internal" href="file_src_NuMagSANSlib_FreeData.h.html#file-src-numagsanslib-freedata-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_FreeData.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
 
-<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">FreeData</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
-<span class="w">                     </span><span class="n">NuMagSANSData</span><span class="o">*</span><span class="w"> </span><span class="n">Data</span><span class="p">){</span>
+<span class="c1">// inline void FreeData(InputFileData* InputData,</span>
+<span class="c1">//                      NuMagSANSData* Data){</span>
 
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;free memory...&quot;</span><span class="p">);</span>
+<span class="c1">//  LogSystem::write(&quot;free memory...&quot;);</span>
+
+<span class="c1">//  if(InputData-&gt;NucData_activate_flag){</span>
+<span class="c1">//      free_NuclearData(&amp;Data-&gt;NucData, &amp;Data-&gt;NucData_gpu);</span>
+<span class="c1">//  }</span>
+
+<span class="c1">//  if(InputData-&gt;MagData_activate_flag){</span>
+<span class="c1">//      free_MagnetizationData(&amp;Data-&gt;MagData, &amp;Data-&gt;MagData_gpu);</span>
+<span class="c1">//  }</span>
+
+<span class="c1">//  if(InputData-&gt;StructData_activate_flag){</span>
+<span class="c1">//      free_StructureData(&amp;Data-&gt;StructData, &amp;Data-&gt;StructData_gpu);</span>
+<span class="c1">//  }</span>
+
+<span class="c1">//  if(InputData-&gt;RotData_activate_flag){</span>
+<span class="c1">//      free_RotationData(&amp;Data-&gt;RotData, &amp;Data-&gt;RotData_gpu);</span>
+<span class="c1">//  }</span>
+
+<span class="c1">//  free_ScatteringData(&amp;Data-&gt;SANSData, &amp;Data-&gt;SANSData_gpu);</span>
+<span class="c1">//  free_SpectralData(&amp;Data-&gt;SpecData, &amp;Data-&gt;SpecData_gpu);</span>
+<span class="c1">// }</span>
+
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">FreeData</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">MagnetizationData</span><span class="w"> </span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="n">MagnetizationData</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">NuclearData</span><span class="w"> </span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="n">NuclearData</span><span class="w"> </span><span class="n">NucData_gpu</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">StructureData</span><span class="w"> </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructureData</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">RotationData</span><span class="w"> </span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotationData</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">ScatteringData</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">ScatteringData</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">SpectralData</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpectralData</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">){</span>
+
 
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="p">){</span>
-<span class="w">        </span><span class="n">free_NuclearData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">NucData_gpu</span><span class="p">);</span>
+<span class="w">        </span><span class="n">free_NuclearData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">NucData_gpu</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="p">){</span>
-<span class="w">        </span><span class="n">free_MagnetizationData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">MagData_gpu</span><span class="p">);</span>
+<span class="w">        </span><span class="n">free_MagnetizationData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MagData_gpu</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="p">){</span>
-<span class="w">        </span><span class="n">free_StructureData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">StructData_gpu</span><span class="p">);</span>
+<span class="w">        </span><span class="n">free_StructureData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">StructData_gpu</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="p">){</span>
-<span class="w">        </span><span class="n">free_RotationData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">RotData_gpu</span><span class="p">);</span>
+<span class="w">        </span><span class="n">free_RotationData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">RotData_gpu</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">free_ScatteringData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">    </span><span class="n">free_SpectralData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// free scattering data</span>
+<span class="w">    </span><span class="n">free_ScatteringData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// free spectral data</span>
+<span class="w">    </span><span class="n">free_SpectralData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
+
+
+
 <span class="p">}</span>
 </pre></div>
 </div>

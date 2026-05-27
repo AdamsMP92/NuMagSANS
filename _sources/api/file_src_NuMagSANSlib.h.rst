@@ -32,6 +32,8 @@ Includes
 
 - ``NuMagSANSlib_Directory.h`` (:ref:`file_src_NuMagSANSlib_Directory.h`)
 
+- ``NuMagSANSlib_FreeData.h`` (:ref:`file_src_NuMagSANSlib_FreeData.h`)
+
 - ``NuMagSANSlib_HelperFun.h`` (:ref:`file_src_NuMagSANSlib_HelperFun.h`)
 
 - ``NuMagSANSlib_InputFileInterpreter.h`` (:ref:`file_src_NuMagSANSlib_InputFileInterpreter.h`)
