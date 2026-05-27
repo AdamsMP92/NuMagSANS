@@ -143,10 +143,11 @@ Program Listing for File NuMagSANSlib_KernelSelector.h
                                MagnetizationData* MagData_gpu,
                                StructureData* StructData_gpu,
                                RotationData* RotData_gpu,
+                               ScatteringData* SANSData,
                                ScatteringData* SANSData_gpu){
    
        cudaError_t err;
-       int L = (*SANSData_gpu->N_q) * (*SANSData_gpu->N_theta);
+       int L = (*SANSData->N_q) * (*SANSData->N_theta);
        LogSystem::write("total number of Fourier space bins: " + std::to_string(L));
    
        // Pure Magnetic Scattering Calculator without structure data #############################

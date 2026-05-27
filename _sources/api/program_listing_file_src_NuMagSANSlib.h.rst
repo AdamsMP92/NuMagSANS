@@ -117,6 +117,7 @@ Program Listing for File NuMagSANSlib.h
                        &MagData_gpu,
                        &StructData_gpu,
                        &RotData_gpu,
+                       &SANSData,
                        &SANSData_gpu);
    
    
