@@ -397,7 +397,7 @@ Program Listing for File NuMagSANSlib.h
        // // free spectral data
        // free_SpectralData(&SpecData, &SpecData_gpu);
    
-       FreeData(&InputData,
+       FreeData(InputData,
                 &MagData, &MagData_gpu,
                 &NucData, &NucData_gpu,
                 &StructData, &StructData_gpu,
