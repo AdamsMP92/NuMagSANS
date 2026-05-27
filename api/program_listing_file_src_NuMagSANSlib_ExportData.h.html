@@ -412,11 +412,11 @@
 <p>↰ <a class="reference internal" href="file_src_NuMagSANSlib_ExportData.h.html#file-src-numagsanslib-exportdata-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_ExportData.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
 
-<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ExportData</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
-<span class="w">                       </span><span class="n">ScalingFactors</span><span class="o">*</span><span class="w"> </span><span class="n">ScalFactors</span><span class="p">,</span>
-<span class="w">                       </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">,</span>
-<span class="w">                       </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">,</span>
-<span class="w">                       </span><span class="kt">int</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">){</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ExportDataMulti</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">ScalingFactors</span><span class="o">*</span><span class="w"> </span><span class="n">ScalFactors</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">,</span>
+<span class="w">                            </span><span class="kt">int</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">){</span>
 
 <span class="w">    </span><span class="c1">// copy scattering data from GPU to RAM ###################################################</span>
 <span class="w">    </span><span class="n">copyGPU2RAM_ScatteringData</span><span class="p">(</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
@@ -438,6 +438,19 @@
 <span class="w">        </span><span class="c1">// write spectral data to csv files ###################################################</span>
 <span class="w">        </span><span class="n">write2CSV_SpectralData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ExportData</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">NuMagSANSData</span><span class="o">*</span><span class="w"> </span><span class="n">Data</span><span class="p">,</span>
+<span class="w">                       </span><span class="kt">int</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">){</span>
+
+<span class="w">    </span><span class="n">ExportDataMulti</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                    </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">ScalFactors</span><span class="p">,</span>
+<span class="w">                    </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData_gpu</span><span class="p">,</span>
+<span class="w">                    </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData_gpu</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">Data_File_Index</span><span class="p">);</span>
+
 <span class="p">}</span>
 </pre></div>
 </div>

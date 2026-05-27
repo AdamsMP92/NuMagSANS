@@ -457,6 +457,7 @@
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_RotationData.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_SANSData.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_SpectralData.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_Data.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_gpuKernel.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_InitializeData.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_KernelSelector.h&quot;</span>
@@ -486,61 +487,75 @@
 <span class="w">    </span><span class="c1">// start time measurement #################################################################</span>
 <span class="w">    </span><span class="n">TimeMeasure</span><span class="w"> </span><span class="n">TotalTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StartTimeMeasure</span><span class="p">();</span>
 
+<span class="w">    </span><span class="n">NuMagSANSData</span><span class="w"> </span><span class="n">Data</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">NuclearData</span><span class="w"> </span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="n">NucData_gpu</span><span class="p">;</span>
-<span class="w">    </span><span class="n">MagnetizationData</span><span class="w"> </span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">;</span>
-<span class="w">    </span><span class="n">StructureData</span><span class="w"> </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">;</span>
-<span class="w">    </span><span class="n">RotationData</span><span class="w"> </span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">;</span>
-<span class="w">    </span><span class="n">ScatteringData</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">;</span>
-<span class="w">    </span><span class="n">SpectralData</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// ScalingFactors ScalFactors;</span>
+<span class="w">        </span><span class="c1">// NuclearData NucData, NucData_gpu;</span>
+<span class="w">        </span><span class="c1">// MagnetizationData MagData, MagData_gpu;</span>
+<span class="w">        </span><span class="c1">// StructureData StructData, StructData_gpu;</span>
+<span class="w">        </span><span class="c1">// RotationData RotData, RotData_gpu;</span>
+<span class="w">        </span><span class="c1">// ScatteringData SANSData, SANSData_gpu;</span>
+<span class="w">        </span><span class="c1">// SpectralData SpecData, SpecData_gpu;</span>
 
+<span class="w">    </span><span class="c1">// InitializeData(InputData,</span>
+<span class="w">    </span><span class="c1">//             NucDataProp,</span>
+<span class="w">    </span><span class="c1">//             MagDataProp,</span>
+<span class="w">    </span><span class="c1">//             StructDataProp,</span>
+<span class="w">    </span><span class="c1">//             RotDataProp,</span>
+<span class="w">    </span><span class="c1">//             &amp;NucData, &amp;NucData_gpu,</span>
+<span class="w">    </span><span class="c1">//             &amp;MagData, &amp;MagData_gpu,</span>
+<span class="w">    </span><span class="c1">//             &amp;StructData, &amp;StructData_gpu,</span>
+<span class="w">    </span><span class="c1">//             &amp;RotData, &amp;RotData_gpu,</span>
+<span class="w">    </span><span class="c1">//             &amp;SANSData, &amp;SANSData_gpu,</span>
+<span class="w">    </span><span class="c1">//             &amp;SpecData, &amp;SpecData_gpu,</span>
+<span class="w">    </span><span class="c1">//             Data_File_Index);</span>
 <span class="w">    </span><span class="n">InitializeData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
 <span class="w">                   </span><span class="n">NucDataProp</span><span class="p">,</span>
 <span class="w">                   </span><span class="n">MagDataProp</span><span class="p">,</span>
 <span class="w">                   </span><span class="n">StructDataProp</span><span class="p">,</span>
 <span class="w">                   </span><span class="n">RotDataProp</span><span class="p">,</span>
-<span class="w">                   </span><span class="o">&amp;</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">NucData_gpu</span><span class="p">,</span>
-<span class="w">                   </span><span class="o">&amp;</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MagData_gpu</span><span class="p">,</span>
-<span class="w">                   </span><span class="o">&amp;</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">StructData_gpu</span><span class="p">,</span>
-<span class="w">                   </span><span class="o">&amp;</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">RotData_gpu</span><span class="p">,</span>
-<span class="w">                   </span><span class="o">&amp;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SANSData_gpu</span><span class="p">,</span>
-<span class="w">                   </span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData_gpu</span><span class="p">,</span>
+<span class="w">                   </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">,</span>
 <span class="w">                   </span><span class="n">Data_File_Index</span><span class="p">);</span>
 
 <span class="w">    </span><span class="n">LogCurrentGPUMemoryDifference</span><span class="p">(</span><span class="n">MemoryBeforeRun</span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// initialize scaling factors #############################################################</span>
-<span class="w">    </span><span class="n">ScalingFactors</span><span class="w"> </span><span class="n">ScalFactors</span><span class="p">;</span>
-<span class="w">    </span><span class="n">init_ScalingFactors</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SANSData</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// initialize scaling factors #############################################################</span>
+<span class="w">        </span><span class="c1">// init_ScalingFactors(&amp;ScalFactors, InputData, &amp;MagData, &amp;NucData, &amp;SANSData);</span>
 
-<span class="w">    </span><span class="n">SelectKernelRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
-<span class="w">                    </span><span class="o">&amp;</span><span class="n">NucData_gpu</span><span class="p">,</span>
-<span class="w">                    </span><span class="o">&amp;</span><span class="n">MagData_gpu</span><span class="p">,</span>
-<span class="w">                    </span><span class="o">&amp;</span><span class="n">StructData_gpu</span><span class="p">,</span>
-<span class="w">                    </span><span class="o">&amp;</span><span class="n">RotData_gpu</span><span class="p">,</span>
-<span class="w">                    </span><span class="o">&amp;</span><span class="n">SANSData</span><span class="p">,</span>
-<span class="w">                    </span><span class="o">&amp;</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// SelectKernelRun(InputData,</span>
+<span class="w">        </span><span class="c1">//              &amp;Data.NucData_gpu,</span>
+<span class="w">        </span><span class="c1">//              &amp;Data.MagData_gpu,</span>
+<span class="w">        </span><span class="c1">//              &amp;Data.StructData_gpu,</span>
+<span class="w">        </span><span class="c1">//              &amp;Data.RotData_gpu,</span>
+<span class="w">        </span><span class="c1">//              &amp;Data.SANSData,</span>
+<span class="w">        </span><span class="c1">//              &amp;Data.SANSData_gpu);</span>
 
-<span class="w">    </span><span class="n">KernelPostprocessRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
-<span class="w">                         </span><span class="o">&amp;</span><span class="n">SANSData</span><span class="p">,</span>
-<span class="w">                         </span><span class="o">&amp;</span><span class="n">SANSData_gpu</span><span class="p">,</span>
-<span class="w">                         </span><span class="o">&amp;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
+<span class="w">        </span><span class="n">SelectKernelRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// KernelPostprocessRun(InputData,</span>
+<span class="w">        </span><span class="c1">//                   &amp;SANSData,</span>
+<span class="w">        </span><span class="c1">//                   &amp;SANSData_gpu,</span>
+<span class="w">        </span><span class="c1">//                   &amp;SpecData_gpu);</span>
+
+<span class="w">        </span><span class="n">KernelPostprocessRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// copy scattering data from GPU to RAM ###################################################</span>
-<span class="w">    </span><span class="n">ExportData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
-<span class="w">               </span><span class="o">&amp;</span><span class="n">ScalFactors</span><span class="p">,</span>
-<span class="w">               </span><span class="o">&amp;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SANSData_gpu</span><span class="p">,</span>
-<span class="w">               </span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData_gpu</span><span class="p">,</span>
-<span class="w">               </span><span class="n">Data_File_Index</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ExportData(InputData,</span>
+<span class="w">    </span><span class="c1">//         &amp;ScalFactors,</span>
+<span class="w">    </span><span class="c1">//         &amp;SANSData, &amp;SANSData_gpu,</span>
+<span class="w">    </span><span class="c1">//         &amp;SpecData, &amp;SpecData_gpu,</span>
+<span class="w">    </span><span class="c1">//         Data_File_Index);</span>
+<span class="w">    </span><span class="n">ExportData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// free memory ############################################################################</span>
-<span class="w">    </span><span class="n">FreeData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
-<span class="w">             </span><span class="o">&amp;</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MagData_gpu</span><span class="p">,</span>
-<span class="w">             </span><span class="o">&amp;</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">NucData_gpu</span><span class="p">,</span>
-<span class="w">             </span><span class="o">&amp;</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">StructData_gpu</span><span class="p">,</span>
-<span class="w">             </span><span class="o">&amp;</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">RotData_gpu</span><span class="p">,</span>
-<span class="w">             </span><span class="o">&amp;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SANSData_gpu</span><span class="p">,</span>
-<span class="w">             </span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// FreeData(InputData,</span>
+<span class="w">    </span><span class="c1">//       &amp;MagData, &amp;MagData_gpu,</span>
+<span class="w">    </span><span class="c1">//       &amp;NucData, &amp;NucData_gpu,</span>
+<span class="w">    </span><span class="c1">//       &amp;StructData, &amp;StructData_gpu,</span>
+<span class="w">    </span><span class="c1">//       &amp;RotData, &amp;RotData_gpu,</span>
+<span class="w">    </span><span class="c1">//       &amp;SANSData, &amp;SANSData_gpu,</span>
+<span class="w">    </span><span class="c1">//       &amp;SpecData, &amp;SpecData_gpu);</span>
+<span class="w">    </span><span class="n">FreeData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// print result of time measurement #######################################################</span>
 <span class="w">    </span><span class="n">LogElapsedTime</span><span class="p">(</span><span class="n">TotalTime</span><span class="p">);</span>

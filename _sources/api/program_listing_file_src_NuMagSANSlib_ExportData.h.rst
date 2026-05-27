@@ -12,11 +12,11 @@ Program Listing for File NuMagSANSlib_ExportData.h
 
    #pragma once
    
-   inline void ExportData(InputFileData* InputData,
-                          ScalingFactors* ScalFactors,
-                          ScatteringData* SANSData, ScatteringData* SANSData_gpu,
-                          SpectralData* SpecData, SpectralData* SpecData_gpu,
-                          int Data_File_Index){
+   inline void ExportDataMulti(InputFileData* InputData,
+                               ScalingFactors* ScalFactors,
+                               ScatteringData* SANSData, ScatteringData* SANSData_gpu,
+                               SpectralData* SpecData, SpectralData* SpecData_gpu,
+                               int Data_File_Index){
    
        // copy scattering data from GPU to RAM ###################################################
        copyGPU2RAM_ScatteringData(SANSData, SANSData_gpu);
@@ -38,4 +38,17 @@ Program Listing for File NuMagSANSlib_ExportData.h
            // write spectral data to csv files ###################################################
            write2CSV_SpectralData(InputData, SpecData, Data_File_Index);
        }
+   }
+   
+   
+   inline void ExportData(InputFileData* InputData, 
+                          NuMagSANSData* Data, 
+                          int Data_File_Index){
+   
+       ExportDataMulti(InputData,
+                       &Data->ScalFactors,
+                       &Data->SANSData, &Data->SANSData_gpu,
+                       &Data->SpecData, &Data->SpecData_gpu,
+                       Data_File_Index);
+   
    }

@@ -41,5 +41,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_NuMagSANSlib__KernelPostprocess_8h_1a146c49ef49eebcffde9d7c33ef019f77`
+- :ref:`exhale_function_NuMagSANSlib__KernelPostprocess_8h_1ab182521a006a990d98ea824cc9501606`
+
+- :ref:`exhale_function_NuMagSANSlib__KernelPostprocess_8h_1ab2b5e826d9d2ea093cbdc90feebedc99`
 

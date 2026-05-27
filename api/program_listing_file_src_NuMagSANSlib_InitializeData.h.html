@@ -412,18 +412,19 @@
 <p>↰ <a class="reference internal" href="file_src_NuMagSANSlib_InitializeData.h.html#file-src-numagsanslib-initializedata-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_InitializeData.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
 
-<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">InitializeData</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
-<span class="w">                           </span><span class="n">NucDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">NucDataProp</span><span class="p">,</span>
-<span class="w">                           </span><span class="n">MagDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">MagDataProp</span><span class="p">,</span>
-<span class="w">                           </span><span class="n">StructDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span>
-<span class="w">                           </span><span class="n">RotDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span>
-<span class="w">                           </span><span class="n">NuclearData</span><span class="o">*</span><span class="w"> </span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="n">NuclearData</span><span class="o">*</span><span class="w"> </span><span class="n">NucData_gpu</span><span class="p">,</span>
-<span class="w">                           </span><span class="n">MagnetizationData</span><span class="o">*</span><span class="w"> </span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="n">MagnetizationData</span><span class="o">*</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span>
-<span class="w">                           </span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span>
-<span class="w">                           </span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span>
-<span class="w">                           </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">,</span>
-<span class="w">                           </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">,</span>
-<span class="w">                           </span><span class="kt">int</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">){</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">InitializeDataMulti</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">NucDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">NucDataProp</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">MagDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">MagDataProp</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">StructDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">RotDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">NuclearData</span><span class="o">*</span><span class="w"> </span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="n">NuclearData</span><span class="o">*</span><span class="w"> </span><span class="n">NucData_gpu</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">MagnetizationData</span><span class="o">*</span><span class="w"> </span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="n">MagnetizationData</span><span class="o">*</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">ScalingFactors</span><span class="o">*</span><span class="w"> </span><span class="n">ScalFactors</span><span class="p">,</span>
+<span class="w">                                    </span><span class="kt">int</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">){</span>
 
 <span class="w">    </span><span class="n">cudaError_t</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 
@@ -484,7 +485,38 @@
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
 <span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// initialize scaling factors</span>
+<span class="w">    </span><span class="n">init_ScalingFactors</span><span class="p">(</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData</span><span class="p">);</span>
+
 <span class="p">}</span>
+
+
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">InitializeData</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">NucDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">NucDataProp</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">MagDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">MagDataProp</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">StructDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">RotDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">NuMagSANSData</span><span class="o">*</span><span class="w"> </span><span class="n">Data</span><span class="p">,</span>
+<span class="w">                               </span><span class="kt">int</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">){</span>
+
+<span class="w">        </span><span class="n">InitializeDataMulti</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">NucDataProp</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">MagDataProp</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">StructDataProp</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">RotDataProp</span><span class="p">,</span>
+<span class="w">                            </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">NucData_gpu</span><span class="p">,</span>
+<span class="w">                            </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">MagData_gpu</span><span class="p">,</span>
+<span class="w">                            </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">StructData_gpu</span><span class="p">,</span>
+<span class="w">                            </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">RotData_gpu</span><span class="p">,</span>
+<span class="w">                            </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData_gpu</span><span class="p">,</span>
+<span class="w">                            </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData_gpu</span><span class="p">,</span>
+<span class="w">                            </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">ScalFactors</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">Data_File_Index</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="p">}</span>
 </pre></div>
 </div>
 </section>

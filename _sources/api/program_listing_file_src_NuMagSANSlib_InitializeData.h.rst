@@ -12,18 +12,19 @@ Program Listing for File NuMagSANSlib_InitializeData.h
 
    #pragma once
    
-   inline void InitializeData(InputFileData* InputData,
-                              NucDataProperties* NucDataProp,
-                              MagDataProperties* MagDataProp,
-                              StructDataProperties* StructDataProp,
-                              RotDataProperties* RotDataProp,
-                              NuclearData* NucData, NuclearData* NucData_gpu,
-                              MagnetizationData* MagData, MagnetizationData* MagData_gpu,
-                              StructureData* StructData, StructureData* StructData_gpu,
-                              RotationData* RotData, RotationData* RotData_gpu,
-                              ScatteringData* SANSData, ScatteringData* SANSData_gpu,
-                              SpectralData* SpecData, SpectralData* SpecData_gpu,
-                              int Data_File_Index){
+   inline void InitializeDataMulti(InputFileData* InputData,
+                                   NucDataProperties* NucDataProp,
+                                   MagDataProperties* MagDataProp,
+                                   StructDataProperties* StructDataProp,
+                                   RotDataProperties* RotDataProp,
+                                   NuclearData* NucData, NuclearData* NucData_gpu,
+                                   MagnetizationData* MagData, MagnetizationData* MagData_gpu,
+                                       StructureData* StructData, StructureData* StructData_gpu,
+                                       RotationData* RotData, RotationData* RotData_gpu,
+                                       ScatteringData* SANSData, ScatteringData* SANSData_gpu,
+                                       SpectralData* SpecData, SpectralData* SpecData_gpu,
+                                       ScalingFactors* ScalFactors,
+                                       int Data_File_Index){
    
        cudaError_t err;
    
@@ -84,4 +85,35 @@ Program Listing for File NuMagSANSlib_InitializeData.h
        if (err != cudaSuccess) {
            LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
        }
+   
+       // initialize scaling factors
+       init_ScalingFactors(ScalFactors, InputData, MagData, NucData, SANSData);
+   
    }
+   
+   
+   
+   inline void InitializeData(InputFileData* InputData,
+                                  NucDataProperties* NucDataProp,
+                                  MagDataProperties* MagDataProp,
+                                  StructDataProperties* StructDataProp,
+                                  RotDataProperties* RotDataProp, 
+                                  NuMagSANSData* Data,
+                                  int Data_File_Index){
+   
+           InitializeDataMulti(InputData,
+                               NucDataProp,
+                               MagDataProp,
+                               StructDataProp,
+                               RotDataProp,
+                               &Data->NucData, &Data->NucData_gpu,
+                               &Data->MagData, &Data->MagData_gpu,
+                               &Data->StructData, &Data->StructData_gpu,
+                               &Data->RotData, &Data->RotData_gpu,
+                               &Data->SANSData, &Data->SANSData_gpu,
+                               &Data->SpecData, &Data->SpecData_gpu,
+                               &Data->ScalFactors,
+                               Data_File_Index);
+   
+   
+       }

@@ -418,13 +418,13 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">SelectKernelRun</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
-<span class="w">                            </span><span class="n">NuclearData</span><span class="o">*</span><span class="w"> </span><span class="n">NucData_gpu</span><span class="p">,</span>
-<span class="w">                            </span><span class="n">MagnetizationData</span><span class="o">*</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span>
-<span class="w">                            </span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span>
-<span class="w">                            </span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span>
-<span class="w">                            </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span>
-<span class="w">                            </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">){</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">SelectKernelRunMulti</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">NuclearData</span><span class="o">*</span><span class="w"> </span><span class="n">NucData_gpu</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">MagnetizationData</span><span class="o">*</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">){</span>
 
 <span class="w">    </span><span class="n">cudaError_t</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">SANSData</span><span class="o">-&gt;</span><span class="n">N_q</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">SANSData</span><span class="o">-&gt;</span><span class="n">N_theta</span><span class="p">);</span>
@@ -537,6 +537,21 @@
 <span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
 <span class="w">        </span><span class="n">CheckKernelLaunch</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">SelectKernelRun</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">NuMagSANSData</span><span class="o">*</span><span class="w"> </span><span class="n">Data</span><span class="p">){</span>
+
+
+<span class="w">    </span><span class="n">SelectKernelRunMulti</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                         </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">NucData_gpu</span><span class="p">,</span>
+<span class="w">                         </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">MagData_gpu</span><span class="p">,</span>
+<span class="w">                         </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">StructData_gpu</span><span class="p">,</span>
+<span class="w">                         </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">RotData_gpu</span><span class="p">,</span>
+<span class="w">                         </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span>
+<span class="w">                         </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+
 <span class="p">}</span>
 </pre></div>
 </div>

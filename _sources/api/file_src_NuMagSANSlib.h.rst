@@ -30,6 +30,8 @@ Includes
 --------
 
 
+- ``NuMagSANSlib_Data.h`` (:ref:`file_src_NuMagSANSlib_Data.h`)
+
 - ``NuMagSANSlib_Directory.h`` (:ref:`file_src_NuMagSANSlib_Directory.h`)
 
 - ``NuMagSANSlib_ExportData.h`` (:ref:`file_src_NuMagSANSlib_ExportData.h`)

@@ -12,10 +12,10 @@ Program Listing for File NuMagSANSlib_KernelPostprocess.h
 
    #pragma once
    
-   inline void KernelPostprocessRun(InputFileData* InputData,
-                                    ScatteringData* SANSData,
-                                    ScatteringData* SANSData_gpu,
-                                    SpectralData* SpecData_gpu){
+   inline void KernelPostprocessRunMulti(InputFileData* InputData,
+                                         ScatteringData* SANSData,
+                                         ScatteringData* SANSData_gpu,
+                                         SpectralData* SpecData_gpu){
    
        cudaError_t err;
        int L = (*SANSData->N_q) * (*SANSData->N_theta);
@@ -63,4 +63,15 @@ Program Listing for File NuMagSANSlib_KernelPostprocess.h
            err = cudaGetLastError();
            CheckKernelLaunch(err);
        }
+   }
+   
+   
+   inline void KernelPostprocessRun(InputFileData* InputData,
+                                    NuMagSANSData* Data){
+   
+       KernelPostprocessRunMulti(InputData,
+                                 &Data->SANSData,
+                                 &Data->SANSData_gpu,
+                                 &Data->SpecData_gpu);
+   
    }

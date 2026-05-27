@@ -13,6 +13,7 @@ Program Listing for File NuMagSANSlib_Data.h
    #pragma once
    
    struct NuMagSANSData {
+       ScalingFactors ScalFactors;
        NuclearData NucData, NucData_gpu;
        MagnetizationData MagData, MagData_gpu;
        StructureData StructData, StructData_gpu;

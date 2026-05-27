@@ -412,10 +412,10 @@
 <p>↰ <a class="reference internal" href="file_src_NuMagSANSlib_KernelPostprocess.h.html#file-src-numagsanslib-kernelpostprocess-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_KernelPostprocess.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
 
-<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">KernelPostprocessRun</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
-<span class="w">                                 </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span>
-<span class="w">                                 </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">,</span>
-<span class="w">                                 </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">){</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">KernelPostprocessRunMulti</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                                      </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span>
+<span class="w">                                      </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">,</span>
+<span class="w">                                      </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">){</span>
 
 <span class="w">    </span><span class="n">cudaError_t</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">SANSData</span><span class="o">-&gt;</span><span class="n">N_q</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">SANSData</span><span class="o">-&gt;</span><span class="n">N_theta</span><span class="p">);</span>
@@ -463,6 +463,17 @@
 <span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
 <span class="w">        </span><span class="n">CheckKernelLaunch</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">KernelPostprocessRun</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                                 </span><span class="n">NuMagSANSData</span><span class="o">*</span><span class="w"> </span><span class="n">Data</span><span class="p">){</span>
+
+<span class="w">    </span><span class="n">KernelPostprocessRunMulti</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                              </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span>
+<span class="w">                              </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData_gpu</span><span class="p">,</span>
+<span class="w">                              </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
+
 <span class="p">}</span>
 </pre></div>
 </div>
