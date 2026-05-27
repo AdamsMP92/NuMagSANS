@@ -28,6 +28,12 @@ Definition (``src/NuMagSANSlib_ExportData.h``)
 
 
 
+Included By
+-----------
+
+
+- :ref:`file_src_NuMagSANSlib.h`
+
 
 
 
@@ -35,5 +41,5 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_NuMagSANSlib__ExportData_8h_1a2e509426c3fa3e8a57c198f7b51395ba`
+- :ref:`exhale_function_NuMagSANSlib__ExportData_8h_1a2e051d280c332c37c51294967bcb2fa9`
 

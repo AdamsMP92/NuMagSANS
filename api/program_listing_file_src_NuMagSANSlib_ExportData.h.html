@@ -412,30 +412,58 @@
 <p>↰ <a class="reference internal" href="file_src_NuMagSANSlib_ExportData.h.html#file-src-numagsanslib-exportdata-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_ExportData.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
 
+<span class="c1">// inline void ExportData(InputFileData* InputData,</span>
+<span class="c1">//                     ScalingFactors* ScalFactors,</span>
+<span class="c1">//                     NuMagSANSData* Data,</span>
+<span class="c1">//                     int Data_File_Index){</span>
+
+<span class="c1">//  // copy scattering data from GPU to RAM ###################################################</span>
+<span class="c1">//  copyGPU2RAM_ScatteringData(&amp;Data-&gt;SANSData, &amp;Data-&gt;SANSData_gpu);</span>
+
+<span class="c1">//  // scaling of the scattering data on RAM ##################################################</span>
+<span class="c1">//  LogSystem::write(&quot;scaling of SANSdata...&quot;);</span>
+<span class="c1">//  scale_ScatteringData(ScalFactors, &amp;Data-&gt;SANSData, InputData);</span>
+
+<span class="c1">//  // write scattering data to csv files #####################################################</span>
+<span class="c1">//  write2CSVtable_ScatteringData(InputData, &amp;Data-&gt;SANSData, Data_File_Index);</span>
+
+<span class="c1">//  if(InputData-&gt;AngularSpec_activate_flag){</span>
+<span class="c1">//      // copy spectral data from GPU to RAM #################################################</span>
+<span class="c1">//      copyGPU2RAM_SpectralData(&amp;Data-&gt;SpecData, &amp;Data-&gt;SpecData_gpu);</span>
+
+<span class="c1">//      // scaling of the spectral data on RAM ################################################</span>
+<span class="c1">//      scale_SpectralData(ScalFactors, &amp;Data-&gt;SpecData, InputData);</span>
+
+<span class="c1">//      // write spectral data to csv files ###################################################</span>
+<span class="c1">//      write2CSV_SpectralData(InputData, &amp;Data-&gt;SpecData, Data_File_Index);</span>
+<span class="c1">//  }</span>
+<span class="c1">// }</span>
+
 <span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ExportData</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
 <span class="w">                       </span><span class="n">ScalingFactors</span><span class="o">*</span><span class="w"> </span><span class="n">ScalFactors</span><span class="p">,</span>
-<span class="w">                       </span><span class="n">NuMagSANSData</span><span class="o">*</span><span class="w"> </span><span class="n">Data</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpectralData</span><span class="o">*</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">,</span>
 <span class="w">                       </span><span class="kt">int</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">){</span>
 
 <span class="w">    </span><span class="c1">// copy scattering data from GPU to RAM ###################################################</span>
-<span class="w">    </span><span class="n">copyGPU2RAM_ScatteringData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="n">copyGPU2RAM_ScatteringData</span><span class="p">(</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// scaling of the scattering data on RAM ##################################################</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;scaling of SANSdata...&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="n">scale_ScatteringData</span><span class="p">(</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+<span class="w">    </span><span class="n">scale_ScatteringData</span><span class="p">(</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// write scattering data to csv files #####################################################</span>
-<span class="w">    </span><span class="n">write2CSVtable_ScatteringData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
+<span class="w">    </span><span class="n">write2CSVtable_ScatteringData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">AngularSpec_activate_flag</span><span class="p">){</span>
 <span class="w">        </span><span class="c1">// copy spectral data from GPU to RAM #################################################</span>
-<span class="w">        </span><span class="n">copyGPU2RAM_SpectralData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
+<span class="w">        </span><span class="n">copyGPU2RAM_SpectralData</span><span class="p">(</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">);</span>
 
 <span class="w">        </span><span class="c1">// scaling of the spectral data on RAM ################################################</span>
-<span class="w">        </span><span class="n">scale_SpectralData</span><span class="p">(</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+<span class="w">        </span><span class="n">scale_SpectralData</span><span class="p">(</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
 
 <span class="w">        </span><span class="c1">// write spectral data to csv files ###################################################</span>
-<span class="w">        </span><span class="n">write2CSV_SpectralData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
+<span class="w">        </span><span class="n">write2CSV_SpectralData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
