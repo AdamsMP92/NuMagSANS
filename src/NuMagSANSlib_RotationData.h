@@ -75,6 +75,15 @@ void allocate_RotationDataRAM(RotationData* RotData, \
 	         perror("Memory allocation failed");
 	         exit(EXIT_FAILURE);
 	 }
+}
+
+
+void DefaultSet_RotationDataRAM(RotationData* RotData, \
+                                RotDataProperties* RotDataProp, \
+                                InputFileData* InputData){
+
+
+	 unsigned long int K = RotDataProp->Number_Of_Elements;
 
 	 *RotData->K = K;
 
@@ -108,6 +117,9 @@ void allocate_RotationDataRAM(RotationData* RotData, \
 	 }	
 }
 
+
+
+
 void allocate_RotationDataGPU(RotationData* RotData, \
                               RotationData* RotData_gpu){
 
@@ -115,30 +127,37 @@ void allocate_RotationDataGPU(RotationData* RotData, \
 	
 	cudaMalloc(&RotData_gpu->alpha, K*sizeof(float));
     cudaMalloc(&RotData_gpu->beta, K*sizeof(float));
-    cudaMalloc(&RotData_gpu->gamma, K*sizeof(float));
+	cudaMalloc(&RotData_gpu->gamma, K*sizeof(float));
     cudaMalloc(&RotData_gpu->K, sizeof(unsigned long int));
 	cudaMalloc(&RotData_gpu->RotMat, 9*K*sizeof(float));
+     
+}
 
-	cudaMemcpy(RotData_gpu->K, RotData->K, sizeof(unsigned long int), cudaMemcpyHostToDevice);
+void copy_RotationDataRAM2GPU(RotationData* RotData, \
+                              RotationData* RotData_gpu){
+
+     unsigned long int K = *RotData->K;
+	
+
+    cudaMemcpy(RotData_gpu->K, RotData->K, sizeof(unsigned long int), cudaMemcpyHostToDevice);
 	cudaMemcpy(RotData_gpu->RotMat, RotData->RotMat, 9*K*sizeof(float), cudaMemcpyHostToDevice);
-		
+
 	LogSystem::write("");
-         // copy data from Host to Device
 	LogSystem::write("copy data from RAM to GPU...");
-     cudaMemcpy(RotData_gpu->alpha, RotData->alpha, K*sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(RotData_gpu->alpha, RotData->alpha, K*sizeof(float), cudaMemcpyHostToDevice);
 	LogSystem::write("   alpha done...");
-     cudaMemcpy(RotData_gpu->beta, RotData->beta, K*sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(RotData_gpu->beta, RotData->beta, K*sizeof(float), cudaMemcpyHostToDevice);
 	LogSystem::write("   beta done...");
-     cudaMemcpy(RotData_gpu->gamma, RotData->gamma, K*sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(RotData_gpu->gamma, RotData->gamma, K*sizeof(float), cudaMemcpyHostToDevice);
 	LogSystem::write("   gamma done...");
 	LogSystem::write("");
 	LogSystem::write("data transfer finished...");
 	LogSystem::write("");
 
-	cudaMalloc(&RotData_gpu, sizeof(RotationData));
-	cudaMemcpy(RotData_gpu, RotData, sizeof(RotationData), cudaMemcpyHostToDevice);
-     
 }
+
+
+
 
 
 // the followin section defins rotation matrix operations 
@@ -343,8 +362,10 @@ void init_RotationData(RotationData* RotData, \
                         InputFileData* InputData){
 
 	allocate_RotationDataRAM(RotData, RotDataProp, InputData);
+    DefaultSet_RotationDataRAM(RotData, RotDataProp, InputData);
 	read_RotationData(RotData, RotDataProp, InputData);
 	allocate_RotationDataGPU(RotData, RotData_gpu);
+    copy_RotationDataRAM2GPU(RotData, RotData_gpu);
    
 }
 
@@ -378,4 +399,3 @@ void free_RotationData(RotationData *RotData,
 
     LogSystem::write("free RotationData finished.");
 }
-
