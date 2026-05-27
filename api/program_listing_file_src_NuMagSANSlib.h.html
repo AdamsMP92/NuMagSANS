@@ -459,6 +459,7 @@
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_SpectralData.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_gpuKernel.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_InitializeData.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_KernelSelector.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_ExportData.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_FreeData.h&quot;</span>
 
@@ -485,74 +486,12 @@
 <span class="w">    </span><span class="n">TimeMeasure</span><span class="w"> </span><span class="n">TotalTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StartTimeMeasure</span><span class="p">();</span>
 
 
-
 <span class="w">    </span><span class="n">NuclearData</span><span class="w"> </span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="n">NucData_gpu</span><span class="p">;</span>
 <span class="w">    </span><span class="n">MagnetizationData</span><span class="w"> </span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">;</span>
 <span class="w">    </span><span class="n">StructureData</span><span class="w"> </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">;</span>
 <span class="w">    </span><span class="n">RotationData</span><span class="w"> </span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">;</span>
 <span class="w">    </span><span class="n">ScatteringData</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">;</span>
 <span class="w">    </span><span class="n">SpectralData</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">;</span>
-
-
-
-
-<span class="w">    </span><span class="c1">// initialize nuclear data ################################################################</span>
-<span class="w">    </span><span class="c1">// if(InputData-&gt;NucData_activate_flag){</span>
-<span class="w">    </span><span class="c1">//  init_NuclearData(&amp;NucData, &amp;NucData_gpu, NucDataProp, InputData, Data_File_Index);</span>
-<span class="w">    </span><span class="c1">//  cudaDeviceSynchronize();</span>
-<span class="w">    </span><span class="c1">//  err = cudaGetLastError();</span>
-<span class="w">    </span><span class="c1">//  if (err != cudaSuccess) {</span>
-<span class="w">    </span><span class="c1">//      LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
-<span class="w">    </span><span class="c1">//  }</span>
-<span class="w">    </span><span class="c1">// }</span>
-
-<span class="w">    </span><span class="c1">// initialize magnetization data ##########################################################</span>
-<span class="w">    </span><span class="c1">// if(InputData-&gt;MagData_activate_flag){</span>
-<span class="w">    </span><span class="c1">//  init_MagnetizationData(&amp;MagData, &amp;MagData_gpu, MagDataProp, InputData, Data_File_Index);</span>
-<span class="w">    </span><span class="c1">//  cudaDeviceSynchronize();</span>
-<span class="w">    </span><span class="c1">//  err = cudaGetLastError();</span>
-<span class="w">    </span><span class="c1">//  if (err != cudaSuccess) {</span>
-<span class="w">    </span><span class="c1">//      LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
-<span class="w">    </span><span class="c1">//  }</span>
-<span class="w">    </span><span class="c1">//  //disp_MagnetizationData(&amp;MagData);</span>
-<span class="w">    </span><span class="c1">// }</span>
-
-<span class="w">    </span><span class="c1">// initialize structure data ##############################################################</span>
-<span class="w">    </span><span class="c1">// if(InputData-&gt;StructData_activate_flag){</span>
-<span class="w">    </span><span class="c1">//  init_StructureData(&amp;StructData, &amp;StructData_gpu, StructDataProp, InputData);</span>
-<span class="w">    </span><span class="c1">//  cudaDeviceSynchronize();</span>
-<span class="w">    </span><span class="c1">//  err = cudaGetLastError();</span>
-<span class="w">    </span><span class="c1">//  if (err != cudaSuccess) {</span>
-<span class="w">    </span><span class="c1">//      LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
-<span class="w">    </span><span class="c1">//  }</span>
-<span class="w">    </span><span class="c1">//  //disp_StructureData(&amp;StructData);</span>
-<span class="w">    </span><span class="c1">// }</span>
-
-<span class="w">    </span><span class="c1">// initialize rotation data ##############################################################</span>
-<span class="w">    </span><span class="c1">// if(InputData-&gt;RotData_activate_flag){</span>
-<span class="w">    </span><span class="c1">//  init_RotationData(&amp;RotData, &amp;RotData_gpu, RotDataProp, InputData);</span>
-<span class="w">    </span><span class="c1">//  cudaDeviceSynchronize();</span>
-<span class="w">    </span><span class="c1">//  err = cudaGetLastError();</span>
-<span class="w">    </span><span class="c1">//  if (err != cudaSuccess) {</span>
-<span class="w">    </span><span class="c1">//      LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
-<span class="w">    </span><span class="c1">//  }</span>
-<span class="w">    </span><span class="c1">// }</span>
-
-<span class="w">    </span><span class="c1">// initialize scattering data #############################################################</span>
-<span class="w">    </span><span class="c1">// init_ScatteringData(InputData, &amp;SANSData, &amp;SANSData_gpu);</span>
-<span class="w">    </span><span class="c1">// cudaDeviceSynchronize();</span>
-<span class="w">    </span><span class="c1">// err = cudaGetLastError();</span>
-<span class="w">    </span><span class="c1">// if (err != cudaSuccess) {</span>
-<span class="w">    </span><span class="c1">//  LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
-<span class="w">    </span><span class="c1">// }</span>
-
-<span class="w">    </span><span class="c1">// initialize spectral data ##############################################################</span>
-<span class="w">    </span><span class="c1">// init_SpectralData(InputData, &amp;SANSData, &amp;SpecData, &amp;SpecData_gpu);</span>
-<span class="w">    </span><span class="c1">// cudaDeviceSynchronize();</span>
-<span class="w">    </span><span class="c1">// err = cudaGetLastError();</span>
-<span class="w">    </span><span class="c1">// if (err != cudaSuccess) {</span>
-<span class="w">    </span><span class="c1">//  LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
-<span class="w">    </span><span class="c1">// }</span>
 
 <span class="w">    </span><span class="n">InitializeData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
 <span class="w">                   </span><span class="n">NucDataProp</span><span class="p">,</span>
@@ -567,155 +506,160 @@
 <span class="w">                   </span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData_gpu</span><span class="p">,</span>
 <span class="w">                   </span><span class="n">Data_File_Index</span><span class="p">);</span>
 
-
-
-
-
-
 <span class="w">    </span><span class="n">LogCurrentGPUMemoryDifference</span><span class="p">(</span><span class="n">MemoryBeforeRun</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// initialize scaling factors #############################################################</span>
 <span class="w">    </span><span class="n">ScalingFactors</span><span class="w"> </span><span class="n">ScalFactors</span><span class="p">;</span>
 <span class="w">    </span><span class="n">init_ScalingFactors</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SANSData</span><span class="p">);</span>
 
+<span class="w">    </span><span class="n">SelectKernelRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                    </span><span class="o">&amp;</span><span class="n">NucData_gpu</span><span class="p">,</span>
+<span class="w">                    </span><span class="o">&amp;</span><span class="n">MagData_gpu</span><span class="p">,</span>
+<span class="w">                    </span><span class="o">&amp;</span><span class="n">StructData_gpu</span><span class="p">,</span>
+<span class="w">                    </span><span class="o">&amp;</span><span class="n">RotData_gpu</span><span class="p">,</span>
+<span class="w">                    </span><span class="o">&amp;</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+
+
 <span class="w">    </span><span class="c1">// compute 2D SANS cross sections #########################################################</span>
+<span class="w">    </span><span class="c1">// int L = (*SANSData.N_q) * (*SANSData.N_theta);</span>
+<span class="w">    </span><span class="c1">// LogSystem::write(&quot;total number of Fourier space bins: &quot; + std::to_string(L));</span>
+
+<span class="w">        </span><span class="c1">//  // Pure Magnetic Scattering Calculator without structure data #####################################################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 1 &amp;&amp; InputData-&gt;NucData_activate_flag == 0 &amp;&amp; InputData-&gt;StructData_activate_flag == 0 &amp;&amp; InputData-&gt;RotData_activate_flag == 0){</span>
+<span class="w">        </span><span class="c1">//  LogSystem::write(&quot;run: Atomistic_MagSANS_Kernel_dilute&quot;);</span>
+<span class="w">        </span><span class="c1">//  Atomistic_MagSANS_Kernel_dilute&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(MagData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//  cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//  err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//  if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//  }</span>
+<span class="w">        </span><span class="c1">// }</span>
+
+<span class="w">        </span><span class="c1">//  // Pure Nuclear Scattering Calculator without structure data #######################################################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 0 &amp;&amp; InputData-&gt;NucData_activate_flag == 1 &amp;&amp; InputData-&gt;StructData_activate_flag == 0 &amp;&amp; InputData-&gt;RotData_activate_flag == 0){</span>
+<span class="w">        </span><span class="c1">//  LogSystem::write(&quot;run: Atomistic_NucSANS_Kernel_dilute&quot;);</span>
+<span class="w">        </span><span class="c1">//  Atomistic_NucSANS_Kernel_dilute&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(NucData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//  cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//  err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//  if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//  }</span>
+<span class="w">        </span><span class="c1">// }</span>
+
+<span class="w">        </span><span class="c1">//  // Combined Magnetic and Nuclear Scattering Calculator without structure data ######################################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 1 &amp;&amp; InputData-&gt;NucData_activate_flag == 1 &amp;&amp; InputData-&gt;StructData_activate_flag == 0 &amp;&amp; InputData-&gt;RotData_activate_flag == 0){</span>
+<span class="w">        </span><span class="c1">//  LogSystem::write(&quot;run: Atomistic_NuMagSANS_Kernel_dilute&quot;);</span>
+<span class="w">        </span><span class="c1">//  Atomistic_NuMagSANS_Kernel_dilute&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(NucData_gpu, MagData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//  cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//  err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//  if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//  }</span>
+<span class="w">        </span><span class="c1">// }</span>
+
+
+<span class="w">        </span><span class="c1">//  // Pure Magnetic Scattering Calculator with structure data #########################################################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 1 &amp;&amp; InputData-&gt;NucData_activate_flag == 0 &amp;&amp; InputData-&gt;StructData_activate_flag == 1 &amp;&amp; InputData-&gt;RotData_activate_flag == 0){</span>
+<span class="w">        </span><span class="c1">//  LogSystem::write(&quot;run: Atomistic_MagSANS_Kernel&quot;);</span>
+<span class="w">        </span><span class="c1">//  Atomistic_MagSANS_Kernel&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(MagData_gpu, StructData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//  cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//  err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//  if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//  }</span>
+<span class="w">        </span><span class="c1">// }</span>
+
+<span class="w">        </span><span class="c1">//  // Pure Nuclear Scattering Calculator with structure data ###########################################################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 0 &amp;&amp; InputData-&gt;NucData_activate_flag == 1 &amp;&amp; InputData-&gt;StructData_activate_flag == 1 &amp;&amp; InputData-&gt;RotData_activate_flag == 0){</span>
+<span class="w">        </span><span class="c1">//  LogSystem::write(&quot;run: Atomistic_NucSANS_Kernel&quot;);</span>
+<span class="w">        </span><span class="c1">//  Atomistic_NucSANS_Kernel&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(NucData_gpu, StructData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//  cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//  err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//  if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//  }</span>
+<span class="w">        </span><span class="c1">// }</span>
+
+<span class="w">        </span><span class="c1">//  // Combined Magnetic and Nuclear Scattering Calculator with structure data #########################################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 1 &amp;&amp; InputData-&gt;NucData_activate_flag == 1 &amp;&amp; InputData-&gt;StructData_activate_flag == 1 &amp;&amp; InputData-&gt;RotData_activate_flag == 0){</span>
+<span class="w">        </span><span class="c1">//  LogSystem::write(&quot;run: Atomistic_NuMagSANS_Kernel&quot;);</span>
+<span class="w">        </span><span class="c1">//  Atomistic_NuMagSANS_Kernel&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(NucData_gpu, MagData_gpu, StructData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//  cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//  err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//  if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//  }</span>
+<span class="w">        </span><span class="c1">//  }</span>
+
+<span class="w">        </span><span class="c1">//  // Pure Magnetic Scattering Calculator with rotation data and without structure data ##############################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 1 &amp;&amp; InputData-&gt;NucData_activate_flag == 0 &amp;&amp; InputData-&gt;StructData_activate_flag == 0 &amp;&amp; InputData-&gt;RotData_activate_flag == 1){</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(&quot;run: Atomistic_MagSANS_Kernel_RotDilute&quot;);</span>
+<span class="w">        </span><span class="c1">//      Atomistic_MagSANS_Kernel_RotDilute&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(MagData_gpu, RotData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//      cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//      err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//      if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//          LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//      }</span>
+<span class="w">        </span><span class="c1">//  }</span>
+
+<span class="w">        </span><span class="c1">//  // Pure Nuclear Scattering Calculator with rotation data and without structure data ###############################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 0 &amp;&amp; InputData-&gt;NucData_activate_flag == 1 &amp;&amp; InputData-&gt;StructData_activate_flag == 0 &amp;&amp; InputData-&gt;RotData_activate_flag == 1){</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(&quot;run: Atomistic_NucSANS_Kernel_RotDilute&quot;);</span>
+<span class="w">        </span><span class="c1">//      Atomistic_NucSANS_Kernel_RotDilute&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(NucData_gpu, RotData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//      cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//      err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//      if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//          LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//      }</span>
+<span class="w">        </span><span class="c1">//  }</span>
+
+<span class="w">        </span><span class="c1">//  // Combined Magnetic and Nuclear Scattering Calculator with rotation data and without structure data ###############################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 1 &amp;&amp; InputData-&gt;NucData_activate_flag == 1 &amp;&amp; InputData-&gt;StructData_activate_flag == 0 &amp;&amp; InputData-&gt;RotData_activate_flag == 1){</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(&quot;run: Atomistic_NuMagSANS_Kernel_RotDilute&quot;);</span>
+<span class="w">        </span><span class="c1">//      Atomistic_NuMagSANS_Kernel_RotDilute&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(NucData_gpu, MagData_gpu, RotData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//      cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//      err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//      if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//          LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//      }</span>
+<span class="w">        </span><span class="c1">//  }</span>
+
+<span class="w">        </span><span class="c1">//  // Pure Magnetic Scattering Calculator with structure and rotation data ###########################################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 1 &amp;&amp; InputData-&gt;NucData_activate_flag == 0 &amp;&amp; InputData-&gt;StructData_activate_flag == 1 &amp;&amp; InputData-&gt;RotData_activate_flag == 1){</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(&quot;run: Atomistic_MagSANS_Kernel_StructRot&quot;);</span>
+<span class="w">        </span><span class="c1">//      Atomistic_MagSANS_Kernel_StructRot&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(MagData_gpu, StructData_gpu, RotData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//      cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//      err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//      if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//          LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//      }</span>
+<span class="w">        </span><span class="c1">//  }</span>
+
+<span class="w">        </span><span class="c1">//  // Pure Nuclear Scattering Calculator with structure and rotation data ############################################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 0 &amp;&amp; InputData-&gt;NucData_activate_flag == 1 &amp;&amp; InputData-&gt;StructData_activate_flag == 1 &amp;&amp; InputData-&gt;RotData_activate_flag == 1){</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(&quot;run: Atomistic_NucSANS_Kernel_StructRot&quot;);</span>
+<span class="w">        </span><span class="c1">//      Atomistic_NucSANS_Kernel_StructRot&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(NucData_gpu, StructData_gpu, RotData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//      cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//      err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//      if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//          LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//      }</span>
+<span class="w">        </span><span class="c1">//  }</span>
+
+<span class="w">        </span><span class="c1">//  // Combined Magnetic and Nuclear Scattering Calculator with structure and rotation data ############################################</span>
+<span class="w">        </span><span class="c1">//  if(InputData-&gt;MagData_activate_flag == 1 &amp;&amp; InputData-&gt;NucData_activate_flag == 1 &amp;&amp; InputData-&gt;StructData_activate_flag == 1 &amp;&amp; InputData-&gt;RotData_activate_flag == 1){</span>
+<span class="w">        </span><span class="c1">//      LogSystem::write(&quot;run: Atomistic_NuMagSANS_Kernel_StructRot&quot;);</span>
+<span class="w">        </span><span class="c1">//      Atomistic_NuMagSANS_Kernel_StructRot&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(NucData_gpu, MagData_gpu, StructData_gpu, RotData_gpu, SANSData_gpu);</span>
+<span class="w">        </span><span class="c1">//      cudaDeviceSynchronize();</span>
+<span class="w">        </span><span class="c1">//      err = cudaGetLastError();</span>
+<span class="w">        </span><span class="c1">//      if (err != cudaSuccess) {</span>
+<span class="w">        </span><span class="c1">//          LogSystem::write(std::string(&quot;kernel launch failed: &quot;) + cudaGetErrorString(err));</span>
+<span class="w">        </span><span class="c1">//      }</span>
+<span class="w">        </span><span class="c1">//  }</span>
+
+<span class="w">        </span><span class="c1">// // compute azimuthal average 1D ###########################################################</span>
+
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">SANSData</span><span class="p">.</span><span class="n">N_q</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">SANSData</span><span class="p">.</span><span class="n">N_theta</span><span class="p">);</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;total number of Fourier space bins: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">L</span><span class="p">));</span>
-
-<span class="w">            </span><span class="c1">// Pure Magnetic Scattering Calculator without structure data #####################################################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_MagSANS_Kernel_dilute&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="n">Atomistic_MagSANS_Kernel_dilute</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">MagData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">            </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">            </span><span class="c1">// Pure Nuclear Scattering Calculator without structure data #######################################################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_NucSANS_Kernel_dilute&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="n">Atomistic_NucSANS_Kernel_dilute</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">NucData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">            </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">            </span><span class="c1">// Combined Magnetic and Nuclear Scattering Calculator without structure data ######################################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_NuMagSANS_Kernel_dilute&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="n">Atomistic_NuMagSANS_Kernel_dilute</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">NucData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">            </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-
-
-<span class="w">            </span><span class="c1">// Pure Magnetic Scattering Calculator with structure data #########################################################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_MagSANS_Kernel&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="n">Atomistic_MagSANS_Kernel</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">MagData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">            </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">            </span><span class="c1">// Pure Nuclear Scattering Calculator with structure data ###########################################################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_NucSANS_Kernel&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="n">Atomistic_NucSANS_Kernel</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">NucData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">            </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">            </span><span class="c1">// Combined Magnetic and Nuclear Scattering Calculator with structure data #########################################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_NuMagSANS_Kernel&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="n">Atomistic_NuMagSANS_Kernel</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">NucData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">            </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-
-<span class="w">            </span><span class="c1">// Pure Magnetic Scattering Calculator with rotation data and without structure data ##############################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">){</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_MagSANS_Kernel_RotDilute&quot;</span><span class="p">);</span>
-<span class="w">                </span><span class="n">Atomistic_MagSANS_Kernel_RotDilute</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">MagData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">                </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">                </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-
-<span class="w">            </span><span class="c1">// Pure Nuclear Scattering Calculator with rotation data and without structure data ###############################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">){</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_NucSANS_Kernel_RotDilute&quot;</span><span class="p">);</span>
-<span class="w">                </span><span class="n">Atomistic_NucSANS_Kernel_RotDilute</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">NucData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">                </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">                </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-
-<span class="w">            </span><span class="c1">// Combined Magnetic and Nuclear Scattering Calculator with rotation data and without structure data ###############################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">){</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_NuMagSANS_Kernel_RotDilute&quot;</span><span class="p">);</span>
-<span class="w">                </span><span class="n">Atomistic_NuMagSANS_Kernel_RotDilute</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">NucData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">                </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">                </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-
-<span class="w">            </span><span class="c1">// Pure Magnetic Scattering Calculator with structure and rotation data ###########################################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">){</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_MagSANS_Kernel_StructRot&quot;</span><span class="p">);</span>
-<span class="w">                </span><span class="n">Atomistic_MagSANS_Kernel_StructRot</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">MagData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">                </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">                </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-
-<span class="w">            </span><span class="c1">// Pure Nuclear Scattering Calculator with structure and rotation data ############################################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">){</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_NucSANS_Kernel_StructRot&quot;</span><span class="p">);</span>
-<span class="w">                </span><span class="n">Atomistic_NucSANS_Kernel_StructRot</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">NucData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">                </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">                </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-
-<span class="w">            </span><span class="c1">// Combined Magnetic and Nuclear Scattering Calculator with structure and rotation data ############################################</span>
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">){</span>
-<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;run: Atomistic_NuMagSANS_Kernel_StructRot&quot;</span><span class="p">);</span>
-<span class="w">                </span><span class="n">Atomistic_NuMagSANS_Kernel_StructRot</span><span class="o">&lt;&lt;&lt;</span><span class="p">(</span><span class="n">L</span><span class="o">+</span><span class="mi">255</span><span class="p">)</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">NucData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">                </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">                </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-
-<span class="w">        </span><span class="c1">// compute azimuthal average 1D ###########################################################</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_azimuthal_average</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">SANS1D</span><span class="p">);</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_corr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">Corr1D</span><span class="p">);</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">compute_1D_pair</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">any_active</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">OutFlags</span><span class="p">.</span><span class="n">PairDist1D</span><span class="p">);</span>

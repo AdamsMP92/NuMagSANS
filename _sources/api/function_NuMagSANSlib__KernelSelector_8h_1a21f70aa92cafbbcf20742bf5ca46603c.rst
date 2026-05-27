@@ -1,7 +1,7 @@
 .. _exhale_function_NuMagSANSlib__KernelSelector_8h_1a21f70aa92cafbbcf20742bf5ca46603c:
 
-Function SelectKernelRun
-========================
+Function SelectKernelRun(InputFileData \*, NuclearData, MagnetizationData, StructureData, RotationData, ScatteringData)
+=======================================================================================================================
 
 - Defined in :ref:`file_src_NuMagSANSlib_KernelSelector.h`
 
