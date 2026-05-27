@@ -65,6 +65,7 @@ Program Listing for File NuMagSANSlib.h
    #include "NuMagSANSlib_ExportData.h"
    #include "NuMagSANSlib_FreeData.h"
    
+   
    using namespace std;
    
    void NuMagSANS_Calculator(InputFileData* InputData, \
@@ -74,8 +75,6 @@ Program Listing for File NuMagSANSlib.h
                              RotDataProperties* RotDataProp, \
                              int Data_File_Index){
    
-       cudaError_t err;
-       
        LogSystem::write("################################################################################");
        LogSystem::write("## Run - NuMagSANS #############################################################");
        LogSystem::write("################################################################################");
@@ -84,80 +83,32 @@ Program Listing for File NuMagSANSlib.h
        GPUMemoryInfo MemoryBeforeRun = GetGPUMemoryInfo();
        LogCurrentGPUMemoryDifference(MemoryBeforeRun);
    
-       // start time measurement #################################################################
+       // start time measurement 
        TimeMeasure TotalTime = StartTimeMeasure();
    
        NuMagSANSData Data;
    
-           // ScalingFactors ScalFactors;
-           // NuclearData NucData, NucData_gpu;
-           // MagnetizationData MagData, MagData_gpu;
-           // StructureData StructData, StructData_gpu;
-           // RotationData RotData, RotData_gpu;
-           // ScatteringData SANSData, SANSData_gpu;
-           // SpectralData SpecData, SpecData_gpu;
+       // initialize data  
+       InitializeData(InputData, 
+                      NucDataProp, MagDataProp, StructDataProp, RotDataProp,
+                      &Data, Data_File_Index);
    
-       // InitializeData(InputData,
-       //             NucDataProp,
-       //             MagDataProp,
-       //             StructDataProp,
-       //             RotDataProp,
-       //             &NucData, &NucData_gpu,
-       //             &MagData, &MagData_gpu,
-       //             &StructData, &StructData_gpu,
-       //             &RotData, &RotData_gpu,
-       //             &SANSData, &SANSData_gpu,
-       //             &SpecData, &SpecData_gpu,
-       //             Data_File_Index);
-       InitializeData(InputData,
-                      NucDataProp,
-                      MagDataProp,
-                      StructDataProp,
-                      RotDataProp,
-                      &Data, 
-                      Data_File_Index);
-   
+       // check memory  
        LogCurrentGPUMemoryDifference(MemoryBeforeRun);
-       
-           // initialize scaling factors #############################################################
-           // init_ScalingFactors(&ScalFactors, InputData, &MagData, &NucData, &SANSData);
-       
-           // SelectKernelRun(InputData,
-           //              &Data.NucData_gpu,
-           //              &Data.MagData_gpu,
-           //              &Data.StructData_gpu,
-           //              &Data.RotData_gpu,
-           //              &Data.SANSData,
-           //              &Data.SANSData_gpu);
            
-           SelectKernelRun(InputData, &Data);
+       // run gpu kernel  
+       SelectKernelRun(InputData, &Data);
    
-           // KernelPostprocessRun(InputData,
-           //                   &SANSData,
-           //                   &SANSData_gpu,
-           //                   &SpecData_gpu);
+       // run gpu post-processing kernels  
+       KernelPostprocessRun(InputData, &Data);
    
-           KernelPostprocessRun(InputData, &Data);
-   
-       // copy scattering data from GPU to RAM ###################################################
-       // ExportData(InputData,
-       //         &ScalFactors,
-       //         &SANSData, &SANSData_gpu,
-       //         &SpecData, &SpecData_gpu,
-       //         Data_File_Index);
+       // export data  
        ExportData(InputData, &Data, Data_File_Index);
    
-       // free memory ############################################################################
-       // FreeData(InputData,
-       //       &MagData, &MagData_gpu,
-       //       &NucData, &NucData_gpu,
-       //       &StructData, &StructData_gpu,
-       //       &RotData, &RotData_gpu,
-       //       &SANSData, &SANSData_gpu,
-       //       &SpecData, &SpecData_gpu);
+       // free memory  
        FreeData(InputData, &Data);
        
-       // print result of time measurement #######################################################
+       // print result of time measurement 
        LogElapsedTime(TotalTime);
    
        LogCurrentGPUMemoryDifference(MemoryBeforeRun);
