@@ -64,6 +64,8 @@ Includes
 
 - ``NuMagSANSlib_StructureDataExplorer.h`` (:ref:`file_src_NuMagSANSlib_StructureDataExplorer.h`)
 
+- ``NuMagSANSlib_TimeMeasure.h`` (:ref:`file_src_NuMagSANSlib_TimeMeasure.h`)
+
 - ``NuMagSANSlib_gpuKernel.h`` (:ref:`file_src_NuMagSANSlib_gpuKernel.h`)
 
 - ``chrono``

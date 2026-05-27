@@ -441,6 +441,7 @@
 <span class="c1">//#pragma once</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_LogFile.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_MemoryInfo.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_TimeMeasure.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_HelperFun.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_StringCompare.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_ReadWrite.h&quot;</span>
@@ -478,13 +479,7 @@
 <span class="w">    </span><span class="n">LogCurrentGPUMemoryDifference</span><span class="p">(</span><span class="n">MemoryBeforeRun</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// start time measurement #################################################################</span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">start_total_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
-
-<span class="w">    </span><span class="c1">// record GPU memory state before data initialization ######################################</span>
-<span class="w">    </span><span class="c1">// size_t free_bytes_before_data_load, total_bytes_before_data_load;</span>
-<span class="w">    </span><span class="c1">// size_t free_bytes_after_data_load, total_bytes_after_data_load;</span>
-<span class="w">    </span><span class="c1">// cudaMemGetInfo(&amp;free_bytes_before_data_load, &amp;total_bytes_before_data_load);</span>
-<span class="w">    </span><span class="c1">// double used_mb_before_data_load = (total_bytes_before_data_load - free_bytes_before_data_load) / 1024.0 / 1024.0;</span>
+<span class="w">    </span><span class="n">TimeMeasure</span><span class="w"> </span><span class="n">TotalTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StartTimeMeasure</span><span class="p">();</span>
 
 <span class="w">    </span><span class="c1">// initialize nuclear data ################################################################</span>
 <span class="w">    </span><span class="n">NuclearData</span><span class="w"> </span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="n">NucData_gpu</span><span class="p">;</span>
@@ -550,13 +545,6 @@
 <span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// report GPU memory state after data initialization #######################################</span>
-<span class="w">    </span><span class="c1">// cudaMemGetInfo(&amp;free_bytes_after_data_load, &amp;total_bytes_after_data_load);</span>
-<span class="w">    </span><span class="c1">// double used_mb_after_data_load = (total_bytes_after_data_load - free_bytes_after_data_load) / 1024.0 / 1024.0;</span>
-<span class="w">    </span><span class="c1">// double loaded_data_mb = used_mb_after_data_load - used_mb_before_data_load;</span>
-<span class="w">    </span><span class="c1">// LogSystem::write(&quot;&quot;);</span>
-<span class="w">    </span><span class="c1">// LogSystem::write(&quot;GPU Memory Check after data load: cummulated bytes: &quot; + std::to_string(loaded_data_mb) + &quot; MB, free bytes: &quot; + std::to_string(free_bytes_after_data_load / 1024.0 / 1024.0) + &quot; MB&quot;);</span>
-<span class="w">    </span><span class="c1">// LogSystem::write(&quot;&quot;);</span>
 <span class="w">    </span><span class="n">LogCurrentGPUMemoryDifference</span><span class="p">(</span><span class="n">MemoryBeforeRun</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// initialize scaling factors #############################################################</span>
@@ -809,11 +797,13 @@
 <span class="w">    </span><span class="n">free_SpectralData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// print result of time measurement #######################################################</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">finish_total_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">elapsed_total_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">finish_total_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_total_time</span><span class="p">;</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;-&gt;-&gt; Total Elapsed Time: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">elapsed_total_time</span><span class="p">.</span><span class="n">count</span><span class="p">())</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; s&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// LogSystem::write(&quot;&quot;);</span>
+<span class="w">    </span><span class="c1">// auto finish_total_time = std::chrono::high_resolution_clock::now();</span>
+<span class="w">    </span><span class="c1">// std::chrono::duration&lt;double&gt; elapsed_total_time = finish_total_time - start_total_time;</span>
+<span class="w">    </span><span class="c1">// LogSystem::write(&quot;-&gt;-&gt; Total Elapsed Time: &quot; + std::to_string(elapsed_total_time.count()) + &quot; s&quot;);</span>
+<span class="w">    </span><span class="c1">// LogSystem::write(&quot;&quot;);</span>
+<span class="w">    </span><span class="c1">// print result of time measurement #######################################################</span>
+<span class="w">    </span><span class="n">LogElapsedTime</span><span class="p">(</span><span class="n">TotalTime</span><span class="p">);</span>
 
 <span class="w">    </span><span class="n">LogCurrentGPUMemoryDifference</span><span class="p">(</span><span class="n">MemoryBeforeRun</span><span class="p">);</span>
 
