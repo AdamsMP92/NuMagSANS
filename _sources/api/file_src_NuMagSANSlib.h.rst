@@ -42,6 +42,8 @@ Includes
 
 - ``NuMagSANSlib_MagDataExplorer.h`` (:ref:`file_src_NuMagSANSlib_MagDataExplorer.h`)
 
+- ``NuMagSANSlib_MemoryInfo.h`` (:ref:`file_src_NuMagSANSlib_MemoryInfo.h`)
+
 - ``NuMagSANSlib_NucData.h`` (:ref:`file_src_NuMagSANSlib_NucData.h`)
 
 - ``NuMagSANSlib_NucDataExplorer.h`` (:ref:`file_src_NuMagSANSlib_NucDataExplorer.h`)
