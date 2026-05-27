@@ -90,10 +90,15 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	init_ScalingFactors(&ScalFactors, InputData, &Data.MagData, &Data.NucData, &Data.SANSData);
 	
 	// compute 2D SANS cross sections #########################################################
-	SelectKernelRun(InputData, &Data);
+	SelectKernelRun(InputData,
+					Data.NucData_gpu,
+					Data.MagData_gpu,
+					Data.StructData_gpu,
+					Data.RotData_gpu,
+					Data.SANSData_gpu);
 	
 	// run postprocessing kernels #############################################################
-	KernelPostprocessRun(InputData, &Data);
+	KernelPostprocessRun(InputData, Data.SANSData_gpu, Data.SpecData_gpu);
 
 	// export scattering and spectral data ####################################################
 	ExportData(InputData, &ScalFactors, &Data, Data_File_Index);
