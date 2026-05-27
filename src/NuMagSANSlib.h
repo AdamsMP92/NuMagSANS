@@ -46,6 +46,7 @@
 #include "NuMagSANSlib_SANSData.h"
 #include "NuMagSANSlib_SpectralData.h"
 #include "NuMagSANSlib_gpuKernel.h"
+#include "NuMagSANSlib_ExportData.h"
 #include "NuMagSANSlib_FreeData.h"
 
 using namespace std;
@@ -341,50 +342,33 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 
 	// copy scattering data from GPU to RAM ###################################################
-	copyGPU2RAM_ScatteringData(&SANSData, &SANSData_gpu);
+	// copyGPU2RAM_ScatteringData(&SANSData, &SANSData_gpu);
 
 	// scaling of the scattering data on RAM ##################################################
-	LogSystem::write("scaling of SANSdata...");
-	scale_ScatteringData(&ScalFactors, &SANSData, InputData);
+	// LogSystem::write("scaling of SANSdata...");
+	// scale_ScatteringData(&ScalFactors, &SANSData, InputData);
 
 	// write scattering data to csv files #####################################################
-	write2CSVtable_ScatteringData(InputData, &SANSData, Data_File_Index);
+	// write2CSVtable_ScatteringData(InputData, &SANSData, Data_File_Index);
 
-	if(InputData->AngularSpec_activate_flag){
-		// copy spectral data from GPU to RAM #####################################################
-		copyGPU2RAM_SpectralData(&SpecData, &SpecData_gpu);
+	// if(InputData->AngularSpec_activate_flag){
+	// 	// copy spectral data from GPU to RAM #####################################################
+	// 	copyGPU2RAM_SpectralData(&SpecData, &SpecData_gpu);
 
-		// scaling of the spectral data on RAM ####################################################
-		scale_SpectralData(&ScalFactors, &SpecData, InputData);
+	// 	// scaling of the spectral data on RAM ####################################################
+	// 	scale_SpectralData(&ScalFactors, &SpecData, InputData);
 	
-		// write spectral data to csv files #######################################################
-		write2CSV_SpectralData(InputData, &SpecData, Data_File_Index);
-	}
+	// 	// write spectral data to csv files #######################################################
+	// 	write2CSV_SpectralData(InputData, &SpecData, Data_File_Index);
+	// }
+
+	ExportData(InputData,
+			   &ScalFactors,
+			   &SANSData, &SANSData_gpu,
+			   &SpecData, &SpecData_gpu,
+			   Data_File_Index);
 
 	// free memory ############################################################################
-	// LogSystem::write("free memory...");
-	// if(InputData->NucData_activate_flag){
-	// 	free_NuclearData(&NucData, &NucData_gpu);
-	// }
-
-	// if(InputData->MagData_activate_flag){
-	// 	free_MagnetizationData(&MagData, &MagData_gpu);
-	// }
-
-	// if(InputData->StructData_activate_flag){
-	// 	free_StructureData(&StructData, &StructData_gpu);
-	// }
-
-	// if(InputData->RotData_activate_flag){
-	// 	free_RotationData(&RotData, &RotData_gpu);
-	// }
-	
-	// // free scattering data
-	// free_ScatteringData(&SANSData, &SANSData_gpu);
-
-	// // free spectral data
-	// free_SpectralData(&SpecData, &SpecData_gpu);
-
 	FreeData(InputData,
 			 &MagData, &MagData_gpu,
 			 &NucData, &NucData_gpu,
