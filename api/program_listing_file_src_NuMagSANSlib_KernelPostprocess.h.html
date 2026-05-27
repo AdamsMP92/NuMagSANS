@@ -412,58 +412,6 @@
 <p>↰ <a class="reference internal" href="file_src_NuMagSANSlib_KernelPostprocess.h.html#file-src-numagsanslib-kernelpostprocess-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">src/NuMagSANSlib_KernelPostprocess.h</span></code>)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
 
-<span class="c1">// inline void KernelPostprocessRun(InputFileData* InputData,</span>
-<span class="c1">//                                   ScatteringData SANSData_gpu,</span>
-<span class="c1">//                                   SpectralData SpecData_gpu){</span>
-
-<span class="c1">//      cudaError_t err;</span>
-<span class="c1">//      int L = (*SANSData_gpu.N_q) * (*SANSData_gpu.N_theta);</span>
-
-<span class="c1">//      bool compute_1D_azimuthal_average = any_active(InputData-&gt;OutFlags.SANS1D);</span>
-<span class="c1">//      bool compute_1D_corr = any_active(InputData-&gt;OutFlags.Corr1D);</span>
-<span class="c1">//      bool compute_1D_pair = any_active(InputData-&gt;OutFlags.PairDist1D);</span>
-
-<span class="c1">//      if(compute_1D_azimuthal_average || compute_1D_corr || compute_1D_pair){</span>
-<span class="c1">//          LogSystem::write(&quot;run: azimuthal averaging&quot;);</span>
-<span class="c1">//          AzimuthalAverage&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(SANSData_gpu);</span>
-<span class="c1">//          cudaDeviceSynchronize();</span>
-<span class="c1">//          err = cudaGetLastError();</span>
-<span class="c1">//          CheckKernelLaunch(err);</span>
-<span class="c1">//      }</span>
-
-<span class="c1">//      if(compute_1D_corr || compute_1D_pair){</span>
-<span class="c1">//          LogSystem::write(&quot;run: 1D correlation functions&quot;);</span>
-<span class="c1">//          DistributionFunctions&lt;&lt;&lt;(L+255), 256&gt;&gt;&gt;(SANSData_gpu);</span>
-<span class="c1">//          cudaDeviceSynchronize();</span>
-<span class="c1">//          err = cudaGetLastError();</span>
-<span class="c1">//          CheckKernelLaunch(err);</span>
-<span class="c1">//      }</span>
-
-<span class="c1">//      bool compute_2D_correlation = any_active(InputData-&gt;OutFlags.Corr2D);</span>
-
-<span class="c1">//      if(compute_2D_correlation){</span>
-<span class="c1">//          LogSystem::write(&quot;run: 2D correlation functions&quot;);</span>
-<span class="c1">//          CorrelationFunction_2D&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(SANSData_gpu);</span>
-<span class="c1">//          cudaDeviceSynchronize();</span>
-<span class="c1">//          err = cudaGetLastError();</span>
-<span class="c1">//          CheckKernelLaunch(err);</span>
-<span class="c1">//      }</span>
-
-<span class="c1">//      if(InputData-&gt;AngularSpec_activate_flag){</span>
-<span class="c1">//          LogSystem::write(&quot;run: angular spectrum analyzer&quot;);</span>
-<span class="c1">//          ComputeSpectralDecomposition&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(SANSData_gpu, SpecData_gpu);</span>
-<span class="c1">//          cudaDeviceSynchronize();</span>
-<span class="c1">//          err = cudaGetLastError();</span>
-<span class="c1">//          CheckKernelLaunch(err);</span>
-
-<span class="c1">//          LogSystem::write(&quot;run: angular amplitude spectrum analyzer&quot;);</span>
-<span class="c1">//          ComputeAngularSpectrumAmplitudes&lt;&lt;&lt;(L+255)/256, 256&gt;&gt;&gt;(SpecData_gpu);</span>
-<span class="c1">//          cudaDeviceSynchronize();</span>
-<span class="c1">//          err = cudaGetLastError();</span>
-<span class="c1">//          CheckKernelLaunch(err);</span>
-<span class="c1">//      }</span>
-<span class="c1">//  }</span>
-
 <span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">KernelPostprocessRun</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
 <span class="w">                                 </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span>
 <span class="w">                                 </span><span class="n">ScatteringData</span><span class="o">*</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">,</span>
