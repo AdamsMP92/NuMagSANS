@@ -28,6 +28,12 @@ Definition (``src/NuMagSANSlib_KernelPostprocess.h``)
 
 
 
+Included By
+-----------
+
+
+- :ref:`file_src_NuMagSANSlib.h`
+
 
 
 
@@ -35,5 +41,5 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_NuMagSANSlib__KernelPostprocess_8h_1a2ca0a72ed638bf7b64891083803f5c80`
+- :ref:`exhale_function_NuMagSANSlib__KernelPostprocess_8h_1a146c49ef49eebcffde9d7c33ef019f77`
 

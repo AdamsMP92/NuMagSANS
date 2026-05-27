@@ -42,6 +42,8 @@ Includes
 
 - ``NuMagSANSlib_InputFileInterpreter.h`` (:ref:`file_src_NuMagSANSlib_InputFileInterpreter.h`)
 
+- ``NuMagSANSlib_KernelPostprocess.h`` (:ref:`file_src_NuMagSANSlib_KernelPostprocess.h`)
+
 - ``NuMagSANSlib_KernelSelector.h`` (:ref:`file_src_NuMagSANSlib_KernelSelector.h`)
 
 - ``NuMagSANSlib_LogFile.h`` (:ref:`file_src_NuMagSANSlib_LogFile.h`)
