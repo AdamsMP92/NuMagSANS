@@ -397,13 +397,13 @@ Program Listing for File NuMagSANSlib.h
        // // free spectral data
        // free_SpectralData(&SpecData, &SpecData_gpu);
    
-       FreeData(InputData,
-                MagData, MagData_gpu,
-                NucData, NucData_gpu,
-                StructData, StructData_gpu,
-                RotData, RotData_gpu,
-                SANSData, SANSData_gpu,
-                SpecData, SpecData_gpu);
+       FreeData(&InputData,
+                &MagData, &MagData_gpu,
+                &NucData, &NucData_gpu,
+                &StructData, &StructData_gpu,
+                &RotData, &RotData_gpu,
+                &SANSData, &SANSData_gpu,
+                &SpecData, &SpecData_gpu);
        
        // print result of time measurement #######################################################
        LogElapsedTime(TotalTime);
