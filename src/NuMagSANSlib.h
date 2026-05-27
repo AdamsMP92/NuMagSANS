@@ -48,6 +48,7 @@
 #include "NuMagSANSlib_gpuKernel.h"
 #include "NuMagSANSlib_InitializeData.h"
 #include "NuMagSANSlib_KernelSelector.h"
+#include "NuMagSANSlib_KernelPostprocess.h"
 #include "NuMagSANSlib_ExportData.h"
 #include "NuMagSANSlib_FreeData.h"
 
@@ -108,207 +109,74 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 					&SANSData,
 					&SANSData_gpu);
 
+	// // compute azimuthal average 1D ###########################################################
 
-	// compute 2D SANS cross sections #########################################################
 	// int L = (*SANSData.N_q) * (*SANSData.N_theta);
-	// LogSystem::write("total number of Fourier space bins: " + std::to_string(L));
+	// bool compute_1D_azimuthal_average = any_active(InputData->OutFlags.SANS1D);
+	// bool compute_1D_corr = any_active(InputData->OutFlags.Corr1D);
+	// bool compute_1D_pair = any_active(InputData->OutFlags.PairDist1D);
+
+	// if(compute_1D_azimuthal_average || compute_1D_corr || compute_1D_pair){
+
+	// 	LogSystem::write("run: azimuthal averaging");
+	// 	AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
+	// 	cudaDeviceSynchronize();
+	// 	err = cudaGetLastError();
+	// 	if (err != cudaSuccess) {
+	// 	   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err)); 
+	// 	}
+
+	// }
+
+	// // compute 1D pair distance distribution and correlation function #########################
+	// if(compute_1D_corr || compute_1D_pair){
+	// 	LogSystem::write("run: 1D correlation functions");
+	// 	DistributionFunctions<<<(L+255), 256>>>(SANSData_gpu);
+	// 	cudaDeviceSynchronize();
+	// 	err = cudaGetLastError();
+	// 	if (err != cudaSuccess) {
+	//    		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+	// 	}
+	// }
+
+	// // compute 2D correlation functions ######################################################
+	// bool compute_2D_correlation = any_active(InputData->OutFlags.Corr2D);	
+
+	// if(compute_2D_correlation){
+	// 	LogSystem::write("run: 2D correlation functions");
+	// 	CorrelationFunction_2D<<<(L+255)/256, 256>>>(SANSData_gpu);
+	// 	cudaDeviceSynchronize();
+	// 	err = cudaGetLastError();
+	// 	if (err != cudaSuccess) {
+	// 	   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+	// 	}
+	// }
+
+
+	// // compute angular spectral intensities ###################################################
+	// if(InputData->AngularSpec_activate_flag){
 	
-		// 	// Pure Magnetic Scattering Calculator without structure data #####################################################################
-		// 	if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 0){
-		// 	LogSystem::write("run: Atomistic_MagSANS_Kernel_dilute");
-		// 	Atomistic_MagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(MagData_gpu, SANSData_gpu);
-		// 	cudaDeviceSynchronize();
-		// 	err = cudaGetLastError();
-		// 	if (err != cudaSuccess) {
-		// 		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 	}
-		// }
+	// 	LogSystem::write("run: angular spectrum analyzer");
+	// 	ComputeSpectralDecomposition<<<(L+255)/256, 256>>>(SANSData_gpu, SpecData_gpu);
+	// 	err = cudaGetLastError();
+	// 	if (err != cudaSuccess) {
+	// 	   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+	// 	}
 
-		// 	// Pure Nuclear Scattering Calculator without structure data #######################################################################
-		// 	if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 0){
-		// 	LogSystem::write("run: Atomistic_NucSANS_Kernel_dilute");
-		// 	Atomistic_NucSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, SANSData_gpu);
-		// 	cudaDeviceSynchronize();
-		// 	err = cudaGetLastError();
-		// 	if (err != cudaSuccess) {
-		// 		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 	}
-		// }
+	// // compute angular spectral amplitudes ####################################################
+    //    	LogSystem::write("run: angular amplitude spectrum analyzer");
+	// 	ComputeAngularSpectrumAmplitudes<<<(L+255)/256, 256>>>(SpecData_gpu);
+	// 	err = cudaGetLastError();
+    //    	if (err != cudaSuccess) {
+    //       		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+    //    	}
 
-		// 	// Combined Magnetic and Nuclear Scattering Calculator without structure data ######################################################
-		// 	if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 0){
-		// 	LogSystem::write("run: Atomistic_NuMagSANS_Kernel_dilute");
-		// 	Atomistic_NuMagSANS_Kernel_dilute<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, SANSData_gpu);
-		// 	cudaDeviceSynchronize();
-		// 	err = cudaGetLastError();
-		// 	if (err != cudaSuccess) {
-		// 		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 	}
-		// }
+	// }
 
-
-		// 	// Pure Magnetic Scattering Calculator with structure data #########################################################################
-		// 	if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 0){
-		// 	LogSystem::write("run: Atomistic_MagSANS_Kernel");
-		// 	Atomistic_MagSANS_Kernel<<<(L+255)/256, 256>>>(MagData_gpu, StructData_gpu, SANSData_gpu);
-		// 	cudaDeviceSynchronize();
-		// 	err = cudaGetLastError();
-		// 	if (err != cudaSuccess) {
-		// 		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 	}
-		// }
-
-		// 	// Pure Nuclear Scattering Calculator with structure data ###########################################################################
-		// 	if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 0){
-		// 	LogSystem::write("run: Atomistic_NucSANS_Kernel");
-		// 	Atomistic_NucSANS_Kernel<<<(L+255)/256, 256>>>(NucData_gpu, StructData_gpu, SANSData_gpu);
-		// 	cudaDeviceSynchronize();
-		// 	err = cudaGetLastError();
-		// 	if (err != cudaSuccess) {
-		// 		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 	}
-		// }
-
-		// 	// Combined Magnetic and Nuclear Scattering Calculator with structure data #########################################################
-		// 	if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 0){
-		// 	LogSystem::write("run: Atomistic_NuMagSANS_Kernel");
-		// 	Atomistic_NuMagSANS_Kernel<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, StructData_gpu, SANSData_gpu);
-		// 	cudaDeviceSynchronize();
-		// 	err = cudaGetLastError();
-		// 	if (err != cudaSuccess) {
-		// 		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 	}
-		// 	}
-
-		// 	// Pure Magnetic Scattering Calculator with rotation data and without structure data ##############################################
-		// 	if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 1){
-		// 		LogSystem::write("run: Atomistic_MagSANS_Kernel_RotDilute");
-		// 		Atomistic_MagSANS_Kernel_RotDilute<<<(L+255)/256, 256>>>(MagData_gpu, RotData_gpu, SANSData_gpu);
-		// 		cudaDeviceSynchronize();
-		// 		err = cudaGetLastError();
-		// 		if (err != cudaSuccess) {
-		// 			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 		}
-		// 	}
-
-		// 	// Pure Nuclear Scattering Calculator with rotation data and without structure data ###############################################
-		// 	if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 1){
-		// 		LogSystem::write("run: Atomistic_NucSANS_Kernel_RotDilute");
-		// 		Atomistic_NucSANS_Kernel_RotDilute<<<(L+255)/256, 256>>>(NucData_gpu, RotData_gpu, SANSData_gpu);
-		// 		cudaDeviceSynchronize();
-		// 		err = cudaGetLastError();
-		// 		if (err != cudaSuccess) {
-		// 			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 		}
-		// 	}
-
-		// 	// Combined Magnetic and Nuclear Scattering Calculator with rotation data and without structure data ###############################
-		// 	if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 0 && InputData->RotData_activate_flag == 1){
-		// 		LogSystem::write("run: Atomistic_NuMagSANS_Kernel_RotDilute");
-		// 		Atomistic_NuMagSANS_Kernel_RotDilute<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, RotData_gpu, SANSData_gpu);
-		// 		cudaDeviceSynchronize();
-		// 		err = cudaGetLastError();
-		// 		if (err != cudaSuccess) {
-		// 			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 		}
-		// 	}
-
-		// 	// Pure Magnetic Scattering Calculator with structure and rotation data ###########################################################
-		// 	if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 0 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 1){
-		// 		LogSystem::write("run: Atomistic_MagSANS_Kernel_StructRot");
-		// 		Atomistic_MagSANS_Kernel_StructRot<<<(L+255)/256, 256>>>(MagData_gpu, StructData_gpu, RotData_gpu, SANSData_gpu);
-		// 		cudaDeviceSynchronize();
-		// 		err = cudaGetLastError();
-		// 		if (err != cudaSuccess) {
-		// 			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 		}
-		// 	}
-
-		// 	// Pure Nuclear Scattering Calculator with structure and rotation data ############################################################
-		// 	if(InputData->MagData_activate_flag == 0 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 1){
-		// 		LogSystem::write("run: Atomistic_NucSANS_Kernel_StructRot");
-		// 		Atomistic_NucSANS_Kernel_StructRot<<<(L+255)/256, 256>>>(NucData_gpu, StructData_gpu, RotData_gpu, SANSData_gpu);
-		// 		cudaDeviceSynchronize();
-		// 		err = cudaGetLastError();
-		// 		if (err != cudaSuccess) {
-		// 			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 		}
-		// 	}
-
-		// 	// Combined Magnetic and Nuclear Scattering Calculator with structure and rotation data ############################################
-		// 	if(InputData->MagData_activate_flag == 1 && InputData->NucData_activate_flag == 1 && InputData->StructData_activate_flag == 1 && InputData->RotData_activate_flag == 1){
-		// 		LogSystem::write("run: Atomistic_NuMagSANS_Kernel_StructRot");
-		// 		Atomistic_NuMagSANS_Kernel_StructRot<<<(L+255)/256, 256>>>(NucData_gpu, MagData_gpu, StructData_gpu, RotData_gpu, SANSData_gpu);
-		// 		cudaDeviceSynchronize();
-		// 		err = cudaGetLastError();
-		// 		if (err != cudaSuccess) {
-		// 			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		// 		}
-		// 	}
-
-		// // compute azimuthal average 1D ###########################################################
-
-	int L = (*SANSData.N_q) * (*SANSData.N_theta);
-	bool compute_1D_azimuthal_average = any_active(InputData->OutFlags.SANS1D);
-	bool compute_1D_corr = any_active(InputData->OutFlags.Corr1D);
-	bool compute_1D_pair = any_active(InputData->OutFlags.PairDist1D);
-
-	if(compute_1D_azimuthal_average || compute_1D_corr || compute_1D_pair){
-
-		LogSystem::write("run: azimuthal averaging");
-		AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-		   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err)); 
-		}
-
-	}
-
-	// compute 1D pair distance distribution and correlation function #########################
-	if(compute_1D_corr || compute_1D_pair){
-		LogSystem::write("run: 1D correlation functions");
-		DistributionFunctions<<<(L+255), 256>>>(SANSData_gpu);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-	   		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		}
-	}
-
-	// compute 2D correlation functions ######################################################
-	bool compute_2D_correlation = any_active(InputData->OutFlags.Corr2D);	
-
-	if(compute_2D_correlation){
-		LogSystem::write("run: 2D correlation functions");
-		CorrelationFunction_2D<<<(L+255)/256, 256>>>(SANSData_gpu);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-		   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		}
-	}
-
-
-	// compute angular spectral intensities ###################################################
-	if(InputData->AngularSpec_activate_flag){
-	
-		LogSystem::write("run: angular spectrum analyzer");
-		ComputeSpectralDecomposition<<<(L+255)/256, 256>>>(SANSData_gpu, SpecData_gpu);
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-		   LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		}
-
-	// compute angular spectral amplitudes ####################################################
-        	LogSystem::write("run: angular amplitude spectrum analyzer");
-		ComputeAngularSpectrumAmplitudes<<<(L+255)/256, 256>>>(SpecData_gpu);
-		err = cudaGetLastError();
-        	if (err != cudaSuccess) {
-           		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-        	}
-
-	}
+	KernelPostprocessRun(InputData,
+						 &SANSData,
+						 &SANSData_gpu,
+						 &SpecData_gpu);
 
 
 	// copy scattering data from GPU to RAM ###################################################
