@@ -13,12 +13,11 @@ Program Listing for File NuMagSANSlib_KernelPostprocess.h
    #pragma once
    
    inline void KernelPostprocessRun(InputFileData* InputData,
-                                    NuMagSANSData* Data){
+                                    ScatteringData SANSData_gpu,
+                                    SpectralData SpecData_gpu){
    
        cudaError_t err;
-       ScatteringData* SANSData_gpu = &Data->SANSData_gpu;
-       SpectralData* SpecData_gpu = &Data->SpecData_gpu;
-       int L = (*SANSData_gpu->N_q) * (*SANSData_gpu->N_theta);
+       int L = (*SANSData_gpu.N_q) * (*SANSData_gpu.N_theta);
    
        bool compute_1D_azimuthal_average = any_active(InputData->OutFlags.SANS1D);
        bool compute_1D_corr = any_active(InputData->OutFlags.Corr1D);
@@ -26,7 +25,7 @@ Program Listing for File NuMagSANSlib_KernelPostprocess.h
    
        if(compute_1D_azimuthal_average || compute_1D_corr || compute_1D_pair){
            LogSystem::write("run: azimuthal averaging");
-           AzimuthalAverage<<<(L+255)/256, 256>>>(*SANSData_gpu);
+           AzimuthalAverage<<<(L+255)/256, 256>>>(SANSData_gpu);
            cudaDeviceSynchronize();
            err = cudaGetLastError();
            CheckKernelLaunch(err);
@@ -34,7 +33,7 @@ Program Listing for File NuMagSANSlib_KernelPostprocess.h
    
        if(compute_1D_corr || compute_1D_pair){
            LogSystem::write("run: 1D correlation functions");
-           DistributionFunctions<<<(L+255), 256>>>(*SANSData_gpu);
+           DistributionFunctions<<<(L+255), 256>>>(SANSData_gpu);
            cudaDeviceSynchronize();
            err = cudaGetLastError();
            CheckKernelLaunch(err);
@@ -44,7 +43,7 @@ Program Listing for File NuMagSANSlib_KernelPostprocess.h
    
        if(compute_2D_correlation){
            LogSystem::write("run: 2D correlation functions");
-           CorrelationFunction_2D<<<(L+255)/256, 256>>>(*SANSData_gpu);
+           CorrelationFunction_2D<<<(L+255)/256, 256>>>(SANSData_gpu);
            cudaDeviceSynchronize();
            err = cudaGetLastError();
            CheckKernelLaunch(err);
@@ -52,13 +51,13 @@ Program Listing for File NuMagSANSlib_KernelPostprocess.h
    
        if(InputData->AngularSpec_activate_flag){
            LogSystem::write("run: angular spectrum analyzer");
-           ComputeSpectralDecomposition<<<(L+255)/256, 256>>>(*SANSData_gpu, *SpecData_gpu);
+           ComputeSpectralDecomposition<<<(L+255)/256, 256>>>(SANSData_gpu, SpecData_gpu);
            cudaDeviceSynchronize();
            err = cudaGetLastError();
            CheckKernelLaunch(err);
    
            LogSystem::write("run: angular amplitude spectrum analyzer");
-           ComputeAngularSpectrumAmplitudes<<<(L+255)/256, 256>>>(*SpecData_gpu);
+           ComputeAngularSpectrumAmplitudes<<<(L+255)/256, 256>>>(SpecData_gpu);
            cudaDeviceSynchronize();
            err = cudaGetLastError();
            CheckKernelLaunch(err);

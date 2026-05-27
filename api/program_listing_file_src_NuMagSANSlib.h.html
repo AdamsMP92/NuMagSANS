@@ -502,10 +502,15 @@
 <span class="w">    </span><span class="n">init_ScalingFactors</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">SANSData</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// compute 2D SANS cross sections #########################################################</span>
-<span class="w">    </span><span class="n">SelectKernelRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
+<span class="w">    </span><span class="n">SelectKernelRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">Data</span><span class="p">.</span><span class="n">NucData_gpu</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">Data</span><span class="p">.</span><span class="n">MagData_gpu</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">Data</span><span class="p">.</span><span class="n">StructData_gpu</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">Data</span><span class="p">.</span><span class="n">RotData_gpu</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">Data</span><span class="p">.</span><span class="n">SANSData_gpu</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// run postprocessing kernels #############################################################</span>
-<span class="w">    </span><span class="n">KernelPostprocessRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
+<span class="w">    </span><span class="n">KernelPostprocessRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="n">Data</span><span class="p">.</span><span class="n">SANSData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">Data</span><span class="p">.</span><span class="n">SpecData_gpu</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// export scattering and spectral data ####################################################</span>
 <span class="w">    </span><span class="n">ExportData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
