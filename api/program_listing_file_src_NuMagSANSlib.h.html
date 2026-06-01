@@ -442,6 +442,7 @@
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_LogFile.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_MemoryInfo.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_TimeMeasure.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_CUDAError.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_HelperFun.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_StringCompare.h&quot;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NuMagSANSlib_ReadWrite.h&quot;</span>
@@ -512,6 +513,7 @@
 
 <span class="w">            </span><span class="n">SetActiveRotDataFile</span><span class="p">(</span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_File_Index</span><span class="p">);</span>
 <span class="w">            </span><span class="n">new_read_RotationData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+<span class="w">            </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;reload rotation data&quot;</span><span class="p">);</span>
 
 <span class="w">            </span><span class="c1">// run gpu kernel</span>
 <span class="w">            </span><span class="n">SelectKernelRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
@@ -521,6 +523,7 @@
 
 <span class="w">            </span><span class="c1">// export data</span>
 <span class="w">            </span><span class="n">ExportData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_File_Index</span><span class="p">);</span>
+<span class="w">            </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;export scattering data&quot;</span><span class="p">);</span>
 <span class="w">        </span><span class="p">}</span>
 
 <span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
@@ -533,10 +536,12 @@
 
 <span class="w">        </span><span class="c1">// export data</span>
 <span class="w">        </span><span class="n">ExportData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
+<span class="w">        </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;export scattering data&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// free memory</span>
 <span class="w">    </span><span class="n">FreeData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
+<span class="w">    </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;free data&quot;</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// print result of time measurement</span>
 <span class="w">    </span><span class="n">LogElapsedTime</span><span class="p">(</span><span class="n">TotalTime</span><span class="p">);</span>

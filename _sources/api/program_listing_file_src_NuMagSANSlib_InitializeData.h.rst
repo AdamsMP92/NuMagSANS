@@ -26,37 +26,23 @@ Program Listing for File NuMagSANSlib_InitializeData.h
                                        ScalingFactors* ScalFactors,
                                        int Data_File_Index){
    
-       cudaError_t err;
-   
        // initialize nuclear data ################################################################
        if(InputData->NucData_activate_flag){
            init_NuclearData(NucData, NucData_gpu, NucDataProp, InputData, Data_File_Index);
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-           }
+           CheckCUDALastError("initialize nuclear data");
        }
        
        // initialize magnetization data ##########################################################
        if(InputData->MagData_activate_flag){
            init_MagnetizationData(MagData, MagData_gpu, MagDataProp, InputData, Data_File_Index);
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-           }
+           CheckCUDALastError("initialize magnetization data");
            //disp_MagnetizationData(MagData);
        }
    
        // initialize structure data ##############################################################
        if(InputData->StructData_activate_flag){
            init_StructureData(StructData, StructData_gpu, StructDataProp, InputData);
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-           }
+           CheckCUDALastError("initialize structure data");
            //disp_StructureData(StructData);
        }
    
@@ -67,28 +53,16 @@ Program Listing for File NuMagSANSlib_InitializeData.h
            }else{
                init_RotationData(RotData, RotData_gpu, RotDataProp, InputData);
            }
-           cudaDeviceSynchronize();
-           err = cudaGetLastError();
-           if (err != cudaSuccess) {
-               LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-           }
+           CheckCUDALastError("initialize rotation data");
        }
    
        // initialize scattering data #############################################################
        init_ScatteringData(InputData, SANSData, SANSData_gpu);
-       cudaDeviceSynchronize();
-       err = cudaGetLastError();
-       if (err != cudaSuccess) {
-           LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-       }
+       CheckCUDALastError("initialize scattering data");
    
        // initialize spectral data ###############################################################
        init_SpectralData(InputData, SANSData, SpecData, SpecData_gpu);
-       cudaDeviceSynchronize();
-       err = cudaGetLastError();
-       if (err != cudaSuccess) {
-           LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-       }
+       CheckCUDALastError("initialize spectral data");
    
        // initialize scaling factors
        init_ScalingFactors(ScalFactors, InputData, MagData, NucData, SANSData);
@@ -133,9 +107,5 @@ Program Listing for File NuMagSANSlib_InitializeData.h
    
        init_ScalingFactors(&Data->ScalFactors, InputData, &Data->MagData, &Data->NucData, &Data->SANSData);
    
-       cudaDeviceSynchronize();
-       cudaError_t err = cudaGetLastError();
-       if (err != cudaSuccess) {
-           LogSystem::write(std::string("CUDA operation failed during SANS output reset: ") + cudaGetErrorString(err));
-       }
+       CheckCUDALastError("reset SANS output data");
    }

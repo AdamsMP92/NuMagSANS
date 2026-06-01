@@ -42,6 +42,7 @@ Program Listing for File NuMagSANSlib.h
    #include "NuMagSANSlib_LogFile.h"
    #include "NuMagSANSlib_MemoryInfo.h"
    #include "NuMagSANSlib_TimeMeasure.h"
+   #include "NuMagSANSlib_CUDAError.h"
    #include "NuMagSANSlib_HelperFun.h"
    #include "NuMagSANSlib_StringCompare.h"
    #include "NuMagSANSlib_ReadWrite.h"
@@ -112,6 +113,7 @@ Program Listing for File NuMagSANSlib.h
    
                SetActiveRotDataFile(RotDataProp, RotData_File_Index);
                new_read_RotationData(&Data.RotData, &Data.RotData_gpu, RotDataProp, InputData);
+               CheckCUDALastError("reload rotation data");
    
                // run gpu kernel
                SelectKernelRun(InputData, &Data);
@@ -121,6 +123,7 @@ Program Listing for File NuMagSANSlib.h
    
                // export data
                ExportData(InputData, &Data, Data_File_Index, RotData_File_Index);
+               CheckCUDALastError("export scattering data");
            }
    
        }else{
@@ -133,10 +136,12 @@ Program Listing for File NuMagSANSlib.h
    
            // export data
            ExportData(InputData, &Data, Data_File_Index);
+           CheckCUDALastError("export scattering data");
        }
    
        // free memory
        FreeData(InputData, &Data);
+       CheckCUDALastError("free data");
    
        // print result of time measurement
        LogElapsedTime(TotalTime);

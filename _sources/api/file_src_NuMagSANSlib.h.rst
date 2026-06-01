@@ -30,6 +30,8 @@ Includes
 --------
 
 
+- ``NuMagSANSlib_CUDAError.h`` (:ref:`file_src_NuMagSANSlib_CUDAError.h`)
+
 - ``NuMagSANSlib_Data.h`` (:ref:`file_src_NuMagSANSlib_Data.h`)
 
 - ``NuMagSANSlib_Directory.h`` (:ref:`file_src_NuMagSANSlib_Directory.h`)

@@ -426,37 +426,23 @@
 <span class="w">                                    </span><span class="n">ScalingFactors</span><span class="o">*</span><span class="w"> </span><span class="n">ScalFactors</span><span class="p">,</span>
 <span class="w">                                    </span><span class="kt">int</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">){</span>
 
-<span class="w">    </span><span class="n">cudaError_t</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
-
 <span class="w">    </span><span class="c1">// initialize nuclear data ################################################################</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">NucData_activate_flag</span><span class="p">){</span>
 <span class="w">        </span><span class="n">init_NuclearData</span><span class="p">(</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="n">NucData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">NucDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
-<span class="w">        </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;initialize nuclear data&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// initialize magnetization data ##########################################################</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">MagData_activate_flag</span><span class="p">){</span>
 <span class="w">        </span><span class="n">init_MagnetizationData</span><span class="p">(</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="n">MagData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">MagDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
-<span class="w">        </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;initialize magnetization data&quot;</span><span class="p">);</span>
 <span class="w">        </span><span class="c1">//disp_MagnetizationData(MagData);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// initialize structure data ##############################################################</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="p">){</span>
 <span class="w">        </span><span class="n">init_StructureData</span><span class="p">(</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
-<span class="w">        </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;initialize structure data&quot;</span><span class="p">);</span>
 <span class="w">        </span><span class="c1">//disp_StructureData(StructData);</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -467,28 +453,16 @@
 <span class="w">        </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
 <span class="w">            </span><span class="n">init_RotationData</span><span class="p">(</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;initialize rotation data&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// initialize scattering data #############################################################</span>
 <span class="w">    </span><span class="n">init_ScatteringData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData_gpu</span><span class="p">);</span>
-<span class="w">    </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;initialize scattering data&quot;</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// initialize spectral data ###############################################################</span>
 <span class="w">    </span><span class="n">init_SpectralData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="n">SpecData_gpu</span><span class="p">);</span>
-<span class="w">    </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;kernel launch failed: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;initialize spectral data&quot;</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// initialize scaling factors</span>
 <span class="w">    </span><span class="n">init_ScalingFactors</span><span class="p">(</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="n">SANSData</span><span class="p">);</span>
@@ -533,11 +507,7 @@
 
 <span class="w">    </span><span class="n">init_ScalingFactors</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<span class="w">    </span><span class="n">cudaError_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;CUDA operation failed during SANS output reset: &quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;reset SANS output data&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>

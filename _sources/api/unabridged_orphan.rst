@@ -95,6 +95,11 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_src_NuMagSANSlib_CUDAError.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_src_NuMagSANSlib_Data.h.rst
 
 .. toctree::
