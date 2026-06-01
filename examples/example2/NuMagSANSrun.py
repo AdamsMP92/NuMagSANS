@@ -93,6 +93,7 @@ def run_single_case(sim: NuMagSANS, iteration: int, rng: np.random.Generator) ->
         RotDataLoop=1,
         RotDataLoop_From=1,
         RotDataLoop_To=N_ROTDATA,
+        RotData_User_Selection=list(range(1, N_ROTDATA + 1)),
         FastLoad=1,
         MagDataPath=str(BASE_DIR / "RealSpaceData" / "MagData"),
         StructDataFilename=str(BASE_DIR / "RealSpaceData" / "StructData.csv"),

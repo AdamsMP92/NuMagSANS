@@ -159,8 +159,7 @@ bool RotData_Observer(std::string Local_RotDataPath,
 }
 
 bool RotDataLoop_Observer(std::string Local_RotDataFolderPath,
-                          int RotDataLoop_From,
-                          int RotDataLoop_To,
+                          std::vector<int> RotDataLoop_IndexArray,
                           RotDataProperties* RotDataProp){
 
     LogSystem::write("##########################################################################################");
@@ -170,8 +169,8 @@ bool RotDataLoop_Observer(std::string Local_RotDataFolderPath,
 
     bool CheckFlag = true;
 
-    if(RotDataLoop_From > RotDataLoop_To){
-        LogSystem::write("Error: RotDataLoop_From is larger than RotDataLoop_To.");
+    if(RotDataLoop_IndexArray.empty()){
+        LogSystem::write("Error: RotDataLoop has no active RotData indices.");
         CheckFlag = false;
     }
 
@@ -182,11 +181,12 @@ bool RotDataLoop_Observer(std::string Local_RotDataFolderPath,
 
     get_GlobalRotDataFolderPath(Local_RotDataFolderPath, RotDataProp);
 
-    RotDataProp->Number_Of_Files = RotDataLoop_To - RotDataLoop_From + 1;
+    RotDataProp->Number_Of_Files = RotDataLoop_IndexArray.size();
     RotDataProp->Number_Of_Elements = 0;
 
-    for(int k = RotDataLoop_From; k <= RotDataLoop_To; k++){
-        std::string filename = RotDataLoopFilePath(RotDataProp, k);
+    for(int k = 0; k < RotDataLoop_IndexArray.size(); k++){
+        int RotData_File_Index = RotDataLoop_IndexArray[k];
+        std::string filename = RotDataLoopFilePath(RotDataProp, RotData_File_Index);
 
         if(!FileExists(filename)){
             LogSystem::write("Error: missing RotData file: " + filename);
@@ -197,7 +197,7 @@ bool RotDataLoop_Observer(std::string Local_RotDataFolderPath,
         int Number_Of_Elements_tmp = 0;
         NumberOfEntriesInRotationFile(&Number_Of_Elements_tmp, filename);
 
-        LogSystem::write("RotData_" + std::to_string(k) + ".csv entries: "
+        LogSystem::write("RotData_" + std::to_string(RotData_File_Index) + ".csv entries: "
                          + std::to_string(Number_Of_Elements_tmp));
 
         if(Number_Of_Elements_tmp == 0){
@@ -213,7 +213,9 @@ bool RotDataLoop_Observer(std::string Local_RotDataFolderPath,
         }
     }
 
-    SetActiveRotDataFile(RotDataProp, RotDataLoop_From);
+    if(!RotDataLoop_IndexArray.empty()){
+        SetActiveRotDataFile(RotDataProp, RotDataLoop_IndexArray[0]);
+    }
 
     LogSystem::write("Number of RotData files: " + std::to_string(RotDataProp->Number_Of_Files));
     LogSystem::write("Number of Entries: " + std::to_string(RotDataProp->Number_Of_Elements));

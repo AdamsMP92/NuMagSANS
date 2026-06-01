@@ -100,6 +100,7 @@ class NuMagSANS:
         RotDataLoop=0,
         RotDataLoop_From=1,
         RotDataLoop_To=1,
+        RotData_User_Selection=None,
         User_Selection=[1],
 
         # units
@@ -183,6 +184,8 @@ class NuMagSANS:
             W("RotDataLoop", RotDataLoop)
             W("RotDataLoop_From", RotDataLoop_From)
             W("RotDataLoop_To", RotDataLoop_To)
+            if RotData_User_Selection is not None:
+                W("RotData_User_Selection", "{" + ", ".join(map(str, RotData_User_Selection)) + "}")
             W("User_Selection", "{" + ", ".join(map(str, User_Selection)) + "}")
 
             # ---------------------------

@@ -74,8 +74,7 @@ int main(int argc, char* argv[]){
 	if(InputData.RotData_activate_flag){
 		if(InputData.RotDataLoop_flag){
 			Check_RotData_Flag = RotDataLoop_Observer(InputData.RotDataPath,
-													  InputData.RotDataLoop_From,
-													  InputData.RotDataLoop_To,
+													  InputData.RotDataLoop_IndexArray,
 													  &RotDataProp);
 		}else{
 			Check_RotData_Flag = RotData_Observer(InputData.RotDataFilename, &RotDataProp);
