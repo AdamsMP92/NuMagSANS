@@ -310,7 +310,7 @@ void allocate_SpectralData_GPU(SpectralData* SpecData, \
     cudaMemset(SpecData_gpu->A_Mag_sanspol_m,        0, len_A);
 
     cudaMalloc(&SpecData_gpu, sizeof(SpectralData));
-    cudaMemcpy(SpecData_gpu, SpecData, sizeof(ScatteringData), cudaMemcpyHostToDevice);
+    cudaMemcpy(SpecData_gpu, SpecData, sizeof(SpectralData), cudaMemcpyHostToDevice);
 
 	cudaDeviceSynchronize();
 	
@@ -640,5 +640,4 @@ void free_SpectralData(SpectralData* S, \
     cudaDeviceSynchronize();
 
 }
-
 
