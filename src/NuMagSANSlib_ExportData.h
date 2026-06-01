@@ -4,7 +4,8 @@ inline void ExportDataMulti(InputFileData* InputData,
 							ScalingFactors* ScalFactors,
 							ScatteringData* SANSData, ScatteringData* SANSData_gpu,
 							SpectralData* SpecData, SpectralData* SpecData_gpu,
-							int Data_File_Index){
+							int Data_File_Index,
+							int RotData_File_Index = 0){
 
 	// copy scattering data from GPU to RAM ###################################################
 	copyGPU2RAM_ScatteringData(SANSData, SANSData_gpu);
@@ -14,7 +15,7 @@ inline void ExportDataMulti(InputFileData* InputData,
 	scale_ScatteringData(ScalFactors, SANSData, InputData);
 
 	// write scattering data to csv files #####################################################
-	write2CSVtable_ScatteringData(InputData, SANSData, Data_File_Index);
+	write2CSVtable_ScatteringData(InputData, SANSData, Data_File_Index, RotData_File_Index);
 
 	if(InputData->AngularSpec_activate_flag){
 		// copy spectral data from GPU to RAM #################################################
@@ -24,19 +25,21 @@ inline void ExportDataMulti(InputFileData* InputData,
 		scale_SpectralData(ScalFactors, SpecData, InputData);
 	
 		// write spectral data to csv files ###################################################
-		write2CSV_SpectralData(InputData, SpecData, Data_File_Index);
+		write2CSV_SpectralData(InputData, SpecData, Data_File_Index, RotData_File_Index);
 	}
 }
 
 
 inline void ExportData(InputFileData* InputData, 
 	                   NuMagSANSData* Data, 
-					   int Data_File_Index){
+					   int Data_File_Index,
+					   int RotData_File_Index = 0){
 
 	ExportDataMulti(InputData,
 					&Data->ScalFactors,
 					&Data->SANSData, &Data->SANSData_gpu,
 					&Data->SpecData, &Data->SpecData_gpu,
-					Data_File_Index);
+					Data_File_Index,
+					RotData_File_Index);
 
 }

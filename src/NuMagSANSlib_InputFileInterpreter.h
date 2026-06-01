@@ -97,6 +97,9 @@ struct InputFileData{
 	/// CSV file containing rotational information
 	string RotDataFilename;
 
+	/// Directory containing RotData_1.csv, RotData_2.csv, ... files
+	string RotDataPath = "";
+
 	/// Skip repeated MagData dimension checks for faster data import
 	bool FastLoad_flag = false;
 
@@ -109,11 +112,20 @@ struct InputFileData{
     /// Activate loop mode over dataset indices
 	bool Loop_Modus;
 
+	/// Activate inner loop mode over rotation data files
+	bool RotDataLoop_flag = false;
+
     /// Starting index for loop mode
 	int Loop_From;
 
     /// Final index for loop mode
 	int Loop_To;
+
+	/// Starting index for rotation data loop mode
+	int RotDataLoop_From = 1;
+
+	/// Final index for rotation data loop mode
+	int RotDataLoop_To = 1;
 	
     /// User-defined dataset selection string
 	string User_Selection;
@@ -541,6 +553,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"MagData_activate", &InputData->MagData_activate_flag, true},
 		{"StructData_activate", &InputData->StructData_activate_flag, true},
 		{"RotData_activate", &InputData->RotData_activate_flag, true},
+		{"RotDataLoop", &InputData->RotDataLoop_flag, false},
 		{"FastLoad", &InputData->FastLoad_flag, false},
 		{"Exclude_Zero_Moments", &InputData->ExcludeZeroMoments_flag, true},
 		{"Angular_Spec", &InputData->AngularSpec_activate_flag, true},
@@ -553,6 +566,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 		{"Loop_From", &InputData->Loop_From, true},
 		{"Loop_To", &InputData->Loop_To, true},
+		{"RotDataLoop_From", &InputData->RotDataLoop_From, false},
+		{"RotDataLoop_To", &InputData->RotDataLoop_To, false},
 		{"Number_Of_q_Points", &InputData->N_q, true},
 		{"Number_Of_theta_Points", &InputData->N_theta, true},
 		{"Number_Of_r_Points", &InputData->N_r, true},
@@ -588,6 +603,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"MagDataPath", &InputData->MagDataPath, true},
 		{"StructDataFilename", &InputData->StructDataFilename, true},
 		{"RotDataFilename", &InputData->RotDataFilename, true},
+		{"RotDataPath", &InputData->RotDataPath, false},
 		{"foldernameSANSData", &InputData->SANSDataFoldername, true},
 		{"Fourier_Approach", &InputData->Fourier_Approach, true},
 		{"User_Selection", &InputData->User_Selection, true}

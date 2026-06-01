@@ -105,3 +105,15 @@ inline void InitializeData(InputFileData* InputData,
 
 
 	}
+
+inline void ResetSANSOutputData(InputFileData* InputData,
+								NuMagSANSData* Data){
+
+	free_ScatteringData(&Data->SANSData, &Data->SANSData_gpu);
+	free_SpectralData(&Data->SpecData, &Data->SpecData_gpu);
+
+	init_ScatteringData(InputData, &Data->SANSData, &Data->SANSData_gpu);
+	init_SpectralData(InputData, &Data->SANSData, &Data->SpecData, &Data->SpecData_gpu);
+
+	init_ScalingFactors(&Data->ScalFactors, InputData, &Data->MagData, &Data->NucData, &Data->SANSData);
+}
