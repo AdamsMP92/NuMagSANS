@@ -30,6 +30,7 @@
 #include "NuMagSANSlib_LogFile.h"
 #include "NuMagSANSlib_MemoryInfo.h"
 #include "NuMagSANSlib_TimeMeasure.h"
+#include "NuMagSANSlib_CUDAError.h"
 #include "NuMagSANSlib_HelperFun.h"
 #include "NuMagSANSlib_StringCompare.h"
 #include "NuMagSANSlib_ReadWrite.h"
@@ -100,6 +101,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 			SetActiveRotDataFile(RotDataProp, RotData_File_Index);
 			new_read_RotationData(&Data.RotData, &Data.RotData_gpu, RotDataProp, InputData);
+			CheckCUDALastError("reload rotation data");
 
 			// run gpu kernel
 			SelectKernelRun(InputData, &Data);
@@ -109,6 +111,7 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 			// export data
 			ExportData(InputData, &Data, Data_File_Index, RotData_File_Index);
+			CheckCUDALastError("export scattering data");
 		}
 
 	}else{
@@ -121,10 +124,12 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 
 		// export data
 		ExportData(InputData, &Data, Data_File_Index);
+		CheckCUDALastError("export scattering data");
 	}
 
 	// free memory
 	FreeData(InputData, &Data);
+	CheckCUDALastError("free data");
 
 	// print result of time measurement
     LogElapsedTime(TotalTime);
