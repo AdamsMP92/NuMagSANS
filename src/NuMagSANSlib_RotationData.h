@@ -386,6 +386,17 @@ void init_RotationData(RotationData* RotData, \
    
 }
 
+void init_RotationDataMemory(RotationData* RotData, \
+                             RotationData* RotData_gpu, \
+                             RotDataProperties* RotDataProp, \
+                             InputFileData* InputData){
+
+	allocate_RotationDataRAM(RotData, RotDataProp, InputData);
+    DefaultSet_RotationDataRAM(RotData, RotDataProp, InputData);
+	allocate_RotationDataGPU(RotData, RotData_gpu);
+
+}
+
 void new_read_RotationData(RotationData* RotData, \
                             RotationData* RotData_gpu, \
                             RotDataProperties* RotDataProp, \

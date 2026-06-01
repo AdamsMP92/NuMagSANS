@@ -50,7 +50,11 @@ inline void InitializeDataMulti(InputFileData* InputData,
 
 	// initialize rotation data ###############################################################
 	if(InputData->RotData_activate_flag){
-		init_RotationData(RotData, RotData_gpu, RotDataProp, InputData);
+		if(InputData->RotDataLoop_flag){
+			init_RotationDataMemory(RotData, RotData_gpu, RotDataProp, InputData);
+		}else{
+			init_RotationData(RotData, RotData_gpu, RotDataProp, InputData);
+		}
 		cudaDeviceSynchronize();
 		err = cudaGetLastError();
 		if (err != cudaSuccess) {
@@ -116,4 +120,10 @@ inline void ResetSANSOutputData(InputFileData* InputData,
 	init_SpectralData(InputData, &Data->SANSData, &Data->SpecData, &Data->SpecData_gpu);
 
 	init_ScalingFactors(&Data->ScalFactors, InputData, &Data->MagData, &Data->NucData, &Data->SANSData);
+
+	cudaDeviceSynchronize();
+	cudaError_t err = cudaGetLastError();
+	if (err != cudaSuccess) {
+		LogSystem::write(std::string("CUDA operation failed during SANS output reset: ") + cudaGetErrorString(err));
+	}
 }
