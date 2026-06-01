@@ -1,4 +1,4 @@
-.. _exhale_function_NuMagSANSlib__RotationDataExplorer_8h_1a39456b86ebad2f3f937b76edd6436bed:
+.. _exhale_function_NuMagSANSlib__RotationDataExplorer_8h_1a51967f212102bbbf1dcf953b81614cc4:
 
 Function RotDataLoop_Observer
 =============================
@@ -10,5 +10,5 @@ Function Documentation
 ----------------------
 
 
-.. doxygenfunction:: RotDataLoop_Observer(std::string, int, int, RotDataProperties *)
+.. doxygenfunction:: RotDataLoop_Observer(std::string, std::vector<int>, RotDataProperties *)
    :project: NuMagSANS

@@ -115,6 +115,10 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        int RotDataLoop_From = 1;
    
        int RotDataLoop_To = 1;
+   
+       string RotData_User_Selection;
+   
+       std::vector<int> RotDataLoop_IndexArray;
        
        string User_Selection;
    
@@ -356,7 +360,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        std::string trimmed = trim(s);
    
        if (trimmed.front() != '{' || trimmed.back() != '}')
-           throw std::runtime_error("Invalid User_Selection format");
+           throw std::runtime_error("Invalid integer list format");
    
        std::string content = trimmed.substr(1, trimmed.size() - 2);
    
@@ -567,6 +571,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            {"RotDataPath", &InputData->RotDataPath, false},
            {"foldernameSANSData", &InputData->SANSDataFoldername, true},
            {"Fourier_Approach", &InputData->Fourier_Approach, true},
+           {"RotData_User_Selection", &InputData->RotData_User_Selection, false},
            {"User_Selection", &InputData->User_Selection, true}
    
        };
@@ -656,6 +661,29 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
                    " UserSelection: " +
                    std::to_string(k) + " : " +
                    std::to_string(InputData->User_Selection_IndexArray[k]));
+           }
+       }
+   
+       for (auto& opt : string_options)
+       if (opt.key == "RotData_User_Selection" && opt.found)
+       {
+           InputData->RotDataLoop_IndexArray =
+               parse_int_list(InputData->RotData_User_Selection);
+   
+           LogSystem::write("Check RotDataUserSelection entries that are transferred to integer array:");
+   
+           for (size_t k = 0; k < InputData->RotDataLoop_IndexArray.size(); ++k)
+           {
+               LogSystem::write(
+                   " RotDataUserSelection: " +
+                   std::to_string(k) + " : " +
+                   std::to_string(InputData->RotDataLoop_IndexArray[k]));
+           }
+       }
+   
+       if(InputData->RotDataLoop_flag && InputData->RotDataLoop_IndexArray.empty()){
+           for(int k = InputData->RotDataLoop_From; k <= InputData->RotDataLoop_To; k++){
+               InputData->RotDataLoop_IndexArray.push_back(k);
            }
        }
    

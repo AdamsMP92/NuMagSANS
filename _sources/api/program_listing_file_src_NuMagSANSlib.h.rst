@@ -97,14 +97,16 @@ Program Listing for File NuMagSANSlib.h
    
        if(InputData->RotData_activate_flag && InputData->RotDataLoop_flag){
    
-           for(int RotData_File_Index = InputData->RotDataLoop_From;
-               RotData_File_Index <= InputData->RotDataLoop_To;
-               RotData_File_Index++){
+           for(int RotDataLoop_Counter = 0;
+               RotDataLoop_Counter < InputData->RotDataLoop_IndexArray.size();
+               RotDataLoop_Counter++){
+   
+               int RotData_File_Index = InputData->RotDataLoop_IndexArray[RotDataLoop_Counter];
    
                LogSystem::write("inner RotData loop active: RotData index "
                                 + std::to_string(RotData_File_Index));
    
-               if(RotData_File_Index != InputData->RotDataLoop_From){
+               if(RotDataLoop_Counter != 0){
                    ResetSANSOutputData(InputData, &Data);
                }
    
