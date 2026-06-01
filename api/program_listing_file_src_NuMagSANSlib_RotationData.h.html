@@ -797,6 +797,17 @@
 
 <span class="p">}</span>
 
+<span class="kt">void</span><span class="w"> </span><span class="nf">init_RotationDataMemory</span><span class="p">(</span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                             </span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                             </span><span class="n">RotDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                             </span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">){</span>
+
+<span class="w">    </span><span class="n">allocate_RotationDataRAM</span><span class="p">(</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DefaultSet_RotationDataRAM</span><span class="p">(</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+<span class="w">    </span><span class="n">allocate_RotationDataGPU</span><span class="p">(</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">);</span>
+
+<span class="p">}</span>
+
 <span class="kt">void</span><span class="w"> </span><span class="nf">new_read_RotationData</span><span class="p">(</span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span>\
 <span class="w">                            </span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span>\
 <span class="w">                            </span><span class="n">RotDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span>\

@@ -96,6 +96,8 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1af1711c58f9cab15754e5a7a03a1f861c`
 
+- :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1ad243bc8fb90a446f4e77f770683696c8`
+
 - :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1a7389a1437acf1c3292c56be812098f64`
 
 - :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1accbf966962f110a0419d59a8ce991fcb`
