@@ -433,7 +433,6 @@
 <span class="w">    </span><span class="n">InitializeLogSystem</span><span class="p">(</span><span class="n">InputFileName</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// Input File Interpreter ####################################################################</span>
-<span class="w">    </span><span class="c1">//string InputFileName = argv[1];</span>
 <span class="w">    </span><span class="n">InputFileData</span><span class="w"> </span><span class="n">InputData</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">Check_InputFile_Flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadCSV__Input_File_Interpreter</span><span class="p">(</span><span class="n">InputFileName</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">Check_InputFile_Flag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">true</span><span class="p">){</span>
@@ -477,6 +476,7 @@
 <span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot; -&gt;-&gt; Error in StructData!&quot;</span><span class="p">);</span>
 <span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
 <span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -484,11 +484,29 @@
 <span class="w">    </span><span class="n">RotDataProperties</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">Check_RotData_Flag</span><span class="p">;</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="p">.</span><span class="n">RotData_activate_flag</span><span class="p">){</span>
-<span class="w">        </span><span class="n">Check_RotData_Flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RotData_Observer</span><span class="p">(</span><span class="n">InputData</span><span class="p">.</span><span class="n">RotDataFilename</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">RotDataProp</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="p">.</span><span class="n">RotDataLoop_flag</span><span class="p">){</span>
+<span class="w">            </span><span class="n">Check_RotData_Flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RotDataLoop_Observer</span><span class="p">(</span><span class="n">InputData</span><span class="p">.</span><span class="n">RotDataPath</span><span class="p">,</span>
+<span class="w">                                                      </span><span class="n">InputData</span><span class="p">.</span><span class="n">RotDataLoop_From</span><span class="p">,</span>
+<span class="w">                                                      </span><span class="n">InputData</span><span class="p">.</span><span class="n">RotDataLoop_To</span><span class="p">,</span>
+<span class="w">                                                      </span><span class="o">&amp;</span><span class="n">RotDataProp</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">            </span><span class="n">Check_RotData_Flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RotData_Observer</span><span class="p">(</span><span class="n">InputData</span><span class="p">.</span><span class="n">RotDataFilename</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">RotDataProp</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">Check_RotData_Flag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">true</span><span class="p">){</span>
 <span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot; -&gt;-&gt; Error in RotData!&quot;</span><span class="p">);</span>
 <span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
 <span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="p">.</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="p">.</span><span class="n">RotData_activate_flag</span><span class="p">){</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">StructDataProp</span><span class="p">.</span><span class="n">Number_Of_Elements</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">.</span><span class="n">Number_Of_Elements</span><span class="p">){</span>
+<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot; -&gt;-&gt; Error: StructData and RotData contain different numbers of entries!&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;StructData entries: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">StructDataProp</span><span class="p">.</span><span class="n">Number_Of_Elements</span><span class="p">));</span>
+<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;RotData entries: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">RotDataProp</span><span class="p">.</span><span class="n">Number_Of_Elements</span><span class="p">));</span>
+<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -498,15 +516,7 @@
 
 
 
-<span class="w">    </span><span class="c1">// Create Output Folder #####################################################################</span>
-<span class="w">    </span><span class="c1">//mkdir((InputData.SANSDataFoldername + &quot;/&quot;).c_str(), 0777);</span>
-<span class="w">    </span><span class="c1">//LogSystem::initLog(InputData.SANSDataFoldername + &quot;/NuMagSANSlog.txt&quot;);</span>
-<span class="w">    </span><span class="c1">//LogSystem::write(&quot;Hello World!&quot;);</span>
-
-
 <span class="w">    </span><span class="c1">// Start calculation based on loop modus or user selection ###################################</span>
-<span class="w">    </span><span class="c1">//mkdir((InputData.SANSDataFoldername + &quot;/&quot;).c_str(), 0777);</span>
-
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">;</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="p">.</span><span class="n">Loop_Modus</span><span class="p">){</span>
 <span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;loop modus active...&quot;</span><span class="p">);</span>
@@ -523,7 +533,6 @@
 
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-
 
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">close</span><span class="p">();</span>
 

@@ -11,7 +11,7 @@ Program Listing for File NuMagSANSlib.h
 .. code-block:: cpp
 
    // File         : NuMagSANSlib.h
-   // Author       : Dr. Michael Philipp ADAMS 
+   // Author       : Dr. Michael Philipp ADAMS
    // Company      : University of Luxembourg
    // Department   : Department of Physics and Materials Sciences
    // Group        : NanoMagnetism Group
@@ -83,32 +83,60 @@ Program Listing for File NuMagSANSlib.h
        GPUMemoryInfo MemoryBeforeRun = GetGPUMemoryInfo();
        LogCurrentGPUMemoryDifference(MemoryBeforeRun);
    
-       // start time measurement 
+       // start time measurement
        TimeMeasure TotalTime = StartTimeMeasure();
    
+       // initialize data
        NuMagSANSData Data;
-   
-       // initialize data  
-       InitializeData(InputData, 
+       InitializeData(InputData,
                       NucDataProp, MagDataProp, StructDataProp, RotDataProp,
                       &Data, Data_File_Index);
    
-       // check memory  
+       // check memory
        LogCurrentGPUMemoryDifference(MemoryBeforeRun);
-           
-       // run gpu kernel  
-       SelectKernelRun(InputData, &Data);
    
-       // run gpu post-processing kernels  
-       KernelPostprocessRun(InputData, &Data);
+       if(InputData->RotData_activate_flag && InputData->RotDataLoop_flag){
    
-       // export data  
-       ExportData(InputData, &Data, Data_File_Index);
+           for(int RotData_File_Index = InputData->RotDataLoop_From;
+               RotData_File_Index <= InputData->RotDataLoop_To;
+               RotData_File_Index++){
    
-       // free memory  
+               LogSystem::write("inner RotData loop active: RotData index "
+                                + std::to_string(RotData_File_Index));
+   
+               if(RotData_File_Index != InputData->RotDataLoop_From){
+                   ResetSANSOutputData(InputData, &Data);
+               }
+   
+               SetActiveRotDataFile(RotDataProp, RotData_File_Index);
+               new_read_RotationData(&Data.RotData, &Data.RotData_gpu, RotDataProp, InputData);
+   
+               // run gpu kernel
+               SelectKernelRun(InputData, &Data);
+   
+               // run gpu post-processing kernels
+               KernelPostprocessRun(InputData, &Data);
+   
+               // export data
+               ExportData(InputData, &Data, Data_File_Index, RotData_File_Index);
+           }
+   
+       }else{
+   
+           // run gpu kernel
+           SelectKernelRun(InputData, &Data);
+   
+           // run gpu post-processing kernels
+           KernelPostprocessRun(InputData, &Data);
+   
+           // export data
+           ExportData(InputData, &Data, Data_File_Index);
+       }
+   
+       // free memory
        FreeData(InputData, &Data);
-       
-       // print result of time measurement 
+   
+       // print result of time measurement
        LogElapsedTime(TotalTime);
    
        LogCurrentGPUMemoryDifference(MemoryBeforeRun);

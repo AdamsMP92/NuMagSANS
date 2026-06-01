@@ -1218,7 +1218,8 @@ Program Listing for File NuMagSANSlib_SANSData.h
    void write2CSVtable_ScatteringData(
        InputFileData* InputData,
        ScatteringData* SANSData,
-       int MagData_File_Index
+       int MagData_File_Index,
+       int RotData_File_Index = 0
    ){
        LogSystem::write("");
        LogSystem::write("write scattering data to csv-files...");
@@ -1226,6 +1227,10 @@ Program Listing for File NuMagSANSlib_SANSData.h
        std::string target_foldername =
            InputData->SANSDataFoldername + "/SANS_" +
            std::to_string(MagData_File_Index) + "/";
+   
+       if(RotData_File_Index > 0){
+           target_foldername += "RotData_" + std::to_string(RotData_File_Index) + "/";
+       }
    
        //mkdir(target_foldername.c_str(), 0777);
        std::filesystem::create_directories(target_foldername);

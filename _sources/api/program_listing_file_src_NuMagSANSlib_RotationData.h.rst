@@ -335,7 +335,6 @@ Program Listing for File NuMagSANSlib_RotationData.h
        
    }
    
-   
    // here the rotation matrix operations section ends
    
    
@@ -396,6 +395,17 @@ Program Listing for File NuMagSANSlib_RotationData.h
        read_RotationData(RotData, RotDataProp, InputData);
        allocate_RotationDataGPU(RotData, RotData_gpu);
       
+   }
+   
+   void new_read_RotationData(RotationData* RotData, \
+                               RotationData* RotData_gpu, \
+                               RotDataProperties* RotDataProp, \
+                               InputFileData* InputData){
+   
+       DefaultSet_RotationDataRAM(RotData, RotDataProp, InputData);
+       read_RotationData(RotData, RotDataProp, InputData);
+       copy_RotationDataRAM2GPU(RotData, RotData_gpu);
+   
    }
    
    void free_RotationData(RotationData *RotData,

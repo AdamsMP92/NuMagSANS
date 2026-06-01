@@ -33,7 +33,6 @@ Program Listing for File NuMagSANS.cu
        InitializeLogSystem(InputFileName);
    
        // Input File Interpreter ####################################################################
-       //string InputFileName = argv[1];
        InputFileData InputData;
        bool Check_InputFile_Flag = ReadCSV__Input_File_Interpreter(InputFileName, &InputData);
        if(Check_InputFile_Flag != true){
@@ -77,6 +76,7 @@ Program Listing for File NuMagSANS.cu
                LogSystem::write(" ->-> Error in StructData!");
                LogSystem::write("");
                LogSystem::write("");
+               return 0;
            }
        }
    
@@ -84,11 +84,29 @@ Program Listing for File NuMagSANS.cu
        RotDataProperties RotDataProp;
        bool Check_RotData_Flag;
        if(InputData.RotData_activate_flag){
-           Check_RotData_Flag = RotData_Observer(InputData.RotDataFilename, &RotDataProp);
+           if(InputData.RotDataLoop_flag){
+               Check_RotData_Flag = RotDataLoop_Observer(InputData.RotDataPath,
+                                                         InputData.RotDataLoop_From,
+                                                         InputData.RotDataLoop_To,
+                                                         &RotDataProp);
+           }else{
+               Check_RotData_Flag = RotData_Observer(InputData.RotDataFilename, &RotDataProp);
+           }
            if(Check_RotData_Flag != true){
                LogSystem::write(" ->-> Error in RotData!");
                LogSystem::write("");
                LogSystem::write("");
+               return 0;
+           }
+       }
+   
+       if(InputData.StructData_activate_flag && InputData.RotData_activate_flag){
+           if(StructDataProp.Number_Of_Elements != RotDataProp.Number_Of_Elements){
+               LogSystem::write(" ->-> Error: StructData and RotData contain different numbers of entries!");
+               LogSystem::write("StructData entries: " + std::to_string(StructDataProp.Number_Of_Elements));
+               LogSystem::write("RotData entries: " + std::to_string(RotDataProp.Number_Of_Elements));
+               LogSystem::write("");
+               return 0;
            }
        }
    
@@ -98,15 +116,7 @@ Program Listing for File NuMagSANS.cu
    
    
    
-       // Create Output Folder #####################################################################
-       //mkdir((InputData.SANSDataFoldername + "/").c_str(), 0777);
-       //LogSystem::initLog(InputData.SANSDataFoldername + "/NuMagSANSlog.txt");
-       //LogSystem::write("Hello World!");
-   
-   
        // Start calculation based on loop modus or user selection ###################################
-       //mkdir((InputData.SANSDataFoldername + "/").c_str(), 0777);    
-   
        int Data_File_Index;
        if(InputData.Loop_Modus){
            LogSystem::write("loop modus active...");
@@ -124,7 +134,6 @@ Program Listing for File NuMagSANS.cu
            }
        }
        
-   
        LogSystem::close();
    
        return 0;

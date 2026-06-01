@@ -96,6 +96,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        string RotDataFilename;
    
+       string RotDataPath = "";
+   
        bool FastLoad_flag = false;
    
        string SANSDataFoldername;
@@ -104,9 +106,15 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        bool Loop_Modus;
    
+       bool RotDataLoop_flag = false;
+   
        int Loop_From;
    
        int Loop_To;
+   
+       int RotDataLoop_From = 1;
+   
+       int RotDataLoop_To = 1;
        
        string User_Selection;
    
@@ -506,6 +514,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            {"MagData_activate", &InputData->MagData_activate_flag, true},
            {"StructData_activate", &InputData->StructData_activate_flag, true},
            {"RotData_activate", &InputData->RotData_activate_flag, true},
+           {"RotDataLoop", &InputData->RotDataLoop_flag, false},
            {"FastLoad", &InputData->FastLoad_flag, false},
            {"Exclude_Zero_Moments", &InputData->ExcludeZeroMoments_flag, true},
            {"Angular_Spec", &InputData->AngularSpec_activate_flag, true},
@@ -518,6 +527,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
            {"Loop_From", &InputData->Loop_From, true},
            {"Loop_To", &InputData->Loop_To, true},
+           {"RotDataLoop_From", &InputData->RotDataLoop_From, false},
+           {"RotDataLoop_To", &InputData->RotDataLoop_To, false},
            {"Number_Of_q_Points", &InputData->N_q, true},
            {"Number_Of_theta_Points", &InputData->N_theta, true},
            {"Number_Of_r_Points", &InputData->N_r, true},
@@ -553,6 +564,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            {"MagDataPath", &InputData->MagDataPath, true},
            {"StructDataFilename", &InputData->StructDataFilename, true},
            {"RotDataFilename", &InputData->RotDataFilename, true},
+           {"RotDataPath", &InputData->RotDataPath, false},
            {"foldernameSANSData", &InputData->SANSDataFoldername, true},
            {"Fourier_Approach", &InputData->Fourier_Approach, true},
            {"User_Selection", &InputData->User_Selection, true}

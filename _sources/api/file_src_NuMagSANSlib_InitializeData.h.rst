@@ -45,3 +45,5 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__InitializeData_8h_1a4a5e01b316baaa4648a2498eee206015`
 
+- :ref:`exhale_function_NuMagSANSlib__InitializeData_8h_1ac12661be5d0f383f463b43e3509aab46`
+

@@ -100,6 +100,8 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1accbf966962f110a0419d59a8ce991fcb`
 
+- :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1a5e26b3f76356138a2ad86e3dd913d6c6`
+
 - :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1a27347f831387370e56e03a2be16486db`
 
 - :ref:`exhale_function_NuMagSANSlib__RotationData_8h_1a9a8b8f198af3e7d4d66b40b5c3222baf`

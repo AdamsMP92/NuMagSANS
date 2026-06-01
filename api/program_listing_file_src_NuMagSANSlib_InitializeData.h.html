@@ -517,6 +517,18 @@
 
 
 <span class="w">    </span><span class="p">}</span>
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ResetSANSOutputData</span><span class="p">(</span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">NuMagSANSData</span><span class="o">*</span><span class="w"> </span><span class="n">Data</span><span class="p">){</span>
+
+<span class="w">    </span><span class="n">free_ScatteringData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="n">free_SpectralData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">init_ScatteringData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData_gpu</span><span class="p">);</span>
+<span class="w">    </span><span class="n">init_SpectralData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SpecData_gpu</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">init_ScalingFactors</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">ScalFactors</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">MagData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">NucData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="o">-&gt;</span><span class="n">SANSData</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>

@@ -104,7 +104,7 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__SpectralData_8h_1a0d4b1eedc53fe4332025323dab1cf84d`
 
-- :ref:`exhale_function_NuMagSANSlib__SpectralData_8h_1abf5ac75ed24e56fa77aede12518be3ff`
+- :ref:`exhale_function_NuMagSANSlib__SpectralData_8h_1a131fd47aa989e700042020bcbd5c8ca9`
 
 - :ref:`exhale_function_NuMagSANSlib__SpectralData_8h_1af826282cdb8830b8f87c418cd8487439`
 

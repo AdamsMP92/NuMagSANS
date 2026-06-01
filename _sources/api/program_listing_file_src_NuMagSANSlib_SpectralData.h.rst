@@ -494,7 +494,8 @@ Program Listing for File NuMagSANSlib_SpectralData.h
    void write2CSV_SpectralData(
        InputFileData* InputData,
        SpectralData* SpecData,
-       int MagData_File_Index)
+       int MagData_File_Index,
+       int RotData_File_Index = 0)
    {
        LogSystem::write("");
        LogSystem::write("write spectral decomposition data to csv-files...");
@@ -502,7 +503,13 @@ Program Listing for File NuMagSANSlib_SpectralData.h
        std::string baseFolder =
            InputData->SANSDataFoldername +
            "/SANS_" + std::to_string(MagData_File_Index) +
-           "/AngularSpectrum/";
+           "/";
+   
+       if(RotData_File_Index > 0){
+           baseFolder += "RotData_" + std::to_string(RotData_File_Index) + "/";
+       }
+   
+       baseFolder += "AngularSpectrum/";
    
        //mkdir(baseFolder.c_str(), 0777);
        std::filesystem::create_directories(baseFolder);
@@ -645,6 +652,5 @@ Program Listing for File NuMagSANSlib_SpectralData.h
        cudaDeviceSynchronize();
    
    }
-   
    
    

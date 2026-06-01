@@ -44,11 +44,12 @@ Program Listing for File NuMagSANSlib_RotationDataExplorer.h
    struct RotDataProperties{
    
        string GlobalFilePath;
+       string GlobalFolderPath;
    
        int Number_Of_Elements;
+       int Number_Of_Files;
        
    };
-   
    
    // ###############################################################################################################################################
    // helper functions ##############################################################################################################################
@@ -66,6 +67,41 @@ Program Listing for File NuMagSANSlib_RotationDataExplorer.h
        RotDataProp->GlobalFilePath = Local_RotDataPath;
    
        LogSystem::write("found Global RotDataPath: " + RotDataProp->GlobalFilePath);
+   }
+   
+   void get_GlobalRotDataFolderPath(std::string Local_RotDataFolderPath,
+                                    RotDataProperties* RotDataProp){
+   
+       char tmp[PATH_MAX];
+       getcwd(tmp, PATH_MAX);
+   
+       std::string tmp_string = tmp;
+   
+       // RotDataProp->GlobalFolderPath = tmp_string + "/" + Local_RotDataFolderPath;
+       RotDataProp->GlobalFolderPath = Local_RotDataFolderPath;
+   
+       LogSystem::write("found Global RotDataFolderPath: " + RotDataProp->GlobalFolderPath);
+   }
+   
+   std::string RotDataLoopFilePath(RotDataProperties* RotDataProp,
+                                   int RotData_File_Index){
+   
+       return RotDataProp->GlobalFolderPath + "/RotData_" + std::to_string(RotData_File_Index) + ".csv";
+   }
+   
+   bool FileExists(std::string filename){
+   
+       ifstream fin(filename);
+       bool exists = fin.good();
+       fin.close();
+       return exists;
+   }
+   
+   void SetActiveRotDataFile(RotDataProperties* RotDataProp,
+                             int RotData_File_Index){
+   
+       RotDataProp->GlobalFilePath = RotDataLoopFilePath(RotDataProp, RotData_File_Index);
+       LogSystem::write("active RotDataPath: " + RotDataProp->GlobalFilePath);
    }
    
    
@@ -109,6 +145,8 @@ Program Listing for File NuMagSANSlib_RotationDataExplorer.h
    
        bool CheckFlag = false;
    
+       RotDataProp->Number_Of_Files = 1;
+   
        // get global path of the RotationData file
        get_GlobalRotDataPath(Local_RotDataPath, RotDataProp);
    
@@ -128,6 +166,76 @@ Program Listing for File NuMagSANSlib_RotationDataExplorer.h
        if(RotDataProp->Number_Of_Elements != 0){
            CheckFlag = true;
        }
+   
+       return CheckFlag;
+   }
+   
+   bool RotDataLoop_Observer(std::string Local_RotDataFolderPath,
+                             int RotDataLoop_From,
+                             int RotDataLoop_To,
+                             RotDataProperties* RotDataProp){
+   
+       LogSystem::write("##########################################################################################");
+       LogSystem::write("## Run - Rotation Folder Explorer ########################################################");
+       LogSystem::write("##########################################################################################");
+       LogSystem::write("");
+   
+       bool CheckFlag = true;
+   
+       if(RotDataLoop_From > RotDataLoop_To){
+           LogSystem::write("Error: RotDataLoop_From is larger than RotDataLoop_To.");
+           CheckFlag = false;
+       }
+   
+       if(Local_RotDataFolderPath == ""){
+           LogSystem::write("Error: RotDataPath is empty while RotDataLoop is active.");
+           CheckFlag = false;
+       }
+   
+       get_GlobalRotDataFolderPath(Local_RotDataFolderPath, RotDataProp);
+   
+       RotDataProp->Number_Of_Files = RotDataLoop_To - RotDataLoop_From + 1;
+       RotDataProp->Number_Of_Elements = 0;
+   
+       for(int k = RotDataLoop_From; k <= RotDataLoop_To; k++){
+           std::string filename = RotDataLoopFilePath(RotDataProp, k);
+   
+           if(!FileExists(filename)){
+               LogSystem::write("Error: missing RotData file: " + filename);
+               CheckFlag = false;
+               continue;
+           }
+   
+           int Number_Of_Elements_tmp = 0;
+           NumberOfEntriesInRotationFile(&Number_Of_Elements_tmp, filename);
+   
+           LogSystem::write("RotData_" + std::to_string(k) + ".csv entries: "
+                            + std::to_string(Number_Of_Elements_tmp));
+   
+           if(Number_Of_Elements_tmp == 0){
+               LogSystem::write("Error: RotData file contains zero entries: " + filename);
+               CheckFlag = false;
+           }
+   
+           if(RotDataProp->Number_Of_Elements == 0){
+               RotDataProp->Number_Of_Elements = Number_Of_Elements_tmp;
+           }else if(RotDataProp->Number_Of_Elements != Number_Of_Elements_tmp){
+               LogSystem::write("Error: RotData files do not contain the same number of entries.");
+               CheckFlag = false;
+           }
+       }
+   
+       SetActiveRotDataFile(RotDataProp, RotDataLoop_From);
+   
+       LogSystem::write("Number of RotData files: " + std::to_string(RotDataProp->Number_Of_Files));
+       LogSystem::write("Number of Entries: " + std::to_string(RotDataProp->Number_Of_Elements));
+       LogSystem::write("");
+   
+       LogSystem::write("##########################################################################################");
+       LogSystem::write("## Stop - Rotation Folder Explorer #######################################################");
+       LogSystem::write("##########################################################################################");
+       LogSystem::write("");
+       LogSystem::write("");
    
        return CheckFlag;
    }

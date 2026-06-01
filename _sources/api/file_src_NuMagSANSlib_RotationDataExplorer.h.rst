@@ -86,9 +86,19 @@ Functions
 ---------
 
 
+- :ref:`exhale_function_NuMagSANSlib__RotationDataExplorer_8h_1ab963989c16bb8c34b4128b703be487e0`
+
+- :ref:`exhale_function_NuMagSANSlib__RotationDataExplorer_8h_1ab7e1959650393b76a4c0802457a80902`
+
 - :ref:`exhale_function_NuMagSANSlib__RotationDataExplorer_8h_1a545f365b6f3b0e35067b14460c958a7c`
 
 - :ref:`exhale_function_NuMagSANSlib__RotationDataExplorer_8h_1a2cbe85bd885d00ccbdd1b94fa071c5c9`
 
 - :ref:`exhale_function_NuMagSANSlib__RotationDataExplorer_8h_1a347131ce0a4982993fd5ca5b9de2f972`
+
+- :ref:`exhale_function_NuMagSANSlib__RotationDataExplorer_8h_1a39456b86ebad2f3f937b76edd6436bed`
+
+- :ref:`exhale_function_NuMagSANSlib__RotationDataExplorer_8h_1a241af995a973f83a7440f54d19ec9b9b`
+
+- :ref:`exhale_function_NuMagSANSlib__RotationDataExplorer_8h_1a9bcf94ee50ebef69d36c0cb5c3f676d4`
 

@@ -114,7 +114,7 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1af4a6cee0027f74ac647ef9ec0d6a1d5f`
 
-- :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a8677449429d5d878113a1bed50d9231d`
+- :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a3de7c2251b962d04b15c2a33b740c7aa`
 
 - :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a1e15f2709d4de461607ffcdd42b14bef`
 
