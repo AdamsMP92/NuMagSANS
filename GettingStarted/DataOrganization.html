@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Real-Space Input Data Organization &#8212; NuMagSANS  documentation</title>
+    <title>Data Organization &#8212; NuMagSANS  documentation</title>
   
   
   
@@ -52,7 +52,7 @@
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/RealSpaceDataOrganization';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/DataOrganization';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -353,7 +353,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Detailled Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ParameterOverview.html">Parameter Overview</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Real-Space Input Data Organization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Organization</a></li>
 </ul>
 </div>
 </nav></div>
@@ -404,7 +404,7 @@
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">Getting Started</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Real-Space Input Data Organization</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Data Organization</span></li>
   </ul>
 </nav>
 </div>
@@ -421,8 +421,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="real-space-input-data-organization">
-<h1>Real-Space Input Data Organization<a class="headerlink" href="#real-space-input-data-organization" title="Link to this heading">#</a></h1>
+  <section id="data-organization">
+<h1>Data Organization<a class="headerlink" href="#data-organization" title="Link to this heading">#</a></h1>
 <p>NuMagSANS reads real-space input data from a <code class="docutils literal notranslate"><span class="pre">RealSpaceData</span></code> directory.
 The input organization separates local object data from optional assembly
 metadata. This makes it possible to represent fully materialized datasets,
@@ -442,6 +442,56 @@ object-based assemblies, and rotation sweeps using the same backend.</p>
 <p>Only the data layers that are activated in the configuration file are required.
 The examples below mostly use <code class="docutils literal notranslate"><span class="pre">MagData</span></code> for compactness. The same directory
 logic applies to <code class="docutils literal notranslate"><span class="pre">NucData</span></code> and to combined <code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">NucData</span></code> calculations.</p>
+<p><code class="docutils literal notranslate"><span class="pre">MagData</span></code> and <code class="docutils literal notranslate"><span class="pre">NucData</span></code> store local real-space object data. <code class="docutils literal notranslate"><span class="pre">StructData</span></code>
+adds object-center translations, while <code class="docutils literal notranslate"><span class="pre">RotData</span></code> adds object-wise local
+rotations. These layers can be combined depending on whether the system is a
+fully materialized real-space dataset or an object-based assembly.</p>
+<section id="supported-data-layer-combinations">
+<h2>Supported Data-Layer Combinations<a class="headerlink" href="#supported-data-layer-combinations" title="Link to this heading">#</a></h2>
+<p>The atomistic backend supports magnetic data, nuclear data, or both. Each of
+these can be evaluated with no assembly metadata, with <code class="docutils literal notranslate"><span class="pre">StructData</span></code>, with
+<code class="docutils literal notranslate"><span class="pre">RotData</span></code>, or with both.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Active layers</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span></code></p></td>
+<td><p>Pure magnetic scattering from local real-space data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span></code></p></td>
+<td><p>Pure nuclear scattering from local real-space data.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">NucData</span></code></p></td>
+<td><p>Combined nuclear-magnetic scattering from local real-space data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">StructData</span></code></p></td>
+<td><p>Magnetic local objects translated by object-center positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Magnetic local objects rotated individually.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">StructData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Magnetic local objects rotated and translated as an assembly.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">StructData</span></code></p></td>
+<td><p>Nuclear local objects translated by object-center positions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Nuclear local objects rotated individually.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">StructData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Nuclear local objects rotated and translated as an assembly.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">StructData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Combined nuclear-magnetic assembly with object-wise translations and rotations.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 <section id="local-object-data">
 <h2>Local Object Data<a class="headerlink" href="#local-object-data" title="Link to this heading">#</a></h2>
 <p>Local object data are stored in object folders. Each object folder contains one
@@ -698,52 +748,6 @@ nested folders:</p>
 </pre></div>
 </div>
 </section>
-<section id="supported-data-layer-combinations">
-<h2>Supported Data-Layer Combinations<a class="headerlink" href="#supported-data-layer-combinations" title="Link to this heading">#</a></h2>
-<p>The atomistic backend supports magnetic data, nuclear data, or both. Each of
-these can be evaluated with no assembly metadata, with <code class="docutils literal notranslate"><span class="pre">StructData</span></code>, with
-<code class="docutils literal notranslate"><span class="pre">RotData</span></code>, or with both.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Active layers</p></th>
-<th class="head"><p>Interpretation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span></code></p></td>
-<td><p>Pure magnetic scattering from local real-space data.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span></code></p></td>
-<td><p>Pure nuclear scattering from local real-space data.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">NucData</span></code></p></td>
-<td><p>Combined nuclear-magnetic scattering from local real-space data.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">StructData</span></code></p></td>
-<td><p>Magnetic local objects translated by object-center positions.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
-<td><p>Magnetic local objects rotated individually.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">StructData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
-<td><p>Magnetic local objects rotated and translated as an assembly.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">StructData</span></code></p></td>
-<td><p>Nuclear local objects translated by object-center positions.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
-<td><p>Nuclear local objects rotated individually.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">StructData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
-<td><p>Nuclear local objects rotated and translated as an assembly.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">StructData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
-<td><p>Combined nuclear-magnetic assembly with object-wise translations and rotations.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
 <section id="consistency-rules">
 <h2>Consistency Rules<a class="headerlink" href="#consistency-rules" title="Link to this heading">#</a></h2>
 <p>The following consistency rules should be satisfied:</p>
@@ -820,6 +824,7 @@ from the same separation between local object data and assembly metadata.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-data-layer-combinations">Supported Data-Layer Combinations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-object-data">Local Object Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-1-fully-materialized-local-data">Mode 1: Fully Materialized Local Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-2-materialized-multi-object-data">Mode 2: Materialized Multi-Object Data</a></li>
@@ -828,7 +833,6 @@ from the same separation between local object data and assembly metadata.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-5-structdata-and-rotdata-assembly">Mode 5: StructData and RotData Assembly</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-6-data-file-selection-and-outer-data-loops">Mode 6: Data-File Selection and Outer Data Loops</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-7-rotdata-folder-loop">Mode 7: RotData Folder Loop</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-data-layer-combinations">Supported Data-Layer Combinations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency-rules">Consistency Rules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-extension-replication-import">Future Extension: Replication Import</a></li>
 </ul>
