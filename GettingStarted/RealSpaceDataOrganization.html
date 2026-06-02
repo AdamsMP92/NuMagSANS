@@ -1,0 +1,894 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Real-Space Input Data Organization &#8212; NuMagSANS  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=b457a862" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+    <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/RealSpaceDataOrganization';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Example Gallery" href="../examples/index.html" />
+    <link rel="prev" title="Parameter Overview" href="ParameterOverview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/NuMagSANScut.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/NuMagSANScut.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title"> </p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../RelatedPublications/index.html">
+    Related Publications
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/AdamsMP92/NuMagSANS">
+    GitHub Repository
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../RelatedPublications/index.html">
+    Related Publications
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/AdamsMP92/NuMagSANS">
+    GitHub Repository
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Detailled Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParameterOverview.html">Parameter Overview</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Real-Space Input Data Organization</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Getting Started</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Real-Space Input Data Organization</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="real-space-input-data-organization">
+<h1>Real-Space Input Data Organization<a class="headerlink" href="#real-space-input-data-organization" title="Link to this heading">#</a></h1>
+<p>NuMagSANS reads real-space input data from a <code class="docutils literal notranslate"><span class="pre">RealSpaceData</span></code> directory.
+The input organization separates local object data from optional assembly
+metadata. This makes it possible to represent fully materialized datasets,
+object-based assemblies, and rotation sweeps using the same backend.</p>
+<p>The basic directory structure is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  MagData/
+  NucData/
+  StructData.csv
+  RotData.csv
+  RotData/
+    RotData_1.csv
+    RotData_2.csv
+    ...
+</pre></div>
+</div>
+<p>Only the data layers that are activated in the configuration file are required.
+The examples below mostly use <code class="docutils literal notranslate"><span class="pre">MagData</span></code> for compactness. The same directory
+logic applies to <code class="docutils literal notranslate"><span class="pre">NucData</span></code> and to combined <code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">NucData</span></code> calculations.</p>
+<section id="local-object-data">
+<h2>Local Object Data<a class="headerlink" href="#local-object-data" title="Link to this heading">#</a></h2>
+<p>Local object data are stored in object folders. Each object folder contains one
+or more data files. The file index is selected by <code class="docutils literal notranslate"><span class="pre">User_Selection</span></code> or by
+<code class="docutils literal notranslate"><span class="pre">Loop_Modus</span></code>.</p>
+<p>Magnetic data:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  MagData/
+    Object_1/
+      m_1.csv
+      m_2.csv
+      ...
+    Object_2/
+      m_1.csv
+      m_2.csv
+      ...
+</pre></div>
+</div>
+<p>Each magnetic file contains rows with:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x y z mx my mz
+</pre></div>
+</div>
+<p>Nuclear data:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  NucData/
+    Object_1/
+      n_1.csv
+      n_2.csv
+      ...
+    Object_2/
+      n_1.csv
+      n_2.csv
+      ...
+</pre></div>
+</div>
+<p>Each nuclear file contains rows with:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x y z nuc
+</pre></div>
+</div>
+<p>The object folders define the local object ordering. For example,
+<code class="docutils literal notranslate"><span class="pre">Object_1</span></code> corresponds to the first object, <code class="docutils literal notranslate"><span class="pre">Object_2</span></code> to the second
+object, and so on.</p>
+</section>
+<section id="mode-1-fully-materialized-local-data">
+<h2>Mode 1: Fully Materialized Local Data<a class="headerlink" href="#mode-1-fully-materialized-local-data" title="Link to this heading">#</a></h2>
+<p>In the simplest mode, NuMagSANS reads only local magnetic and/or nuclear data.
+No additional object-center translations or object-wise rotations are applied.</p>
+<p>Typical layout:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  MagData/
+    Object_1/
+      m_1.csv
+</pre></div>
+</div>
+<p>or, for combined magnetic and nuclear data:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  MagData/
+    Object_1/
+      m_1.csv
+  NucData/
+    Object_1/
+      n_1.csv
+</pre></div>
+</div>
+<p>Typical configuration:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
+NucData_activate = 0;
+StructData_activate = 0;
+RotData_activate = 0;
+User_Selection = {1};
+</pre></div>
+</div>
+<p>This mode is suitable for a single complete object or for a fully materialized
+system that is stored directly as local real-space coordinates.</p>
+</section>
+<section id="mode-2-materialized-multi-object-data">
+<h2>Mode 2: Materialized Multi-Object Data<a class="headerlink" href="#mode-2-materialized-multi-object-data" title="Link to this heading">#</a></h2>
+<p>Multiple local objects can be provided explicitly as separate object folders.
+The kernels treat them as separate objects even without <code class="docutils literal notranslate"><span class="pre">StructData</span></code> or
+<code class="docutils literal notranslate"><span class="pre">RotData</span></code>.</p>
+<p>Typical layout:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  MagData/
+    Object_1/
+      m_1.csv
+    Object_2/
+      m_1.csv
+    Object_3/
+      m_1.csv
+</pre></div>
+</div>
+<p>Typical configuration:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
+StructData_activate = 0;
+RotData_activate = 0;
+User_Selection = {1};
+</pre></div>
+</div>
+<p>In this mode, positions and orientations are already contained in the local
+coordinates stored in the individual object files.</p>
+</section>
+<section id="mode-3-structdata-assembly">
+<h2>Mode 3: StructData Assembly<a class="headerlink" href="#mode-3-structdata-assembly" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">StructData</span></code> stores object-center translations. It is used when local object
+data should be placed at object-center positions during the scattering
+calculation.</p>
+<p>Typical layout:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  MagData/
+    Object_1/
+      m_1.csv
+    Object_2/
+      m_1.csv
+  StructData.csv
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> contains one row per object:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x y z
+</pre></div>
+</div>
+<p>Typical configuration:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
+StructData_activate = 1;
+RotData_activate = 0;
+StructDataFilename = RealSpaceData/StructData.csv;
+User_Selection = {1};
+</pre></div>
+</div>
+<p>The number of rows in <code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> must match the number of local
+objects.</p>
+</section>
+<section id="mode-4-rotdata-assembly">
+<h2>Mode 4: RotData Assembly<a class="headerlink" href="#mode-4-rotdata-assembly" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">RotData</span></code> stores object-wise local rotations. It is used when local object
+data should be rotated individually during the scattering calculation.</p>
+<p>Typical layout:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  MagData/
+    Object_1/
+      m_1.csv
+    Object_2/
+      m_1.csv
+  RotData.csv
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> contains one row per object:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>alpha beta gamma
+</pre></div>
+</div>
+<p>The angles are interpreted as ZYZ Euler angles in radians:</p>
+<div class="math notranslate nohighlight">
+\[R = R_z(\alpha) R_y(\beta) R_z(\gamma).\]</div>
+<p>Typical configuration:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
+StructData_activate = 0;
+RotData_activate = 1;
+RotDataFilename = RealSpaceData/RotData.csv;
+User_Selection = {1};
+</pre></div>
+</div>
+<p>The number of rows in <code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> must match the number of local objects.</p>
+</section>
+<section id="mode-5-structdata-and-rotdata-assembly">
+<h2>Mode 5: StructData and RotData Assembly<a class="headerlink" href="#mode-5-structdata-and-rotdata-assembly" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">StructData</span></code> and <code class="docutils literal notranslate"><span class="pre">RotData</span></code> can be combined. In this case, local objects are
+rotated individually and placed at object-center positions.</p>
+<p>Typical layout:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  MagData/
+    Object_1/
+      m_1.csv
+    Object_2/
+      m_1.csv
+  StructData.csv
+  RotData.csv
+</pre></div>
+</div>
+<p>Typical configuration:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
+StructData_activate = 1;
+RotData_activate = 1;
+StructDataFilename = RealSpaceData/StructData.csv;
+RotDataFilename = RealSpaceData/RotData.csv;
+User_Selection = {1};
+</pre></div>
+</div>
+<p>The number of local objects, the number of <code class="docutils literal notranslate"><span class="pre">StructData</span></code> rows, and the number
+of <code class="docutils literal notranslate"><span class="pre">RotData</span></code> rows must be identical.</p>
+</section>
+<section id="mode-6-data-file-selection-and-outer-data-loops">
+<h2>Mode 6: Data-File Selection and Outer Data Loops<a class="headerlink" href="#mode-6-data-file-selection-and-outer-data-loops" title="Link to this heading">#</a></h2>
+<p>The file index inside each object folder is selected globally. For example,
+<code class="docutils literal notranslate"><span class="pre">m_1.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">n_1.csv</span></code> correspond to data-file index <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<p>Explicit selection:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>Loop_Modus = 0;
+User_Selection = {1, 3, 5};
+</pre></div>
+</div>
+<p>Loop mode:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>Loop_Modus = 1;
+Loop_From = 1;
+Loop_To = 20;
+</pre></div>
+</div>
+<p>In loop mode, NuMagSANS evaluates the selected data-file indices one after
+another. Output folders are generated as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NuMagSANS_Output/
+  SANS_1/
+  SANS_2/
+  ...
+</pre></div>
+</div>
+</section>
+<section id="mode-7-rotdata-folder-loop">
+<h2>Mode 7: RotData Folder Loop<a class="headerlink" href="#mode-7-rotdata-folder-loop" title="Link to this heading">#</a></h2>
+<p>The RotData folder loop evaluates several rotation-data files for the same
+selected magnetic, nuclear, and structure data.</p>
+<p>Typical layout:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  MagData/
+    Object_1/
+      m_1.csv
+    Object_2/
+      m_1.csv
+  StructData.csv
+  RotData/
+    RotData_1.csv
+    RotData_2.csv
+    RotData_3.csv
+</pre></div>
+</div>
+<p>Typical configuration using a contiguous range:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>RotData_activate = 1;
+RotDataLoop = 1;
+RotDataPath = RealSpaceData/RotData;
+RotDataLoop_From = 1;
+RotDataLoop_To = 3;
+</pre></div>
+</div>
+<p>Typical configuration using an explicit selection:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>RotData_activate = 1;
+RotDataLoop = 1;
+RotDataPath = RealSpaceData/RotData;
+RotData_User_Selection = {1, 3};
+</pre></div>
+</div>
+<p>Each selected <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> file must contain the same number of rows, and
+this number must match the number of local objects. Output is written into
+nested folders:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NuMagSANS_Output/
+  SANS_1/
+    RotData_1/
+    RotData_3/
+</pre></div>
+</div>
+</section>
+<section id="supported-data-layer-combinations">
+<h2>Supported Data-Layer Combinations<a class="headerlink" href="#supported-data-layer-combinations" title="Link to this heading">#</a></h2>
+<p>The atomistic backend supports magnetic data, nuclear data, or both. Each of
+these can be evaluated with no assembly metadata, with <code class="docutils literal notranslate"><span class="pre">StructData</span></code>, with
+<code class="docutils literal notranslate"><span class="pre">RotData</span></code>, or with both.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Active layers</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span></code></p></td>
+<td><p>Pure magnetic scattering from local real-space data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span></code></p></td>
+<td><p>Pure nuclear scattering from local real-space data.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">NucData</span></code></p></td>
+<td><p>Combined nuclear-magnetic scattering from local real-space data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">StructData</span></code></p></td>
+<td><p>Magnetic local objects translated by object-center positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Magnetic local objects rotated individually.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">StructData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Magnetic local objects rotated and translated as an assembly.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">StructData</span></code></p></td>
+<td><p>Nuclear local objects translated by object-center positions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Nuclear local objects rotated individually.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">StructData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Nuclear local objects rotated and translated as an assembly.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">NucData</span> <span class="pre">+</span> <span class="pre">StructData</span> <span class="pre">+</span> <span class="pre">RotData</span></code></p></td>
+<td><p>Combined nuclear-magnetic assembly with object-wise translations and rotations.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="consistency-rules">
+<h2>Consistency Rules<a class="headerlink" href="#consistency-rules" title="Link to this heading">#</a></h2>
+<p>The following consistency rules should be satisfied:</p>
+<ul class="simple">
+<li><p>Active <code class="docutils literal notranslate"><span class="pre">MagData</span></code> and <code class="docutils literal notranslate"><span class="pre">NucData</span></code> should use compatible object folders when
+combined in one calculation.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">StructData</span></code> is active, the number of rows in <code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> must
+match the number of local objects.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">RotData</span></code> is active without <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code>, the number of rows in
+<code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> must match the number of local objects.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code> is active, every selected <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> file must
+contain the same number of rows.</p></li>
+<li><p>If both <code class="docutils literal notranslate"><span class="pre">StructData</span></code> and <code class="docutils literal notranslate"><span class="pre">RotData</span></code> are active, both metadata layers must
+contain the same number of object entries.</p></li>
+<li><p>Files are whitespace-separated and do not use CSV headers.</p></li>
+</ul>
+</section>
+<section id="future-extension-replication-import">
+<h2>Future Extension: Replication Import<a class="headerlink" href="#future-extension-replication-import" title="Link to this heading">#</a></h2>
+<p>A planned extension is a replication-import mode. In this mode, one local
+object would be read once and replicated internally in RAM before GPU upload.
+The kernels would then receive the same in-memory structure as for a fully
+materialized dataset, while avoiding thousands of duplicated object files on
+disk.</p>
+<p>This mode is not part of the current input format, but it follows naturally
+from the same separation between local object data and assembly metadata.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ParameterOverview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Parameter Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../examples/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Example Gallery</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-object-data">Local Object Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-1-fully-materialized-local-data">Mode 1: Fully Materialized Local Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-2-materialized-multi-object-data">Mode 2: Materialized Multi-Object Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-3-structdata-assembly">Mode 3: StructData Assembly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-4-rotdata-assembly">Mode 4: RotData Assembly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-5-structdata-and-rotdata-assembly">Mode 5: StructData and RotData Assembly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-6-data-file-selection-and-outer-data-loops">Mode 6: Data-File Selection and Outer Data Loops</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-7-rotdata-folder-loop">Mode 7: RotData Folder Loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-data-layer-combinations">Supported Data-Layer Combinations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency-rules">Consistency Rules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-extension-replication-import">Future Extension: Replication Import</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Michael P. Adams, Andreas Michels.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
