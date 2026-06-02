@@ -491,7 +491,7 @@ results are written.</p>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RotData</span></code></p></td>
 <td><p>Object-wise local rotations. One row per object with ZYZ Euler angles <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">beta</span> <span class="pre">gamma</span></code> in radians.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> or <code class="docutils literal notranslate"><span class="pre">RotData/RotData_1.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">RotData/RotData_2.csv</span></code>, …</p></td>
 </tr>
 </tbody>
 </table>
@@ -521,6 +521,11 @@ local object data without rewriting the object files.</p>
 The file must contain one row per object and three columns:
 <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">beta</span> <span class="pre">gamma</span></code>. The convention is
 <span class="math notranslate nohighlight">\(R = R_z(\alpha) R_y(\beta) R_z(\gamma)\)</span>, with angles in radians.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RotDataPath</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/RotData</span></code></p>
+<p>Folder used by <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code>. In this mode, rotation files are expected
+to follow the naming convention <code class="docutils literal notranslate"><span class="pre">RotData_1.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">RotData_2.csv</span></code>, …
+inside <code class="docutils literal notranslate"><span class="pre">RotDataPath</span></code>. Each file contains one object-wise rotation table.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">foldernameSANSData</span></code></dt><dd><p>Default <code class="docutils literal notranslate"><span class="pre">NuMagSANS_Output</span></code></p>
 </dd>
@@ -604,6 +609,27 @@ Default <code class="docutils literal notranslate"><span class="pre">[1]</span><
 <p>If <code class="docutils literal notranslate"><span class="pre">Loop_Modus</span> <span class="pre">=</span> <span class="pre">0</span></code>, only the listed file indices are evaluated. If
 <code class="docutils literal notranslate"><span class="pre">Loop_Modus</span> <span class="pre">=</span> <span class="pre">1</span></code>, the index range from <code class="docutils literal notranslate"><span class="pre">Loop_From</span></code> to <code class="docutils literal notranslate"><span class="pre">Loop_To</span></code> is
 used.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code></dt><dd><p>Description: Enable an inner loop over several rotation-data files.
+Default <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>If <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span> <span class="pre">=</span> <span class="pre">1</span></code>, NuMagSANS loads the selected <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code>
+files from <code class="docutils literal notranslate"><span class="pre">RotDataPath</span></code> while keeping the currently selected magnetic,
+nuclear, and structure data fixed. This is useful for evaluating the same
+local object data under multiple object-wise rotation configurations.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RotDataLoop_From</span></code></dt><dd><p>Description: First rotation-data file index used by the inner RotData loop.
+Default <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RotDataLoop_To</span></code></dt><dd><p>Description: Last rotation-data file index used by the inner RotData loop.
+Default <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RotData_User_Selection</span></code></dt><dd><p>Description: Optional explicit list of selected rotation-data file indices.</p>
+<p>If this option is present, it selects the exact <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> files
+used by the inner RotData loop, for example <code class="docutils literal notranslate"><span class="pre">{1,</span> <span class="pre">3,</span> <span class="pre">4}</span></code>. If it is not
+present, the contiguous range from <code class="docutils literal notranslate"><span class="pre">RotDataLoop_From</span></code> to
+<code class="docutils literal notranslate"><span class="pre">RotDataLoop_To</span></code> is used.</p>
+<p>For a fixed data-file index and a selected rotation-data index, output is
+written to a nested folder such as <code class="docutils literal notranslate"><span class="pre">SANS_1/RotData_3/</span></code>.</p>
 </dd>
 </dl>
 </section>

@@ -75,7 +75,7 @@ NuMagSANS separates local object data from optional assembly metadata:
      - ``StructData.csv``
    * - ``RotData``
      - Object-wise local rotations. One row per object with ZYZ Euler angles ``alpha beta gamma`` in radians.
-     - ``RotData.csv``
+     - ``RotData.csv`` or ``RotData/RotData_1.csv``, ``RotData/RotData_2.csv``, ...
 
 This separation allows several system types to be represented with the same
 backend: fully materialized micromagnetic or atomistic datasets can be imported
@@ -111,6 +111,13 @@ local object data without rewriting the object files.
     The file must contain one row per object and three columns:
     ``alpha beta gamma``. The convention is
     :math:`R = R_z(\alpha) R_y(\beta) R_z(\gamma)`, with angles in radians.
+
+``RotDataPath``
+    Default path ``RealSpaceData/RotData``
+
+    Folder used by ``RotDataLoop``. In this mode, rotation files are expected
+    to follow the naming convention ``RotData_1.csv``, ``RotData_2.csv``, ...
+    inside ``RotDataPath``. Each file contains one object-wise rotation table.
 
 ``foldernameSANSData``
     Default ``NuMagSANS_Output``
@@ -198,6 +205,34 @@ These parameters control batch simulations or repeated calculations.
     If ``Loop_Modus = 0``, only the listed file indices are evaluated. If
     ``Loop_Modus = 1``, the index range from ``Loop_From`` to ``Loop_To`` is
     used.
+
+``RotDataLoop``
+    Description: Enable an inner loop over several rotation-data files.
+    Default ``0``
+
+    If ``RotDataLoop = 1``, NuMagSANS loads the selected ``RotData_#.csv``
+    files from ``RotDataPath`` while keeping the currently selected magnetic,
+    nuclear, and structure data fixed. This is useful for evaluating the same
+    local object data under multiple object-wise rotation configurations.
+
+``RotDataLoop_From``
+    Description: First rotation-data file index used by the inner RotData loop.
+    Default ``1``
+
+``RotDataLoop_To``
+    Description: Last rotation-data file index used by the inner RotData loop.
+    Default ``1``
+
+``RotData_User_Selection``
+    Description: Optional explicit list of selected rotation-data file indices.
+
+    If this option is present, it selects the exact ``RotData_#.csv`` files
+    used by the inner RotData loop, for example ``{1, 3, 4}``. If it is not
+    present, the contiguous range from ``RotDataLoop_From`` to
+    ``RotDataLoop_To`` is used.
+
+    For a fixed data-file index and a selected rotation-data index, output is
+    written to a nested folder such as ``SANS_1/RotData_3/``.
 
 Constant Parameters
 -------------------
