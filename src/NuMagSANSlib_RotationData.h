@@ -323,7 +323,6 @@ void RotMat_store(unsigned long int idx, float* RotMat, float*RotMat_idx){
     
 }
 
-
 // here the rotation matrix operations section ends
 ///////////////////////////////////////////////////
 
@@ -385,6 +384,28 @@ void init_RotationData(RotationData* RotData, \
 	read_RotationData(RotData, RotDataProp, InputData);
 	allocate_RotationDataGPU(RotData, RotData_gpu);
    
+}
+
+void init_RotationDataMemory(RotationData* RotData, \
+                             RotationData* RotData_gpu, \
+                             RotDataProperties* RotDataProp, \
+                             InputFileData* InputData){
+
+	allocate_RotationDataRAM(RotData, RotDataProp, InputData);
+    DefaultSet_RotationDataRAM(RotData, RotDataProp, InputData);
+	allocate_RotationDataGPU(RotData, RotData_gpu);
+
+}
+
+void new_read_RotationData(RotationData* RotData, \
+                            RotationData* RotData_gpu, \
+                            RotDataProperties* RotDataProp, \
+                            InputFileData* InputData){
+
+    DefaultSet_RotationDataRAM(RotData, RotDataProp, InputData);
+    read_RotationData(RotData, RotDataProp, InputData);
+    copy_RotationDataRAM2GPU(RotData, RotData_gpu);
+
 }
 
 void free_RotationData(RotationData *RotData,

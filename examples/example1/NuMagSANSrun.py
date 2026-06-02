@@ -1,6 +1,13 @@
 from NuMagSANS import NuMagSANS
 from pathlib import Path
+from GenerateRealSpaceData import generate_real_space_data
+
+
 BASE_DIR = Path(__file__).resolve().parent
+
+# Generate the example input data locally so the repository does not need to
+# carry the materialized RealSpaceData files.
+generate_real_space_data(BASE_DIR / "RealSpaceData")
 
 # NuMagSANS object
 sim = NuMagSANS()

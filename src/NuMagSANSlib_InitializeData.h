@@ -14,65 +14,43 @@ inline void InitializeDataMulti(InputFileData* InputData,
 									ScalingFactors* ScalFactors,
 									int Data_File_Index){
 
-	cudaError_t err;
-
 	// initialize nuclear data ################################################################
 	if(InputData->NucData_activate_flag){
 		init_NuclearData(NucData, NucData_gpu, NucDataProp, InputData, Data_File_Index);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		}
+		CheckCUDALastError("initialize nuclear data");
 	}
 	
 	// initialize magnetization data ##########################################################
 	if(InputData->MagData_activate_flag){
 		init_MagnetizationData(MagData, MagData_gpu, MagDataProp, InputData, Data_File_Index);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		}
+		CheckCUDALastError("initialize magnetization data");
 		//disp_MagnetizationData(MagData);
 	}
 
 	// initialize structure data ##############################################################
 	if(InputData->StructData_activate_flag){
 		init_StructureData(StructData, StructData_gpu, StructDataProp, InputData);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-		}
+		CheckCUDALastError("initialize structure data");
 		//disp_StructureData(StructData);
 	}
 
 	// initialize rotation data ###############################################################
 	if(InputData->RotData_activate_flag){
-		init_RotationData(RotData, RotData_gpu, RotDataProp, InputData);
-		cudaDeviceSynchronize();
-		err = cudaGetLastError();
-		if (err != cudaSuccess) {
-			LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
+		if(InputData->RotDataLoop_flag){
+			init_RotationDataMemory(RotData, RotData_gpu, RotDataProp, InputData);
+		}else{
+			init_RotationData(RotData, RotData_gpu, RotDataProp, InputData);
 		}
+		CheckCUDALastError("initialize rotation data");
 	}
 
 	// initialize scattering data #############################################################
 	init_ScatteringData(InputData, SANSData, SANSData_gpu);
-	cudaDeviceSynchronize();
-	err = cudaGetLastError();
-	if (err != cudaSuccess) {
-		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-	}
+	CheckCUDALastError("initialize scattering data");
 
 	// initialize spectral data ###############################################################
 	init_SpectralData(InputData, SANSData, SpecData, SpecData_gpu);
-	cudaDeviceSynchronize();
-	err = cudaGetLastError();
-	if (err != cudaSuccess) {
-		LogSystem::write(std::string("kernel launch failed: ") + cudaGetErrorString(err));
-	}
+	CheckCUDALastError("initialize spectral data");
 
 	// initialize scaling factors
 	init_ScalingFactors(ScalFactors, InputData, MagData, NucData, SANSData);
@@ -105,3 +83,17 @@ inline void InitializeData(InputFileData* InputData,
 
 
 	}
+
+inline void ResetSANSOutputData(InputFileData* InputData,
+								NuMagSANSData* Data){
+
+	free_ScatteringData(&Data->SANSData, &Data->SANSData_gpu);
+	free_SpectralData(&Data->SpecData, &Data->SpecData_gpu);
+
+	init_ScatteringData(InputData, &Data->SANSData, &Data->SANSData_gpu);
+	init_SpectralData(InputData, &Data->SANSData, &Data->SpecData, &Data->SpecData_gpu);
+
+	init_ScalingFactors(&Data->ScalFactors, InputData, &Data->MagData, &Data->NucData, &Data->SANSData);
+
+	CheckCUDALastError("reset SANS output data");
+}

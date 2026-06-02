@@ -79,6 +79,7 @@ class NuMagSANS:
         MagDataPath="RealSpaceData/MagData",
         StructDataFilename="RealSpaceData/StructData.csv",
         RotDataFilename="RealSpaceData/RotData.csv",
+        RotDataPath="RealSpaceData/RotData",
         foldernameSANSData="NuMagSANS_Output",
 
         # selection
@@ -96,6 +97,10 @@ class NuMagSANS:
         Loop_Modus=0,
         Loop_From=1,
         Loop_To=20,
+        RotDataLoop=0,
+        RotDataLoop_From=1,
+        RotDataLoop_To=1,
+        RotData_User_Selection=None,
         User_Selection=[1],
 
         # units
@@ -152,6 +157,7 @@ class NuMagSANS:
             W("MagDataPath", MagDataPath)
             W("StructDataFilename", StructDataFilename)
             W("RotDataFilename", RotDataFilename)
+            W("RotDataPath", RotDataPath)
             W("foldernameSANSData", foldernameSANSData)
 
             # ---------------------------
@@ -175,6 +181,11 @@ class NuMagSANS:
             W("Loop_Modus", Loop_Modus)
             W("Loop_From", Loop_From)
             W("Loop_To", Loop_To)
+            W("RotDataLoop", RotDataLoop)
+            W("RotDataLoop_From", RotDataLoop_From)
+            W("RotDataLoop_To", RotDataLoop_To)
+            if RotData_User_Selection is not None:
+                W("RotData_User_Selection", "{" + ", ".join(map(str, RotData_User_Selection)) + "}")
             W("User_Selection", "{" + ", ".join(map(str, User_Selection)) + "}")
 
             # ---------------------------

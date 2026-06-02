@@ -1,5 +1,5 @@
 // File         : NuMagSANSlib.h
-// Author       : Dr. Michael Philipp ADAMS 
+// Author       : Dr. Michael Philipp ADAMS
 // Company      : University of Luxembourg
 // Department   : Department of Physics and Materials Sciences
 // Group        : NanoMagnetism Group
@@ -30,6 +30,7 @@
 #include "NuMagSANSlib_LogFile.h"
 #include "NuMagSANSlib_MemoryInfo.h"
 #include "NuMagSANSlib_TimeMeasure.h"
+#include "NuMagSANSlib_CUDAError.h"
 #include "NuMagSANSlib_HelperFun.h"
 #include "NuMagSANSlib_StringCompare.h"
 #include "NuMagSANSlib_ReadWrite.h"
@@ -71,32 +72,66 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	GPUMemoryInfo MemoryBeforeRun = GetGPUMemoryInfo();
  	LogCurrentGPUMemoryDifference(MemoryBeforeRun);
 
-	// start time measurement 
+	// start time measurement
 	TimeMeasure TotalTime = StartTimeMeasure();
 
-    NuMagSANSData Data;
-
-	// initialize data  
-	InitializeData(InputData, 
+	// initialize data
+	NuMagSANSData Data;
+	InitializeData(InputData,
 		           NucDataProp, MagDataProp, StructDataProp, RotDataProp,
 				   &Data, Data_File_Index);
 
-	// check memory  
+	// check memory
 	LogCurrentGPUMemoryDifference(MemoryBeforeRun);
-		
-	// run gpu kernel  
-	SelectKernelRun(InputData, &Data);
 
-	// run gpu post-processing kernels  
-	KernelPostprocessRun(InputData, &Data);
+	if(InputData->RotData_activate_flag && InputData->RotDataLoop_flag){
 
-	// export data  
-	ExportData(InputData, &Data, Data_File_Index);
+		for(int RotDataLoop_Counter = 0;
+			RotDataLoop_Counter < InputData->RotDataLoop_IndexArray.size();
+			RotDataLoop_Counter++){
 
-	// free memory  
+			int RotData_File_Index = InputData->RotDataLoop_IndexArray[RotDataLoop_Counter];
+
+			LogSystem::write("inner RotData loop active: RotData index "
+			                 + std::to_string(RotData_File_Index));
+
+			if(RotDataLoop_Counter != 0){
+				ResetSANSOutputData(InputData, &Data);
+			}
+
+			SetActiveRotDataFile(RotDataProp, RotData_File_Index);
+			new_read_RotationData(&Data.RotData, &Data.RotData_gpu, RotDataProp, InputData);
+			CheckCUDALastError("reload rotation data");
+
+			// run gpu kernel
+			SelectKernelRun(InputData, &Data);
+
+			// run gpu post-processing kernels
+			KernelPostprocessRun(InputData, &Data);
+
+			// export data
+			ExportData(InputData, &Data, Data_File_Index, RotData_File_Index);
+			CheckCUDALastError("export scattering data");
+		}
+
+	}else{
+
+		// run gpu kernel
+		SelectKernelRun(InputData, &Data);
+
+		// run gpu post-processing kernels
+		KernelPostprocessRun(InputData, &Data);
+
+		// export data
+		ExportData(InputData, &Data, Data_File_Index);
+		CheckCUDALastError("export scattering data");
+	}
+
+	// free memory
 	FreeData(InputData, &Data);
-	
-	// print result of time measurement 
+	CheckCUDALastError("free data");
+
+	// print result of time measurement
     LogElapsedTime(TotalTime);
 
 	LogCurrentGPUMemoryDifference(MemoryBeforeRun);
