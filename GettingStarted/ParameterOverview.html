@@ -715,6 +715,44 @@ written as</p>
     q \sin\theta \\
     q \cos\theta
 \end{bmatrix}.\end{split}\]</div>
+<p>The magnetic SANS amplitudes are expressed through the Halpern-Johnson vector
+<span class="math notranslate nohighlight">\(\widetilde{\mathbf{Q}}\)</span>, i.e. the component of the Fourier-transformed
+magnetization that contributes to magnetic neutron scattering:</p>
+<div class="math notranslate nohighlight">
+\[\widetilde{\mathbf{Q}}
+=
+\hat{\mathbf{q}}
+\left(\hat{\mathbf{q}}\cdot\widetilde{\mathbf{M}}\right)
+-
+\widetilde{\mathbf{M}},\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{\mathbf{q}}
+=
+\begin{bmatrix}
+    0 \\
+    \sin\theta \\
+    \cos\theta
+\end{bmatrix},
+\qquad
+\widetilde{\mathbf{M}}
+=
+\begin{bmatrix}
+    \widetilde{M}_x \\
+    \widetilde{M}_y \\
+    \widetilde{M}_z
+\end{bmatrix}.\end{split}\]</div>
+<p>For the detector geometry used in NuMagSANS this gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\widetilde{\mathbf{Q}}
+=
+\begin{bmatrix}
+    -\widetilde{M}_x \\
+    \left(\widetilde{M}_z\sin\theta-\widetilde{M}_y\cos\theta\right)\cos\theta \\
+    \left(\widetilde{M}_y\cos\theta-\widetilde{M}_z\sin\theta\right)\sin\theta
+\end{bmatrix}.\end{split}\]</div>
+<p>The same expression is applied to the real and imaginary parts of
+<span class="math notranslate nohighlight">\(\widetilde{\mathbf{M}}\)</span> in the atomistic kernels.</p>
 <p>In NuMagSANS the 2D SANS cross sections are exported in units of <span class="math notranslate nohighlight">\(\mathrm{cm}^{-1}\)</span>.</p>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">Nuclear_2D</span></code></dt><dd><p>Nuclear SANS cross section on the 2D detector.</p>
