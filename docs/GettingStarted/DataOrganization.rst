@@ -1,5 +1,5 @@
-Real-Space Input Data Organization
-==================================
+Data Organization
+=================
 
 NuMagSANS reads real-space input data from a ``RealSpaceData`` directory.
 The input organization separates local object data from optional assembly
@@ -24,6 +24,43 @@ Only the data layers that are activated in the configuration file are required.
 The examples below mostly use ``MagData`` for compactness. The same directory
 logic applies to ``NucData`` and to combined ``MagData + NucData`` calculations.
 
+``MagData`` and ``NucData`` store local real-space object data. ``StructData``
+adds object-center translations, while ``RotData`` adds object-wise local
+rotations. These layers can be combined depending on whether the system is a
+fully materialized real-space dataset or an object-based assembly.
+
+Supported Data-Layer Combinations
+---------------------------------
+
+The atomistic backend supports magnetic data, nuclear data, or both. Each of
+these can be evaluated with no assembly metadata, with ``StructData``, with
+``RotData``, or with both.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Active layers
+     - Interpretation
+   * - ``MagData``
+     - Pure magnetic scattering from local real-space data.
+   * - ``NucData``
+     - Pure nuclear scattering from local real-space data.
+   * - ``MagData + NucData``
+     - Combined nuclear-magnetic scattering from local real-space data.
+   * - ``MagData + StructData``
+     - Magnetic local objects translated by object-center positions.
+   * - ``MagData + RotData``
+     - Magnetic local objects rotated individually.
+   * - ``MagData + StructData + RotData``
+     - Magnetic local objects rotated and translated as an assembly.
+   * - ``NucData + StructData``
+     - Nuclear local objects translated by object-center positions.
+   * - ``NucData + RotData``
+     - Nuclear local objects rotated individually.
+   * - ``NucData + StructData + RotData``
+     - Nuclear local objects rotated and translated as an assembly.
+   * - ``MagData + NucData + StructData + RotData``
+     - Combined nuclear-magnetic assembly with object-wise translations and rotations.
 
 Local Object Data
 -----------------
@@ -353,39 +390,6 @@ nested folders:
        RotData_1/
        RotData_3/
 
-
-Supported Data-Layer Combinations
----------------------------------
-
-The atomistic backend supports magnetic data, nuclear data, or both. Each of
-these can be evaluated with no assembly metadata, with ``StructData``, with
-``RotData``, or with both.
-
-.. list-table::
-   :header-rows: 1
-
-   * - Active layers
-     - Interpretation
-   * - ``MagData``
-     - Pure magnetic scattering from local real-space data.
-   * - ``NucData``
-     - Pure nuclear scattering from local real-space data.
-   * - ``MagData + NucData``
-     - Combined nuclear-magnetic scattering from local real-space data.
-   * - ``MagData + StructData``
-     - Magnetic local objects translated by object-center positions.
-   * - ``MagData + RotData``
-     - Magnetic local objects rotated individually.
-   * - ``MagData + StructData + RotData``
-     - Magnetic local objects rotated and translated as an assembly.
-   * - ``NucData + StructData``
-     - Nuclear local objects translated by object-center positions.
-   * - ``NucData + RotData``
-     - Nuclear local objects rotated individually.
-   * - ``NucData + StructData + RotData``
-     - Nuclear local objects rotated and translated as an assembly.
-   * - ``MagData + NucData + StructData + RotData``
-     - Combined nuclear-magnetic assembly with object-wise translations and rotations.
 
 
 Consistency Rules

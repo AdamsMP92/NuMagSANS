@@ -7,6 +7,6 @@ Getting Started
    Quickstart
    Installation
    ParameterOverview
-   RealSpaceDataOrganization
+   DataOrganization
 
  
