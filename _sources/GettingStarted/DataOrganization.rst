@@ -1,40 +1,15 @@
 Data Organization
 =================
 
-NuMagSANS reads real-space input data from a ``RealSpaceData`` directory.
-The input organization separates local object data from optional assembly
-metadata. This makes it possible to represent fully materialized datasets,
-object-based assemblies, and rotation sweeps using the same backend.
+The input data for NuMagSANS consists of discretized real-space data sets 
+that can be organized in multiple ways. The general input-data organizing
+is handeled by starting at the highest level with a ``RealSpaceData`` directory.
+Inside the ``RealSpaceData`` directory we distinguish between ``MagData``, ``NucData``, 
+``StructData`` and ``RotData``, where their meaning their possible combinations 
+are described at later point below through several scenarios. 
 
-The basic directory structure is:
-
-.. code-block:: text
-
-   RealSpaceData/
-     MagData/
-     NucData/
-     StructData.csv
-     RotData.csv
-     RotData/
-       RotData_1.csv
-       RotData_2.csv
-       ...
-
-Only the data layers that are activated in the configuration file are required.
-The examples below mostly use ``MagData`` for compactness. The same directory
-logic applies to ``NucData`` and to combined ``MagData + NucData`` calculations.
-
-``MagData`` and ``NucData`` store local real-space object data. ``StructData``
-adds object-center translations, while ``RotData`` adds object-wise local
-rotations. These layers can be combined depending on whether the system is a
-fully materialized real-space dataset or an object-based assembly.
-
-Supported Data-Layer Combinations
----------------------------------
-
-The atomistic backend supports magnetic data, nuclear data, or both. Each of
-these can be evaluated with no assembly metadata, with ``StructData``, with
-``RotData``, or with both.
+A first overview of possible combinations of these four types of data is given 
+by the table below.
 
 .. list-table::
    :header-rows: 1
