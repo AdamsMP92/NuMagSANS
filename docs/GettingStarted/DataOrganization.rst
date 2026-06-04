@@ -1,15 +1,18 @@
 Data Organization
 =================
 
-The input data for NuMagSANS consists of discretized real-space data sets 
-that can be organized in multiple ways. The general input-data organizing
-is handeled by starting at the highest level with a ``RealSpaceData`` directory.
-Inside the ``RealSpaceData`` directory we distinguish between ``MagData``, ``NucData``, 
-``StructData`` and ``RotData``, where their meaning their possible combinations 
-are described at later point below through several scenarios. 
+The input data for NuMagSANS consist of discretized real-space datasets
+that can be organized in several ways. At the highest level, NuMagSANS
+expects a ``RealSpaceData`` directory.
 
-A first overview of possible combinations of these four types of data is given 
-by the table below.
+Inside this directory, the input data are separated into four data layers:
+``MagData``, ``NucData``, ``StructData``, and ``RotData``. ``MagData`` and
+``NucData`` contain local real-space object data, while ``StructData`` and
+``RotData`` provide optional assembly metadata for object translations and
+object-wise rotations.
+
+The possible combinations of these data layers are summarized in the table
+below and are described in more detail in the following scenarios.
 
 .. list-table::
    :header-rows: 1
