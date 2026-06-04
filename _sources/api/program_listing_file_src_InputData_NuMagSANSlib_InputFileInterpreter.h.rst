@@ -96,6 +96,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        string RotDataFilename;
    
+       string StructDataPath = "";
+   
        string RotDataPath = "";
    
        bool FastLoad_flag = false;
@@ -108,6 +110,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        bool RotDataLoop_flag = false;
    
+       bool StructDataLoop_flag = false;
+   
        int Loop_From;
    
        int Loop_To;
@@ -115,6 +119,14 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        int RotDataLoop_From = 1;
    
        int RotDataLoop_To = 1;
+   
+       int StructDataLoop_From = 1;
+   
+       int StructDataLoop_To = 1;
+   
+       string StructData_User_Selection;
+   
+       std::vector<int> StructDataLoop_IndexArray;
    
        string RotData_User_Selection;
    
@@ -518,6 +530,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            {"MagData_activate", &InputData->MagData_activate_flag, true},
            {"StructData_activate", &InputData->StructData_activate_flag, true},
            {"RotData_activate", &InputData->RotData_activate_flag, true},
+           {"StructDataLoop", &InputData->StructDataLoop_flag, false},
            {"RotDataLoop", &InputData->RotDataLoop_flag, false},
            {"FastLoad", &InputData->FastLoad_flag, false},
            {"Exclude_Zero_Moments", &InputData->ExcludeZeroMoments_flag, true},
@@ -531,6 +544,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
            {"Loop_From", &InputData->Loop_From, true},
            {"Loop_To", &InputData->Loop_To, true},
+           {"StructDataLoop_From", &InputData->StructDataLoop_From, false},
+           {"StructDataLoop_To", &InputData->StructDataLoop_To, false},
            {"RotDataLoop_From", &InputData->RotDataLoop_From, false},
            {"RotDataLoop_To", &InputData->RotDataLoop_To, false},
            {"Number_Of_q_Points", &InputData->N_q, true},
@@ -568,9 +583,11 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            {"MagDataPath", &InputData->MagDataPath, true},
            {"StructDataFilename", &InputData->StructDataFilename, true},
            {"RotDataFilename", &InputData->RotDataFilename, true},
+           {"StructDataPath", &InputData->StructDataPath, false},
            {"RotDataPath", &InputData->RotDataPath, false},
            {"foldernameSANSData", &InputData->SANSDataFoldername, true},
            {"Fourier_Approach", &InputData->Fourier_Approach, true},
+           {"StructData_User_Selection", &InputData->StructData_User_Selection, false},
            {"RotData_User_Selection", &InputData->RotData_User_Selection, false},
            {"User_Selection", &InputData->User_Selection, true}
    
@@ -661,6 +678,29 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
                    " UserSelection: " +
                    std::to_string(k) + " : " +
                    std::to_string(InputData->User_Selection_IndexArray[k]));
+           }
+       }
+   
+       for (auto& opt : string_options)
+       if (opt.key == "StructData_User_Selection" && opt.found)
+       {
+           InputData->StructDataLoop_IndexArray =
+               parse_int_list(InputData->StructData_User_Selection);
+   
+           LogSystem::write("Check StructDataUserSelection entries that are transferred to integer array:");
+   
+           for (size_t k = 0; k < InputData->StructDataLoop_IndexArray.size(); ++k)
+           {
+               LogSystem::write(
+                   " StructDataUserSelection: " +
+                   std::to_string(k) + " : " +
+                   std::to_string(InputData->StructDataLoop_IndexArray[k]));
+           }
+       }
+   
+       if(InputData->StructDataLoop_flag && InputData->StructDataLoop_IndexArray.empty()){
+           for(int k = InputData->StructDataLoop_From; k <= InputData->StructDataLoop_To; k++){
+               InputData->StructDataLoop_IndexArray.push_back(k);
            }
        }
    

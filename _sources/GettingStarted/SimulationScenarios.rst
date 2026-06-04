@@ -57,22 +57,23 @@ later scenarios only describe the additional object folders, data files,
 metadata layers, or loop settings.
 
 Combinatorially, the core real-space input organization already contains
-``18`` basic data-layer scenarios. There are three choices for the physical
+``27`` basic data-layer scenarios. There are three choices for the physical
 local data layer, namely ``MagData``, ``NucData``, or ``MagData + NucData``.
-For each of these choices, ``StructData`` can currently be inactive or active
-as a single ``StructData.csv`` file. In addition, ``RotData`` can be inactive,
-active as a single ``RotData.csv`` file, or active as a folder loop over
-several ``RotData_#.csv`` files.
+For each of these choices, ``StructData`` can be inactive, active as a single
+``StructData.csv`` file, or active as a folder loop over several
+``StructData_#.csv`` files. In addition, ``RotData`` can be inactive, active
+as a single ``RotData.csv`` file, or active as a folder loop over several
+``RotData_#.csv`` files.
 
 .. code-block:: text
 
-   3 local-data choices x 2 StructData choices x 3 RotData choices = 18 scenarios
+   3 local-data choices x 3 StructData choices x 3 RotData choices = 27 scenarios
 
 This count describes the data-layer combinations. The local data-file
 selection adds another execution layer: a calculation can either use selected
 file indices through ``User_Selection`` or sweep consecutive file indices
 through ``Loop_Modus``. If this execution-layer distinction is counted as a
-separate binary choice, the ``18`` data-layer scenarios become ``36`` basic
+separate binary choice, the ``27`` data-layer scenarios become ``54`` basic
 execution scenarios.
 
 The following sections do not document every possible combination separately.
@@ -360,12 +361,12 @@ is added using the same object-folder and file-index convention introduced
 above.
 
 
-Scenario 8: Sweeping several RotData files
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Scenario 8: Sweeping several StructData or RotData files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For orientation sweeps, ``RotData`` can also be organized as a folder
-containing several rotation datasets. The local object data and optional
-``StructData`` are imported once, while NuMagSANS loops over selected
+For assembly sweeps, ``StructData`` and ``RotData`` can also be organized as
+folders containing several metadata datasets. The local object data are
+imported once, while NuMagSANS loops over selected ``StructData`` and/or
 ``RotData`` files.
 
 .. code-block:: text
@@ -376,17 +377,26 @@ containing several rotation datasets. The local object data and optional
          m_1.csv
        Object_2/
          m_1.csv
-     StructData.csv
+     StructData/
+       StructData_1.csv
+       StructData_2.csv
+       StructData_3.csv
      RotData/
        RotData_1.csv
        RotData_2.csv
        RotData_3.csv
 
-Each ``RotData_#.csv`` file follows the same row convention as the single-file
-``RotData.csv`` case. The active rotation files can be selected explicitly:
+Each ``StructData_#.csv`` file follows the same row convention as the
+single-file ``StructData.csv`` case, and each ``RotData_#.csv`` file follows
+the same row convention as the single-file ``RotData.csv`` case. The active
+files can be selected explicitly:
 
 .. code-block:: conf
 
+   StructData_activate = 1;
+   StructDataLoop = 1;
+   StructDataPath = RealSpaceData/StructData;
+   StructData_User_Selection = {1, 2, 3};
    RotData_activate = 1;
    RotDataLoop = 1;
    RotDataPath = RealSpaceData/RotData;
@@ -396,12 +406,17 @@ or through a consecutive loop range:
 
 .. code-block:: conf
 
+   StructDataLoop = 1;
+   StructDataLoop_From = 1;
+   StructDataLoop_To = 3;
    RotDataLoop = 1;
    RotDataLoop_From = 1;
    RotDataLoop_To = 3;
 
-This mode is intended for repeated calculations with fixed local object data
-and changing object-wise orientations.
+If both loops are active, NuMagSANS evaluates the selected structure-data
+files in the outer loop and the selected rotation-data files in the inner
+loop. The corresponding output is written to nested folders such as
+``SANS_1/StructData_2/RotData_3/``.
 
 
 
@@ -418,8 +433,10 @@ The following consistency rules should be satisfied:
   enumeration starting from ``1``.
 - For a selected data-file index ``k``, each active object folder should
   contain the corresponding ``m_k.csv`` or ``n_k.csv`` file.
-- If ``StructData`` is active, the number of rows in ``StructData.csv`` must
-  match the number of local objects.
+- If ``StructData`` is active without ``StructDataLoop``, the number of rows in
+  ``StructData.csv`` must match the number of local objects.
+- If ``StructDataLoop`` is active, every selected ``StructData_#.csv`` file
+  must contain one row per local object.
 - If ``RotData`` is active without ``RotDataLoop``, the number of rows in
   ``RotData.csv`` must match the number of local objects.
 - If ``RotDataLoop`` is active, every selected ``RotData_#.csv`` file must

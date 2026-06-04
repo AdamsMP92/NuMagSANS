@@ -1,4 +1,4 @@
-.. _exhale_function_NuMagSANSlib__SpectralData_8h_1a131fd47aa989e700042020bcbd5c8ca9:
+.. _exhale_function_NuMagSANSlib__SpectralData_8h_1a6a3a7a2e888289f7deff3fb4628b684a:
 
 Function write2CSV_SpectralData
 ===============================
@@ -10,5 +10,5 @@ Function Documentation
 ----------------------
 
 
-.. doxygenfunction:: write2CSV_SpectralData(InputFileData *, SpectralData *, int, int)
+.. doxygenfunction:: write2CSV_SpectralData(InputFileData *, SpectralData *, int, int, int)
    :project: NuMagSANS

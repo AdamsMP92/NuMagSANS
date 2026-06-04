@@ -1219,6 +1219,7 @@ Program Listing for File NuMagSANSlib_SANSData.h
        InputFileData* InputData,
        ScatteringData* SANSData,
        int MagData_File_Index,
+       int StructData_File_Index = 0,
        int RotData_File_Index = 0
    ){
        LogSystem::write("");
@@ -1227,6 +1228,10 @@ Program Listing for File NuMagSANSlib_SANSData.h
        std::string target_foldername =
            InputData->SANSDataFoldername + "/SANS_" +
            std::to_string(MagData_File_Index) + "/";
+   
+       if(StructData_File_Index > 0){
+           target_foldername += "StructData_" + std::to_string(StructData_File_Index) + "/";
+       }
    
        if(RotData_File_Index > 0){
            target_foldername += "RotData_" + std::to_string(RotData_File_Index) + "/";

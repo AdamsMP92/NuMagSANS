@@ -496,24 +496,51 @@
 <span class="w">    </span><span class="c1">// check memory</span>
 <span class="w">    </span><span class="n">LogCurrentGPUMemoryDifference</span><span class="p">(</span><span class="n">MemoryBeforeRun</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotDataLoop_flag</span><span class="p">){</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">StructDataLoop_active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_activate_flag</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructDataLoop_flag</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">RotDataLoop_active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_activate_flag</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotDataLoop_flag</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Number_Of_StructData_Runs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StructDataLoop_active</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructDataLoop_IndexArray</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Number_Of_RotData_Runs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RotDataLoop_active</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotDataLoop_IndexArray</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">First_Run</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">StructDataLoop_Counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">StructDataLoop_Counter</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Number_Of_StructData_Runs</span><span class="p">;</span>
+<span class="w">        </span><span class="n">StructDataLoop_Counter</span><span class="o">++</span><span class="p">){</span>
+
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">StructData_File_Index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">StructDataLoop_active</span><span class="p">){</span>
+<span class="w">            </span><span class="n">StructData_File_Index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructDataLoop_IndexArray</span><span class="p">[</span><span class="n">StructDataLoop_Counter</span><span class="p">];</span>
+
+<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;inner StructData loop active: StructData index &quot;</span>
+<span class="w">                             </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">StructData_File_Index</span><span class="p">));</span>
+
+<span class="w">            </span><span class="n">SetActiveStructDataFile</span><span class="p">(</span><span class="n">StructDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_File_Index</span><span class="p">);</span>
+<span class="w">            </span><span class="n">new_read_StructureData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">StructData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+<span class="w">            </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;reload structure data&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
 <span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">RotDataLoop_Counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">            </span><span class="n">RotDataLoop_Counter</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotDataLoop_IndexArray</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">            </span><span class="n">RotDataLoop_Counter</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Number_Of_RotData_Runs</span><span class="p">;</span>
 <span class="w">            </span><span class="n">RotDataLoop_Counter</span><span class="o">++</span><span class="p">){</span>
 
-<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">RotData_File_Index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotDataLoop_IndexArray</span><span class="p">[</span><span class="n">RotDataLoop_Counter</span><span class="p">];</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">RotData_File_Index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-<span class="w">            </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;inner RotData loop active: RotData index &quot;</span>
-<span class="w">                             </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">RotData_File_Index</span><span class="p">));</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">RotDataLoop_active</span><span class="p">){</span>
+<span class="w">                </span><span class="n">RotData_File_Index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotDataLoop_IndexArray</span><span class="p">[</span><span class="n">RotDataLoop_Counter</span><span class="p">];</span>
 
-<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">RotDataLoop_Counter</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
-<span class="w">                </span><span class="n">ResetSANSOutputData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
+<span class="w">                </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;inner RotData loop active: RotData index &quot;</span>
+<span class="w">                                 </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">RotData_File_Index</span><span class="p">));</span>
+
+<span class="w">                </span><span class="n">SetActiveRotDataFile</span><span class="p">(</span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_File_Index</span><span class="p">);</span>
+<span class="w">                </span><span class="n">new_read_RotationData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+<span class="w">                </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;reload rotation data&quot;</span><span class="p">);</span>
 <span class="w">            </span><span class="p">}</span>
 
-<span class="w">            </span><span class="n">SetActiveRotDataFile</span><span class="p">(</span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_File_Index</span><span class="p">);</span>
-<span class="w">            </span><span class="n">new_read_RotationData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">.</span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
-<span class="w">            </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;reload rotation data&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">First_Run</span><span class="p">){</span>
+<span class="w">                </span><span class="n">ResetSANSOutputData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
 
 <span class="w">            </span><span class="c1">// run gpu kernel</span>
 <span class="w">            </span><span class="n">SelectKernelRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
@@ -522,21 +549,11 @@
 <span class="w">            </span><span class="n">KernelPostprocessRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
 
 <span class="w">            </span><span class="c1">// export data</span>
-<span class="w">            </span><span class="n">ExportData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_File_Index</span><span class="p">);</span>
+<span class="w">            </span><span class="n">ExportData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_File_Index</span><span class="p">,</span><span class="w"> </span><span class="n">RotData_File_Index</span><span class="p">);</span>
 <span class="w">            </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;export scattering data&quot;</span><span class="p">);</span>
+
+<span class="w">            </span><span class="n">First_Run</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
-
-<span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
-
-<span class="w">        </span><span class="c1">// run gpu kernel</span>
-<span class="w">        </span><span class="n">SelectKernelRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
-
-<span class="w">        </span><span class="c1">// run gpu post-processing kernels</span>
-<span class="w">        </span><span class="n">KernelPostprocessRun</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">);</span>
-
-<span class="w">        </span><span class="c1">// export data</span>
-<span class="w">        </span><span class="n">ExportData</span><span class="p">(</span><span class="n">InputData</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Data</span><span class="p">,</span><span class="w"> </span><span class="n">Data_File_Index</span><span class="p">);</span>
-<span class="w">        </span><span class="n">CheckCUDALastError</span><span class="p">(</span><span class="s">&quot;export scattering data&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// free memory</span>

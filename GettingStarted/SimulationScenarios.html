@@ -484,20 +484,21 @@ later. For example, the format of <code class="docutils literal notranslate"><sp
 later scenarios only describe the additional object folders, data files,
 metadata layers, or loop settings.</p>
 <p>Combinatorially, the core real-space input organization already contains
-<code class="docutils literal notranslate"><span class="pre">18</span></code> basic data-layer scenarios. There are three choices for the physical
+<code class="docutils literal notranslate"><span class="pre">27</span></code> basic data-layer scenarios. There are three choices for the physical
 local data layer, namely <code class="docutils literal notranslate"><span class="pre">MagData</span></code>, <code class="docutils literal notranslate"><span class="pre">NucData</span></code>, or <code class="docutils literal notranslate"><span class="pre">MagData</span> <span class="pre">+</span> <span class="pre">NucData</span></code>.
-For each of these choices, <code class="docutils literal notranslate"><span class="pre">StructData</span></code> can currently be inactive or active
-as a single <code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> file. In addition, <code class="docutils literal notranslate"><span class="pre">RotData</span></code> can be inactive,
-active as a single <code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> file, or active as a folder loop over
-several <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> files.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>3 local-data choices x 2 StructData choices x 3 RotData choices = 18 scenarios
+For each of these choices, <code class="docutils literal notranslate"><span class="pre">StructData</span></code> can be inactive, active as a single
+<code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> file, or active as a folder loop over several
+<code class="docutils literal notranslate"><span class="pre">StructData_#.csv</span></code> files. In addition, <code class="docutils literal notranslate"><span class="pre">RotData</span></code> can be inactive, active
+as a single <code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> file, or active as a folder loop over several
+<code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> files.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>3 local-data choices x 3 StructData choices x 3 RotData choices = 27 scenarios
 </pre></div>
 </div>
 <p>This count describes the data-layer combinations. The local data-file
 selection adds another execution layer: a calculation can either use selected
 file indices through <code class="docutils literal notranslate"><span class="pre">User_Selection</span></code> or sweep consecutive file indices
 through <code class="docutils literal notranslate"><span class="pre">Loop_Modus</span></code>. If this execution-layer distinction is counted as a
-separate binary choice, the <code class="docutils literal notranslate"><span class="pre">18</span></code> data-layer scenarios become <code class="docutils literal notranslate"><span class="pre">36</span></code> basic
+separate binary choice, the <code class="docutils literal notranslate"><span class="pre">27</span></code> data-layer scenarios become <code class="docutils literal notranslate"><span class="pre">54</span></code> basic
 execution scenarios.</p>
 <p>The following sections do not document every possible combination separately.
 Instead, they describe representative scenarios from which the remaining
@@ -727,11 +728,11 @@ RotDataFilename = RealSpaceData/RotData.csv;
 is added using the same object-folder and file-index convention introduced
 above.</p>
 </section>
-<section id="scenario-8-sweeping-several-rotdata-files">
-<h3>Scenario 8: Sweeping several RotData files<a class="headerlink" href="#scenario-8-sweeping-several-rotdata-files" title="Link to this heading">#</a></h3>
-<p>For orientation sweeps, <code class="docutils literal notranslate"><span class="pre">RotData</span></code> can also be organized as a folder
-containing several rotation datasets. The local object data and optional
-<code class="docutils literal notranslate"><span class="pre">StructData</span></code> are imported once, while NuMagSANS loops over selected
+<section id="scenario-8-sweeping-several-structdata-or-rotdata-files">
+<h3>Scenario 8: Sweeping several StructData or RotData files<a class="headerlink" href="#scenario-8-sweeping-several-structdata-or-rotdata-files" title="Link to this heading">#</a></h3>
+<p>For assembly sweeps, <code class="docutils literal notranslate"><span class="pre">StructData</span></code> and <code class="docutils literal notranslate"><span class="pre">RotData</span></code> can also be organized as
+folders containing several metadata datasets. The local object data are
+imported once, while NuMagSANS loops over selected <code class="docutils literal notranslate"><span class="pre">StructData</span></code> and/or
 <code class="docutils literal notranslate"><span class="pre">RotData</span></code> files.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
   MagData/
@@ -739,29 +740,43 @@ containing several rotation datasets. The local object data and optional
       m_1.csv
     Object_2/
       m_1.csv
-  StructData.csv
+  StructData/
+    StructData_1.csv
+    StructData_2.csv
+    StructData_3.csv
   RotData/
     RotData_1.csv
     RotData_2.csv
     RotData_3.csv
 </pre></div>
 </div>
-<p>Each <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> file follows the same row convention as the single-file
-<code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> case. The active rotation files can be selected explicitly:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>RotData_activate = 1;
+<p>Each <code class="docutils literal notranslate"><span class="pre">StructData_#.csv</span></code> file follows the same row convention as the
+single-file <code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> case, and each <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> file follows
+the same row convention as the single-file <code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> case. The active
+files can be selected explicitly:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>StructData_activate = 1;
+StructDataLoop = 1;
+StructDataPath = RealSpaceData/StructData;
+StructData_User_Selection = {1, 2, 3};
+RotData_activate = 1;
 RotDataLoop = 1;
 RotDataPath = RealSpaceData/RotData;
 RotData_User_Selection = {1, 2, 3};
 </pre></div>
 </div>
 <p>or through a consecutive loop range:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>RotDataLoop = 1;
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>StructDataLoop = 1;
+StructDataLoop_From = 1;
+StructDataLoop_To = 3;
+RotDataLoop = 1;
 RotDataLoop_From = 1;
 RotDataLoop_To = 3;
 </pre></div>
 </div>
-<p>This mode is intended for repeated calculations with fixed local object data
-and changing object-wise orientations.</p>
+<p>If both loops are active, NuMagSANS evaluates the selected structure-data
+files in the outer loop and the selected rotation-data files in the inner
+loop. The corresponding output is written to nested folders such as
+<code class="docutils literal notranslate"><span class="pre">SANS_1/StructData_2/RotData_3/</span></code>.</p>
 </section>
 </section>
 <section id="consistency-rules">
@@ -774,8 +789,10 @@ combined in one calculation.</p></li>
 enumeration starting from <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
 <li><p>For a selected data-file index <code class="docutils literal notranslate"><span class="pre">k</span></code>, each active object folder should
 contain the corresponding <code class="docutils literal notranslate"><span class="pre">m_k.csv</span></code> or <code class="docutils literal notranslate"><span class="pre">n_k.csv</span></code> file.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">StructData</span></code> is active, the number of rows in <code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> must
-match the number of local objects.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">StructData</span></code> is active without <code class="docutils literal notranslate"><span class="pre">StructDataLoop</span></code>, the number of rows in
+<code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> must match the number of local objects.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">StructDataLoop</span></code> is active, every selected <code class="docutils literal notranslate"><span class="pre">StructData_#.csv</span></code> file
+must contain one row per local object.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">RotData</span></code> is active without <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code>, the number of rows in
 <code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> must match the number of local objects.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code> is active, every selected <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> file must
@@ -852,7 +869,7 @@ from the same separation between local object data and assembly metadata.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-5-object-translations-with-structdata">Scenario 5: Object translations with StructData</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-6-object-wise-rotations-with-rotdata">Scenario 6: Object-wise rotations with RotData</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-7-object-translations-and-rotations">Scenario 7: Object translations and rotations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-8-sweeping-several-rotdata-files">Scenario 8: Sweeping several RotData files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-8-sweeping-several-structdata-or-rotdata-files">Scenario 8: Sweeping several StructData or RotData files</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency-rules">Consistency Rules</a></li>

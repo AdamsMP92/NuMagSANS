@@ -92,7 +92,7 @@ Program Listing for File NuMagSANSlib_StructureData.h
    
        cudaMemcpy(StructData_gpu->K, StructData->K, sizeof(unsigned long int), cudaMemcpyHostToDevice);
        cudaMemcpy(StructData_gpu->RotMat, StructData->RotMat, 9*sizeof(float), cudaMemcpyHostToDevice);
-           
+   
        LogSystem::write("");
             // copy data from Host to Device
        LogSystem::write("copy data from RAM to GPU...");
@@ -109,6 +109,28 @@ Program Listing for File NuMagSANSlib_StructureData.h
        cudaMalloc(&StructData_gpu, sizeof(StructureData));
        cudaMemcpy(StructData_gpu, StructData, sizeof(StructureData), cudaMemcpyHostToDevice);
         
+   }
+   
+   void copy_StructureDataRAM2GPU(StructureData* StructData, \
+                                  StructureData* StructData_gpu){
+   
+        unsigned long int K = *StructData->K;
+   
+       cudaMemcpy(StructData_gpu->K, StructData->K, sizeof(unsigned long int), cudaMemcpyHostToDevice);
+       cudaMemcpy(StructData_gpu->RotMat, StructData->RotMat, 9*sizeof(float), cudaMemcpyHostToDevice);
+   
+       LogSystem::write("");
+       LogSystem::write("copy data from RAM to GPU...");
+        cudaMemcpy(StructData_gpu->x, StructData->x, K*sizeof(float), cudaMemcpyHostToDevice);
+       LogSystem::write("   x done...");
+        cudaMemcpy(StructData_gpu->y, StructData->y, K*sizeof(float), cudaMemcpyHostToDevice);
+       LogSystem::write("   y done...");
+        cudaMemcpy(StructData_gpu->z, StructData->z, K*sizeof(float), cudaMemcpyHostToDevice);
+       LogSystem::write("   z done...");
+       LogSystem::write("");
+       LogSystem::write("data transfer finished...");
+       LogSystem::write("");
+   
    }
    
    
@@ -158,7 +180,27 @@ Program Listing for File NuMagSANSlib_StructureData.h
        allocate_StructureDataRAM(StructData, StructDataProp, InputData);
        read_StructureData(StructData, StructDataProp, InputData);
        allocate_StructureDataGPU(StructData, StructData_gpu);
+   
+   }
+   
+   void init_StructureDataMemory(StructureData* StructData, \
+                                 StructureData* StructData_gpu, \
+                                 StructDataProperties* StructDataProp, \
+                                 InputFileData* InputData){
+   
+       allocate_StructureDataRAM(StructData, StructDataProp, InputData);
+       allocate_StructureDataGPU(StructData, StructData_gpu);
       
+   }
+   
+   void new_read_StructureData(StructureData* StructData, \
+                               StructureData* StructData_gpu, \
+                               StructDataProperties* StructDataProp, \
+                               InputFileData* InputData){
+   
+       read_StructureData(StructData, StructDataProp, InputData);
+       copy_StructureDataRAM2GPU(StructData, StructData_gpu);
+   
    }
    
    void free_StructureData(StructureData *StructData, \

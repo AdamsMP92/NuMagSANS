@@ -101,6 +101,14 @@ local object data without rewriting the object files.
 ``StructData_activate``
     Default value 0
 
+``StructDataPath``
+    Default path ``RealSpaceData/StructData``
+
+    Folder used by ``StructDataLoop``. In this mode, structure files are
+    expected to follow the naming convention ``StructData_1.csv``,
+    ``StructData_2.csv``, ... inside ``StructDataPath``. Each file contains one
+    object-center translation table.
+
 ``RotDataFilename``
     Default path ``RealSpaceData/RotData.csv``
 
@@ -206,6 +214,35 @@ These parameters control batch simulations or repeated calculations.
     ``Loop_Modus = 1``, the index range from ``Loop_From`` to ``Loop_To`` is
     used.
 
+``StructDataLoop``
+    Description: Enable an inner loop over several structure-data files.
+    Default ``0``
+
+    If ``StructDataLoop = 1``, NuMagSANS loads the selected
+    ``StructData_#.csv`` files from ``StructDataPath`` while keeping the
+    currently selected magnetic and nuclear local object data fixed. If
+    ``RotDataLoop`` is also active, the structure-data loop is the outer loop
+    and the rotation-data loop is the inner loop.
+
+``StructDataLoop_From``
+    Description: First structure-data file index used by the inner StructData
+    loop.
+    Default ``1``
+
+``StructDataLoop_To``
+    Description: Last structure-data file index used by the inner StructData
+    loop.
+    Default ``1``
+
+``StructData_User_Selection``
+    Description: Optional explicit list of selected structure-data file
+    indices.
+
+    If this option is present, it selects the exact ``StructData_#.csv`` files
+    used by the inner StructData loop, for example ``{1, 3, 4}``. If it is not
+    present, the contiguous range from ``StructDataLoop_From`` to
+    ``StructDataLoop_To`` is used.
+
 ``RotDataLoop``
     Description: Enable an inner loop over several rotation-data files.
     Default ``0``
@@ -232,7 +269,9 @@ These parameters control batch simulations or repeated calculations.
     ``RotDataLoop_To`` is used.
 
     For a fixed data-file index and a selected rotation-data index, output is
-    written to a nested folder such as ``SANS_1/RotData_3/``.
+    written to a nested folder such as ``SANS_1/RotData_3/``. If
+    ``StructDataLoop`` is active as well, the output is nested as
+    ``SANS_1/StructData_2/RotData_3/``.
 
 Constant Parameters
 -------------------

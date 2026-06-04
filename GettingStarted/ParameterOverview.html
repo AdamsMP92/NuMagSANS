@@ -515,6 +515,12 @@ local object data without rewriting the object files.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">StructData_activate</span></code></dt><dd><p>Default value 0</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">StructDataPath</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/StructData</span></code></p>
+<p>Folder used by <code class="docutils literal notranslate"><span class="pre">StructDataLoop</span></code>. In this mode, structure files are
+expected to follow the naming convention <code class="docutils literal notranslate"><span class="pre">StructData_1.csv</span></code>,
+<code class="docutils literal notranslate"><span class="pre">StructData_2.csv</span></code>, … inside <code class="docutils literal notranslate"><span class="pre">StructDataPath</span></code>. Each file contains one
+object-center translation table.</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">RotDataFilename</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/RotData.csv</span></code></p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">RotData_activate</span></code></dt><dd><p>Default value 0</p>
@@ -611,6 +617,29 @@ Default <code class="docutils literal notranslate"><span class="pre">[1]</span><
 <code class="docutils literal notranslate"><span class="pre">Loop_Modus</span> <span class="pre">=</span> <span class="pre">1</span></code>, the index range from <code class="docutils literal notranslate"><span class="pre">Loop_From</span></code> to <code class="docutils literal notranslate"><span class="pre">Loop_To</span></code> is
 used.</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">StructDataLoop</span></code></dt><dd><p>Description: Enable an inner loop over several structure-data files.
+Default <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>If <code class="docutils literal notranslate"><span class="pre">StructDataLoop</span> <span class="pre">=</span> <span class="pre">1</span></code>, NuMagSANS loads the selected
+<code class="docutils literal notranslate"><span class="pre">StructData_#.csv</span></code> files from <code class="docutils literal notranslate"><span class="pre">StructDataPath</span></code> while keeping the
+currently selected magnetic and nuclear local object data fixed. If
+<code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code> is also active, the structure-data loop is the outer loop
+and the rotation-data loop is the inner loop.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">StructDataLoop_From</span></code></dt><dd><p>Description: First structure-data file index used by the inner StructData
+loop.
+Default <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">StructDataLoop_To</span></code></dt><dd><p>Description: Last structure-data file index used by the inner StructData
+loop.
+Default <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">StructData_User_Selection</span></code></dt><dd><p>Description: Optional explicit list of selected structure-data file
+indices.</p>
+<p>If this option is present, it selects the exact <code class="docutils literal notranslate"><span class="pre">StructData_#.csv</span></code> files
+used by the inner StructData loop, for example <code class="docutils literal notranslate"><span class="pre">{1,</span> <span class="pre">3,</span> <span class="pre">4}</span></code>. If it is not
+present, the contiguous range from <code class="docutils literal notranslate"><span class="pre">StructDataLoop_From</span></code> to
+<code class="docutils literal notranslate"><span class="pre">StructDataLoop_To</span></code> is used.</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code></dt><dd><p>Description: Enable an inner loop over several rotation-data files.
 Default <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
 <p>If <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span> <span class="pre">=</span> <span class="pre">1</span></code>, NuMagSANS loads the selected <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code>
@@ -630,7 +659,9 @@ used by the inner RotData loop, for example <code class="docutils literal notran
 present, the contiguous range from <code class="docutils literal notranslate"><span class="pre">RotDataLoop_From</span></code> to
 <code class="docutils literal notranslate"><span class="pre">RotDataLoop_To</span></code> is used.</p>
 <p>For a fixed data-file index and a selected rotation-data index, output is
-written to a nested folder such as <code class="docutils literal notranslate"><span class="pre">SANS_1/RotData_3/</span></code>.</p>
+written to a nested folder such as <code class="docutils literal notranslate"><span class="pre">SANS_1/RotData_3/</span></code>. If
+<code class="docutils literal notranslate"><span class="pre">StructDataLoop</span></code> is active as well, the output is nested as
+<code class="docutils literal notranslate"><span class="pre">SANS_1/StructData_2/RotData_3/</span></code>.</p>
 </dd>
 </dl>
 </section>

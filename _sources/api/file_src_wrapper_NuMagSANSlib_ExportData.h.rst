@@ -36,7 +36,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_NuMagSANSlib__ExportData_8h_1af790ad926e483dd73b1c41e5a35b269a`
+- :ref:`exhale_function_NuMagSANSlib__ExportData_8h_1afd85a6d282e012bd7987ca60dc334714`
 
-- :ref:`exhale_function_NuMagSANSlib__ExportData_8h_1ab2e11239617454a5b3c4a1ff24145eab`
+- :ref:`exhale_function_NuMagSANSlib__ExportData_8h_1af6828fbe57a2a02ff0304e587fff0d91`
 

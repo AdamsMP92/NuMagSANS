@@ -1,4 +1,4 @@
-.. _exhale_function_NuMagSANSlib__SANSData_8h_1a3de7c2251b962d04b15c2a33b740c7aa:
+.. _exhale_function_NuMagSANSlib__SANSData_8h_1a1760358f1d86f64c1ee4fd1af2a9ba0e:
 
 Function write2CSVtable_ScatteringData
 ======================================
@@ -10,5 +10,5 @@ Function Documentation
 ----------------------
 
 
-.. doxygenfunction:: write2CSVtable_ScatteringData(InputFileData *, ScatteringData *, int, int)
+.. doxygenfunction:: write2CSVtable_ScatteringData(InputFileData *, ScatteringData *, int, int, int)
    :project: NuMagSANS

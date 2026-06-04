@@ -1,4 +1,4 @@
-.. _exhale_function_NuMagSANSlib__ExportData_8h_1af790ad926e483dd73b1c41e5a35b269a:
+.. _exhale_function_NuMagSANSlib__ExportData_8h_1afd85a6d282e012bd7987ca60dc334714:
 
 Function ExportData
 ===================
@@ -10,5 +10,5 @@ Function Documentation
 ----------------------
 
 
-.. doxygenfunction:: ExportData(InputFileData *, NuMagSANSData *, int, int)
+.. doxygenfunction:: ExportData(InputFileData *, NuMagSANSData *, int, int, int)
    :project: NuMagSANS

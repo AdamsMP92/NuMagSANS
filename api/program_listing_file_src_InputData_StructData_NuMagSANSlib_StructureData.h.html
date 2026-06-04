@@ -511,6 +511,28 @@
 
 <span class="p">}</span>
 
+<span class="kt">void</span><span class="w"> </span><span class="nf">copy_StructureDataRAM2GPU</span><span class="p">(</span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                               </span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">){</span>
+
+<span class="w">     </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">StructData</span><span class="o">-&gt;</span><span class="n">K</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">StructData_gpu</span><span class="o">-&gt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">StructData</span><span class="o">-&gt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">StructData_gpu</span><span class="o">-&gt;</span><span class="n">RotMat</span><span class="p">,</span><span class="w"> </span><span class="n">StructData</span><span class="o">-&gt;</span><span class="n">RotMat</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;copy data from RAM to GPU...&quot;</span><span class="p">);</span>
+<span class="w">     </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">StructData_gpu</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">StructData</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;   x done...&quot;</span><span class="p">);</span>
+<span class="w">     </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">StructData_gpu</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">StructData</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;   y done...&quot;</span><span class="p">);</span>
+<span class="w">     </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">StructData_gpu</span><span class="o">-&gt;</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">StructData</span><span class="o">-&gt;</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;   z done...&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;data transfer finished...&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+
+<span class="p">}</span>
+
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">read_StructureData</span><span class="p">(</span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span>\
 <span class="w">                        </span><span class="n">StructDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span><span class="w"> </span>\
@@ -558,6 +580,26 @@
 <span class="w">    </span><span class="n">allocate_StructureDataRAM</span><span class="p">(</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
 <span class="w">    </span><span class="n">read_StructureData</span><span class="p">(</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
 <span class="w">    </span><span class="n">allocate_StructureDataGPU</span><span class="p">(</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">init_StructureDataMemory</span><span class="p">(</span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                              </span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                              </span><span class="n">StructDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                              </span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">){</span>
+
+<span class="w">    </span><span class="n">allocate_StructureDataRAM</span><span class="p">(</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+<span class="w">    </span><span class="n">allocate_StructureDataGPU</span><span class="p">(</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">new_read_StructureData</span><span class="p">(</span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                            </span><span class="n">StructureData</span><span class="o">*</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                            </span><span class="n">StructDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span><span class="w"> </span>\
+<span class="w">                            </span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">){</span>
+
+<span class="w">    </span><span class="n">read_StructureData</span><span class="p">(</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputData</span><span class="p">);</span>
+<span class="w">    </span><span class="n">copy_StructureDataRAM2GPU</span><span class="p">(</span><span class="n">StructData</span><span class="p">,</span><span class="w"> </span><span class="n">StructData_gpu</span><span class="p">);</span>
 
 <span class="p">}</span>
 
