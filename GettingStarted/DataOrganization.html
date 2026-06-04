@@ -423,14 +423,16 @@
                   
   <section id="data-organization">
 <h1>Data Organization<a class="headerlink" href="#data-organization" title="Link to this heading">#</a></h1>
-<p>The input data for NuMagSANS consists of discretized real-space data sets
-that can be organized in multiple ways. The general input-data organizing
-is handeled by starting at the highest level with a <code class="docutils literal notranslate"><span class="pre">RealSpaceData</span></code> directory.
-Inside the <code class="docutils literal notranslate"><span class="pre">RealSpaceData</span></code> directory we distinguish between <code class="docutils literal notranslate"><span class="pre">MagData</span></code>, <code class="docutils literal notranslate"><span class="pre">NucData</span></code>,
-<code class="docutils literal notranslate"><span class="pre">StructData</span></code> and <code class="docutils literal notranslate"><span class="pre">RotData</span></code>, where their meaning their possible combinations
-are described at later point below through several scenarios.</p>
-<p>A first overview of possible combinations of these four types of data is given
-by the table below.</p>
+<p>The input data for NuMagSANS consist of discretized real-space datasets
+that can be organized in several ways. At the highest level, NuMagSANS
+expects a <code class="docutils literal notranslate"><span class="pre">RealSpaceData</span></code> directory.</p>
+<p>Inside this directory, the input data are separated into four data layers:
+<code class="docutils literal notranslate"><span class="pre">MagData</span></code>, <code class="docutils literal notranslate"><span class="pre">NucData</span></code>, <code class="docutils literal notranslate"><span class="pre">StructData</span></code>, and <code class="docutils literal notranslate"><span class="pre">RotData</span></code>. <code class="docutils literal notranslate"><span class="pre">MagData</span></code> and
+<code class="docutils literal notranslate"><span class="pre">NucData</span></code> contain local real-space object data, while <code class="docutils literal notranslate"><span class="pre">StructData</span></code> and
+<code class="docutils literal notranslate"><span class="pre">RotData</span></code> provide optional assembly metadata for object translations and
+object-wise rotations.</p>
+<p>The possible combinations of these data layers are summarized in the table
+below and are described in more detail in the following scenarios.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Active layers</p></th>
