@@ -84,24 +84,51 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 	// check memory
 	LogCurrentGPUMemoryDifference(MemoryBeforeRun);
 
-	if(InputData->RotData_activate_flag && InputData->RotDataLoop_flag){
+	bool StructDataLoop_active = InputData->StructData_activate_flag && InputData->StructDataLoop_flag;
+	bool RotDataLoop_active = InputData->RotData_activate_flag && InputData->RotDataLoop_flag;
+
+	int Number_Of_StructData_Runs = StructDataLoop_active ? static_cast<int>(InputData->StructDataLoop_IndexArray.size()) : 1;
+	int Number_Of_RotData_Runs = RotDataLoop_active ? static_cast<int>(InputData->RotDataLoop_IndexArray.size()) : 1;
+
+	bool First_Run = true;
+
+	for(int StructDataLoop_Counter = 0;
+		StructDataLoop_Counter < Number_Of_StructData_Runs;
+		StructDataLoop_Counter++){
+
+		int StructData_File_Index = 0;
+
+		if(StructDataLoop_active){
+			StructData_File_Index = InputData->StructDataLoop_IndexArray[StructDataLoop_Counter];
+
+			LogSystem::write("inner StructData loop active: StructData index "
+			                 + std::to_string(StructData_File_Index));
+
+			SetActiveStructDataFile(StructDataProp, StructData_File_Index);
+			new_read_StructureData(&Data.StructData, &Data.StructData_gpu, StructDataProp, InputData);
+			CheckCUDALastError("reload structure data");
+		}
 
 		for(int RotDataLoop_Counter = 0;
-			RotDataLoop_Counter < InputData->RotDataLoop_IndexArray.size();
+			RotDataLoop_Counter < Number_Of_RotData_Runs;
 			RotDataLoop_Counter++){
 
-			int RotData_File_Index = InputData->RotDataLoop_IndexArray[RotDataLoop_Counter];
+			int RotData_File_Index = 0;
 
-			LogSystem::write("inner RotData loop active: RotData index "
-			                 + std::to_string(RotData_File_Index));
+			if(RotDataLoop_active){
+				RotData_File_Index = InputData->RotDataLoop_IndexArray[RotDataLoop_Counter];
 
-			if(RotDataLoop_Counter != 0){
-				ResetSANSOutputData(InputData, &Data);
+				LogSystem::write("inner RotData loop active: RotData index "
+				                 + std::to_string(RotData_File_Index));
+
+				SetActiveRotDataFile(RotDataProp, RotData_File_Index);
+				new_read_RotationData(&Data.RotData, &Data.RotData_gpu, RotDataProp, InputData);
+				CheckCUDALastError("reload rotation data");
 			}
 
-			SetActiveRotDataFile(RotDataProp, RotData_File_Index);
-			new_read_RotationData(&Data.RotData, &Data.RotData_gpu, RotDataProp, InputData);
-			CheckCUDALastError("reload rotation data");
+			if(!First_Run){
+				ResetSANSOutputData(InputData, &Data);
+			}
 
 			// run gpu kernel
 			SelectKernelRun(InputData, &Data);
@@ -110,21 +137,11 @@ void NuMagSANS_Calculator(InputFileData* InputData, \
 			KernelPostprocessRun(InputData, &Data);
 
 			// export data
-			ExportData(InputData, &Data, Data_File_Index, RotData_File_Index);
+			ExportData(InputData, &Data, Data_File_Index, StructData_File_Index, RotData_File_Index);
 			CheckCUDALastError("export scattering data");
+
+			First_Run = false;
 		}
-
-	}else{
-
-		// run gpu kernel
-		SelectKernelRun(InputData, &Data);
-
-		// run gpu post-processing kernels
-		KernelPostprocessRun(InputData, &Data);
-
-		// export data
-		ExportData(InputData, &Data, Data_File_Index);
-		CheckCUDALastError("export scattering data");
 	}
 
 	// free memory

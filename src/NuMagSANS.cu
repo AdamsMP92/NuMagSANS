@@ -59,7 +59,13 @@ int main(int argc, char* argv[]){
 	StructDataProperties StructDataProp;
 	bool Check_StructData_Flag;
 	if(InputData.StructData_activate_flag){
-		Check_StructData_Flag = StructData_Observer(InputData.StructDataFilename, &StructDataProp);
+		if(InputData.StructDataLoop_flag){
+			Check_StructData_Flag = StructDataLoop_Observer(InputData.StructDataPath,
+															InputData.StructDataLoop_IndexArray,
+															&StructDataProp);
+		}else{
+			Check_StructData_Flag = StructData_Observer(InputData.StructDataFilename, &StructDataProp);
+		}
 		if(Check_StructData_Flag != true){
 			LogSystem::write(" ->-> Error in StructData!");
 			LogSystem::write("");
