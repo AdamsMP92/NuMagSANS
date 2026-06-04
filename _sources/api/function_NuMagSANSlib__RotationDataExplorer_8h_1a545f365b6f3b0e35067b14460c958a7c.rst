@@ -3,7 +3,7 @@
 Function get_GlobalRotDataPath
 ==============================
 
-- Defined in :ref:`file_src_NuMagSANSlib_RotationDataExplorer.h`
+- Defined in :ref:`file_src_InputData_RotData_NuMagSANSlib_RotationDataExplorer.h`
 
 
 Function Documentation

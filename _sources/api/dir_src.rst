@@ -11,6 +11,10 @@ Subdirectories
 --------------
 
 - :ref:`dir__home_runner_work_NuMagSANS_NuMagSANS_src_gpu_kernels`
+- :ref:`dir__home_runner_work_NuMagSANS_NuMagSANS_src_helper`
+- :ref:`dir__home_runner_work_NuMagSANS_NuMagSANS_src_InputData`
+- :ref:`dir__home_runner_work_NuMagSANS_NuMagSANS_src_OutputData`
+- :ref:`dir__home_runner_work_NuMagSANS_NuMagSANS_src_wrapper`
 
 
 Files
@@ -18,31 +22,5 @@ Files
 
 - :ref:`file_src_NuMagSANS.cu`
 - :ref:`file_src_NuMagSANSlib.h`
-- :ref:`file_src_NuMagSANSlib_CUDAError.h`
-- :ref:`file_src_NuMagSANSlib_Data.h`
-- :ref:`file_src_NuMagSANSlib_Directory.h`
-- :ref:`file_src_NuMagSANSlib_ExportData.h`
-- :ref:`file_src_NuMagSANSlib_FreeData.h`
-- :ref:`file_src_NuMagSANSlib_gpuKernel.h`
-- :ref:`file_src_NuMagSANSlib_HelperFun.h`
-- :ref:`file_src_NuMagSANSlib_InitializeData.h`
-- :ref:`file_src_NuMagSANSlib_InputFileInterpreter.h`
-- :ref:`file_src_NuMagSANSlib_KernelPostprocess.h`
-- :ref:`file_src_NuMagSANSlib_KernelSelector.h`
-- :ref:`file_src_NuMagSANSlib_LogFile.h`
-- :ref:`file_src_NuMagSANSlib_MagData.h`
-- :ref:`file_src_NuMagSANSlib_MagDataExplorer.h`
-- :ref:`file_src_NuMagSANSlib_MemoryInfo.h`
-- :ref:`file_src_NuMagSANSlib_NucData.h`
-- :ref:`file_src_NuMagSANSlib_NucDataExplorer.h`
-- :ref:`file_src_NuMagSANSlib_ReadWrite.h`
-- :ref:`file_src_NuMagSANSlib_RotationData.h`
-- :ref:`file_src_NuMagSANSlib_RotationDataExplorer.h`
-- :ref:`file_src_NuMagSANSlib_SANSData.h`
-- :ref:`file_src_NuMagSANSlib_SpectralData.h`
-- :ref:`file_src_NuMagSANSlib_StringCompare.h`
-- :ref:`file_src_NuMagSANSlib_StructureData.h`
-- :ref:`file_src_NuMagSANSlib_StructureDataExplorer.h`
-- :ref:`file_src_NuMagSANSlib_TimeMeasure.h`
 
 

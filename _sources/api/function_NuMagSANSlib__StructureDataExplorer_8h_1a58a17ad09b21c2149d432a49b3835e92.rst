@@ -3,7 +3,7 @@
 Function get_GlobalStructDataPath
 =================================
 
-- Defined in :ref:`file_src_NuMagSANSlib_StructureDataExplorer.h`
+- Defined in :ref:`file_src_InputData_StructData_NuMagSANSlib_StructureDataExplorer.h`
 
 
 Function Documentation

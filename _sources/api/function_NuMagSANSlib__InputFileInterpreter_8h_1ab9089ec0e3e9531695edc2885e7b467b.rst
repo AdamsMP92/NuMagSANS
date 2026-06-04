@@ -3,7 +3,7 @@
 Function any_active
 ===================
 
-- Defined in :ref:`file_src_NuMagSANSlib_InputFileInterpreter.h`
+- Defined in :ref:`file_src_InputData_NuMagSANSlib_InputFileInterpreter.h`
 
 
 Function Documentation

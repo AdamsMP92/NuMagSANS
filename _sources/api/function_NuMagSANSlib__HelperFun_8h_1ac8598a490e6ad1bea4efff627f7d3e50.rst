@@ -3,7 +3,7 @@
 Function SumIntList2
 ====================
 
-- Defined in :ref:`file_src_NuMagSANSlib_HelperFun.h`
+- Defined in :ref:`file_src_helper_NuMagSANSlib_HelperFun.h`
 
 
 Function Documentation

@@ -3,7 +3,7 @@
 Function FreeDataMulti
 ======================
 
-- Defined in :ref:`file_src_NuMagSANSlib_FreeData.h`
+- Defined in :ref:`file_src_wrapper_NuMagSANSlib_FreeData.h`
 
 
 Function Documentation

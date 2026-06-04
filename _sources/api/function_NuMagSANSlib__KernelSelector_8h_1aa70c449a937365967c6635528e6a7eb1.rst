@@ -3,7 +3,7 @@
 Function SelectKernelRun
 ========================
 
-- Defined in :ref:`file_src_NuMagSANSlib_KernelSelector.h`
+- Defined in :ref:`file_src_wrapper_NuMagSANSlib_KernelSelector.h`
 
 
 Function Documentation

@@ -3,7 +3,7 @@
 Function CheckCUDAKernelRun
 ===========================
 
-- Defined in :ref:`file_src_NuMagSANSlib_CUDAError.h`
+- Defined in :ref:`file_src_helper_NuMagSANSlib_CUDAError.h`
 
 
 Function Documentation

@@ -3,7 +3,7 @@
 Struct MagnetizationData
 ========================
 
-- Defined in :ref:`file_src_NuMagSANSlib_MagData.h`
+- Defined in :ref:`file_src_InputData_MagData_NuMagSANSlib_MagData.h`
 
 
 Struct Documentation

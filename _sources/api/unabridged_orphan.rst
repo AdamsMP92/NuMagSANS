@@ -16,6 +16,56 @@ Directories
 .. toctree::
    :maxdepth: 5
 
+   dir__home_runner_work_NuMagSANS_NuMagSANS_src_helper.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir__home_runner_work_NuMagSANS_NuMagSANS_src_InputData.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir__home_runner_work_NuMagSANS_NuMagSANS_src_InputData_MagData.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir__home_runner_work_NuMagSANS_NuMagSANS_src_InputData_NucData.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir__home_runner_work_NuMagSANS_NuMagSANS_src_InputData_RotData.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir__home_runner_work_NuMagSANS_NuMagSANS_src_InputData_StructData.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir__home_runner_work_NuMagSANS_NuMagSANS_src_OutputData.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir__home_runner_work_NuMagSANS_NuMagSANS_src_OutputData_SANSData.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir__home_runner_work_NuMagSANS_NuMagSANS_src_OutputData_SpectralData.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir__home_runner_work_NuMagSANS_NuMagSANS_src_wrapper.rst
+
+.. toctree::
+   :maxdepth: 5
+
    dir_src.rst
 
 Files
@@ -95,129 +145,129 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_CUDAError.h.rst
+   file_src_helper_NuMagSANSlib_CUDAError.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_Data.h.rst
+   file_src_wrapper_NuMagSANSlib_Data.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_Directory.h.rst
+   file_src_helper_NuMagSANSlib_Directory.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_ExportData.h.rst
+   file_src_wrapper_NuMagSANSlib_ExportData.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_FreeData.h.rst
+   file_src_wrapper_NuMagSANSlib_FreeData.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_gpuKernel.h.rst
+   file_src_gpu_kernels_NuMagSANSlib_gpuKernel.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_HelperFun.h.rst
+   file_src_helper_NuMagSANSlib_HelperFun.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_InitializeData.h.rst
+   file_src_wrapper_NuMagSANSlib_InitializeData.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_InputFileInterpreter.h.rst
+   file_src_InputData_NuMagSANSlib_InputFileInterpreter.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_KernelPostprocess.h.rst
+   file_src_wrapper_NuMagSANSlib_KernelPostprocess.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_KernelSelector.h.rst
+   file_src_wrapper_NuMagSANSlib_KernelSelector.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_LogFile.h.rst
+   file_src_helper_NuMagSANSlib_LogFile.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_MagData.h.rst
+   file_src_InputData_MagData_NuMagSANSlib_MagData.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_MagDataExplorer.h.rst
+   file_src_InputData_MagData_NuMagSANSlib_MagDataExplorer.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_MemoryInfo.h.rst
+   file_src_helper_NuMagSANSlib_MemoryInfo.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_NucData.h.rst
+   file_src_InputData_NucData_NuMagSANSlib_NucData.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_NucDataExplorer.h.rst
+   file_src_InputData_NucData_NuMagSANSlib_NucDataExplorer.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_ReadWrite.h.rst
+   file_src_helper_NuMagSANSlib_ReadWrite.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_RotationData.h.rst
+   file_src_InputData_RotData_NuMagSANSlib_RotationData.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_RotationDataExplorer.h.rst
+   file_src_InputData_RotData_NuMagSANSlib_RotationDataExplorer.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_SANSData.h.rst
+   file_src_OutputData_SANSData_NuMagSANSlib_SANSData.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_SpectralData.h.rst
+   file_src_OutputData_SpectralData_NuMagSANSlib_SpectralData.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_StringCompare.h.rst
+   file_src_helper_NuMagSANSlib_StringCompare.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_StructureData.h.rst
+   file_src_InputData_StructData_NuMagSANSlib_StructureData.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_StructureDataExplorer.h.rst
+   file_src_InputData_StructData_NuMagSANSlib_StructureDataExplorer.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_src_NuMagSANSlib_TimeMeasure.h.rst
+   file_src_helper_NuMagSANSlib_TimeMeasure.h.rst

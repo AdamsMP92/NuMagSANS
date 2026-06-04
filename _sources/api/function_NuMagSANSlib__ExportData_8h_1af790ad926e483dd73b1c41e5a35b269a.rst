@@ -3,7 +3,7 @@
 Function ExportData
 ===================
 
-- Defined in :ref:`file_src_NuMagSANSlib_ExportData.h`
+- Defined in :ref:`file_src_wrapper_NuMagSANSlib_ExportData.h`
 
 
 Function Documentation

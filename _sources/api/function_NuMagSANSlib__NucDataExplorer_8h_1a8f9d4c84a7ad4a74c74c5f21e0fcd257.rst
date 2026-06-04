@@ -3,7 +3,7 @@
 Function check_element_names_NucData
 ====================================
 
-- Defined in :ref:`file_src_NuMagSANSlib_NucDataExplorer.h`
+- Defined in :ref:`file_src_InputData_NucData_NuMagSANSlib_NucDataExplorer.h`
 
 
 Function Documentation

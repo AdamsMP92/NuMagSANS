@@ -3,7 +3,7 @@
 Function allocate_NuclearDataGPU
 ================================
 
-- Defined in :ref:`file_src_NuMagSANSlib_NucData.h`
+- Defined in :ref:`file_src_InputData_NucData_NuMagSANSlib_NucData.h`
 
 
 Function Documentation

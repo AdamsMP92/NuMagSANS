@@ -3,7 +3,7 @@
 Struct NuMagSANSData
 ====================
 
-- Defined in :ref:`file_src_NuMagSANSlib_Data.h`
+- Defined in :ref:`file_src_wrapper_NuMagSANSlib_Data.h`
 
 
 Struct Documentation

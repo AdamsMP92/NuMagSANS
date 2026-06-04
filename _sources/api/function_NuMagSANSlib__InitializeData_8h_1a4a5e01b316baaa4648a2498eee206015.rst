@@ -3,7 +3,7 @@
 Function InitializeDataMulti
 ============================
 
-- Defined in :ref:`file_src_NuMagSANSlib_InitializeData.h`
+- Defined in :ref:`file_src_wrapper_NuMagSANSlib_InitializeData.h`
 
 
 Function Documentation

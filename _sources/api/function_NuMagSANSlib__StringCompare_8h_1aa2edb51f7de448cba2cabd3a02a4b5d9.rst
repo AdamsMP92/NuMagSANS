@@ -3,7 +3,7 @@
 Function CheckStrings_ElementNames
 ==================================
 
-- Defined in :ref:`file_src_NuMagSANSlib_StringCompare.h`
+- Defined in :ref:`file_src_helper_NuMagSANSlib_StringCompare.h`
 
 
 Function Documentation

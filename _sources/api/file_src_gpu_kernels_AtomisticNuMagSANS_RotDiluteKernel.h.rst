@@ -27,7 +27,7 @@ Included By
 -----------
 
 
-- :ref:`file_src_NuMagSANSlib_gpuKernel.h`
+- :ref:`file_src_gpu_kernels_NuMagSANSlib_gpuKernel.h`
 
 
 

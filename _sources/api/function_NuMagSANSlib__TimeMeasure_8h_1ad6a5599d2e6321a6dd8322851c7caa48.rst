@@ -3,7 +3,7 @@
 Function LogElapsedTime
 =======================
 
-- Defined in :ref:`file_src_NuMagSANSlib_TimeMeasure.h`
+- Defined in :ref:`file_src_helper_NuMagSANSlib_TimeMeasure.h`
 
 
 Function Documentation

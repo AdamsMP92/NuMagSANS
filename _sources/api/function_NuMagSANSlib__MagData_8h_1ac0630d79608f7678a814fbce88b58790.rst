@@ -3,7 +3,7 @@
 Function allocate_MagnetizationDataRAM
 ======================================
 
-- Defined in :ref:`file_src_NuMagSANSlib_MagData.h`
+- Defined in :ref:`file_src_InputData_MagData_NuMagSANSlib_MagData.h`
 
 
 Function Documentation

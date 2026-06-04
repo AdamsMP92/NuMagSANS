@@ -3,7 +3,7 @@
 Struct GPUMemoryInfo
 ====================
 
-- Defined in :ref:`file_src_NuMagSANSlib_MemoryInfo.h`
+- Defined in :ref:`file_src_helper_NuMagSANSlib_MemoryInfo.h`
 
 
 Struct Documentation

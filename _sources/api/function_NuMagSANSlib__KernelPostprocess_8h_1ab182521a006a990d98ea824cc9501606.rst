@@ -3,7 +3,7 @@
 Function KernelPostprocessRun
 =============================
 
-- Defined in :ref:`file_src_NuMagSANSlib_KernelPostprocess.h`
+- Defined in :ref:`file_src_wrapper_NuMagSANSlib_KernelPostprocess.h`
 
 
 Function Documentation

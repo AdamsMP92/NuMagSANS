@@ -3,7 +3,7 @@
 Struct MagDataProperties
 ========================
 
-- Defined in :ref:`file_src_NuMagSANSlib_MagDataExplorer.h`
+- Defined in :ref:`file_src_InputData_MagData_NuMagSANSlib_MagDataExplorer.h`
 
 
 Struct Documentation

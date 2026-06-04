@@ -3,7 +3,7 @@
 Variable LogSystem::logFile
 ===========================
 
-- Defined in :ref:`file_src_NuMagSANSlib_LogFile.h`
+- Defined in :ref:`file_src_helper_NuMagSANSlib_LogFile.h`
 
 
 Variable Documentation

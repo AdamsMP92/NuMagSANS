@@ -3,7 +3,7 @@
 Function read_RotationData
 ==========================
 
-- Defined in :ref:`file_src_NuMagSANSlib_RotationData.h`
+- Defined in :ref:`file_src_InputData_RotData_NuMagSANSlib_RotationData.h`
 
 
 Function Documentation

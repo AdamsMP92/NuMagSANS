@@ -3,7 +3,7 @@
 Function init_ScalingFactors
 ============================
 
-- Defined in :ref:`file_src_NuMagSANSlib_SANSData.h`
+- Defined in :ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSData.h`
 
 
 Function Documentation

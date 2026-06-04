@@ -3,7 +3,7 @@
 Function NucData_Observer
 =========================
 
-- Defined in :ref:`file_src_NuMagSANSlib_NucDataExplorer.h`
+- Defined in :ref:`file_src_InputData_NucData_NuMagSANSlib_NucDataExplorer.h`
 
 
 Function Documentation

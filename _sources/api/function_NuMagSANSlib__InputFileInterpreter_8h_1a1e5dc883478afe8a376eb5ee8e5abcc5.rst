@@ -3,7 +3,7 @@
 Function User_Selection_To_Int_Array
 ====================================
 
-- Defined in :ref:`file_src_NuMagSANSlib_InputFileInterpreter.h`
+- Defined in :ref:`file_src_InputData_NuMagSANSlib_InputFileInterpreter.h`
 
 
 Function Documentation

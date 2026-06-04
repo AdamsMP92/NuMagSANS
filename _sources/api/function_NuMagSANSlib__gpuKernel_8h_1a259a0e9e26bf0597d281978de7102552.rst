@@ -3,7 +3,7 @@
 Function ComputeAngularSpectrumAmplitudes
 =========================================
 
-- Defined in :ref:`file_src_NuMagSANSlib_gpuKernel.h`
+- Defined in :ref:`file_src_gpu_kernels_NuMagSANSlib_gpuKernel.h`
 
 
 Function Documentation

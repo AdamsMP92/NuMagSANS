@@ -3,7 +3,7 @@
 Function ReadCSV_double_matrix
 ==============================
 
-- Defined in :ref:`file_src_NuMagSANSlib_ReadWrite.h`
+- Defined in :ref:`file_src_helper_NuMagSANSlib_ReadWrite.h`
 
 
 Function Documentation

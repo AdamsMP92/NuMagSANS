@@ -3,7 +3,7 @@
 Function build_spectral_intensities
 ===================================
 
-- Defined in :ref:`file_src_NuMagSANSlib_SpectralData.h`
+- Defined in :ref:`file_src_OutputData_SpectralData_NuMagSANSlib_SpectralData.h`
 
 
 Function Documentation

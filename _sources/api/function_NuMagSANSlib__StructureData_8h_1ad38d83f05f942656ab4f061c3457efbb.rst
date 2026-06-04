@@ -3,7 +3,7 @@
 Function allocate_StructureDataGPU
 ==================================
 
-- Defined in :ref:`file_src_NuMagSANSlib_StructureData.h`
+- Defined in :ref:`file_src_InputData_StructData_NuMagSANSlib_StructureData.h`
 
 
 Function Documentation

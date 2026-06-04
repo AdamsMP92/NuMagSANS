@@ -30,57 +30,27 @@ Includes
 --------
 
 
-- ``NuMagSANSlib_CUDAError.h`` (:ref:`file_src_NuMagSANSlib_CUDAError.h`)
+- ``InputData/MagData/NuMagSANSlib_MagData.h`` (:ref:`file_src_InputData_MagData_NuMagSANSlib_MagData.h`)
 
-- ``NuMagSANSlib_Data.h`` (:ref:`file_src_NuMagSANSlib_Data.h`)
+- ``InputData/MagData/NuMagSANSlib_MagDataExplorer.h`` (:ref:`file_src_InputData_MagData_NuMagSANSlib_MagDataExplorer.h`)
 
-- ``NuMagSANSlib_Directory.h`` (:ref:`file_src_NuMagSANSlib_Directory.h`)
+- ``InputData/NuMagSANSlib_InputFileInterpreter.h`` (:ref:`file_src_InputData_NuMagSANSlib_InputFileInterpreter.h`)
 
-- ``NuMagSANSlib_ExportData.h`` (:ref:`file_src_NuMagSANSlib_ExportData.h`)
+- ``InputData/NucData/NuMagSANSlib_NucData.h`` (:ref:`file_src_InputData_NucData_NuMagSANSlib_NucData.h`)
 
-- ``NuMagSANSlib_FreeData.h`` (:ref:`file_src_NuMagSANSlib_FreeData.h`)
+- ``InputData/NucData/NuMagSANSlib_NucDataExplorer.h`` (:ref:`file_src_InputData_NucData_NuMagSANSlib_NucDataExplorer.h`)
 
-- ``NuMagSANSlib_HelperFun.h`` (:ref:`file_src_NuMagSANSlib_HelperFun.h`)
+- ``InputData/RotData/NuMagSANSlib_RotationData.h`` (:ref:`file_src_InputData_RotData_NuMagSANSlib_RotationData.h`)
 
-- ``NuMagSANSlib_InitializeData.h`` (:ref:`file_src_NuMagSANSlib_InitializeData.h`)
+- ``InputData/RotData/NuMagSANSlib_RotationDataExplorer.h`` (:ref:`file_src_InputData_RotData_NuMagSANSlib_RotationDataExplorer.h`)
 
-- ``NuMagSANSlib_InputFileInterpreter.h`` (:ref:`file_src_NuMagSANSlib_InputFileInterpreter.h`)
+- ``InputData/StructData/NuMagSANSlib_StructureData.h`` (:ref:`file_src_InputData_StructData_NuMagSANSlib_StructureData.h`)
 
-- ``NuMagSANSlib_KernelPostprocess.h`` (:ref:`file_src_NuMagSANSlib_KernelPostprocess.h`)
+- ``InputData/StructData/NuMagSANSlib_StructureDataExplorer.h`` (:ref:`file_src_InputData_StructData_NuMagSANSlib_StructureDataExplorer.h`)
 
-- ``NuMagSANSlib_KernelSelector.h`` (:ref:`file_src_NuMagSANSlib_KernelSelector.h`)
+- ``OutputData/SANSData/NuMagSANSlib_SANSData.h`` (:ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSData.h`)
 
-- ``NuMagSANSlib_LogFile.h`` (:ref:`file_src_NuMagSANSlib_LogFile.h`)
-
-- ``NuMagSANSlib_MagData.h`` (:ref:`file_src_NuMagSANSlib_MagData.h`)
-
-- ``NuMagSANSlib_MagDataExplorer.h`` (:ref:`file_src_NuMagSANSlib_MagDataExplorer.h`)
-
-- ``NuMagSANSlib_MemoryInfo.h`` (:ref:`file_src_NuMagSANSlib_MemoryInfo.h`)
-
-- ``NuMagSANSlib_NucData.h`` (:ref:`file_src_NuMagSANSlib_NucData.h`)
-
-- ``NuMagSANSlib_NucDataExplorer.h`` (:ref:`file_src_NuMagSANSlib_NucDataExplorer.h`)
-
-- ``NuMagSANSlib_ReadWrite.h`` (:ref:`file_src_NuMagSANSlib_ReadWrite.h`)
-
-- ``NuMagSANSlib_RotationData.h`` (:ref:`file_src_NuMagSANSlib_RotationData.h`)
-
-- ``NuMagSANSlib_RotationDataExplorer.h`` (:ref:`file_src_NuMagSANSlib_RotationDataExplorer.h`)
-
-- ``NuMagSANSlib_SANSData.h`` (:ref:`file_src_NuMagSANSlib_SANSData.h`)
-
-- ``NuMagSANSlib_SpectralData.h`` (:ref:`file_src_NuMagSANSlib_SpectralData.h`)
-
-- ``NuMagSANSlib_StringCompare.h`` (:ref:`file_src_NuMagSANSlib_StringCompare.h`)
-
-- ``NuMagSANSlib_StructureData.h`` (:ref:`file_src_NuMagSANSlib_StructureData.h`)
-
-- ``NuMagSANSlib_StructureDataExplorer.h`` (:ref:`file_src_NuMagSANSlib_StructureDataExplorer.h`)
-
-- ``NuMagSANSlib_TimeMeasure.h`` (:ref:`file_src_NuMagSANSlib_TimeMeasure.h`)
-
-- ``NuMagSANSlib_gpuKernel.h`` (:ref:`file_src_NuMagSANSlib_gpuKernel.h`)
+- ``OutputData/SpectralData/NuMagSANSlib_SpectralData.h`` (:ref:`file_src_OutputData_SpectralData_NuMagSANSlib_SpectralData.h`)
 
 - ``chrono``
 
@@ -91,6 +61,24 @@ Includes
 - ``dirent.h``
 
 - ``fstream``
+
+- ``gpu_kernels/NuMagSANSlib_gpuKernel.h`` (:ref:`file_src_gpu_kernels_NuMagSANSlib_gpuKernel.h`)
+
+- ``helper/NuMagSANSlib_CUDAError.h`` (:ref:`file_src_helper_NuMagSANSlib_CUDAError.h`)
+
+- ``helper/NuMagSANSlib_Directory.h`` (:ref:`file_src_helper_NuMagSANSlib_Directory.h`)
+
+- ``helper/NuMagSANSlib_HelperFun.h`` (:ref:`file_src_helper_NuMagSANSlib_HelperFun.h`)
+
+- ``helper/NuMagSANSlib_LogFile.h`` (:ref:`file_src_helper_NuMagSANSlib_LogFile.h`)
+
+- ``helper/NuMagSANSlib_MemoryInfo.h`` (:ref:`file_src_helper_NuMagSANSlib_MemoryInfo.h`)
+
+- ``helper/NuMagSANSlib_ReadWrite.h`` (:ref:`file_src_helper_NuMagSANSlib_ReadWrite.h`)
+
+- ``helper/NuMagSANSlib_StringCompare.h`` (:ref:`file_src_helper_NuMagSANSlib_StringCompare.h`)
+
+- ``helper/NuMagSANSlib_TimeMeasure.h`` (:ref:`file_src_helper_NuMagSANSlib_TimeMeasure.h`)
 
 - ``iostream``
 
@@ -114,16 +102,21 @@ Includes
 
 - ``vector``
 
+- ``wrapper/NuMagSANSlib_Data.h`` (:ref:`file_src_wrapper_NuMagSANSlib_Data.h`)
+
+- ``wrapper/NuMagSANSlib_ExportData.h`` (:ref:`file_src_wrapper_NuMagSANSlib_ExportData.h`)
+
+- ``wrapper/NuMagSANSlib_FreeData.h`` (:ref:`file_src_wrapper_NuMagSANSlib_FreeData.h`)
+
+- ``wrapper/NuMagSANSlib_InitializeData.h`` (:ref:`file_src_wrapper_NuMagSANSlib_InitializeData.h`)
+
+- ``wrapper/NuMagSANSlib_KernelPostprocess.h`` (:ref:`file_src_wrapper_NuMagSANSlib_KernelPostprocess.h`)
+
+- ``wrapper/NuMagSANSlib_KernelSelector.h`` (:ref:`file_src_wrapper_NuMagSANSlib_KernelSelector.h`)
 
 
 
 
-
-Namespaces
-----------
-
-
-- :ref:`namespace_std`
 
 
 Functions
