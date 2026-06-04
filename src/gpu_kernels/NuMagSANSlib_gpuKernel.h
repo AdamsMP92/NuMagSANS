@@ -35,21 +35,21 @@
 //
 
 
-#include "gpu_kernels/AtomisticMagSANS_DiluteKernel.h"
-#include "gpu_kernels/AtomisticNucSANS_DiluteKernel.h"
-#include "gpu_kernels/AtomisticNuMagSANS_DiluteKernel.h"
+#include "AtomisticMagSANS_DiluteKernel.h"
+#include "AtomisticNucSANS_DiluteKernel.h"
+#include "AtomisticNuMagSANS_DiluteKernel.h"
 
-#include "gpu_kernels/AtomisticMagSANS_StructKernel.h"
-#include "gpu_kernels/AtomisticNucSANS_StructKernel.h"
-#include "gpu_kernels/AtomisticNuMagSANS_StructKernel.h"
+#include "AtomisticMagSANS_StructKernel.h"
+#include "AtomisticNucSANS_StructKernel.h"
+#include "AtomisticNuMagSANS_StructKernel.h"
 
-#include "gpu_kernels/AtomisticMagSANS_RotDiluteKernel.h"
-#include "gpu_kernels/AtomisticNucSANS_RotDiluteKernel.h"
-#include "gpu_kernels/AtomisticNuMagSANS_RotDiluteKernel.h"
+#include "AtomisticMagSANS_RotDiluteKernel.h"
+#include "AtomisticNucSANS_RotDiluteKernel.h"
+#include "AtomisticNuMagSANS_RotDiluteKernel.h"
 
-#include "gpu_kernels/AtomisticMagSANS_StructRotKernel.h"
-#include "gpu_kernels/AtomisticNucSANS_StructRotKernel.h"
-#include "gpu_kernels/AtomisticNuMagSANS_StructRotKernel.h"
+#include "AtomisticMagSANS_StructRotKernel.h"
+#include "AtomisticNucSANS_StructRotKernel.h"
+#include "AtomisticNuMagSANS_StructRotKernel.h"
 
 
 // ============================================================================
