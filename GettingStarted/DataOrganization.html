@@ -50,8 +50,6 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/DataOrganization';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -473,261 +471,57 @@ below and are described in more detail in the following scenarios.</p>
 </tbody>
 </table>
 </div>
-<section id="local-object-data">
-<h2>Local Object Data<a class="headerlink" href="#local-object-data" title="Link to this heading">#</a></h2>
-<p>Local object data are stored in object folders. Each object folder contains one
-or more data files. The file index is selected by <code class="docutils literal notranslate"><span class="pre">User_Selection</span></code> or by
-<code class="docutils literal notranslate"><span class="pre">Loop_Modus</span></code>.</p>
-<p>Magnetic data:</p>
+<section id="simulation-scenarios-and-their-data-organization">
+<h2>Simulation scenarios and their data organization<a class="headerlink" href="#simulation-scenarios-and-their-data-organization" title="Link to this heading">#</a></h2>
+<p>NuMagSANS supports several simulation scenarios, and the corresponding data
+handling can be difficult to understand all at once. Therefore, the input-data
+organization is introduced scenario by scenario, starting with the simplest
+setup.</p>
+<section id="scenario-1-single-object-with-a-single-magnetic-state">
+<h3>Scenario 1: Single object with a single magnetic state<a class="headerlink" href="#scenario-1-single-object-with-a-single-magnetic-state" title="Link to this heading">#</a></h3>
+<p>The simplest NuMagSANS scenario is a single magnetic object with a single
+magnetic state. This could be, for example, a spherical magnetic nanoparticle
+with a uniform magnetization state.</p>
+<p>For this scenario, the input dataset is organized as follows. At the highest
+level, the <code class="docutils literal notranslate"><span class="pre">RealSpaceData</span></code> directory contains a <code class="docutils literal notranslate"><span class="pre">MagData</span></code> directory. Inside
+<code class="docutils literal notranslate"><span class="pre">MagData</span></code>, the local object data are stored in the <code class="docutils literal notranslate"><span class="pre">Object_1</span></code> directory,
+which contains a single <code class="docutils literal notranslate"><span class="pre">m_1.csv</span></code> file.</p>
+<p>It is important that the object directory name ends with an underscore <code class="docutils literal notranslate"><span class="pre">_</span></code>
+followed by an enumeration starting from <code class="docutils literal notranslate"><span class="pre">1</span></code>. The prefix before the
+underscore can be chosen by the user. For example, <code class="docutils literal notranslate"><span class="pre">Object_1</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Particle_1</span></code>, <code class="docutils literal notranslate"><span class="pre">Angle_1</span></code>, or <code class="docutils literal notranslate"><span class="pre">Orientation_1</span></code> are possible names as long as
+the numbering convention is preserved.</p>
+<p>The same convention applies to the magnetic data file <code class="docutils literal notranslate"><span class="pre">m_1.csv</span></code>. The prefix
+<code class="docutils literal notranslate"><span class="pre">m</span></code> identifies magnetic data, while the index <code class="docutils literal notranslate"><span class="pre">1</span></code> is the data-file index
+selected through <code class="docutils literal notranslate"><span class="pre">User_Selection</span></code> or <code class="docutils literal notranslate"><span class="pre">Loop_Modus</span></code>.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
   MagData/
     Object_1/
       m_1.csv
-      m_2.csv
-      ...
-    Object_2/
-      m_1.csv
-      m_2.csv
-      ...
 </pre></div>
 </div>
-<p>Each magnetic file contains rows with:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">m_1.csv</span></code> file is a header-free, whitespace-separated file with six
+columns. The first three columns contain the Cartesian position information
+<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>. The last three columns contain the magnetic moment or
+magnetization vector components <code class="docutils literal notranslate"><span class="pre">mx</span></code>, <code class="docutils literal notranslate"><span class="pre">my</span></code>, <code class="docutils literal notranslate"><span class="pre">mz</span></code>.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x y z mx my mz
 </pre></div>
 </div>
-<p>Nuclear data:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
-  NucData/
-    Object_1/
-      n_1.csv
-      n_2.csv
-      ...
-    Object_2/
-      n_1.csv
-      n_2.csv
-      ...
-</pre></div>
-</div>
-<p>Each nuclear file contains rows with:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x y z nuc
-</pre></div>
-</div>
-<p>The object folders define the local object ordering. For example,
-<code class="docutils literal notranslate"><span class="pre">Object_1</span></code> corresponds to the first object, <code class="docutils literal notranslate"><span class="pre">Object_2</span></code> to the second
-object, and so on.</p>
-</section>
-<section id="mode-1-fully-materialized-local-data">
-<h2>Mode 1: Fully Materialized Local Data<a class="headerlink" href="#mode-1-fully-materialized-local-data" title="Link to this heading">#</a></h2>
-<p>In the simplest mode, NuMagSANS reads only local magnetic and/or nuclear data.
-No additional object-center translations or object-wise rotations are applied.</p>
-<p>Typical layout:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
-  MagData/
-    Object_1/
-      m_1.csv
-</pre></div>
-</div>
-<p>or, for combined magnetic and nuclear data:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
-  MagData/
-    Object_1/
-      m_1.csv
-  NucData/
-    Object_1/
-      n_1.csv
-</pre></div>
-</div>
-<p>Typical configuration:</p>
+<p>For atomistic systems, the coordinates are commonly given in nanometers and
+the atomic magnetic moments in units of the Bohr magneton. The relevant minimal
+configuration is:</p>
 <div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
 NucData_activate = 0;
 StructData_activate = 0;
 RotData_activate = 0;
+MagDataPath = RealSpaceData/MagData;
 User_Selection = {1};
 </pre></div>
 </div>
-<p>This mode is suitable for a single complete object or for a fully materialized
-system that is stored directly as local real-space coordinates.</p>
+<p>In this scenario, no <code class="docutils literal notranslate"><span class="pre">NucData</span></code>, <code class="docutils literal notranslate"><span class="pre">StructData</span></code>, or <code class="docutils literal notranslate"><span class="pre">RotData</span></code> are required.
+The object position, shape, and magnetic state are fully contained in the local
+coordinates and magnetic vector components stored in <code class="docutils literal notranslate"><span class="pre">m_1.csv</span></code>.</p>
 </section>
-<section id="mode-2-materialized-multi-object-data">
-<h2>Mode 2: Materialized Multi-Object Data<a class="headerlink" href="#mode-2-materialized-multi-object-data" title="Link to this heading">#</a></h2>
-<p>Multiple local objects can be provided explicitly as separate object folders.
-The kernels treat them as separate objects even without <code class="docutils literal notranslate"><span class="pre">StructData</span></code> or
-<code class="docutils literal notranslate"><span class="pre">RotData</span></code>.</p>
-<p>Typical layout:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
-  MagData/
-    Object_1/
-      m_1.csv
-    Object_2/
-      m_1.csv
-    Object_3/
-      m_1.csv
-</pre></div>
-</div>
-<p>Typical configuration:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
-StructData_activate = 0;
-RotData_activate = 0;
-User_Selection = {1};
-</pre></div>
-</div>
-<p>In this mode, positions and orientations are already contained in the local
-coordinates stored in the individual object files.</p>
-</section>
-<section id="mode-3-structdata-assembly">
-<h2>Mode 3: StructData Assembly<a class="headerlink" href="#mode-3-structdata-assembly" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">StructData</span></code> stores object-center translations. It is used when local object
-data should be placed at object-center positions during the scattering
-calculation.</p>
-<p>Typical layout:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
-  MagData/
-    Object_1/
-      m_1.csv
-    Object_2/
-      m_1.csv
-  StructData.csv
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> contains one row per object:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x y z
-</pre></div>
-</div>
-<p>Typical configuration:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
-StructData_activate = 1;
-RotData_activate = 0;
-StructDataFilename = RealSpaceData/StructData.csv;
-User_Selection = {1};
-</pre></div>
-</div>
-<p>The number of rows in <code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> must match the number of local
-objects.</p>
-</section>
-<section id="mode-4-rotdata-assembly">
-<h2>Mode 4: RotData Assembly<a class="headerlink" href="#mode-4-rotdata-assembly" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">RotData</span></code> stores object-wise local rotations. It is used when local object
-data should be rotated individually during the scattering calculation.</p>
-<p>Typical layout:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
-  MagData/
-    Object_1/
-      m_1.csv
-    Object_2/
-      m_1.csv
-  RotData.csv
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> contains one row per object:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>alpha beta gamma
-</pre></div>
-</div>
-<p>The angles are interpreted as ZYZ Euler angles in radians:</p>
-<div class="math notranslate nohighlight">
-\[R = R_z(\alpha) R_y(\beta) R_z(\gamma).\]</div>
-<p>Typical configuration:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
-StructData_activate = 0;
-RotData_activate = 1;
-RotDataFilename = RealSpaceData/RotData.csv;
-User_Selection = {1};
-</pre></div>
-</div>
-<p>The number of rows in <code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> must match the number of local objects.</p>
-</section>
-<section id="mode-5-structdata-and-rotdata-assembly">
-<h2>Mode 5: StructData and RotData Assembly<a class="headerlink" href="#mode-5-structdata-and-rotdata-assembly" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">StructData</span></code> and <code class="docutils literal notranslate"><span class="pre">RotData</span></code> can be combined. In this case, local objects are
-rotated individually and placed at object-center positions.</p>
-<p>Typical layout:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
-  MagData/
-    Object_1/
-      m_1.csv
-    Object_2/
-      m_1.csv
-  StructData.csv
-  RotData.csv
-</pre></div>
-</div>
-<p>Typical configuration:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
-StructData_activate = 1;
-RotData_activate = 1;
-StructDataFilename = RealSpaceData/StructData.csv;
-RotDataFilename = RealSpaceData/RotData.csv;
-User_Selection = {1};
-</pre></div>
-</div>
-<p>The number of local objects, the number of <code class="docutils literal notranslate"><span class="pre">StructData</span></code> rows, and the number
-of <code class="docutils literal notranslate"><span class="pre">RotData</span></code> rows must be identical.</p>
-</section>
-<section id="mode-6-data-file-selection-and-outer-data-loops">
-<h2>Mode 6: Data-File Selection and Outer Data Loops<a class="headerlink" href="#mode-6-data-file-selection-and-outer-data-loops" title="Link to this heading">#</a></h2>
-<p>The file index inside each object folder is selected globally. For example,
-<code class="docutils literal notranslate"><span class="pre">m_1.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">n_1.csv</span></code> correspond to data-file index <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
-<p>Explicit selection:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>Loop_Modus = 0;
-User_Selection = {1, 3, 5};
-</pre></div>
-</div>
-<p>Loop mode:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>Loop_Modus = 1;
-Loop_From = 1;
-Loop_To = 20;
-</pre></div>
-</div>
-<p>In loop mode, NuMagSANS evaluates the selected data-file indices one after
-another. Output folders are generated as:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NuMagSANS_Output/
-  SANS_1/
-  SANS_2/
-  ...
-</pre></div>
-</div>
-</section>
-<section id="mode-7-rotdata-folder-loop">
-<h2>Mode 7: RotData Folder Loop<a class="headerlink" href="#mode-7-rotdata-folder-loop" title="Link to this heading">#</a></h2>
-<p>The RotData folder loop evaluates several rotation-data files for the same
-selected magnetic, nuclear, and structure data.</p>
-<p>Typical layout:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
-  MagData/
-    Object_1/
-      m_1.csv
-    Object_2/
-      m_1.csv
-  StructData.csv
-  RotData/
-    RotData_1.csv
-    RotData_2.csv
-    RotData_3.csv
-</pre></div>
-</div>
-<p>Typical configuration using a contiguous range:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>RotData_activate = 1;
-RotDataLoop = 1;
-RotDataPath = RealSpaceData/RotData;
-RotDataLoop_From = 1;
-RotDataLoop_To = 3;
-</pre></div>
-</div>
-<p>Typical configuration using an explicit selection:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>RotData_activate = 1;
-RotDataLoop = 1;
-RotDataPath = RealSpaceData/RotData;
-RotData_User_Selection = {1, 3};
-</pre></div>
-</div>
-<p>Each selected <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> file must contain the same number of rows, and
-this number must match the number of local objects. Output is written into
-nested folders:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NuMagSANS_Output/
-  SANS_1/
-    RotData_1/
-    RotData_3/
-</pre></div>
-</div>
 </section>
 <section id="consistency-rules">
 <h2>Consistency Rules<a class="headerlink" href="#consistency-rules" title="Link to this heading">#</a></h2>
@@ -805,14 +599,10 @@ from the same separation between local object data and assembly metadata.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-object-data">Local Object Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-1-fully-materialized-local-data">Mode 1: Fully Materialized Local Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-2-materialized-multi-object-data">Mode 2: Materialized Multi-Object Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-3-structdata-assembly">Mode 3: StructData Assembly</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-4-rotdata-assembly">Mode 4: RotData Assembly</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-5-structdata-and-rotdata-assembly">Mode 5: StructData and RotData Assembly</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-6-data-file-selection-and-outer-data-loops">Mode 6: Data-File Selection and Outer Data Loops</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-7-rotdata-folder-loop">Mode 7: RotData Folder Loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-scenarios-and-their-data-organization">Simulation scenarios and their data organization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-1-single-object-with-a-single-magnetic-state">Scenario 1: Single object with a single magnetic state</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency-rules">Consistency Rules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-extension-replication-import">Future Extension: Replication Import</a></li>
 </ul>
