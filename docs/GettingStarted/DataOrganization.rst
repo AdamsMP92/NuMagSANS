@@ -40,14 +40,37 @@ below and are described in more detail in the following scenarios.
    * - ``MagData + NucData + StructData + RotData``
      - Combined nuclear-magnetic assembly with object-wise translations and rotations.
 
-Local Object Data
------------------
 
-Local object data are stored in object folders. Each object folder contains one
-or more data files. The file index is selected by ``User_Selection`` or by
-``Loop_Modus``.
+Simulation scenarios and their data organization
+------------------------------------------------
 
-Magnetic data:
+NuMagSANS supports several simulation scenarios, and the corresponding data
+handling can be difficult to understand all at once. Therefore, the input-data
+organization is introduced scenario by scenario, starting with the simplest
+setup.
+
+
+Scenario 1: Single object with a single magnetic state
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The simplest NuMagSANS scenario is a single magnetic object with a single
+magnetic state. This could be, for example, a spherical magnetic nanoparticle
+with a uniform magnetization state.
+
+For this scenario, the input dataset is organized as follows. At the highest
+level, the ``RealSpaceData`` directory contains a ``MagData`` directory. Inside
+``MagData``, the local object data are stored in the ``Object_1`` directory,
+which contains a single ``m_1.csv`` file.
+
+It is important that the object directory name ends with an underscore ``_``
+followed by an enumeration starting from ``1``. The prefix before the
+underscore can be chosen by the user. For example, ``Object_1``,
+``Particle_1``, ``Angle_1``, or ``Orientation_1`` are possible names as long as
+the numbering convention is preserved.
+
+The same convention applies to the magnetic data file ``m_1.csv``. The prefix
+``m`` identifies magnetic data, while the index ``1`` is the data-file index
+selected through ``User_Selection`` or ``Loop_Modus``.
 
 .. code-block:: text
 
@@ -55,73 +78,19 @@ Magnetic data:
      MagData/
        Object_1/
          m_1.csv
-         m_2.csv
-         ...
-       Object_2/
-         m_1.csv
-         m_2.csv
-         ...
 
-Each magnetic file contains rows with:
+The ``m_1.csv`` file is a header-free, whitespace-separated file with six
+columns. The first three columns contain the Cartesian position information
+``x``, ``y``, ``z``. The last three columns contain the magnetic moment or
+magnetization vector components ``mx``, ``my``, ``mz``.
 
 .. code-block:: text
 
    x y z mx my mz
 
-Nuclear data:
-
-.. code-block:: text
-
-   RealSpaceData/
-     NucData/
-       Object_1/
-         n_1.csv
-         n_2.csv
-         ...
-       Object_2/
-         n_1.csv
-         n_2.csv
-         ...
-
-Each nuclear file contains rows with:
-
-.. code-block:: text
-
-   x y z nuc
-
-The object folders define the local object ordering. For example,
-``Object_1`` corresponds to the first object, ``Object_2`` to the second
-object, and so on.
-
-
-Mode 1: Fully Materialized Local Data
--------------------------------------
-
-In the simplest mode, NuMagSANS reads only local magnetic and/or nuclear data.
-No additional object-center translations or object-wise rotations are applied.
-
-Typical layout:
-
-.. code-block:: text
-
-   RealSpaceData/
-     MagData/
-       Object_1/
-         m_1.csv
-
-or, for combined magnetic and nuclear data:
-
-.. code-block:: text
-
-   RealSpaceData/
-     MagData/
-       Object_1/
-         m_1.csv
-     NucData/
-       Object_1/
-         n_1.csv
-
-Typical configuration:
+For atomistic systems, the coordinates are commonly given in nanometers and
+the atomic magnetic moments in units of the Bohr magneton. The relevant minimal
+configuration is:
 
 .. code-block:: conf
 
@@ -129,244 +98,14 @@ Typical configuration:
    NucData_activate = 0;
    StructData_activate = 0;
    RotData_activate = 0;
+   MagDataPath = RealSpaceData/MagData;
    User_Selection = {1};
 
-This mode is suitable for a single complete object or for a fully materialized
-system that is stored directly as local real-space coordinates.
+In this scenario, no ``NucData``, ``StructData``, or ``RotData`` are required.
+The object position, shape, and magnetic state are fully contained in the local
+coordinates and magnetic vector components stored in ``m_1.csv``.
 
 
-Mode 2: Materialized Multi-Object Data
---------------------------------------
-
-Multiple local objects can be provided explicitly as separate object folders.
-The kernels treat them as separate objects even without ``StructData`` or
-``RotData``.
-
-Typical layout:
-
-.. code-block:: text
-
-   RealSpaceData/
-     MagData/
-       Object_1/
-         m_1.csv
-       Object_2/
-         m_1.csv
-       Object_3/
-         m_1.csv
-
-Typical configuration:
-
-.. code-block:: conf
-
-   MagData_activate = 1;
-   StructData_activate = 0;
-   RotData_activate = 0;
-   User_Selection = {1};
-
-In this mode, positions and orientations are already contained in the local
-coordinates stored in the individual object files.
-
-
-Mode 3: StructData Assembly
----------------------------
-
-``StructData`` stores object-center translations. It is used when local object
-data should be placed at object-center positions during the scattering
-calculation.
-
-Typical layout:
-
-.. code-block:: text
-
-   RealSpaceData/
-     MagData/
-       Object_1/
-         m_1.csv
-       Object_2/
-         m_1.csv
-     StructData.csv
-
-``StructData.csv`` contains one row per object:
-
-.. code-block:: text
-
-   x y z
-
-Typical configuration:
-
-.. code-block:: conf
-
-   MagData_activate = 1;
-   StructData_activate = 1;
-   RotData_activate = 0;
-   StructDataFilename = RealSpaceData/StructData.csv;
-   User_Selection = {1};
-
-The number of rows in ``StructData.csv`` must match the number of local
-objects.
-
-
-Mode 4: RotData Assembly
-------------------------
-
-``RotData`` stores object-wise local rotations. It is used when local object
-data should be rotated individually during the scattering calculation.
-
-Typical layout:
-
-.. code-block:: text
-
-   RealSpaceData/
-     MagData/
-       Object_1/
-         m_1.csv
-       Object_2/
-         m_1.csv
-     RotData.csv
-
-``RotData.csv`` contains one row per object:
-
-.. code-block:: text
-
-   alpha beta gamma
-
-The angles are interpreted as ZYZ Euler angles in radians:
-
-.. math::
-
-   R = R_z(\alpha) R_y(\beta) R_z(\gamma).
-
-Typical configuration:
-
-.. code-block:: conf
-
-   MagData_activate = 1;
-   StructData_activate = 0;
-   RotData_activate = 1;
-   RotDataFilename = RealSpaceData/RotData.csv;
-   User_Selection = {1};
-
-The number of rows in ``RotData.csv`` must match the number of local objects.
-
-
-Mode 5: StructData and RotData Assembly
----------------------------------------
-
-``StructData`` and ``RotData`` can be combined. In this case, local objects are
-rotated individually and placed at object-center positions.
-
-Typical layout:
-
-.. code-block:: text
-
-   RealSpaceData/
-     MagData/
-       Object_1/
-         m_1.csv
-       Object_2/
-         m_1.csv
-     StructData.csv
-     RotData.csv
-
-Typical configuration:
-
-.. code-block:: conf
-
-   MagData_activate = 1;
-   StructData_activate = 1;
-   RotData_activate = 1;
-   StructDataFilename = RealSpaceData/StructData.csv;
-   RotDataFilename = RealSpaceData/RotData.csv;
-   User_Selection = {1};
-
-The number of local objects, the number of ``StructData`` rows, and the number
-of ``RotData`` rows must be identical.
-
-
-Mode 6: Data-File Selection and Outer Data Loops
-------------------------------------------------
-
-The file index inside each object folder is selected globally. For example,
-``m_1.csv`` and ``n_1.csv`` correspond to data-file index ``1``.
-
-Explicit selection:
-
-.. code-block:: conf
-
-   Loop_Modus = 0;
-   User_Selection = {1, 3, 5};
-
-Loop mode:
-
-.. code-block:: conf
-
-   Loop_Modus = 1;
-   Loop_From = 1;
-   Loop_To = 20;
-
-In loop mode, NuMagSANS evaluates the selected data-file indices one after
-another. Output folders are generated as:
-
-.. code-block:: text
-
-   NuMagSANS_Output/
-     SANS_1/
-     SANS_2/
-     ...
-
-
-Mode 7: RotData Folder Loop
----------------------------
-
-The RotData folder loop evaluates several rotation-data files for the same
-selected magnetic, nuclear, and structure data.
-
-Typical layout:
-
-.. code-block:: text
-
-   RealSpaceData/
-     MagData/
-       Object_1/
-         m_1.csv
-       Object_2/
-         m_1.csv
-     StructData.csv
-     RotData/
-       RotData_1.csv
-       RotData_2.csv
-       RotData_3.csv
-
-Typical configuration using a contiguous range:
-
-.. code-block:: conf
-
-   RotData_activate = 1;
-   RotDataLoop = 1;
-   RotDataPath = RealSpaceData/RotData;
-   RotDataLoop_From = 1;
-   RotDataLoop_To = 3;
-
-Typical configuration using an explicit selection:
-
-.. code-block:: conf
-
-   RotData_activate = 1;
-   RotDataLoop = 1;
-   RotDataPath = RealSpaceData/RotData;
-   RotData_User_Selection = {1, 3};
-
-Each selected ``RotData_#.csv`` file must contain the same number of rows, and
-this number must match the number of local objects. Output is written into
-nested folders:
-
-.. code-block:: text
-
-   NuMagSANS_Output/
-     SANS_1/
-       RotData_1/
-       RotData_3/
 
 
 
