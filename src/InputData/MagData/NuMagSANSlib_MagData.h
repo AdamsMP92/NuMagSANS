@@ -63,7 +63,7 @@ void allocate_MagnetizationDataRAM(MagnetizationData* MagData, \
 	 unsigned long int K = MagDataProp->Number_Of_SubFolders;
      unsigned long int TotalAtomNumber = 0;
 	 if(ExcludeZeroMoments_flag){
-     	TotalAtomNumber = MagDataProp->TotalNZMAtomNumber[MagData_File_Index];
+		TotalAtomNumber = MagDataProp->TotalNZMAtomNumber[MagData_File_Index-1];
      } else{
 		TotalAtomNumber = MagDataProp->TotalAtomNumber[MagData_File_Index-1];
      }
@@ -180,9 +180,9 @@ void read_MagnetizationData(MagnetizationData* MagData, \
      unsigned long int K = *MagData->K;
      bool ExcludeZeroMoments_flag = InputData->ExcludeZeroMoments_flag;
 
-	 for(int i = 0; i < 9; i++){
-	 	MagData->RotMat[i] = InputData->RotMat[i];
-	 }
+	for(int i = 0; i < 9; i++){
+		MagData->RotMat[i] = InputData->RotMat[i];
+	}
 
      string filename;
      unsigned long int n = 0;
@@ -277,6 +277,133 @@ void read_MagnetizationData(MagnetizationData* MagData, \
  
  }
 
+
+
+ void replication_read_MagnetizationData(MagnetizationData* MagData, \
+                                        MagDataProperties* MagDataProp, \
+                                        InputFileData* InputData, \
+                                        int MagData_File_Index){
+
+
+	LogSystem::write("");
+	LogSystem::write("read replicated magnetization data to RAM...");
+
+     unsigned long int K = *MagData->K;
+     bool ExcludeZeroMoments_flag = InputData->ExcludeZeroMoments_flag;
+
+	for(int i = 0; i < 9; i++){
+		MagData->RotMat[i] = InputData->RotMat[i];
+	}
+
+     string filename;
+     unsigned long int n = 0;
+     float x_buf, y_buf, z_buf, mx_buf, my_buf, mz_buf;
+     ifstream fin;
+     float x_mean = 0.0;
+     float y_mean = 0.0;
+     float z_mean = 0.0;
+
+     unsigned long int N_cum = 0;   // cummulative counter
+     unsigned long int N_act = 0;   // actual number of atoms per replicated object
+
+     if(ExcludeZeroMoments_flag){
+         N_act = MagData->NumberOfNonZeroMoments[0];
+     }else{
+         N_act = MagData->NumberOfElements[0];
+     }
+
+     filename = MagDataProp->GlobalFolderPath + "/" + MagDataProp->SubFolderNames_Nom + "_1" \
+              + "/" + MagDataProp->SubFolder_FileNames_Nom + "_" + to_string(MagData_File_Index)\
+              + "." + MagDataProp->SubFolder_FileNames_Type;
+
+     LogSystem::write(filename);
+
+     std::vector<float> x_template(N_act);
+     std::vector<float> y_template(N_act);
+     std::vector<float> z_template(N_act);
+     std::vector<float> mx_template(N_act);
+     std::vector<float> my_template(N_act);
+     std::vector<float> mz_template(N_act);
+
+     fin.open(filename);
+     n = 0;
+     x_mean = 0.0;
+     y_mean = 0.0;
+     z_mean = 0.0;
+
+     if(ExcludeZeroMoments_flag){
+		while(fin >> x_buf >> y_buf >> z_buf >> mx_buf >> my_buf >> mz_buf){
+			if(mx_buf != 0.0 || my_buf != 0.0 || mz_buf != 0.0){
+				x_template[n] = x_buf * InputData->XYZ_Unit_Factor;
+				y_template[n] = y_buf * InputData->XYZ_Unit_Factor;
+				z_template[n] = z_buf * InputData->XYZ_Unit_Factor;
+				mx_template[n] = mx_buf;
+				my_template[n] = my_buf;
+				mz_template[n] = mz_buf;
+
+				x_mean += x_template[n]/N_act;
+				y_mean += y_template[n]/N_act;
+				z_mean += z_template[n]/N_act;
+
+				n += 1;
+			}
+		}
+     } else{
+		while(fin >> x_buf >> y_buf >> z_buf >> mx_buf >> my_buf >> mz_buf){
+	        x_template[n] = x_buf * InputData->XYZ_Unit_Factor;
+	        y_template[n] = y_buf * InputData->XYZ_Unit_Factor;
+	        z_template[n] = z_buf * InputData->XYZ_Unit_Factor;
+	        mx_template[n] = mx_buf;
+	        my_template[n] = my_buf;
+	        mz_template[n] = mz_buf;
+
+	        x_mean += x_template[n]/N_act;
+	        y_mean += y_template[n]/N_act;
+	        z_mean += z_template[n]/N_act;
+
+			n += 1;
+		}
+     }
+
+     fin.close();
+
+     for(unsigned long int l = 0; l < N_act; l++){
+         x_template[l] = x_template[l] - x_mean;
+         y_template[l] = y_template[l] - y_mean;
+         z_template[l] = z_template[l] - z_mean;
+     }
+
+     for(unsigned long int k = 1; k <= K; k++){
+
+         MagData->N_act[k-1] = N_act;
+
+         for(unsigned long int l = 0; l < N_act; l++){
+             MagData->x[l + N_cum] = x_template[l];
+             MagData->y[l + N_cum] = y_template[l];
+             MagData->z[l + N_cum] = z_template[l];
+             MagData->mx[l + N_cum] = mx_template[l];
+             MagData->my[l + N_cum] = my_template[l];
+             MagData->mz[l + N_cum] = mz_template[l];
+         }
+
+        // update of the cummulative counter
+        N_cum += N_act;
+        if(k<K){
+            MagData->N_cum[k] = N_cum;
+        }
+	LogSystem::write("replicated object " + std::to_string(k) + ": N_act: " + std::to_string(N_act) + ", " + "N_cum: " + std::to_string(N_cum));
+      }
+
+      *MagData->N_avg = (unsigned long int) (((float)N_cum)/((float) K));
+	LogSystem::write("N_avg: " + to_string(*MagData->N_avg));
+	LogSystem::write("read replicated (x, y, z, mx, my, mz) data to RAM finished...");
+
+
+ }
+
+
+
+
 void init_MagnetizationData(MagnetizationData* MagData, \
                   MagnetizationData* MagData_gpu, \
                   MagDataProperties* MagDataProp, \
@@ -284,7 +411,11 @@ void init_MagnetizationData(MagnetizationData* MagData, \
                   int MagData_File_Index){
 
 	allocate_MagnetizationDataRAM(MagData, MagDataProp, InputData, MagData_File_Index);
-	read_MagnetizationData(MagData, MagDataProp, InputData, MagData_File_Index);
+	if(InputData->MagData_ReplicationImport_flag){
+		replication_read_MagnetizationData(MagData, MagDataProp, InputData, MagData_File_Index);
+	}else{
+		read_MagnetizationData(MagData, MagDataProp, InputData, MagData_File_Index);
+	}
 	allocate_MagnetizationDataGPU(MagData, MagData_gpu, MagData_File_Index);
    
 }

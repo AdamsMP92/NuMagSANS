@@ -220,6 +220,90 @@ void read_NuclearData(NuclearData* NucData, \
 
 }
 
+void replication_read_NuclearData(NuclearData* NucData, \
+                                  NucDataProperties* NucDataProp, \
+                                  InputFileData* InputData, \
+                                  int NucData_File_Index){
+
+	LogSystem::write("");
+	LogSystem::write("load replicated NucData...");
+
+      unsigned long int K = *NucData->K;
+
+      for(int i = 0; i < 9; i++){
+         NucData->RotMat[i] = InputData->RotMat[i];
+      }
+
+      string filename;
+      unsigned long int n = 0;
+      float x_buf, y_buf, z_buf, Nuc_buf;
+      ifstream fin;
+      float x_mean = 0.0;
+      float y_mean = 0.0;
+      float z_mean = 0.0;
+
+      unsigned long int N_act = NucData->NumberOfElements[0];
+      unsigned long int N_cum = 0;
+
+      filename = NucDataProp->GlobalFolderPath + "/" + NucDataProp->SubFolderNames_Nom + "_1" \
+               + "/" + NucDataProp->SubFolder_FileNames_Nom + "_" + to_string(NucData_File_Index)\
+               + "." + NucDataProp->SubFolder_FileNames_Type;
+
+	LogSystem::write(filename);
+
+      std::vector<float> x_template(N_act);
+      std::vector<float> y_template(N_act);
+      std::vector<float> z_template(N_act);
+      std::vector<float> nuc_template(N_act);
+
+      fin.open(filename);
+      n = 0;
+
+      while(fin >> x_buf >> y_buf >> z_buf >> Nuc_buf){
+
+              x_template[n] = x_buf * InputData->XYZ_Unit_Factor;
+              y_template[n] = y_buf * InputData->XYZ_Unit_Factor;
+              z_template[n] = z_buf * InputData->XYZ_Unit_Factor;
+              nuc_template[n] = Nuc_buf;
+
+              x_mean += x_template[n]/N_act;
+              y_mean += y_template[n]/N_act;
+              z_mean += z_template[n]/N_act;
+
+              n += 1;
+      }
+      fin.close();
+
+      for(unsigned long int l = 0; l < N_act; l++){
+          x_template[l] = x_template[l] - x_mean;
+          y_template[l] = y_template[l] - y_mean;
+          z_template[l] = z_template[l] - z_mean;
+      }
+
+      for(unsigned long int k = 1; k <= K; k++){
+
+          NucData->N_act[k-1] = N_act;
+
+          for(unsigned long int l = 0; l < N_act; l++){
+              NucData->x[l + N_cum] = x_template[l];
+              NucData->y[l + N_cum] = y_template[l];
+              NucData->z[l + N_cum] = z_template[l];
+              NucData->Nuc[l + N_cum] = nuc_template[l];
+          }
+
+          N_cum += N_act;
+          if(k<K){
+              NucData->N_cum[k] = N_cum;
+          }
+	LogSystem::write("replicated object " + std::to_string(k) + ": N_act: " + std::to_string(N_act) + ", " + "N_cum: " + std::to_string(N_cum));
+       }
+
+      *NucData->N_avg = (unsigned long int) (((float)N_cum)/((float) K));
+	LogSystem::write("N_avg: " + std::to_string(*NucData->N_avg));
+	LogSystem::write("read replicated (x,y,z,n) data finished...");
+
+}
+
 
 
 
@@ -230,7 +314,11 @@ void init_NuclearData(NuclearData* NucData, \
                    	  int NucData_File_Index){
 
      allocate_NuclearDataRAM(NucData, NucDataProp, NucData_File_Index);
-     read_NuclearData(NucData, NucDataProp, InputData, NucData_File_Index);
+     if(InputData->NucData_ReplicationImport_flag){
+        replication_read_NuclearData(NucData, NucDataProp, InputData, NucData_File_Index);
+     }else{
+        read_NuclearData(NucData, NucDataProp, InputData, NucData_File_Index);
+     }
      allocate_NuclearDataGPU(NucData, NucData_gpu, NucData_File_Index);
 }
 
@@ -290,5 +378,3 @@ void disp_NuclearData(NuclearData *NucData){
               << "\n";
      }
 }
-
-
