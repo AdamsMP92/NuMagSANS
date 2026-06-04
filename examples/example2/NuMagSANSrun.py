@@ -7,6 +7,7 @@ import numpy as np
 from NuMagSANS import NuMagSANS
 from UniformSphere import (
     random_two_sphere_case,
+    random_unit_vector,
     random_zyz_angles,
     scaled_spin_flip_1d,
     system_scattering_volume_m3,
