@@ -1,4 +1,4 @@
-.. _exhale_function_NuMagSANSlib__MagDataExplorer_8h_1ad94f659e6ed591db31b69f5cfbdaf404:
+.. _exhale_function_NuMagSANSlib__MagDataExplorer_8h_1a5f1ef255d9b2979c74e9e213358baf6a:
 
 Function MagData_Observer
 =========================
@@ -10,5 +10,5 @@ Function Documentation
 ----------------------
 
 
-.. doxygenfunction:: MagData_Observer(std::string, MagDataProperties *, bool)
+.. doxygenfunction:: MagData_Observer(std::string, MagDataProperties *, InputFileData *)
    :project: NuMagSANS

@@ -139,6 +139,31 @@ local object data without rewriting the object files.
     magnetic or nuclear data files have the same number of rows. Different
     objects may still have different numbers of rows.
 
+``MagData_ReplicationImport``
+    Default value 0
+
+    If set to ``1``, NuMagSANS expects one physical magnetic template object in
+    ``MagData`` and replicates it internally during import. The kernels receive
+    the same in-memory structure as for explicitly stored object folders.
+
+``MagData_NumberOfReplications``
+    Default value 1
+
+    Effective number of magnetic objects generated from the single physical
+    template object when ``MagData_ReplicationImport`` is active.
+
+``NucData_ReplicationImport``
+    Default value 0
+
+    If set to ``1``, NuMagSANS expects one physical nuclear template object in
+    ``NucData`` and replicates it internally during import.
+
+``NucData_NumberOfReplications``
+    Default value 1
+
+    Effective number of nuclear objects generated from the single physical
+    template object when ``NucData_ReplicationImport`` is active.
+
 ``Exclude_Zero_Moments``
     Default value 0
 

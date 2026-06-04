@@ -45,7 +45,7 @@ Program Listing for File NuMagSANS.cu
        MagDataProperties MagDataProp;
        bool Check_MagData_Flag;
        if(InputData.MagData_activate_flag){
-           Check_MagData_Flag = MagData_Observer(InputData.MagDataPath, &MagDataProp, InputData.FastLoad_flag);
+           Check_MagData_Flag = MagData_Observer(InputData.MagDataPath, &MagDataProp, &InputData);
            if(Check_MagData_Flag != true){
                LogSystem::write(" ->-> Error in MagData!");
                LogSystem::write("");
@@ -58,7 +58,7 @@ Program Listing for File NuMagSANS.cu
        NucDataProperties NucDataProp;
        bool Check_NucData_Flag;
        if(InputData.NucData_activate_flag){
-           Check_NucData_Flag = NucData_Observer(InputData.NucDataPath, &NucDataProp, InputData.FastLoad_flag);
+           Check_NucData_Flag = NucData_Observer(InputData.NucDataPath, &NucDataProp, &InputData);
            if(Check_NucData_Flag != true){
                LogSystem::write(" ->->Error in NucData!");
                LogSystem::write("");
@@ -110,6 +110,40 @@ Program Listing for File NuMagSANS.cu
                LogSystem::write(" ->-> Error: StructData and RotData contain different numbers of entries!");
                LogSystem::write("StructData entries: " + std::to_string(StructDataProp.Number_Of_Elements));
                LogSystem::write("RotData entries: " + std::to_string(RotDataProp.Number_Of_Elements));
+               LogSystem::write("");
+               return 0;
+           }
+       }
+   
+       int EffectiveObjectCount = 0;
+       if(InputData.MagData_activate_flag){
+           EffectiveObjectCount = MagDataProp.Number_Of_SubFolders;
+       }
+       if(InputData.NucData_activate_flag){
+           if(EffectiveObjectCount == 0){
+               EffectiveObjectCount = NucDataProp.Number_Of_SubFolders;
+           }else if(EffectiveObjectCount != NucDataProp.Number_Of_SubFolders){
+               LogSystem::write(" ->-> Error: MagData and NucData contain different effective object counts!");
+               LogSystem::write("MagData objects: " + std::to_string(MagDataProp.Number_Of_SubFolders));
+               LogSystem::write("NucData objects: " + std::to_string(NucDataProp.Number_Of_SubFolders));
+               LogSystem::write("");
+               return 0;
+           }
+       }
+       if(InputData.StructData_activate_flag && EffectiveObjectCount > 0){
+           if(StructDataProp.Number_Of_Elements != EffectiveObjectCount){
+               LogSystem::write(" ->-> Error: StructData entries do not match the effective object count!");
+               LogSystem::write("StructData entries: " + std::to_string(StructDataProp.Number_Of_Elements));
+               LogSystem::write("Effective object count: " + std::to_string(EffectiveObjectCount));
+               LogSystem::write("");
+               return 0;
+           }
+       }
+       if(InputData.RotData_activate_flag && EffectiveObjectCount > 0){
+           if(RotDataProp.Number_Of_Elements != EffectiveObjectCount){
+               LogSystem::write(" ->-> Error: RotData entries do not match the effective object count!");
+               LogSystem::write("RotData entries: " + std::to_string(RotDataProp.Number_Of_Elements));
+               LogSystem::write("Effective object count: " + std::to_string(EffectiveObjectCount));
                LogSystem::write("");
                return 0;
            }

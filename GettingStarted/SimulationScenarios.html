@@ -500,6 +500,11 @@ file indices through <code class="docutils literal notranslate"><span class="pre
 through <code class="docutils literal notranslate"><span class="pre">Loop_Modus</span></code>. If this execution-layer distinction is counted as a
 separate binary choice, the <code class="docutils literal notranslate"><span class="pre">27</span></code> data-layer scenarios become <code class="docutils literal notranslate"><span class="pre">54</span></code> basic
 execution scenarios.</p>
+<p>Replication import is an additional import-layer option for selected
+scenarios. It does not add new kernels or a new mathematical model. Instead,
+one physical local object is replicated internally during data loading so that
+the GPU receives the same object-wise memory layout as for explicitly stored
+object folders.</p>
 <p>The following sections do not document every possible combination separately.
 Instead, they describe representative scenarios from which the remaining
 combinations can be derived.</p>
@@ -790,27 +795,51 @@ enumeration starting from <code class="docutils literal notranslate"><span class
 <li><p>For a selected data-file index <code class="docutils literal notranslate"><span class="pre">k</span></code>, each active object folder should
 contain the corresponding <code class="docutils literal notranslate"><span class="pre">m_k.csv</span></code> or <code class="docutils literal notranslate"><span class="pre">n_k.csv</span></code> file.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">StructData</span></code> is active without <code class="docutils literal notranslate"><span class="pre">StructDataLoop</span></code>, the number of rows in
-<code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> must match the number of local objects.</p></li>
+<code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code> must match the effective number of objects.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">StructDataLoop</span></code> is active, every selected <code class="docutils literal notranslate"><span class="pre">StructData_#.csv</span></code> file
-must contain one row per local object.</p></li>
+must contain one row per effective object.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">RotData</span></code> is active without <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code>, the number of rows in
-<code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> must match the number of local objects.</p></li>
+<code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> must match the effective number of objects.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code> is active, every selected <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> file must
-contain one row per local object.</p></li>
+contain one row per effective object.</p></li>
 <li><p>If both <code class="docutils literal notranslate"><span class="pre">StructData</span></code> and <code class="docutils literal notranslate"><span class="pre">RotData</span></code> are active, both metadata layers must
 contain the same number of object entries.</p></li>
 <li><p>Files are whitespace-separated and do not use CSV headers.</p></li>
 </ul>
 </section>
-<section id="future-extension-replication-import">
-<h2>Future Extension: Replication Import<a class="headerlink" href="#future-extension-replication-import" title="Link to this heading">#</a></h2>
-<p>A planned extension is a replication-import mode. In this mode, one local
-object would be read once and replicated internally in RAM before GPU upload.
-The kernels would then receive the same in-memory structure as for a fully
-materialized dataset, while avoiding thousands of duplicated object files on
-disk.</p>
-<p>This mode is not part of the current input format, but it follows naturally
-from the same separation between local object data and assembly metadata.</p>
+<section id="replication-import">
+<h2>Replication Import<a class="headerlink" href="#replication-import" title="Link to this heading">#</a></h2>
+<p>Replication import is useful when many objects share the same local real-space
+data. Instead of storing thousands of duplicated object folders, one physical
+template object is stored and NuMagSANS replicates it internally during import.</p>
+<p>For magnetic data, the input may contain only one physical object:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RealSpaceData/
+  MagData/
+    Object_1/
+      m_1.csv
+  StructData.csv
+  RotData.csv
+</pre></div>
+</div>
+<p>The corresponding configuration is:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
+MagData_ReplicationImport = 1;
+MagData_NumberOfReplications = 5000;
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">MagData_NumberOfReplications</span></code> is the effective object count. In the example
+above, NuMagSANS creates the same in-memory representation that would result
+from explicitly storing <code class="docutils literal notranslate"><span class="pre">Object_1</span></code> through <code class="docutils literal notranslate"><span class="pre">Object_5000</span></code>. If <code class="docutils literal notranslate"><span class="pre">StructData</span></code>
+or <code class="docutils literal notranslate"><span class="pre">RotData</span></code> is active, the number of entries in those metadata files must
+match the number of replications.</p>
+<p>The same mechanism is available for nuclear data through:</p>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>NucData_activate = 1;
+NucData_ReplicationImport = 1;
+NucData_NumberOfReplications = 5000;
+</pre></div>
+</div>
+<p>Replication import only changes the input/read layer. The scattering kernels,
+kernel selection logic, and output organization remain unchanged.</p>
 </section>
 </section>
 
@@ -873,7 +902,7 @@ from the same separation between local object data and assembly metadata.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency-rules">Consistency Rules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-extension-replication-import">Future Extension: Replication Import</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replication-import">Replication Import</a></li>
 </ul>
   </nav></div>
 

@@ -543,6 +543,23 @@ import for large datasets. It assumes that, within each object folder, all
 magnetic or nuclear data files have the same number of rows. Different
 objects may still have different numbers of rows.</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MagData_ReplicationImport</span></code></dt><dd><p>Default value 0</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, NuMagSANS expects one physical magnetic template object in
+<code class="docutils literal notranslate"><span class="pre">MagData</span></code> and replicates it internally during import. The kernels receive
+the same in-memory structure as for explicitly stored object folders.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MagData_NumberOfReplications</span></code></dt><dd><p>Default value 1</p>
+<p>Effective number of magnetic objects generated from the single physical
+template object when <code class="docutils literal notranslate"><span class="pre">MagData_ReplicationImport</span></code> is active.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NucData_ReplicationImport</span></code></dt><dd><p>Default value 0</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, NuMagSANS expects one physical nuclear template object in
+<code class="docutils literal notranslate"><span class="pre">NucData</span></code> and replicates it internally during import.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NucData_NumberOfReplications</span></code></dt><dd><p>Default value 1</p>
+<p>Effective number of nuclear objects generated from the single physical
+template object when <code class="docutils literal notranslate"><span class="pre">NucData_ReplicationImport</span></code> is active.</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">Exclude_Zero_Moments</span></code></dt><dd><p>Default value 0</p>
 <p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, rows with zero magnetic moment are excluded from imported
 magnetic datasets.</p>

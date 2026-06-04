@@ -81,6 +81,8 @@ Functions
 ---------
 
 
+- :ref:`exhale_function_NuMagSANSlib__NucDataExplorer_8h_1a2bd4e1c3293355da0b306778dfa82379`
+
 - :ref:`exhale_function_NuMagSANSlib__NucDataExplorer_8h_1a8f9d4c84a7ad4a74c74c5f21e0fcd257`
 
 - :ref:`exhale_function_NuMagSANSlib__NucDataExplorer_8h_1adf80e4ba807f9e5e80cc63cfb43b0806`
@@ -95,7 +97,7 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__NucDataExplorer_8h_1a8b80f1113633b2e09bb2200b42dcd1a9`
 
-- :ref:`exhale_function_NuMagSANSlib__NucDataExplorer_8h_1ae5004ed0646a9c1288f065053c3bdc46`
+- :ref:`exhale_function_NuMagSANSlib__NucDataExplorer_8h_1a0ff7cf353334572f0cf4694c7c8c9878`
 
 - :ref:`exhale_function_NuMagSANSlib__NucDataExplorer_8h_1ac4cdc190f0c967bd14df16acbab72e21`
 

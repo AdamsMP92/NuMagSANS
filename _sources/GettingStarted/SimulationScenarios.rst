@@ -76,6 +76,12 @@ through ``Loop_Modus``. If this execution-layer distinction is counted as a
 separate binary choice, the ``27`` data-layer scenarios become ``54`` basic
 execution scenarios.
 
+Replication import is an additional import-layer option for selected
+scenarios. It does not add new kernels or a new mathematical model. Instead,
+one physical local object is replicated internally during data loading so that
+the GPU receives the same object-wise memory layout as for explicitly stored
+object folders.
+
 The following sections do not document every possible combination separately.
 Instead, they describe representative scenarios from which the remaining
 combinations can be derived.
@@ -434,26 +440,57 @@ The following consistency rules should be satisfied:
 - For a selected data-file index ``k``, each active object folder should
   contain the corresponding ``m_k.csv`` or ``n_k.csv`` file.
 - If ``StructData`` is active without ``StructDataLoop``, the number of rows in
-  ``StructData.csv`` must match the number of local objects.
+  ``StructData.csv`` must match the effective number of objects.
 - If ``StructDataLoop`` is active, every selected ``StructData_#.csv`` file
-  must contain one row per local object.
+  must contain one row per effective object.
 - If ``RotData`` is active without ``RotDataLoop``, the number of rows in
-  ``RotData.csv`` must match the number of local objects.
+  ``RotData.csv`` must match the effective number of objects.
 - If ``RotDataLoop`` is active, every selected ``RotData_#.csv`` file must
-  contain one row per local object.
+  contain one row per effective object.
 - If both ``StructData`` and ``RotData`` are active, both metadata layers must
   contain the same number of object entries.
 - Files are whitespace-separated and do not use CSV headers.
 
 
-Future Extension: Replication Import
-------------------------------------
+Replication Import
+------------------
 
-A planned extension is a replication-import mode. In this mode, one local
-object would be read once and replicated internally in RAM before GPU upload.
-The kernels would then receive the same in-memory structure as for a fully
-materialized dataset, while avoiding thousands of duplicated object files on
-disk.
+Replication import is useful when many objects share the same local real-space
+data. Instead of storing thousands of duplicated object folders, one physical
+template object is stored and NuMagSANS replicates it internally during import.
 
-This mode is not part of the current input format, but it follows naturally
-from the same separation between local object data and assembly metadata.
+For magnetic data, the input may contain only one physical object:
+
+.. code-block:: text
+
+   RealSpaceData/
+     MagData/
+       Object_1/
+         m_1.csv
+     StructData.csv
+     RotData.csv
+
+The corresponding configuration is:
+
+.. code-block:: conf
+
+   MagData_activate = 1;
+   MagData_ReplicationImport = 1;
+   MagData_NumberOfReplications = 5000;
+
+``MagData_NumberOfReplications`` is the effective object count. In the example
+above, NuMagSANS creates the same in-memory representation that would result
+from explicitly storing ``Object_1`` through ``Object_5000``. If ``StructData``
+or ``RotData`` is active, the number of entries in those metadata files must
+match the number of replications.
+
+The same mechanism is available for nuclear data through:
+
+.. code-block:: conf
+
+   NucData_activate = 1;
+   NucData_ReplicationImport = 1;
+   NucData_NumberOfReplications = 5000;
+
+Replication import only changes the input/read layer. The scattering kernels,
+kernel selection logic, and output organization remain unchanged.

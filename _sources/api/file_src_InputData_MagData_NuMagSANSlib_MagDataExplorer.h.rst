@@ -81,6 +81,8 @@ Functions
 ---------
 
 
+- :ref:`exhale_function_NuMagSANSlib__MagDataExplorer_8h_1a3a9c6a92d4c1d29f538d03e3d82f6c8a`
+
 - :ref:`exhale_function_NuMagSANSlib__MagDataExplorer_8h_1a196f5e47d7039dfe60c2c5f62ac34140`
 
 - :ref:`exhale_function_NuMagSANSlib__MagDataExplorer_8h_1a39f2d22c11e196cf99af56afacc63bc6`
@@ -97,7 +99,7 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__MagDataExplorer_8h_1a95d14cddb255ac51ae84f20c8ba0addf`
 
-- :ref:`exhale_function_NuMagSANSlib__MagDataExplorer_8h_1ad94f659e6ed591db31b69f5cfbdaf404`
+- :ref:`exhale_function_NuMagSANSlib__MagDataExplorer_8h_1a5f1ef255d9b2979c74e9e213358baf6a`
 
 - :ref:`exhale_function_NuMagSANSlib__MagDataExplorer_8h_1ab9d58c2b094feed3f3b8772a4af1710f`
 

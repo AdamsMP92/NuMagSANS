@@ -320,11 +320,57 @@ Program Listing for File NuMagSANSlib_MagDataExplorer.h
        }
    }
    
+   bool ApplyReplicationImport_MagData(MagDataProperties* MagDataProp, int NumberOfReplications){
+   
+       if(NumberOfReplications <= 0){
+           LogSystem::write(" ->-> Error: MagData_NumberOfReplications must be larger than zero.");
+           return false;
+       }
+   
+       if(MagDataProp->Number_Of_SubFolders != 1){
+           LogSystem::write(" ->-> Error: MagData replication import requires exactly one physical template object.");
+           LogSystem::write("Physical MagData object folders: " + std::to_string(MagDataProp->Number_Of_SubFolders));
+           return false;
+       }
+   
+       LogSystem::write("MagData replication import active.");
+       LogSystem::write("Physical MagData object folders: 1");
+       LogSystem::write("Effective MagData object count: " + std::to_string(NumberOfReplications));
+   
+       std::vector<int> TemplateNumberOfElements(MagDataProp->Number_Of_Files_In_SubFolder);
+       std::vector<int> TemplateNumberOfNonZeroMoments(MagDataProp->Number_Of_Files_In_SubFolder);
+   
+       for(int j = 0; j < MagDataProp->Number_Of_Files_In_SubFolder; j++){
+           TemplateNumberOfElements[j] = MagDataProp->NumberOfElements[0][j];
+           TemplateNumberOfNonZeroMoments[j] = MagDataProp->NumberOfNonZeroMoments[0][j];
+       }
+   
+       delete[] MagDataProp->NumberOfElements[0];
+       delete[] MagDataProp->NumberOfElements;
+       delete[] MagDataProp->NumberOfNonZeroMoments[0];
+       delete[] MagDataProp->NumberOfNonZeroMoments;
+   
+       MagDataProp->Number_Of_SubFolders = NumberOfReplications;
+       MagDataProp->NumberOfElements = new int*[MagDataProp->Number_Of_SubFolders];
+       MagDataProp->NumberOfNonZeroMoments = new int*[MagDataProp->Number_Of_SubFolders];
+   
+       for(int i = 0; i < MagDataProp->Number_Of_SubFolders; i++){
+           MagDataProp->NumberOfElements[i] = new int[MagDataProp->Number_Of_Files_In_SubFolder];
+           MagDataProp->NumberOfNonZeroMoments[i] = new int[MagDataProp->Number_Of_Files_In_SubFolder];
+           for(int j = 0; j < MagDataProp->Number_Of_Files_In_SubFolder; j++){
+               MagDataProp->NumberOfElements[i][j] = TemplateNumberOfElements[j];
+               MagDataProp->NumberOfNonZeroMoments[i][j] = TemplateNumberOfNonZeroMoments[j];
+           }
+       }
+   
+       return true;
+   }
+   
    
    
    
    // Routine that checks number of subfolders in MagData directory
-   bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataProp, bool FastLoad){
+   bool MagData_Observer(std::string Local_MagDataPath, MagDataProperties*MagDataProp, InputFileData* InputData){
    
        //cout << "##########################################################################################" << "\n";
        //cout << "## Run - MagData Directory Explorer ######################################################" << "\n";
@@ -333,7 +379,7 @@ Program Listing for File NuMagSANSlib_MagDataExplorer.h
        LogSystem::write("##########################################################################################");
        LogSystem::write("## Run - MagData Directory Explorer ######################################################");
        LogSystem::write("##########################################################################################");
-       LogSystem::write("FastLoad mode: " + std::string(FastLoad ? "true" : "false"));
+       LogSystem::write("FastLoad mode: " + std::string(InputData->FastLoad_flag ? "true" : "false"));
    
        bool CheckFlag = false;
    
@@ -347,8 +393,12 @@ Program Listing for File NuMagSANSlib_MagDataExplorer.h
        bool Subfolder_Elements_CheckFlag = check_Subfolder_FileNames_MagData(MagDataProp);
    
    
-       bool FileDimensions_CheckFlag = check_FileDimensions_MagData(MagDataProp, FastLoad);
+       bool FileDimensions_CheckFlag = check_FileDimensions_MagData(MagDataProp, InputData->FastLoad_flag);
    
+       bool ReplicationImport_CheckFlag = true;
+       if(InputData->MagData_ReplicationImport_flag){
+           ReplicationImport_CheckFlag = ApplyReplicationImport_MagData(MagDataProp, InputData->MagData_NumberOfReplications);
+       }
    
        CountAtomNumbers_MagData(MagDataProp);
    
@@ -365,7 +415,7 @@ Program Listing for File NuMagSANSlib_MagDataExplorer.h
        //cout << "## Stop - MagData Directory Explorer #####################################################" << "\n";
        //cout << "##########################################################################################" << "\n\n";
    
-       if(Subfolder_CheckFlag && Subfolder_Elements_CheckFlag && FileDimensions_CheckFlag){
+       if(Subfolder_CheckFlag && Subfolder_Elements_CheckFlag && FileDimensions_CheckFlag && ReplicationImport_CheckFlag){
            CheckFlag = true;
        }
    

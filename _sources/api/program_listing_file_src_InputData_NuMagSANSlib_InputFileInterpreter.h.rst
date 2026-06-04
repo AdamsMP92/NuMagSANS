@@ -102,6 +102,14 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        bool FastLoad_flag = false;
    
+       bool NucData_ReplicationImport_flag = false;
+   
+       int NucData_NumberOfReplications = 1;
+   
+       bool MagData_ReplicationImport_flag = false;
+   
+       int MagData_NumberOfReplications = 1;
+   
        string SANSDataFoldername;
    
        string Fourier_Approach;
@@ -533,6 +541,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            {"StructDataLoop", &InputData->StructDataLoop_flag, false},
            {"RotDataLoop", &InputData->RotDataLoop_flag, false},
            {"FastLoad", &InputData->FastLoad_flag, false},
+           {"NucData_ReplicationImport", &InputData->NucData_ReplicationImport_flag, false},
+           {"MagData_ReplicationImport", &InputData->MagData_ReplicationImport_flag, false},
            {"Exclude_Zero_Moments", &InputData->ExcludeZeroMoments_flag, true},
            {"Angular_Spec", &InputData->AngularSpec_activate_flag, true},
            {"Fourier_Gamma", &InputData->output_fourier_correlation_matrix_flag, true}
@@ -548,6 +558,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            {"StructDataLoop_To", &InputData->StructDataLoop_To, false},
            {"RotDataLoop_From", &InputData->RotDataLoop_From, false},
            {"RotDataLoop_To", &InputData->RotDataLoop_To, false},
+           {"NucData_NumberOfReplications", &InputData->NucData_NumberOfReplications, false},
+           {"MagData_NumberOfReplications", &InputData->MagData_NumberOfReplications, false},
            {"Number_Of_q_Points", &InputData->N_q, true},
            {"Number_Of_theta_Points", &InputData->N_theta, true},
            {"Number_Of_r_Points", &InputData->N_r, true},
@@ -756,6 +768,24 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            LogSystem::write("Polarization is automatically normalized to 1!");
        }
    
+       bool ReplicationImport_CheckFlag = true;
+       if(InputData->MagData_ReplicationImport_flag && !InputData->MagData_activate_flag){
+           LogSystem::write("Error: MagData_ReplicationImport requires MagData_activate = 1.");
+           ReplicationImport_CheckFlag = false;
+       }
+       if(InputData->NucData_ReplicationImport_flag && !InputData->NucData_activate_flag){
+           LogSystem::write("Error: NucData_ReplicationImport requires NucData_activate = 1.");
+           ReplicationImport_CheckFlag = false;
+       }
+       if(InputData->MagData_ReplicationImport_flag && InputData->MagData_NumberOfReplications <= 0){
+           LogSystem::write("Error: MagData_NumberOfReplications must be larger than zero.");
+           ReplicationImport_CheckFlag = false;
+       }
+       if(InputData->NucData_ReplicationImport_flag && InputData->NucData_NumberOfReplications <= 0){
+           LogSystem::write("Error: NucData_NumberOfReplications must be larger than zero.");
+           ReplicationImport_CheckFlag = false;
+       }
+   
    
    
        LogSystem::write("##########################################################################################");
@@ -789,6 +819,6 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            LogSystem::write(" ->-> Error in input file!");
        }
    
-       return ok;
+       return ok && ReplicationImport_CheckFlag;
    
    }

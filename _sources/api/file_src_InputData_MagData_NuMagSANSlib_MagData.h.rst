@@ -91,3 +91,5 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__MagData_8h_1a81b381d816670692fee0c5ddbff89cb9`
 
+- :ref:`exhale_function_NuMagSANSlib__MagData_8h_1a1a08fcc03af5df3fafcb1f8f95ba1504`
+
