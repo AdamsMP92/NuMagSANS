@@ -1,5 +1,5 @@
-Data Organization
-=================
+Simulation Scenarios
+====================
 
 The input data for NuMagSANS consist of discretized real-space datasets
 that can be organized in several ways. At the highest level, NuMagSANS
@@ -11,8 +11,9 @@ Inside this directory, the input data are separated into four data layers:
 ``RotData`` provide optional assembly metadata for object translations and
 object-wise rotations.
 
-The possible combinations of these data layers are summarized in the table
-below and are described in more detail in the following scenarios.
+The possible combinations of these data layers define different simulation
+scenarios. The table below gives a first overview, while the following
+scenario descriptions explain the corresponding data organization on the fly.
 
 .. list-table::
    :header-rows: 1
@@ -54,6 +55,29 @@ other. Information introduced in an earlier scenario is not repeated in full
 later. For example, the format of ``m_1.csv`` is explained in Scenario 1;
 later scenarios only describe the additional object folders, data files,
 metadata layers, or loop settings.
+
+Combinatorially, the core real-space input organization already contains
+``18`` basic data-layer scenarios. There are three choices for the physical
+local data layer, namely ``MagData``, ``NucData``, or ``MagData + NucData``.
+For each of these choices, ``StructData`` can currently be inactive or active
+as a single ``StructData.csv`` file. In addition, ``RotData`` can be inactive,
+active as a single ``RotData.csv`` file, or active as a folder loop over
+several ``RotData_#.csv`` files.
+
+.. code-block:: text
+
+   3 local-data choices x 2 StructData choices x 3 RotData choices = 18 scenarios
+
+This count describes the data-layer combinations. The local data-file
+selection adds another execution layer: a calculation can either use selected
+file indices through ``User_Selection`` or sweep consecutive file indices
+through ``Loop_Modus``. If this execution-layer distinction is counted as a
+separate binary choice, the ``18`` data-layer scenarios become ``36`` basic
+execution scenarios.
+
+The following sections do not document every possible combination separately.
+Instead, they describe representative scenarios from which the remaining
+combinations can be derived.
 
 
 Scenario 1: Single object with a single magnetic state
