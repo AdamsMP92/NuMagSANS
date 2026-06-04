@@ -89,6 +89,10 @@ class NuMagSANS:
         StructData_activate=0,
         RotData_activate=0,
         FastLoad=0,
+        NucData_ReplicationImport=0,
+        NucData_NumberOfReplications=1,
+        MagData_ReplicationImport=0,
+        MagData_NumberOfReplications=1,
         Exclude_Zero_Moments=0,
 
         # fourier
@@ -174,6 +178,10 @@ class NuMagSANS:
             W("StructData_activate", StructData_activate)
             W("RotData_activate", RotData_activate)
             W("FastLoad", FastLoad)
+            W("NucData_ReplicationImport", NucData_ReplicationImport)
+            W("NucData_NumberOfReplications", NucData_NumberOfReplications)
+            W("MagData_ReplicationImport", MagData_ReplicationImport)
+            W("MagData_NumberOfReplications", MagData_NumberOfReplications)
             W("Exclude_Zero_Moments", Exclude_Zero_Moments)
 
             # ---------------------------

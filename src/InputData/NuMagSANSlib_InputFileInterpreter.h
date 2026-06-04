@@ -106,6 +106,18 @@ struct InputFileData{
 	/// Skip repeated MagData dimension checks for faster data import
 	bool FastLoad_flag = false;
 
+	/// Replicate a single local nuclear object during import
+	bool NucData_ReplicationImport_flag = false;
+
+	/// Effective number of nuclear objects generated from the single template object
+	int NucData_NumberOfReplications = 1;
+
+	/// Replicate a single local magnetic object during import
+	bool MagData_ReplicationImport_flag = false;
+
+	/// Effective number of magnetic objects generated from the single template object
+	int MagData_NumberOfReplications = 1;
+
     /// Output directory for computed SANS data
 	string SANSDataFoldername;
 
@@ -580,6 +592,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"StructDataLoop", &InputData->StructDataLoop_flag, false},
 		{"RotDataLoop", &InputData->RotDataLoop_flag, false},
 		{"FastLoad", &InputData->FastLoad_flag, false},
+		{"NucData_ReplicationImport", &InputData->NucData_ReplicationImport_flag, false},
+		{"MagData_ReplicationImport", &InputData->MagData_ReplicationImport_flag, false},
 		{"Exclude_Zero_Moments", &InputData->ExcludeZeroMoments_flag, true},
 		{"Angular_Spec", &InputData->AngularSpec_activate_flag, true},
 		{"Fourier_Gamma", &InputData->output_fourier_correlation_matrix_flag, true}
@@ -595,6 +609,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"StructDataLoop_To", &InputData->StructDataLoop_To, false},
 		{"RotDataLoop_From", &InputData->RotDataLoop_From, false},
 		{"RotDataLoop_To", &InputData->RotDataLoop_To, false},
+		{"NucData_NumberOfReplications", &InputData->NucData_NumberOfReplications, false},
+		{"MagData_NumberOfReplications", &InputData->MagData_NumberOfReplications, false},
 		{"Number_Of_q_Points", &InputData->N_q, true},
 		{"Number_Of_theta_Points", &InputData->N_theta, true},
 		{"Number_Of_r_Points", &InputData->N_r, true},
@@ -803,6 +819,24 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		LogSystem::write("Polarization is automatically normalized to 1!");
 	}
 
+	bool ReplicationImport_CheckFlag = true;
+	if(InputData->MagData_ReplicationImport_flag && !InputData->MagData_activate_flag){
+		LogSystem::write("Error: MagData_ReplicationImport requires MagData_activate = 1.");
+		ReplicationImport_CheckFlag = false;
+	}
+	if(InputData->NucData_ReplicationImport_flag && !InputData->NucData_activate_flag){
+		LogSystem::write("Error: NucData_ReplicationImport requires NucData_activate = 1.");
+		ReplicationImport_CheckFlag = false;
+	}
+	if(InputData->MagData_ReplicationImport_flag && InputData->MagData_NumberOfReplications <= 0){
+		LogSystem::write("Error: MagData_NumberOfReplications must be larger than zero.");
+		ReplicationImport_CheckFlag = false;
+	}
+	if(InputData->NucData_ReplicationImport_flag && InputData->NucData_NumberOfReplications <= 0){
+		LogSystem::write("Error: NucData_NumberOfReplications must be larger than zero.");
+		ReplicationImport_CheckFlag = false;
+	}
+
 
 
 	LogSystem::write("##########################################################################################");
@@ -836,6 +870,6 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		LogSystem::write(" ->-> Error in input file!");
 	}
 
-	return ok;
+	return ok && ReplicationImport_CheckFlag;
 
 }

@@ -249,15 +249,54 @@ void CountAtomNumbers_NucData(NucDataProperties* NucDataProp){
 	}
 }
 
+bool ApplyReplicationImport_NucData(NucDataProperties* NucDataProp, int NumberOfReplications){
+
+	if(NumberOfReplications <= 0){
+		LogSystem::write(" ->-> Error: NucData_NumberOfReplications must be larger than zero.");
+		return false;
+	}
+
+	if(NucDataProp->Number_Of_SubFolders != 1){
+		LogSystem::write(" ->-> Error: NucData replication import requires exactly one physical template object.");
+		LogSystem::write("Physical NucData object folders: " + std::to_string(NucDataProp->Number_Of_SubFolders));
+		return false;
+	}
+
+	LogSystem::write("NucData replication import active.");
+	LogSystem::write("Physical NucData object folders: 1");
+	LogSystem::write("Effective NucData object count: " + std::to_string(NumberOfReplications));
+
+	std::vector<int> TemplateNumberOfElements(NucDataProp->Number_Of_Files_In_SubFolder);
+
+	for(int j = 0; j < NucDataProp->Number_Of_Files_In_SubFolder; j++){
+		TemplateNumberOfElements[j] = NucDataProp->NumberOfElements[0][j];
+	}
+
+	delete[] NucDataProp->NumberOfElements[0];
+	delete[] NucDataProp->NumberOfElements;
+
+	NucDataProp->Number_Of_SubFolders = NumberOfReplications;
+	NucDataProp->NumberOfElements = new int*[NucDataProp->Number_Of_SubFolders];
+
+	for(int i = 0; i < NucDataProp->Number_Of_SubFolders; i++){
+		NucDataProp->NumberOfElements[i] = new int[NucDataProp->Number_Of_Files_In_SubFolder];
+		for(int j = 0; j < NucDataProp->Number_Of_Files_In_SubFolder; j++){
+			NucDataProp->NumberOfElements[i][j] = TemplateNumberOfElements[j];
+		}
+	}
+
+	return true;
+}
+
 
 
 // Routine that checks number of subfolders in MagData directory
-bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataProp, bool FastLoad){
+bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataProp, InputFileData* InputData){
 
 	LogSystem::write("##########################################################################################");
 	LogSystem::write("## Run - NucData Directory Explorer ######################################################");
 	LogSystem::write("##########################################################################################");
-	LogSystem::write("FastLoad mode: " + std::string(FastLoad ? "true" : "false"));
+	LogSystem::write("FastLoad mode: " + std::string(InputData->FastLoad_flag ? "true" : "false"));
 	LogSystem::write("");
 
      bool CheckFlag = false;
@@ -271,7 +310,12 @@ bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataPr
      // Check the files in each subfolder
      bool Subfolder_Elements_CheckFlag = check_Subfolder_FileNames_NucData(NucDataProp);
 
-     bool FileDimensions_CheckFlag = check_FileDimensions_NucData(NucDataProp, FastLoad);
+     bool FileDimensions_CheckFlag = check_FileDimensions_NucData(NucDataProp, InputData->FastLoad_flag);
+
+     bool ReplicationImport_CheckFlag = true;
+     if(InputData->NucData_ReplicationImport_flag){
+        ReplicationImport_CheckFlag = ApplyReplicationImport_NucData(NucDataProp, InputData->NucData_NumberOfReplications);
+     }
 
      CountAtomNumbers_NucData(NucDataProp);
 
@@ -284,7 +328,7 @@ bool NucData_Observer(std::string Local_NucDataPath, NucDataProperties*NucDataPr
 	LogSystem::write("##########################################################################################");
 	LogSystem::write("");
 
-     if(Subfolder_CheckFlag && Subfolder_Elements_CheckFlag && FileDimensions_CheckFlag){
+     if(Subfolder_CheckFlag && Subfolder_Elements_CheckFlag && FileDimensions_CheckFlag && ReplicationImport_CheckFlag){
          CheckFlag = true;
      }
 
