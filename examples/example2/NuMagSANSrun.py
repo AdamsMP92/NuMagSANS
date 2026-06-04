@@ -7,6 +7,7 @@ import numpy as np
 from NuMagSANS import NuMagSANS
 from UniformSphere import (
     random_two_sphere_case,
+    random_unit_vector,
     random_zyz_angles,
     scaled_spin_flip_1d,
     system_scattering_volume_m3,
@@ -25,6 +26,7 @@ N_Q = 160
 N_THETA = 361
 Q_MAX = 1.2
 POLARIZATION = (0.0, 0.0, 1.0)
+N_STRUCTDATA = 3
 N_ROTDATA = 4
 
 
@@ -62,6 +64,37 @@ def write_rotdata_loop_cases(rotation_cases: list[list], real_space_dir: Path) -
         np.savetxt(rotdata_dir / f"RotData_{index}.csv", angles, fmt="%.10e", delimiter=" ")
 
 
+def write_structdata_loop_cases(structure_cases: list[list], real_space_dir: Path) -> None:
+    """Write StructData_#.csv files for an inner NuMagSANS structure-data loop."""
+
+    structdata_dir = real_space_dir / "StructData"
+    structdata_dir.mkdir(parents=True, exist_ok=True)
+
+    for index, spheres in enumerate(structure_cases, start=1):
+        centers = np.asarray([sphere.center for sphere in spheres], dtype=float)
+        np.savetxt(structdata_dir / f"StructData_{index}.csv", centers, fmt="%.10e", delimiter=" ")
+
+
+def sample_structure_cases(spheres: list, rng: np.random.Generator, n_cases: int) -> list[list]:
+    """Return copies of the spheres with independently sampled object centers."""
+
+    structure_cases = []
+    r1 = spheres[0].radius
+    r2 = spheres[1].radius
+    for _ in range(n_cases):
+        direction = random_unit_vector(rng)
+        distance = (r1 + r2) * rng.uniform(1.25, 1.8)
+        center1 = -0.5 * distance * direction
+        center2 = 0.5 * distance * direction
+        structure_cases.append(
+            [
+                replace(spheres[0], center=tuple(center1)),
+                replace(spheres[1], center=tuple(center2)),
+            ]
+        )
+    return structure_cases
+
+
 def sample_rotation_cases(spheres: list, rng: np.random.Generator, n_cases: int) -> list[list]:
     """Return copies of the spheres with independently sampled object rotations."""
 
@@ -79,6 +112,8 @@ def run_single_case(sim: NuMagSANS, iteration: int, rng: np.random.Generator) ->
     spheres = random_two_sphere_case(rng)
     scattering_volume = system_scattering_volume_m3(spheres)
     write_uniform_sphere_case(BASE_DIR, spheres, dataset_index=1, clean=True)
+    structure_cases = sample_structure_cases(spheres, rng, N_STRUCTDATA)
+    write_structdata_loop_cases(structure_cases, REAL_SPACE_DIR)
     rotation_cases = sample_rotation_cases(spheres, rng, N_ROTDATA)
     write_rotdata_loop_cases(rotation_cases, REAL_SPACE_DIR)
 
@@ -90,6 +125,10 @@ def run_single_case(sim: NuMagSANS, iteration: int, rng: np.random.Generator) ->
         MagData_activate=1,
         StructData_activate=1,
         RotData_activate=1,
+        StructDataLoop=1,
+        StructDataLoop_From=1,
+        StructDataLoop_To=N_STRUCTDATA,
+        StructData_User_Selection=list(range(1, N_STRUCTDATA + 1)),
         RotDataLoop=1,
         RotDataLoop_From=1,
         RotDataLoop_To=N_ROTDATA,
@@ -97,6 +136,7 @@ def run_single_case(sim: NuMagSANS, iteration: int, rng: np.random.Generator) ->
         FastLoad=1,
         MagDataPath=str(BASE_DIR / "RealSpaceData" / "MagData"),
         StructDataFilename=str(BASE_DIR / "RealSpaceData" / "StructData.csv"),
+        StructDataPath=str(BASE_DIR / "RealSpaceData" / "StructData"),
         RotDataFilename=str(BASE_DIR / "RealSpaceData" / "RotData.csv"),
         RotDataPath=str(BASE_DIR / "RealSpaceData" / "RotData"),
         foldernameSANSData=str(OUTPUT_DIR),
@@ -116,32 +156,45 @@ def run_single_case(sim: NuMagSANS, iteration: int, rng: np.random.Generator) ->
     finally:
         sim.config_clear(CONFIG)
 
-    rotdata_results = []
-    for rotdata_index, rotated_spheres in enumerate(rotation_cases, start=1):
-        q, numagsans_spin_flip = read_spin_flip_1d(
-            OUTPUT_DIR / "SANS_1" / f"RotData_{rotdata_index}" / "SANS1D.csv"
-        )
-        analytic_spin_flip = scaled_spin_flip_1d(
-            q_values=q,
-            n_theta=N_THETA,
-            spheres=rotated_spheres,
-            scattering_volume=scattering_volume,
-            polarization=POLARIZATION,
-        )
-        mse = relative_mse(numagsans_spin_flip, analytic_spin_flip)
-        rotdata_results.append(
-            {
-                "rotdata_index": rotdata_index,
-                "mse": mse,
-                "spheres": rotated_spheres,
-            }
-        )
-        print(f"iteration {iteration}, RotData {rotdata_index}: relative MSE = {mse:.6e}")
+    loop_results = []
+    for structdata_index, structured_spheres in enumerate(structure_cases, start=1):
+        for rotdata_index, rotation_spheres in enumerate(rotation_cases, start=1):
+            test_spheres = [
+                replace(structured_sphere, angles=rotation_sphere.angles)
+                for structured_sphere, rotation_sphere in zip(structured_spheres, rotation_spheres)
+            ]
+            q, numagsans_spin_flip = read_spin_flip_1d(
+                OUTPUT_DIR
+                / "SANS_1"
+                / f"StructData_{structdata_index}"
+                / f"RotData_{rotdata_index}"
+                / "SANS1D.csv"
+            )
+            analytic_spin_flip = scaled_spin_flip_1d(
+                q_values=q,
+                n_theta=N_THETA,
+                spheres=test_spheres,
+                scattering_volume=scattering_volume,
+                polarization=POLARIZATION,
+            )
+            mse = relative_mse(numagsans_spin_flip, analytic_spin_flip)
+            loop_results.append(
+                {
+                    "structdata_index": structdata_index,
+                    "rotdata_index": rotdata_index,
+                    "mse": mse,
+                    "spheres": test_spheres,
+                }
+            )
+            print(
+                f"iteration {iteration}, StructData {structdata_index}, "
+                f"RotData {rotdata_index}: relative MSE = {mse:.6e}"
+            )
 
     return {
         "iteration": iteration,
         "scattering_volume": scattering_volume,
-        "rotdata_results": rotdata_results,
+        "loop_results": loop_results,
     }
 
 
@@ -150,17 +203,19 @@ def print_summary_table(results: list[dict]) -> None:
 
     print("\nSummary:")
     print(
-        f"{'it':>2} {'rot':>3} {'MSE':>12} {'particle':>8} {'R':>8} {'a':>8} "
+        f"{'it':>2} {'str':>3} {'rot':>3} {'MSE':>12} {'particle':>8} {'R':>8} {'a':>8} "
         f"{'position':>30} {'magnetization':>30} {'angles':>30}"
     )
     for result in results:
-        for rotdata_result in result["rotdata_results"]:
-            for particle_index, sphere in enumerate(rotdata_result["spheres"], start=1):
-                mse = f"{rotdata_result['mse']:.6e}" if particle_index == 1 else ""
+        for loop_result in result["loop_results"]:
+            for particle_index, sphere in enumerate(loop_result["spheres"], start=1):
+                mse = f"{loop_result['mse']:.6e}" if particle_index == 1 else ""
                 iteration = str(result["iteration"]) if particle_index == 1 else ""
-                rotdata_index = str(rotdata_result["rotdata_index"]) if particle_index == 1 else ""
+                structdata_index = str(loop_result["structdata_index"]) if particle_index == 1 else ""
+                rotdata_index = str(loop_result["rotdata_index"]) if particle_index == 1 else ""
                 print(
-                    f"{iteration:>2} {rotdata_index:>3} {mse:>12} {particle_index:>8} "
+                    f"{iteration:>2} {structdata_index:>3} {rotdata_index:>3} "
+                    f"{mse:>12} {particle_index:>8} "
                     f"{sphere.radius:8.3f} {sphere.spacing:8.3f} "
                     f"{format_vector(sphere.center):>30} "
                     f"{format_vector(sphere.magnetization):>30} "
@@ -169,9 +224,9 @@ def print_summary_table(results: list[dict]) -> None:
 
     mse_values = np.asarray(
         [
-            rotdata_result["mse"]
+            loop_result["mse"]
             for result in results
-            for rotdata_result in result["rotdata_results"]
+            for loop_result in result["loop_results"]
         ],
         dtype=float,
     )

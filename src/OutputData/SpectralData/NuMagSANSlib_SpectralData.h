@@ -483,6 +483,7 @@ void write2CSV_SpectralData(
     InputFileData* InputData,
     SpectralData* SpecData,
     int MagData_File_Index,
+    int StructData_File_Index = 0,
     int RotData_File_Index = 0)
 {
     LogSystem::write("");
@@ -492,6 +493,10 @@ void write2CSV_SpectralData(
         InputData->SANSDataFoldername +
         "/SANS_" + std::to_string(MagData_File_Index) +
         "/";
+
+    if(StructData_File_Index > 0){
+        baseFolder += "StructData_" + std::to_string(StructData_File_Index) + "/";
+    }
 
     if(RotData_File_Index > 0){
         baseFolder += "RotData_" + std::to_string(RotData_File_Index) + "/";
@@ -640,4 +645,3 @@ void free_SpectralData(SpectralData* S, \
     cudaDeviceSynchronize();
 
 }
-

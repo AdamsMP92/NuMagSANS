@@ -97,6 +97,9 @@ struct InputFileData{
 	/// CSV file containing rotational information
 	string RotDataFilename;
 
+	/// Directory containing StructData_1.csv, StructData_2.csv, ... files
+	string StructDataPath = "";
+
 	/// Directory containing RotData_1.csv, RotData_2.csv, ... files
 	string RotDataPath = "";
 
@@ -115,6 +118,9 @@ struct InputFileData{
 	/// Activate inner loop mode over rotation data files
 	bool RotDataLoop_flag = false;
 
+	/// Activate inner loop mode over structure data files
+	bool StructDataLoop_flag = false;
+
     /// Starting index for loop mode
 	int Loop_From;
 
@@ -126,6 +132,18 @@ struct InputFileData{
 
 	/// Final index for rotation data loop mode
 	int RotDataLoop_To = 1;
+
+	/// Starting index for structure data loop mode
+	int StructDataLoop_From = 1;
+
+	/// Final index for structure data loop mode
+	int StructDataLoop_To = 1;
+
+	/// User-defined structure-data selection string
+	string StructData_User_Selection;
+
+	/// Parsed structure-data index list
+	std::vector<int> StructDataLoop_IndexArray;
 
 	/// User-defined rotation-data selection string
 	string RotData_User_Selection;
@@ -559,6 +577,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"MagData_activate", &InputData->MagData_activate_flag, true},
 		{"StructData_activate", &InputData->StructData_activate_flag, true},
 		{"RotData_activate", &InputData->RotData_activate_flag, true},
+		{"StructDataLoop", &InputData->StructDataLoop_flag, false},
 		{"RotDataLoop", &InputData->RotDataLoop_flag, false},
 		{"FastLoad", &InputData->FastLoad_flag, false},
 		{"Exclude_Zero_Moments", &InputData->ExcludeZeroMoments_flag, true},
@@ -572,6 +591,8 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 
 		{"Loop_From", &InputData->Loop_From, true},
 		{"Loop_To", &InputData->Loop_To, true},
+		{"StructDataLoop_From", &InputData->StructDataLoop_From, false},
+		{"StructDataLoop_To", &InputData->StructDataLoop_To, false},
 		{"RotDataLoop_From", &InputData->RotDataLoop_From, false},
 		{"RotDataLoop_To", &InputData->RotDataLoop_To, false},
 		{"Number_Of_q_Points", &InputData->N_q, true},
@@ -609,9 +630,11 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		{"MagDataPath", &InputData->MagDataPath, true},
 		{"StructDataFilename", &InputData->StructDataFilename, true},
 		{"RotDataFilename", &InputData->RotDataFilename, true},
+		{"StructDataPath", &InputData->StructDataPath, false},
 		{"RotDataPath", &InputData->RotDataPath, false},
 		{"foldernameSANSData", &InputData->SANSDataFoldername, true},
 		{"Fourier_Approach", &InputData->Fourier_Approach, true},
+		{"StructData_User_Selection", &InputData->StructData_User_Selection, false},
 		{"RotData_User_Selection", &InputData->RotData_User_Selection, false},
 		{"User_Selection", &InputData->User_Selection, true}
 
@@ -704,6 +727,29 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
                 std::to_string(InputData->User_Selection_IndexArray[k]));
         }
     }
+
+	for (auto& opt : string_options)
+    if (opt.key == "StructData_User_Selection" && opt.found)
+    {
+        InputData->StructDataLoop_IndexArray =
+            parse_int_list(InputData->StructData_User_Selection);
+
+        LogSystem::write("Check StructDataUserSelection entries that are transferred to integer array:");
+
+        for (size_t k = 0; k < InputData->StructDataLoop_IndexArray.size(); ++k)
+        {
+            LogSystem::write(
+                " StructDataUserSelection: " +
+                std::to_string(k) + " : " +
+                std::to_string(InputData->StructDataLoop_IndexArray[k]));
+        }
+    }
+
+	if(InputData->StructDataLoop_flag && InputData->StructDataLoop_IndexArray.empty()){
+		for(int k = InputData->StructDataLoop_From; k <= InputData->StructDataLoop_To; k++){
+			InputData->StructDataLoop_IndexArray.push_back(k);
+		}
+	}
 
 	for (auto& opt : string_options)
     if (opt.key == "RotData_User_Selection" && opt.found)

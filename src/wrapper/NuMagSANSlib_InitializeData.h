@@ -29,7 +29,11 @@ inline void InitializeDataMulti(InputFileData* InputData,
 
 	// initialize structure data ##############################################################
 	if(InputData->StructData_activate_flag){
-		init_StructureData(StructData, StructData_gpu, StructDataProp, InputData);
+		if(InputData->StructDataLoop_flag){
+			init_StructureDataMemory(StructData, StructData_gpu, StructDataProp, InputData);
+		}else{
+			init_StructureData(StructData, StructData_gpu, StructDataProp, InputData);
+		}
 		CheckCUDALastError("initialize structure data");
 		//disp_StructureData(StructData);
 	}
