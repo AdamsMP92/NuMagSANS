@@ -554,6 +554,8 @@
 
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">N_alpha</span><span class="p">;</span>
 
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">q_min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">q_max</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">r_max</span><span class="p">;</span>
@@ -971,6 +973,7 @@
 <span class="w">    </span><span class="c1">// float options ///////////////////////////////</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Option</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">float_options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 
+<span class="w">        </span><span class="p">{</span><span class="s">&quot;q_min&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">q_min</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span><span class="s">&quot;q_max&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">q_max</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span><span class="s">&quot;r_max&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">r_max</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span><span class="s">&quot;Scattering_Volume_V&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">Scattering_Volume_V</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">},</span>
@@ -1186,6 +1189,20 @@
 <span class="w">        </span><span class="n">ReplicationImport_CheckFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">ScatteringGrid_CheckFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">N_q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="p">){</span>
+<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Error: Number_Of_q_Points must be larger than one.&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ScatteringGrid_CheckFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">q_min</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.0</span><span class="p">){</span>
+<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Error: q_min must be larger than or equal to zero.&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ScatteringGrid_CheckFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">q_max</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">q_min</span><span class="p">){</span>
+<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Error: q_max must be larger than q_min.&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ScatteringGrid_CheckFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
 
 
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;##########################################################################################&quot;</span><span class="p">);</span>
@@ -1219,7 +1236,7 @@
 <span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot; -&gt;-&gt; Error in input file!&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ReplicationImport_CheckFlag</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ReplicationImport_CheckFlag</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ScatteringGrid_CheckFlag</span><span class="p">;</span>
 
 <span class="p">}</span>
 </pre></div>

@@ -51,6 +51,7 @@ Program Listing for File NuMagSANSlib_SANSData.h
    
        float *Polarization; // polarization vector [Px, Py, Pz]
    
+       float *q_min;   // minimum q-value
        float *q_max;   // maximum q-value
        float *r_max;   // maximum r-value
        
@@ -430,6 +431,7 @@ Program Listing for File NuMagSANSlib_SANSData.h
        *SANSData->N_r = InputData->N_r;
        *SANSData->N_alpha = InputData->N_alpha;
    
+       SANSData->q_min = (float*) malloc(sizeof(float));
        SANSData->q_max = (float*) malloc(sizeof(float));
        SANSData->r_max = (float*) malloc(sizeof(float));
        SANSData->dq = (float*) malloc(sizeof(float));
@@ -437,9 +439,10 @@ Program Listing for File NuMagSANSlib_SANSData.h
        SANSData->dr = (float*) malloc(sizeof(float));
        SANSData->dalpha = (float*) malloc(sizeof(float));
        
+       *SANSData->q_min = InputData->q_min;
        *SANSData->q_max = InputData->q_max;
        *SANSData->r_max = InputData->r_max;
-       *SANSData->dq = (InputData->q_max)/((float) InputData->N_q - 1.0);
+       *SANSData->dq = (InputData->q_max - InputData->q_min)/((float) InputData->N_q - 1.0);
        *SANSData->dr = (InputData->r_max)/((float) InputData->N_r - 1.0);
        *SANSData->dtheta = (2.0*M_PI)/((float) InputData->N_theta - 1.0);
        *SANSData->dalpha = (2.0*M_PI)/((float) InputData->N_alpha - 1.0);
@@ -500,7 +503,7 @@ Program Listing for File NuMagSANSlib_SANSData.h
    
        for(unsigned int i = 0; i < InputData->N_q; i++){
        
-           SANSData->q_1D[i] = i * (*SANSData->dq);
+           SANSData->q_1D[i] = InputData->q_min + i * (*SANSData->dq);
            SANSData->S_Nuc_1D_unpolarized[i] = 0.0;
            SANSData->S_Mag_1D_unpolarized[i] = 0.0;
            SANSData->S_Mag_1D_polarized[i] = 0.0;
@@ -677,9 +680,11 @@ Program Listing for File NuMagSANSlib_SANSData.h
        cudaMemcpy(SANSData_gpu->N_r, SANSData->N_r, sizeof(unsigned int), cudaMemcpyHostToDevice);
        cudaMemcpy(SANSData_gpu->N_alpha, SANSData->N_alpha, sizeof(unsigned int), cudaMemcpyHostToDevice);
    
+       cudaMalloc(&SANSData_gpu->q_min, sizeof(float));
        cudaMalloc(&SANSData_gpu->q_max, sizeof(float));
        cudaMalloc(&SANSData_gpu->r_max, sizeof(float));
    
+       cudaMemcpy(SANSData_gpu->q_min, SANSData->q_min, sizeof(float), cudaMemcpyHostToDevice);
        cudaMemcpy(SANSData_gpu->q_max, SANSData->q_max, sizeof(float), cudaMemcpyHostToDevice);
        cudaMemcpy(SANSData_gpu->r_max, SANSData->r_max, sizeof(float), cudaMemcpyHostToDevice);
    
@@ -1316,6 +1321,7 @@ Program Listing for File NuMagSANSlib_SANSData.h
        free(SANSData->N_r);
        free(SANSData->N_alpha);
    
+       free(SANSData->q_min);
        free(SANSData->q_max);
        free(SANSData->r_max);
        free(SANSData->dq);
@@ -1429,6 +1435,7 @@ Program Listing for File NuMagSANSlib_SANSData.h
        cudaFree(SANSData_gpu->N_alpha);
        cudaDeviceSynchronize();
    
+       cudaFree(SANSData_gpu->q_min);
        cudaFree(SANSData_gpu->q_max);
        cudaFree(SANSData_gpu->r_max);
        cudaFree(SANSData_gpu->dq);
