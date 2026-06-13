@@ -135,6 +135,7 @@ class NuMagSANS:
         Number_Of_theta_Points=1000,
         Number_Of_r_Points=1000,
         Number_Of_alpha_Points=1000,
+        q_min=0.0,
         q_max=3.0,
         r_max=15.0,
 
@@ -246,6 +247,7 @@ class NuMagSANS:
             W("Number_Of_theta_Points", Number_Of_theta_Points)
             W("Number_Of_r_Points", Number_Of_r_Points)
             W("Number_Of_alpha_Points", Number_Of_alpha_Points)
+            W("q_min", q_min)
             W("q_max", q_max)
             W("r_max", r_max)
 
