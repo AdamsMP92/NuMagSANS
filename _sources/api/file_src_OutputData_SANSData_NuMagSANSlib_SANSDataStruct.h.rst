@@ -29,6 +29,8 @@ Included By
 
 - :ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSData.h`
 
+- :ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSDataTable.h`
+
 
 
 
