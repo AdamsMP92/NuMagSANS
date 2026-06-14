@@ -10,9 +10,9 @@ when a concrete test setup should be materialized.
 
 from __future__ import annotations
 
+import shutil
 from dataclasses import dataclass
 from pathlib import Path
-import shutil
 
 import numpy as np
 from scipy.special import jv
@@ -137,14 +137,7 @@ def analytical_fourier_magnetization(
         center_global = global_rotation @ center
         moment_global = global_rotation @ object_rotation @ moment
 
-        phase = np.exp(
-            -1j
-            * (
-                qx * center_global[0]
-                + qy * center_global[1]
-                + qz * center_global[2]
-            )
-        )
+        phase = np.exp(-1j * (qx * center_global[0] + qy * center_global[1] + qz * center_global[2]))
         shape = sphere_form_factor(q, sphere.radius) * sphere_number_density_nm3(sphere)
 
         mx_q += moment_global[0] * shape * phase
@@ -292,8 +285,7 @@ def spin_flip_1d_exact(
 
     for q_index, q_value in enumerate(q_values):
         shapes = [
-            sphere_form_factor(np.asarray([q_value]), sphere.radius)[0]
-            * sphere_number_density_nm3(sphere)
+            sphere_form_factor(np.asarray([q_value]), sphere.radius)[0] * sphere_number_density_nm3(sphere)
             for sphere in spheres
         ]
         value = 0.0j
@@ -305,12 +297,16 @@ def spin_flip_1d_exact(
                 dy = center_i[1] - center_j[1]
                 dz = center_i[2] - center_j[2]
 
-                value += shapes[i] * shapes[j] * (
-                    moment_i[0] * moment_j[0] * _angular_phase_average(one, q_value, dy, dz)
-                    + moment_i[1] * moment_j[1] * _angular_phase_average(cos4, q_value, dy, dz)
-                    + moment_i[2] * moment_j[2] * _angular_phase_average(sin2_cos2, q_value, dy, dz)
-                    - (moment_i[1] * moment_j[2] + moment_i[2] * moment_j[1])
-                    * _angular_phase_average(sin_cos3, q_value, dy, dz)
+                value += (
+                    shapes[i]
+                    * shapes[j]
+                    * (
+                        moment_i[0] * moment_j[0] * _angular_phase_average(one, q_value, dy, dz)
+                        + moment_i[1] * moment_j[1] * _angular_phase_average(cos4, q_value, dy, dz)
+                        + moment_i[2] * moment_j[2] * _angular_phase_average(sin2_cos2, q_value, dy, dz)
+                        - (moment_i[1] * moment_j[2] + moment_i[2] * moment_j[1])
+                        * _angular_phase_average(sin_cos3, q_value, dy, dz)
+                    )
                 )
 
         out[q_index] = float(np.real(value))

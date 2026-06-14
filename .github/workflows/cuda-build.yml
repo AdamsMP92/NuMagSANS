@@ -39,4 +39,3 @@ jobs:
         run: |
           cd build
           ./NuMagSANS NuMagSANSInput.conf || echo "Executable test skipped"
-          

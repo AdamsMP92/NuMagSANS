@@ -11,12 +11,11 @@ matching the NuMagSANS real-space input format.
 
 from __future__ import annotations
 
-from pathlib import Path
 import argparse
 import shutil
+from pathlib import Path
 
 import numpy as np
-
 
 BASE_DIR = Path(__file__).resolve().parent
 REAL_SPACE_DIR = BASE_DIR / "RealSpaceData"
