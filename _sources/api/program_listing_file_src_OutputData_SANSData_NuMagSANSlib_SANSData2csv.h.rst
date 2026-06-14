@@ -12,7 +12,6 @@ Program Listing for File NuMagSANSlib_SANSData2csv.h
 
    #pragma once
    
-   
    // -------------------------------------------------------------------------------------------------
    struct Column {
        std::string name;
