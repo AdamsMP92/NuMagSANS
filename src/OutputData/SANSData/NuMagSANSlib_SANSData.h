@@ -28,16 +28,10 @@
 #include <filesystem>
 #include <iomanip>
 
-
 #include "NuMagSANSlib_SANSDataStruct.h"
 #include "NuMagSANSlib_SANSData2csv.h"
 
 using namespace std;
-
-
-
-
-
 
 // #################################################################################################################################################
 struct ScalingFactors {
