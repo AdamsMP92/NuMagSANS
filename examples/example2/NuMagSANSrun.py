@@ -1,10 +1,8 @@
-from pathlib import Path
 import shutil
 from dataclasses import replace
+from pathlib import Path
 
 import numpy as np
-
-from NuMagSANS import NuMagSANS
 from UniformSphere import (
     random_two_sphere_case,
     random_unit_vector,
@@ -14,6 +12,7 @@ from UniformSphere import (
     write_uniform_sphere_case,
 )
 
+from NuMagSANS import NuMagSANS
 
 BASE_DIR = Path(__file__).resolve().parent
 CONFIG = BASE_DIR / "NuMagSANSInput_temp.conf"
@@ -100,9 +99,7 @@ def sample_rotation_cases(spheres: list, rng: np.random.Generator, n_cases: int)
 
     rotation_cases = []
     for _ in range(n_cases):
-        rotation_cases.append(
-            [replace(sphere, angles=random_zyz_angles(rng)) for sphere in spheres]
-        )
+        rotation_cases.append([replace(sphere, angles=random_zyz_angles(rng)) for sphere in spheres])
     return rotation_cases
 
 
@@ -164,11 +161,7 @@ def run_single_case(sim: NuMagSANS, iteration: int, rng: np.random.Generator) ->
                 for structured_sphere, rotation_sphere in zip(structured_spheres, rotation_spheres)
             ]
             q, numagsans_spin_flip = read_spin_flip_1d(
-                OUTPUT_DIR
-                / "SANS_1"
-                / f"StructData_{structdata_index}"
-                / f"RotData_{rotdata_index}"
-                / "SANS1D.csv"
+                OUTPUT_DIR / "SANS_1" / f"StructData_{structdata_index}" / f"RotData_{rotdata_index}" / "SANS1D.csv"
             )
             analytic_spin_flip = scaled_spin_flip_1d(
                 q_values=q,
@@ -223,11 +216,7 @@ def print_summary_table(results: list[dict]) -> None:
                 )
 
     mse_values = np.asarray(
-        [
-            loop_result["mse"]
-            for result in results
-            for loop_result in result["loop_results"]
-        ],
+        [loop_result["mse"] for result in results for loop_result in result["loop_results"]],
         dtype=float,
     )
     print(f"\nmean MSE: {np.mean(mse_values):.6e}")

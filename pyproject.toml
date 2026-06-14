@@ -14,3 +14,17 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["."]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+extend-exclude = [
+    "build",
+    "dist",
+    ".venv",
+    "NuMagSANS_Output",
+    "RealSpaceData",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]

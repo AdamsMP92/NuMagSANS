@@ -1,10 +1,9 @@
+import subprocess
 from pathlib import Path
 from typing import Iterable
-import subprocess
 
 
 class NuMagSANS:
-
     # ------------------------------------------------------------
     # Output naming structure (mirrors C++ logic)
     # ------------------------------------------------------------
@@ -82,7 +81,6 @@ class NuMagSANS:
         StructDataPath="RealSpaceData/StructData",
         RotDataPath="RealSpaceData/RotData",
         foldernameSANSData="NuMagSANS_Output",
-
         # selection
         NucData_activate=0,
         MagData_activate=0,
@@ -94,10 +92,8 @@ class NuMagSANS:
         MagData_ReplicationImport=0,
         MagData_NumberOfReplications=1,
         Exclude_Zero_Moments=0,
-
         # fourier
         Fourier_Approach="atomistic",
-
         # loop
         Loop_Modus=0,
         Loop_From=1,
@@ -111,25 +107,19 @@ class NuMagSANS:
         RotDataLoop_To=1,
         RotData_User_Selection=None,
         User_Selection=[1],
-
         # units
         XYZ_Unit_Factor=1,
-
         # micromagnetics
         Cell_Nuclear_SLD=8e14,
         Cell_Magnetization=486e3,
         Cuboid_Cell_Size=(2, 2, 2),
-
         # scattering
         Scattering_Volume_V=2.618e-24,
-
         # rotation
         RotMat_alpha=0.0,
         RotMat_beta=0.0,
-
         # polarization
         Polarization=(0.0, 0.0, 1.0),
-
         # q / r
         Number_Of_q_Points=1000,
         Number_Of_theta_Points=1000,
@@ -138,11 +128,9 @@ class NuMagSANS:
         q_min=0.0,
         q_max=3.0,
         r_max=15.0,
-
         # angular spectrum
         k_max=10,
         Angular_Spec=0,
-
         # outputs
         enable_outputs: Iterable[str] = (),
     ):
@@ -265,7 +253,6 @@ class NuMagSANS:
 
         return filename
 
-
     # ------------------------------------------------------------
     # Clear Config File
     # ------------------------------------------------------------
@@ -292,9 +279,7 @@ class NuMagSANS:
     def run(self, config: str | Path, *, check: bool = True):
 
         if not self.executable.exists():
-            raise FileNotFoundError(
-                f"Executable not found: {self.executable}"
-            )
+            raise FileNotFoundError(f"Executable not found: {self.executable}")
 
         config = Path(config).resolve()
 
