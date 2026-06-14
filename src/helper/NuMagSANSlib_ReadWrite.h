@@ -33,87 +33,86 @@ using namespace std;
 // ##############################################################################################################################################
 // ##############################################################################################################################################
 
-void WriteCSV_double_vector(unsigned long int N, double *data, string filename){
-	ofstream fout;
-	fout.open(filename);
-	for(unsigned long int n=0; n<N; n++) fout << data[n] << "\n";
-	fout.close();
+void WriteCSV_double_vector(unsigned long int N, double* data, string filename) {
+    ofstream fout;
+    fout.open(filename);
+    for (unsigned long int n = 0; n < N; n++)
+        fout << data[n] << "\n";
+    fout.close();
 }
 
-void WriteCSV_float_vector(unsigned long int N, float *data, string filename){
-	ofstream fout;
-	fout.open(filename);
-	for(unsigned long int n=0; n<N; n++) fout << data[n] << "\n";
-	fout.close();
+void WriteCSV_float_vector(unsigned long int N, float* data, string filename) {
+    ofstream fout;
+    fout.open(filename);
+    for (unsigned long int n = 0; n < N; n++)
+        fout << data[n] << "\n";
+    fout.close();
 }
 
-void ReadCSV_double_vector(unsigned long int N, double *data, string filename){
-	ifstream fin;
-	fin.open(filename);
-	for(unsigned long int n=0; n<N; n++) fin >> data[n];
-	fin.close();
+void ReadCSV_double_vector(unsigned long int N, double* data, string filename) {
+    ifstream fin;
+    fin.open(filename);
+    for (unsigned long int n = 0; n < N; n++)
+        fin >> data[n];
+    fin.close();
 }
 
-void ReadCSV_float_vector(unsigned long int N, float *data, string filename){
-	ifstream fin;
-	fin.open(filename);
-	for(unsigned long int n=0; n<N; n++) fin >> data[n];
-	fin.close();
+void ReadCSV_float_vector(unsigned long int N, float* data, string filename) {
+    ifstream fin;
+    fin.open(filename);
+    for (unsigned long int n = 0; n < N; n++)
+        fin >> data[n];
+    fin.close();
 }
 
-void ReadCSV_double_matrix(unsigned long int N, unsigned long int M, double **data, string filename){
-	ifstream fin;
-	fin.open(filename);
-	for(unsigned long int n=0; n<N; n++){
-		for(unsigned long int m=0; m<M; m++) fin >> data[n][m];
-	}
-	fin.close();
+void ReadCSV_double_matrix(unsigned long int N, unsigned long int M, double** data, string filename) {
+    ifstream fin;
+    fin.open(filename);
+    for (unsigned long int n = 0; n < N; n++) {
+        for (unsigned long int m = 0; m < M; m++)
+            fin >> data[n][m];
+    }
+    fin.close();
 }
 
-void WriteCSV_float_matrix(unsigned long int N, unsigned long int M, float **data, string filename){
-	ofstream fout;
-	fout.open(filename);
-	for(unsigned long int n=0; n<N; n++){
-		for(unsigned long int m=0; m<M; m++){
-			fout << data[n][m];
-			if(m<M-1) fout << ",";
-		}
-		fout << "\n";
-	}
-	fout.close();
+void WriteCSV_float_matrix(unsigned long int N, unsigned long int M, float** data, string filename) {
+    ofstream fout;
+    fout.open(filename);
+    for (unsigned long int n = 0; n < N; n++) {
+        for (unsigned long int m = 0; m < M; m++) {
+            fout << data[n][m];
+            if (m < M - 1)
+                fout << ",";
+        }
+        fout << "\n";
+    }
+    fout.close();
 }
-
-
-
-
-
-
-
 
 /*
 
 void NumberOfEntriesInNucFile(int *NumberOfColumns, string filename){
 
-	ifstream fin;
-	fin.open(filename);
-	std::string line;
+    ifstream fin;
+    fin.open(filename);
+    std::string line;
 
-	float x, y, z, Nuc;
+    float x, y, z, Nuc;
 
-	int line_counter = 0;
-	int error_counter = 0;
+    int line_counter = 0;
+    int error_counter = 0;
 
-	while(std::getline(fin, line)){
-		std::istringstream ss(line);
-		if(ss >> x >> y >> z >> Nuc){
-			line_counter += 1;			
-		} else{
-			error_counter ++;
-//			std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n"; 
-		}
-	}
-	fin.close();
-	*NumberOfColumns = line_counter;
+    while(std::getline(fin, line)){
+        std::istringstream ss(line);
+        if(ss >> x >> y >> z >> Nuc){
+            line_counter += 1;
+        } else{
+            error_counter ++;
+//			std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n";
+        }
+    }
+    fin.close();
+    *NumberOfColumns = line_counter;
 
 }
 */
@@ -121,31 +120,31 @@ void NumberOfEntriesInNucFile(int *NumberOfColumns, string filename){
 /*
 void NumberOfNonZeroMagneticMomentsInFile(int *NumberOfNonZeroMoments, int *NumberOfColumns, string filename){
 
-	ifstream fin;
-	fin.open(filename);
-	std::string line;
+    ifstream fin;
+    fin.open(filename);
+    std::string line;
 
-	float x, y, z, mx, my, mz;
+    float x, y, z, mx, my, mz;
 
-	int line_counter = 0;
-	int moment_counter = 0;
-	int error_counter = 0;
+    int line_counter = 0;
+    int moment_counter = 0;
+    int error_counter = 0;
 
-	while(std::getline(fin, line)){
-		std::istringstream ss(line);
-		if(ss >> x >> y >> z >> mx >> my >> mz){
-			if(mx != 0.0 || my != 0.0 || mz != 0.0){
-				moment_counter += 1;
-			}
-			line_counter += 1;			
-		} else{
-			error_counter ++;
-			std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n"; 
-		}
-	}
-	fin.close();
-	*NumberOfColumns = line_counter;
-	*NumberOfNonZeroMoments = moment_counter;
+    while(std::getline(fin, line)){
+        std::istringstream ss(line);
+        if(ss >> x >> y >> z >> mx >> my >> mz){
+            if(mx != 0.0 || my != 0.0 || mz != 0.0){
+                moment_counter += 1;
+            }
+            line_counter += 1;
+        } else{
+            error_counter ++;
+            std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n";
+        }
+    }
+    fin.close();
+    *NumberOfColumns = line_counter;
+    *NumberOfNonZeroMoments = moment_counter;
 
 }
 */
@@ -153,16 +152,16 @@ void NumberOfNonZeroMagneticMomentsInFile(int *NumberOfNonZeroMoments, int *Numb
 /*
 void CountColumnsAndRowsInMagDataFile(int *Number_Of_Rows, int *Number_Of_Columns, string filename){
 
-	ifstream fin;
-	fin.open(filename);
-	string line;
-	//float ghost_buf = 0.0;
+    ifstream fin;
+    fin.open(filename);
+    string line;
+    //float ghost_buf = 0.0;
 
- 	*Number_Of_Rows = 0;
- 	*Number_Of_Columns = 0;
-	while(getline(fin, line)){
-		//cout << line.size() << "\n";
-		*Number_Of_Rows += 1;
-	}
+    *Number_Of_Rows = 0;
+    *Number_Of_Columns = 0;
+    while(getline(fin, line)){
+        //cout << line.size() << "\n";
+        *Number_Of_Rows += 1;
+    }
 }
 */
