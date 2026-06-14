@@ -4,7 +4,7 @@ Detailled Installation
 NuMagSANS requires a working CUDA toolchain and a C++17-compatible compiler.
 
 This section provides a quick system check followed by build and Python installation steps.
-   
+
 Test Your System
 ----------------
 

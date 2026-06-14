@@ -83,13 +83,13 @@ directly through ``MagData`` and/or ``NucData``, while object-based assemblies
 can additionally use ``StructData`` and ``RotData`` to translate and rotate
 local object data without rewriting the object files.
 
-``NucDataPath``  
+``NucDataPath``
     Default path ``RealSpaceData/NucData``
 
 ``NucData_activate``
     Default value 0
 
-``MagDataPath`` 
+``MagDataPath``
     Default path ``RealSpaceData/MagData``
 
 ``MagData_activate``
@@ -224,7 +224,7 @@ These parameters control batch simulations or repeated calculations.
     Default ``0``
 
 ``Loop_From``
-    Description: First index used in loop simulations 
+    Description: First index used in loop simulations
     Default ``1``
 
 ``Loop_To``
