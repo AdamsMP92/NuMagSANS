@@ -19,7 +19,7 @@ Program Listing for File NuMagSANSlib_MemoryInfo.h
        double used_mb;
    };
    
-   inline GPUMemoryInfo GetGPUMemoryInfo(){
+   inline GPUMemoryInfo GetGPUMemoryInfo() {
        GPUMemoryInfo Info = {};
        cudaMemGetInfo(&Info.free_bytes, &Info.total_bytes);
        Info.free_mb = Info.free_bytes / 1024.0 / 1024.0;
@@ -27,7 +27,7 @@ Program Listing for File NuMagSANSlib_MemoryInfo.h
        return Info;
    }
    
-   inline void LogCurrentGPUMemoryDifference(const GPUMemoryInfo& MemoryReference){
+   inline void LogCurrentGPUMemoryDifference(const GPUMemoryInfo& MemoryReference) {
        GPUMemoryInfo MemoryCurrent = GetGPUMemoryInfo();
        double allocated_mb = MemoryCurrent.used_mb - MemoryReference.used_mb;
        LogSystem::write("");

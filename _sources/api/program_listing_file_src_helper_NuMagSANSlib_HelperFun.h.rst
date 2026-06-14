@@ -40,18 +40,13 @@ Program Listing for File NuMagSANSlib_HelperFun.h
    
    using namespace std;
    
-   
-   
-   
-   unsigned long int SumIntList2(int** List, int NumberOfColumns){
+   unsigned long int SumIntList2(int** List, int NumberOfColumns) {
    
        unsigned long int L = 0;
    
-       for(int k = 0; k < NumberOfColumns; k++){
+       for (int k = 0; k < NumberOfColumns; k++) {
            L += *List[k];
        }
    
        return L;
-   
    }
-   

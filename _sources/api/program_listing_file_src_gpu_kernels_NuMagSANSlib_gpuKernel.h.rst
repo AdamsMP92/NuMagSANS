@@ -36,7 +36,7 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
    #include <chrono>
    #include <dirent.h>
    #include <unistd.h>
-   #include <math_constants.h>  // für M_PI
+   #include <math_constants.h> // für M_PI
    
    // Future split-kernel include structure:
    //
@@ -45,7 +45,6 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
    // from the dedicated headers below and the corresponding in-file definitions
    // can be removed from this file.
    //
-   
    
    #include "AtomisticMagSANS_DiluteKernel.h"
    #include "AtomisticNucSANS_DiluteKernel.h"
@@ -63,23 +62,20 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
    #include "AtomisticNucSANS_StructRotKernel.h"
    #include "AtomisticNuMagSANS_StructRotKernel.h"
    
-   
    // ============================================================================
    // GPU Kernel: compute angular spectra from 2D scattering data
    // ============================================================================
-   __global__
-   void ComputeSpectralDecomposition(ScatteringData SANSData,
-                                     SpectralData SpecData){
-       
+   __global__ void ComputeSpectralDecomposition(ScatteringData SANSData, SpectralData SpecData) {
+   
        int i = blockIdx.x * blockDim.x + threadIdx.x;
-       unsigned int Nq     = *SANSData.N_q;
+       unsigned int Nq = *SANSData.N_q;
        unsigned int Ntheta = *SANSData.N_theta;
-       unsigned int k_max  = *SpecData.k_max;
-       float dtheta        = *SANSData.dtheta;
+       unsigned int k_max = *SpecData.k_max;
+       float dtheta = *SANSData.dtheta;
    
        // total array length for sine and cosine respectively
        unsigned int L = (k_max + 1) * Nq;
-       
+   
        unsigned int SANSidx = 0;
        unsigned int SPECidx_cos = 0;
        unsigned int SPECidx_sin = 0;
@@ -96,95 +92,91 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
        float sum_NucMag_sin = 0.0f;
        float sum_Chiral_sin = 0.0f;
    
-       // cofactor 
-       float w = 0.0f;  
+       // cofactor
+       float w = 0.0f;
    
        float phi_cos1 = 0.0f;
        float phi_cos2 = 0.0f;
-       float phi_sin1 = 0.0f; 
+       float phi_sin1 = 0.0f;
        float phi_sin2 = 0.0f;
-       
-       if (i < Nq){
+   
+       if (i < Nq) {
            for (unsigned int k = 0; k <= k_max; ++k) {
-               
+   
                sum_Nuc_cos = 0.0f;
                sum_Mag_cos = 0.0f;
                sum_Pol_cos = 0.0f;
                sum_NucMag_cos = 0.0f;
                sum_Chiral_cos = 0.0f;
-               
+   
                sum_Nuc_sin = 0.0f;
                sum_Mag_sin = 0.0f;
                sum_Pol_sin = 0.0f;
                sum_NucMag_sin = 0.0f;
                sum_Chiral_sin = 0.0f;
-               
+   
                for (unsigned int j = 0; j < Ntheta - 1; ++j) {
-                 
+   
                    phi_cos1 = cosf(k * j * dtheta);
                    phi_cos2 = cosf(k * (j + 1) * dtheta);
-       
+   
                    phi_sin1 = sinf(k * j * dtheta);
                    phi_sin2 = sinf(k * (j + 1) * dtheta);
-       
+   
                    SANSidx = j + i * Ntheta;
-                   
-                   sum_Nuc_cos    += SANSData.S_Nuc_2D_unpolarized[SANSidx] * phi_cos1 \
-                                   + SANSData.S_Nuc_2D_unpolarized[SANSidx+1] * phi_cos2;
-                   sum_Mag_cos    += SANSData.S_Mag_2D_unpolarized[SANSidx] * phi_cos1 \
-                                   + SANSData.S_Mag_2D_unpolarized[SANSidx+1] * phi_cos2;
-                   sum_Pol_cos    += SANSData.S_Mag_2D_polarized[SANSidx] * phi_cos1 \
-                                   + SANSData.S_Mag_2D_polarized[SANSidx+1] * phi_cos2;
-                   sum_NucMag_cos += SANSData.S_NucMag_2D[SANSidx] * phi_cos1 \
-                                   + SANSData.S_NucMag_2D[SANSidx+1] * phi_cos2;
-                   sum_Chiral_cos += SANSData.S_Mag_2D_chiral[SANSidx] * phi_cos1 \
-                                   + SANSData.S_Mag_2D_chiral[SANSidx+1] * phi_cos2;
-       
-                   sum_Nuc_sin    += SANSData.S_Nuc_2D_unpolarized[SANSidx] * phi_sin1 \
-                                   + SANSData.S_Nuc_2D_unpolarized[SANSidx+1] * phi_sin2;
-                   sum_Mag_sin    += SANSData.S_Mag_2D_unpolarized[SANSidx] * phi_sin1 \
-                                   + SANSData.S_Mag_2D_unpolarized[SANSidx+1] * phi_sin2;
-                   sum_Pol_sin    += SANSData.S_Mag_2D_polarized[SANSidx] * phi_sin1 \
-                                   + SANSData.S_Mag_2D_polarized[SANSidx+1] * phi_sin2;
-                   sum_NucMag_sin += SANSData.S_NucMag_2D[SANSidx] * phi_sin1 \
-                                   + SANSData.S_NucMag_2D[SANSidx+1] * phi_sin2;
-                   sum_Chiral_sin += SANSData.S_Mag_2D_chiral[SANSidx] * phi_sin1 \
-                                   + SANSData.S_Mag_2D_chiral[SANSidx+1] * phi_sin2;
-                   
+   
+                   sum_Nuc_cos += SANSData.S_Nuc_2D_unpolarized[SANSidx] * phi_cos1 +
+                                  SANSData.S_Nuc_2D_unpolarized[SANSidx + 1] * phi_cos2;
+                   sum_Mag_cos += SANSData.S_Mag_2D_unpolarized[SANSidx] * phi_cos1 +
+                                  SANSData.S_Mag_2D_unpolarized[SANSidx + 1] * phi_cos2;
+                   sum_Pol_cos += SANSData.S_Mag_2D_polarized[SANSidx] * phi_cos1 +
+                                  SANSData.S_Mag_2D_polarized[SANSidx + 1] * phi_cos2;
+                   sum_NucMag_cos +=
+                       SANSData.S_NucMag_2D[SANSidx] * phi_cos1 + SANSData.S_NucMag_2D[SANSidx + 1] * phi_cos2;
+                   sum_Chiral_cos +=
+                       SANSData.S_Mag_2D_chiral[SANSidx] * phi_cos1 + SANSData.S_Mag_2D_chiral[SANSidx + 1] * phi_cos2;
+   
+                   sum_Nuc_sin += SANSData.S_Nuc_2D_unpolarized[SANSidx] * phi_sin1 +
+                                  SANSData.S_Nuc_2D_unpolarized[SANSidx + 1] * phi_sin2;
+                   sum_Mag_sin += SANSData.S_Mag_2D_unpolarized[SANSidx] * phi_sin1 +
+                                  SANSData.S_Mag_2D_unpolarized[SANSidx + 1] * phi_sin2;
+                   sum_Pol_sin += SANSData.S_Mag_2D_polarized[SANSidx] * phi_sin1 +
+                                  SANSData.S_Mag_2D_polarized[SANSidx + 1] * phi_sin2;
+                   sum_NucMag_sin +=
+                       SANSData.S_NucMag_2D[SANSidx] * phi_sin1 + SANSData.S_NucMag_2D[SANSidx + 1] * phi_sin2;
+                   sum_Chiral_sin +=
+                       SANSData.S_Mag_2D_chiral[SANSidx] * phi_sin1 + SANSData.S_Mag_2D_chiral[SANSidx + 1] * phi_sin2;
                }
    
-               if(k==0){
-                   w = dtheta/(4.0f * (float)M_PI);
-               }else{
-                   w = dtheta/(2.0f * (float)M_PI);
+               if (k == 0) {
+                   w = dtheta / (4.0f * (float)M_PI);
+               } else {
+                   w = dtheta / (2.0f * (float)M_PI);
                }
-               
+   
                SPECidx_cos = i + k * Nq;
                SPECidx_sin = i + k * Nq + L;
-               
+   
                SpecData.I_Nuc_unpolarized[SPECidx_cos] = sum_Nuc_cos * w;
                SpecData.I_Mag_unpolarized[SPECidx_cos] = sum_Mag_cos * w;
-               SpecData.I_Mag_polarized[SPECidx_cos]   = sum_Pol_cos * w;
-               SpecData.I_NucMag[SPECidx_cos]          = sum_NucMag_cos * w;
-               SpecData.I_Mag_chiral[SPECidx_cos]      = sum_Chiral_cos * w;
+               SpecData.I_Mag_polarized[SPECidx_cos] = sum_Pol_cos * w;
+               SpecData.I_NucMag[SPECidx_cos] = sum_NucMag_cos * w;
+               SpecData.I_Mag_chiral[SPECidx_cos] = sum_Chiral_cos * w;
    
                SpecData.I_Nuc_unpolarized[SPECidx_sin] = sum_Nuc_sin * w;
                SpecData.I_Mag_unpolarized[SPECidx_sin] = sum_Mag_sin * w;
-               SpecData.I_Mag_polarized[SPECidx_sin]   = sum_Pol_sin * w;
-               SpecData.I_NucMag[SPECidx_sin]          = sum_NucMag_sin * w;
-               SpecData.I_Mag_chiral[SPECidx_sin]      = sum_Chiral_sin * w;
+               SpecData.I_Mag_polarized[SPECidx_sin] = sum_Pol_sin * w;
+               SpecData.I_NucMag[SPECidx_sin] = sum_NucMag_sin * w;
+               SpecData.I_Mag_chiral[SPECidx_sin] = sum_Chiral_sin * w;
            }
        }
    }
    
-   
-   
-   __global__
-   void ComputeAngularSpectrumAmplitudes(SpectralData SpecData){
+   __global__ void ComputeAngularSpectrumAmplitudes(SpectralData SpecData) {
    
        int k = blockIdx.x * blockDim.x + threadIdx.x;
-       unsigned int Nq     = *SpecData.Nq;
-       unsigned int k_max  = *SpecData.k_max;
+       unsigned int Nq = *SpecData.Nq;
+       unsigned int k_max = *SpecData.k_max;
        unsigned int L = Nq * (k_max + 1);
    
        float sum_Nuc_cos = 0.0f;
@@ -204,164 +196,148 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
        unsigned int idxA_cos = 0;
        unsigned int idxA_sin = 0;
    
-       if(k > k_max) return;
+       if (k > k_max)
+           return;
    
-           for(unsigned int i=0; i<Nq; i++){
+       for (unsigned int i = 0; i < Nq; i++) {
    
-               idx_cos = i + k * Nq;
-               idx_sin = i + k * Nq + L;
+           idx_cos = i + k * Nq;
+           idx_sin = i + k * Nq + L;
    
-               sum_Nuc_cos    += SpecData.I_Nuc_unpolarized[idx_cos];
-               sum_Mag_cos    += SpecData.I_Mag_unpolarized[idx_cos];
-               sum_Pol_cos    += SpecData.I_Mag_polarized[idx_cos];
-               sum_NucMag_cos += SpecData.I_NucMag[idx_cos];
-               sum_Chiral_cos += SpecData.I_Mag_chiral[idx_cos];
-       
-               sum_Nuc_sin    += SpecData.I_Nuc_unpolarized[idx_sin];
-               sum_Mag_sin    += SpecData.I_Mag_unpolarized[idx_sin];
-               sum_Pol_sin    += SpecData.I_Mag_polarized[idx_sin];
-               sum_NucMag_sin += SpecData.I_NucMag[idx_sin];
-               sum_Chiral_sin += SpecData.I_Mag_chiral[idx_sin];
-               
-           }
+           sum_Nuc_cos += SpecData.I_Nuc_unpolarized[idx_cos];
+           sum_Mag_cos += SpecData.I_Mag_unpolarized[idx_cos];
+           sum_Pol_cos += SpecData.I_Mag_polarized[idx_cos];
+           sum_NucMag_cos += SpecData.I_NucMag[idx_cos];
+           sum_Chiral_cos += SpecData.I_Mag_chiral[idx_cos];
    
-           idxA_cos = k;
-           idxA_sin = k + (k_max + 1);
+           sum_Nuc_sin += SpecData.I_Nuc_unpolarized[idx_sin];
+           sum_Mag_sin += SpecData.I_Mag_unpolarized[idx_sin];
+           sum_Pol_sin += SpecData.I_Mag_polarized[idx_sin];
+           sum_NucMag_sin += SpecData.I_NucMag[idx_sin];
+           sum_Chiral_sin += SpecData.I_Mag_chiral[idx_sin];
+       }
    
-           SpecData.A_Nuc_unpolarized[idxA_cos] = sum_Nuc_cos;
-           SpecData.A_Mag_unpolarized[idxA_cos] = sum_Mag_cos;
-           SpecData.A_Mag_polarized[idxA_cos]   = sum_Pol_cos;
-           SpecData.A_NucMag[idxA_cos]          = sum_NucMag_cos;
-           SpecData.A_Mag_chiral[idxA_cos]      = sum_Chiral_cos;
-           
-           SpecData.A_Nuc_unpolarized[idxA_sin] = sum_Nuc_sin;  
-           SpecData.A_Mag_unpolarized[idxA_sin] = sum_Mag_sin;
-           SpecData.A_Mag_polarized[idxA_sin]   = sum_Pol_sin;
-           SpecData.A_NucMag[idxA_sin]          = sum_NucMag_sin;
-           SpecData.A_Mag_chiral[idxA_sin]      = sum_Chiral_sin;
+       idxA_cos = k;
+       idxA_sin = k + (k_max + 1);
    
+       SpecData.A_Nuc_unpolarized[idxA_cos] = sum_Nuc_cos;
+       SpecData.A_Mag_unpolarized[idxA_cos] = sum_Mag_cos;
+       SpecData.A_Mag_polarized[idxA_cos] = sum_Pol_cos;
+       SpecData.A_NucMag[idxA_cos] = sum_NucMag_cos;
+       SpecData.A_Mag_chiral[idxA_cos] = sum_Chiral_cos;
+   
+       SpecData.A_Nuc_unpolarized[idxA_sin] = sum_Nuc_sin;
+       SpecData.A_Mag_unpolarized[idxA_sin] = sum_Mag_sin;
+       SpecData.A_Mag_polarized[idxA_sin] = sum_Pol_sin;
+       SpecData.A_NucMag[idxA_sin] = sum_NucMag_sin;
+       SpecData.A_Mag_chiral[idxA_sin] = sum_Chiral_sin;
    }
    
-   
-   
-   // GPU Kernel for the computation of the azimuthally averaged SANS cross section /////////////////////////////////////////////////////////////
-   // integration using trapezoidal rule ////////////////////////////////////////////////////////////////////////////////////////////////////////
-   __global__
-   void AzimuthalAverage(ScatteringData SANSData){
+   // GPU Kernel for the computation of the azimuthally averaged SANS cross section
+   // ///////////////////////////////////////////////////////////// integration using trapezoidal rule
+   // ////////////////////////////////////////////////////////////////////////////////////////////////////////
+   __global__ void AzimuthalAverage(ScatteringData SANSData) {
    
        int i = blockIdx.x * blockDim.x + threadIdx.x;
    
        unsigned int N_theta = *SANSData.N_theta;
        unsigned int N_q = *SANSData.N_q;
        float dtheta = *SANSData.dtheta;
-     
-       if(i < N_q){
-            for(int j=0; j<N_theta-1; j++){
    
-                SANSData.S_Nuc_1D_unpolarized[i] += SANSData.S_Nuc_2D_unpolarized[j + i*N_theta] \
-                                                  + SANSData.S_Nuc_2D_unpolarized[j + i*N_theta + 1];
-                SANSData.S_Mag_1D_unpolarized[i] += SANSData.S_Mag_2D_unpolarized[j + i*N_theta] \
-                                                  + SANSData.S_Mag_2D_unpolarized[j + i*N_theta + 1];
-                SANSData.S_Mag_1D_polarized[i] += SANSData.S_Mag_2D_polarized[j + i*N_theta] \
-                                                + SANSData.S_Mag_2D_polarized[j + i*N_theta + 1];
-                SANSData.S_NucMag_1D[i] += SANSData.S_NucMag_2D[j + i*N_theta] \
-                                         + SANSData.S_NucMag_2D[j + i*N_theta + 1];
-                SANSData.S_Mag_1D_chiral[i] += SANSData.S_Mag_2D_chiral[j + i*N_theta] \
-                                             + SANSData.S_Mag_2D_chiral[j + i*N_theta + 1];
+       if (i < N_q) {
+           for (int j = 0; j < N_theta - 1; j++) {
    
-             }
-             
-            SANSData.S_Nuc_1D_unpolarized[i] = SANSData.S_Nuc_1D_unpolarized[i]/(4.0*M_PI)*dtheta;
-            SANSData.S_Mag_1D_unpolarized[i] = SANSData.S_Mag_1D_unpolarized[i]/(4.0*M_PI)*dtheta;
-            SANSData.S_Mag_1D_polarized[i] = SANSData.S_Mag_1D_polarized[i]/(4.0*M_PI)*dtheta;
-            SANSData.S_NucMag_1D[i] = SANSData.S_NucMag_1D[i]/(4.0*M_PI)*dtheta;
-            SANSData.S_Mag_1D_chiral[i] = SANSData.S_Mag_1D_chiral[i]/(4.0*M_PI)*dtheta;
+               SANSData.S_Nuc_1D_unpolarized[i] +=
+                   SANSData.S_Nuc_2D_unpolarized[j + i * N_theta] + SANSData.S_Nuc_2D_unpolarized[j + i * N_theta + 1];
+               SANSData.S_Mag_1D_unpolarized[i] +=
+                   SANSData.S_Mag_2D_unpolarized[j + i * N_theta] + SANSData.S_Mag_2D_unpolarized[j + i * N_theta + 1];
+               SANSData.S_Mag_1D_polarized[i] +=
+                   SANSData.S_Mag_2D_polarized[j + i * N_theta] + SANSData.S_Mag_2D_polarized[j + i * N_theta + 1];
+               SANSData.S_NucMag_1D[i] +=
+                   SANSData.S_NucMag_2D[j + i * N_theta] + SANSData.S_NucMag_2D[j + i * N_theta + 1];
+               SANSData.S_Mag_1D_chiral[i] +=
+                   SANSData.S_Mag_2D_chiral[j + i * N_theta] + SANSData.S_Mag_2D_chiral[j + i * N_theta + 1];
+           }
    
-        }
+           SANSData.S_Nuc_1D_unpolarized[i] = SANSData.S_Nuc_1D_unpolarized[i] / (4.0 * M_PI) * dtheta;
+           SANSData.S_Mag_1D_unpolarized[i] = SANSData.S_Mag_1D_unpolarized[i] / (4.0 * M_PI) * dtheta;
+           SANSData.S_Mag_1D_polarized[i] = SANSData.S_Mag_1D_polarized[i] / (4.0 * M_PI) * dtheta;
+           SANSData.S_NucMag_1D[i] = SANSData.S_NucMag_1D[i] / (4.0 * M_PI) * dtheta;
+           SANSData.S_Mag_1D_chiral[i] = SANSData.S_Mag_1D_chiral[i] / (4.0 * M_PI) * dtheta;
+       }
    }
    
-   
-   
-   // computes in the first step the correlation function c(r) and the by multiplication with r^2 the pair-distance function
-    // here we take into account the limit of sinf(x)/x at x-> 0 and so the singularity is fixed
-    __global__
-    void DistributionFunctions(ScatteringData SANSData){
-   
+   // computes in the first step the correlation function c(r) and the by multiplication with r^2 the pair-distance
+   // function here we take into account the limit of sinf(x)/x at x-> 0 and so the singularity is fixed
+   __global__ void DistributionFunctions(ScatteringData SANSData) {
    
        // spherical hankel transform using a trapezoidal integration rule
-     
-          int i = blockIdx.x * blockDim.x + threadIdx.x;
    
-          unsigned int N_r = *SANSData.N_r;
-          unsigned int N_q = *SANSData.N_q;
-          float dq = *SANSData.dq;
-          float qr1 = 0.0f;
-          float qr2 = 0.0f;
-          bool b1 = false; 
-          bool b2 = false; 
-          float s1 = 0.0f;
-          float s2 = 0.0f;
-     
-          if(i < N_r){
-                  for(int j=0; j<N_q-1; j++){
-     
-                      qr1 = SANSData.q_1D[j] * SANSData.r_1D[i];
-                      b1 = (qr1 == 0.0f);
-                      s1 = (sinf(qr1)/(qr1 + (float)b1) + (float)b1) * powf(SANSData.q_1D[j], 2);
-                      
-                      qr2 = SANSData.q_1D[j+1] * SANSData.r_1D[i];
-                      b2 = (qr2 == 0.0f);
-                      s2 = (sinf(qr2)/(qr2 + (float)b2) + (float)b2) * powf(SANSData.q_1D[j+1], 2);
+       int i = blockIdx.x * blockDim.x + threadIdx.x;
    
-                      SANSData.c_Nuc_unpolarized[i] += SANSData.S_Nuc_1D_unpolarized[j]  * s1 \
-                                                     + SANSData.S_Nuc_1D_unpolarized[j+1] * s2;
-                                                     
-                      SANSData.c_Mag_unpolarized[i] += SANSData.S_Mag_1D_unpolarized[j]  * s1 \
-                                                     + SANSData.S_Mag_1D_unpolarized[j+1] * s2;
+       unsigned int N_r = *SANSData.N_r;
+       unsigned int N_q = *SANSData.N_q;
+       float dq = *SANSData.dq;
+       float qr1 = 0.0f;
+       float qr2 = 0.0f;
+       bool b1 = false;
+       bool b2 = false;
+       float s1 = 0.0f;
+       float s2 = 0.0f;
    
-                      SANSData.c_NucMag[i] += SANSData.S_NucMag_1D[j]  * s1 \
-                                            + SANSData.S_NucMag_1D[j+1] * s2;
-                                                     
-                      SANSData.c_Mag_polarized[i] += SANSData.S_Mag_1D_polarized[j]  * s1 \
-                                                   + SANSData.S_Mag_1D_polarized[j+1] * s2;
+       if (i < N_r) {
+           for (int j = 0; j < N_q - 1; j++) {
    
-                      SANSData.c_Mag_chiral[i] += SANSData.S_Mag_1D_chiral[j]  * s1 \
-                                                + SANSData.S_Mag_1D_chiral[j+1] * s2;
-                                                   
-                   }
+               qr1 = SANSData.q_1D[j] * SANSData.r_1D[i];
+               b1 = (qr1 == 0.0f);
+               s1 = (sinf(qr1) / (qr1 + (float)b1) + (float)b1) * powf(SANSData.q_1D[j], 2);
    
-                   SANSData.c_Nuc_unpolarized[i] = SANSData.c_Nuc_unpolarized[i]/2.0 * dq;
-                   SANSData.p_Nuc_unpolarized[i] = SANSData.c_Nuc_unpolarized[i] * powf(SANSData.r_1D[i], 2);
+               qr2 = SANSData.q_1D[j + 1] * SANSData.r_1D[i];
+               b2 = (qr2 == 0.0f);
+               s2 = (sinf(qr2) / (qr2 + (float)b2) + (float)b2) * powf(SANSData.q_1D[j + 1], 2);
    
-                   SANSData.c_Mag_unpolarized[i] = SANSData.c_Mag_unpolarized[i]/2.0 * dq;
-                   SANSData.p_Mag_unpolarized[i] = SANSData.c_Mag_unpolarized[i] * powf(SANSData.r_1D[i], 2);
+               SANSData.c_Nuc_unpolarized[i] +=
+                   SANSData.S_Nuc_1D_unpolarized[j] * s1 + SANSData.S_Nuc_1D_unpolarized[j + 1] * s2;
    
-                   SANSData.c_NucMag[i] = SANSData.c_NucMag[i]/2.0 * dq;
-                   SANSData.p_NucMag[i] = SANSData.c_NucMag[i] * powf(SANSData.r_1D[i], 2);
-      
-                   SANSData.c_Mag_polarized[i] = SANSData.c_Mag_polarized[i]/2.0 * dq;
-                   SANSData.p_Mag_polarized[i] = SANSData.c_Mag_polarized[i] * powf(SANSData.r_1D[i], 2);
+               SANSData.c_Mag_unpolarized[i] +=
+                   SANSData.S_Mag_1D_unpolarized[j] * s1 + SANSData.S_Mag_1D_unpolarized[j + 1] * s2;
    
-                   SANSData.c_Mag_chiral[i] = SANSData.c_Mag_chiral[i]/2.0 * dq;
-                   SANSData.p_Mag_chiral[i] = SANSData.c_Mag_chiral[i] * powf(SANSData.r_1D[i], 2);
+               SANSData.c_NucMag[i] += SANSData.S_NucMag_1D[j] * s1 + SANSData.S_NucMag_1D[j + 1] * s2;
    
-         }
-    }
+               SANSData.c_Mag_polarized[i] +=
+                   SANSData.S_Mag_1D_polarized[j] * s1 + SANSData.S_Mag_1D_polarized[j + 1] * s2;
    
+               SANSData.c_Mag_chiral[i] += SANSData.S_Mag_1D_chiral[j] * s1 + SANSData.S_Mag_1D_chiral[j + 1] * s2;
+           }
    
+           SANSData.c_Nuc_unpolarized[i] = SANSData.c_Nuc_unpolarized[i] / 2.0 * dq;
+           SANSData.p_Nuc_unpolarized[i] = SANSData.c_Nuc_unpolarized[i] * powf(SANSData.r_1D[i], 2);
    
-     // 2D correlation functions #################################################################################
-   __global__
-   void CorrelationFunction_2D(ScatteringData SANSData){
+           SANSData.c_Mag_unpolarized[i] = SANSData.c_Mag_unpolarized[i] / 2.0 * dq;
+           SANSData.p_Mag_unpolarized[i] = SANSData.c_Mag_unpolarized[i] * powf(SANSData.r_1D[i], 2);
+   
+           SANSData.c_NucMag[i] = SANSData.c_NucMag[i] / 2.0 * dq;
+           SANSData.p_NucMag[i] = SANSData.c_NucMag[i] * powf(SANSData.r_1D[i], 2);
+   
+           SANSData.c_Mag_polarized[i] = SANSData.c_Mag_polarized[i] / 2.0 * dq;
+           SANSData.p_Mag_polarized[i] = SANSData.c_Mag_polarized[i] * powf(SANSData.r_1D[i], 2);
+   
+           SANSData.c_Mag_chiral[i] = SANSData.c_Mag_chiral[i] / 2.0 * dq;
+           SANSData.p_Mag_chiral[i] = SANSData.c_Mag_chiral[i] * powf(SANSData.r_1D[i], 2);
+       }
+   }
+   
+   // 2D correlation functions #################################################################################
+   __global__ void CorrelationFunction_2D(ScatteringData SANSData) {
        int i = blockIdx.x * blockDim.x + threadIdx.x;
    
        int L_fourier = (*SANSData.N_q) * (*SANSData.N_theta);
-       float v = 1.0/((float) L_fourier);
+       float v = 1.0 / ((float)L_fourier);
        int L_real = (*SANSData.N_r) * (*SANSData.N_alpha);
        float c = 0.0f;
    
-       if(i < L_real){
-           for(int k = 0; k<L_fourier; k++){
+       if (i < L_real) {
+           for (int k = 0; k < L_fourier; k++) {
                c = cosf(SANSData.qy_2D[k] * SANSData.ry_2D[i] + SANSData.qz_2D[k] * SANSData.rz_2D[i]);
                SANSData.Corr_Nuc_2D_unpolarized[i] += v * SANSData.S_Nuc_2D_unpolarized[k] * c;
                SANSData.Corr_Mag_2D_unpolarized[i] += v * SANSData.S_Mag_2D_unpolarized[k] * c;
@@ -371,8 +347,6 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
            }
        }
    }
-   
-   
    
    /*
    
@@ -453,15 +427,15 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
    
        unsigned long int N_cum = 0;
        unsigned long int N_act = 0;
-    
+   
        if(i < L){
            for(int k=0; k < K; k++){
    
                mx_real = 0.0;
                mx_imag = 0.0;
-               my_real = 0.0; 
+               my_real = 0.0;
                my_imag = 0.0;
-               mz_real = 0.0; 
+               mz_real = 0.0;
                mz_imag = 0.0;
    
                Mx_real = 0.0;
@@ -630,7 +604,7 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
    
        unsigned long int N_cum = 0;
        unsigned long int N_act = 0;
-    
+   
        if(i < L){
            for(int k=0; k< (*NucData.K); k++){
    
@@ -662,12 +636,12 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
                    // cosine- and sine-summations
                    Nuc_real += NucData.Nuc[l+N_cum] * cos_val;
                    Nuc_imag -= NucData.Nuc[l+N_cum] * sin_val;
-                   
+   
                }
    
                // nuclear SANS cross section projected in (qz, qy)-plane
                SANSData.S_Nuc_2D_unpolarized[i] += v * (Nuc_real * Nuc_real + Nuc_imag * Nuc_imag);
-               
+   
            }
    
        }
@@ -754,7 +728,7 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
    
        unsigned long int N_cum = 0;
        unsigned long int N_act = 0;
-    
+   
        if(i < L){
            for(int k=0; k < K; k++){
    
@@ -764,7 +738,7 @@ Program Listing for File NuMagSANSlib_gpuKernel.h
                my_imag = 0.0;
                mz_real = 0.0;
                mz_imag = 0.0;
-               
+   
                Mx_real = 0.0;
                Mx_imag = 0.0;
                My_real = 0.0;

@@ -32,8 +32,7 @@ Program Listing for File NuMagSANSlib_LogFile.h
    inline std::ofstream logFile;
    
    // open log file
-   inline void initLog(const std::string& filename = "log.txt")
-   {
+   inline void initLog(const std::string& filename = "log.txt") {
        logFile.open(filename, std::ios::out | std::ios::app);
        if (!logFile.is_open()) {
            std::cerr << "Could not open log file: " << filename << std::endl;
@@ -47,9 +46,9 @@ Program Listing for File NuMagSANSlib_LogFile.h
    }
    
    // write message to log file
-   inline void write(const std::string& msg)
-   {
-       if (!logFile.is_open()) return;
+   inline void write(const std::string& msg) {
+       if (!logFile.is_open())
+           return;
    
        auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
        logFile << std::put_time(std::localtime(&now), "%F %T") << " | " << msg << '\n';
@@ -60,8 +59,7 @@ Program Listing for File NuMagSANSlib_LogFile.h
    }
    
    // close log file
-   inline void close()
-   {
+   inline void close() {
        auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
    
        if (logFile.is_open()) {

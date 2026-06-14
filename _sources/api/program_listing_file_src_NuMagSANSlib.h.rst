@@ -38,7 +38,7 @@ Program Listing for File NuMagSANSlib.h
    #include <dirent.h>
    #include <unistd.h>
    
-   //#pragma once
+   // #pragma once
    #include "helper/NuMagSANSlib_LogFile.h"
    #include "helper/NuMagSANSlib_MemoryInfo.h"
    #include "helper/NuMagSANSlib_TimeMeasure.h"
@@ -66,15 +66,10 @@ Program Listing for File NuMagSANSlib.h
    #include "wrapper/NuMagSANSlib_ExportData.h"
    #include "wrapper/NuMagSANSlib_FreeData.h"
    
-   
    using namespace std;
    
-   void NuMagSANS_Calculator(InputFileData* InputData, \
-                             NucDataProperties* NucDataProp,\
-                             MagDataProperties* MagDataProp,\
-                             StructDataProperties* StructDataProp, \
-                             RotDataProperties* RotDataProp, \
-                             int Data_File_Index){
+   void NuMagSANS_Calculator(InputFileData* InputData, NucDataProperties* NucDataProp, MagDataProperties* MagDataProp,
+                             StructDataProperties* StructDataProp, RotDataProperties* RotDataProp, int Data_File_Index) {
    
        LogSystem::write("################################################################################");
        LogSystem::write("## Run - NuMagSANS #############################################################");
@@ -89,9 +84,7 @@ Program Listing for File NuMagSANSlib.h
    
        // initialize data
        NuMagSANSData Data;
-       InitializeData(InputData,
-                      NucDataProp, MagDataProp, StructDataProp, RotDataProp,
-                      &Data, Data_File_Index);
+       InitializeData(InputData, NucDataProp, MagDataProp, StructDataProp, RotDataProp, &Data, Data_File_Index);
    
        // check memory
        LogCurrentGPUMemoryDifference(MemoryBeforeRun);
@@ -99,46 +92,41 @@ Program Listing for File NuMagSANSlib.h
        bool StructDataLoop_active = InputData->StructData_activate_flag && InputData->StructDataLoop_flag;
        bool RotDataLoop_active = InputData->RotData_activate_flag && InputData->RotDataLoop_flag;
    
-       int Number_Of_StructData_Runs = StructDataLoop_active ? static_cast<int>(InputData->StructDataLoop_IndexArray.size()) : 1;
+       int Number_Of_StructData_Runs =
+           StructDataLoop_active ? static_cast<int>(InputData->StructDataLoop_IndexArray.size()) : 1;
        int Number_Of_RotData_Runs = RotDataLoop_active ? static_cast<int>(InputData->RotDataLoop_IndexArray.size()) : 1;
    
        bool First_Run = true;
    
-       for(int StructDataLoop_Counter = 0;
-           StructDataLoop_Counter < Number_Of_StructData_Runs;
-           StructDataLoop_Counter++){
+       for (int StructDataLoop_Counter = 0; StructDataLoop_Counter < Number_Of_StructData_Runs; StructDataLoop_Counter++) {
    
            int StructData_File_Index = 0;
    
-           if(StructDataLoop_active){
+           if (StructDataLoop_active) {
                StructData_File_Index = InputData->StructDataLoop_IndexArray[StructDataLoop_Counter];
    
-               LogSystem::write("inner StructData loop active: StructData index "
-                                + std::to_string(StructData_File_Index));
+               LogSystem::write("inner StructData loop active: StructData index " + std::to_string(StructData_File_Index));
    
                SetActiveStructDataFile(StructDataProp, StructData_File_Index);
                new_read_StructureData(&Data.StructData, &Data.StructData_gpu, StructDataProp, InputData);
                CheckCUDALastError("reload structure data");
            }
    
-           for(int RotDataLoop_Counter = 0;
-               RotDataLoop_Counter < Number_Of_RotData_Runs;
-               RotDataLoop_Counter++){
+           for (int RotDataLoop_Counter = 0; RotDataLoop_Counter < Number_Of_RotData_Runs; RotDataLoop_Counter++) {
    
                int RotData_File_Index = 0;
    
-               if(RotDataLoop_active){
+               if (RotDataLoop_active) {
                    RotData_File_Index = InputData->RotDataLoop_IndexArray[RotDataLoop_Counter];
    
-                   LogSystem::write("inner RotData loop active: RotData index "
-                                    + std::to_string(RotData_File_Index));
+                   LogSystem::write("inner RotData loop active: RotData index " + std::to_string(RotData_File_Index));
    
                    SetActiveRotDataFile(RotDataProp, RotData_File_Index);
                    new_read_RotationData(&Data.RotData, &Data.RotData_gpu, RotDataProp, InputData);
                    CheckCUDALastError("reload rotation data");
                }
    
-               if(!First_Run){
+               if (!First_Run) {
                    ResetSANSOutputData(InputData, &Data);
                }
    

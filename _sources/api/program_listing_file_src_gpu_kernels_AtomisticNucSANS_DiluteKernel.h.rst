@@ -26,10 +26,7 @@ Program Listing for File AtomisticNucSANS_DiluteKernel.h
    // Placeholder for:
    // Atomistic_NucSANS_Kernel_dilute
    
-   
-   __global__
-   void Atomistic_NucSANS_Kernel_dilute(NuclearData NucData,\
-                                        ScatteringData SANSData){
+   __global__ void Atomistic_NucSANS_Kernel_dilute(NuclearData NucData, ScatteringData SANSData) {
    
        // Input information:
        // N     : number of atoms
@@ -48,8 +45,9 @@ Program Listing for File AtomisticNucSANS_DiluteKernel.h
        unsigned long int N_avg = *NucData.N_avg;
        unsigned long int W = *NucData.TotalAtomNumber;
    
-       //float v = 1.0/((float)  (*NucData.K)) * powf(1.0/((float) (*NucData.N)), 2); // pre factor
-       float v = 1.0/((float) W) * 1.0/((float) N_avg);;
+       // float v = 1.0/((float)  (*NucData.K)) * powf(1.0/((float) (*NucData.N)), 2); // pre factor
+       float v = 1.0 / ((float)W) * 1.0 / ((float)N_avg);
+       ;
    
        int i = blockIdx.x * blockDim.x + threadIdx.x;
    
@@ -65,9 +63,9 @@ Program Listing for File AtomisticNucSANS_DiluteKernel.h
    
        unsigned long int N_cum = 0;
        unsigned long int N_act = 0;
-    
-       if(i < L){
-           for(int k=0; k< (*NucData.K); k++){
+   
+       if (i < L) {
+           for (int k = 0; k < (*NucData.K); k++) {
    
                Nuc_real = 0.0;
                Nuc_imag = 0.0;
@@ -75,17 +73,15 @@ Program Listing for File AtomisticNucSANS_DiluteKernel.h
                N_cum = NucData.N_cum[k];
                N_act = NucData.N_act[k];
    
-               for(int l=0; l < N_act; l++){
+               for (int l = 0; l < N_act; l++) {
                    // atomic position composition
-                   //X = MagData.RotMat[0] * MagData.x[l+k*N] \
+                   // X = MagData.RotMat[0] * MagData.x[l+k*N] \
                    //  + MagData.RotMat[3] * MagData.y[l+k*N] \
                    // + MagData.RotMat[6] * MagData.z[l+k*N];
-                   Y = NucData.RotMat[1] * NucData.x[l+N_cum] \
-                     + NucData.RotMat[4] * NucData.y[l+N_cum] \
-                     + NucData.RotMat[7] * NucData.z[l+N_cum];
-                   Z = NucData.RotMat[2] * NucData.x[l+N_cum] \
-                     + NucData.RotMat[5] * NucData.y[l+N_cum] \
-                     + NucData.RotMat[8] * NucData.z[l+N_cum];
+                   Y = NucData.RotMat[1] * NucData.x[l + N_cum] + NucData.RotMat[4] * NucData.y[l + N_cum] +
+                       NucData.RotMat[7] * NucData.z[l + N_cum];
+                   Z = NucData.RotMat[2] * NucData.x[l + N_cum] + NucData.RotMat[5] * NucData.y[l + N_cum] +
+                       NucData.RotMat[8] * NucData.z[l + N_cum];
    
                    // phase function
                    Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];
@@ -95,15 +91,12 @@ Program Listing for File AtomisticNucSANS_DiluteKernel.h
                    sin_val = sinf(Psi);
    
                    // cosine- and sine-summations
-                   Nuc_real += NucData.Nuc[l+N_cum] * cos_val;
-                   Nuc_imag -= NucData.Nuc[l+N_cum] * sin_val;
-                   
+                   Nuc_real += NucData.Nuc[l + N_cum] * cos_val;
+                   Nuc_imag -= NucData.Nuc[l + N_cum] * sin_val;
                }
    
                // nuclear SANS cross section projected in (qz, qy)-plane
                SANSData.S_Nuc_2D_unpolarized[i] += v * (Nuc_real * Nuc_real + Nuc_imag * Nuc_imag);
-               
            }
-   
        }
    }

@@ -26,11 +26,8 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
    // Placeholder for:
    // Atomistic_MagSANS_Kernel_RotDilute
    
-   
-   __global__
-   void Atomistic_MagSANS_Kernel_RotDilute(MagnetizationData MagData,\
-                                        RotationData RotData,\
-                                        ScatteringData SANSData){
+   __global__ void Atomistic_MagSANS_Kernel_RotDilute(MagnetizationData MagData, RotationData RotData,
+                                                      ScatteringData SANSData) {
    
        // Input information:
        // N     : number of atoms
@@ -61,9 +58,9 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
        unsigned long int K = *MagData.K;
        unsigned long int W = *MagData.TotalAtomNumber;
    
-       //float v = 1.0/((float)  (*MagData.K)) * powf(1.0/((float) (*MagData.N)), 2); // pre factor
-       //float v = 1.0/((float) W);
-       float v = 1.0/((float) W) * 1.0/((float) N_avg);
+       // float v = 1.0/((float)  (*MagData.K)) * powf(1.0/((float) (*MagData.N)), 2); // pre factor
+       // float v = 1.0/((float) W);
+       float v = 1.0 / ((float)W) * 1.0 / ((float)N_avg);
        int i = blockIdx.x * blockDim.x + threadIdx.x;
    
        float Px = SANSData.Polarization[0];
@@ -98,7 +95,7 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
        float myr = 0.0;
        float mzr = 0.0;
    
-     //float X = 0.0;
+       // float X = 0.0;
        float Y = 0.0;
        float Z = 0.0;
    
@@ -112,8 +109,8 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
        unsigned long int N_cum = 0;
        unsigned long int N_act = 0;
    
-       if(i < L){
-           for(int k=0; k < K; k++){
+       if (i < L) {
+           for (int k = 0; k < K; k++) {
    
                mx_real = 0.0;
                mx_imag = 0.0;
@@ -122,12 +119,12 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
                mz_real = 0.0;
                mz_imag = 0.0;
    
-       Mx_real = 0.0;
-       Mx_imag = 0.0;
-       My_real = 0.0;
-       My_imag = 0.0;
-       Mz_real = 0.0;
-       Mz_imag = 0.0;
+               Mx_real = 0.0;
+               Mx_imag = 0.0;
+               My_real = 0.0;
+               My_imag = 0.0;
+               Mz_real = 0.0;
+               Mz_imag = 0.0;
    
                Qx_real = 0.0;
                Qx_imag = 0.0;
@@ -139,39 +136,35 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
                N_cum = MagData.N_cum[k];
                N_act = MagData.N_act[k];
    
-               for(int l=0; l < N_act; l++){
+               for (int l = 0; l < N_act; l++) {
    
                    // individual position rotation
-                   xr = RotData.RotMat[9*k+0] * MagData.x[l+N_cum] \
-                      + RotData.RotMat[9*k+3] * MagData.y[l+N_cum] \
-                      + RotData.RotMat[9*k+6] * MagData.z[l+N_cum];
-                   yr = RotData.RotMat[9*k+1] * MagData.x[l+N_cum] \
-                      + RotData.RotMat[9*k+4] * MagData.y[l+N_cum] \
-                      + RotData.RotMat[9*k+7] * MagData.z[l+N_cum];
-                   zr = RotData.RotMat[9*k+2] * MagData.x[l+N_cum] \
-                      + RotData.RotMat[9*k+5] * MagData.y[l+N_cum] \
-                      + RotData.RotMat[9*k+8] * MagData.z[l+N_cum];
+                   xr = RotData.RotMat[9 * k + 0] * MagData.x[l + N_cum] +
+                        RotData.RotMat[9 * k + 3] * MagData.y[l + N_cum] +
+                        RotData.RotMat[9 * k + 6] * MagData.z[l + N_cum];
+                   yr = RotData.RotMat[9 * k + 1] * MagData.x[l + N_cum] +
+                        RotData.RotMat[9 * k + 4] * MagData.y[l + N_cum] +
+                        RotData.RotMat[9 * k + 7] * MagData.z[l + N_cum];
+                   zr = RotData.RotMat[9 * k + 2] * MagData.x[l + N_cum] +
+                        RotData.RotMat[9 * k + 5] * MagData.y[l + N_cum] +
+                        RotData.RotMat[9 * k + 8] * MagData.z[l + N_cum];
    
-                   mxr = RotData.RotMat[9*k+0] * MagData.mx[l+N_cum] \
-                       + RotData.RotMat[9*k+3] * MagData.my[l+N_cum] \
-                      + RotData.RotMat[9*k+6] * MagData.mz[l+N_cum];
-                   myr = RotData.RotMat[9*k+1] * MagData.mx[l+N_cum] \
-                      + RotData.RotMat[9*k+4] * MagData.my[l+N_cum] \
-                      + RotData.RotMat[9*k+7] * MagData.mz[l+N_cum];
-                   mzr = RotData.RotMat[9*k+2] * MagData.mx[l+N_cum] \
-                      + RotData.RotMat[9*k+5] * MagData.my[l+N_cum] \
-                      + RotData.RotMat[9*k+8] * MagData.mz[l+N_cum];
+                   mxr = RotData.RotMat[9 * k + 0] * MagData.mx[l + N_cum] +
+                         RotData.RotMat[9 * k + 3] * MagData.my[l + N_cum] +
+                         RotData.RotMat[9 * k + 6] * MagData.mz[l + N_cum];
+                   myr = RotData.RotMat[9 * k + 1] * MagData.mx[l + N_cum] +
+                         RotData.RotMat[9 * k + 4] * MagData.my[l + N_cum] +
+                         RotData.RotMat[9 * k + 7] * MagData.mz[l + N_cum];
+                   mzr = RotData.RotMat[9 * k + 2] * MagData.mx[l + N_cum] +
+                         RotData.RotMat[9 * k + 5] * MagData.my[l + N_cum] +
+                         RotData.RotMat[9 * k + 8] * MagData.mz[l + N_cum];
    
                    // atomic position composition
-                   //X = MagData.RotMat[0] * xr \
+                   // X = MagData.RotMat[0] * xr \
                    //  + MagData.RotMat[3] * yr \
                    // + MagData.RotMat[6] * zr;
-                   Y = MagData.RotMat[1] * xr \
-                      + MagData.RotMat[4] * yr \
-                      + MagData.RotMat[7] * zr;
-                   Z = MagData.RotMat[2] * xr \
-                      + MagData.RotMat[5] * yr \
-                      + MagData.RotMat[8] * zr;
+                   Y = MagData.RotMat[1] * xr + MagData.RotMat[4] * yr + MagData.RotMat[7] * zr;
+                   Z = MagData.RotMat[2] * xr + MagData.RotMat[5] * yr + MagData.RotMat[8] * zr;
    
                    // phase function
                    Psi = Y * SANSData.qy_2D[i] + Z * SANSData.qz_2D[i];
@@ -187,7 +180,6 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
                    my_imag -= myr * sin_val;
                    mz_real += mzr * cos_val;
                    mz_imag -= mzr * sin_val;
-   
                }
    
                Mx_real = MagData.RotMat[0] * mx_real + MagData.RotMat[3] * my_real + MagData.RotMat[6] * mz_real;
@@ -197,7 +189,6 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
                Mx_imag = MagData.RotMat[0] * mx_imag + MagData.RotMat[3] * my_imag + MagData.RotMat[6] * mz_imag;
                My_imag = MagData.RotMat[1] * mx_imag + MagData.RotMat[4] * my_imag + MagData.RotMat[7] * mz_imag;
                Mz_imag = MagData.RotMat[2] * mx_imag + MagData.RotMat[5] * my_imag + MagData.RotMat[8] * mz_imag;
-   
    
                cos_theta = cosf(SANSData.theta_2D[i]);
                sin_theta = sinf(SANSData.theta_2D[i]);
@@ -212,60 +203,56 @@ Program Listing for File AtomisticMagSANS_RotDiluteKernel.h
                Qy_imag = (Mz_imag * sin_theta - My_imag * cos_theta) * cos_theta;
                Qz_imag = (My_imag * cos_theta - Mz_imag * sin_theta) * sin_theta;
    
-   
                // nuclear SANS cross section projected in (qz, qy)-plane
                SANSData.S_Nuc_2D_unpolarized[i] += 0.0;
    
                // unpolarized magnetic SANS cross section projected in (qz, qy)-plane
-               SANSData.S_Mag_2D_unpolarized[i] += v * (Qx_real * Qx_real + Qx_imag * Qx_imag) \
-                                                 + v * (Qy_real * Qy_real + Qy_imag * Qy_imag) \
-                                                 + v * (Qz_real * Qz_real + Qz_imag * Qz_imag);
+               SANSData.S_Mag_2D_unpolarized[i] += v * (Qx_real * Qx_real + Qx_imag * Qx_imag) +
+                                                   v * (Qy_real * Qy_real + Qy_imag * Qy_imag) +
+                                                   v * (Qz_real * Qz_real + Qz_imag * Qz_imag);
    
                // nuclear magnetic interference SANS cross section projected in (qz, qy)-plane
                SANSData.S_NucMag_2D[i] += 0.0;
    
                // polarized magnetic SANS cross section projected in the (qz, qy)-plane
-               SANSData.S_Mag_2D_polarized[i] += v * powf(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) \
-                                               + v * powf(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) \
-                                               + v * powf(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) \
-                                               + v * 2.0 * Px * Py * (Qx_real * Qy_real + Qx_imag * Qy_imag) \
-                                               + v * 2.0 * Px * Pz * (Qx_real * Qz_real + Qx_imag * Qz_imag) \
-                                               + v * 2.0 * Py * Pz * (Qy_real * Qz_real + Qy_imag * Qz_imag);
+               SANSData.S_Mag_2D_polarized[i] += v * powf(Px, 2) * (Qx_real * Qx_real + Qx_imag * Qx_imag) +
+                                                 v * powf(Py, 2) * (Qy_real * Qy_real + Qy_imag * Qy_imag) +
+                                                 v * powf(Pz, 2) * (Qz_real * Qz_real + Qz_imag * Qz_imag) +
+                                                 v * 2.0 * Px * Py * (Qx_real * Qy_real + Qx_imag * Qy_imag) +
+                                                 v * 2.0 * Px * Pz * (Qx_real * Qz_real + Qx_imag * Qz_imag) +
+                                                 v * 2.0 * Py * Pz * (Qy_real * Qz_real + Qy_imag * Qz_imag);
    
                // chiral magnetic SANS cross section in (qz, qy)-plane
-               SANSData.S_Mag_2D_chiral[i] += v * 2.0 * Px * (Qy_imag * Qz_real - Qz_imag * Qy_real) \
-                                            + v * 2.0 * Py * (Qz_imag * Qx_real - Qx_imag * Qz_real) \
-                                            + v * 2.0 * Pz * (Qx_imag * Qy_real - Qy_imag * Qx_real);
+               SANSData.S_Mag_2D_chiral[i] += v * 2.0 * Px * (Qy_imag * Qz_real - Qz_imag * Qy_real) +
+                                              v * 2.0 * Py * (Qz_imag * Qx_real - Qx_imag * Qz_real) +
+                                              v * 2.0 * Pz * (Qx_imag * Qy_real - Qy_imag * Qx_real);
    
-   
-               SANSData.Gxx_real[i] += v*(Mx_real * Mx_real + Mx_imag * Mx_imag);
+               SANSData.Gxx_real[i] += v * (Mx_real * Mx_real + Mx_imag * Mx_imag);
                SANSData.Gxx_imag[i] += 0.0;
    
-               SANSData.Gyy_real[i] += v*(My_real * My_real + My_imag * My_imag);
+               SANSData.Gyy_real[i] += v * (My_real * My_real + My_imag * My_imag);
                SANSData.Gyy_imag[i] += 0.0;
    
-               SANSData.Gzz_real[i] += v*(Mz_real * Mz_real + Mz_imag * Mz_imag);
+               SANSData.Gzz_real[i] += v * (Mz_real * Mz_real + Mz_imag * Mz_imag);
                SANSData.Gzz_imag[i] += 0.0;
    
-               SANSData.Gxy_real[i] += v*(Mx_real * My_real + Mx_imag * My_imag);
-               SANSData.Gxy_imag[i] += v*(Mx_imag * My_real - Mx_real * My_imag);
+               SANSData.Gxy_real[i] += v * (Mx_real * My_real + Mx_imag * My_imag);
+               SANSData.Gxy_imag[i] += v * (Mx_imag * My_real - Mx_real * My_imag);
    
-               SANSData.Gyx_real[i] =  SANSData.Gxy_real[i];
+               SANSData.Gyx_real[i] = SANSData.Gxy_real[i];
                SANSData.Gyx_imag[i] = -SANSData.Gxy_imag[i];
    
-               SANSData.Gxz_real[i] += v*(Mx_real * Mz_real + Mx_imag * Mz_imag);
-               SANSData.Gxz_imag[i] += v*(Mx_imag * Mz_real - Mx_real * Mz_imag);
+               SANSData.Gxz_real[i] += v * (Mx_real * Mz_real + Mx_imag * Mz_imag);
+               SANSData.Gxz_imag[i] += v * (Mx_imag * Mz_real - Mx_real * Mz_imag);
    
-               SANSData.Gzx_real[i] =  SANSData.Gxz_real[i];
+               SANSData.Gzx_real[i] = SANSData.Gxz_real[i];
                SANSData.Gzx_imag[i] = -SANSData.Gxy_imag[i];
    
-               SANSData.Gyz_real[i] += v*(My_real * Mz_real + My_imag * Mz_imag);
-               SANSData.Gyz_imag[i] += v*(My_imag * Mz_real - My_real * Mz_imag);
+               SANSData.Gyz_real[i] += v * (My_real * Mz_real + My_imag * Mz_imag);
+               SANSData.Gyz_imag[i] += v * (My_imag * Mz_real - My_real * Mz_imag);
    
-               SANSData.Gzx_real[i] =  SANSData.Gyz_real[i];
+               SANSData.Gzx_real[i] = SANSData.Gyz_real[i];
                SANSData.Gzx_imag[i] = -SANSData.Gyz_imag[i];
-   
-       }
-   
+           }
        }
    }

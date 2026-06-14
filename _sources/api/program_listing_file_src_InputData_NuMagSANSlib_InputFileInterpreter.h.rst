@@ -20,10 +20,6 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    // OS           : Linux Ubuntu
    // Language     : CUDA C++
    
-   
-    
-   
-   
    #include <iostream>
    #include <fstream>
    #include <sstream>
@@ -46,21 +42,19 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
    using namespace std;
    
-   
    // ##############################################################################################################################################
    // ##############################################################################################################################################
-   
    
    struct OutFlag {
        bool Nuclear = false;
        bool Unpolarized = false;
        bool Polarized = false;
-       bool NuclearMagnetic= false;
-       bool SpinFlip= false;
-       bool Chiral= false;
+       bool NuclearMagnetic = false;
+       bool SpinFlip = false;
+       bool Chiral = false;
        bool PM_SpinFlip = false;
        bool MP_SpinFlip = false;
-       bool PP_NonSpinFlip = false; 
+       bool PP_NonSpinFlip = false;
        bool MM_NonSpinFlip = false;
        bool P_SANSPOL = false;
        bool M_SANSPOL = false;
@@ -84,9 +78,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        OutFlag OutFlagQuant::* quantity;
    };
    
-   
-   
-   struct InputFileData{
+   struct InputFileData {
    
        string NucDataPath;
    
@@ -139,18 +131,18 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        string RotData_User_Selection;
    
        std::vector<int> RotDataLoop_IndexArray;
-       
+   
        string User_Selection;
    
        std::vector<int> User_Selection_IndexArray;
    
        // --- Discretization parameters ---
    
-       int N_q; 
+       int N_q;
    
        int N_theta;
    
-       int N_r; 
+       int N_r;
    
        int N_alpha;
    
@@ -173,7 +165,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        float cuboid_cell_size_y;
    
        float cuboid_cell_size_z;
-       
+   
        // --- Rotation matrix ---
    
        float RotMat_alpha;
@@ -190,7 +182,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        // --- Activation flags ---
    
-       bool NucData_activate_flag; 
+       bool NucData_activate_flag;
    
        bool MagData_activate_flag;
    
@@ -199,13 +191,13 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        bool RotData_activate_flag;
    
        bool ExcludeZeroMoments_flag;
-       
+   
        bool Check_InputFile_Flag;
    
-       int k_max; 
+       int k_max;
    
        bool AngularSpec_activate_flag;
-       
+   
        bool output_fourier_correlation_matrix_flag;
    
        /*
@@ -218,13 +210,13 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        bool Loop_Modus;
        int Loop_From;
        int Loop_To;
-       
+   
        string User_Selection;
        std::vector<int> User_Selection_IndexArray;
    
-       int N_q; 
+       int N_q;
        int N_theta;
-       int N_r; 
+       int N_r;
        int N_alpha;
        float q_max;
        float r_max;
@@ -235,7 +227,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        float cuboid_cell_size_x;
        float cuboid_cell_size_y;
        float cuboid_cell_size_z;
-       
+   
        float RotMat_alpha;
        float RotMat_beta;
        float RotMat[9];
@@ -243,73 +235,51 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        float Polarization[3];
    
-       bool NucData_activate_flag; 
+       bool NucData_activate_flag;
        bool MagData_activate_flag;
        bool StructData_activate_flag;
        bool ExcludeZeroMoments_flag;
-       
+   
        bool Check_InputFile_Flag;
    
-       int k_max; 
+       int k_max;
        bool AngularSpec_activate_flag;
-       
+   
        bool output_fourier_correlation_matrix_flag;
        */
        OutFlagQuant OutFlags{};
-   
    };
    
-   
-   inline bool any_active(const OutFlag& f)
-   {
-       return  f.Nuclear
-            || f.Unpolarized
-            || f.Polarized
-            || f.NuclearMagnetic
-            || f.SpinFlip
-            || f.Chiral
-            || f.PM_SpinFlip
-            || f.MP_SpinFlip
-            || f.PP_NonSpinFlip
-            || f.MM_NonSpinFlip
-            || f.P_SANSPOL
-            || f.M_SANSPOL;
+   inline bool any_active(const OutFlag& f) {
+       return f.Nuclear || f.Unpolarized || f.Polarized || f.NuclearMagnetic || f.SpinFlip || f.Chiral || f.PM_SpinFlip ||
+              f.MP_SpinFlip || f.PP_NonSpinFlip || f.MM_NonSpinFlip || f.P_SANSPOL || f.M_SANSPOL;
    }
    
-   
-   
    // zy-rotation matrix where alpha is the polar angle and beta is the azimuth angle
-   void Compute_RotMat(float alpha, float beta, float* RotMat){
+   void Compute_RotMat(float alpha, float beta, float* RotMat) {
    
        // ordering of the rotation matrix:
        // RotMat = [RotMat[0], RotMat[3], RotMat[6]; ...
        //           RotMat[1], RotMat[4], RotMat[7]; ...
        //           RotMat[2], RotMat[5], RotMat[8]]
    
+       alpha = alpha * M_PI / 180.0;
+       beta = beta * M_PI / 180.0;
    
-        alpha = alpha * M_PI/180.0;
-        beta = beta * M_PI/180.0;
+       RotMat[0] = cosf(alpha) * cosf(beta);
+       RotMat[1] = cosf(alpha) * sinf(beta);
+       RotMat[2] = -sinf(alpha);
+       RotMat[3] = -sinf(beta);
+       RotMat[4] = cosf(beta);
+       RotMat[5] = 0;
+       RotMat[6] = cosf(beta) * sinf(alpha);
+       RotMat[7] = sinf(alpha) * sinf(beta);
+       RotMat[8] = cosf(alpha);
+   }
    
-        RotMat[0] = cosf(alpha) * cosf(beta);
-        RotMat[1] = cosf(alpha) * sinf(beta);
-        RotMat[2] = -sinf(alpha);
-        RotMat[3] = -sinf(beta);
-        RotMat[4] = cosf(beta);
-        RotMat[5] = 0;
-        RotMat[6] = cosf(beta) * sinf(alpha);
-        RotMat[7] = sinf(alpha) * sinf(beta);
-        RotMat[8] = cosf(alpha);
-   
-    }
-   
-    
-   
-   
-   
-   static std::string trim(const std::string& s)
-   {
+   static std::string trim(const std::string& s) {
        size_t start = s.find_first_not_of(" \t\r\n");
-       size_t end   = s.find_last_not_of(" \t\r\n");
+       size_t end = s.find_last_not_of(" \t\r\n");
    
        if (start == std::string::npos)
            return "";
@@ -317,11 +287,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        return s.substr(start, end - start + 1);
    }
    
-   
-   static bool try_extract_value(const std::string& line,
-                                 const std::string& property,
-                                 std::string& value)
-   {
+   static bool try_extract_value(const std::string& line, const std::string& property, std::string& value) {
        // Remove leading and trailing whitespace from the entire line
        std::string trimmed = trim(line);
    
@@ -340,8 +306,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        size_t pos = property.size();
    
        // Skip any whitespace between the property and the '=' symbol
-       while (pos < trimmed.size() &&
-              std::isspace(static_cast<unsigned char>(trimmed[pos])))
+       while (pos < trimmed.size() && std::isspace(static_cast<unsigned char>(trimmed[pos])))
            ++pos;
    
        // The next non-whitespace character MUST be '='.
@@ -357,26 +322,19 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        // Extract the substring between '=' and ';'
        // and trim surrounding whitespace
-       value = trim(trimmed.substr(pos + 1,
-                                   semi_pos - pos - 1));
+       value = trim(trimmed.substr(pos + 1, semi_pos - pos - 1));
    
        return true;
    }
-    
    
-   void parseStringNoCout(const std::string& line,
-                          const std::string& property,
-                          std::string& variable,
-                          bool& flag)
-   {
+   void parseStringNoCout(const std::string& line, const std::string& property, std::string& variable, bool& flag) {
        if (!try_extract_value(line, property, variable))
            return;
    
        flag = true;
    }
    
-   static std::vector<int> parse_int_list(const std::string& s)
-   {
+   static std::vector<int> parse_int_list(const std::string& s) {
        std::vector<int> result;
    
        std::string trimmed = trim(s);
@@ -396,49 +354,50 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        return result;
    }
    
-    // Interpreting User_Selection to integer array ##########################################
-   void User_Selection_To_Int_Array(int *Idx, int Number_of_Comma, string my_string){
-    
-        int Symbol_Idx[Number_of_Comma + 2];
-        string Symbol_Start = "{";
-        string Symbol_End = "}";
-        string Symbol_Comma = ",";
-        int Symbol_Counter = 0;
-        for(int i = 0; i < my_string.size(); i++){
-            if(my_string.at(i) == Symbol_Start.at(0) || my_string.at(i) == Symbol_End.at(0) || my_string.at(i) == Symbol_Comma.at(0)){
-                Symbol_Idx[Symbol_Counter] = i;
-                Symbol_Counter += 1;
-            }
-        }
+   // Interpreting User_Selection to integer array ##########################################
+   void User_Selection_To_Int_Array(int* Idx, int Number_of_Comma, string my_string) {
    
-        string Sub_String;
-        int space_symbol_index;
-        for(int i = 0; i <Number_of_Comma + 1; i++){
-            Sub_String = my_string.substr(Symbol_Idx[i]+1, Symbol_Idx[i+1]-Symbol_Idx[i]-1);
-            while(Sub_String.find(" ") <= Sub_String.size()){
-                space_symbol_index = Sub_String.find(" ");
-                Sub_String.erase(space_symbol_index, 1);
-            }
-            Idx[i] = stoi(Sub_String);
-        }
+       int Symbol_Idx[Number_of_Comma + 2];
+       string Symbol_Start = "{";
+       string Symbol_End = "}";
+       string Symbol_Comma = ",";
+       int Symbol_Counter = 0;
+       for (int i = 0; i < my_string.size(); i++) {
+           if (my_string.at(i) == Symbol_Start.at(0) || my_string.at(i) == Symbol_End.at(0) ||
+               my_string.at(i) == Symbol_Comma.at(0)) {
+               Symbol_Idx[Symbol_Counter] = i;
+               Symbol_Counter += 1;
+           }
+       }
+   
+       string Sub_String;
+       int space_symbol_index;
+       for (int i = 0; i < Number_of_Comma + 1; i++) {
+           Sub_String = my_string.substr(Symbol_Idx[i] + 1, Symbol_Idx[i + 1] - Symbol_Idx[i] - 1);
+           while (Sub_String.find(" ") <= Sub_String.size()) {
+               space_symbol_index = Sub_String.find(" ");
+               Sub_String.erase(space_symbol_index, 1);
+           }
+           Idx[i] = stoi(Sub_String);
+       }
    }
    
    // Find Number of Comma in string #########################################################
-   void Number_Of_Comma_In_String(int *N, string my_string){
-        int String_Length = my_string.size();
-        int Comma_Counter = 0;
-        string Comma = ",";
+   void Number_Of_Comma_In_String(int* N, string my_string) {
+       int String_Length = my_string.size();
+       int Comma_Counter = 0;
+       string Comma = ",";
    
-        for(int i = 0; i < String_Length; i++){
-            if(my_string.at(i) == Comma.at(0)){
-                Comma_Counter += 1;
-            }
-        }
-        *N = Comma_Counter;
+       for (int i = 0; i < String_Length; i++) {
+           if (my_string.at(i) == Comma.at(0)) {
+               Comma_Counter += 1;
+           }
+       }
+       *N = Comma_Counter;
    }
    
    // Pre-Parsing for the initialization of the LogFile System
-   void InitializeLogSystem(string filename){
+   void InitializeLogSystem(string filename) {
    
        ifstream fin;
        fin.open(filename);
@@ -448,45 +407,36 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        string SANSDataFoldername;
    
-       while(getline(fin, line)){
+       while (getline(fin, line)) {
            parseStringNoCout(line, "foldernameSANSData", SANSDataFoldername, checkFlag);
        }
        fin.close();
    
-       if(checkFlag){
+       if (checkFlag) {
            mkdir((SANSDataFoldername + "/").c_str(), 0777);
-               LogSystem::initLog(SANSDataFoldername + "/NuMagSANSlog.txt");
-               //LogSystem::write("LogFile Initialized");
-       }
-       else {
-               std::cerr << "Error: 'foldernameSANSData' not found in input file '"<< filename << "'. Logging not initialized.\n";
+           LogSystem::initLog(SANSDataFoldername + "/NuMagSANSlog.txt");
+           // LogSystem::write("LogFile Initialized");
+       } else {
+           std::cerr << "Error: 'foldernameSANSData' not found in input file '" << filename
+                     << "'. Logging not initialized.\n";
            std::cerr << "Aborting program.\n";
-               std::exit(EXIT_FAILURE);
+           std::exit(EXIT_FAILURE);
        }
-   
    }
    
-   
-   
-   
-   
-   
    // template for options that are parsed by the InputFileInterpreter
-   template<typename T>
-   struct Option {
+   template <typename T> struct Option {
        std::string key;
        T* target;
        bool required;
        bool found = false;
    };
    
-   bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
-   
+   bool ReadCSV__Input_File_Interpreter(string filename, InputFileData* InputData) {
    
        LogSystem::write("##########################################################################################");
        LogSystem::write("## Run - Input File Interpreter ##########################################################");
        LogSystem::write("##########################################################################################");
-   
    
        ifstream fin(filename);
        if (!fin.is_open()) {
@@ -494,41 +444,31 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            return false;
        }
    
-       // generalisation of the output options 
-       std::vector<PrefixEntry> prefixes = {
-           {"Nuclear",        &OutFlag::Nuclear},
-           {"Unpolarized",    &OutFlag::Unpolarized},
-           {"Polarized",      &OutFlag::Polarized},
-           {"NuclearMagnetic",&OutFlag::NuclearMagnetic},
-           {"SpinFlip",       &OutFlag::SpinFlip},
-           {"Chiral",         &OutFlag::Chiral},
-           {"PM_SpinFlip",    &OutFlag::PM_SpinFlip},
-           {"MP_SpinFlip",    &OutFlag::MP_SpinFlip},
-           {"PP_NonSpinFlip", &OutFlag::PP_NonSpinFlip},
-           {"MM_NonSpinFlip", &OutFlag::MM_NonSpinFlip},
-           {"P_SANSPOL",      &OutFlag::P_SANSPOL},
-           {"M_SANSPOL",      &OutFlag::M_SANSPOL}
-       };
+       // generalisation of the output options
+       std::vector<PrefixEntry> prefixes = {{"Nuclear", &OutFlag::Nuclear},
+                                            {"Unpolarized", &OutFlag::Unpolarized},
+                                            {"Polarized", &OutFlag::Polarized},
+                                            {"NuclearMagnetic", &OutFlag::NuclearMagnetic},
+                                            {"SpinFlip", &OutFlag::SpinFlip},
+                                            {"Chiral", &OutFlag::Chiral},
+                                            {"PM_SpinFlip", &OutFlag::PM_SpinFlip},
+                                            {"MP_SpinFlip", &OutFlag::MP_SpinFlip},
+                                            {"PP_NonSpinFlip", &OutFlag::PP_NonSpinFlip},
+                                            {"MM_NonSpinFlip", &OutFlag::MM_NonSpinFlip},
+                                            {"P_SANSPOL", &OutFlag::P_SANSPOL},
+                                            {"M_SANSPOL", &OutFlag::M_SANSPOL}};
    
-       std::vector<SuffixEntry> suffixes = {
-           {"_2D",            &OutFlagQuant::SANS2D},
-           {"_1D",            &OutFlagQuant::SANS1D},
-           {"_Corr_2D",       &OutFlagQuant::Corr2D},
-           {"_Corr_1D",       &OutFlagQuant::Corr1D},
-           {"_PairDist_1D",   &OutFlagQuant::PairDist1D}
-       };
+       std::vector<SuffixEntry> suffixes = {{"_2D", &OutFlagQuant::SANS2D},
+                                            {"_1D", &OutFlagQuant::SANS1D},
+                                            {"_Corr_2D", &OutFlagQuant::Corr2D},
+                                            {"_Corr_1D", &OutFlagQuant::Corr1D},
+                                            {"_PairDist_1D", &OutFlagQuant::PairDist1D}};
    
        std::vector<Option<bool>> Output_options;
-       for (auto& p : prefixes)
-       {
-           for (auto& s : suffixes)
-           {
+       for (auto& p : prefixes) {
+           for (auto& s : suffixes) {
                std::string key = std::string(p.name) + s.name;
-               Output_options.push_back({
-                   key,
-                   &( (InputData->OutFlags.*(s.quantity)).*(p.member) ),
-                   true
-               }); 
+               Output_options.push_back({key, &((InputData->OutFlags.*(s.quantity)).*(p.member)), true});
            }
        }
    
@@ -608,9 +548,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        };
    
-   
        std::string line;
-       while(getline(fin, line)) {
+       while (getline(fin, line)) {
            std::string value;
    
            for (auto& opt : Output_options) {
@@ -672,153 +611,124 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
                    LogSystem::write(" -> " + opt.key + " : " + *opt.target);
                }
            }
-   
        }
        fin.close();
    
+       for (auto& opt : string_options)
+           if (opt.key == "User_Selection" && opt.found) {
+               InputData->User_Selection_IndexArray = parse_int_list(InputData->User_Selection);
    
+               LogSystem::write("Check UserSelection entries that are transferred to integer array:");
    
+               for (size_t k = 0; k < InputData->User_Selection_IndexArray.size(); ++k) {
+                   LogSystem::write(" UserSelection: " + std::to_string(k) + " : " +
+                                    std::to_string(InputData->User_Selection_IndexArray[k]));
+               }
+           }
    
        for (auto& opt : string_options)
-       if (opt.key == "User_Selection" && opt.found)
-       {
-           InputData->User_Selection_IndexArray =
-               parse_int_list(InputData->User_Selection);
+           if (opt.key == "StructData_User_Selection" && opt.found) {
+               InputData->StructDataLoop_IndexArray = parse_int_list(InputData->StructData_User_Selection);
    
-           LogSystem::write("Check UserSelection entries that are transferred to integer array:");
+               LogSystem::write("Check StructDataUserSelection entries that are transferred to integer array:");
    
-           for (size_t k = 0; k < InputData->User_Selection_IndexArray.size(); ++k)
-           {
-               LogSystem::write(
-                   " UserSelection: " +
-                   std::to_string(k) + " : " +
-                   std::to_string(InputData->User_Selection_IndexArray[k]));
+               for (size_t k = 0; k < InputData->StructDataLoop_IndexArray.size(); ++k) {
+                   LogSystem::write(" StructDataUserSelection: " + std::to_string(k) + " : " +
+                                    std::to_string(InputData->StructDataLoop_IndexArray[k]));
+               }
            }
-       }
    
-       for (auto& opt : string_options)
-       if (opt.key == "StructData_User_Selection" && opt.found)
-       {
-           InputData->StructDataLoop_IndexArray =
-               parse_int_list(InputData->StructData_User_Selection);
-   
-           LogSystem::write("Check StructDataUserSelection entries that are transferred to integer array:");
-   
-           for (size_t k = 0; k < InputData->StructDataLoop_IndexArray.size(); ++k)
-           {
-               LogSystem::write(
-                   " StructDataUserSelection: " +
-                   std::to_string(k) + " : " +
-                   std::to_string(InputData->StructDataLoop_IndexArray[k]));
-           }
-       }
-   
-       if(InputData->StructDataLoop_flag && InputData->StructDataLoop_IndexArray.empty()){
-           for(int k = InputData->StructDataLoop_From; k <= InputData->StructDataLoop_To; k++){
+       if (InputData->StructDataLoop_flag && InputData->StructDataLoop_IndexArray.empty()) {
+           for (int k = InputData->StructDataLoop_From; k <= InputData->StructDataLoop_To; k++) {
                InputData->StructDataLoop_IndexArray.push_back(k);
            }
        }
    
        for (auto& opt : string_options)
-       if (opt.key == "RotData_User_Selection" && opt.found)
-       {
-           InputData->RotDataLoop_IndexArray =
-               parse_int_list(InputData->RotData_User_Selection);
+           if (opt.key == "RotData_User_Selection" && opt.found) {
+               InputData->RotDataLoop_IndexArray = parse_int_list(InputData->RotData_User_Selection);
    
-           LogSystem::write("Check RotDataUserSelection entries that are transferred to integer array:");
+               LogSystem::write("Check RotDataUserSelection entries that are transferred to integer array:");
    
-           for (size_t k = 0; k < InputData->RotDataLoop_IndexArray.size(); ++k)
-           {
-               LogSystem::write(
-                   " RotDataUserSelection: " +
-                   std::to_string(k) + " : " +
-                   std::to_string(InputData->RotDataLoop_IndexArray[k]));
+               for (size_t k = 0; k < InputData->RotDataLoop_IndexArray.size(); ++k) {
+                   LogSystem::write(" RotDataUserSelection: " + std::to_string(k) + " : " +
+                                    std::to_string(InputData->RotDataLoop_IndexArray[k]));
+               }
            }
-       }
    
-       if(InputData->RotDataLoop_flag && InputData->RotDataLoop_IndexArray.empty()){
-           for(int k = InputData->RotDataLoop_From; k <= InputData->RotDataLoop_To; k++){
+       if (InputData->RotDataLoop_flag && InputData->RotDataLoop_IndexArray.empty()) {
+           for (int k = InputData->RotDataLoop_From; k <= InputData->RotDataLoop_To; k++) {
                InputData->RotDataLoop_IndexArray.push_back(k);
            }
        }
    
-   
-   
-   
        Compute_RotMat(InputData->RotMat_alpha, InputData->RotMat_beta, InputData->RotMat);
        LogSystem::write("Rotation Matrix: ");
-       LogSystem::write(std::to_string(InputData->RotMat[0]) + " " + std::to_string(InputData->RotMat[3]) + " " + std::to_string(InputData->RotMat[6]));
-       LogSystem::write(std::to_string(InputData->RotMat[1]) + " " + std::to_string(InputData->RotMat[4]) + " " + std::to_string(InputData->RotMat[7]));
-       LogSystem::write(std::to_string(InputData->RotMat[2]) + " " + std::to_string(InputData->RotMat[5]) + " " + std::to_string(InputData->RotMat[8]));
+       LogSystem::write(std::to_string(InputData->RotMat[0]) + " " + std::to_string(InputData->RotMat[3]) + " " +
+                        std::to_string(InputData->RotMat[6]));
+       LogSystem::write(std::to_string(InputData->RotMat[1]) + " " + std::to_string(InputData->RotMat[4]) + " " +
+                        std::to_string(InputData->RotMat[7]));
+       LogSystem::write(std::to_string(InputData->RotMat[2]) + " " + std::to_string(InputData->RotMat[5]) + " " +
+                        std::to_string(InputData->RotMat[8]));
        LogSystem::write("");
        LogSystem::write("");
        LogSystem::write("");
-   
-   
-   
    
        // Check Polarization
-       float P_norm = sqrtf(powf(InputData->Polarization[0], 2) \
-                         + powf(InputData->Polarization[1], 2) \
-                         + powf(InputData->Polarization[2], 2));
-       if(P_norm == 0){
+       float P_norm = sqrtf(powf(InputData->Polarization[0], 2) + powf(InputData->Polarization[1], 2) +
+                            powf(InputData->Polarization[2], 2));
+       if (P_norm == 0) {
            LogSystem::write("Error: Polarization magnitude is equal to zero!!");
        }
-       if(P_norm != 0 && P_norm != 1){
-           InputData->Polarization[0] = (InputData->Polarization[0])/P_norm;
-           InputData->Polarization[1] = (InputData->Polarization[1])/P_norm;
-           InputData->Polarization[2] = (InputData->Polarization[2])/P_norm;
+       if (P_norm != 0 && P_norm != 1) {
+           InputData->Polarization[0] = (InputData->Polarization[0]) / P_norm;
+           InputData->Polarization[1] = (InputData->Polarization[1]) / P_norm;
+           InputData->Polarization[2] = (InputData->Polarization[2]) / P_norm;
            LogSystem::write("Polarization is automatically normalized to 1!");
        }
    
        bool ReplicationImport_CheckFlag = true;
-       if(InputData->MagData_ReplicationImport_flag && !InputData->MagData_activate_flag){
+       if (InputData->MagData_ReplicationImport_flag && !InputData->MagData_activate_flag) {
            LogSystem::write("Error: MagData_ReplicationImport requires MagData_activate = 1.");
            ReplicationImport_CheckFlag = false;
        }
-       if(InputData->NucData_ReplicationImport_flag && !InputData->NucData_activate_flag){
+       if (InputData->NucData_ReplicationImport_flag && !InputData->NucData_activate_flag) {
            LogSystem::write("Error: NucData_ReplicationImport requires NucData_activate = 1.");
            ReplicationImport_CheckFlag = false;
        }
-       if(InputData->MagData_ReplicationImport_flag && InputData->MagData_NumberOfReplications <= 0){
+       if (InputData->MagData_ReplicationImport_flag && InputData->MagData_NumberOfReplications <= 0) {
            LogSystem::write("Error: MagData_NumberOfReplications must be larger than zero.");
            ReplicationImport_CheckFlag = false;
        }
-       if(InputData->NucData_ReplicationImport_flag && InputData->NucData_NumberOfReplications <= 0){
+       if (InputData->NucData_ReplicationImport_flag && InputData->NucData_NumberOfReplications <= 0) {
            LogSystem::write("Error: NucData_NumberOfReplications must be larger than zero.");
            ReplicationImport_CheckFlag = false;
        }
    
        bool ScatteringGrid_CheckFlag = true;
-       if(InputData->N_q <= 1){
+       if (InputData->N_q <= 1) {
            LogSystem::write("Error: Number_Of_q_Points must be larger than one.");
            ScatteringGrid_CheckFlag = false;
        }
-       if(InputData->q_min < 0.0){
+       if (InputData->q_min < 0.0) {
            LogSystem::write("Error: q_min must be larger than or equal to zero.");
            ScatteringGrid_CheckFlag = false;
        }
-       if(InputData->q_max <= InputData->q_min){
+       if (InputData->q_max <= InputData->q_min) {
            LogSystem::write("Error: q_max must be larger than q_min.");
            ScatteringGrid_CheckFlag = false;
        }
-   
-   
    
        LogSystem::write("##########################################################################################");
        LogSystem::write("## Stop - Input File Interpreter #########################################################");
        LogSystem::write("##########################################################################################");
        LogSystem::write("");
    
-   
        bool ok = true;
    
-       auto check_required = [&](auto& options)
-       {
-           for (auto& opt : options)
-           {
-               if (opt.required && !opt.found)
-               {
+       auto check_required = [&](auto& options) {
+           for (auto& opt : options) {
+               if (opt.required && !opt.found) {
                    LogSystem::write("Missing required option: " + opt.key);
                    ok = false;
                }
@@ -831,11 +741,9 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
        check_required(float_options);
        check_required(string_options);
    
-       if (!ok)
-       {
+       if (!ok) {
            LogSystem::write(" ->-> Error in input file!");
        }
    
        return ok && ReplicationImport_CheckFlag && ScatteringGrid_CheckFlag;
-   
    }

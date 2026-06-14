@@ -45,62 +45,61 @@ Program Listing for File NuMagSANSlib_ReadWrite.h
    // ##############################################################################################################################################
    // ##############################################################################################################################################
    
-   void WriteCSV_double_vector(unsigned long int N, double *data, string filename){
+   void WriteCSV_double_vector(unsigned long int N, double* data, string filename) {
        ofstream fout;
        fout.open(filename);
-       for(unsigned long int n=0; n<N; n++) fout << data[n] << "\n";
+       for (unsigned long int n = 0; n < N; n++)
+           fout << data[n] << "\n";
        fout.close();
    }
    
-   void WriteCSV_float_vector(unsigned long int N, float *data, string filename){
+   void WriteCSV_float_vector(unsigned long int N, float* data, string filename) {
        ofstream fout;
        fout.open(filename);
-       for(unsigned long int n=0; n<N; n++) fout << data[n] << "\n";
+       for (unsigned long int n = 0; n < N; n++)
+           fout << data[n] << "\n";
        fout.close();
    }
    
-   void ReadCSV_double_vector(unsigned long int N, double *data, string filename){
+   void ReadCSV_double_vector(unsigned long int N, double* data, string filename) {
        ifstream fin;
        fin.open(filename);
-       for(unsigned long int n=0; n<N; n++) fin >> data[n];
+       for (unsigned long int n = 0; n < N; n++)
+           fin >> data[n];
        fin.close();
    }
    
-   void ReadCSV_float_vector(unsigned long int N, float *data, string filename){
+   void ReadCSV_float_vector(unsigned long int N, float* data, string filename) {
        ifstream fin;
        fin.open(filename);
-       for(unsigned long int n=0; n<N; n++) fin >> data[n];
+       for (unsigned long int n = 0; n < N; n++)
+           fin >> data[n];
        fin.close();
    }
    
-   void ReadCSV_double_matrix(unsigned long int N, unsigned long int M, double **data, string filename){
+   void ReadCSV_double_matrix(unsigned long int N, unsigned long int M, double** data, string filename) {
        ifstream fin;
        fin.open(filename);
-       for(unsigned long int n=0; n<N; n++){
-           for(unsigned long int m=0; m<M; m++) fin >> data[n][m];
+       for (unsigned long int n = 0; n < N; n++) {
+           for (unsigned long int m = 0; m < M; m++)
+               fin >> data[n][m];
        }
        fin.close();
    }
    
-   void WriteCSV_float_matrix(unsigned long int N, unsigned long int M, float **data, string filename){
+   void WriteCSV_float_matrix(unsigned long int N, unsigned long int M, float** data, string filename) {
        ofstream fout;
        fout.open(filename);
-       for(unsigned long int n=0; n<N; n++){
-           for(unsigned long int m=0; m<M; m++){
+       for (unsigned long int n = 0; n < N; n++) {
+           for (unsigned long int m = 0; m < M; m++) {
                fout << data[n][m];
-               if(m<M-1) fout << ",";
+               if (m < M - 1)
+                   fout << ",";
            }
            fout << "\n";
        }
        fout.close();
    }
-   
-   
-   
-   
-   
-   
-   
    
    /*
    
@@ -118,10 +117,10 @@ Program Listing for File NuMagSANSlib_ReadWrite.h
        while(std::getline(fin, line)){
            std::istringstream ss(line);
            if(ss >> x >> y >> z >> Nuc){
-               line_counter += 1;          
+               line_counter += 1;
            } else{
                error_counter ++;
-   //          std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n"; 
+   //          std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n";
            }
        }
        fin.close();
@@ -149,10 +148,10 @@ Program Listing for File NuMagSANSlib_ReadWrite.h
                if(mx != 0.0 || my != 0.0 || mz != 0.0){
                    moment_counter += 1;
                }
-               line_counter += 1;          
+               line_counter += 1;
            } else{
                error_counter ++;
-               std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n"; 
+               std::cerr << "Error in row: " << line_counter + error_counter << ": " << line << "\n";
            }
        }
        fin.close();
