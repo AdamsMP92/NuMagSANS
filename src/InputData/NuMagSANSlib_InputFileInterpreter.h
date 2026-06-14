@@ -183,6 +183,9 @@ struct InputFileData{
     /// Number of angular alpha points
     int N_alpha;
 
+    /// Minimum scattering vector magnitude [1/nm]
+    float q_min = 0.0;
+
     /// Maximum scattering vector magnitude [1/nm]
     float q_max;
 
@@ -622,6 +625,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 	// float options ///////////////////////////////
 	std::vector<Option<float>> float_options = {
 
+		{"q_min", &InputData->q_min, false},
 		{"q_max", &InputData->q_max, true},
 		{"r_max", &InputData->r_max, true},
 		{"Scattering_Volume_V", &InputData->Scattering_Volume_V, true},
@@ -837,6 +841,20 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		ReplicationImport_CheckFlag = false;
 	}
 
+	bool ScatteringGrid_CheckFlag = true;
+	if(InputData->N_q <= 1){
+		LogSystem::write("Error: Number_Of_q_Points must be larger than one.");
+		ScatteringGrid_CheckFlag = false;
+	}
+	if(InputData->q_min < 0.0){
+		LogSystem::write("Error: q_min must be larger than or equal to zero.");
+		ScatteringGrid_CheckFlag = false;
+	}
+	if(InputData->q_max <= InputData->q_min){
+		LogSystem::write("Error: q_max must be larger than q_min.");
+		ScatteringGrid_CheckFlag = false;
+	}
+
 
 
 	LogSystem::write("##########################################################################################");
@@ -870,6 +888,6 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData*InputData){
 		LogSystem::write(" ->-> Error in input file!");
 	}
 
-	return ok && ReplicationImport_CheckFlag;
+	return ok && ReplicationImport_CheckFlag && ScatteringGrid_CheckFlag;
 
 }

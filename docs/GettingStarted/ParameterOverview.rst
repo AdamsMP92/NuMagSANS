@@ -343,8 +343,12 @@ Constant Parameters
     Number of angular sampling points in real space (correlation).
     Default value ``1000``
 
+``q_min``
+    Minimum scattering vector in Fourier space in units of :math:`\mathrm{nm}^{-1}`.
+    Default value ``0.0``
+
 ``q_max``
-    Maximum scattering vector in Fourier space in units of :math:`\mathrm{nm}^{-1}`
+    Maximum scattering vector in Fourier space in units of :math:`\mathrm{nm}^{-1}`.
     Default value ``3.0``
 
 ``r_max``
