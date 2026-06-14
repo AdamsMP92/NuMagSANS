@@ -250,6 +250,16 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_src_OutputData_SANSData_NuMagSANSlib_SANSData2csv.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_OutputData_SANSData_NuMagSANSlib_SANSDataStruct.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_src_OutputData_SpectralData_NuMagSANSlib_SpectralData.h.rst
 
 .. toctree::

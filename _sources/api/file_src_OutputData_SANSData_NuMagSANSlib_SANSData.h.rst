@@ -25,6 +25,10 @@ Includes
 --------
 
 
+- ``NuMagSANSlib_SANSData2csv.h`` (:ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSData2csv.h`)
+
+- ``NuMagSANSlib_SANSDataStruct.h`` (:ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSDataStruct.h`)
+
 - ``chrono``
 
 - ``cublas_v2.h``
@@ -76,11 +80,7 @@ Classes
 -------
 
 
-- :ref:`exhale_struct_structColumn`
-
 - :ref:`exhale_struct_structScalingFactors`
-
-- :ref:`exhale_struct_structScatteringData`
 
 
 Functions
@@ -91,14 +91,6 @@ Functions
 
 - :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a52fcd7001c4876233f9d7a8819c0d929`
 
-- :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a7d7f4e7c84f399b8f1ed92d7a3a21b2a`
-
-- :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a6389509075c5968a43c9a8d98149b1d0`
-
-- :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a648dcc397e5b2572374e8de42ba47844`
-
-- :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a973c30569344b63663f9bb891416eb30`
-
 - :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a66091a4a268dd48913e31431198de675`
 
 - :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a72adc7dce05a37a748a374bfbf745dac`
@@ -108,8 +100,4 @@ Functions
 - :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1ad2a8bbf26b4ff0462875d4b698a7e1a0`
 
 - :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1af4a6cee0027f74ac647ef9ec0d6a1d5f`
-
-- :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a1760358f1d86f64c1ee4fd1af2a9ba0e`
-
-- :ref:`exhale_function_NuMagSANSlib__SANSData_8h_1a1e15f2709d4de461607ffcdd42b14bef`
 
