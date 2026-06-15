@@ -7,6 +7,10 @@ users to generate configuration files and run simulations programmatically.
 The repository contains two example workflows that can be used as installation
 checks after the package has been built and installed.
 
+The default output backend is CSV. The quickstart below also runs the HDF5
+example, therefore the optional HDF5 backend is enabled explicitly during the
+CMake configuration step.
+
 Example installation in HPC environments
 ----------------------------------------
 
@@ -36,6 +40,7 @@ https://hpc-docs.uni.lu
    module load lang/Python/3.11.5-GCCcore-13.2.0
    module load system/CUDA/12.6.0
    module load devel/CMake/3.27.6-GCCcore-13.2.0
+   module load data/HDF5
 
 3) Verify that the required tools are available:
 
@@ -46,6 +51,7 @@ https://hpc-docs.uni.lu
    cmake --version
    g++ --version
    python --version
+   h5cc -showconfig | head -40
 
 4) In the same shell session, clone, build, and test NuMagSANS:
 
@@ -53,7 +59,7 @@ https://hpc-docs.uni.lu
 
    git clone https://github.com/AdamsMP92/NuMagSANS.git
    cd NuMagSANS
-   cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=native
+   cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=native -DNUMAGSANS_ENABLE_HDF5=ON
    cmake --build build -j
    python -m venv .venv
    source .venv/bin/activate
@@ -62,7 +68,9 @@ https://hpc-docs.uni.lu
    python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
    cd examples/example1
    python NuMagSANSrun.py
-   cd ../example2
+   cd ../example2_csv
+   python NuMagSANSrun.py
+   cd ../example2_hdf5
    python NuMagSANSrun.py
 
 Example: MPSD HPC (Hamburg)
@@ -88,6 +96,7 @@ We assume that you are logged in on an MPSD cluster login node.
    module load python/3.11.7
    module load cuda/12.6.2
    module load cmake/3.27.9
+   module load hdf5/1.14.3
 
 3) Verify that the required tools are available:
 
@@ -98,6 +107,7 @@ We assume that you are logged in on an MPSD cluster login node.
    cmake --version
    g++ --version
    python --version
+   h5cc -showconfig | head -40
 
 4) In the same shell session, clone, build, and test NuMagSANS:
 
@@ -105,7 +115,7 @@ We assume that you are logged in on an MPSD cluster login node.
 
    git clone https://github.com/AdamsMP92/NuMagSANS.git
    cd NuMagSANS
-   cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=native
+   cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=native -DNUMAGSANS_ENABLE_HDF5=ON
    cmake --build build -j
    python -m venv .venv
    source .venv/bin/activate
@@ -114,5 +124,7 @@ We assume that you are logged in on an MPSD cluster login node.
    python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
    cd examples/example1
    python NuMagSANSrun.py
-   cd ../example2
+   cd ../example2_csv
+   python NuMagSANSrun.py
+   cd ../example2_hdf5
    python NuMagSANSrun.py

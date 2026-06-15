@@ -11,8 +11,12 @@ inline void ExportDataMulti(InputFileData* InputData, ScalingFactors* ScalFactor
     LogSystem::write("scaling of SANSdata...");
     scale_ScatteringData(ScalFactors, SANSData, InputData);
 
-    // write scattering data to csv files #####################################################
-    write2CSVtable_ScatteringData(InputData, SANSData, Data_File_Index, StructData_File_Index, RotData_File_Index);
+    // write scattering data ##################################################################
+    if (InputData->SANSData_Output_Format == "csv") {
+        write2CSVtable_ScatteringData(InputData, SANSData, Data_File_Index, StructData_File_Index, RotData_File_Index);
+    } else if (InputData->SANSData_Output_Format == "hdf5") {
+        write2HDF5table_ScatteringData(InputData, SANSData, Data_File_Index, StructData_File_Index, RotData_File_Index);
+    }
 
     if (InputData->AngularSpec_activate_flag) {
         // copy spectral data from GPU to RAM #################################################
@@ -21,8 +25,12 @@ inline void ExportDataMulti(InputFileData* InputData, ScalingFactors* ScalFactor
         // scaling of the spectral data on RAM ################################################
         scale_SpectralData(ScalFactors, SpecData, InputData);
 
-        // write spectral data to csv files ###################################################
-        write2CSV_SpectralData(InputData, SpecData, Data_File_Index, StructData_File_Index, RotData_File_Index);
+        // write spectral data ################################################################
+        if (InputData->SANSData_Output_Format == "csv") {
+            write2CSV_SpectralData(InputData, SpecData, Data_File_Index, StructData_File_Index, RotData_File_Index);
+        } else if (InputData->SANSData_Output_Format == "hdf5") {
+            write2HDF5_SpectralData(InputData, SpecData, Data_File_Index, StructData_File_Index, RotData_File_Index);
+        }
     }
 }
 

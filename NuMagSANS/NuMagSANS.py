@@ -81,6 +81,7 @@ class NuMagSANS:
         StructDataPath="RealSpaceData/StructData",
         RotDataPath="RealSpaceData/RotData",
         foldernameSANSData="NuMagSANS_Output",
+        SANSData_Output_Format="csv",
         # selection
         NucData_activate=0,
         MagData_activate=0,
@@ -158,6 +159,7 @@ class NuMagSANS:
             W("StructDataPath", StructDataPath)
             W("RotDataPath", RotDataPath)
             W("foldernameSANSData", foldernameSANSData)
+            W("SANSData_Output_Format", SANSData_Output_Format)
 
             # ---------------------------
             # selection
