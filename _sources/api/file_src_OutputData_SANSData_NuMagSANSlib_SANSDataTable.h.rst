@@ -39,6 +39,8 @@ Included By
 
 - :ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSData2csv.h`
 
+- :ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSData2hdf5.h`
+
 
 
 

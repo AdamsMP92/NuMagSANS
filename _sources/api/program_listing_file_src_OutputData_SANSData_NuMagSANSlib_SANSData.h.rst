@@ -42,6 +42,7 @@ Program Listing for File NuMagSANSlib_SANSData.h
    
    #include "NuMagSANSlib_SANSDataStruct.h"
    #include "NuMagSANSlib_SANSData2csv.h"
+   #include "NuMagSANSlib_SANSData2hdf5.h"
    
    using namespace std;
    

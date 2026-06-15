@@ -504,6 +504,8 @@
 
 <span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">SANSDataFoldername</span><span class="p">;</span>
 
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">SANSData_Output_Format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;csv&quot;</span><span class="p">;</span>
+
 <span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">Fourier_Approach</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">Loop_Modus</span><span class="p">;</span>
@@ -941,6 +943,7 @@
 <span class="w">        </span><span class="p">{</span><span class="s">&quot;StructDataPath&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructDataPath</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span><span class="s">&quot;RotDataPath&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotDataPath</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span><span class="s">&quot;foldernameSANSData&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">SANSDataFoldername</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="s">&quot;SANSData_Output_Format&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">SANSData_Output_Format</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span><span class="s">&quot;Fourier_Approach&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">Fourier_Approach</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span><span class="s">&quot;StructData_User_Selection&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">StructData_User_Selection</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span><span class="s">&quot;RotData_User_Selection&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotData_User_Selection</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">},</span>
@@ -1119,6 +1122,12 @@
 <span class="w">        </span><span class="n">ScatteringGrid_CheckFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">OutputBackend_CheckFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">SANSData_Output_Format</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;csv&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">SANSData_Output_Format</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;hdf5&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Error: SANSData_Output_Format must be either csv or hdf5.&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">OutputBackend_CheckFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;##########################################################################################&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;## Stop - Input File Interpreter #########################################################&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;##########################################################################################&quot;</span><span class="p">);</span>
@@ -1145,7 +1154,7 @@
 <span class="w">        </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">&quot; -&gt;-&gt; Error in input file!&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ReplicationImport_CheckFlag</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ScatteringGrid_CheckFlag</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ReplicationImport_CheckFlag</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ScatteringGrid_CheckFlag</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">OutputBackend_CheckFlag</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>

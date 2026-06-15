@@ -27,6 +27,8 @@ Includes
 
 - ``NuMagSANSlib_SANSData2csv.h`` (:ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSData2csv.h`)
 
+- ``NuMagSANSlib_SANSData2hdf5.h`` (:ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSData2hdf5.h`)
+
 - ``NuMagSANSlib_SANSDataStruct.h`` (:ref:`file_src_OutputData_SANSData_NuMagSANSlib_SANSDataStruct.h`)
 
 - ``chrono``

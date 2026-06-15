@@ -104,6 +104,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        string SANSDataFoldername;
    
+       string SANSData_Output_Format = "csv";
+   
        string Fourier_Approach;
    
        bool Loop_Modus;
@@ -541,6 +543,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            {"StructDataPath", &InputData->StructDataPath, false},
            {"RotDataPath", &InputData->RotDataPath, false},
            {"foldernameSANSData", &InputData->SANSDataFoldername, true},
+           {"SANSData_Output_Format", &InputData->SANSData_Output_Format, false},
            {"Fourier_Approach", &InputData->Fourier_Approach, true},
            {"StructData_User_Selection", &InputData->StructData_User_Selection, false},
            {"RotData_User_Selection", &InputData->RotData_User_Selection, false},
@@ -719,6 +722,12 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            ScatteringGrid_CheckFlag = false;
        }
    
+       bool OutputBackend_CheckFlag = true;
+       if (InputData->SANSData_Output_Format != "csv" && InputData->SANSData_Output_Format != "hdf5") {
+           LogSystem::write("Error: SANSData_Output_Format must be either csv or hdf5.");
+           OutputBackend_CheckFlag = false;
+       }
+   
        LogSystem::write("##########################################################################################");
        LogSystem::write("## Stop - Input File Interpreter #########################################################");
        LogSystem::write("##########################################################################################");
@@ -745,5 +754,5 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            LogSystem::write(" ->-> Error in input file!");
        }
    
-       return ok && ReplicationImport_CheckFlag && ScatteringGrid_CheckFlag;
+       return ok && ReplicationImport_CheckFlag && ScatteringGrid_CheckFlag && OutputBackend_CheckFlag;
    }
