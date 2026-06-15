@@ -96,7 +96,7 @@ We assume that you are logged in on an MPSD cluster login node.
    module load python/3.11.7
    module load cuda/12.6.2
    module load cmake/3.27.9
-   module load hdf5/1.14.5
+   module load hdf5/1.14.3
 
 3) Verify that the required tools are available:
 
