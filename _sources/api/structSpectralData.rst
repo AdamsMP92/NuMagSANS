@@ -3,7 +3,7 @@
 Struct SpectralData
 ===================
 
-- Defined in :ref:`file_src_OutputData_SpectralData_NuMagSANSlib_SpectralData.h`
+- Defined in :ref:`file_src_OutputData_SpectralData_NuMagSANSlib_SpectralDataStruct.h`
 
 
 Struct Documentation

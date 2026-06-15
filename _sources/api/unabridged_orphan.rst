@@ -275,6 +275,26 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_src_OutputData_SpectralData_NuMagSANSlib_SpectralData2csv.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_OutputData_SpectralData_NuMagSANSlib_SpectralData2hdf5.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_OutputData_SpectralData_NuMagSANSlib_SpectralDataStruct.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_src_OutputData_SpectralData_NuMagSANSlib_SpectralDataTable.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_src_helper_NuMagSANSlib_StringCompare.h.rst
 
 .. toctree::

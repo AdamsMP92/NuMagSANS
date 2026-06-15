@@ -1,9 +1,9 @@
-.. _exhale_function_NuMagSANSlib__SpectralData_8h_1a8a7e126f3def2309abc240d32b83ff93:
+.. _exhale_function_NuMagSANSlib__SpectralDataTable_8h_1a8a7e126f3def2309abc240d32b83ff93:
 
 Function build_spectral_intensities
 ===================================
 
-- Defined in :ref:`file_src_OutputData_SpectralData_NuMagSANSlib_SpectralData.h`
+- Defined in :ref:`file_src_OutputData_SpectralData_NuMagSANSlib_SpectralDataTable.h`
 
 
 Function Documentation
