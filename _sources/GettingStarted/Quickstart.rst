@@ -62,7 +62,9 @@ https://hpc-docs.uni.lu
    python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
    cd examples/example1
    python NuMagSANSrun.py
-   cd ../example2
+   cd ../example2_csv
+   python NuMagSANSrun.py
+   cd ../example2_hdf5
    python NuMagSANSrun.py
 
 Example: MPSD HPC (Hamburg)
@@ -114,5 +116,7 @@ We assume that you are logged in on an MPSD cluster login node.
    python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
    cd examples/example1
    python NuMagSANSrun.py
-   cd ../example2
+   cd ../example2_csv
+   python NuMagSANSrun.py
+   cd ../example2_hdf5
    python NuMagSANSrun.py
