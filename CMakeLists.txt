@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(NuMagSANS LANGUAGES CXX)
 
+option(NUMAGSANS_ENABLE_HDF5 "Enable optional HDF5 output backend" OFF)
+
 # -----------------------------------------------------------
 # Optional CUDA support (detect automatically)
 # -----------------------------------------------------------
@@ -23,6 +25,16 @@ if(CMAKE_CUDA_COMPILER)
 
     # Add executable
     add_executable(NuMagSANS src/NuMagSANS.cu)
+
+    if(NUMAGSANS_ENABLE_HDF5)
+        find_package(HDF5 REQUIRED COMPONENTS C)
+        target_include_directories(NuMagSANS PRIVATE ${HDF5_INCLUDE_DIRS})
+        target_link_libraries(NuMagSANS PRIVATE ${HDF5_LIBRARIES})
+        target_compile_definitions(NuMagSANS PRIVATE NUMAGSANS_ENABLE_HDF5)
+        message(STATUS "✅ HDF5 output backend enabled")
+    else()
+        message(STATUS "HDF5 output backend disabled; CSV output remains the default")
+    endif()
 
     # (optional) Additional flags or architecture targets
     # set_target_properties(NuMagSANS PROPERTIES CUDA_ARCHITECTURES "60;70;75;80")
