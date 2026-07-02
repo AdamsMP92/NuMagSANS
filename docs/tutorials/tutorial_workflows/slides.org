@@ -31,86 +31,74 @@
 #+LATEX_HEADER: \usepackage{hyperref}
 #+LATEX_HEADER: \usepackage{minted}
 #+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \setminted{fontsize=\tiny,breaklines=true,breakanywhere=true}
 #+LATEX_HEADER:\newcommand{\vcenteredinclude}[2]{\begingroup\setbox0=\hbox{\includegraphics[#1]{#2}}\parbox{\wd0}{\box0}\endgroup}
 
-* Tutorial Goal
-- Use this slide deck as a second NuMagSANS tutorial template.
-- Replace these placeholder slides with a focused topic.
-- Keep shared figures in ~docs/_static~ where possible.
+* Setup
+Minimal imports and physical parameters.
 
-* Suggested Topic
-- Data organization for ensemble simulations.
-- StructData and RotData loops.
-- Replication import for repeated local objects.
+#+begin_src python
+import math
+from pathlib import Path
 
-* Simulation Layers
-- Local object data describe one or more materialized objects.
-- Structure data places these objects in global space.
-- Rotation data orients these objects in global space.
-- Output data can be exported as CSV or HDF5.
+from NuMagSANS import NuMagSANS
+from NuMagSANS.SystemDesigner.Workflows import (
+    write_spherical_replication_vectorfield_sweep,
+)
 
-* Replication-Import Workflow
-\centering
-\begin{tikzpicture}[
-  node distance=0.55cm and 0.75cm,
-  process/.style={
-    rectangle,
-    rounded corners=2pt,
-    draw=NuMagSANSBlue,
-    fill=NuMagSANSBlue!8,
-    align=center,
-    minimum width=2.75cm,
-    minimum height=0.72cm,
-    font=\scriptsize
-  },
-  data/.style={
-    rectangle,
-    rounded corners=2pt,
-    draw=NuMagSANSGreen,
-    fill=NuMagSANSGreen!8,
-    align=center,
-    minimum width=2.75cm,
-    minimum height=0.72cm,
-    font=\scriptsize
-  },
-  option/.style={
-    rectangle,
-    rounded corners=2pt,
-    draw=NuMagSANSRed,
-    fill=NuMagSANSRed!8,
-    align=center,
-    minimum width=2.75cm,
-    minimum height=0.72cm,
-    font=\scriptsize
-  },
-  arrow/.style={-{Latex[length=2mm]}, thick, draw=NuMagSANSBlue}
-]
+base_dir = Path("hyperbolic_vortex_R20")
+n_replications = 1024
+R = 20.0
+scattering_volume = n_replications * (4.0 / 3.0) * math.pi * (R * 1e-9) ** 3
+#+end_src
 
-\node[process] (template) {Crystal template\\\texttt{sc\_sphere\_crystal}};
-\node[process, right=of template] (localobject) {Materialize one\\local object};
-\node[data, right=of localobject] (magdata) {\texttt{MagData/Object\_1}\\\texttt{m\_1.csv}};
-\node[option, below=of magdata] (replication) {Replication import\\\texttt{K} internal copies};
-\node[data, left=of replication] (structdata) {\texttt{StructData.csv}\\object centers};
-\node[data, right=of replication] (rotdata) {\texttt{RotData.csv}\\Euler angles};
-\node[process, below=of replication] (run) {NuMagSANS run\\unchanged kernels};
-\node[data, below=of run] (output) {SANS output\\CSV or HDF5};
+* Generate Real-Space Data
+One local sphere, one hyperbolic vortex field, one isotropic RotData file.
 
-\draw[arrow] (template) -- (localobject);
-\draw[arrow] (localobject) -- (magdata);
-\draw[arrow] (magdata) -- (replication);
-\draw[arrow] (structdata) -- (replication);
-\draw[arrow] (rotdata) -- (replication);
-\draw[arrow] (replication) -- (run);
-\draw[arrow] (run) -- (output);
+#+begin_src python
+summary = write_spherical_replication_vectorfield_sweep(
+    output_dir=base_dir,
+    R=R,
+    a=1.0,
+    atomtype="Fe",
+    n_replications=n_replications,
+    field_parameter_cases={
+        "field_type": "vortex",
+        "profile_type": "hyperbolic",
+        "xi_type": "cylindrical_xi",
+        "kappa": 3.0,
+        "turns": 1.0,
+    },
+    n_rotdata=1,
+    beta_min=0.0,
+    beta_max=math.pi,
+    rotation_seed=1,
+)
+#+end_src
 
-\end{tikzpicture}
+* Configure NuMagSANS
+Use the workflow summary directly as config input.
 
-\vspace{0.2cm}
-\small
-One local object is stored once. StructData and RotData define the ensemble
-realization that NuMagSANS expands during import.
+#+begin_src python
+sim = NuMagSANS()
+config = base_dir / "NuMagSANSInput_temp.conf"
+cfg = summary["config_hints"]
 
-* Placeholder Slide
-- Add tutorial-specific material here.
-- Prefer small, reproducible examples.
-- Keep generated files out of version control.
+sim.write_config(
+    config,
+    **cfg,
+    foldernameSANSData=str(base_dir / "NuMagSANS_Output"),
+    SANSData_Output_Format="csv",
+    Fourier_Approach="atomistic",
+    Scattering_Volume_V=scattering_volume,
+    enable_outputs=["SpinFlip_2D"],
+)
+#+end_src
+
+* Run SpinFlip 2D
+Only request CSV output for the 2D spin-flip cross section.
+
+#+begin_src python
+sim.run(config)
+sim.config_clear(config)
+#+end_src
