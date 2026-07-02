@@ -1,0 +1,116 @@
+#+TITLE:    @@latex:\hfill\vspace*{0ex}\includegraphics[width=3.0cm]{../../_static/NuMagSANSlogo.png}\vspace{3.5ex}\newline NuMagSANS Tutorial 3@@
+#+AUTHOR:   \vspace{-0.5cm} NuMagSANS Tutorials \newline \vspace{0ex}
+#+DATE:     30.06.2026
+#+EMAIL:    Email - does not show on title page by default
+#+LANGUAGE: en
+#+OPTIONS:  H:1 num:t toc:nil \n:nil ::t |:t ^:t -:t f:t *:t tex:t d:(HIDE) tags:not-in-toc <:t
+#+OPTIONS:  d:nil todo:t pri:nil
+#+STARTUP: beamer
+#+LaTeX_CLASS_OPTIONS: [aspectratio=169]
+#+LATEX_HEADER: \usetheme{metropolis}
+#+LATEX_HEADER: \setbeamertemplate{frame footer}{}
+#+LATEX_HEADER: \metroset{block=fill}
+#+LATEX_HEADER: \definecolor{NuMagSANSBlue}{RGB}{31,91,148}
+#+LATEX_HEADER: \definecolor{NuMagSANSRed}{RGB}{136,37,80}
+#+LATEX_HEADER: \definecolor{NuMagSANSGreen}{RGB}{28,116,48}
+#+LATEX_HEADER: \definecolor{White}{RGB}{255,255,255}
+#+LATEX_HEADER: \definecolor{Black}{RGB}{0,0,0}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=White,bg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{structure}{fg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{progress bar}{fg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=NuMagSANSRed}
+#+LATEX_HEADER: \setbeamercolor{example text}{fg=NuMagSANSGreen}
+#+LATEX_HEADER: \setbeamercolor{normal text}{fg=Black}
+#+LATEX_HEADER: \setbeamercolor{background canvas}{bg=white}
+#+LATEX_HEADER: \usepackage{amssymb}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+#+LATEX_HEADER: \usepackage[export]{adjustbox}
+#+LATEX_HEADER: \usepackage{hyperref}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER:\newcommand{\vcenteredinclude}[2]{\begingroup\setbox0=\hbox{\includegraphics[#1]{#2}}\parbox{\wd0}{\box0}\endgroup}
+
+* Tutorial Goal
+- Use this slide deck as a second NuMagSANS tutorial template.
+- Replace these placeholder slides with a focused topic.
+- Keep shared figures in ~docs/_static~ where possible.
+
+* Suggested Topic
+- Data organization for ensemble simulations.
+- StructData and RotData loops.
+- Replication import for repeated local objects.
+
+* Simulation Layers
+- Local object data describe one or more materialized objects.
+- Structure data places these objects in global space.
+- Rotation data orients these objects in global space.
+- Output data can be exported as CSV or HDF5.
+
+* Replication-Import Workflow
+\centering
+\begin{tikzpicture}[
+  node distance=0.55cm and 0.75cm,
+  process/.style={
+    rectangle,
+    rounded corners=2pt,
+    draw=NuMagSANSBlue,
+    fill=NuMagSANSBlue!8,
+    align=center,
+    minimum width=2.75cm,
+    minimum height=0.72cm,
+    font=\scriptsize
+  },
+  data/.style={
+    rectangle,
+    rounded corners=2pt,
+    draw=NuMagSANSGreen,
+    fill=NuMagSANSGreen!8,
+    align=center,
+    minimum width=2.75cm,
+    minimum height=0.72cm,
+    font=\scriptsize
+  },
+  option/.style={
+    rectangle,
+    rounded corners=2pt,
+    draw=NuMagSANSRed,
+    fill=NuMagSANSRed!8,
+    align=center,
+    minimum width=2.75cm,
+    minimum height=0.72cm,
+    font=\scriptsize
+  },
+  arrow/.style={-{Latex[length=2mm]}, thick, draw=NuMagSANSBlue}
+]
+
+\node[process] (template) {Crystal template\\\texttt{sc\_sphere\_crystal}};
+\node[process, right=of template] (localobject) {Materialize one\\local object};
+\node[data, right=of localobject] (magdata) {\texttt{MagData/Object\_1}\\\texttt{m\_1.csv}};
+\node[option, below=of magdata] (replication) {Replication import\\\texttt{K} internal copies};
+\node[data, left=of replication] (structdata) {\texttt{StructData.csv}\\object centers};
+\node[data, right=of replication] (rotdata) {\texttt{RotData.csv}\\Euler angles};
+\node[process, below=of replication] (run) {NuMagSANS run\\unchanged kernels};
+\node[data, below=of run] (output) {SANS output\\CSV or HDF5};
+
+\draw[arrow] (template) -- (localobject);
+\draw[arrow] (localobject) -- (magdata);
+\draw[arrow] (magdata) -- (replication);
+\draw[arrow] (structdata) -- (replication);
+\draw[arrow] (rotdata) -- (replication);
+\draw[arrow] (replication) -- (run);
+\draw[arrow] (run) -- (output);
+
+\end{tikzpicture}
+
+\vspace{0.2cm}
+\small
+One local object is stored once. StructData and RotData define the ensemble
+realization that NuMagSANS expands during import.
+
+* Placeholder Slide
+- Add tutorial-specific material here.
+- Prefer small, reproducible examples.
+- Keep generated files out of version control.
