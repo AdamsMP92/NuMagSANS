@@ -1,0 +1,616 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\definecolor{codegray}{RGB}{245,245,245}
+\definecolor{codeframe}{RGB}{210,210,210}
+
+\lstdefinestyle{systemdesigner}{
+    backgroundcolor=\color{codegray},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false
+}
+
+\lstset{style=systemdesigner}
+
+\title{SystemDesigner: Current Development Documentation}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Purpose}
+
+SystemDesigner is an early-stage Python toolkit for constructing atomistic
+crystal objects, materializing local object bases, and preparing higher-level
+assembly workflows. The main design principle is to keep local object geometry,
+global object arrangement, and additional physical fields separate.
+
+The current project state is best understood as a layered system:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Layer & Responsibility \\
+\midrule
+CrystalDesigner & Build and operate on local crystal structures. \\
+AssemblyBaseDesigner & Sample template parameters and materialize local objects. \\
+AssemblyBaseStructurizer & Planned: create global object arrangements. \\
+AssemblyBaseMagnetizer & Planned/in progress: attach local magnetic vector fields. \\
+AssemblyBaseNucleizer & Planned: attach local nuclear SLD fields. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Repository Layout}
+
+\begin{lstlisting}
+SystemDesigner/
+    __init__.py
+
+    CrystalDesigner/
+        CrystalBase.py
+        CrystalRepeater.py
+        CrystalOperator.py
+        CrystalTemplates.py
+        CrystalPlot.py
+        Example1.py
+
+    AssemblyBaseDesigner/
+        AssemblyBase.py
+        AssemblyBaseTemplates.py
+        AssemblyBaseWriter.py
+        AssemblyBaseAnalyzer.py
+        AssemblyBasePlot.py
+        Example1.py
+
+    AssemblyBaseMagnetizer/
+        MagnetizationBase.py
+        MagnetizationBaseTemplates.py
+        SphericalVectorFieldLib.py
+        AssemblyBaseMagnetizer.py
+        __init__.py
+
+    AssemblyBaseStructurizer/
+    AssemblyBaseNucleizer/
+\end{lstlisting}
+
+\section{CrystalDesigner}
+
+\subsection{Data Model}
+
+The current crystal representation is a lightweight dictionary containing
+coordinate arrays and atom labels:
+
+\begin{lstlisting}[language=Python]
+crystal = {
+    "x": np.ndarray,
+    "y": np.ndarray,
+    "z": np.ndarray,
+    "atomtype": np.ndarray,
+}
+\end{lstlisting}
+
+Additional metadata may be present depending on how the crystal was generated.
+The structure is intentionally simple while the API is still evolving.
+
+\subsection{CrystalBase.py}
+
+\texttt{crystal\_base(x, y, z, atomtype)} creates a clean base dictionary.
+It enforces one-dimensional coordinate arrays of equal length and broadcasts a
+single atom type label to all positions.
+
+\begin{lstlisting}[language=Python]
+from SystemDesigner.CrystalDesigner.CrystalBase import crystal_base
+
+base = crystal_base(
+    x=0.0,
+    y=0.0,
+    z=0.0,
+    atomtype="Fe",
+)
+\end{lstlisting}
+
+\subsection{CrystalRepeater.py}
+
+\texttt{crystal\_repeater(...)} expands a crystal base by lattice translations:
+
+\[
+    \Delta r = n_1 a_1 u_1 + n_2 a_2 u_2 + n_3 a_3 u_3 .
+\]
+
+The generated crystal keeps mapping arrays such as
+\texttt{base\_atom\_index}, \texttt{n1}, \texttt{n2}, and \texttt{n3}.
+
+\subsection{CrystalOperator.py}
+
+Implemented operators:
+
+\begin{itemize}[nosep]
+    \item \texttt{crystal\_centering}: center coordinates around their mean.
+    \item \texttt{rotation\_matrix\_zyz}: construct an active Z-Y-Z Euler
+    rotation matrix.
+    \item \texttt{crystal\_rotator\_zyz}: rotate coordinate arrays
+    \texttt{x}, \texttt{y}, and \texttt{z}.
+    \item \texttt{crystal\_rotate\_zyz}: rotate a full crystal dictionary.
+    \item \texttt{implicit\_crystal\_operator}: keep atoms satisfying an
+    implicit inequality of the form \texttt{operator <= 0}.
+\end{itemize}
+
+The Z-Y-Z convention is
+
+\[
+    R = R_z(\alpha) R_y(\beta) R_z(\gamma),
+\]
+
+where the matrix acts actively on column vectors. This can be used later to
+rotate raw crystals before applying a cutting operator, for example to generate
+random crystal orientations relative to a fixed cut geometry.
+
+\begin{lstlisting}[language=Python]
+x_rot, y_rot, z_rot = crystal_rotator_zyz(
+    x,
+    y,
+    z,
+    alpha,
+    beta,
+    gamma,
+)
+\end{lstlisting}
+
+Example spherical cut:
+
+\begin{lstlisting}[language=Python]
+crystal = implicit_crystal_operator(
+    crystal,
+    "x**2 + y**2 + z**2 - R**2",
+    {"R": 10.0},
+)
+\end{lstlisting}
+
+\subsection{CrystalTemplates.py}
+
+The current template registry contains:
+
+\begin{lstlisting}[language=Python]
+CRYSTAL_TEMPLATE_REGISTRY = {
+    "sc_sphere_crystal": sc_sphere_crystal,
+}
+\end{lstlisting}
+
+\texttt{sc\_sphere\_crystal(a, R, atomtype)} creates a simple-cubic spherical
+crystal object by building a one-atom base, repeating it, centering it, and
+applying a spherical cut.
+
+\section{AssemblyBaseDesigner}
+
+\subsection{Concept}
+
+AssemblyBaseDesigner does not place objects in global space. Instead, it
+defines and materializes local objects. This is the object library from which a
+later structuring or organizing layer can build a global assembly.
+
+\subsection{AssemblyBase.py}
+
+Assembly bases describe which crystal templates are available and how their
+parameters are sampled.
+
+Supported parameter distributions:
+
+\begin{itemize}[nosep]
+    \item \texttt{constant(value)}
+    \item \texttt{uniform(low, high)}
+    \item \texttt{normal(mean, sigma)}
+    \item \texttt{lognormal(mean, sigma, mean\_type="arithmetic")}
+\end{itemize}
+
+Example:
+
+\begin{lstlisting}[language=Python]
+from SystemDesigner.AssemblyBaseDesigner.AssemblyBase import (
+    assembly_base, constant, normal
+)
+
+base = assembly_base(
+    ct_temps="sc_sphere_crystal",
+    ct_temps_params=["a", "R", "atomtype"],
+    param_dist_props={
+        "a": constant(1.0),
+        "R": normal(mean=10.0, sigma=3.0),
+        "atomtype": constant("Fe"),
+    },
+)
+\end{lstlisting}
+
+\subsection{AssemblyBaseTemplates.py}
+
+The current high-level template is:
+
+\begin{lstlisting}[language=Python]
+write_gaussian_spherical_nanoparticle_base(
+    R_mean=10.0,
+    R_std=3.0,
+    a=1.0,
+    atomtype="Fe",
+    n_objects=500,
+    output_dir="AssemblyExample1",
+    seed=123,
+)
+\end{lstlisting}
+
+This hides the underlying crystal template name
+\texttt{sc\_sphere\_crystal} from examples and user scripts.
+
+\subsection{AssemblyBaseWriter.py}
+
+The writer materializes sampled local objects to disk. The current output
+layout is:
+
+\begin{lstlisting}
+RealSpaceData/
+    Local_Objects/
+        Object_1/
+            pos.csv
+            meta.csv
+            atomtype.csv
+        Object_2/
+            ...
+\end{lstlisting}
+
+\texttt{pos.csv} contains local coordinates:
+
+\begin{lstlisting}
+x,y,z
+-7.0,0.0,0.0
+...
+\end{lstlisting}
+
+\texttt{atomtype.csv} contains per-atom labels:
+
+\begin{lstlisting}
+atom_index,atomtype
+0,Fe
+...
+\end{lstlisting}
+
+\texttt{meta.csv} contains object metadata and distribution metadata:
+
+\begin{lstlisting}
+key,value
+object_id,1
+template_name,sc_sphere_crystal
+n_atoms,1419
+template_param.R,7.0326
+template_param_distribution.R.distribution,normal
+template_param_distribution.R.mean,10.0
+template_param_distribution.R.sigma,3.0
+\end{lstlisting}
+
+\subsection{AssemblyBaseAnalyzer.py}
+
+The analyzer reads \texttt{Local\_Objects/Object\_i/meta.csv} files and
+extracts realized template parameters. It also supports the legacy
+\texttt{RealSpaceData/Objects} layout.
+
+Main functions:
+
+\begin{itemize}[nosep]
+    \item \texttt{analyze\_assembly\_base\_dataset(path)}
+    \item \texttt{write\_parameter\_table(analysis, output\_path)}
+\end{itemize}
+
+\subsection{AssemblyBasePlot.py}
+
+The plotter visualizes realized parameter distributions. Numeric parameters
+are shown as density histograms. If distribution metadata is available, the
+expected density is overlaid automatically for:
+
+\begin{itemize}[nosep]
+    \item normal distributions
+    \item lognormal distributions
+    \item uniform distributions
+    \item constant values
+\end{itemize}
+
+\section{AssemblyBaseMagnetizer}
+
+\subsection{Current State}
+
+The magnetizer branch is in preparation. Implemented components are:
+
+\begin{lstlisting}
+SystemDesigner/AssemblyBaseMagnetizer/MagnetizationBase.py
+SystemDesigner/AssemblyBaseMagnetizer/MagnetizationBaseTemplates.py
+SystemDesigner/AssemblyBaseMagnetizer/SphericalVectorFieldLib.py
+\end{lstlisting}
+
+The magnetizer is intended to operate on local object coordinates only. It
+should not sample global translations or global object rotations. Those belong
+to the structuring or organizing layer.
+
+\subsection{MagnetizationBase.py}
+
+\texttt{MagnetizationBase.py} mirrors the parameter-distribution logic of
+\texttt{AssemblyBaseDesigner}, but its semantics are local vector-field
+templates instead of crystal templates.
+
+Supported distribution helpers are reused:
+
+\begin{itemize}[nosep]
+    \item \texttt{constant(value)}
+    \item \texttt{uniform(low, high)}
+    \item \texttt{normal(mean, sigma)}
+    \item \texttt{lognormal(mean, sigma, mean\_type="arithmetic")}
+\end{itemize}
+
+The central functions are:
+
+\begin{itemize}[nosep]
+    \item \texttt{magnetization\_base(...)}
+    \item \texttt{sample\_field\_params(...)}
+\end{itemize}
+
+\subsection{MagnetizationBaseTemplates.py}
+
+Current high-level templates include:
+
+\begin{itemize}[nosep]
+    \item \texttt{spherical\_vortex\_magnetization\_base}
+    \item \texttt{spherical\_random\_chirality\_vortex\_magnetization\_base}
+\end{itemize}
+
+These templates describe local field parameters only. For example, a local
+vortex template may define \texttt{field\_type}, \texttt{profile\_type},
+\texttt{xi\_type}, \texttt{kappa}, \texttt{turns}, and \texttt{chirality}.
+
+\subsection{SphericalVectorFieldLib.py}
+
+This module is a local analytical vector-field library. It does not read
+\texttt{Local\_Objects}, and it does not write \texttt{MagData}. Higher-level
+magnetizer code should apply these fields to local object coordinates and
+store the resulting magnetic data separately.
+
+The module currently contains two public building blocks:
+
+\begin{itemize}[nosep]
+    \item \texttt{alpha\_profile(xi, params)}: computes a radial tilt angle
+    \(\alpha(\xi)\) from a normalized radius \(\xi\).
+    \item \texttt{unit\_field(x, y, z, D, params)}: evaluates a normalized
+    analytical vector field on local Cartesian coordinates.
+\end{itemize}
+
+The main field generator has the form:
+
+\begin{lstlisting}[language=Python]
+unit_field(x, y, z, D, params) -> mx, my, mz
+\end{lstlisting}
+
+Here \texttt{D} is interpreted as the local particle diameter. The function
+derives either a cylindrical normalized radius
+\(\xi = \rho / (D/2)\) or a spherical normalized radius
+\(\xi = r / (D/2)\), depending on \texttt{xi\_type}. Values are clipped to
+the interval \([0, 1]\). This makes the current library especially natural for
+spherical or radially parametrized particles.
+
+The internal coordinate definitions are:
+
+\begin{align*}
+    \rho &= \sqrt{x^2 + y^2}, &
+    \phi &= \operatorname{atan2}(y, x), \\
+    r &= \sqrt{x^2 + y^2 + z^2}, &
+    \theta &= \operatorname{atan2}\left(\sqrt{x^2 + y^2}, z\right).
+\end{align*}
+
+Supported normalized-radius definitions are:
+
+\begin{itemize}[nosep]
+    \item \texttt{cylindrical\_xi}: \(\xi = \operatorname{clip}(\rho/R, 0, 1)\).
+    \item \texttt{spherical\_xi}: \(\xi = \operatorname{clip}(r/R, 0, 1)\).
+\end{itemize}
+
+with \(R = D/2\).
+
+\paragraph{Radial tilt profiles.}
+
+\texttt{alpha\_profile} maps \(\xi\) to a tilt angle \(\alpha\). The current
+profile types are:
+
+\begin{align*}
+    \alpha_{\mathrm{linear}}(\xi)
+        &= \arccos(1 - \kappa \xi), \\
+    \alpha_{\mathrm{parabolic}}(\xi)
+        &= \arccos(1 - \kappa \xi^2), \\
+    \alpha_{\mathrm{trigonometric}}(\xi)
+        &= \frac{\pi}{2}\kappa \xi, \\
+    \alpha_{\mathrm{hyperbolic}}(\xi)
+        &= \arccos\left(\sqrt{1 - \tanh^2(\kappa \xi)}\right), \\
+    \alpha_{\mathrm{argument\_hyperbolic}}(\xi)
+        &= \frac{\pi}{2}\tanh(\kappa \xi), \\
+    \alpha_{\mathrm{lorentzian}}(\xi)
+        &= \arccos\left((1 + \kappa \xi^2)^{-n}\right), \\
+    \alpha_{\mathrm{gaussian}}(\xi)
+        &= \arccos\left(\exp\left[-\xi^2/\kappa^2\right]\right), \\
+    \alpha_{\mathrm{arctan}}(\xi)
+        &= 2\arctan(\kappa \xi).
+\end{align*}
+
+Here \(\kappa\) controls the radial transition strength and \(n\) is the
+\texttt{exponent} parameter used by the Lorentzian profile. In
+\texttt{unit\_field}, most field types then use
+\(\tilde{\alpha} = \texttt{turns}\cdot\alpha(\xi)\).
+
+\paragraph{Analytical field types.}
+
+\texttt{unit\_field} currently supports the following local analytical field
+families:
+
+\paragraph{\texttt{linearized\_vortex}.}
+
+\begin{align*}
+    m_x &= -m_1 y, &
+    m_y &= m_1 x, &
+    m_z &= m_0 .
+\end{align*}
+
+\paragraph{\texttt{vortex}.}
+
+With \(m_\phi = \sin(\tilde{\alpha})\) and
+\(m_z^{(0)} = \cos(\tilde{\alpha})\):
+
+\begin{align*}
+    m_x &= -m_\phi \sin(\phi), &
+    m_y &=  m_\phi \cos(\phi), &
+    m_z &=  m_z^{(0)} .
+\end{align*}
+
+\paragraph{\texttt{hedgehog}.}
+
+With \(m_r = \sin(\tilde{\alpha})\cos(\theta)\) and
+\(m_z^{(0)} = \cos(\tilde{\alpha})\):
+
+\begin{align*}
+    m_x &= m_r \sin(\theta)\cos(\phi), \\
+    m_y &= m_r \sin(\theta)\sin(\phi), \\
+    m_z &= m_r \cos(\theta) + m_z^{(0)} .
+\end{align*}
+
+\paragraph{\texttt{artichoke}.}
+
+With \(m_\theta = -\sin(\tilde{\alpha})\) and
+\(m_z^{(0)} = \cos(\tilde{\alpha})\):
+
+\begin{align*}
+    m_x &= m_\theta \cos(\phi)\cos(\theta), \\
+    m_y &= m_\theta \sin(\phi)\cos(\theta), \\
+    m_z &= -m_\theta \sin(\theta) + m_z^{(0)} .
+\end{align*}
+
+\paragraph{\texttt{poloidal\_vortex}.}
+
+With \(m_\theta = \sin(\tilde{\alpha})\) and
+\(m_z^{(0)} = \cos(\tilde{\alpha})\):
+
+\begin{align*}
+    m_x &= m_\theta \cos(\phi)\cos(\theta), \\
+    m_y &= m_\theta \sin(\phi)\cos(\theta), \\
+    m_z &= m_\theta \sin(\theta) + m_z^{(0)} .
+\end{align*}
+
+\paragraph{\texttt{skyrmion}.}
+
+\begin{align*}
+    m_x &= \sin(\pi N \xi)\cos(m\phi + \gamma), \\
+    m_y &= \sin(\pi N \xi)\sin(m\phi + \gamma), \\
+    m_z &= \cos(\pi N \xi).
+\end{align*}
+
+Most field types use \texttt{profile\_type}, \texttt{kappa},
+\texttt{xi\_type}, and \texttt{turns}. The skyrmion field instead uses the
+phase parameters \texttt{N}, \texttt{m}, and \texttt{gamma}. By default the
+resulting vectors are normalized before they are returned:
+
+\[
+    \mathbf{m} \leftarrow
+    \frac{\mathbf{m}}{\sqrt{m_x^2 + m_y^2 + m_z^2} + 10^{-12}} .
+\]
+
+The library should be treated as a field library, not as a magnetizer workflow.
+It contains analytical functions only. A later materialization layer can choose
+one of these field definitions, evaluate it on each object's local
+\texttt{pos.csv}, and write the resulting \texttt{x,y,z,mx,my,mz} data into
+\texttt{MagData}.
+
+\section{Planned Orthogonal Branches}
+
+\subsection{AssemblyBaseStructurizer}
+
+The structuring layer should operate on already materialized
+\texttt{Local\_Objects}. Its role is to generate global arrangement data, for
+example:
+
+\begin{lstlisting}
+RealSpaceData/
+    StructData.csv
+\end{lstlisting}
+
+This file may later contain global object centers, rotations, and object
+indices. It should not modify the local object data.
+
+\subsection{AssemblyBaseMagnetizer}
+
+The magnetizer should generate local magnetic data:
+
+\begin{lstlisting}
+MagData/
+    Object_1/
+        m_1.csv
+    Object_2/
+        m_1.csv
+\end{lstlisting}
+
+with rows of the form:
+
+\begin{lstlisting}
+x,y,z,mx,my,mz
+\end{lstlisting}
+
+\subsection{AssemblyBaseNucleizer}
+
+The nucleizer should generate local nuclear SLD data without modifying the
+local object geometry.
+
+\section{Examples}
+
+\subsection{AssemblyBaseDesigner Example}
+
+\begin{lstlisting}[language=bash]
+python SystemDesigner/AssemblyBaseDesigner/Example1.py
+\end{lstlisting}
+
+This generates:
+
+\begin{lstlisting}
+AssemblyExample1/
+    RealSpaceData/
+        Local_Objects/
+        parameter_table.csv
+        parameter_distributions.png
+\end{lstlisting}
+
+\subsection{CrystalDesigner Example}
+
+\begin{lstlisting}[language=bash]
+python SystemDesigner/CrystalDesigner/Example1.py
+\end{lstlisting}
+
+This builds and plots a simple-cubic Fe sphere. It opens a Matplotlib window.
+
+\section{Development Notes}
+
+\begin{itemize}
+    \item The project is still experimental and APIs may change.
+    \item The current code uses structured dictionaries rather than dedicated
+    Python classes.
+    \item \texttt{gen\_structure.py} is retained as a reference script, not as
+    part of the cleaned SystemDesigner API.
+    \item Runtime tests were performed with an external Pixi Python
+    environment containing NumPy and Matplotlib.
+\end{itemize}
+
+\end{document}

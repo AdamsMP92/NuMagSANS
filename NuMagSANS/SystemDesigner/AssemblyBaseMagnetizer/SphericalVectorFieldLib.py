@@ -103,12 +103,15 @@ def unit_field(x, y, z, D, params):
     params : dict
         {
             "field_type": "vortex" | "hedgehog" | "artichoke" |
-                          "skyrmion" | "poloidal_vortex",
+                          "skyrmion" | "poloidal_vortex" |
+                          "transversal_helix",
             "profile_type": ... (see alpha_profile),
             "xi_type": "cylindrical_xi" | "spherical_xi",
             "kappa": float,
             "N": int (for skyrmion),
             "m": int, "gamma": float (for skyrmion base),
+            "k": float, "chirality": float, "phase": float
+                 (for transversal_helix),
             "turns": float
         }
 
@@ -143,6 +146,15 @@ def unit_field(x, y, z, D, params):
         mx = -m_1 * y
         my = m_1 * x
         mz = np.full_like(x, m_0)
+
+    elif field_type in ("transversal_helix", "transverse_helix"):
+        k = params.get("k", 1.0)
+        chirality = params.get("chirality", params.get("chi", 1.0))
+        phase = params.get("phase", 0.0)
+        argument = k * z + phase
+        mx = np.cos(argument)
+        my = chirality * np.sin(argument)
+        mz = np.zeros_like(x)
 
     elif field_type == "vortex":
         # compute tilt α(ξ)

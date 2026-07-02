@@ -134,6 +134,20 @@ def _rotation_seed(base_seed, index):
     return int(base_seed) + int(index)
 
 
+def _expand_rotdata_parameter(value, n_rotdata, name):
+    """Return one rotation-distribution parameter value per RotData file."""
+    array = np.asarray(value, dtype=float)
+
+    if array.ndim == 0:
+        return np.full(n_rotdata, float(array))
+
+    array = array.ravel()
+    if len(array) != n_rotdata:
+        raise ValueError(f"{name} must be scalar or contain exactly n_rotdata={n_rotdata} values.")
+
+    return array
+
+
 def write_spherical_replication_vectorfield_sweep(
     output_dir,
     R,
@@ -177,8 +191,10 @@ def write_spherical_replication_vectorfield_sweep(
         ``SphericalVectorFieldLib.unit_field``.
     n_rotdata : int, optional
         Number of angular distribution files to write.
-    beta_min, beta_max : float, optional
+    beta_min, beta_max : float or array-like, optional
         Polar-angle range in radians. Sampling is isotropic in ``cos(beta)``.
+        Scalars apply the same distribution to all ``RotData_i`` files. Arrays
+        must have length ``n_rotdata`` and define one beta range per file.
     rotation_seed : int, optional
         Base seed for scrambled Sobol rotation distributions.
     scramble : bool, optional
@@ -200,6 +216,8 @@ def write_spherical_replication_vectorfield_sweep(
     output_dir = Path(output_dir)
     real_space_dir = output_dir / "RealSpaceData"
     field_parameter_cases = _normalize_field_parameter_cases(field_parameter_cases)
+    beta_min_values = _expand_rotdata_parameter(beta_min, n_rotdata, "beta_min")
+    beta_max_values = _expand_rotdata_parameter(beta_max, n_rotdata, "beta_max")
 
     object_summary = write_monodisperse_spherical_nanoparticle_base(
         R=R,
@@ -221,8 +239,8 @@ def write_spherical_replication_vectorfield_sweep(
     rotation_cases = [
         sobol_zyz_rotations(
             n_samples=n_replications,
-            beta_min=beta_min,
-            beta_max=beta_max,
+            beta_min=beta_min_values[index],
+            beta_max=beta_max_values[index],
             isotropic=True,
             scramble=scramble,
             seed=_rotation_seed(rotation_seed, index),
@@ -257,5 +275,9 @@ def write_spherical_replication_vectorfield_sweep(
         "object_summary": object_summary,
         "field_summary": field_summary,
         "rotdata_summary": rotdata_summary,
+        "rotation_distribution": {
+            "beta_min": beta_min_values,
+            "beta_max": beta_max_values,
+        },
         "config_hints": config_hints,
     }
