@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "NuMagSANS"
 version = "0.1.0"
 description = "NuMagSANS GPU-accelerated SANS computation toolkit"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "h5py",
     "matplotlib",
@@ -16,6 +16,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+]
 visualization = [
     "pyvista",
 ]
@@ -36,3 +41,6 @@ extend-exclude = [
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]
