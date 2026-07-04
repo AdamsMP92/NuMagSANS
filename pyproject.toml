@@ -9,8 +9,15 @@ description = "NuMagSANS GPU-accelerated SANS computation toolkit"
 requires-python = ">=3.9"
 dependencies = [
     "h5py",
+    "matplotlib",
     "numpy",
     "scipy",
+    "sympy",
+]
+
+[project.optional-dependencies]
+visualization = [
+    "pyvista",
 ]
 
 [tool.setuptools.packages.find]

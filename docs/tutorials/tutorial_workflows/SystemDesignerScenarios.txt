@@ -1,0 +1,1160 @@
+Scenarios for System Design
+===========================
+
+Purpose
+-------
+
+This file collects possible simulation scenarios that should be expressible by
+the NuMagSANS SystemDesigner. The goal is not only to list backend combinations,
+but to clarify which higher-level design tools are needed to generate complete
+NuMagSANS input systems systematically.
+
+The key idea is:
+
+    SystemDesigner creates or organizes real-space systems.
+    NuMagSANS computes the scattering from the resulting data organization.
+
+
+Core NuMagSANS data axes
+------------------------
+
+NuMagSANS currently separates local object data and ensemble-level metadata.
+The SystemDesigner should therefore generate the following layers independently
+or in controlled combinations.
+
+Local data layers:
+
+    M  = MagData
+         Local magnetic moment data:
+             x y z mx my mz
+
+    N  = NucData
+         Local nuclear scattering-length-density data:
+             x y z rho
+
+    MN = MagData + NucData
+         Combined nuclear and magnetic real-space input.
+
+Object-organization layers:
+
+    S  = StructData
+         Object-center translations:
+             x y z
+
+    R  = RotData
+         Object-wise ZYZ rotations:
+             alpha beta gamma
+
+    SR = StructData + RotData
+         Object-wise rotation and translation.
+
+Backend placement combinations:
+
+    1.  M
+    2.  M + S
+    3.  M + R
+    4.  M + S + R
+
+    5.  N
+    6.  N + S
+    7.  N + R
+    8.  N + S + R
+
+    9.  M + N
+    10. M + N + S
+    11. M + N + R
+    12. M + N + S + R
+
+These 12 are the central scattering scenarios. Everything below describes how
+the SystemDesigner can generate the corresponding local data, structure data,
+rotation data, loops, and parameter variations.
+
+
+SystemDesigner object-generation axes
+-------------------------------------
+
+Axis A: local object source
+
+    A1. Single local object template
+        One object geometry or field is generated once.
+
+    A2. Multiple independent local objects
+        Object_1, Object_2, ..., Object_K are all materialized explicitly.
+        Objects may have different atom counts, radii, shapes, materials, or
+        magnetic states.
+
+    A3. Single local object with replication import
+        Only one physical Object_1 is written to disk. NuMagSANS internally
+        replicates it K times during import. StructData and/or RotData then
+        give the replicated copies different positions and/or orientations.
+
+    A4. Mixed local object templates
+        Several crystal or shape templates are sampled and materialized into
+        one ensemble. Example: spheres, cylinders, cuboids, shells, or arbitrary
+        implicit cuts in one system.
+
+    A5. Composite object represented by multiple objects
+        A core and a shell can be generated as separate local objects and placed
+        at the same StructData center. NuMagSANS does not need to know that they
+        are conceptually one composite particle.
+
+    A6. Fully materialized external simulation data
+        The SystemDesigner does not generate the local data, but organizes or
+        validates imported data from micromagnetic, atomistic, or external
+        simulation workflows.
+
+
+Axis B: local data materialization
+
+    B1. Single materialization
+        Each object folder contains one data file:
+            m_1.csv and/or n_1.csv
+
+    B2. Data-file series
+        Each object folder contains a sequence:
+            m_1.csv, m_2.csv, ..., m_L.csv
+            n_1.csv, n_2.csv, ..., n_L.csv
+
+        NuMagSANS Loop_Modus or User_Selection selects the active file index.
+        This is useful for:
+            - magnetic model parameter sweeps
+            - nuclear contrast sweeps
+            - time series
+            - field series
+            - relaxation snapshots
+            - multiple random realizations of the same local object set
+
+    B3. Magnetic-only materialization series
+        MagData has m_i.csv files while NucData is absent or fixed.
+
+    B4. Nuclear-only materialization series
+        NucData has n_i.csv files while MagData is absent or fixed.
+
+    B5. Paired magnetic and nuclear materialization series
+        MagData and NucData are both active and file index i selects the paired
+        local data state m_i.csv and n_i.csv.
+
+    B6. Derived materialization from analytic templates
+        Local data are not hand-written. They are generated from template
+        parameters, for example:
+            - uniform magnetization
+            - spherical vortex
+            - random chirality vortex
+            - future nuclear SLD templates
+            - future micromagnetic/atomistic imported fields
+
+
+Axis C: structure-data generation
+
+    C0. No StructData
+        The local data are already in their final coordinate system, or a
+        dilute calculation is performed without object-center translations.
+
+    C1. Single StructData.csv
+        One object-center arrangement is used.
+
+    C2. StructData loop
+        A folder contains:
+            StructData/StructData_1.csv
+            StructData/StructData_2.csv
+            ...
+
+        NuMagSANS evaluates several position arrangements while keeping the
+        local object data fixed.
+
+    C3. Random dilute object centers
+        Centers are sampled randomly, optionally with minimum-distance or
+        non-overlap constraints.
+
+    C4. Ordered object centers
+        Centers follow a lattice, chain, ring, grid, cluster, shell, layered
+        arrangement, or any deterministic rule.
+
+    C5. Parameterized center distributions
+        Center positions are sampled from distributions with user-controlled
+        parameters, e.g. density, box size, radial distribution, polydisperse
+        excluded volume, or cluster width.
+
+    C6. Co-located object centers
+        Several objects share the same center. Useful for composite particles,
+        core-shell models, or separating MagData and NucData contributions.
+
+
+Axis D: rotation-data generation
+
+    D0. No RotData
+        Objects are not individually rotated.
+
+    D1. Single RotData.csv
+        One object-wise orientation assignment is used.
+
+    D2. RotData loop
+        A folder contains:
+            RotData/RotData_1.csv
+            RotData/RotData_2.csv
+            ...
+
+        NuMagSANS evaluates several orientation assignments while keeping the
+        local object data fixed.
+
+    D3. Random independent orientations
+        Each object receives random ZYZ Euler angles.
+
+    D4. Partially aligned orientations
+        Orientations are sampled around a preferred direction or distribution.
+
+    D5. Ordered orientation fields
+        Object orientations follow deterministic rules, e.g. radial, tangential,
+        helical, layered, or domain-like patterns.
+
+    D6. Rotation sweeps for one repeated object
+        One local object is replicated internally and sampled over many
+        orientations. This is a key use case for replication import.
+
+
+Axis E: import mode
+
+    E1. Explicit import
+        Every object is physically written to disk:
+            MagData/Object_1/m_1.csv
+            MagData/Object_2/m_1.csv
+            ...
+
+    E2. Magnetic replication import
+        Only one magnetic template object is stored:
+            MagData/Object_1/m_1.csv
+
+        NuMagSANS internally creates K magnetic copies.
+
+    E3. Nuclear replication import
+        Only one nuclear template object is stored:
+            NucData/Object_1/n_1.csv
+
+        NuMagSANS internally creates K nuclear copies.
+
+    E4. Paired magnetic and nuclear replication import
+        One magnetic and one nuclear template object are stored and both are
+        replicated to K objects.
+
+    E5. Hybrid explicit/replicated import
+        One data layer is replicated while the other is explicit. This is useful
+        if, for example, the nuclear shape is identical for all objects but the
+        magnetic state differs between objects, or vice versa.
+
+
+Axis F: output and analysis mode
+
+    F1. CSV output
+        Default output mode.
+
+    F2. HDF5 output
+        Optional output mode enabled at build time.
+
+    F3. Angular spectrum disabled
+        Only requested SANS/correlation outputs are written.
+
+    F4. Angular spectrum enabled
+        SpectralData is generated and exported with the same CSV/HDF5 backend.
+
+
+Combinatorial core count
+------------------------
+
+Before considering output format, scattering quantity selection, q-grid
+parameters, global sample rotation, or polarization settings, the main data
+organization space is already large.
+
+For each active local data layer:
+
+    M-only:
+        import modes = explicit or magnetic replication = 2
+
+    N-only:
+        import modes = explicit or nuclear replication = 2
+
+    M+N:
+        import modes =
+            explicit M + explicit N
+            replicated M + explicit N
+            explicit M + replicated N
+            replicated M + replicated N
+        = 4
+
+For each import mode, object placement can be:
+
+    no StructData / no RotData
+    StructData only
+    RotData only
+    StructData + RotData
+
+If StructData and RotData loops are counted as separate organization choices,
+the placement space becomes:
+
+    no S, no R      = 1
+    S single/loop   = 2
+    R single/loop   = 2
+    S single/loop + R single/loop = 4
+
+    total placement variants = 1 + 2 + 2 + 4 = 9
+
+Thus:
+
+    local import variants = 2 + 2 + 4 = 8
+    organization variants = 9
+    core data organization scenarios = 8 * 9 = 72
+
+If the local data-file loop is also included:
+
+    no local data-file loop / local data-file loop = 2
+    72 * 2 = 144 scenarios
+
+If CSV/HDF5 output is included:
+
+    144 * 2 = 288 scenarios
+
+If Angular_Spec disabled/enabled is also included:
+
+    288 * 2 = 576 scenarios
+
+This number is not meant to imply that 576 tutorials or templates are needed.
+It means that the SystemDesigner should be organized around reusable axes:
+
+    local object generation
+    local magnetic/nuclear materialization
+    replication import metadata
+    StructData generation
+    RotData generation
+    local data-file series generation
+    NuMagSANS config generation
+    output reading and comparison
+
+
+Representative scenario families
+--------------------------------
+
+The following scenario families cover the important physical and technical
+cases without listing all 576 derived variants separately.
+
+
+1. Single local magnetic object
+-------------------------------
+
+Define one object and write one magnetic materialization:
+
+    MagData/Object_1/m_1.csv
+
+NuMagSANS mode:
+
+    M
+
+Use cases:
+
+    - one isolated magnetic nanoparticle
+    - one imported micromagnetic object
+    - one analytic magnetic texture
+
+SystemDesigner needs:
+
+    - local object generator
+    - magnetic field materializer
+    - optional config writer
+
+
+2. Single local nuclear object
+------------------------------
+
+Define one object and write one nuclear materialization:
+
+    NucData/Object_1/n_1.csv
+
+NuMagSANS mode:
+
+    N
+
+Use cases:
+
+    - nuclear form factor from one particle
+    - nuclear SLD contrast model
+    - nonmagnetic reference system
+
+SystemDesigner needs:
+
+    - nuclear SLD materializer
+    - nuclear template library
+
+
+3. Single local object with magnetic and nuclear data
+----------------------------------------------------
+
+Define one object with both local data layers:
+
+    MagData/Object_1/m_1.csv
+    NucData/Object_1/n_1.csv
+
+NuMagSANS mode:
+
+    M + N
+
+Use cases:
+
+    - one magnetic particle with nuclear contrast
+    - direct magnetic/nuclear interference calculation
+
+SystemDesigner needs:
+
+    - shared object geometry
+    - magnetic materializer
+    - nuclear materializer
+    - consistency checks for row counts and coordinate conventions
+
+
+4. Explicit dilute ensemble with unique local objects
+----------------------------------------------------
+
+Generate K objects explicitly:
+
+    MagData/Object_1/m_1.csv
+    MagData/Object_2/m_1.csv
+    ...
+    StructData.csv
+
+NuMagSANS mode:
+
+    M + S
+    N + S
+    M + N + S
+
+Use cases:
+
+    - polydisperse particle ensemble
+    - each object has a different radius, shape, mesh, or magnetic state
+    - explicit imported simulation data for each object
+
+SystemDesigner needs:
+
+    - parameter distributions for object templates
+    - explicit object writer
+    - StructData organizer
+    - non-overlap and density rules
+
+
+5. Explicit oriented ensemble with unique local objects
+------------------------------------------------------
+
+Generate K objects explicitly and assign individual rotations:
+
+    MagData/Object_i/m_1.csv
+    RotData.csv
+
+NuMagSANS mode:
+
+    M + R
+    N + R
+    M + N + R
+
+Use cases:
+
+    - objects are centered locally but oriented differently
+    - local anisotropic objects without translation metadata
+    - dilute orientation average without position interference
+
+SystemDesigner needs:
+
+    - RotData generator
+    - ZYZ angle distributions
+    - optional orientation order parameters
+
+
+6. Explicit positioned and oriented ensemble
+-------------------------------------------
+
+Generate K objects explicitly and assign positions and rotations:
+
+    MagData/Object_i/m_1.csv
+    StructData.csv
+    RotData.csv
+
+NuMagSANS mode:
+
+    M + S + R
+    N + S + R
+    M + N + S + R
+
+Use cases:
+
+    - general object ensemble
+    - mixed orientations and positions
+    - polydisperse anisotropic particles
+    - mixed local states
+
+SystemDesigner needs:
+
+    - object template sampler
+    - StructData organizer
+    - RotData organizer
+    - consistency checks: K objects, K centers, K rotations
+
+
+7. Single local object replicated over many centers
+--------------------------------------------------
+
+Write one local object and replicate internally:
+
+    MagData/Object_1/m_1.csv
+    StructData.csv with K rows
+
+NuMagSANS mode:
+
+    M + S with MagData_ReplicationImport = 1
+    N + S with NucData_ReplicationImport = 1
+    M + N + S with paired or hybrid replication
+
+Use cases:
+
+    - monodisperse spherical particles
+    - identical local object repeated at many positions
+    - large dilute ensembles without duplicated object folders
+
+SystemDesigner needs:
+
+    - replication import config generation
+    - StructData generation for K copies
+    - compatibility checks between K and StructData rows
+
+
+8. Single local object replicated over many orientations
+-------------------------------------------------------
+
+Write one local object and replicate internally:
+
+    MagData/Object_1/m_1.csv
+    RotData.csv with K rows
+
+NuMagSANS mode:
+
+    M + R with MagData_ReplicationImport = 1
+    N + R with NucData_ReplicationImport = 1
+    M + N + R with paired or hybrid replication
+
+Use cases:
+
+    - orientation average of one anisotropic object
+    - random orientation distribution
+    - aligned or partially aligned ensemble
+
+SystemDesigner needs:
+
+    - rotation-distribution sampler
+    - replication import config generation
+    - compatibility checks between K and RotData rows
+
+
+9. Single local object replicated over centers and orientations
+--------------------------------------------------------------
+
+Write one local object and replicate internally:
+
+    MagData/Object_1/m_1.csv
+    StructData.csv with K rows
+    RotData.csv with K rows
+
+NuMagSANS mode:
+
+    M + S + R with MagData_ReplicationImport = 1
+    N + S + R with NucData_ReplicationImport = 1
+    M + N + S + R with paired or hybrid replication
+
+Use cases:
+
+    - large monodisperse ensembles
+    - identical anisotropic particles with different centers and orientations
+    - efficient ensemble scans
+
+SystemDesigner needs:
+
+    - unified replicated-ensemble builder
+    - StructData and RotData writers
+    - optional non-overlap constraints
+    - optional orientation-position correlations
+
+
+10. Local magnetic model parameter series
+----------------------------------------
+
+Generate one or more objects with a series of magnetic materializations:
+
+    MagData/Object_i/m_1.csv
+    MagData/Object_i/m_2.csv
+    ...
+
+NuMagSANS mode:
+
+    Loop_Modus or User_Selection over data-file index
+
+Use cases:
+
+    - magnetic field parameter sweep
+    - vortex chirality sweep
+    - micromagnetic time series
+    - hysteresis snapshots
+    - random magnetic realizations
+
+SystemDesigner needs:
+
+    - magnetic parameter-base sampler
+    - m_i.csv writer
+    - Data_File_Index manifest
+    - optional comparison/analysis of output series
+
+
+11. Local nuclear model parameter series
+---------------------------------------
+
+Generate one or more objects with a series of nuclear materializations:
+
+    NucData/Object_i/n_1.csv
+    NucData/Object_i/n_2.csv
+    ...
+
+NuMagSANS mode:
+
+    Loop_Modus or User_Selection over data-file index
+
+Use cases:
+
+    - contrast variation
+    - core-shell SLD variation
+    - isotope or solvent contrast series
+
+SystemDesigner needs:
+
+    - nuclear parameter-base sampler
+    - n_i.csv writer
+    - contrast template library
+
+
+12. Paired magnetic and nuclear data-file series
+------------------------------------------------
+
+Generate paired local states:
+
+    MagData/Object_i/m_1.csv
+    NucData/Object_i/n_1.csv
+    MagData/Object_i/m_2.csv
+    NucData/Object_i/n_2.csv
+    ...
+
+NuMagSANS mode:
+
+    M + N with Loop_Modus or User_Selection
+
+Use cases:
+
+    - field-dependent magnetic state with fixed or varying nuclear contrast
+    - paired simulation snapshots
+    - combined magnetic/nuclear parameter sweeps
+
+SystemDesigner needs:
+
+    - paired materialization writer
+    - index synchronization checks
+    - clear metadata for what data index i means
+
+
+13. Fixed local objects with StructData loop
+-------------------------------------------
+
+Keep local data fixed and evaluate many arrangements:
+
+    StructData/StructData_1.csv
+    StructData/StructData_2.csv
+    ...
+
+NuMagSANS mode:
+
+    StructDataLoop = 1
+
+Use cases:
+
+    - same particles at several concentrations
+    - random center-position realizations
+    - ordered vs disordered arrangements
+    - finite-size sampling of dilute systems
+
+SystemDesigner needs:
+
+    - StructData loop writer
+    - random seeds and metadata
+    - non-overlap and boundary constraints
+    - output grouping by StructData index
+
+
+14. Fixed local objects with RotData loop
+----------------------------------------
+
+Keep local data fixed and evaluate many orientation arrangements:
+
+    RotData/RotData_1.csv
+    RotData/RotData_2.csv
+    ...
+
+NuMagSANS mode:
+
+    RotDataLoop = 1
+
+Use cases:
+
+    - orientation averaging
+    - texture distributions
+    - random orientation realizations
+    - anisotropic object scans
+
+SystemDesigner needs:
+
+    - RotData loop writer
+    - orientation distribution metadata
+    - output grouping by RotData index
+
+
+15. Fixed local objects with nested StructData and RotData loops
+---------------------------------------------------------------
+
+Keep local data fixed and evaluate many position/orientation combinations:
+
+    StructData/StructData_i.csv
+    RotData/RotData_j.csv
+
+NuMagSANS mode:
+
+    StructDataLoop = 1
+    RotDataLoop = 1
+
+Current NuMagSANS output nesting:
+
+    SANS_k/StructData_i/RotData_j/
+
+Use cases:
+
+    - independent sampling of positions and orientations
+    - ensemble uncertainty quantification
+    - repeated-object ensemble scans
+
+SystemDesigner needs:
+
+    - nested loop manifest
+    - control over Cartesian product vs paired sampling
+    - output reader that reconstructs (data index, structure index, rotation index)
+
+
+16. Replicated local object with StructData and RotData loops
+------------------------------------------------------------
+
+Write one local object and sweep many global arrangements:
+
+    MagData/Object_1/m_1.csv
+    StructData/StructData_i.csv
+    RotData/RotData_j.csv
+
+NuMagSANS mode:
+
+    MagData_ReplicationImport = 1
+    StructDataLoop = 1
+    RotDataLoop = 1
+
+Use cases:
+
+    - highly efficient orientation/position ensemble studies
+    - monodisperse particle ensembles
+    - large K with small disk footprint
+
+SystemDesigner needs:
+
+    - replication-aware assembly builder
+    - looped StructData/RotData writer
+    - config writer that sets K through NumberOfReplications
+
+
+17. Mixed explicit and replicated data layers
+--------------------------------------------
+
+Examples:
+
+    MagData replicated, NucData explicit
+    MagData explicit, NucData replicated
+
+Use cases:
+
+    - identical nuclear shape but varying magnetic states
+    - identical magnetic texture but varying nuclear SLD
+    - hybrid imported/generated datasets
+
+SystemDesigner needs:
+
+    - independent replication flags for M and N
+    - object-count consistency checks
+    - clear metadata for which layer is replicated
+
+
+18. Composite particle from multiple co-located objects
+------------------------------------------------------
+
+Represent a complex particle by several NuMagSANS objects:
+
+    Object_1 = core
+    Object_2 = shell
+    StructData rows may share the same center
+
+Use cases:
+
+    - core-shell particles
+    - defect regions
+    - multi-material objects
+    - magnetic and nuclear components with different local discretizations
+
+SystemDesigner needs:
+
+    - composite-object helper
+    - co-location rules
+    - optional grouped metadata so the user knows which NuMagSANS objects form
+      one physical particle
+
+
+19. Mixed-shape ensemble
+------------------------
+
+Generate an ensemble with different local templates:
+
+    spheres + cylinders + shells + imported objects
+
+NuMagSANS mode:
+
+    Any of M/N/MN with optional S/R/SR
+
+Use cases:
+
+    - mixtures of particle shapes
+    - impurities
+    - defect-like additions
+    - multicomponent powders
+
+SystemDesigner needs:
+
+    - multi-template AssemblyBase writer
+    - per-object template selection
+    - per-template parameter distributions
+    - clear object metadata
+
+
+20. Fully materialized external dataset organization
+---------------------------------------------------
+
+The local data already exist and SystemDesigner only organizes/checks them.
+
+Use cases:
+
+    - micromagnetic simulations from other solvers
+    - atomistic spin-dynamics snapshots
+    - imported experimental reconstructions
+
+SystemDesigner needs:
+
+    - dataset validator
+    - metadata extractor
+    - optional StructData/RotData generation on top of imported local data
+    - optional conversion from external formats
+
+
+21. Global sample rotation scans
+--------------------------------
+
+NuMagSANS also supports global sample rotations through:
+
+    RotMat_alpha
+    RotMat_beta
+
+These are independent of object-wise RotData.
+
+Use cases:
+
+    - detector/sample orientation scans
+    - global rotation of a complete already-built system
+    - comparison with experimental geometry
+
+SystemDesigner needs:
+
+    - config-level scan helper
+    - distinction between global sample rotation and local object RotData
+
+
+22. Output-backend comparison scenarios
+--------------------------------------
+
+The same generated system can be exported to:
+
+    CSV
+    HDF5
+
+Use cases:
+
+    - lightweight inspection with CSV
+    - compact HPC output with HDF5
+    - regression tests comparing CSV and HDF5 values
+
+SystemDesigner needs:
+
+    - output reader helpers
+    - optional MSE/comparison utilities
+    - consistent path handling for nested loop outputs
+
+
+Current SystemDesigner capabilities
+-----------------------------------
+
+Already present:
+
+    - crystal_base
+    - crystal_repeater
+    - implicit crystal cutting
+    - crystal centering
+    - ZYZ crystal coordinate rotation helper
+    - simple cubic sphere template
+    - simple cubic cylinder template
+    - AssemblyBase parameter distributions:
+        constant, uniform, normal, lognormal
+    - Local_Objects writer:
+        RealSpaceData/Local_Objects/Object_i/pos.csv
+        RealSpaceData/Local_Objects/Object_i/meta.csv
+    - AssemblyBase analyzer and histogram plotter
+    - local spherical magnetization writer:
+        RealSpaceData/LocalMagData/Object_i/m_1.csv
+    - spherical vector-field library for unit/vortex-like fields
+
+
+Important gaps / likely next steps
+----------------------------------
+
+1. NuMagSANS-ready MagData writer
+
+    Current writer uses LocalMagData. NuMagSANS expects:
+
+        RealSpaceData/MagData/Object_i/m_j.csv
+
+    Need either:
+
+        - rename/write directly to MagData
+        - or provide an export step from LocalMagData to MagData
+
+
+2. NuMagSANS-ready NucData writer
+
+    Needed for N-only and M+N scenarios:
+
+        RealSpaceData/NucData/Object_i/n_j.csv
+
+    Should support at least:
+
+        - constant nuclear SLD per object
+        - template-parameter dependent SLD
+        - core-shell or multi-region SLD later
+
+
+3. StructData organizer
+
+    Needed to generate:
+
+        RealSpaceData/StructData.csv
+        RealSpaceData/StructData/StructData_i.csv
+
+    Should support:
+
+        - random dilute centers
+        - non-overlap constraints
+        - ordered center arrangements
+        - multiple random realizations
+        - co-located composite objects
+
+
+4. RotData organizer
+
+    Needed to generate:
+
+        RealSpaceData/RotData.csv
+        RealSpaceData/RotData/RotData_i.csv
+
+    Should support:
+
+        - ZYZ Euler angle generation
+        - random orientations
+        - aligned/partially aligned distributions
+        - deterministic orientation fields
+        - multiple random realizations
+
+
+5. Replication-import designer
+
+    Needed to generate systems with one physical local object and K effective
+    NuMagSANS objects.
+
+    Should write:
+
+        MagData/Object_1/m_1.csv
+        optional NucData/Object_1/n_1.csv
+        StructData or RotData with K rows
+
+    Should configure:
+
+        MagData_ReplicationImport
+        MagData_NumberOfReplications
+        NucData_ReplicationImport
+        NucData_NumberOfReplications
+
+
+6. Data-file series writer
+
+    Needed to write:
+
+        m_1.csv, m_2.csv, ...
+        n_1.csv, n_2.csv, ...
+
+    Should produce metadata describing what file index means.
+
+
+7. Scenario manifest
+
+    Each generated system should ideally include a machine-readable manifest,
+    for example:
+
+        RealSpaceData/SystemDesignerManifest.json
+
+    It should record:
+
+        - local templates
+        - sampled parameters
+        - random seeds
+        - object count K
+        - active data layers
+        - replication mode
+        - StructData/RotData loop indices
+        - intended NuMagSANS config options
+
+
+8. Config writer bridge
+
+    The SystemDesigner should optionally write or update a NuMagSANS config
+    through the Python facade.
+
+    This would connect:
+
+        generated RealSpaceData
+        selected output format
+        selected scattering outputs
+        selected loop modes
+
+
+9. Output reader / analyzer
+
+    Needed for tests and tutorials:
+
+        - read CSV output
+        - read HDF5 output
+        - collect nested loop outputs
+        - compare to analytical models
+        - compute MSE / relative MSE
+
+
+10. High-level scenario templates
+
+    Useful first templates:
+
+        - monodisperse replicated magnetic spheres
+        - polydisperse explicit magnetic spheres
+        - replicated magnetic+nuclear spheres
+        - random-position dilute ensemble
+        - random-orientation ensemble
+        - StructData loop ensemble
+        - RotData loop ensemble
+        - nested StructData/RotData loop ensemble
+        - contrast-variation NucData series
+        - magnetic parameter-series MagData
+
+
+Most important near-term SystemDesigner milestones
+--------------------------------------------------
+
+Milestone 1:
+
+    Make the current integrated SystemDesigner importable and installable as:
+
+        NuMagSANS.SystemDesigner
+
+
+Milestone 2:
+
+    Rename or bridge LocalMagData to NuMagSANS-ready MagData.
+
+
+Milestone 3:
+
+    Add a NucData materializer.
+
+
+Milestone 4:
+
+    Add AssemblyBaseOrganizer for StructData and RotData generation.
+
+
+Milestone 5:
+
+    Add replication-import scenario helpers.
+
+
+Milestone 6:
+
+    Add loop writers for:
+
+        StructData_i.csv
+        RotData_i.csv
+        m_i.csv
+        n_i.csv
+
+
+Milestone 7:
+
+    Add one basic end-to-end SystemDesigner-to-NuMagSANS tutorial/test:
+
+        generate RealSpaceData
+        write NuMagSANS config
+        run NuMagSANS
+        read output
+        compare against a simple analytical case
+
+
+Practical design principle
+--------------------------
+
+The SystemDesigner should not try to hide all NuMagSANS flexibility behind one
+giant function. It should provide composable layers:
+
+    CrystalDesigner
+        builds local object geometry
+
+    AssemblyBaseDesigner
+        samples object templates and local object parameters
+
+    LocalDataMaterializers
+        write MagData and NucData
+
+    AssemblyBaseOrganizer
+        writes StructData and RotData
+
+    ScenarioTemplates
+        combine common workflows
+
+    ConfigBridge
+        writes NuMagSANS input files
+
+    OutputAnalyzer
+        reads and compares NuMagSANS output
+
+This matches the NuMagSANS backend architecture and keeps the high-level
+workflow flexible enough for future ensemble studies.
