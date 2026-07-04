@@ -17,9 +17,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "pre-commit",
     "pytest",
     "pytest-cov",
-    "ruff",
+    "ruff==0.15.17",
 ]
 visualization = [
     "pyvista",
