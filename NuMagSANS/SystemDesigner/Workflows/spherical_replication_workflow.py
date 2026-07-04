@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 
 from ..AssemblyBaseDesigner.AssemblyBaseTemplates import write_monodisperse_spherical_nanoparticle_base
-from ..AssemblyBaseMagnetizer.SphericalVectorFieldLib import unit_field
+from ..AssemblyBaseMagnetizer.VectorFieldRegistry import evaluate_vector_field
 from ..AssemblyBaseOrchestrator import sobol_zyz_rotations, write_rotdata_loop
 
 
@@ -90,8 +90,8 @@ def _normalize_field_parameter_cases(field_parameter_cases):
         raise ValueError("field_parameter_cases must contain at least one parameter dictionary.")
 
     for index, field_params in enumerate(normalized, start=1):
-        if "field_type" not in field_params:
-            raise KeyError(f"field_parameter_cases[{index}] is missing 'field_type'.")
+        if "field_type" not in field_params and "library" not in field_params:
+            raise KeyError(f"field_parameter_cases[{index}] is missing 'field_type' or 'library'.")
 
     return normalized
 
@@ -112,7 +112,7 @@ def _write_single_object_field_variants(
 
     output_files = []
     for index, field_params in enumerate(field_parameter_cases, start=1):
-        mx, my, mz = unit_field(x, y, z, diameter, field_params)
+        mx, my, mz = evaluate_vector_field(x, y, z, diameter, field_params)
         output_data = np.column_stack((x, y, z, mx, my, mz))
 
         output_path = output_dir / f"{output_file_prefix}_{index}.csv"
@@ -187,8 +187,10 @@ def write_spherical_replication_vectorfield_sweep(
     n_replications : int
         Number of replicated objects used by NuMagSANS replication import.
     field_parameter_cases : dict or iterable of dict, optional
-        Parameter dictionaries passed directly to
-        ``SphericalVectorFieldLib.unit_field``.
+        Parameter dictionaries passed to the SystemDesigner vector-field
+        registry. Cases without ``library`` use the spherical vector-field
+        model family. Cases with ``library="operator_kernel"`` use the
+        operator-kernel model family.
     n_rotdata : int, optional
         Number of angular distribution files to write.
     beta_min, beta_max : float or array-like, optional

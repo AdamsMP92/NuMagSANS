@@ -161,6 +161,82 @@ def evaluate_color_field(color_by, positions, vectors):
     return field_name, values
 
 
+def _mesh_from_vectors(pv, positions, vectors, color_field_name=None, color_values=None):
+    """Create a PyVista point mesh with magnetization vectors and optional scalars."""
+    mesh = pv.PolyData(positions)
+    mesh["magnetization"] = vectors
+    mesh["mx"] = vectors[:, 0]
+    mesh["my"] = vectors[:, 1]
+    mesh["mz"] = vectors[:, 2]
+    mesh["magnitude"] = np.linalg.norm(vectors, axis=1)
+
+    if color_field_name is not None:
+        mesh[color_field_name] = color_values
+
+    return mesh
+
+
+def _glyph_from_mesh(mesh, pv, vector_scale, center_vectors=False, arrow_kwargs=None):
+    """Create vector glyphs from a point mesh."""
+    if mesh.n_points == 0:
+        return pv.PolyData()
+
+    arrow_kwargs = arrow_kwargs or {}
+    use_custom_arrow = center_vectors or bool(arrow_kwargs)
+
+    if use_custom_arrow:
+        arrow = pv.Arrow(
+            start=(-0.5, 0.0, 0.0) if center_vectors else (0.0, 0.0, 0.0),
+            direction=(1.0, 0.0, 0.0),
+            scale=1.0,
+            **arrow_kwargs,
+        )
+        return mesh.glyph(
+            orient="magnetization",
+            scale=False,
+            factor=float(vector_scale),
+            geom=arrow,
+        )
+
+    return mesh.glyph(orient="magnetization", scale=False, factor=float(vector_scale))
+
+
+def _axis_index(axis):
+    """Return the Cartesian column index for an axis name."""
+    axis = str(axis).lower()
+    if axis == "x":
+        return 0
+    if axis == "y":
+        return 1
+    if axis == "z":
+        return 2
+    raise ValueError("cut axes must be selected from 'x', 'y', and 'z'.")
+
+
+def _cut_mask(positions, cut_values, cut_mode):
+    """Return a boolean mask for Cartesian cut-slider values."""
+    mask = np.ones(len(positions), dtype=bool)
+    for axis, value in cut_values.items():
+        coordinate = positions[:, _axis_index(axis)]
+        if cut_mode == "upper":
+            mask &= coordinate <= value
+        elif cut_mode == "lower":
+            mask &= coordinate >= value
+        else:
+            raise ValueError("cut_mode must be either 'upper' or 'lower'.")
+    return mask
+
+
+def _scalar_clim(values):
+    """Return a non-degenerate scalar color range."""
+    value_min = float(np.min(values))
+    value_max = float(np.max(values))
+    if value_min == value_max:
+        pad = 1.0 if value_min == 0.0 else abs(value_min) * 0.05
+        return value_min - pad, value_max + pad
+    return value_min, value_max
+
+
 def plot_magnetization_file(
     filename,
     vector_scale=1.0,
@@ -181,6 +257,9 @@ def plot_magnetization_file(
     cmap="viridis",
     show_scalar_bar=True,
     scalar_bar_title=None,
+    enable_cut_sliders=False,
+    cut_axes=("x", "y", "z"),
+    cut_mode="upper",
     background="white",
     window_size=(1100, 850),
     show=True,
@@ -229,6 +308,17 @@ def plot_magnetization_file(
         If ``True``, show a scalar bar for the vector coloring.
     scalar_bar_title : str, optional
         Custom scalar bar title. Defaults to the selected color field name.
+    enable_cut_sliders : bool, optional
+        If ``True``, add interactive Cartesian cut sliders. In the default
+        ``cut_mode="upper"``, each slider shows points with coordinate values
+        below the current threshold. The initial slider positions show the full
+        vector field.
+    cut_axes : tuple of str, optional
+        Cartesian axes for which sliders are created. Allowed entries are
+        ``"x"``, ``"y"``, and ``"z"``.
+    cut_mode : {"upper", "lower"}, optional
+        In ``"upper"`` mode, show points with coordinate ``<=`` threshold.
+        In ``"lower"`` mode, show points with coordinate ``>=`` threshold.
     background : str, optional
         Plot background color.
     window_size : tuple, optional
@@ -260,16 +350,7 @@ def plot_magnetization_file(
         seed=seed,
     )
 
-    mesh = pv.PolyData(positions)
-    mesh["magnetization"] = vectors
-    mesh["mx"] = vectors[:, 0]
-    mesh["my"] = vectors[:, 1]
-    mesh["mz"] = vectors[:, 2]
-    mesh["magnitude"] = np.linalg.norm(vectors, axis=1)
-
     color_field_name, color_values = evaluate_color_field(color_by, positions, vectors)
-    if color_field_name is not None:
-        mesh[color_field_name] = color_values
 
     arrow_kwargs = {
         "tip_length": arrow_tip_length,
@@ -279,40 +360,96 @@ def plot_magnetization_file(
         "shaft_resolution": arrow_shaft_resolution,
     }
     arrow_kwargs = {key: value for key, value in arrow_kwargs.items() if value is not None}
-    use_custom_arrow = center_vectors or bool(arrow_kwargs)
-
-    if use_custom_arrow:
-        arrow = pv.Arrow(
-            start=(-0.5, 0.0, 0.0) if center_vectors else (0.0, 0.0, 0.0),
-            direction=(1.0, 0.0, 0.0),
-            scale=1.0,
-            **arrow_kwargs,
-        )
-        glyphs = mesh.glyph(
-            orient="magnetization",
-            scale=False,
-            factor=float(vector_scale),
-            geom=arrow,
-        )
-    else:
-        glyphs = mesh.glyph(orient="magnetization", scale=False, factor=float(vector_scale))
 
     plotter = pv.Plotter(window_size=window_size)
     plotter.set_background(background)
 
-    if show_points:
-        plotter.add_mesh(mesh, color=point_color, point_size=point_size, render_points_as_spheres=True)
+    active_cut_axes = tuple(dict.fromkeys(str(axis).lower() for axis in cut_axes))
+    for axis in active_cut_axes:
+        _axis_index(axis)
 
-    if color_field_name is None:
-        plotter.add_mesh(glyphs, color=vector_color)
-    else:
-        plotter.add_mesh(
-            glyphs,
-            scalars=color_field_name,
-            cmap=cmap,
-            show_scalar_bar=show_scalar_bar,
-            scalar_bar_args={"title": scalar_bar_title or color_field_name},
+    if cut_mode not in {"upper", "lower"}:
+        raise ValueError("cut_mode must be either 'upper' or 'lower'.")
+
+    cut_values = {}
+    for axis in active_cut_axes:
+        axis_values = positions[:, _axis_index(axis)]
+        cut_values[axis] = float(np.max(axis_values) if cut_mode == "upper" else np.min(axis_values))
+
+    actors = {
+        "points": None,
+        "glyphs": None,
+    }
+
+    def add_vector_actors(mask):
+        active_positions = positions[mask]
+        active_vectors = vectors[mask]
+        active_color_values = color_values[mask] if color_values is not None else None
+        mesh = _mesh_from_vectors(
+            pv,
+            active_positions,
+            active_vectors,
+            color_field_name=color_field_name,
+            color_values=active_color_values,
         )
+        glyphs = _glyph_from_mesh(
+            mesh,
+            pv,
+            vector_scale=vector_scale,
+            center_vectors=center_vectors,
+            arrow_kwargs=arrow_kwargs,
+        )
+
+        if show_points:
+            actors["points"] = plotter.add_mesh(
+                mesh,
+                color=point_color,
+                point_size=point_size,
+                render_points_as_spheres=True,
+            )
+
+        if color_field_name is None or glyphs.n_points == 0:
+            actors["glyphs"] = plotter.add_mesh(glyphs, color=vector_color)
+        else:
+            actors["glyphs"] = plotter.add_mesh(
+                glyphs,
+                scalars=color_field_name,
+                cmap=cmap,
+                clim=_scalar_clim(color_values),
+                show_scalar_bar=show_scalar_bar,
+                scalar_bar_args={"title": scalar_bar_title or color_field_name},
+            )
+
+    def update_cut(axis, value):
+        cut_values[axis] = float(value)
+        for actor_name in ("points", "glyphs"):
+            if actors[actor_name] is not None:
+                plotter.remove_actor(actors[actor_name])
+                actors[actor_name] = None
+
+        add_vector_actors(_cut_mask(positions, cut_values, cut_mode))
+        plotter.render()
+
+    add_vector_actors(_cut_mask(positions, cut_values, cut_mode))
+
+    if enable_cut_sliders:
+        slider_positions = {
+            "x": ((0.05, 0.92), (0.35, 0.92)),
+            "y": ((0.38, 0.92), (0.68, 0.92)),
+            "z": ((0.71, 0.92), (0.95, 0.92)),
+        }
+        for axis in active_cut_axes:
+            axis_values = positions[:, _axis_index(axis)]
+            value_range = (float(np.min(axis_values)), float(np.max(axis_values)))
+            pointa, pointb = slider_positions.get(axis, ((0.05, 0.92), (0.35, 0.92)))
+            plotter.add_slider_widget(
+                lambda value, selected_axis=axis: update_cut(selected_axis, value),
+                rng=value_range,
+                value=cut_values[axis],
+                title=f"{axis} cut",
+                pointa=pointa,
+                pointb=pointb,
+            )
 
     plotter.add_axes()
     plotter.show_bounds(grid="front", location="outer")

@@ -1,11 +1,17 @@
+import sys
 from pathlib import Path
 
 import numpy as np
 
-from NuMagSANS.SystemDesigner.AssemblyAnalyzer import plot_magnetization_file
-from NuMagSANS.SystemDesigner.Workflows import write_spherical_replication_vectorfield_sweep
+BASE_DIR = Path(__file__).resolve().parent
+REPO_ROOT = BASE_DIR.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
-OUTPUT_DIR = Path("Playground_VectorFieldSurvey")
+from NuMagSANS.SystemDesigner.AssemblyAnalyzer import plot_magnetization_file  # noqa: E402
+from NuMagSANS.SystemDesigner.Workflows import write_spherical_replication_vectorfield_sweep  # noqa: E402
+
+OUTPUT_DIR = BASE_DIR / "Playground_VectorFieldSurvey"
 
 # Set this to an integer, for example 3, to inspect only m_3.csv.
 # Set it to "all" to walk through all generated vector-field variants.
@@ -65,6 +71,33 @@ FIELD_PARAMETER_CASES = [
         "m_0": 1.0,
         "m_1": 0.05,
     },
+    {
+        "label": "operator-kernel Gaussian vortex",
+        "library": "operator_kernel",
+        "kernel_type": "gaussian",
+        "sigma": [0.35, 0.35, 0.35],
+        "component_specs": ["-a * dy", "a * dx", "c"],
+        "operator_parameters": {"a": 0.8, "c": 0.55},
+        "normalize": True,
+    },
+    {
+        "label": "operator-kernel Gaussian skyrmion-like",
+        "library": "operator_kernel",
+        "kernel_type": "gaussian",
+        "sigma": [0.42, 0.42, 0.32],
+        "component_specs": ["-a * dy", "a * dx", "c + d * (dx^2 + dy^2)"],
+        "operator_parameters": {"a": 0.7, "c": -1.6, "d": -0.5},
+        "normalize": True,
+    },
+    {
+        "label": "operator-kernel Sech vortex",
+        "library": "operator_kernel",
+        "kernel_type": "sech",
+        "a": [2.0, 2.0, 2.4],
+        "component_specs": ["-a * dy", "a * dx", "c"],
+        "operator_parameters": {"a": 0.8, "c": 0.55},
+        "normalize": True,
+    },
 ]
 
 
@@ -102,7 +135,7 @@ for index in _plot_indices(PLOT_SELECTION, len(FIELD_PARAMETER_CASES)):
     field_params = FIELD_PARAMETER_CASES[index - 1]
     print(f"Plotting m_{index}.csv: {field_params['label']}")
 
-    if index == 6: 
+    if index == 6:
         cb = "mx"
     else:
         cb = "mz"
@@ -120,4 +153,5 @@ for index in _plot_indices(PLOT_SELECTION, len(FIELD_PARAMETER_CASES)):
         show_points=True,
         color_by=cb,
         scalar_bar_title=cb,
+        enable_cut_sliders=True,
     )

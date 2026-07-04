@@ -83,7 +83,10 @@ SystemDesigner/
     AssemblyBaseMagnetizer/
         MagnetizationBase.py
         MagnetizationBaseTemplates.py
-        SphericalVectorFieldLib.py
+        VectorFieldModels/
+            SphericalVectorFieldLib.py
+            OperatorKernelVectorFieldLib.py
+        VectorFieldRegistry.py
         AssemblyBaseMagnetizer.py
         __init__.py
 
@@ -337,7 +340,9 @@ The magnetizer branch is in preparation. Implemented components are:
 \begin{lstlisting}
 SystemDesigner/AssemblyBaseMagnetizer/MagnetizationBase.py
 SystemDesigner/AssemblyBaseMagnetizer/MagnetizationBaseTemplates.py
-SystemDesigner/AssemblyBaseMagnetizer/SphericalVectorFieldLib.py
+SystemDesigner/AssemblyBaseMagnetizer/VectorFieldModels/SphericalVectorFieldLib.py
+SystemDesigner/AssemblyBaseMagnetizer/VectorFieldModels/OperatorKernelVectorFieldLib.py
+SystemDesigner/AssemblyBaseMagnetizer/VectorFieldRegistry.py
 \end{lstlisting}
 
 The magnetizer is intended to operate on local object coordinates only. It
@@ -379,7 +384,7 @@ These templates describe local field parameters only. For example, a local
 vortex template may define \texttt{field\_type}, \texttt{profile\_type},
 \texttt{xi\_type}, \texttt{kappa}, \texttt{turns}, and \texttt{chirality}.
 
-\subsection{SphericalVectorFieldLib.py}
+\subsection{VectorFieldModels/SphericalVectorFieldLib.py}
 
 This module is a local analytical vector-field library. It does not read
 \texttt{Local\_Objects}, and it does not write \texttt{MagData}. Higher-level

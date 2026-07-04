@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 
 from .MagnetizationBase import sample_field_params
-from .SphericalVectorFieldLib import unit_field
+from .VectorFieldModels.SphericalVectorFieldLib import unit_field
 
 SPHERICAL_VECTOR_FIELD_TEMPLATE = "spherical_unit_field"
 
