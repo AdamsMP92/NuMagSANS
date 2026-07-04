@@ -26,7 +26,7 @@ jobs:
         run: ruff --version
 
       - name: Run ruff lint
-        run: ruff check NuMagSANS examples
+        run: ruff check NuMagSANS examples tests playground
 
       - name: Run ruff format check
-        run: ruff format --check NuMagSANS examples
+        run: ruff format --check NuMagSANS examples tests playground

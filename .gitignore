@@ -1,7 +1,11 @@
 .DS_Store
 **/.DS_Store
 .ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
 .vscode/
+*.egg-info/
 __pycache__/
 **/__pycache__/
 *.py[cod]

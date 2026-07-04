@@ -6,7 +6,7 @@ ci:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-merge-conflict
@@ -21,7 +21,7 @@ repos:
     rev: v0.15.17
     hooks:
       - id: ruff-check
-        files: ^(NuMagSANS|examples)/.*\.py$
+        files: ^(NuMagSANS|examples|tests|playground)/.*\.py$
         args: [--fix]
       - id: ruff-format
-        files: ^(NuMagSANS|examples)/.*\.py$
+        files: ^(NuMagSANS|examples|tests|playground)/.*\.py$
