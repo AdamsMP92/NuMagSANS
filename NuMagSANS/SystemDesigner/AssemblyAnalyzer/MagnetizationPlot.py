@@ -237,6 +237,23 @@ def _scalar_clim(values):
     return value_min, value_max
 
 
+def _resolve_scalar_clim(values, clim=None):
+    """Return either a user-provided or data-derived scalar color range."""
+    if clim is None:
+        return _scalar_clim(values)
+
+    try:
+        cmin, cmax = clim
+    except (TypeError, ValueError) as error:
+        raise ValueError("clim must contain exactly two values: (min, max).") from error
+
+    cmin = float(cmin)
+    cmax = float(cmax)
+    if cmax <= cmin:
+        raise ValueError("clim maximum must be greater than clim minimum.")
+    return cmin, cmax
+
+
 def _save_plotter_png(plotter, filename):
     """Save a PyVista plotter screenshot through Matplotlib."""
     filename = Path(filename)
@@ -274,6 +291,7 @@ def plot_magnetization_file(
     point_color="black",
     color_by=None,
     cmap="viridis",
+    clim=None,
     show_scalar_bar=True,
     scalar_bar_title=None,
     enable_cut_sliders=False,
@@ -325,6 +343,11 @@ def plot_magnetization_file(
         and return one scalar per vector.
     cmap : str, optional
         PyVista/Matplotlib color map used when ``color_by`` is active.
+    clim : tuple of float, optional
+        Fixed scalar color range used when ``color_by`` is active. For
+        normalized magnetization components, use ``clim=(-1.0, 1.0)`` to keep
+        the color bar comparable across multiple plots. If omitted, the color
+        range is inferred from the plotted data.
     show_scalar_bar : bool, optional
         If ``True``, show a scalar bar for the vector coloring.
     scalar_bar_title : str, optional
@@ -450,7 +473,7 @@ def plot_magnetization_file(
                 glyphs,
                 scalars=color_field_name,
                 cmap=cmap,
-                clim=_scalar_clim(color_values),
+                clim=_resolve_scalar_clim(color_values, clim),
                 show_scalar_bar=show_scalar_bar,
                 scalar_bar_args={"title": scalar_bar_title or color_field_name},
             )

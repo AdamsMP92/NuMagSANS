@@ -8,6 +8,7 @@ from NuMagSANS.SystemDesigner.AssemblyAnalyzer import (
 )
 from NuMagSANS.SystemDesigner.AssemblyAnalyzer.MagnetizationPlot import (
     _cut_mask,
+    _resolve_scalar_clim,
     _save_plotter_png,
     _scalar_clim,
 )
@@ -94,9 +95,16 @@ def test_cut_mask_and_scalar_clim_helpers():
     assert np.array_equal(_cut_mask(positions, {"x": 0.5}, "upper"), [True, False, True, True])
     assert np.array_equal(_cut_mask(positions, {"z": 1.0}, "lower"), [False, False, False, True])
     assert _scalar_clim(np.array([1.0, 1.0])) == (0.95, 1.05)
+    assert _resolve_scalar_clim(np.array([-0.2, 0.3]), (-1, 1)) == (-1.0, 1.0)
 
     with pytest.raises(ValueError, match="cut_mode"):
         _cut_mask(positions, {"x": 0.0}, "bad")
+
+    with pytest.raises(ValueError, match="exactly two"):
+        _resolve_scalar_clim(np.array([-0.2, 0.3]), (0,))
+
+    with pytest.raises(ValueError, match="greater"):
+        _resolve_scalar_clim(np.array([-0.2, 0.3]), (1, -1))
 
 
 def test_save_plotter_png_uses_screenshot_image(tmp_path):

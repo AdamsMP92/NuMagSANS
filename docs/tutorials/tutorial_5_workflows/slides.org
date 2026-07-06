@@ -1,0 +1,188 @@
+#+TITLE:    @@latex:\hfill\vspace*{0ex}\includegraphics[width=3.0cm]{../../_static/NuMagSANSlogo.png}\vspace{3.5ex}\newline NuMagSANS Tutorial 5 - Longitudinal Helix Sweep@@
+#+AUTHOR:   \vspace{-0.5cm} NuMagSANS Tutorials - Michael P. Adams \newline \vspace{0ex}
+#+DATE:     06.07.2026
+#+EMAIL:    Email - does not show on title page by default
+#+LANGUAGE: en
+#+OPTIONS:  H:1 num:t toc:nil \n:nil ::t |:t ^:t -:t f:t *:t tex:t d:(HIDE) tags:not-in-toc <:t
+#+OPTIONS:  d:nil todo:t pri:nil
+#+STARTUP: beamer
+#+LaTeX_CLASS_OPTIONS: [aspectratio=169]
+#+LATEX_HEADER: \usetheme{metropolis}
+#+LATEX_HEADER: \setbeamertemplate{frame footer}{}
+#+LATEX_HEADER: \metroset{block=fill}
+#+LATEX_HEADER: \definecolor{NuMagSANSBlue}{RGB}{31,91,148}
+#+LATEX_HEADER: \definecolor{NuMagSANSRed}{RGB}{136,37,80}
+#+LATEX_HEADER: \definecolor{NuMagSANSGreen}{RGB}{28,116,48}
+#+LATEX_HEADER: \definecolor{White}{RGB}{255,255,255}
+#+LATEX_HEADER: \definecolor{Black}{RGB}{0,0,0}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=White,bg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{structure}{fg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{progress bar}{fg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=NuMagSANSRed}
+#+LATEX_HEADER: \setbeamercolor{example text}{fg=NuMagSANSGreen}
+#+LATEX_HEADER: \setbeamercolor{normal text}{fg=Black}
+#+LATEX_HEADER: \setbeamercolor{background canvas}{bg=white}
+#+LATEX_HEADER: \usepackage{amssymb}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+#+LATEX_HEADER: \usepackage[export]{adjustbox}
+#+LATEX_HEADER: \usepackage{hyperref}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \setminted{fontsize=\tiny,breaklines=true,breakanywhere=true}
+#+LATEX_HEADER:\newcommand{\vcenteredinclude}[2]{\begingroup\setbox0=\hbox{\includegraphics[#1]{#2}}\parbox{\wd0}{\box0}\endgroup}
+
+* Goal
+Build a two-dimensional sweep for a longitudinal helical magnetic sphere.
+
+- Materialize one spherical local object.
+- Write 16 vector-field files ~m_1.csv~ to ~m_16.csv~.
+- Sweep the longitudinal component \(\lambda=0,\ldots,10\).
+- Write 16 orientation-distribution files ~RotData_1.csv~ to ~RotData_16.csv~.
+- Sweep \(\beta_2=0^\circ,\ldots,180^\circ\) while keeping \(\beta_1=0^\circ\).
+
+* Longitudinal Helix
+The local magnetic state is a transverse helix plus a constant longitudinal component.
+
+#+begin_export latex
+\[
+\begin{aligned}
+\mathbf{m}'(z) &=
+\mathbf{e}_{x}\cos(kz+\varphi_{0})
++ \chi\,\mathbf{e}_{y}\sin(kz+\varphi_{0})
++ \lambda\,\mathbf{e}_{z},\\
+\mathbf{m}(z) &= \mathbf{m}'(z)/|\mathbf{m}'(z)|
+\end{aligned}
+\]
+#+end_export
+
+- ~k~ controls the pitch.
+- ~chi~ controls the chirality.
+- ~lambda~ controls the longitudinal component before normalization.
+- ~normalize=True~ keeps the magnetization length fixed.
+
+* Sweep Parameters
+Both sweeps use 16 inclusive support points.
+
+#+begin_export latex
+\[
+\lambda_i = \frac{10}{15}i,\qquad i=0,\ldots,15
+\]
+\[
+\beta_{2,j}=j\cdot 12^\circ,\qquad j=0,\ldots,15
+\]
+#+end_export
+
+- \(180^\circ/(16-1)=12^\circ\).
+- \(\lambda\) uses 16 evenly spaced values from 0 to 10.
+- \(\beta_1=0^\circ\) for every RotData file.
+- NuMagSANS later combines the 16 magnetic states with the 16 RotData files.
+
+* Python File
+Create a file named ~longitudinal_helix_lambda_beta_sweep.py~.
+
+#+begin_src python
+import math
+from pathlib import Path
+
+import numpy as np
+
+from NuMagSANS.SystemDesigner.Workflows import (
+    write_spherical_replication_vectorfield_sweep,
+)
+#+end_src
+
+* Field Cases
+Each entry writes one file ~MagData/Object_1/m_i.csv~.
+
+#+begin_src python
+lambda_values = np.linspace(0.0, 10.0, 16)
+
+field_parameter_cases = [
+    {
+        "field_type": "longitudinal_helix",
+        "k": 2.0 * math.pi / pitch_nm,
+        "chirality": chirality,
+        "phase": phase,
+        "lambda": lambda_value,
+        "normalize": True,
+    }
+    for lambda_value in lambda_values
+]
+#+end_src
+
+* RotData Cases
+Each entry writes one file ~RotData/RotData_j.csv~.
+
+#+begin_src python
+beta2_values = np.linspace(0.0, math.pi, 16)
+beta1_values = np.zeros_like(beta2_values)
+#+end_src
+
+Here ~beta1_values~ are passed as ~beta_min~, and ~beta2_values~ are passed as ~beta_max~.
+
+* Generate Real-Space Data
+The workflow writes one object, 16 magnetization files, and 16 RotData files.
+
+#+begin_src python
+summary = write_spherical_replication_vectorfield_sweep(
+    output_dir=Path(__file__).resolve().parent / "LongitudinalHelixSweep_R20",
+    R=20.0,
+    a=1.0,
+    atomtype="Fe",
+    n_replications=1024,
+    field_parameter_cases=field_parameter_cases,
+    n_rotdata=len(beta2_values),
+    beta_min=beta1_values,
+    beta_max=beta2_values,
+    rotation_seed=1,
+)
+#+end_src
+
+* Run Locally
+Run the generator from the NuMagSANS repository root.
+
+#+begin_src bash
+python tutorials/tutorial_5/longitudinal_helix_lambda_beta_sweep.py
+#+end_src
+
+The generated data are written to
+~tutorials/tutorial_5/LongitudinalHelixSweep_R20/RealSpaceData~.
+Set ~WRITE_DIAGNOSTIC_PNG=True~ in the script to additionally write an off-screen
+PyVista diagnostic image for each ~m_i.csv~.
+
+* Generated Data
+The workflow creates one real-space object and two sweep axes.
+
+- ~Local_Objects/Object_1/pos.csv~: lattice positions inside the sphere.
+- ~Local_Objects/Object_1/atomtype.csv~: atom labels.
+- ~Local_Objects/Object_1/meta.csv~: object metadata.
+- ~MagData/Object_1/m_1.csv~ to ~m_16.csv~: 16 values from \(\lambda=0\) to \(10\).
+- ~RotData/RotData_1.csv~ to ~RotData_16.csv~: \(\beta_2=0^\circ,\ldots,180^\circ\).
+
+* NuMagSANS Loop
+The run script activates both sweep axes.
+
+#+begin_src python
+RotDataLoop_From = 1
+RotDataLoop_To = 16
+Loop_From = 1
+Loop_To = 16
+User_Selection = list(range(1, 17))
+RotData_User_Selection = list(range(1, 17))
+#+end_src
+
+This creates a \(16\times16\) simulation grid over magnetic state and orientation distribution.
+
+* Run NuMagSANS
+Use the generated data as input for a NuMagSANS simulation.
+
+#+begin_src bash
+python tutorials/tutorial_5/run_numagsans_longitudinal_helix_sweep.py
+#+end_src
+
+The script writes a config file in
+~tutorials/tutorial_5/LongitudinalHelixSweep_R20~,
+starts NuMagSANS, and stores CSV output in the dataset output folder.

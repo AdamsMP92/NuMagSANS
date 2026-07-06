@@ -40,6 +40,54 @@ def test_spherical_vortex_unit_field_is_finite_and_normalized():
     _assert_unit_vectors(mx, my, mz)
 
 
+def test_longitudinal_helix_is_normalized_after_adding_lambda_component():
+    x, y, z = _sample_coordinates()
+    params = {
+        "field_type": "longitudinal_helix",
+        "k": 0.7,
+        "chirality": 1.0,
+        "lambda": 0.5,
+    }
+
+    mx, my, mz = spherical_unit_field(x, y, z, D=2.0, params=params)
+
+    _assert_unit_vectors(mx, my, mz)
+    assert np.allclose(mz, 0.5 / np.sqrt(1.25))
+
+
+def test_longitudinal_helix_normalization_can_be_disabled():
+    x, y, z = _sample_coordinates()
+    params = {
+        "field_type": "longitudinal_helix",
+        "k": 0.7,
+        "chirality": 1.0,
+        "lambda_z": 0.5,
+        "normalize": False,
+    }
+
+    mx, my, mz = spherical_unit_field(x, y, z, D=2.0, params=params)
+    norm = np.sqrt(mx**2 + my**2 + mz**2)
+
+    assert np.allclose(mz, 0.5)
+    assert np.allclose(norm, np.sqrt(1.25))
+
+
+def test_spherical_legacy_additional_normalize_key_is_still_accepted():
+    x, y, z = _sample_coordinates()
+    params = {
+        "field_type": "longitudinal_helix",
+        "k": 0.7,
+        "chirality": 1.0,
+        "lambda_z": 0.5,
+        "additional_normalize": False,
+    }
+
+    mx, my, mz = spherical_unit_field(x, y, z, D=2.0, params=params)
+    norm = np.sqrt(mx**2 + my**2 + mz**2)
+
+    assert np.allclose(norm, np.sqrt(1.25))
+
+
 def test_operator_kernel_gaussian_field_is_finite_and_normalized():
     x, y, z = _sample_coordinates()
     params = {

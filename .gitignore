@@ -11,3 +11,5 @@ __pycache__/
 *.py[cod]
 *$py.class
 Playground_*/
+tutorials/*/VectorFieldSurvey/
+tutorials/tutorial_5/LongitudinalHelixSweep_R20/
