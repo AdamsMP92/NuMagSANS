@@ -22,9 +22,7 @@ def main():
     scattering_volume = n_replications * (4.0 / 3.0) * math.pi * (radius_nm * 1e-9) ** 3
 
     if not real_space_dir.exists():
-        raise FileNotFoundError(
-            f"Could not find {real_space_dir}. Run helical_single_sphere.py first."
-        )
+        raise FileNotFoundError(f"Could not find {real_space_dir}. Run helical_single_sphere.py first.")
 
     sim = NuMagSANS()
     config = dataset_dir / "NuMagSANSInput_helical_sphere.conf"

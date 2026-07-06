@@ -21,7 +21,7 @@ repos:
     rev: v0.15.17
     hooks:
       - id: ruff-check
-        files: ^(NuMagSANS|examples|tests|playground)/.*\.py$
+        files: ^(NuMagSANS|examples|tests|tutorials)/.*\.py$
         args: [--fix]
       - id: ruff-format
-        files: ^(NuMagSANS|examples|tests|playground)/.*\.py$
+        files: ^(NuMagSANS|examples|tests|tutorials)/.*\.py$

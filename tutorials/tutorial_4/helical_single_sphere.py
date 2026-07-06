@@ -55,7 +55,7 @@ def main():
         arrow_tip_length=0.63,
         arrow_tip_radius=0.15,
         arrow_shaft_radius=0.06,
-        #output_png="helical_sphere.png",
+        # output_png="helical_sphere.png",
     )
 
 
