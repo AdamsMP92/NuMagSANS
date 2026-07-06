@@ -6,7 +6,11 @@ from NuMagSANS.SystemDesigner.AssemblyAnalyzer import (
     evaluate_color_field,
     load_magnetization_file,
 )
-from NuMagSANS.SystemDesigner.AssemblyAnalyzer.MagnetizationPlot import _cut_mask, _scalar_clim
+from NuMagSANS.SystemDesigner.AssemblyAnalyzer.MagnetizationPlot import (
+    _cut_mask,
+    _save_plotter_png,
+    _scalar_clim,
+)
 
 
 def test_load_magnetization_file(tmp_path):
@@ -93,3 +97,15 @@ def test_cut_mask_and_scalar_clim_helpers():
 
     with pytest.raises(ValueError, match="cut_mode"):
         _cut_mask(positions, {"x": 0.0}, "bad")
+
+
+def test_save_plotter_png_uses_screenshot_image(tmp_path):
+    class FakePlotter:
+        def screenshot(self, return_img=False):
+            assert return_img is True
+            return np.zeros((4, 5, 3), dtype=np.uint8)
+
+    output = _save_plotter_png(FakePlotter(), tmp_path / "nested" / "plot.png")
+
+    assert output == tmp_path / "nested" / "plot.png"
+    assert output.exists()

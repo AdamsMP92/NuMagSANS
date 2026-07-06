@@ -1,8 +1,8 @@
 """Local plotting helpers for materialized magnetization files.
 
-These functions are intended for interactive inspection on a local workstation.
-They are not used by the SystemDesigner workflows and should not be part of
-standard HPC production runs.
+These functions are intended for inspection on a local workstation or for
+headless diagnostic images in batch environments. They are not used by the
+SystemDesigner workflows and should not be part of standard HPC production runs.
 """
 
 from pathlib import Path
@@ -237,6 +237,25 @@ def _scalar_clim(values):
     return value_min, value_max
 
 
+def _save_plotter_png(plotter, filename):
+    """Save a PyVista plotter screenshot through Matplotlib."""
+    filename = Path(filename)
+    filename.parent.mkdir(parents=True, exist_ok=True)
+
+    image = plotter.screenshot(return_img=True)
+
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError as error:
+        raise ImportError(
+            "Saving a PyVista plot as PNG requires matplotlib. Install it locally "
+            "with `pip install matplotlib` or use an environment that provides it."
+        ) from error
+
+    plt.imsave(filename, image)
+    return filename
+
+
 def plot_magnetization_file(
     filename,
     vector_scale=1.0,
@@ -263,6 +282,8 @@ def plot_magnetization_file(
     background="white",
     window_size=(1100, 850),
     show=True,
+    output_png=None,
+    off_screen=None,
     return_plotter=False,
 ):
     """Plot one magnetization file as a PyVista vector-field glyph plot.
@@ -325,6 +346,14 @@ def plot_magnetization_file(
         PyVista render window size.
     show : bool, optional
         If ``True``, open the interactive PyVista window.
+    output_png : str or pathlib.Path, optional
+        If provided, render the PyVista scene to an image and save it as a PNG
+        through Matplotlib. This is useful for headless diagnostic runs on HPC
+        systems. When ``output_png`` is set, off-screen rendering is enabled and
+        the interactive window is not opened.
+    off_screen : bool, optional
+        Forwarded to ``pyvista.Plotter``. Defaults to ``True`` when
+        ``output_png`` is provided, otherwise ``False``.
     return_plotter : bool, optional
         If ``True``, return the PyVista plotter after adding all actors.
 
@@ -361,7 +390,13 @@ def plot_magnetization_file(
     }
     arrow_kwargs = {key: value for key, value in arrow_kwargs.items() if value is not None}
 
-    plotter = pv.Plotter(window_size=window_size)
+    if output_png is not None and show is True:
+        show = False
+
+    if off_screen is None:
+        off_screen = output_png is not None
+
+    plotter = pv.Plotter(window_size=window_size, off_screen=off_screen)
     plotter.set_background(background)
 
     active_cut_axes = tuple(dict.fromkeys(str(axis).lower() for axis in cut_axes))
@@ -453,6 +488,9 @@ def plot_magnetization_file(
 
     plotter.add_axes()
     plotter.show_bounds(grid="front", location="outer")
+
+    if output_png is not None:
+        _save_plotter_png(plotter, output_png)
 
     if show:
         plotter.show()

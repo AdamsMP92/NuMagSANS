@@ -1,0 +1,19 @@
+# Use this pixi file if errors such as 'latexminted' reports errors
+# such as
+#
+#    TypeError: ArgParser.__init__() got an unexpected keyword argument 'color' - system returned with code 256
+#
+# (A particular pygments version is needed to work around that.)
+
+[workspace]
+authors = ["NuMagSANS_Tutorials"]
+channels = ["conda-forge"]
+name = "numagsans-tutorials"
+platforms = ["osx-arm64", "osx-64", "linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+pygments = ">=2.19.2,<3"
+python = "3.13.*"
