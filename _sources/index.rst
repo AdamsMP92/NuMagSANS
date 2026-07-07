@@ -4,6 +4,7 @@
 
    Home <index>
    Getting Started <GettingStarted/index>
+   Tutorial Slides <tutorials/index>
    Example Gallery <examples/index>
    Related Publications <RelatedPublications/index>
 
