@@ -31,7 +31,27 @@
 #+LATEX_HEADER: \usepackage{hyperref}
 #+LATEX_HEADER: \usepackage{minted}
 #+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \setminted{fontsize=\tiny,breaklines=true,breakanywhere=true}
 #+LATEX_HEADER:\newcommand{\vcenteredinclude}[2]{\begingroup\setbox0=\hbox{\includegraphics[#1]{#2}}\parbox{\wd0}{\box0}\endgroup}
+
+* Running the Tutorials
+The executable tutorial scripts support two installation modes.
+
+#+begin_src bash
+# Shared setup: local workstation or HPC shell
+python -m venv .venv
+source .venv/bin/activate
+
+# Core install: data generation and NuMagSANS runs
+pip install -e .
+
+# Optional local plotting support
+pip install -e ".[tutorials]"
+#+end_src
+
+- Use the core install for batch/HPC runs.
+- Missing PyVista only disables diagnostic plots.
+- Use the ~tutorials~ extra for local vector-field inspection.
 
 * Tutorial Goal
 - Use this slide deck as a second NuMagSANS tutorial template.
