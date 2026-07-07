@@ -1,6 +1,6 @@
 #+TITLE:    @@latex:\hfill\vspace*{0ex}\includegraphics[width=3.0cm]{../../_static/NuMagSANSlogo.png}\vspace{3.5ex}\newline NuMagSANS Tutorial 4 - Helical Magnet@@
 #+AUTHOR:   \vspace{-0.5cm} NuMagSANS Tutorials - Michael P. Adams \newline \vspace{0ex}
-#+DATE:     30.06.2026
+#+DATE:     Version: @@latex:\today@@
 #+EMAIL:    Email - does not show on title page by default
 #+LANGUAGE: en
 #+OPTIONS:  H:1 num:t toc:nil \n:nil ::t |:t ^:t -:t f:t *:t tex:t d:(HIDE) tags:not-in-toc <:t

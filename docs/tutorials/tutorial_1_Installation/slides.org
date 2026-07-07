@@ -1,0 +1,220 @@
+#+TITLE:    @@latex:\hfill\vspace*{0ex}\includegraphics[width=3.0cm]{../../_static/NuMagSANSlogo.png}\vspace{3.5ex}\newline NuMagSANS Tutorial 1: HPC Installation@@
+#+AUTHOR:   \vspace{-0.5cm} NuMagSANS Tutorials - Michael P. Adams \newline \vspace{0ex}
+#+DATE:     Version: @@latex:\today@@
+#+EMAIL:    Email - does not show on title page by default
+#+LANGUAGE: en
+#+OPTIONS:  H:1 num:t toc:nil \n:nil ::t |:t ^:t -:t f:t *:t tex:t d:(HIDE) tags:not-in-toc <:t
+#+OPTIONS:  d:nil todo:t pri:nil
+#+STARTUP: beamer
+#+LaTeX_CLASS_OPTIONS: [aspectratio=169]
+#+LATEX_HEADER: \usetheme{metropolis}
+#+LATEX_HEADER: \setbeamertemplate{frame footer}{}
+#+LATEX_HEADER: \metroset{block=fill}
+#+LATEX_HEADER: \definecolor{NuMagSANSBlue}{RGB}{31,91,148}
+#+LATEX_HEADER: \definecolor{NuMagSANSRed}{RGB}{136,37,80}
+#+LATEX_HEADER: \definecolor{NuMagSANSGreen}{RGB}{28,116,48}
+#+LATEX_HEADER: \definecolor{White}{RGB}{255,255,255}
+#+LATEX_HEADER: \definecolor{Black}{RGB}{0,0,0}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=White,bg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{structure}{fg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{progress bar}{fg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=NuMagSANSRed}
+#+LATEX_HEADER: \setbeamercolor{example text}{fg=NuMagSANSGreen}
+#+LATEX_HEADER: \setbeamercolor{normal text}{fg=Black}
+#+LATEX_HEADER: \setbeamercolor{background canvas}{bg=white}
+#+LATEX_HEADER: \usepackage{amssymb}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usetikzlibrary{shapes.geometric}
+#+LATEX_HEADER: \usepackage[export]{adjustbox}
+#+LATEX_HEADER: \usepackage{hyperref}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \setminted{fontsize=\scriptsize,breaklines=true}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER:\newcommand{\vcenteredinclude}[2]{\begingroup\setbox0=\hbox{\includegraphics[#1]{#2}}\parbox{\wd0}{\box0}\endgroup}
+
+* Goal
+Install NuMagSANS on an HPC system and verify that the CUDA backend and Python
+interface work in the same software environment.
+
+- Start from an interactive GPU node.
+- Load compiler, CUDA, CMake, Python, and optional HDF5 modules.
+- Build the CUDA executable with CMake.
+- Install the Python interface in a virtual environment.
+- Run the shipped examples as installation checks.
+
+* Why HPC Installation Is Different
+On a workstation, system tools are often globally installed. On an HPC system,
+the active software stack is usually defined by the job shell.
+
+- The login node may not have a GPU.
+- CUDA, compiler, CMake, Python, and HDF5 are usually loaded as modules.
+- The module set must be consistent during build and run.
+- Temporary directories and home quotas may be limited.
+- Batch jobs need the same environment as the interactive test.
+
+* Portable Installation Pattern
+The cluster-specific commands change, but the logic is stable.
+
+#+begin_src bash
+# 1. Get a GPU shell or submit a GPU job.
+# 2. Load the cluster modules.
+# 3. Verify the tools.
+# 4. Configure and build NuMagSANS.
+# 5. Create a Python environment.
+# 6. Run the examples as smoke tests.
+#+end_src
+
+The module names and partition names are the only parts that should be treated
+as site-specific.
+
+* Required Toolchain
+Before building, the active shell should provide these commands.
+
+#+begin_src bash
+nvidia-smi
+nvcc --version
+cmake --version
+g++ --version
+python --version
+h5cc -showconfig | head -40
+#+end_src
+
+- ~nvidia-smi~ checks that the job sees an NVIDIA GPU.
+- ~nvcc~ checks the CUDA toolkit.
+- ~cmake~ configures the build.
+- ~g++~ must support C++17.
+- ~h5cc~ is needed only if the HDF5 backend is enabled.
+
+* Example: IRIS HPC
+University of Luxembourg IRIS uses modules with site-specific names.
+
+#+begin_src bash
+salloc -p interactive --gpus 1 --cpus-per-gpu 1 --mem 8G --time=60
+
+module purge
+module load lib/GDRCopy/2.4-GCCcore-13.2.0
+module load lang/Python/3.11.5-GCCcore-13.2.0
+module load system/CUDA/12.6.0
+module load devel/CMake/3.27.6-GCCcore-13.2.0
+module load data/HDF5
+#+end_src
+
+After loading modules, run the tool checks in the same shell.
+
+* Example: MPSD HPC
+The MPSD Hamburg environment uses a different module family and GPU partition.
+
+#+begin_src bash
+salloc -p gpu-interactive --gpus 1 --cpus-per-gpu 1 --mem 8G --time=60
+
+module purge
+mpsd-modules 25c native
+module load gcc/13.2.0
+module load python/3.11.7
+module load cuda/12.6.2
+module load cmake/3.27.9
+module load hdf5/1.14.3
+#+end_src
+
+The structure is the same as on IRIS; only names and versions differ.
+
+* Build NuMagSANS
+Clone and build in the same shell where the modules are loaded.
+
+#+begin_src bash
+git clone https://github.com/AdamsMP92/NuMagSANS.git
+cd NuMagSANS
+
+cmake -S . -B build \
+  -DCMAKE_CUDA_ARCHITECTURES=native \
+  -DNUMAGSANS_ENABLE_HDF5=ON
+
+cmake --build build -j
+#+end_src
+
+~CMAKE_CUDA_ARCHITECTURES=native~ asks CMake to build for the GPU available in
+the allocated node.
+
+* Python Interface
+Install the Python facade into a virtual environment created with the active
+cluster Python.
+
+#+begin_src bash
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -e .
+python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
+#+end_src
+
+The editable install keeps the Python interface connected to the checked-out
+repository.
+
+* Smoke Tests
+After building and installing, run the packaged examples.
+
+#+begin_src bash
+cd examples/example1
+python NuMagSANSrun.py
+
+cd ../example2_csv
+python NuMagSANSrun.py
+
+cd ../example2_hdf5
+python NuMagSANSrun.py
+#+end_src
+
+The CSV examples test the default output path. The HDF5 example additionally
+checks the optional HDF5 backend.
+
+* What Transfers To Other HPCs
+For a new cluster, translate the two example installations into local choices.
+
+- GPU partition name and resource request.
+- CUDA module version and NVIDIA driver compatibility.
+- C++17 compiler module.
+- CMake module, ideally CMake 3.18 or newer.
+- Python module used to create the virtual environment.
+- HDF5 module if ~NUMAGSANS_ENABLE_HDF5=ON~ is used.
+- Scratch or project path for builds and output data.
+
+* Common Pitfalls
+Most installation failures are environment mismatches rather than NuMagSANS
+input errors.
+
+- ~nvidia-smi~ fails: the shell is probably not on a GPU node.
+- ~nvcc~ missing: CUDA toolkit module is not loaded.
+- CMake finds the wrong compiler: load the compiler before configuring.
+- HDF5 build fails: disable HDF5 or load a matching HDF5 module.
+- No space left on device: set a private temporary directory.
+
+#+begin_src bash
+mkdir -p $HOME/tmp
+export TMPDIR=$HOME/tmp
+#+end_src
+
+* Batch Job Reminder
+The batch script should reproduce the tested interactive environment.
+
+#+begin_src bash
+module purge
+# load the same compiler, CUDA, CMake, Python, and HDF5 modules
+source .venv/bin/activate
+
+python tutorials/tutorial_4/run_numagsans_helical_sphere.py
+#+end_src
+
+Keep generated data and NuMagSANS output in project or scratch storage rather
+than in a small home directory.
+
+* Installation Checklist
+- Allocate a GPU node.
+- Load modules.
+- Verify ~nvidia-smi~, ~nvcc~, ~cmake~, ~g++~, and ~python~.
+- Configure with the required output backends.
+- Build with CMake.
+- Install the Python package in a virtual environment.
+- Run examples as smoke tests.
+- Reuse the same module stack in production jobs.
