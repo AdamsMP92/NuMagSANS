@@ -16,6 +16,17 @@ from NuMagSANS.SystemDesigner.Workflows import write_spherical_replication_vecto
 WRITE_DIAGNOSTIC_PNG = True
 
 
+def _load_plotter():
+    try:
+        from NuMagSANS.SystemDesigner.AssemblyAnalyzer import plot_magnetization_file
+    except ImportError as error:
+        print(f"Skipping diagnostic plots because the plotting backend is unavailable: {error}")
+        print('Install tutorial dependencies with: pip install -e ".[tutorials]"')
+        return None
+
+    return plot_magnetization_file
+
+
 def main():
     """Create one sphere with 16 longitudinal-helix fields and 16 RotData files."""
     output_dir = BASE_DIR / "LongitudinalHelixSweep_R20"
@@ -65,7 +76,9 @@ def main():
         print(f"  RotData_{index}.csv: beta_1 = 0 deg, beta_2 = {math.degrees(beta2_value):.1f} deg")
 
     if WRITE_DIAGNOSTIC_PNG:
-        from NuMagSANS.SystemDesigner.AssemblyAnalyzer import plot_magnetization_file
+        plot_magnetization_file = _load_plotter()
+        if plot_magnetization_file is None:
+            return
 
         image_dir = output_dir / "images"
         image_dir.mkdir(parents=True, exist_ok=True)
@@ -74,21 +87,26 @@ def main():
         for index, lambda_value in enumerate(lambda_values, start=1):
             mag_file = magdata_dir / f"m_{index}.csv"
             image_file = image_dir / f"longitudinal_helix_lambda_{lambda_value:g}.png"
-            plot_magnetization_file(
-                mag_file,
-                vector_scale=1.6,
-                center_vectors=True,
-                seed=1,
-                show_points=False,
-                color_by="mx",
-                cmap="coolwarm",
-                clim=(-1.0, 1.0),
-                show=False,
-                output_png=image_file,
-                arrow_tip_length=0.63,
-                arrow_tip_radius=0.15,
-                arrow_shaft_radius=0.06,
-            )
+            try:
+                plot_magnetization_file(
+                    mag_file,
+                    vector_scale=1.6,
+                    center_vectors=True,
+                    seed=1,
+                    show_points=False,
+                    color_by="mx",
+                    cmap="coolwarm",
+                    clim=(-1.0, 1.0),
+                    show=False,
+                    output_png=image_file,
+                    arrow_tip_length=0.63,
+                    arrow_tip_radius=0.15,
+                    arrow_shaft_radius=0.06,
+                )
+            except ImportError as error:
+                print(f"Skipping remaining diagnostic plots because the plotting backend is unavailable: {error}")
+                print('Install tutorial dependencies with: pip install -e ".[tutorials]"')
+                return
             print(f"Wrote diagnostic image: {image_file}")
 
 

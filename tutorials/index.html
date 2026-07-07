@@ -430,6 +430,11 @@
 slide sources in <code class="docutils literal notranslate"><span class="pre">docs/tutorials</span></code> and copied to the root <code class="docutils literal notranslate"><span class="pre">tutorials</span></code> folder
 with <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">publish</span></code>.</p>
 <p>Each PDF title page contains a version date generated at build time.</p>
+<p>The tutorial scripts generate their data with the core installation. Install the
+tutorial dependencies when you also want the diagnostic vector-field plots:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[tutorials]&quot;</span>
+</pre></div>
+</div>
 <div class="pst-scrollable-table-container"><table class="table">
 <colgroup>
 <col style="width: 20.0%" />

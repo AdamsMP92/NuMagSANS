@@ -207,6 +207,17 @@ Verify installation:
 
    python -c "from NuMagSANS import NuMagSANS; print('Installation successful')"
 
+Install the Tutorial Dependencies
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The executable tutorials can generate data with the core installation. For
+diagnostic vector-field plots, they additionally use PyVista. Install the
+tutorial extra when you want the plotting steps to run as well:
+
+.. code-block:: bash
+
+   pip install -e ".[tutorials]"
+
 
 Running an Example
 ------------------
