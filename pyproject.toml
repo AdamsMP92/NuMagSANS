@@ -25,6 +25,9 @@ dev = [
 visualization = [
     "pyvista",
 ]
+tutorials = [
+    "pyvista",
+]
 
 [tool.setuptools.packages.find]
 where = ["."]

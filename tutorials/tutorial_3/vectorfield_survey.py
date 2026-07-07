@@ -8,7 +8,6 @@ REPO_ROOT = BASE_DIR.parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from NuMagSANS.SystemDesigner.AssemblyAnalyzer import plot_magnetization_file  # noqa: E402
 from NuMagSANS.SystemDesigner.Workflows import write_spherical_replication_vectorfield_sweep  # noqa: E402
 
 OUTPUT_DIR = BASE_DIR / "VectorFieldSurvey"
@@ -125,6 +124,24 @@ def _plot_indices(selection, n_cases):
     return [index]
 
 
+def _plot_magnetization_file_if_available(*args, **kwargs):
+    try:
+        from NuMagSANS.SystemDesigner.AssemblyAnalyzer import plot_magnetization_file
+    except ImportError as error:
+        print(f"Skipping diagnostic plots because the plotting backend is unavailable: {error}")
+        print('Install tutorial dependencies with: pip install -e ".[tutorials]"')
+        return False
+
+    try:
+        plot_magnetization_file(*args, **kwargs)
+    except ImportError as error:
+        print(f"Skipping diagnostic plots because the plotting backend is unavailable: {error}")
+        print('Install tutorial dependencies with: pip install -e ".[tutorials]"')
+        return False
+
+    return True
+
+
 write_spherical_replication_vectorfield_sweep(
     output_dir=OUTPUT_DIR,
     R=20.0,
@@ -158,7 +175,7 @@ for index in _plot_indices(PLOT_SELECTION, len(FIELD_PARAMETER_CASES)):
     mag_file = magdata_dir / f"m_{index}.csv"
 
     if INTERACTIVE:
-        plot_magnetization_file(
+        if not _plot_magnetization_file_if_available(
             mag_file,
             vector_scale=1.5,
             center_vectors=True,
@@ -172,10 +189,11 @@ for index in _plot_indices(PLOT_SELECTION, len(FIELD_PARAMETER_CASES)):
             color_by=cb,
             scalar_bar_title=cb,
             enable_cut_sliders=True,
-        )
+        ):
+            break
     else:
         output_png = IMAGE_DIR / f"m_{index:02d}_{field_params['label'].replace(' ', '_')}.png"
-        plot_magnetization_file(
+        if not _plot_magnetization_file_if_available(
             mag_file,
             vector_scale=1.5,
             center_vectors=True,
@@ -190,4 +208,5 @@ for index in _plot_indices(PLOT_SELECTION, len(FIELD_PARAMETER_CASES)):
             scalar_bar_title=cb,
             show=False,
             output_png=output_png,
-        )
+        ):
+            break

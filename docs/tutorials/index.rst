@@ -7,6 +7,13 @@ with ``make publish``.
 
 Each PDF title page contains a version date generated at build time.
 
+The tutorial scripts generate their data with the core installation. Install the
+tutorial dependencies when you also want the diagnostic vector-field plots:
+
+.. code-block:: bash
+
+   pip install -e ".[tutorials]"
+
 .. list-table::
    :header-rows: 1
    :widths: 20 50 30

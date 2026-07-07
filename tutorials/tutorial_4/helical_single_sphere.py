@@ -9,8 +9,22 @@ REPO_ROOT = BASE_DIR.parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from NuMagSANS.SystemDesigner.AssemblyAnalyzer import plot_magnetization_file  # noqa: E402
 from NuMagSANS.SystemDesigner.Workflows import write_spherical_replication_vectorfield_sweep  # noqa: E402
+
+
+def _plot_magnetization_file_if_available(*args, **kwargs):
+    try:
+        from NuMagSANS.SystemDesigner.AssemblyAnalyzer import plot_magnetization_file
+    except ImportError as error:
+        print(f"Skipping diagnostic plot because the plotting backend is unavailable: {error}")
+        print('Install tutorial dependencies with: pip install -e ".[tutorials]"')
+        return
+
+    try:
+        plot_magnetization_file(*args, **kwargs)
+    except ImportError as error:
+        print(f"Skipping diagnostic plot because the plotting backend is unavailable: {error}")
+        print('Install tutorial dependencies with: pip install -e ".[tutorials]"')
 
 
 def main():
@@ -43,7 +57,7 @@ def main():
 
     mag_file = Path(summary["real_space_dir"]) / "MagData" / "Object_1" / "m_1.csv"
 
-    plot_magnetization_file(
+    _plot_magnetization_file_if_available(
         mag_file,
         vector_scale=1.6,
         center_vectors=True,
