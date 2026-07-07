@@ -1,0 +1,611 @@
+#+TITLE:    @@latex:\hfill\vspace*{0ex}\includegraphics[width=3.0cm]{../../_static/NuMagSANSlogo.png}\vspace{3.5ex}\newline NuMagSANS Tutorial 3@@
+#+AUTHOR:   \vspace{-0.5cm} NuMagSANS Tutorials - Michael P. Adams \newline \vspace{0ex}
+#+DATE:     Version: @@latex:\today@@
+#+EMAIL:    Email - does not show on title page by default
+#+LANGUAGE: en
+#+OPTIONS:  H:1 num:t toc:nil \n:nil ::t |:t ^:t -:t f:t *:t tex:t d:(HIDE) tags:not-in-toc <:t
+#+OPTIONS:  d:nil todo:t pri:nil
+#+STARTUP: beamer
+#+LaTeX_CLASS_OPTIONS: [aspectratio=169]
+#+LATEX_HEADER: \usetheme{metropolis}
+#+LATEX_HEADER: \setbeamertemplate{frame footer}{}
+#+LATEX_HEADER: \metroset{block=fill}
+#+LATEX_HEADER: \definecolor{NuMagSANSBlue}{RGB}{31,91,148}
+#+LATEX_HEADER: \definecolor{NuMagSANSRed}{RGB}{136,37,80}
+#+LATEX_HEADER: \definecolor{NuMagSANSGreen}{RGB}{28,116,48}
+#+LATEX_HEADER: \definecolor{White}{RGB}{255,255,255}
+#+LATEX_HEADER: \definecolor{Black}{RGB}{0,0,0}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=White,bg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{structure}{fg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{progress bar}{fg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=NuMagSANSRed}
+#+LATEX_HEADER: \setbeamercolor{example text}{fg=NuMagSANSGreen}
+#+LATEX_HEADER: \setbeamercolor{normal text}{fg=Black}
+#+LATEX_HEADER: \setbeamercolor{background canvas}{bg=white}
+#+LATEX_HEADER: \usepackage{amssymb}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+#+LATEX_HEADER: \usepackage[export]{adjustbox}
+#+LATEX_HEADER: \usepackage{hyperref}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \setminted{fontsize=\tiny,breaklines=true,breakanywhere=true}
+#+LATEX_HEADER:\newcommand{\vcenteredinclude}[2]{\begingroup\setbox0=\hbox{\includegraphics[#1]{#2}}\parbox{\wd0}{\box0}\endgroup}
+
+* Goal
+Generate one spherical object and compare several local magnetization models.
+
+- The script writes one shared local sphere.
+- Each parameter set writes one file ~m_i.csv~ in ~MagData/Object_1~.
+- Static PNG diagnostics are written for quick inspection and slides.
+
+* Spherical Vector-Field Library
+The spherical library combines a geometry, a radial profile, and a field ansatz.
+
+#+begin_export latex
+\scriptsize
+\begin{tabular}{llll}
+\textbf{field\_type} & \textbf{coordinate input} & \textbf{profile} & \textbf{main parameters}\\
+\hline
+\texttt{vortex} & \(\rho,\varphi\) & \(\alpha(\xi)\) & \texttt{xi\_type}, \texttt{profile\_type}, \texttt{kappa}, \texttt{turns}, \texttt{normalize}\\
+\texttt{hedgehog} & \(r,\theta,\varphi\) & \(\alpha(\xi)\) & \texttt{xi\_type}, \texttt{profile\_type}, \texttt{kappa}, \texttt{turns}, \texttt{normalize}\\
+\texttt{artichoke} & \(r,\theta,\varphi\) & \(\alpha(\xi)\) & \texttt{xi\_type}, \texttt{profile\_type}, \texttt{kappa}, \texttt{turns}, \texttt{normalize}\\
+\texttt{poloidal\_vortex} & \(r,\theta,\varphi\) & \(\alpha(\xi)\) & \texttt{xi\_type}, \texttt{profile\_type}, \texttt{kappa}, \texttt{turns}, \texttt{normalize}\\
+\texttt{skyrmion} & \(\rho,\varphi\) & built-in & \texttt{N}, \texttt{m}, \texttt{gamma}, \texttt{xi\_type}\\
+\texttt{transversal\_helix} & \(z\) & none & \texttt{k}, \texttt{chirality}, \texttt{phase}\\
+\texttt{longitudinal\_helix} & \(z\) & none & \texttt{k}, \texttt{chirality}, \texttt{phase}, \texttt{lambda}\\
+\texttt{linearized\_vortex} & \(x,y\) & none & \texttt{m\_0}, \texttt{m\_1}\\
+\end{tabular}
+#+end_export
+
+- The profile-based fields share the same \(\alpha(\xi)\) interface.
+- ~normalize=True~ normalizes the final vector field; set ~normalize=False~ to keep raw amplitudes.
+
+* Profile-Based Spherical Fields
+For the profile-based fields, the same radial tilt is inserted into different bases.
+
+#+begin_export latex
+\begingroup
+\small
+\[
+\xi =
+\begin{cases}
+\rho/R, & \texttt{cylindrical\_xi}\\
+r/R, & \texttt{spherical\_xi}
+\end{cases}
+\qquad
+\alpha=\alpha(\xi)
+\]
+\endgroup
+\begingroup
+\footnotesize
+\[
+\begin{array}{rl}
+\texttt{vortex}: & \sin\alpha\,\mathbf{e}_{\varphi}+\cos\alpha\,\mathbf{e}_z\\
+\texttt{hedgehog}: & \sin\alpha\cos\theta\,\mathbf{e}_r+\cos\alpha\,\mathbf{e}_z\\
+\texttt{artichoke}: & -\sin\alpha\,\mathbf{e}_{\theta}+\cos\alpha\,\mathbf{e}_z\\
+\texttt{poloidal\_vortex}: & \sin\alpha\,\mathbf{e}_{\theta}+\cos\alpha\,\mathbf{e}_z
+\end{array}
+\]
+\endgroup
+\begin{center}
+\scriptsize
+\begin{tabular}{llll}
+\texttt{linear} & \texttt{parabolic} & \texttt{trigonometric} & \texttt{hyperbolic}\\
+\texttt{argument\_hyperbolic} & \texttt{lorentzian} & \texttt{gaussian} & \texttt{arctan}
+\end{tabular}
+\end{center}
+#+end_export
+
+- ~turns~ multiplies \(\alpha\) before the basis components are assembled.
+- ~normalize=True~ normalizes the result after the field is evaluated.
+
+* Non-Profile Spherical Fields
+Some spherical-library fields define the vector components directly.
+
+#+begin_export latex
+\footnotesize
+\[
+\begin{array}{rll}
+\texttt{skyrmion}: &
+\left(\sin(\pi N\xi)\cos(m\varphi+\gamma),
+\sin(\pi N\xi)\sin(m\varphi+\gamma),
+\cos(\pi N\xi)\right)
+& N,m,\gamma\\[0.3ex]
+\texttt{transversal\_helix}: &
+\mathbf{e}_x\cos(kz+\varphi_0)+
+\chi\,\mathbf{e}_y\sin(kz+\varphi_0)
+& k,\chi,\varphi_0\\[0.3ex]
+\texttt{longitudinal\_helix}: &
+\mathbf{m}'_{\mathrm{helix}}+\lambda\,\mathbf{e}_z,\quad
+\mathbf{m}=\mathbf{m}'/|\mathbf{m}'|
+& k,\chi,\varphi_0,\lambda\\[0.3ex]
+\texttt{linearized\_vortex}: &
+(-m_1y,\;m_1x,\;m_0)
+& m_0,m_1
+\end{array}
+\]
+#+end_export
+
+- Useful when the texture is not primarily controlled by a radial tilt profile.
+- The final normalization can be disabled with ~normalize=False~.
+
+* Operator-Kernel Approach
+The operator-kernel library builds each component from a differential operator applied to a scalar kernel.
+
+#+begin_export latex
+\[
+\mathbf{m}'(\mathbf{r}) =
+\begin{pmatrix}
+P_x(\partial_x,\partial_y,\partial_z)K(\mathbf{r})\\
+P_y(\partial_x,\partial_y,\partial_z)K(\mathbf{r})\\
+P_z(\partial_x,\partial_y,\partial_z)K(\mathbf{r})
+\end{pmatrix},
+\qquad
+\mathbf{m}=\mathbf{m}'/|\mathbf{m}'|
+\]
+#+end_export
+
+- \(P_x,P_y,P_z\) are polynomials in the derivative symbols \(\partial_x,\partial_y,\partial_z\).
+- ~component_specs~ stores these three polynomials as strings in ~dx~, ~dy~, ~dz~.
+- In Fourier space, derivatives correspond to multipliers \(i q_x,i q_y,i q_z\).
+- ~normalize=True~ normalizes \(\mathbf{m}'\) after all components are evaluated.
+
+* Operator Specifications
+Example component specifications for a vortex-like operator-kernel field.
+
+#+begin_export latex
+\[
+\begin{array}{rclcl}
+\texttt{"-a * dy"} &\Rightarrow& P_x=-a\,\partial_y
+&\Rightarrow& m_x'=-a\,\partial_y K\\
+\texttt{"a * dx"} &\Rightarrow& P_y=a\,\partial_x
+&\Rightarrow& m_y'=a\,\partial_x K\\
+\texttt{"c"} &\Rightarrow& P_z=c
+&\Rightarrow& m_z'=c\,K
+\end{array}
+\]
+#+end_export
+
+- Higher derivatives are possible, e.g. ~dx^2~, ~dy^2~, or mixed operator polynomials.
+- Coefficients such as \(a,c,d\) are supplied through ~operator_parameters~.
+- The raw field can be kept with ~normalize=False~.
+
+* Gaussian and Sech Kernels
+The kernel controls the localization; the component operators control the vector texture.
+
+#+begin_export latex
+\[
+K_{\mathrm{Gaussian}}(\mathbf{r})
+\propto
+\exp\!\left[-\frac{1}{2}
+\mathbf{r}^\mathsf{T}
+\Sigma^{-1}
+\mathbf{r}
+\right]
+\]
+\[
+K_{\mathrm{sech}}(\mathbf{r})
+=
+\prod_{i=x,y,z}\frac{a_i/\pi}{\cosh(a_i r_i)}
+\]
+#+end_export
+
+- ~kernel_type="gaussian"~ uses ~sigma~ or a full covariance matrix ~Sigma~.
+- ~kernel_type="sech"~ uses one width parameter per coordinate direction.
+- ~coordinate_scale~ rescales object coordinates before evaluating the kernel.
+
+* Run the Survey
+Run the executable tutorial from the NuMagSANS repository root.
+
+#+begin_src bash
+python tutorials/tutorial_3/vectorfield_survey.py
+#+end_src
+
+The generated data are written to ~tutorials/tutorial_3/VectorFieldSurvey~.
+
+* Workflow
+The same spherical object is reused for all vector-field parameter sets.
+
+#+begin_src python
+write_spherical_replication_vectorfield_sweep(
+    output_dir=OUTPUT_DIR,
+    R=20.0,
+    a=1.0,
+    atomtype="Fe",
+    n_replications=256,
+    field_parameter_cases=FIELD_PARAMETER_CASES,
+    n_rotdata=1,
+    beta_min=0.0,
+    beta_max=np.pi,
+    rotation_seed=1,
+)
+#+end_src
+
+Each entry in ~FIELD_PARAMETER_CASES~ writes one magnetization file ~m_i.csv~.
+
+* Common Profile
+The first four fields use a hyperbolic tilt profile.
+
+#+begin_export latex
+\[
+\alpha(\xi)
+=
+\arccos\!\left(\sqrt{1-\tanh^2(\kappa \xi)}\right),
+\qquad \kappa = 6,\quad \mathrm{turns}=1 .
+\]
+#+end_export
+
+- ~cylindrical_xi~ uses \(\xi=\rho/R\).
+- ~spherical_xi~ uses \(\xi=r/R\).
+
+* Hyperbolic Vortex
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"field\_type": "vortex",\\
+\phantom{\{}\ "profile\_type": "hyperbolic",\\
+\phantom{\{}\ "xi\_type": "cylindrical\_xi",\\
+\phantom{\{}\ "kappa": 6.0\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\mathbf{m}
+=
+\sin\alpha(\rho/R)\,\mathbf{e}_{\varphi}
++
+\cos\alpha(\rho/R)\,\mathbf{e}_{z}
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item cylindrical radial profile
+\item azimuthal in-plane winding
+\item finite \(m_z\) core
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_01_hyperbolic_vortex.png}
+\end{column}
+\end{columns}
+#+end_export
+
+* Hyperbolic Hedgehog
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"field\_type": "hedgehog",\\
+\phantom{\{}\ "profile\_type": "hyperbolic",\\
+\phantom{\{}\ "xi\_type": "spherical\_xi",\\
+\phantom{\{}\ "kappa": 6.0\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\mathbf{m}
+=
+\sin\alpha(r/R)\cos\theta\,\mathbf{e}_{r}
++
+\cos\alpha(r/R)\,\mathbf{e}_{z}
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item spherical radial profile
+\item radial component weighted by \(\cos\theta\)
+\item axial background contribution
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_02_hyperbolic_hedgehog.png}
+\end{column}
+\end{columns}
+#+end_export
+
+* Hyperbolic Artichoke
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"field\_type": "artichoke",\\
+\phantom{\{}\ "profile\_type": "hyperbolic",\\
+\phantom{\{}\ "xi\_type": "spherical\_xi",\\
+\phantom{\{}\ "kappa": 6.0\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\mathbf{m}
+=
+-\sin\alpha(r/R)\,\mathbf{e}_{\theta}
++
+\cos\alpha(r/R)\,\mathbf{e}_{z}
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item spherical radial profile
+\item negative polar component
+\item compact onion-like texture
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_03_hyperbolic_artichoke.png}
+\end{column}
+\end{columns}
+#+end_export
+
+* Hyperbolic Poloidal Vortex
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"field\_type": "poloidal\_vortex",\\
+\phantom{\{}\ "profile\_type": "hyperbolic",\\
+\phantom{\{}\ "xi\_type": "spherical\_xi",\\
+\phantom{\{}\ "kappa": 6.0\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\mathbf{m}
+=
+\sin\alpha(r/R)\,\mathbf{e}_{\theta}
++
+\cos\alpha(r/R)\,\mathbf{e}_{z}
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item spherical radial profile
+\item positive polar circulation
+\item poloidal winding around the sphere
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_04_hyperbolic_poloidal_vortex.png}
+\end{column}
+\end{columns}
+#+end_export
+
+* Skyrmion
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"field\_type": "skyrmion",\\
+\phantom{\{}\ "xi\_type": "cylindrical\_xi",\\
+\phantom{\{}\ "N": 1, "m": 1,\\
+\phantom{\{}\ "gamma": 0.0\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\mathbf{m}
+=
+\begin{pmatrix}
+\sin(\pi N\xi)\cos(m\varphi+\gamma)\\
+\sin(\pi N\xi)\sin(m\varphi+\gamma)\\
+\cos(\pi N\xi)
+\end{pmatrix}
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item \(\xi=\rho/R\)
+\item \(N=1,\; m=1,\; \gamma=0\)
+\item radial reversal in \(m_z\)
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_05_skyrmion.png}
+\end{column}
+\end{columns}
+#+end_export
+
+* Transversal Helix
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"field\_type": "transversal\_helix",\\
+\phantom{\{}\ "k": 0.6,\\
+\phantom{\{}\ "chirality": 1.0,\\
+\phantom{\{}\ "phase": 0.0\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\mathbf{m}(z)
+=
+\mathbf{e}_{x}\cos(kz+\varphi_{0})
++
+\chi\,\mathbf{e}_{y}\sin(kz+\varphi_{0})
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item \(k=0.6\)
+\item \(\chi=1,\; \varphi_0=0\)
+\item transverse rotation along \(z\)
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_06_transversal_helix.png}
+\end{column}
+\end{columns}
+#+end_export
+
+* Longitudinal Helix
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"field\_type": "longitudinal\_helix",\\
+\phantom{\{}\ "k": 0.6,\\
+\phantom{\{}\ "chirality": 1.0,\\
+\phantom{\{}\ "lambda": 0.5,\\
+\phantom{\{}\ "phase": 0.0\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\begin{aligned}
+\mathbf{m}'(z) &=
+\mathbf{e}_{x}\cos(kz+\varphi_{0})\\
+&\quad+\chi\,\mathbf{e}_{y}\sin(kz+\varphi_{0})
++\lambda\,\mathbf{e}_{z},\\
+\mathbf{m} &= \mathbf{m}'/|\mathbf{m}'|
+\end{aligned}
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item \(\lambda=0.5\)
+\item transverse helix plus constant \(z\)-component
+\item normalized after adding the longitudinal term
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_07_longitudinal_helix.png}
+\end{column}
+\end{columns}
+#+end_export
+
+* Linearized Vortex
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"field\_type": "linearized\_vortex",\\
+\phantom{\{}\ "m\_0": 1.0,\\
+\phantom{\{}\ "m\_1": 0.05\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\mathbf{m}'
+=
+\begin{pmatrix}
+-m_1 y\\
+m_1 x\\
+m_0
+\end{pmatrix},
+\qquad
+\mathbf{m}=\mathbf{m}'/|\mathbf{m}'|
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item \(m_0=1,\; m_1=0.05\)
+\item linear in-plane circulation
+\item normalized after evaluation
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_08_linearized_vortex.png}
+\end{column}
+\end{columns}
+#+end_export
+
+* Operator-Kernel Gaussian Vortex
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"library": "operator\_kernel",\\
+\phantom{\{}\ "kernel\_type": "gaussian",\\
+\phantom{\{}\ "component\_specs": ["-a * dy", "a * dx", "c"],\\
+\phantom{\{}\ "operator\_parameters": \{"a": 0.8, "c": 0.55\}\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\mathbf{m}'
+=
+\begin{pmatrix}
+-a\,\partial_y K\\
+a\,\partial_x K\\
+c\,K
+\end{pmatrix},
+\qquad K=K_{\mathrm{Gaussian}}
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item \(\sigma=(0.35,0.35,0.35)\)
+\item \(a=0.8,\; c=0.55\)
+\item differential-operator texture
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_09_operator-kernel_Gaussian_vortex.png}
+\end{column}
+\end{columns}
+#+end_export
+
+* Operator-Kernel Gaussian Skyrmion-Like
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"kernel\_type": "gaussian",\\
+\phantom{\{}\ "component\_specs": [\\
+\phantom{\{}\ \ "-a * dy", "a * dx",\\
+\phantom{\{}\ \ "c + d * (dx\string^2 + dy\string^2)"\\
+\phantom{\{}\ ]\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\mathbf{m}'
+=
+\begin{pmatrix}
+-a\,\partial_y K\\
+a\,\partial_x K\\
+\left(c+d(\partial_x^2+\partial_y^2)\right)K
+\end{pmatrix}
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item Gaussian kernel
+\item \(a=0.7,\; c=-1.6,\; d=-0.5\)
+\item skyrmion-like axial reversal
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_10_operator-kernel_Gaussian_skyrmion-like.png}
+\end{column}
+\end{columns}
+#+end_export
+
+* Operator-Kernel Sech Vortex
+#+begin_export latex
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.44\textwidth}
+\small
+\begin{minipage}{\linewidth}\scriptsize\ttfamily
+\{"library": "operator\_kernel",\\
+\phantom{\{}\ "kernel\_type": "sech",\\
+\phantom{\{}\ "a": [2.0, 2.0, 2.4],\\
+\phantom{\{}\ "component\_specs": ["-a * dy", "a * dx", "c"]\}
+\end{minipage}
+\vspace{-1ex}
+\[
+\mathbf{m}'
+=
+\begin{pmatrix}
+-a\,\partial_y K\\
+a\,\partial_x K\\
+c\,K
+\end{pmatrix},
+\qquad K=K_{\mathrm{sech}}
+\]
+\vspace{-1ex}
+\begin{itemize}
+\item \(a_{\mathrm{kernel}}=(2.0,2.0,2.4)\)
+\item \(a=0.8,\; c=0.55\)
+\item broader operator-kernel vortex
+\end{itemize}
+\end{column}
+\begin{column}{0.54\textwidth}
+\includegraphics[width=\textwidth,height=0.76\textheight,keepaspectratio]{images/vectorfields/m_11_operator-kernel_Sech_vortex.png}
+\end{column}
+\end{columns}
+#+end_export

@@ -1,0 +1,170 @@
+#+TITLE:    @@latex:\hfill\vspace*{0ex}\includegraphics[width=3.0cm]{../../_static/NuMagSANSlogo.png}\vspace{3.5ex}\newline NuMagSANS Tutorial 4 - Helical Magnet@@
+#+AUTHOR:   \vspace{-0.5cm} NuMagSANS Tutorials - Michael P. Adams \newline \vspace{0ex}
+#+DATE:     Version: @@latex:\today@@
+#+EMAIL:    Email - does not show on title page by default
+#+LANGUAGE: en
+#+OPTIONS:  H:1 num:t toc:nil \n:nil ::t |:t ^:t -:t f:t *:t tex:t d:(HIDE) tags:not-in-toc <:t
+#+OPTIONS:  d:nil todo:t pri:nil
+#+STARTUP: beamer
+#+LaTeX_CLASS_OPTIONS: [aspectratio=169]
+#+LATEX_HEADER: \usetheme{metropolis}
+#+LATEX_HEADER: \setbeamertemplate{frame footer}{}
+#+LATEX_HEADER: \metroset{block=fill}
+#+LATEX_HEADER: \definecolor{NuMagSANSBlue}{RGB}{31,91,148}
+#+LATEX_HEADER: \definecolor{NuMagSANSRed}{RGB}{136,37,80}
+#+LATEX_HEADER: \definecolor{NuMagSANSGreen}{RGB}{28,116,48}
+#+LATEX_HEADER: \definecolor{White}{RGB}{255,255,255}
+#+LATEX_HEADER: \definecolor{Black}{RGB}{0,0,0}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=White,bg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{structure}{fg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{progress bar}{fg=NuMagSANSBlue}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=NuMagSANSRed}
+#+LATEX_HEADER: \setbeamercolor{example text}{fg=NuMagSANSGreen}
+#+LATEX_HEADER: \setbeamercolor{normal text}{fg=Black}
+#+LATEX_HEADER: \setbeamercolor{background canvas}{bg=white}
+#+LATEX_HEADER: \usepackage{amssymb}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+#+LATEX_HEADER: \usepackage[export]{adjustbox}
+#+LATEX_HEADER: \usepackage{hyperref}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \setminted{fontsize=\tiny,breaklines=true,breakanywhere=true}
+#+LATEX_HEADER:\newcommand{\vcenteredinclude}[2]{\begingroup\setbox0=\hbox{\includegraphics[#1]{#2}}\parbox{\wd0}{\box0}\endgroup}
+
+* Goal
+Build and inspect one helical magnetic sphere on a local workstation.
+
+- Use the SystemDesigner sphere workflow.
+- Materialize one spherical local object.
+- Write one magnetic vector-field file, ~m_1.csv~.
+- Inspect the generated field with a PyVista diagnostic plot.
+
+* Helical State
+The local magnetic state is a transverse helix propagating along the local ~z~-axis.
+
+#+begin_export latex
+\[
+\mathbf{m}(z)
+=
+\mathbf{e}_x \cos(kz + \varphi_0)
++ \chi \mathbf{e}_y \sin(kz + \varphi_0)
+\]
+#+end_export
+
+- ~k~ controls the pitch.
+- ~chi~ controls the chirality.
+- Global orientation distributions can be added later through ~RotData~.
+
+* Python File
+Create a file named ~helical_single_sphere.py~.
+
+#+begin_src python
+import math
+from pathlib import Path
+
+from NuMagSANS.SystemDesigner.AssemblyAnalyzer import plot_magnetization_file
+from NuMagSANS.SystemDesigner.Workflows import write_spherical_replication_vectorfield_sweep
+#+end_src
+
+* Parameters
+Use one lattice point per nanometer for a clear first look.
+
+#+begin_src python
+output_dir = Path("HelicalSphere_R20")
+
+radius_nm = 20.0
+lattice_constant_nm = 1.0
+pitch_nm = 20.0
+chirality = 1.0
+phase = 0.0
+#+end_src
+
+* Generate Real-Space Data
+The workflow writes one local object and one magnetization file.
+
+#+begin_src python
+summary = write_spherical_replication_vectorfield_sweep(
+    output_dir=output_dir,
+    R=radius_nm,
+    a=lattice_constant_nm,
+    atomtype="Fe",
+    n_replications=1,
+    field_parameter_cases={
+        "field_type": "transversal_helix",
+        "k": 2.0 * math.pi / pitch_nm,
+        "chirality": chirality,
+        "phase": phase,
+    },
+    n_rotdata=1,
+    beta_min=0.0,
+    beta_max=0.0,
+    rotation_seed=1,
+)
+#+end_src
+
+* Diagnostic Plot
+The plot is intended for local inspection, not for HPC production runs.
+
+#+begin_src python
+mag_file = (
+    Path(summary["real_space_dir"])
+    / "MagData"
+    / "Object_1"
+    / "m_1.csv"
+)
+
+plot_magnetization_file(
+    mag_file,
+    vector_scale=1.6,
+    center_vectors=True,
+    seed=1,
+    show_points=False,
+    color_by="mx",
+    cmap="coolwarm",
+    enable_cut_sliders=True,
+    arrow_tip_length=0.63,
+    arrow_tip_radius=0.15,
+    arrow_shaft_radius=0.06,
+)
+#+end_src
+
+* Result
+The generated vector field shows one transverse helical period across the sphere diameter.
+
+#+begin_export latex
+\begin{center}
+\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{images/fig1.png}
+\end{center}
+#+end_export
+
+* Run Locally
+Run the script from the NuMagSANS repository root.
+
+#+begin_src bash
+python docs/tutorials/tutorial_4_workflows/python/helical_single_sphere.py
+#+end_src
+
+The generated data are written to ~HelicalSphere_R20/RealSpaceData~.
+
+* Generated Data
+The workflow writes the real-space input data for one local object.
+
+- ~HelicalSphere_R20/RealSpaceData/~
+- ~Local_Objects/Object_1/pos.csv~: lattice positions inside the sphere.
+- ~Local_Objects/Object_1/atomtype.csv~: atom labels for these positions.
+- ~Local_Objects/Object_1/meta.csv~: object metadata.
+- ~MagData/Object_1/m_1.csv~: helical magnetization vector field.
+- ~RotData/RotData_1.csv~: orientation data for the object replication.
+
+* Run NuMagSANS
+Use the generated data as input for a NuMagSANS simulation.
+
+#+begin_src bash
+python docs/tutorials/tutorial_4_workflows/python/run_numagsans_helical_sphere.py
+#+end_src
+
+The script writes ~HelicalSphere_R20/NuMagSANSInput_helical_sphere.conf~,
+starts NuMagSANS, and stores CSV output in ~HelicalSphere_R20/NuMagSANS_Output~.

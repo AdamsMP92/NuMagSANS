@@ -104,15 +104,21 @@ def unit_field(x, y, z, D, params):
         {
             "field_type": "vortex" | "hedgehog" | "artichoke" |
                           "skyrmion" | "poloidal_vortex" |
-                          "transversal_helix",
+                          "transversal_helix" | "longitudinal_helix",
             "profile_type": ... (see alpha_profile),
             "xi_type": "cylindrical_xi" | "spherical_xi",
             "kappa": float,
             "N": int (for skyrmion),
             "m": int, "gamma": float (for skyrmion base),
             "k": float, "chirality": float, "phase": float
-                 (for transversal_helix),
-            "turns": float
+                 (for transversal_helix and longitudinal_helix),
+            "lambda": float or "lambda_z": float
+                 (longitudinal component for longitudinal_helix),
+            "turns": float,
+            "normalize": bool, optional
+                 Normalize the final vector components after evaluation.
+                 Defaults to True. The legacy key "additional_normalize"
+                 is still accepted as a fallback.
         }
 
     Returns
@@ -155,6 +161,16 @@ def unit_field(x, y, z, D, params):
         mx = np.cos(argument)
         my = chirality * np.sin(argument)
         mz = np.zeros_like(x)
+
+    elif field_type in ("longitudinal_helix", "transversal_longitudinal_helix", "transverse_longitudinal_helix"):
+        k = params.get("k", 1.0)
+        chirality = params.get("chirality", params.get("chi", 1.0))
+        phase = params.get("phase", 0.0)
+        lambda_z = params.get("lambda", params.get("lambda_z", params.get("longitudinal", 0.0)))
+        argument = k * z + phase
+        mx = np.cos(argument)
+        my = chirality * np.sin(argument)
+        mz = np.full_like(x, lambda_z)
 
     elif field_type == "vortex":
         # compute tilt α(ξ)
@@ -207,7 +223,8 @@ def unit_field(x, y, z, D, params):
     else:
         raise ValueError(f"Unknown field_type '{field_type}'")
 
-    if params.get("additional_normalize", True):
+    normalize = params.get("normalize", params.get("additional_normalize", True))
+    if normalize:
         # normalization
         norm = np.sqrt(mx**2 + my**2 + mz**2) + 1e-12
         mx /= norm

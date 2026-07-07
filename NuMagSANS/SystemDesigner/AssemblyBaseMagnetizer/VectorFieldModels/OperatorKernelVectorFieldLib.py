@@ -370,6 +370,11 @@ def unit_field(x, y, z, D, params):
         Operator-kernel model parameters. Common keys are ``kernel_type``,
         ``sigma`` or ``Sigma``, ``component_specs``, ``operator_parameters``,
         ``coordinate_scale``, ``amplitude``, and ``normalize``.
+        ``component_specs`` contains three polynomial differential operators
+        in ``dx``, ``dy``, and ``dz``. Each operator is applied to the selected
+        scalar kernel to generate one raw Cartesian component. Set
+        ``normalize=False`` to keep those raw component amplitudes instead of
+        normalizing the final vector field. Normalization defaults to True.
     """
     params = dict(params)
     positions = _scaled_positions(x, y, z, D, params)
