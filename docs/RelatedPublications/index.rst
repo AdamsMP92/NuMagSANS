@@ -18,10 +18,20 @@ NuMagSANS and polarized magnetic small-angle neutron scattering.
 2026
 ^^^^
 
+| [13] **Reduced vortex descriptors linking polycrystallinity in magnetic nanoparticles with polarized magnetic small-angle neutron scattering.**
+|      M. P. Adams, J. Leliaert, A. Michels, E. M. Jefremovas
+|      arXiv preprint (2026)
+|      Preprint: https://doi.org/10.48550/arXiv.2608.16720
+|
+| [12] **Engineering micro-disorder for macro-performance in magnetic nanoparticles.**
+|      J. Leliaert, E. M. Jefremovas
+|      arXiv preprint (2026)
+|      Preprint: https://doi.org/10.48550/arXiv.2607.28812
+|
 | [11] **Angular anisotropy landscape of vortex ensembles in polarized small-angle neutron scattering.**
 |      M. P. Adams, E. M. Jefremovas, A. Michels
-|      Submitted to Phys. Rev. Research (2026)
-|      DOI: https://doi.org/10.48550/arXiv.2603.29830
+|      Phys. Rev. Research 8, 023328 (2026)
+|      DOI: https://doi.org/10.1103/1sl5-s875
 |      Preprint: https://doi.org/10.48550/arXiv.2603.29830
 |
 | [10] **NuMagSANS: a GPU-accelerated open-source software package for the generic computation of nuclear and magnetic small-angle neutron          scattering observables of complex systems.**
