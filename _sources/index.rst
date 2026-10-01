@@ -23,6 +23,23 @@ The aim of NuMagSANS is to provide the complete set of experimentally accessible
 NuMagSANS is designed as a deterministic single-run computational engine
 with a clear execution pipeline and reproducible output.
 
+.. math::
+
+    \left.
+    \begin{aligned}
+        &\text{Atomistic spin dynamics} \\
+        &\text{Micromagnetics} \\
+        &\text{Spin--lattice dynamics} \\
+        &\text{MD / DFT / Monte Carlo / custom models}
+    \end{aligned}
+    \right\}
+    \longrightarrow
+    \left\{ N(\mathbf r),\, \mathbf M(\mathbf r) \right\}
+    \longrightarrow
+    \mathrm{NuMagSANS}
+    \longrightarrow
+    \frac{d\Sigma}{d\Omega}(\mathbf q)
+
 Key Features
 ------------
 
