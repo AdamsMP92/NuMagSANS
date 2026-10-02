@@ -343,18 +343,41 @@ Constant Parameters
     Effective scattering volume in units of :math:`\mathrm{m}^3`
     Default value ``2.618e-24``
 
+``RotMatConvention``
+    Default ``zyz``
+
+    Euler-axis sequence for the global rotation of the complete imported
+    system. The supported conventions are identical to those of
+    ``RotDataConvention``. For a convention ``abc``, the global angles define
+
+    .. math::
+
+       R_\mathrm{global} = R_a(\alpha)R_b(\beta)R_c(\gamma).
+
+    The rotation acts on column vectors and the rightmost rotation is applied
+    first. Unlike object-wise ``RotData`` angles, all global rotation angles
+    are specified in degrees. For example, ``RotMatConvention = xyz`` with
+    ``RotMat_alpha = phi`` and the other two angles equal to zero produces a
+    rotation by ``phi`` around the x-axis, which is the neutron-beam axis.
+
 ``RotMat_alpha``
-    Global sample rotation angle in degree.
+    First global Euler angle in degrees.
     Default value ``0.0``
 
 ``RotMat_beta``
-    Global sample rotation angle in degree. Rotates the sample in the
-    :math:`x-y`-plane.
+    Second global Euler angle in degrees.
     Default value ``0.0``
 
-    These two angles define a global rotation of the complete imported system.
-    They are independent of ``RotData``, which defines object-wise local
-    rotations.
+``RotMat_gamma``
+    Third global Euler angle in degrees.
+    Default value ``0.0``
+
+    ``RotMatConvention`` and the three ``RotMat`` angles are independent of
+    ``RotDataConvention`` and the object-wise local rotations. This
+    convention-aware interface intentionally interprets the global angles in
+    the direct order ``(alpha, beta, gamma)``. It therefore replaces the
+    earlier two-angle interpretation
+    :math:`R_z(\mathrm{RotMat\_beta})R_y(\mathrm{RotMat\_alpha})`.
 
 ``Polarization``
     Polarization vector (Px, Py, Pz). Defines the polarization vector of the incoming neutron beam.

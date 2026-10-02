@@ -869,10 +869,16 @@ SystemDesigner needs:
 
 NuMagSANS also supports global sample rotations through:
 
+    RotMatConvention
     RotMat_alpha
     RotMat_beta
+    RotMat_gamma
 
 These are independent of object-wise RotData.
+
+The three angles are specified in degrees and follow RotMatConvention in the
+direct order alpha, beta, gamma. The supported Euler conventions are the same
+as for RotDataConvention.
 
 Use cases:
 

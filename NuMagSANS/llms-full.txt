@@ -215,7 +215,17 @@ For `RotDataConvention="xyz"`, the row `(phi, 0, 0)` is a pure active rotation b
 
 ### 5.4 Global sample rotation
 
-`RotMat_alpha` and `RotMat_beta` are global sample-orientation angles in degrees. They are independent of object-wise RotData angles, which are in radians. Do not mix these units or use global rotation as a substitute for independent object orientations.
+`RotMatConvention` selects the Euler-axis sequence for the global rotation of the complete imported system. It supports the same twelve conventions as `RotDataConvention` and defaults to `zyz`.
+
+`RotMat_alpha`, `RotMat_beta`, and `RotMat_gamma` are interpreted in that direct order. For convention `abc`, they define
+
+```text
+R_global = R_a(RotMat_alpha) R_b(RotMat_beta) R_c(RotMat_gamma).
+```
+
+The global angles are in degrees. They are independent of object-wise RotData angles, which are in radians. Earlier NuMagSANS releases used the two-angle expression `R_z(RotMat_beta) R_y(RotMat_alpha)`; do not use that historical angle order with the convention-aware interface.
+
+For a global rotation by `phi` degrees around the x-directed neutron beam, use `RotMatConvention="xyz"`, `RotMat_alpha=phi`, and set `RotMat_beta=RotMat_gamma=0`.
 
 ## 6. Data layers and simulation modes
 
@@ -347,7 +357,7 @@ Before running, verify all of the following:
 - StructData and RotData have one row per effective object or replication.
 - The chosen `Fourier_Approach` matches the physical meaning and scaling of the input values.
 - `XYZ_Unit_Factor`, cell sizes, q range, scattering volume, and polarization are explicitly understood.
-- RotData uses radians; global `RotMat_alpha` and `RotMat_beta` use degrees.
+- RotData uses radians; global `RotMat_alpha`, `RotMat_beta`, and `RotMat_gamma` use degrees.
 - `Number_Of_q_Points > 1`, `q_min >= 0`, and `q_max > q_min`.
 - Every `enable_outputs` entry appears in `NuMagSANS.generate_all_outputs()`.
 - HDF5 output is requested only from an HDF5-enabled backend build.
@@ -360,8 +370,9 @@ For a new workflow, first run a reduced q/theta grid and one data index. Inspect
 - Do not invent methods such as `sim.set_material()`, `sim.rotate()`, or `sim.compute()`. The public facade writes a config and invokes the backend.
 - Do not add CSV headers or commas.
 - Do not assume the neutron beam is along z; it is along x.
-- Do not use degrees in RotData or radians for `RotMat_alpha` and `RotMat_beta`.
-- Do not assume an Euler convention without setting or confirming `RotDataConvention`; omitted means `zyz`.
+- Do not use degrees in RotData or radians for the three global `RotMat` angles.
+- Do not assume an Euler convention without setting or confirming `RotDataConvention` and `RotMatConvention`; omitted means `zyz` for each.
+- Do not swap global `RotMat_alpha` and `RotMat_beta`; the convention-aware interface uses the direct order `(alpha, beta, gamma)`.
 - Do not treat `R_a R_b R_c` as leftmost-first application to column vectors; the rightmost rotation acts first.
 - Do not use StructData or RotData row counts based on template folders when replication import is active; use the effective replication count.
 - Do not confuse the outer data-state loop with StructData and RotData loops.

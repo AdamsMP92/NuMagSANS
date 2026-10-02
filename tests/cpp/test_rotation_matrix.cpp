@@ -98,6 +98,30 @@ void test_zyz_matches_historical_formula() {
     assert_matrix_close(rotation, legacy_zyz_matrix(alpha, beta, gamma));
 }
 
+void test_global_degree_angles_follow_same_zyz_order() {
+    constexpr float alpha_degrees = 17.0f;
+    constexpr float beta_degrees = -31.0f;
+    constexpr float gamma_degrees = 49.0f;
+    constexpr float degrees_to_radians = pi / 180.0f;
+
+    std::array<float, 9> global_rotation{};
+    ComputeEulerRotationMatrixDegrees_3x3(alpha_degrees, beta_degrees, gamma_degrees, "zyz", global_rotation.data());
+
+    const std::array<float, 9> expected = legacy_zyz_matrix(
+        alpha_degrees * degrees_to_radians, beta_degrees * degrees_to_radians, gamma_degrees * degrees_to_radians);
+    assert_matrix_close(global_rotation, expected);
+}
+
+void test_global_xyz_first_angle_is_x_rotation() {
+    std::array<float, 9> rotation{};
+    ComputeEulerRotationMatrixDegrees_3x3(90.0f, 0.0f, 0.0f, "xyz", rotation.data());
+
+    const std::array<float, 9> expected = {
+        1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, -1.0f, 0.0f,
+    };
+    assert_matrix_close(rotation, expected);
+}
+
 void test_convention_controls_multiplication_order() {
     std::array<float, 9> rotation = identity_matrix();
     Multiply_RotmatEuler_3x3(pi / 2.0f, pi / 2.0f, 0.0f, "xyz", rotation.data());
@@ -129,6 +153,8 @@ int main() {
     test_xyz_x_rotation();
     test_zyz_default_matches_equivalent_x_rotation();
     test_zyz_matches_historical_formula();
+    test_global_degree_angles_follow_same_zyz_order();
+    test_global_xyz_first_angle_is_x_rotation();
     test_convention_controls_multiplication_order();
     test_invalid_convention_is_rejected();
     return 0;

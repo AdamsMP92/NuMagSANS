@@ -36,7 +36,7 @@ class NuMagSANS:
 
     SPECIAL_OUTPUTS = ["Fourier_Gamma"]
 
-    ROT_DATA_CONVENTIONS = {
+    EULER_CONVENTIONS = {
         "xyx",
         "xzx",
         "yxy",
@@ -50,6 +50,8 @@ class NuMagSANS:
         "zxy",
         "zyx",
     }
+    ROT_DATA_CONVENTIONS = EULER_CONVENTIONS
+    ROT_MAT_CONVENTIONS = EULER_CONVENTIONS
 
     @classmethod
     def generate_all_outputs(cls):
@@ -136,8 +138,10 @@ class NuMagSANS:
         # scattering
         Scattering_Volume_V=2.618e-24,
         # rotation
+        RotMatConvention="zyz",
         RotMat_alpha=0.0,
         RotMat_beta=0.0,
+        RotMat_gamma=0.0,
         # polarization
         Polarization=(0.0, 0.0, 1.0),
         # q / r
@@ -167,6 +171,11 @@ class NuMagSANS:
         if RotDataConvention not in self.ROT_DATA_CONVENTIONS:
             supported = ", ".join(sorted(self.ROT_DATA_CONVENTIONS))
             raise ValueError(f"Unknown RotDataConvention: {RotDataConvention}. Supported conventions: {supported}")
+
+        RotMatConvention = str(RotMatConvention).strip().lower()
+        if RotMatConvention not in self.ROT_MAT_CONVENTIONS:
+            supported = ", ".join(sorted(self.ROT_MAT_CONVENTIONS))
+            raise ValueError(f"Unknown RotMatConvention: {RotMatConvention}. Supported conventions: {supported}")
 
         with open(filename, "w") as f:
 
@@ -245,8 +254,10 @@ class NuMagSANS:
             # ---------------------------
             # rotation
             # ---------------------------
+            W("RotMatConvention", RotMatConvention)
             W("RotMat_alpha", RotMat_alpha)
             W("RotMat_beta", RotMat_beta)
+            W("RotMat_gamma", RotMat_gamma)
 
             # ---------------------------
             # polarization

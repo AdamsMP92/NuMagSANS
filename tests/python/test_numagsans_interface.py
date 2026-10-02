@@ -19,6 +19,7 @@ def test_public_capability_names_are_available_for_introspection():
     assert NuMagSANS.FOURIER_APPROACHES == {"atomistic", "micromagnetic"}
     assert NuMagSANS.OUTPUT_FORMATS == {"csv", "hdf5"}
     assert "xyz" in NuMagSANS.ROT_DATA_CONVENTIONS
+    assert NuMagSANS.ROT_MAT_CONVENTIONS == NuMagSANS.ROT_DATA_CONVENTIONS
 
 
 def test_write_config_writes_selected_parameters(tmp_path):
@@ -30,6 +31,10 @@ def test_write_config_writes_selected_parameters(tmp_path):
         MagData_ReplicationImport=1,
         MagData_NumberOfReplications=8,
         RotDataConvention="XYZ",
+        RotMatConvention="ZYX",
+        RotMat_alpha=10.0,
+        RotMat_beta=20.0,
+        RotMat_gamma=30.0,
         RotDataLoop=1,
         RotData_User_Selection=[1, 3],
         User_Selection=[2],
@@ -43,6 +48,10 @@ def test_write_config_writes_selected_parameters(tmp_path):
     assert "MagData_ReplicationImport = 1;" in text
     assert "MagData_NumberOfReplications = 8;" in text
     assert "RotDataConvention = xyz;" in text
+    assert "RotMatConvention = zyx;" in text
+    assert "RotMat_alpha = 10.0;" in text
+    assert "RotMat_beta = 20.0;" in text
+    assert "RotMat_gamma = 30.0;" in text
     assert "RotDataLoop = 1;" in text
     assert "RotData_User_Selection = {1, 3};" in text
     assert "User_Selection = {2};" in text
@@ -60,12 +69,15 @@ def test_write_config_rejects_unknown_output(tmp_path):
         sim.write_config(tmp_path / "bad.conf", enable_outputs=["NotAnOutput"])
 
 
-def test_write_config_defaults_to_zyz_rotation_convention(tmp_path):
+def test_write_config_defaults_to_zyz_rotation_conventions(tmp_path):
     sim = NuMagSANS(executable=tmp_path / "missing_executable", workdir=tmp_path)
 
     config = sim.write_config(tmp_path / "default_rotation.conf")
 
-    assert "RotDataConvention = zyz;" in config.read_text()
+    text = config.read_text()
+    assert "RotDataConvention = zyz;" in text
+    assert "RotMatConvention = zyz;" in text
+    assert "RotMat_gamma = 0.0;" in text
 
 
 def test_write_config_rejects_unknown_rotation_convention(tmp_path):
@@ -73,6 +85,9 @@ def test_write_config_rejects_unknown_rotation_convention(tmp_path):
 
     with pytest.raises(ValueError, match="Unknown RotDataConvention"):
         sim.write_config(tmp_path / "bad_rotation.conf", RotDataConvention="abc")
+
+    with pytest.raises(ValueError, match="Unknown RotMatConvention"):
+        sim.write_config(tmp_path / "bad_global_rotation.conf", RotMatConvention="abc")
 
 
 def test_config_clear_only_deletes_conf_by_default(tmp_path):

@@ -28,6 +28,8 @@
 #include <algorithm>
 #include <cctype>
 
+#include "../helper/NuMagSANSlib_RotationMatrix.h"
+
 using namespace std;
 
 // ##############################################################################################################################################
@@ -97,6 +99,9 @@ struct InputFileData {
 
     /// Euler-axis convention used to interpret the three RotData angles
     string RotDataConvention = "zyz";
+
+    /// Euler-axis convention used to interpret the three global RotMat angles
+    string RotMatConvention = "zyz";
 
     /// Skip repeated MagData dimension checks for faster data import
     bool FastLoad_flag = false;
@@ -212,13 +217,16 @@ struct InputFileData {
 
     // --- Rotation matrix ---
 
-    /// Euler rotation angle alpha [rad]
+    /// First global Euler rotation angle [degree]
     float RotMat_alpha;
 
-    /// Euler rotation angle beta [rad]
+    /// Second global Euler rotation angle [degree]
     float RotMat_beta;
 
-    /// 3x3 rotation matrix (row-major)
+    /// Third global Euler rotation angle [degree]
+    float RotMat_gamma = 0.0f;
+
+    /// 3x3 rotation matrix (column-major)
     float RotMat[9];
 
     /// Unit conversion factor for coordinate scaling
@@ -286,8 +294,10 @@ struct InputFileData {
     float cuboid_cell_size_y;
     float cuboid_cell_size_z;
 
+    string RotMatConvention;
     float RotMat_alpha;
     float RotMat_beta;
+    float RotMat_gamma;
     float RotMat[9];
     float XYZ_Unit_Factor;
 
@@ -311,28 +321,6 @@ struct InputFileData {
 inline bool any_active(const OutFlag& f) {
     return f.Nuclear || f.Unpolarized || f.Polarized || f.NuclearMagnetic || f.SpinFlip || f.Chiral || f.PM_SpinFlip ||
            f.MP_SpinFlip || f.PP_NonSpinFlip || f.MM_NonSpinFlip || f.P_SANSPOL || f.M_SANSPOL;
-}
-
-// zy-rotation matrix where alpha is the polar angle and beta is the azimuth angle
-void Compute_RotMat(float alpha, float beta, float* RotMat) {
-
-    // ordering of the rotation matrix:
-    // RotMat = [RotMat[0], RotMat[3], RotMat[6]; ...
-    //           RotMat[1], RotMat[4], RotMat[7]; ...
-    //           RotMat[2], RotMat[5], RotMat[8]]
-
-    alpha = alpha * M_PI / 180.0;
-    beta = beta * M_PI / 180.0;
-
-    RotMat[0] = cosf(alpha) * cosf(beta);
-    RotMat[1] = cosf(alpha) * sinf(beta);
-    RotMat[2] = -sinf(alpha);
-    RotMat[3] = -sinf(beta);
-    RotMat[4] = cosf(beta);
-    RotMat[5] = 0;
-    RotMat[6] = cosf(beta) * sinf(alpha);
-    RotMat[7] = sinf(alpha) * sinf(beta);
-    RotMat[8] = cosf(alpha);
 }
 
 static std::string trim(const std::string& s) {
@@ -582,6 +570,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData* InputData) 
         {"Cuboid_Cell_Size_z", &InputData->cuboid_cell_size_z, true},
         {"RotMat_alpha", &InputData->RotMat_alpha, true},
         {"RotMat_beta", &InputData->RotMat_beta, true},
+        {"RotMat_gamma", &InputData->RotMat_gamma, false},
         {"XYZ_Unit_Factor", &InputData->XYZ_Unit_Factor, true},
         {"Polarization_x", &InputData->Polarization[0], true},
         {"Polarization_y", &InputData->Polarization[1], true},
@@ -599,6 +588,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData* InputData) 
         {"StructDataPath", &InputData->StructDataPath, false},
         {"RotDataPath", &InputData->RotDataPath, false},
         {"RotDataConvention", &InputData->RotDataConvention, false},
+        {"RotMatConvention", &InputData->RotMatConvention, false},
         {"foldernameSANSData", &InputData->SANSDataFoldername, true},
         {"SANSData_Output_Format", &InputData->SANSData_Output_Format, false},
         {"Fourier_Approach", &InputData->Fourier_Approach, true},
@@ -731,17 +721,26 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData* InputData) 
         LogSystem::write("RotData Euler convention: " + InputData->RotDataConvention);
     }
 
-    Compute_RotMat(InputData->RotMat_alpha, InputData->RotMat_beta, InputData->RotMat);
-    LogSystem::write("Rotation Matrix: ");
-    LogSystem::write(std::to_string(InputData->RotMat[0]) + " " + std::to_string(InputData->RotMat[3]) + " " +
-                     std::to_string(InputData->RotMat[6]));
-    LogSystem::write(std::to_string(InputData->RotMat[1]) + " " + std::to_string(InputData->RotMat[4]) + " " +
-                     std::to_string(InputData->RotMat[7]));
-    LogSystem::write(std::to_string(InputData->RotMat[2]) + " " + std::to_string(InputData->RotMat[5]) + " " +
-                     std::to_string(InputData->RotMat[8]));
-    LogSystem::write("");
-    LogSystem::write("");
-    LogSystem::write("");
+    InputData->RotMatConvention = NormalizeEulerConvention(InputData->RotMatConvention);
+    bool RotMatConvention_CheckFlag = IsSupportedEulerConvention(InputData->RotMatConvention);
+    if (!RotMatConvention_CheckFlag) {
+        LogSystem::write("Error: unsupported RotMatConvention: " + InputData->RotMatConvention);
+        LogSystem::write("Supported conventions: xyx, xzx, yxy, yzy, zxz, zyz, xyz, xzy, yxz, yzx, zxy, zyx.");
+    } else {
+        LogSystem::write("Global RotMat Euler convention: " + InputData->RotMatConvention);
+        ComputeEulerRotationMatrixDegrees_3x3(InputData->RotMat_alpha, InputData->RotMat_beta, InputData->RotMat_gamma,
+                                              InputData->RotMatConvention, InputData->RotMat);
+        LogSystem::write("Rotation Matrix: ");
+        LogSystem::write(std::to_string(InputData->RotMat[0]) + " " + std::to_string(InputData->RotMat[3]) + " " +
+                         std::to_string(InputData->RotMat[6]));
+        LogSystem::write(std::to_string(InputData->RotMat[1]) + " " + std::to_string(InputData->RotMat[4]) + " " +
+                         std::to_string(InputData->RotMat[7]));
+        LogSystem::write(std::to_string(InputData->RotMat[2]) + " " + std::to_string(InputData->RotMat[5]) + " " +
+                         std::to_string(InputData->RotMat[8]));
+        LogSystem::write("");
+        LogSystem::write("");
+        LogSystem::write("");
+    }
 
     // Check Polarization
     float P_norm = sqrtf(powf(InputData->Polarization[0], 2) + powf(InputData->Polarization[1], 2) +
@@ -821,5 +820,5 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData* InputData) 
     }
 
     return ok && ReplicationImport_CheckFlag && ScatteringGrid_CheckFlag && OutputBackend_CheckFlag &&
-           RotDataConvention_CheckFlag;
+           RotDataConvention_CheckFlag && RotMatConvention_CheckFlag;
 }
