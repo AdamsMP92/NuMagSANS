@@ -453,18 +453,17 @@
 
 <span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
 
-<span class="c1">// The RotationData structure is aimed to allow rotations of individual objects</span>
-<span class="c1">// in a ensemble of objects. This means the data handled through this structure</span>
-<span class="c1">// are diffent from the rotation angles in the InputDataFile, which are aimed for</span>
-<span class="c1">// a global rotation of the complete system, where the angles here allow object-wise rotation.</span>
+<span class="c1">// The RotationData structure allows rotations of individual objects in an</span>
+<span class="c1">// ensemble. These rotations are distinct from the global two-angle rotation in</span>
+<span class="c1">// the input configuration.</span>
 
 <span class="k">struct</span><span class="w"> </span><span class="nc">RotationData</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="c1">// The rotation angles correspond to a zyz-rotation matrix combination</span>
-<span class="w">    </span><span class="c1">// The convention of the three rotation angles is defined as follows:</span>
-<span class="w">    </span><span class="c1">// R(alpha, beta, gamma) = R_z(alpha) * Ry(beta) * R_z(gamma)</span>
-<span class="w">    </span><span class="c1">// Rotations are assumed to be performed as M = R * m, X = R * x</span>
-<span class="w">    </span><span class="c1">// the angles are assumed in radian format</span>
+<span class="w">    </span><span class="c1">// The three angles follow InputData::RotDataConvention. The default is the</span>
+<span class="w">    </span><span class="c1">// historical Z-Y-Z convention</span>
+<span class="w">    </span><span class="c1">// R(alpha, beta, gamma) = R_z(alpha) * R_y(beta) * R_z(gamma).</span>
+<span class="w">    </span><span class="c1">// Rotations are active and act on column vectors as M = R * m and X = R * x.</span>
+<span class="w">    </span><span class="c1">// Angles are expressed in radians.</span>
 <span class="w">    </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">alpha</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">beta</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">gamma</span><span class="p">;</span>
@@ -547,11 +546,11 @@
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"copy data from RAM to GPU..."</span><span class="p">);</span>
 <span class="w">    </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">RotData_gpu</span><span class="o">-&gt;</span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   alpha done..."</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   angle_1 done..."</span><span class="p">);</span>
 <span class="w">    </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">RotData_gpu</span><span class="o">-&gt;</span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   beta done..."</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   angle_2 done..."</span><span class="p">);</span>
 <span class="w">    </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">RotData_gpu</span><span class="o">-&gt;</span><span class="n">gamma</span><span class="p">,</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">gamma</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   gamma done..."</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   angle_3 done..."</span><span class="p">);</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"data transfer finished..."</span><span class="p">);</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
@@ -570,120 +569,14 @@
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"copy data from RAM to GPU..."</span><span class="p">);</span>
 <span class="w">    </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">RotData_gpu</span><span class="o">-&gt;</span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   alpha done..."</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   angle_1 done..."</span><span class="p">);</span>
 <span class="w">    </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">RotData_gpu</span><span class="o">-&gt;</span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   beta done..."</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   angle_2 done..."</span><span class="p">);</span>
 <span class="w">    </span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">RotData_gpu</span><span class="o">-&gt;</span><span class="n">gamma</span><span class="p">,</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">gamma</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   gamma done..."</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"   angle_3 done..."</span><span class="p">);</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"data transfer finished..."</span><span class="p">);</span>
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// the followin section defins rotation matrix operations</span>
-<span class="c1">// later these operations can be separated to a new header file</span>
-<span class="c1">// to make handle the code more separated</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">RotationMatrix_z</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">Rz</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-
-<span class="w">    </span><span class="c1">// This function generates a z-Rotation matrix based on the angle</span>
-<span class="w">    </span><span class="c1">// alpha as a single column array. The ordering of the single column</span>
-<span class="w">    </span><span class="c1">// array is understood as follows:</span>
-<span class="w">    </span><span class="c1">// Rz = [R0, R3, R6</span>
-<span class="w">    </span><span class="c1">//       R1, R4, R7,</span>
-<span class="w">    </span><span class="c1">//       R2, R5, R8]</span>
-
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cosf</span><span class="p">(</span><span class="n">alpha</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sinf</span><span class="p">(</span><span class="n">alpha</span><span class="p">);</span>
-
-<span class="w">    </span><span class="n">Rz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Rz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Rz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">Rz</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Rz</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Rz</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">Rz</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Rz</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Rz</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">RotationMatrix_y</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">Ry</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-
-<span class="w">    </span><span class="c1">// This function generates a y-Rotation matrix based on the angle</span>
-<span class="w">    </span><span class="c1">// alpha as a single column array. The ordering of the single column</span>
-<span class="w">    </span><span class="c1">// array is understood as follows:</span>
-<span class="w">    </span><span class="c1">// Ry = [R0, R3, R6</span>
-<span class="w">    </span><span class="c1">//       R1, R4, R7,</span>
-<span class="w">    </span><span class="c1">//       R2, R5, R8]</span>
-
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cosf</span><span class="p">(</span><span class="n">alpha</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sinf</span><span class="p">(</span><span class="n">alpha</span><span class="p">);</span>
-
-<span class="w">    </span><span class="n">Ry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Ry</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Ry</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">Ry</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Ry</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Ry</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">Ry</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Ry</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Ry</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">LeftMultiply3x3</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">R1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">R2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Updates R1 in place:</span>
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">//     R1 &lt;- R2 * R1</span>
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">// Matrix storage is column-major:</span>
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">//     R(row, col) = R[row + 3 * col]</span>
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">// Therefore:</span>
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">//     R1_new(row, col) = sum_k R2(row, k) * R1_old(k, col)</span>
-
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>
-
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">col</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">row</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">T</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R2</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">R1</span><span class="p">[</span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R2</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">R1</span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                               </span><span class="n">R2</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">R1</span><span class="p">[</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">col</span><span class="p">];</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">R1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">Multiply_RotmatZYZ_3x3</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">gamma</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">RotMat</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-
-<span class="w">    </span><span class="c1">// Assumption:</span>
-<span class="w">    </span><span class="c1">// RotMat is initialized as identity matrix before entering this function.</span>
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">// Iterative update:</span>
-<span class="w">    </span><span class="c1">// RotMat &lt;- Rz(gamma) * RotMat</span>
-<span class="w">    </span><span class="c1">// RotMat &lt;- Ry(beta)  * RotMat</span>
-<span class="w">    </span><span class="c1">// RotMat &lt;- Rz(alpha) * RotMat</span>
-<span class="w">    </span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">// Final result:</span>
-<span class="w">    </span><span class="c1">// RotMat = Rz(alpha) * Ry(beta) * Rz(gamma)</span>
-
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Rz1</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Ry1</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Rz2</span><span class="p">[</span><span class="mi">9</span><span class="p">];</span>
-
-<span class="w">    </span><span class="n">RotationMatrix_z</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">Rz1</span><span class="p">);</span>
-<span class="w">    </span><span class="n">RotationMatrix_y</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">Ry1</span><span class="p">);</span>
-<span class="w">    </span><span class="n">RotationMatrix_z</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span><span class="w"> </span><span class="n">Rz2</span><span class="p">);</span>
-
-<span class="w">    </span><span class="n">LeftMultiply3x3</span><span class="p">(</span><span class="n">RotMat</span><span class="p">,</span><span class="w"> </span><span class="n">Rz2</span><span class="p">);</span>
-<span class="w">    </span><span class="n">LeftMultiply3x3</span><span class="p">(</span><span class="n">RotMat</span><span class="p">,</span><span class="w"> </span><span class="n">Ry1</span><span class="p">);</span>
-<span class="w">    </span><span class="n">LeftMultiply3x3</span><span class="p">(</span><span class="n">RotMat</span><span class="p">,</span><span class="w"> </span><span class="n">Rz1</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">RotMat_select</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">RotMat</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">RotMat_idx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -718,8 +611,6 @@
 <span class="w">    </span><span class="n">RotMat</span><span class="p">[</span><span class="mi">9</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RotMat_idx</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
 <span class="p">}</span>
 
-<span class="c1">// here the rotation matrix operations section ends</span>
-
 <span class="kt">void</span><span class="w"> </span><span class="nf">read_RotationData</span><span class="p">(</span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span><span class="w"> </span><span class="n">InputFileData</span><span class="o">*</span><span class="w"> </span><span class="n">InputData</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
@@ -729,7 +620,7 @@
 
 <span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">alpha_buf</span><span class="p">,</span><span class="w"> </span><span class="n">beta_buf</span><span class="p">,</span><span class="w"> </span><span class="n">gamma_buf</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">angle_1_buf</span><span class="p">,</span><span class="w"> </span><span class="n">angle_2_buf</span><span class="p">,</span><span class="w"> </span><span class="n">angle_3_buf</span><span class="p">;</span>
 <span class="w">    </span><span class="n">ifstream</span><span class="w"> </span><span class="n">fin</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RotDataProp</span><span class="o">-&gt;</span><span class="n">GlobalFilePath</span><span class="p">;</span>
@@ -738,10 +629,10 @@
 <span class="w">    </span><span class="n">fin</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
 <span class="w">    </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="c1">// read in the data</span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">fin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">alpha_buf</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">beta_buf</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">gamma_buf</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">alpha</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alpha_buf</span><span class="p">;</span>
-<span class="w">        </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">beta</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beta_buf</span><span class="p">;</span>
-<span class="w">        </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">gamma</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamma_buf</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">fin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">angle_1_buf</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">angle_2_buf</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">angle_3_buf</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">alpha</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angle_1_buf</span><span class="p">;</span>
+<span class="w">        </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">beta</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angle_2_buf</span><span class="p">;</span>
+<span class="w">        </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">gamma</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angle_3_buf</span><span class="p">;</span>
 <span class="w">        </span><span class="n">n</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -750,13 +641,14 @@
 
 <span class="w">        </span><span class="n">RotMat_select</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">RotMat</span><span class="p">,</span><span class="w"> </span><span class="n">RotMat_buf</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">Multiply_RotmatZYZ_3x3</span><span class="p">(</span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">beta</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">gamma</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="w"> </span><span class="n">RotMat_buf</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Multiply_RotmatEuler_3x3</span><span class="p">(</span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">beta</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">gamma</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+<span class="w">                                 </span><span class="n">InputData</span><span class="o">-&gt;</span><span class="n">RotDataConvention</span><span class="p">,</span><span class="w"> </span><span class="n">RotMat_buf</span><span class="p">);</span>
 
 <span class="w">        </span><span class="n">RotMat_store</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">RotData</span><span class="o">-&gt;</span><span class="n">RotMat</span><span class="p">,</span><span class="w"> </span><span class="n">RotMat_buf</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="n">fin</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"read (alpha, beta, gamma) RotationData finished..."</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LogSystem</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="s">"read (angle_1, angle_2, angle_3) RotationData finished..."</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">init_RotationData</span><span class="p">(</span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData</span><span class="p">,</span><span class="w"> </span><span class="n">RotationData</span><span class="o">*</span><span class="w"> </span><span class="n">RotData_gpu</span><span class="p">,</span><span class="w"> </span><span class="n">RotDataProperties</span><span class="o">*</span><span class="w"> </span><span class="n">RotDataProp</span><span class="p">,</span>

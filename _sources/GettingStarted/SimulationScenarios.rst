@@ -310,14 +310,18 @@ the local coordinates or vector fields on disk.
      RotData.csv
 
 The ``RotData.csv`` file is header-free and whitespace-separated. Each row
-contains the three rotation angles of one local object:
+contains the three rotation angles of one local object in radians:
 
 .. code-block:: text
 
-   alpha beta gamma
+   angle_1 angle_2 angle_3
 
-The angles are interpreted by the rotation kernels using the internal
-object-wise rotation convention. The row order follows the object-folder order.
+The row order follows the object-folder order. ``RotDataConvention`` defines
+the Euler-axis sequence used for the three columns. Its default is ``zyz``,
+which preserves the historical interpretation
+:math:`R = R_z(\alpha) R_y(\beta) R_z(\gamma)`. For example,
+``RotDataConvention = xyz`` defines
+:math:`R = R_x(\mathrm{angle}_1)R_y(\mathrm{angle}_2)R_z(\mathrm{angle}_3)`.
 
 .. code-block:: conf
 
@@ -325,6 +329,7 @@ object-wise rotation convention. The row order follows the object-folder order.
    RotData_activate = 1;
    MagDataPath = RealSpaceData/MagData;
    RotDataFilename = RealSpaceData/RotData.csv;
+   RotDataConvention = zyz;
 
 The same rotation layer can be used with ``NucData`` or with combined
 ``MagData + NucData`` calculations.
@@ -447,6 +452,8 @@ The following consistency rules should be satisfied:
   ``RotData.csv`` must match the effective number of objects.
 - If ``RotDataLoop`` is active, every selected ``RotData_#.csv`` file must
   contain one row per effective object.
+- One ``RotDataConvention`` applies to all active rotation-data rows and loop
+  files in a run.
 - If both ``StructData`` and ``RotData`` are active, both metadata layers must
   contain the same number of object entries.
 - Files are whitespace-separated and do not use CSV headers.

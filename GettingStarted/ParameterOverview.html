@@ -504,7 +504,8 @@ results are written.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">StructData.csv</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RotData</span></code></p></td>
-<td><p>Object-wise local rotations. One row per object with ZYZ Euler angles <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">beta</span> <span class="pre">gamma</span></code> in radians.</p></td>
+<td><p>Object-wise local rotations. One row per object with three Euler angles
+in radians; the axis sequence is selected by <code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code>.</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> or <code class="docutils literal notranslate"><span class="pre">RotData/RotData_1.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">RotData/RotData_2.csv</span></code>, …</p></td>
 </tr>
 </tbody>
@@ -538,9 +539,31 @@ object-center translation table.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">RotData_activate</span></code></dt><dd><p>Default value 0</p>
 <p>If activated, <code class="docutils literal notranslate"><span class="pre">RotDataFilename</span></code> is read as an object-wise rotation table.
-The file must contain one row per object and three columns:
-<code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">beta</span> <span class="pre">gamma</span></code>. The convention is
-<span class="math notranslate nohighlight">\(R = R_z(\alpha) R_y(\beta) R_z(\gamma)\)</span>, with angles in radians.</p>
+The file must contain one row per object and three columns with angles in
+radians. The axes associated with these columns are defined by
+<code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code></dt><dd><p>Default <code class="docutils literal notranslate"><span class="pre">zyz</span></code></p>
+<p>Euler-axis sequence used to interpret the three columns in each rotation
+data row. The supported proper-Euler and Tait–Bryan sequences are
+<code class="docutils literal notranslate"><span class="pre">xyx</span></code>, <code class="docutils literal notranslate"><span class="pre">xzx</span></code>, <code class="docutils literal notranslate"><span class="pre">yxy</span></code>, <code class="docutils literal notranslate"><span class="pre">yzy</span></code>, <code class="docutils literal notranslate"><span class="pre">zxz</span></code>, <code class="docutils literal notranslate"><span class="pre">zyz</span></code>, <code class="docutils literal notranslate"><span class="pre">xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">xzy</span></code>,
+<code class="docutils literal notranslate"><span class="pre">yxz</span></code>, <code class="docutils literal notranslate"><span class="pre">yzx</span></code>, <code class="docutils literal notranslate"><span class="pre">zxy</span></code>, and <code class="docutils literal notranslate"><span class="pre">zyx</span></code>.</p>
+<p>The selection is case-insensitive and applies to every active <code class="docutils literal notranslate"><span class="pre">RotData</span></code>
+row and every file in a <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code> within the run; conventions cannot
+be mixed between loop files.</p>
+<p>A convention <code class="docutils literal notranslate"><span class="pre">abc</span></code> and a row <code class="docutils literal notranslate"><span class="pre">angle_1</span> <span class="pre">angle_2</span> <span class="pre">angle_3</span></code> define the
+active rotation</p>
+<div class="math notranslate nohighlight">
+\[R = R_a(\mathrm{angle}_1) R_b(\mathrm{angle}_2) R_c(\mathrm{angle}_3),\]</div>
+<p>acting on column vectors. The rightmost rotation is therefore applied
+first. For example, with <code class="docutils literal notranslate"><span class="pre">RotDataConvention</span> <span class="pre">=</span> <span class="pre">xyz</span></code>, a row
+<code class="docutils literal notranslate"><span class="pre">phi</span> <span class="pre">0</span> <span class="pre">0</span></code> describes a rotation by <code class="docutils literal notranslate"><span class="pre">phi</span></code> around the x-axis. All three
+angles remain in radians.</p>
+<p>If the option is omitted, NuMagSANS uses <code class="docutils literal notranslate"><span class="pre">zyz</span></code> so that existing
+configuration and rotation-data files retain their historical
+interpretation</p>
+<div class="math notranslate nohighlight">
+\[R = R_z(\alpha) R_y(\beta) R_z(\gamma).\]</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">RotDataPath</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/RotData</span></code></p>
 <p>Folder used by <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code>. In this mode, rotation files are expected

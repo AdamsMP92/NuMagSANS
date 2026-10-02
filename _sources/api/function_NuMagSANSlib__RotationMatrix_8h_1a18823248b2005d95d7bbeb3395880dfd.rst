@@ -1,9 +1,9 @@
-.. _exhale_function_NuMagSANSlib__RotationData_8h_1a9a8b8f198af3e7d4d66b40b5c3222baf:
+.. _exhale_function_NuMagSANSlib__RotationMatrix_8h_1a18823248b2005d95d7bbeb3395880dfd:
 
 Function RotationMatrix_y
 =========================
 
-- Defined in :ref:`file_src_InputData_RotData_NuMagSANSlib_RotationData.h`
+- Defined in :ref:`file_src_helper_NuMagSANSlib_RotationMatrix.h`
 
 
 Function Documentation

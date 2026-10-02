@@ -49,6 +49,8 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/SimulationScenarios';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -700,16 +702,21 @@ the local coordinates or vector fields on disk.</p>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> file is header-free and whitespace-separated. Each row
-contains the three rotation angles of one local object:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>alpha beta gamma
+contains the three rotation angles of one local object in radians:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>angle_1 angle_2 angle_3
 </pre></div>
 </div>
-<p>The angles are interpreted by the rotation kernels using the internal
-object-wise rotation convention. The row order follows the object-folder order.</p>
+<p>The row order follows the object-folder order. <code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code> defines
+the Euler-axis sequence used for the three columns. Its default is <code class="docutils literal notranslate"><span class="pre">zyz</span></code>,
+which preserves the historical interpretation
+<span class="math notranslate nohighlight">\(R = R_z(\alpha) R_y(\beta) R_z(\gamma)\)</span>. For example,
+<code class="docutils literal notranslate"><span class="pre">RotDataConvention</span> <span class="pre">=</span> <span class="pre">xyz</span></code> defines
+<span class="math notranslate nohighlight">\(R = R_x(\mathrm{angle}_1)R_y(\mathrm{angle}_2)R_z(\mathrm{angle}_3)\)</span>.</p>
 <div class="highlight-conf notranslate"><div class="highlight"><pre><span></span>MagData_activate = 1;
 RotData_activate = 1;
 MagDataPath = RealSpaceData/MagData;
 RotDataFilename = RealSpaceData/RotData.csv;
+RotDataConvention = zyz;
 </pre></div>
 </div>
 <p>The same rotation layer can be used with <code class="docutils literal notranslate"><span class="pre">NucData</span></code> or with combined
@@ -815,6 +822,8 @@ must contain one row per effective object.</p></li>
 <code class="docutils literal notranslate"><span class="pre">RotData.csv</span></code> must match the effective number of objects.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code> is active, every selected <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> file must
 contain one row per effective object.</p></li>
+<li><p>One <code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code> applies to all active rotation-data rows and loop
+files in a run.</p></li>
 <li><p>If both <code class="docutils literal notranslate"><span class="pre">StructData</span></code> and <code class="docutils literal notranslate"><span class="pre">RotData</span></code> are active, both metadata layers must
 contain the same number of object entries.</p></li>
 <li><p>Files are whitespace-separated and do not use CSV headers.</p></li>

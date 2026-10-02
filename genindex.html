@@ -711,10 +711,10 @@
 </li>
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData7N_thetaE">InputFileData::N_theta (C++ member)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData21NucData_activate_flagE">InputFileData::NucData_activate_flag (C++ member)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData28NucData_NumberOfReplicationsE">InputFileData::NucData_NumberOfReplications (C++ member)</a>
 </li>
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData30NucData_ReplicationImport_flagE">InputFileData::NucData_ReplicationImport_flag (C++ member)</a>
@@ -736,6 +736,8 @@
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData21RotData_activate_flagE">InputFileData::RotData_activate_flag (C++ member)</a>
 </li>
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData22RotData_User_SelectionE">InputFileData::RotData_User_Selection (C++ member)</a>
+</li>
+      <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData17RotDataConventionE">InputFileData::RotDataConvention (C++ member)</a>
 </li>
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData15RotDataFilenameE">InputFileData::RotDataFilename (C++ member)</a>
 </li>
@@ -783,6 +785,8 @@
 </li>
       <li><a href="api/structInputFileData.html#_CPPv4N13InputFileData15XYZ_Unit_FactorE">InputFileData::XYZ_Unit_Factor (C++ member)</a>
 </li>
+      <li><a href="api/function_NuMagSANSlib__RotationMatrix_8h_1abd115fc1f1954544a9829dd121d7ef7d.html#_CPPv426IsSupportedEulerConventionRKNSt6stringE">IsSupportedEulerConvention (C++ function)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -801,7 +805,7 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1a7389a1437acf1c3292c56be812098f64.html#_CPPv415LeftMultiply3x3PfPKf">LeftMultiply3x3 (C++ function)</a>
+      <li><a href="api/function_NuMagSANSlib__RotationMatrix_8h_1a0fbd3f4fee89f6fd43be6ece97b5c2b0.html#_CPPv415LeftMultiply3x3PfPKf">LeftMultiply3x3 (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__MemoryInfo_8h_1afd118f432a188d8761baf3ae6f9b1f08.html#_CPPv429LogCurrentGPUMemoryDifferenceRK13GPUMemoryInfo">LogCurrentGPUMemoryDifference (C++ function)</a>
 </li>
@@ -879,7 +883,7 @@
 </li>
       <li><a href="api/structMagnetizationData.html#_CPPv4N17MagnetizationData1zE">MagnetizationData::z (C++ member)</a>
 </li>
-      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1accbf966962f110a0419d59a8ce991fcb.html#_CPPv422Multiply_RotmatZYZ_3x3fffPf">Multiply_RotmatZYZ_3x3 (C++ function)</a>
+      <li><a href="api/function_NuMagSANSlib__RotationMatrix_8h_1ae886ee348d2592a5c889ac08d0023fcf.html#_CPPv424Multiply_RotmatEuler_3x3fffRKNSt6stringEPf">Multiply_RotmatEuler_3x3 (C++ function)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -890,6 +894,8 @@
       <li><a href="api/function_NuMagSANSlib__RotationData_8h_1a5e26b3f76356138a2ad86e3dd913d6c6.html#_CPPv421new_read_RotationDataP12RotationDataP12RotationDataP17RotDataPropertiesP13InputFileData">new_read_RotationData (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__StructureData_8h_1a6a83abca8e8df93fd9ad284f18388917.html#_CPPv422new_read_StructureDataP13StructureDataP13StructureDataP20StructDataPropertiesP13InputFileData">new_read_StructureData (C++ function)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationMatrix_8h_1aa11e600cbaec5b06bc51a507d83e0abd.html#_CPPv424NormalizeEulerConventionNSt6stringE">NormalizeEulerConvention (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__NucDataExplorer_8h_1a0ff7cf353334572f0cf4694c7c8c9878.html#_CPPv416NucData_ObserverNSt6stringEP17NucDataPropertiesP13InputFileData">NucData_Observer (C++ function)</a>
 </li>
@@ -1089,17 +1095,21 @@
 </li>
       <li><a href="api/structRotationData.html#_CPPv4N12RotationData4betaE">RotationData::beta (C++ member)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/structRotationData.html#_CPPv4N12RotationData5gammaE">RotationData::gamma (C++ member)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/structRotationData.html#_CPPv4N12RotationData1KE">RotationData::K (C++ member)</a>
 </li>
       <li><a href="api/structRotationData.html#_CPPv4N12RotationData6RotMatE">RotationData::RotMat (C++ member)</a>
 </li>
-      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1a9a8b8f198af3e7d4d66b40b5c3222baf.html#_CPPv416RotationMatrix_yfPf">RotationMatrix_y (C++ function)</a>
+      <li><a href="api/function_NuMagSANSlib__RotationMatrix_8h_1a5d863cac1fd79ea10c9609356a2f68e5.html#_CPPv419RotationMatrix_axiscfPf">RotationMatrix_axis (C++ function)</a>
 </li>
-      <li><a href="api/function_NuMagSANSlib__RotationData_8h_1aad084dea7403eac3c503f5f9e5d03a34.html#_CPPv416RotationMatrix_zfPf">RotationMatrix_z (C++ function)</a>
+      <li><a href="api/function_NuMagSANSlib__RotationMatrix_8h_1a6559fa927e1d88ceae60489f3bae8e62.html#_CPPv416RotationMatrix_xfPf">RotationMatrix_x (C++ function)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationMatrix_8h_1a18823248b2005d95d7bbeb3395880dfd.html#_CPPv416RotationMatrix_yfPf">RotationMatrix_y (C++ function)</a>
+</li>
+      <li><a href="api/function_NuMagSANSlib__RotationMatrix_8h_1a351ddec1c366a69d17705e55a0d3d91a.html#_CPPv416RotationMatrix_zfPf">RotationMatrix_z (C++ function)</a>
 </li>
       <li><a href="api/function_NuMagSANSlib__RotationDataExplorer_8h_1a347131ce0a4982993fd5ca5b9de2f972.html#_CPPv416RotData_ObserverNSt6stringEP17RotDataProperties">RotData_Observer (C++ function)</a>
 </li>

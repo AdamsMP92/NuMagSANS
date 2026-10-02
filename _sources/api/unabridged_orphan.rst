@@ -245,6 +245,11 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_src_helper_NuMagSANSlib_RotationMatrix.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_src_OutputData_SANSData_NuMagSANSlib_SANSData.h.rst
 
 .. toctree::

@@ -47,6 +47,7 @@ Program Listing for File NuMagSANSlib.h
    #include "helper/NuMagSANSlib_StringCompare.h"
    #include "helper/NuMagSANSlib_ReadWrite.h"
    #include "helper/NuMagSANSlib_Directory.h"
+   #include "helper/NuMagSANSlib_RotationMatrix.h"
    #include "InputData/NuMagSANSlib_InputFileInterpreter.h"
    #include "InputData/MagData/NuMagSANSlib_MagDataExplorer.h"
    #include "InputData/NucData/NuMagSANSlib_NucDataExplorer.h"

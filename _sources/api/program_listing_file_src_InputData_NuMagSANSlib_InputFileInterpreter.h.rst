@@ -92,6 +92,8 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
    
        string RotDataPath = "";
    
+       string RotDataConvention = "zyz";
+   
        bool FastLoad_flag = false;
    
        bool NucData_ReplicationImport_flag = false;
@@ -542,6 +544,7 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            {"RotDataFilename", &InputData->RotDataFilename, true},
            {"StructDataPath", &InputData->StructDataPath, false},
            {"RotDataPath", &InputData->RotDataPath, false},
+           {"RotDataConvention", &InputData->RotDataConvention, false},
            {"foldernameSANSData", &InputData->SANSDataFoldername, true},
            {"SANSData_Output_Format", &InputData->SANSData_Output_Format, false},
            {"Fourier_Approach", &InputData->Fourier_Approach, true},
@@ -665,6 +668,15 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            }
        }
    
+       InputData->RotDataConvention = NormalizeEulerConvention(InputData->RotDataConvention);
+       bool RotDataConvention_CheckFlag = IsSupportedEulerConvention(InputData->RotDataConvention);
+       if (!RotDataConvention_CheckFlag) {
+           LogSystem::write("Error: unsupported RotDataConvention: " + InputData->RotDataConvention);
+           LogSystem::write("Supported conventions: xyx, xzx, yxy, yzy, zxz, zyz, xyz, xzy, yxz, yzx, zxy, zyx.");
+       } else {
+           LogSystem::write("RotData Euler convention: " + InputData->RotDataConvention);
+       }
+   
        Compute_RotMat(InputData->RotMat_alpha, InputData->RotMat_beta, InputData->RotMat);
        LogSystem::write("Rotation Matrix: ");
        LogSystem::write(std::to_string(InputData->RotMat[0]) + " " + std::to_string(InputData->RotMat[3]) + " " +
@@ -754,5 +766,6 @@ Program Listing for File NuMagSANSlib_InputFileInterpreter.h
            LogSystem::write(" ->-> Error in input file!");
        }
    
-       return ok && ReplicationImport_CheckFlag && ScatteringGrid_CheckFlag && OutputBackend_CheckFlag;
+       return ok && ReplicationImport_CheckFlag && ScatteringGrid_CheckFlag && OutputBackend_CheckFlag &&
+              RotDataConvention_CheckFlag;
    }

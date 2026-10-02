@@ -74,7 +74,8 @@ NuMagSANS separates local object data from optional assembly metadata:
      - Object-center translations. One row per object with ``x y z``.
      - ``StructData.csv``
    * - ``RotData``
-     - Object-wise local rotations. One row per object with ZYZ Euler angles ``alpha beta gamma`` in radians.
+     - Object-wise local rotations. One row per object with three Euler angles
+       in radians; the axis sequence is selected by ``RotDataConvention``.
      - ``RotData.csv`` or ``RotData/RotData_1.csv``, ``RotData/RotData_2.csv``, ...
 
 This separation allows several system types to be represented with the same
@@ -116,9 +117,41 @@ local object data without rewriting the object files.
     Default value 0
 
     If activated, ``RotDataFilename`` is read as an object-wise rotation table.
-    The file must contain one row per object and three columns:
-    ``alpha beta gamma``. The convention is
-    :math:`R = R_z(\alpha) R_y(\beta) R_z(\gamma)`, with angles in radians.
+    The file must contain one row per object and three columns with angles in
+    radians. The axes associated with these columns are defined by
+    ``RotDataConvention``.
+
+``RotDataConvention``
+    Default ``zyz``
+
+    Euler-axis sequence used to interpret the three columns in each rotation
+    data row. The supported proper-Euler and Tait--Bryan sequences are
+    ``xyx``, ``xzx``, ``yxy``, ``yzy``, ``zxz``, ``zyz``, ``xyz``, ``xzy``,
+    ``yxz``, ``yzx``, ``zxy``, and ``zyx``.
+
+    The selection is case-insensitive and applies to every active ``RotData``
+    row and every file in a ``RotDataLoop`` within the run; conventions cannot
+    be mixed between loop files.
+
+    A convention ``abc`` and a row ``angle_1 angle_2 angle_3`` define the
+    active rotation
+
+    .. math::
+
+       R = R_a(\mathrm{angle}_1) R_b(\mathrm{angle}_2) R_c(\mathrm{angle}_3),
+
+    acting on column vectors. The rightmost rotation is therefore applied
+    first. For example, with ``RotDataConvention = xyz``, a row
+    ``phi 0 0`` describes a rotation by ``phi`` around the x-axis. All three
+    angles remain in radians.
+
+    If the option is omitted, NuMagSANS uses ``zyz`` so that existing
+    configuration and rotation-data files retain their historical
+    interpretation
+
+    .. math::
+
+       R = R_z(\alpha) R_y(\beta) R_z(\gamma).
 
 ``RotDataPath``
     Default path ``RealSpaceData/RotData``

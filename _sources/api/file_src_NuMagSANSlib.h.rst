@@ -76,6 +76,8 @@ Includes
 
 - ``helper/NuMagSANSlib_ReadWrite.h`` (:ref:`file_src_helper_NuMagSANSlib_ReadWrite.h`)
 
+- ``helper/NuMagSANSlib_RotationMatrix.h`` (:ref:`file_src_helper_NuMagSANSlib_RotationMatrix.h`)
+
 - ``helper/NuMagSANSlib_StringCompare.h`` (:ref:`file_src_helper_NuMagSANSlib_StringCompare.h`)
 
 - ``helper/NuMagSANSlib_TimeMeasure.h`` (:ref:`file_src_helper_NuMagSANSlib_TimeMeasure.h`)
