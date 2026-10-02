@@ -1,3 +1,9 @@
+import os
+import shutil
+import sys
+from pathlib import Path
+
+
 # -- Project information -----------------------------------------------------
 project = "NuMagSANS"
 author = "Michael Philipp Adams"
@@ -74,7 +80,20 @@ html_sidebars = {
 }
 
 # -- Python path -------------------------------------------------------------
-import os
-import sys
-
 sys.path.insert(0, os.path.abspath("../src"))
+
+
+def _copy_llm_context(app, exception):
+    """Publish the repository and package context files at the site root."""
+
+    if exception is not None or app.builder.format != "html":
+        return
+
+    repository_root = Path(__file__).resolve().parent.parent
+    output_dir = Path(app.outdir)
+    shutil.copy2(repository_root / "llms.txt", output_dir / "llms.txt")
+    shutil.copy2(repository_root / "NuMagSANS" / "llms-full.txt", output_dir / "llms-full.txt")
+
+
+def setup(app):
+    app.connect("build-finished", _copy_llm_context)

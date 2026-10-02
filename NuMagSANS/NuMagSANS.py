@@ -4,6 +4,9 @@ from typing import Iterable
 
 
 class NuMagSANS:
+    FOURIER_APPROACHES = {"atomistic", "micromagnetic"}
+    OUTPUT_FORMATS = {"csv", "hdf5"}
+
     # ------------------------------------------------------------
     # Output naming structure (mirrors C++ logic)
     # ------------------------------------------------------------

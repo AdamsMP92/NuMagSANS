@@ -49,6 +49,22 @@ It includes a **versatile library of more than +100 response functions**, coveri
 These capabilities provide detailed insights into the **structural and magnetic characteristics** of complex systems.
 Leveraging **GPU acceleration**, *NuMagSANS* achieves **high computational performance and scalability**, making it a **powerful and efficient tool for advanced SANS simulations and data analysis**.
 
+## 🤖 LLM-assisted simulations
+
+NuMagSANS ships a machine-readable, version-matched usage guide for AI assistants. After building and installing the package, print the context for the current installation with:
+
+```bash
+python -m NuMagSANS > numagsans-context.txt
+```
+
+Give this file to an assistant before asking it to prepare a simulation. It contains the canonical workflow, input-data contract, coordinate and unit conventions, loop semantics, exact rotation conventions, output selection, validation rules, and common mistakes. The same context is available with `from NuMagSANS import llm_context`.
+
+The assistant helps scaffold and check a deterministic NuMagSANS calculation; the user remains responsible for the physical model, numerical choices, validation, and scientific interpretation.
+
+- [AI-assisted simulation guide](https://adamsmp92.github.io/NuMagSANS/GettingStarted/AIAssistedSimulations.html)
+- [Short machine-readable index](https://adamsmp92.github.io/NuMagSANS/llms.txt)
+- [Full machine-readable context](https://adamsmp92.github.io/NuMagSANS/llms-full.txt)
+
 ## 📂 Example Datasets
 
 The benchmark datasets associated with **NuMagSANS** are openly available on [Zenodo](https://zenodo.org) and serve as reference examples for validation and reproducibility.
