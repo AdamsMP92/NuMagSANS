@@ -49,6 +49,24 @@ Key Features
 - Correlation functions and pair distribution functions
 - Spectral decomposition of scattering amplitudes
 - Python facade for simplified workflow integration
+- Version-matched machine-readable context for AI-assisted simulation setup
+
+AI-assisted simulation setup
+-----------------------------
+
+NuMagSANS provides a machine-readable guide that helps general-purpose AI
+assistants generate and check input layouts, Python configuration scripts,
+rotation sweeps, and output selections without guessing the specialized API.
+After installation, print the context for the local version with:
+
+.. code-block:: bash
+
+   python -m NuMagSANS > numagsans-context.txt
+
+The assistant supports preparation and consistency checking; NuMagSANS remains
+a deterministic simulator, and scientific assumptions, validation, and
+interpretation remain the user's responsibility. See
+:doc:`GettingStarted/AIAssistedSimulations` for the recommended workflow.
 
 Corresponding Publication
 -------------------------

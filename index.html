@@ -431,7 +431,22 @@ with a clear execution pipeline and reproducible output.</p>
 <li><p>Correlation functions and pair distribution functions</p></li>
 <li><p>Spectral decomposition of scattering amplitudes</p></li>
 <li><p>Python facade for simplified workflow integration</p></li>
+<li><p>Version-matched machine-readable context for AI-assisted simulation setup</p></li>
 </ul>
+</section>
+<section id="ai-assisted-simulation-setup">
+<h2>AI-assisted simulation setup<a class="headerlink" href="#ai-assisted-simulation-setup" title="Link to this heading">#</a></h2>
+<p>NuMagSANS provides a machine-readable guide that helps general-purpose AI
+assistants generate and check input layouts, Python configuration scripts,
+rotation sweeps, and output selections without guessing the specialized API.
+After installation, print the context for the local version with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>NuMagSANS<span class="w"> </span>&gt;<span class="w"> </span>numagsans-context.txt
+</pre></div>
+</div>
+<p>The assistant supports preparation and consistency checking; NuMagSANS remains
+a deterministic simulator, and scientific assumptions, validation, and
+interpretation remain the user’s responsibility. See
+<a class="reference internal" href="GettingStarted/AIAssistedSimulations.html"><span class="doc">AI-assisted simulations</span></a> for the recommended workflow.</p>
 </section>
 <section id="corresponding-publication">
 <h2>Corresponding Publication<a class="headerlink" href="#corresponding-publication" title="Link to this heading">#</a></h2>
@@ -506,6 +521,7 @@ observables of complex systems.</strong></p>
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-assisted-simulation-setup">AI-assisted simulation setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corresponding-publication">Corresponding Publication</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>

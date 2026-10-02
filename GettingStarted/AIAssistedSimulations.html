@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Getting Started &#8212; NuMagSANS  documentation</title>
+    <title>AI-assisted simulations &#8212; NuMagSANS  documentation</title>
   
   
   
@@ -49,12 +49,12 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/AIAssistedSimulations';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Quickstart Installation" href="Quickstart.html" />
-    <link rel="prev" title="NuMagSANS Documentation" href="../index.html" />
+    <link rel="next" title="Detailled Installation" href="Installation.html" />
+    <link rel="prev" title="Quickstart Installation" href="Quickstart.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -148,7 +148,7 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#" aria-current="page">
+  <a class="nav-link nav-internal" href="index.html">
     Getting Started
   </a>
 </li>
@@ -246,6 +246,10 @@
   
 
   
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
 </div>
 
     </header>
@@ -273,7 +277,7 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item current active">
-  <a class="nav-link nav-internal" href="#" aria-current="page">
+  <a class="nav-link nav-internal" href="index.html">
     Getting Started
   </a>
 </li>
@@ -356,9 +360,9 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AIAssistedSimulations.html">AI-assisted simulations</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">AI-assisted simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Detailled Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ParameterOverview.html">Parameter Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SimulationScenarios.html">Simulation Scenarios</a></li>
@@ -409,7 +413,10 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Getting Started</span></li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Getting Started</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">AI-assisted simulations</span></li>
   </ul>
 </nav>
 </div>
@@ -426,17 +433,117 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AIAssistedSimulations.html">AI-assisted simulations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Installation.html">Detailled Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ParameterOverview.html">Parameter Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SimulationScenarios.html">Simulation Scenarios</a></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="ai-assisted-simulations">
+<h1>AI-assisted simulations<a class="headerlink" href="#ai-assisted-simulations" title="Link to this heading">#</a></h1>
+<p>NuMagSANS ships a machine-readable usage guide so that general-purpose AI assistants can help prepare simulations without guessing the package’s specialized API, file layout, units, or rotation conventions.</p>
+<p>The assistant supports the workflow; it does not replace the physical model. NuMagSANS remains a deterministic scattering simulator, and the user remains responsible for the physical assumptions, real-space state, units, numerical resolution, and interpretation of the result.</p>
+<section id="load-the-installed-context">
+<h2>Load the installed context<a class="headerlink" href="#load-the-installed-context" title="Link to this heading">#</a></h2>
+<p>After installing NuMagSANS, print the guide together with facts from the current installation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>NuMagSANS<span class="w"> </span>&gt;<span class="w"> </span>numagsans-context.txt
+</pre></div>
 </div>
+<p>Attach <code class="docutils literal notranslate"><span class="pre">numagsans-context.txt</span></code> to the conversation or paste it before describing the simulation. The same information is available from Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">NuMagSANS</span><span class="w"> </span><span class="kn">import</span> <span class="n">llm_context</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">llm_context</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The installed header reports the package version, expected backend executable, supported Fourier approaches, Euler conventions, and exact output keys. This is preferable to relying on API information remembered by a general model.</p>
+<p>For documentation-aware tools, the published context is available as:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://adamsmp92.github.io/NuMagSANS/llms.txt"><code class="docutils literal notranslate"><span class="pre">llms.txt</span></code></a>: short index of the authoritative documentation and runnable examples.</p></li>
+<li><p><a class="reference external" href="https://adamsmp92.github.io/NuMagSANS/llms-full.txt"><code class="docutils literal notranslate"><span class="pre">llms-full.txt</span></code></a>: self-contained NuMagSANS usage guide for an AI assistant.</p></li>
+</ul>
+<p>The locally generated context is preferred because it reflects the installed package.</p>
+</section>
+<section id="recommended-workflow">
+<h2>Recommended workflow<a class="headerlink" href="#recommended-workflow" title="Link to this heading">#</a></h2>
+<p>Use an assistant in five explicit stages:</p>
+<ol class="arabic simple">
+<li><p>Describe the physical system and intended observable.</p></li>
+<li><p>Ask the assistant to state its assumptions and identify missing scientific choices.</p></li>
+<li><p>Generate real-space data and a Python script using <code class="docutils literal notranslate"><span class="pre">NuMagSANS.write_config(...)</span></code>.</p></li>
+<li><p>Review the files, units, coordinate system, rotations, q grid, polarization, scattering volume, and output selection.</p></li>
+<li><p>Run a reduced test case before scaling to the full simulation.</p></li>
+</ol>
+<p>The boundary between user and assistant should remain clear:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>The assistant can help with</p></th>
+<th class="head"><p>The user must decide or verify</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Directory and filename conventions</p></td>
+<td><p>Whether the real-space state is physically appropriate</p></td>
+</tr>
+<tr class="row-odd"><td><p>Configuration syntax and exact output keys</p></td>
+<td><p>Units and physical scaling</p></td>
+</tr>
+<tr class="row-even"><td><p>StructData and RotData generation</p></td>
+<td><p>Scattering volume and polarization geometry</p></td>
+</tr>
+<tr class="row-odd"><td><p>Loop organization and result paths</p></td>
+<td><p>q range, angular resolution, and convergence</p></td>
+</tr>
+<tr class="row-even"><td><p>Preflight consistency checks</p></td>
+<td><p>Interpretation and scientific conclusions</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="prompt-template">
+<h2>Prompt template<a class="headerlink" href="#prompt-template" title="Link to this heading">#</a></h2>
+<p>The following prompt makes the expected workflow explicit:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Use the attached NuMagSANS context as the authoritative API guide.
+
+I want to simulate: &lt;physical system and purpose&gt;.
+My real-space data represent: &lt;atomistic moments or micromagnetic cells&gt;.
+The coordinate unit is: &lt;unit&gt;.
+The neutron beam and polarization setup is: &lt;description&gt;.
+The observables I need are: &lt;channels&gt;.
+
+Before writing files or code:
+1. summarize the proposed NuMagSANS data layers and loop structure;
+2. list every physical or numerical assumption;
+3. ask about any scientifically important missing value;
+4. do not invent configuration keys or output names.
+
+Then produce a minimal runnable Python script using NuMagSANS.write_config().
+Include a reduced preflight run before the full calculation.
+</pre></div>
+</div>
+</section>
+<section id="example-request-rotation-around-the-beam-axis">
+<h2>Example request: rotation around the beam axis<a class="headerlink" href="#example-request-rotation-around-the-beam-axis" title="Link to this heading">#</a></h2>
+<p>NuMagSANS defines the neutron beam direction as the x-axis and the detector as the yz-plane. A concise request for an angular sweep is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>I have one magnetic object in RealSpaceData/MagData/Object_1/m_1.csv.
+Generate 36 object orientations around the neutron-beam x-axis without
+duplicating the MagData file. Use an xyz RotData convention, a RotData loop,
+and radians in the rotation files. Request Unpolarized_2D, SpinFlip_2D, and
+SpinFlip_1D output. Show the assumptions that still require my confirmation.
+</pre></div>
+</div>
+<p>For <code class="docutils literal notranslate"><span class="pre">RotDataConvention=&quot;xyz&quot;</span></code>, the row <code class="docutils literal notranslate"><span class="pre">phi</span> <span class="pre">0</span> <span class="pre">0</span></code> represents the required active x-axis rotation. The full machine-readable guide contains a complete script for this pattern.</p>
+</section>
+<section id="reliability-rules">
+<h2>Reliability rules<a class="headerlink" href="#reliability-rules" title="Link to this heading">#</a></h2>
+<p>An assistant working with NuMagSANS should follow these rules:</p>
+<ul class="simple">
+<li><p>Prefer the installed context, Python introspection, current documentation, and runnable examples over remembered knowledge.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">NuMagSANS.write_config(...)</span></code>; do not invent or silently omit configuration keys.</p></li>
+<li><p>Query <code class="docutils literal notranslate"><span class="pre">NuMagSANS.generate_all_outputs()</span></code> rather than guessing output names.</p></li>
+<li><p>Keep atomistic and micromagnetic scaling assumptions explicit.</p></li>
+<li><p>Treat RotData angles as radians and global sample-rotation angles as degrees.</p></li>
+<li><p>Remember that the beam is along x, not the frequently assumed z-axis.</p></li>
+<li><p>Validate object counts against every active StructData and RotData table.</p></li>
+<li><p>Do not equate successful execution with physical validation.</p></li>
+<li><p>Preserve generated configurations and record the package version for reproducibility.</p></li>
+</ul>
+<p>Analytical limits, symmetry checks, grid-convergence studies, and published reference datasets remain the appropriate validation methods for scientific results.</p>
+</section>
 </section>
 
 
@@ -450,20 +557,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../index.html"
+       href="Quickstart.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">NuMagSANS Documentation</p>
+        <p class="prev-next-title">Quickstart Installation</p>
       </div>
     </a>
     <a class="right-next"
-       href="Quickstart.html"
+       href="Installation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Quickstart Installation</p>
+        <p class="prev-next-title">Detailled Installation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -473,6 +580,28 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-installed-context">Load the installed context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-workflow">Recommended workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-template">Prompt template</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-request-rotation-around-the-beam-axis">Example request: rotation around the beam axis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reliability-rules">Reliability rules</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

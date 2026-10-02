@@ -1,0 +1,380 @@
+# Using NuMagSANS — guide for AI assistants
+
+You are helping someone prepare, run, or inspect a NuMagSANS simulation. NuMagSANS is a specialized scientific package. Your prior knowledge may be incomplete or wrong. Trust the installed facts prepended by the exported `llm_context()` function, the actual Python signatures, and the current NuMagSANS documentation over assumptions.
+
+Do not invent configuration keys, output names, file formats, units, conventions, or Python methods. Prefer `NuMagSANS.write_config(...)` over writing configuration files manually. Use `NuMagSANS.generate_all_outputs()`, `help(NuMagSANS.write_config)`, and the installed facts to inspect the available interface. If a scientifically important choice is missing, ask the user instead of selecting a plausible value silently.
+
+NuMagSANS performs deterministic scattering calculations. An AI assistant may scaffold inputs, explain choices, validate consistency, and inspect results; it does not replace the physical model, select scientifically justified parameters on its own, or provide evidence that a generated real-space state is physically realizable.
+
+## 1. What NuMagSANS does
+
+NuMagSANS computes nuclear and magnetic small-angle neutron scattering observables from discrete real-space data. It accepts local magnetic and/or nuclear object data, optional object-center translations, and optional object-wise rotations. The CUDA backend evaluates the selected scattering and correlation observables on a user-defined reciprocal-space grid.
+
+NuMagSANS does not solve the Landau–Lifshitz–Gilbert equation and does not generate a relaxed magnetic state from material parameters. Magnetization states normally come from atomistic spin dynamics, micromagnetics, analytical models, experiments, or the NuMagSANS SystemDesigner utilities.
+
+The main execution pipeline is:
+
+```text
+real-space object data
+    + optional StructData translations
+    + optional RotData rotations
+    -> generated configuration
+    -> compiled NuMagSANS CUDA executable
+    -> CSV or HDF5 SANS observables
+```
+
+## 2. Installation and live inspection
+
+NuMagSANS requires a compiled backend executable. A typical source installation is:
+
+```bash
+cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=native -DNUMAGSANS_ENABLE_HDF5=ON
+cmake --build build --parallel 2
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+```
+
+HDF5 is optional at build time. Selecting `SANSData_Output_Format="hdf5"` with a backend built without `NUMAGSANS_ENABLE_HDF5=ON` raises a runtime error. CSV remains available without HDF5.
+
+Print the guide and facts for the installed checkout with:
+
+```bash
+python -m NuMagSANS
+```
+
+or from Python:
+
+```python
+from NuMagSANS import llm_context
+
+print(llm_context())
+```
+
+## 3. Canonical Python workflow
+
+Use absolute paths derived from the script location. This avoids accidental dependence on the shell's current directory.
+
+```python
+from pathlib import Path
+
+from NuMagSANS import NuMagSANS
+
+base_dir = Path(__file__).resolve().parent
+config = base_dir / "NuMagSANSInput.conf"
+
+sim = NuMagSANS()
+sim.write_config(
+    config,
+    MagData_activate=1,
+    MagDataPath=str(base_dir / "RealSpaceData" / "MagData"),
+    foldernameSANSData=str(base_dir / "NuMagSANS_Output"),
+    Fourier_Approach="atomistic",
+    User_Selection=[1],
+    Scattering_Volume_V=2.618e-24,
+    Number_Of_q_Points=160,
+    Number_Of_theta_Points=361,
+    q_min=0.0,
+    q_max=1.2,
+    enable_outputs=["SpinFlip_2D", "SpinFlip_1D"],
+)
+
+sim.run(config)
+```
+
+Only call `sim.config_clear(config)` when the user wants the generated configuration removed. Keeping the configuration is usually better for reproducibility.
+
+The default executable lookup expects `build/NuMagSANS` in a source checkout. Pass an explicit executable and work directory when the backend is elsewhere:
+
+```python
+sim = NuMagSANS(
+    executable="/path/to/NuMagSANS",
+    workdir="/path/to/run-directory",
+)
+```
+
+## 4. Real-space data contract
+
+All input tables are header-free and whitespace-separated even though their filenames use `.csv`. Do not add comma delimiters or column labels.
+
+### 4.1 Magnetic data
+
+Magnetic object data use six columns:
+
+```text
+x y z mx my mz
+```
+
+The directory and file indices start at 1:
+
+```text
+RealSpaceData/
+  MagData/
+    Object_1/
+      m_1.csv
+      m_2.csv
+    Object_2/
+      m_1.csv
+      m_2.csv
+```
+
+The prefix of an object directory may vary, but directories must share one prefix and end in `_1`, `_2`, and so on. A selected data index `k` requires `m_k.csv` in every active magnetic object directory.
+
+### 4.2 Nuclear data
+
+Nuclear object data use four columns:
+
+```text
+x y z nuc
+```
+
+They follow the same object and file indexing convention, using `n_1.csv`, `n_2.csv`, and so on below `NucData/Object_#/`.
+
+When magnetic and nuclear layers are active together, keep their effective object organization compatible. Do not assume the backend can infer a correspondence between unrelated folder layouts.
+
+### 4.3 Structure data
+
+`StructData.csv` contains one center translation per effective object:
+
+```text
+x y z
+```
+
+Row 1 applies to object 1, row 2 to object 2, and so on. Local object coordinates are centered during import; use StructData for object-center placement when modeling an assembly.
+
+### 4.4 Rotation data
+
+`RotData.csv` contains one rotation per effective object:
+
+```text
+angle_1 angle_2 angle_3
+```
+
+Angles are in radians. Row order follows object order. A single `RotDataConvention` applies to every row and every RotData loop file in one run.
+
+### 4.5 Replication import
+
+Replication import stores one physical template object and replicates it internally:
+
+```python
+sim.write_config(
+    config,
+    MagData_activate=1,
+    MagData_ReplicationImport=1,
+    MagData_NumberOfReplications=5000,
+    # ...
+)
+```
+
+If StructData or RotData is active, its row count must equal the effective replication count, not the number of template folders on disk. Nuclear replication uses the corresponding `NucData_ReplicationImport` options.
+
+## 5. Coordinates, units, and rotations
+
+### 5.1 Scattering geometry
+
+The incoming neutron beam is along the Cartesian x-axis. The two-dimensional detector is the yz-plane. Detector-space scattering vectors use
+
+```text
+q = (0, q sin(theta), q cos(theta)).
+```
+
+Do not silently substitute the z-beam convention common in other scattering or imaging software.
+
+### 5.2 Spatial and reciprocal-space units
+
+- Internal real-space coordinates are expected in nanometers.
+- `XYZ_Unit_Factor` multiplies imported x, y, and z coordinates. Use `1` for input already in nanometers and `1e9` for input in meters.
+- `q_min` and `q_max` are in inverse nanometers.
+- `r_max` and the micromagnetic cuboid cell sizes are in nanometers.
+- `Scattering_Volume_V` is in cubic meters.
+- Exported 2D SANS cross sections are in inverse centimeters.
+
+For `Fourier_Approach="atomistic"`, magnetic values are interpreted as magnetic moments in Bohr magnetons and nuclear values use the atomistic nuclear scaling implemented by NuMagSANS. For `Fourier_Approach="micromagnetic"`, the configured `Cell_Magnetization` in A/m, `Cell_Nuclear_SLD` in 1/m², and `Cuboid_Cell_Size` in nm determine the per-cell scattering scale. Never switch approaches without checking the physical meaning of the imported values.
+
+### 5.3 Object-wise Euler rotations
+
+Supported conventions are:
+
+```text
+xyx xzx yxy yzy zxz zyz xyz xzy yxz yzx zxy zyx
+```
+
+For convention `abc`, a row `(angle_1, angle_2, angle_3)` defines the active column-vector rotation
+
+```text
+R = R_a(angle_1) R_b(angle_2) R_c(angle_3).
+```
+
+The rightmost matrix therefore acts first. The default is `zyz`, preserving the historical interpretation
+
+```text
+R = R_z(alpha) R_y(beta) R_z(gamma).
+```
+
+For `RotDataConvention="xyz"`, the row `(phi, 0, 0)` is a pure active rotation by `phi` around the x-axis. Object rotations transform both positions and magnetic vectors.
+
+### 5.4 Global sample rotation
+
+`RotMat_alpha` and `RotMat_beta` are global sample-orientation angles in degrees. They are independent of object-wise RotData angles, which are in radians. Do not mix these units or use global rotation as a substitute for independent object orientations.
+
+## 6. Data layers and simulation modes
+
+The local physical layers are:
+
+- `MagData`: magnetic scattering input.
+- `NucData`: nuclear scattering input.
+- both together: nuclear, magnetic, and interference observables.
+
+The optional assembly layers are:
+
+- `StructData`: translate local objects to object-center positions.
+- `RotData`: rotate local object coordinates and magnetic vectors.
+- both together: rotated and translated assemblies.
+
+Activate only layers whose files are present and consistent. The usual full assembly setup is:
+
+```python
+sim.write_config(
+    config,
+    MagData_activate=1,
+    StructData_activate=1,
+    RotData_activate=1,
+    MagDataPath=str(base_dir / "RealSpaceData" / "MagData"),
+    StructDataFilename=str(base_dir / "RealSpaceData" / "StructData.csv"),
+    RotDataFilename=str(base_dir / "RealSpaceData" / "RotData.csv"),
+    RotDataConvention="zyz",
+    # ...
+)
+```
+
+## 7. Loop semantics
+
+There are three independent index layers:
+
+1. `Loop_Modus` or `User_Selection` selects local `m_#.csv` and `n_#.csv` data states.
+2. `StructDataLoop` selects `StructData/StructData_#.csv` assembly positions.
+3. `RotDataLoop` selects `RotData/RotData_#.csv` assembly orientations.
+
+With both metadata loops active, StructData is the outer loop and RotData is the inner loop. Explicit `*_User_Selection` lists select exact indices; otherwise the corresponding `*_From` and `*_To` range is used.
+
+Do not confuse one RotData file containing one row per object with a RotData loop containing multiple complete orientation tables.
+
+Expected nested output locations include:
+
+```text
+NuMagSANS_Output/
+  SANS_1/
+    StructData_2/
+      RotData_3/
+```
+
+For HDF5 output, equivalent nesting appears as HDF5 groups below `/SANS_1/StructData_2/RotData_3/`.
+
+## 8. Output selection
+
+Pass exact output keys through `enable_outputs`. Do not guess names. Query the installed list when needed:
+
+```python
+from NuMagSANS import NuMagSANS
+
+print("\n".join(NuMagSANS.generate_all_outputs()))
+```
+
+Output families include nuclear, unpolarized magnetic, polarized magnetic, nuclear-magnetic interference, spin-flip, chiral, resolved spin-flip/non-spin-flip, and SANSPOL channels. Suffixes select 2D scattering, azimuthally averaged 1D scattering, 2D/1D correlations, and 1D pair-distance distributions. `Fourier_Gamma` is the special Fourier correlation-matrix output.
+
+Use `SANSData_Output_Format="csv"` unless HDF5 support is known to have been enabled during the CMake build. HDF5 consolidates loop results in `NuMagSANS_Output.h5`; CSV writes directory trees and individual tables.
+
+Choose only observables needed for the scientific question. Enabling every output increases memory, computation, and storage requirements.
+
+## 9. Worked pattern: rotate one magnetic object around the beam axis
+
+Assume one local object exists at `RealSpaceData/MagData/Object_1/m_1.csv`. The following creates a RotData loop for rotations around the x-axis, which is the neutron beam direction:
+
+```python
+from pathlib import Path
+
+import numpy as np
+
+from NuMagSANS import NuMagSANS
+
+base_dir = Path(__file__).resolve().parent
+real_space_dir = base_dir / "RealSpaceData"
+rotdata_dir = real_space_dir / "RotData"
+rotdata_dir.mkdir(parents=True, exist_ok=True)
+
+angles = np.linspace(0.0, 2.0 * np.pi, 37, endpoint=False)
+for index, phi in enumerate(angles, start=1):
+    np.savetxt(
+        rotdata_dir / f"RotData_{index}.csv",
+        np.asarray([[phi, 0.0, 0.0]]),
+        fmt="%.10e",
+    )
+
+sim = NuMagSANS()
+config = base_dir / "NuMagSANSInput.conf"
+sim.write_config(
+    config,
+    MagData_activate=1,
+    RotData_activate=1,
+    MagDataPath=str(real_space_dir / "MagData"),
+    RotDataPath=str(rotdata_dir),
+    RotDataConvention="xyz",
+    RotDataLoop=1,
+    RotData_User_Selection=list(range(1, len(angles) + 1)),
+    User_Selection=[1],
+    Fourier_Approach="atomistic",
+    foldernameSANSData=str(base_dir / "NuMagSANS_Output"),
+    Scattering_Volume_V=2.618e-24,
+    Number_Of_q_Points=160,
+    Number_Of_theta_Points=361,
+    q_min=0.0,
+    q_max=1.2,
+    enable_outputs=["Unpolarized_2D", "SpinFlip_2D", "SpinFlip_1D"],
+)
+sim.run(config)
+```
+
+The numerical grid, scattering volume, polarization, and requested channels above are examples, not universally correct defaults. Confirm them for the physical system before running an expensive sweep.
+
+## 10. Preflight checklist
+
+Before running, verify all of the following:
+
+- The compiled executable exists and is executable on the target machine.
+- At least one of MagData or NucData is active and present.
+- Every selected object state file exists.
+- Input files are whitespace-separated, header-free, and have the correct column count.
+- StructData and RotData have one row per effective object or replication.
+- The chosen `Fourier_Approach` matches the physical meaning and scaling of the input values.
+- `XYZ_Unit_Factor`, cell sizes, q range, scattering volume, and polarization are explicitly understood.
+- RotData uses radians; global `RotMat_alpha` and `RotMat_beta` use degrees.
+- `Number_Of_q_Points > 1`, `q_min >= 0`, and `q_max > q_min`.
+- Every `enable_outputs` entry appears in `NuMagSANS.generate_all_outputs()`.
+- HDF5 output is requested only from an HDF5-enabled backend build.
+- The output directory is intentional and existing results will not be mistaken for the new run.
+
+For a new workflow, first run a reduced q/theta grid and one data index. Inspect logs and output structure before scaling to many files, objects, or loop combinations.
+
+## 11. Common mistakes
+
+- Do not invent methods such as `sim.set_material()`, `sim.rotate()`, or `sim.compute()`. The public facade writes a config and invokes the backend.
+- Do not add CSV headers or commas.
+- Do not assume the neutron beam is along z; it is along x.
+- Do not use degrees in RotData or radians for `RotMat_alpha` and `RotMat_beta`.
+- Do not assume an Euler convention without setting or confirming `RotDataConvention`; omitted means `zyz`.
+- Do not treat `R_a R_b R_c` as leftmost-first application to column vectors; the rightmost rotation acts first.
+- Do not use StructData or RotData row counts based on template folders when replication import is active; use the effective replication count.
+- Do not confuse the outer data-state loop with StructData and RotData loops.
+- Do not enable nuclear-magnetic observables without compatible active nuclear and magnetic data.
+- Do not claim physical validity merely because the program completed. Compare against analytical limits, symmetry expectations, convergence studies, or reference datasets.
+- Do not delete generated configs or outputs unless the user requested cleanup.
+
+## 12. Where to look next
+
+- Documentation: https://adamsmp92.github.io/NuMagSANS/
+- Parameter reference: https://adamsmp92.github.io/NuMagSANS/GettingStarted/ParameterOverview.html
+- Simulation scenarios: https://adamsmp92.github.io/NuMagSANS/GettingStarted/SimulationScenarios.html
+- Examples: https://github.com/AdamsMP92/NuMagSANS/tree/main/examples
+- Source repository and issues: https://github.com/AdamsMP92/NuMagSANS
+
+When the guide and the installed Python interface disagree, prefer the installed interface and report the discrepancy rather than improvising a workaround.
