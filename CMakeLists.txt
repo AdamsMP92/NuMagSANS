@@ -3,6 +3,15 @@ project(NuMagSANS LANGUAGES CXX)
 
 option(NUMAGSANS_ENABLE_HDF5 "Enable optional HDF5 output backend" OFF)
 
+include(CTest)
+
+if(BUILD_TESTING)
+    add_executable(NuMagSANSRotationMatrixTest tests/cpp/test_rotation_matrix.cpp)
+    target_include_directories(NuMagSANSRotationMatrixTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    target_compile_features(NuMagSANSRotationMatrixTest PRIVATE cxx_std_17)
+    add_test(NAME rotation-matrix-conventions COMMAND NuMagSANSRotationMatrixTest)
+endif()
+
 # -----------------------------------------------------------
 # Optional CUDA support (detect automatically)
 # -----------------------------------------------------------

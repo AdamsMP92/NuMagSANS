@@ -28,18 +28,17 @@
 
 using namespace std;
 
-// The RotationData structure is aimed to allow rotations of individual objects
-// in a ensemble of objects. This means the data handled through this structure
-// are diffent from the rotation angles in the InputDataFile, which are aimed for
-// a global rotation of the complete system, where the angles here allow object-wise rotation.
+// The RotationData structure allows rotations of individual objects in an
+// ensemble. These rotations are distinct from the global two-angle rotation in
+// the input configuration.
 
 struct RotationData {
 
-    // The rotation angles correspond to a zyz-rotation matrix combination
-    // The convention of the three rotation angles is defined as follows:
-    // R(alpha, beta, gamma) = R_z(alpha) * Ry(beta) * R_z(gamma)
-    // Rotations are assumed to be performed as M = R * m, X = R * x
-    // the angles are assumed in radian format
+    // The three angles follow InputData::RotDataConvention. The default is the
+    // historical Z-Y-Z convention
+    // R(alpha, beta, gamma) = R_z(alpha) * R_y(beta) * R_z(gamma).
+    // Rotations are active and act on column vectors as M = R * m and X = R * x.
+    // Angles are expressed in radians.
     float* alpha;
     float* beta;
     float* gamma;
@@ -122,11 +121,11 @@ void allocate_RotationDataGPU(RotationData* RotData, RotationData* RotData_gpu) 
     LogSystem::write("");
     LogSystem::write("copy data from RAM to GPU...");
     cudaMemcpy(RotData_gpu->alpha, RotData->alpha, K * sizeof(float), cudaMemcpyHostToDevice);
-    LogSystem::write("   alpha done...");
+    LogSystem::write("   angle_1 done...");
     cudaMemcpy(RotData_gpu->beta, RotData->beta, K * sizeof(float), cudaMemcpyHostToDevice);
-    LogSystem::write("   beta done...");
+    LogSystem::write("   angle_2 done...");
     cudaMemcpy(RotData_gpu->gamma, RotData->gamma, K * sizeof(float), cudaMemcpyHostToDevice);
-    LogSystem::write("   gamma done...");
+    LogSystem::write("   angle_3 done...");
     LogSystem::write("");
     LogSystem::write("data transfer finished...");
     LogSystem::write("");
@@ -145,120 +144,14 @@ void copy_RotationDataRAM2GPU(RotationData* RotData, RotationData* RotData_gpu) 
     LogSystem::write("");
     LogSystem::write("copy data from RAM to GPU...");
     cudaMemcpy(RotData_gpu->alpha, RotData->alpha, K * sizeof(float), cudaMemcpyHostToDevice);
-    LogSystem::write("   alpha done...");
+    LogSystem::write("   angle_1 done...");
     cudaMemcpy(RotData_gpu->beta, RotData->beta, K * sizeof(float), cudaMemcpyHostToDevice);
-    LogSystem::write("   beta done...");
+    LogSystem::write("   angle_2 done...");
     cudaMemcpy(RotData_gpu->gamma, RotData->gamma, K * sizeof(float), cudaMemcpyHostToDevice);
-    LogSystem::write("   gamma done...");
+    LogSystem::write("   angle_3 done...");
     LogSystem::write("");
     LogSystem::write("data transfer finished...");
     LogSystem::write("");
-}
-
-// the followin section defins rotation matrix operations
-// later these operations can be separated to a new header file
-// to make handle the code more separated
-void RotationMatrix_z(float alpha, float* Rz) {
-
-    // This function generates a z-Rotation matrix based on the angle
-    // alpha as a single column array. The ordering of the single column
-    // array is understood as follows:
-    // Rz = [R0, R3, R6
-    //       R1, R4, R7,
-    //       R2, R5, R8]
-
-    float c = cosf(alpha);
-    float s = sinf(alpha);
-
-    Rz[0] = c;
-    Rz[1] = s;
-    Rz[2] = 0.0;
-
-    Rz[3] = -s;
-    Rz[4] = c;
-    Rz[5] = 0.0;
-
-    Rz[6] = 0.0;
-    Rz[7] = 0.0;
-    Rz[8] = 1.0;
-}
-
-void RotationMatrix_y(float alpha, float* Ry) {
-
-    // This function generates a y-Rotation matrix based on the angle
-    // alpha as a single column array. The ordering of the single column
-    // array is understood as follows:
-    // Ry = [R0, R3, R6
-    //       R1, R4, R7,
-    //       R2, R5, R8]
-
-    float c = cosf(alpha);
-    float s = sinf(alpha);
-
-    Ry[0] = c;
-    Ry[1] = 0.0;
-    Ry[2] = -s;
-
-    Ry[3] = 0.0;
-    Ry[4] = 1.0;
-    Ry[5] = 0.0;
-
-    Ry[6] = s;
-    Ry[7] = 0.0;
-    Ry[8] = c;
-}
-
-void LeftMultiply3x3(float* R1, const float* R2) {
-    // Updates R1 in place:
-    //
-    //     R1 <- R2 * R1
-    //
-    // Matrix storage is column-major:
-    //
-    //     R(row, col) = R[row + 3 * col]
-    //
-    // Therefore:
-    //
-    //     R1_new(row, col) = sum_k R2(row, k) * R1_old(k, col)
-
-    float T[9];
-
-    for (int col = 0; col < 3; ++col) {
-        for (int row = 0; row < 3; ++row) {
-            T[row + 3 * col] = R2[row + 3 * 0] * R1[0 + 3 * col] + R2[row + 3 * 1] * R1[1 + 3 * col] +
-                               R2[row + 3 * 2] * R1[2 + 3 * col];
-        }
-    }
-
-    for (int i = 0; i < 9; ++i) {
-        R1[i] = T[i];
-    }
-}
-
-void Multiply_RotmatZYZ_3x3(float alpha, float beta, float gamma, float* RotMat) {
-
-    // Assumption:
-    // RotMat is initialized as identity matrix before entering this function.
-    //
-    // Iterative update:
-    // RotMat <- Rz(gamma) * RotMat
-    // RotMat <- Ry(beta)  * RotMat
-    // RotMat <- Rz(alpha) * RotMat
-    //
-    // Final result:
-    // RotMat = Rz(alpha) * Ry(beta) * Rz(gamma)
-
-    float Rz1[9];
-    float Ry1[9];
-    float Rz2[9];
-
-    RotationMatrix_z(alpha, Rz1);
-    RotationMatrix_y(beta, Ry1);
-    RotationMatrix_z(gamma, Rz2);
-
-    LeftMultiply3x3(RotMat, Rz2);
-    LeftMultiply3x3(RotMat, Ry1);
-    LeftMultiply3x3(RotMat, Rz1);
 }
 
 void RotMat_select(unsigned long int idx, float* RotMat, float* RotMat_idx) {
@@ -293,9 +186,6 @@ void RotMat_store(unsigned long int idx, float* RotMat, float* RotMat_idx) {
     RotMat[9 * idx + 8] = RotMat_idx[8];
 }
 
-// here the rotation matrix operations section ends
-///////////////////////////////////////////////////
-
 void read_RotationData(RotationData* RotData, RotDataProperties* RotDataProp, InputFileData* InputData) {
 
     LogSystem::write("");
@@ -305,7 +195,7 @@ void read_RotationData(RotationData* RotData, RotDataProperties* RotDataProp, In
 
     string filename;
     unsigned long int n = 0;
-    float alpha_buf, beta_buf, gamma_buf;
+    float angle_1_buf, angle_2_buf, angle_3_buf;
     ifstream fin;
 
     filename = RotDataProp->GlobalFilePath;
@@ -314,10 +204,10 @@ void read_RotationData(RotationData* RotData, RotDataProperties* RotDataProp, In
     fin.open(filename);
     n = 0;
     // read in the data
-    while (fin >> alpha_buf >> beta_buf >> gamma_buf) {
-        RotData->alpha[n] = alpha_buf;
-        RotData->beta[n] = beta_buf;
-        RotData->gamma[n] = gamma_buf;
+    while (fin >> angle_1_buf >> angle_2_buf >> angle_3_buf) {
+        RotData->alpha[n] = angle_1_buf;
+        RotData->beta[n] = angle_2_buf;
+        RotData->gamma[n] = angle_3_buf;
         n += 1;
     }
 
@@ -326,13 +216,14 @@ void read_RotationData(RotationData* RotData, RotDataProperties* RotDataProp, In
 
         RotMat_select(k, RotData->RotMat, RotMat_buf);
 
-        Multiply_RotmatZYZ_3x3(RotData->alpha[k], RotData->beta[k], RotData->gamma[k], RotMat_buf);
+        Multiply_RotmatEuler_3x3(RotData->alpha[k], RotData->beta[k], RotData->gamma[k], InputData->RotDataConvention,
+                                 RotMat_buf);
 
         RotMat_store(k, RotData->RotMat, RotMat_buf);
     }
 
     fin.close();
-    LogSystem::write("read (alpha, beta, gamma) RotationData finished...");
+    LogSystem::write("read (angle_1, angle_2, angle_3) RotationData finished...");
 }
 
 void init_RotationData(RotationData* RotData, RotationData* RotData_gpu, RotDataProperties* RotDataProp,

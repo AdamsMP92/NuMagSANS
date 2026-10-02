@@ -29,6 +29,7 @@ sim.write_config(
     StructDataFilename=config_hints["StructDataFilename"],
     RotData_activate=config_hints["RotData_activate"],
     RotDataPath=config_hints["RotDataPath"],
+    RotDataConvention=config_hints["RotDataConvention"],
     RotDataLoop=config_hints["RotDataLoop"],
     RotDataLoop_From=config_hints["RotDataLoop_From"],
     RotDataLoop_To=config_hints["RotDataLoop_To"],

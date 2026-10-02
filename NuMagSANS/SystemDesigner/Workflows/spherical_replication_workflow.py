@@ -261,6 +261,7 @@ def write_spherical_replication_vectorfield_sweep(
         "MagData_NumberOfReplications": n_replications,
         "RotData_activate": 1,
         "RotDataPath": str(real_space_dir / "RotData"),
+        "RotDataConvention": "zyz",
         "RotDataLoop": 1,
         "RotDataLoop_From": 1,
         "RotDataLoop_To": n_rotdata,

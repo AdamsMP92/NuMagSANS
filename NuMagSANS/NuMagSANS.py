@@ -33,6 +33,21 @@ class NuMagSANS:
 
     SPECIAL_OUTPUTS = ["Fourier_Gamma"]
 
+    ROT_DATA_CONVENTIONS = {
+        "xyx",
+        "xzx",
+        "yxy",
+        "yzy",
+        "zxz",
+        "zyz",
+        "xyz",
+        "xzy",
+        "yxz",
+        "yzx",
+        "zxy",
+        "zyx",
+    }
+
     @classmethod
     def generate_all_outputs(cls):
         outputs = []
@@ -80,6 +95,7 @@ class NuMagSANS:
         RotDataFilename="RealSpaceData/RotData.csv",
         StructDataPath="RealSpaceData/StructData",
         RotDataPath="RealSpaceData/RotData",
+        RotDataConvention="zyz",
         foldernameSANSData="NuMagSANS_Output",
         SANSData_Output_Format="csv",
         # selection
@@ -144,6 +160,11 @@ class NuMagSANS:
         if unknown:
             raise ValueError(f"Unknown output keys: {unknown}")
 
+        RotDataConvention = str(RotDataConvention).strip().lower()
+        if RotDataConvention not in self.ROT_DATA_CONVENTIONS:
+            supported = ", ".join(sorted(self.ROT_DATA_CONVENTIONS))
+            raise ValueError(f"Unknown RotDataConvention: {RotDataConvention}. Supported conventions: {supported}")
+
         with open(filename, "w") as f:
 
             def W(key, val):
@@ -158,6 +179,7 @@ class NuMagSANS:
             W("RotDataFilename", RotDataFilename)
             W("StructDataPath", StructDataPath)
             W("RotDataPath", RotDataPath)
+            W("RotDataConvention", RotDataConvention)
             W("foldernameSANSData", foldernameSANSData)
             W("SANSData_Output_Format", SANSData_Output_Format)
 
