@@ -23,4 +23,3 @@ Use the full guide before generating a simulation. NuMagSANS is specialized, and
 
 - [Repository](https://github.com/AdamsMP92/NuMagSANS): Source code, tests, examples, and issue tracker.
 - [Documentation](https://adamsmp92.github.io/NuMagSANS/): Published NuMagSANS documentation.
-
