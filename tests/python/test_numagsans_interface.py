@@ -15,6 +15,12 @@ def test_generate_all_outputs_contains_expected_keys():
     assert len(outputs) == len(set(outputs))
 
 
+def test_public_capability_names_are_available_for_introspection():
+    assert NuMagSANS.FOURIER_APPROACHES == {"atomistic", "micromagnetic"}
+    assert NuMagSANS.OUTPUT_FORMATS == {"csv", "hdf5"}
+    assert "xyz" in NuMagSANS.ROT_DATA_CONVENTIONS
+
+
 def test_write_config_writes_selected_parameters(tmp_path):
     sim = NuMagSANS(executable=tmp_path / "missing_executable", workdir=tmp_path)
     config = sim.write_config(

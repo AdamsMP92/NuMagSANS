@@ -1,0 +1,26 @@
+# NuMagSANS
+
+> NuMagSANS is a deterministic, GPU-accelerated simulator for nuclear and magnetic small-angle neutron scattering from discrete real-space data.
+
+Use the full guide before generating a simulation. NuMagSANS is specialized, and generic model knowledge is not a reliable source for its configuration keys, file layout, units, rotations, or output names.
+
+## Essential context
+
+- [Full guide for AI assistants](https://adamsmp92.github.io/NuMagSANS/llms-full.txt): Canonical workflow, data contracts, coordinate and unit conventions, rotations, loops, outputs, validation rules, and common mistakes.
+- [AI-assisted simulations](https://adamsmp92.github.io/NuMagSANS/GettingStarted/AIAssistedSimulations.html): Human-facing explanation of the supported workflow and its scientific trust model.
+- [Quickstart](https://adamsmp92.github.io/NuMagSANS/GettingStarted/Quickstart.html): Build, installation, and example execution.
+- [Parameter overview](https://adamsmp92.github.io/NuMagSANS/GettingStarted/ParameterOverview.html): Configuration parameters and physical observables.
+- [Simulation scenarios](https://adamsmp92.github.io/NuMagSANS/GettingStarted/SimulationScenarios.html): Real-space data organization from single objects to translated and rotated assemblies.
+
+## Runnable examples
+
+- [Example 1](https://github.com/AdamsMP92/NuMagSANS/tree/main/examples/example1): Basic generated magnetic real-space data and CSV output.
+- [Example 2, CSV](https://github.com/AdamsMP92/NuMagSANS/tree/main/examples/example2_csv): Structured and rotated two-sphere validation workflow.
+- [Example 2, HDF5](https://github.com/AdamsMP92/NuMagSANS/tree/main/examples/example2_hdf5): Equivalent nested-loop workflow with HDF5 output.
+- [Tutorial scripts](https://github.com/AdamsMP92/NuMagSANS/tree/main/tutorials): SystemDesigner and application-oriented workflows.
+
+## Source and support
+
+- [Repository](https://github.com/AdamsMP92/NuMagSANS): Source code, tests, examples, and issue tracker.
+- [Documentation](https://adamsmp92.github.io/NuMagSANS/): Published NuMagSANS documentation.
+

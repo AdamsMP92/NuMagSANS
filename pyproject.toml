@@ -32,6 +32,9 @@ tutorials = [
 [tool.setuptools.packages.find]
 where = ["."]
 
+[tool.setuptools.package-data]
+NuMagSANS = ["llms-full.txt"]
+
 [tool.ruff]
 line-length = 120
 target-version = "py39"

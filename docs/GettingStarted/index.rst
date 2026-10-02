@@ -5,6 +5,7 @@ Getting Started
    :maxdepth: 1
 
    Quickstart
+   AIAssistedSimulations
    Installation
    ParameterOverview
    SimulationScenarios
