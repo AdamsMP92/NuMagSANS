@@ -95,6 +95,9 @@ struct InputFileData {
     /// Directory containing RotData_1.csv, RotData_2.csv, ... files
     string RotDataPath = "";
 
+    /// Euler-axis convention used to interpret the three RotData angles
+    string RotDataConvention = "zyz";
+
     /// Skip repeated MagData dimension checks for faster data import
     bool FastLoad_flag = false;
 
@@ -595,6 +598,7 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData* InputData) 
         {"RotDataFilename", &InputData->RotDataFilename, true},
         {"StructDataPath", &InputData->StructDataPath, false},
         {"RotDataPath", &InputData->RotDataPath, false},
+        {"RotDataConvention", &InputData->RotDataConvention, false},
         {"foldernameSANSData", &InputData->SANSDataFoldername, true},
         {"SANSData_Output_Format", &InputData->SANSData_Output_Format, false},
         {"Fourier_Approach", &InputData->Fourier_Approach, true},
@@ -718,6 +722,15 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData* InputData) 
         }
     }
 
+    InputData->RotDataConvention = NormalizeEulerConvention(InputData->RotDataConvention);
+    bool RotDataConvention_CheckFlag = IsSupportedEulerConvention(InputData->RotDataConvention);
+    if (!RotDataConvention_CheckFlag) {
+        LogSystem::write("Error: unsupported RotDataConvention: " + InputData->RotDataConvention);
+        LogSystem::write("Supported conventions: xyx, xzx, yxy, yzy, zxz, zyz, xyz, xzy, yxz, yzx, zxy, zyx.");
+    } else {
+        LogSystem::write("RotData Euler convention: " + InputData->RotDataConvention);
+    }
+
     Compute_RotMat(InputData->RotMat_alpha, InputData->RotMat_beta, InputData->RotMat);
     LogSystem::write("Rotation Matrix: ");
     LogSystem::write(std::to_string(InputData->RotMat[0]) + " " + std::to_string(InputData->RotMat[3]) + " " +
@@ -807,5 +820,6 @@ bool ReadCSV__Input_File_Interpreter(string filename, InputFileData* InputData) 
         LogSystem::write(" ->-> Error in input file!");
     }
 
-    return ok && ReplicationImport_CheckFlag && ScatteringGrid_CheckFlag && OutputBackend_CheckFlag;
+    return ok && ReplicationImport_CheckFlag && ScatteringGrid_CheckFlag && OutputBackend_CheckFlag &&
+           RotDataConvention_CheckFlag;
 }

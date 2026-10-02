@@ -23,6 +23,7 @@ def test_write_config_writes_selected_parameters(tmp_path):
         MagDataPath="RealSpaceData/MagData",
         MagData_ReplicationImport=1,
         MagData_NumberOfReplications=8,
+        RotDataConvention="XYZ",
         RotDataLoop=1,
         RotData_User_Selection=[1, 3],
         User_Selection=[2],
@@ -35,6 +36,7 @@ def test_write_config_writes_selected_parameters(tmp_path):
     assert "MagData_activate = 1;" in text
     assert "MagData_ReplicationImport = 1;" in text
     assert "MagData_NumberOfReplications = 8;" in text
+    assert "RotDataConvention = xyz;" in text
     assert "RotDataLoop = 1;" in text
     assert "RotData_User_Selection = {1, 3};" in text
     assert "User_Selection = {2};" in text
@@ -50,6 +52,21 @@ def test_write_config_rejects_unknown_output(tmp_path):
 
     with pytest.raises(ValueError, match="Unknown output keys"):
         sim.write_config(tmp_path / "bad.conf", enable_outputs=["NotAnOutput"])
+
+
+def test_write_config_defaults_to_zyz_rotation_convention(tmp_path):
+    sim = NuMagSANS(executable=tmp_path / "missing_executable", workdir=tmp_path)
+
+    config = sim.write_config(tmp_path / "default_rotation.conf")
+
+    assert "RotDataConvention = zyz;" in config.read_text()
+
+
+def test_write_config_rejects_unknown_rotation_convention(tmp_path):
+    sim = NuMagSANS(executable=tmp_path / "missing_executable", workdir=tmp_path)
+
+    with pytest.raises(ValueError, match="Unknown RotDataConvention"):
+        sim.write_config(tmp_path / "bad_rotation.conf", RotDataConvention="abc")
 
 
 def test_config_clear_only_deletes_conf_by_default(tmp_path):

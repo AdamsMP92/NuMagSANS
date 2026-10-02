@@ -55,6 +55,7 @@ def test_spherical_replication_workflow_writes_magnetic_and_rotation_data(tmp_pa
     config_hints = summary["config_hints"]
     assert config_hints["MagData_ReplicationImport"] == 1
     assert config_hints["MagData_NumberOfReplications"] == 8
+    assert config_hints["RotDataConvention"] == "zyz"
     assert config_hints["RotDataLoop"] == 1
     assert config_hints["RotDataLoop_To"] == 2
     assert config_hints["Loop_Modus"] == 1
