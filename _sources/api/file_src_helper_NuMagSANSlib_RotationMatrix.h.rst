@@ -43,6 +43,8 @@ Included By
 -----------
 
 
+- :ref:`file_src_InputData_NuMagSANSlib_InputFileInterpreter.h`
+
 - :ref:`file_src_NuMagSANSlib.h`
 
 
@@ -51,6 +53,8 @@ Included By
 Functions
 ---------
 
+
+- :ref:`exhale_function_NuMagSANSlib__RotationMatrix_8h_1a5ce0fb4d993bba250abcebb78cf8a374`
 
 - :ref:`exhale_function_NuMagSANSlib__RotationMatrix_8h_1abd115fc1f1954544a9829dd121d7ef7d`
 

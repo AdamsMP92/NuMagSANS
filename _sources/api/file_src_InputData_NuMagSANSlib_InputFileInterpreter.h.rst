@@ -25,6 +25,8 @@ Includes
 --------
 
 
+- ``../helper/NuMagSANSlib_RotationMatrix.h``
+
 - ``algorithm``
 
 - ``cctype``
@@ -94,8 +96,6 @@ Functions
 
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1ab9089ec0e3e9531695edc2885e7b467b`
-
-- :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1aca7adf9bfb3cf0d5093d13724c971ed0`
 
 - :ref:`exhale_function_NuMagSANSlib__InputFileInterpreter_8h_1a6bc4f8698cc3ea3bcbba027639c74fa8`
 

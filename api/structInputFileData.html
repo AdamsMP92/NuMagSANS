@@ -478,6 +478,12 @@
 </dd></dl>
 
 <dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13InputFileData16RotMatConventionE">
+<span id="_CPPv3N13InputFileData16RotMatConventionE"></span><span id="_CPPv2N13InputFileData16RotMatConventionE"></span><span id="InputFileData::RotMatConvention__string"></span><span class="target" id="structInputFileData_1adf66afa1bf42cb6748d4ee8a468b2237"></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RotMatConvention</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;zyz&quot;</span></span><a class="headerlink" href="#_CPPv4N13InputFileData16RotMatConventionE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Euler-axis convention used to interpret the three global RotMat angles. </p>
+</dd></dl>
+
+<dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N13InputFileData13FastLoad_flagE">
 <span id="_CPPv3N13InputFileData13FastLoad_flagE"></span><span id="_CPPv2N13InputFileData13FastLoad_flagE"></span><span id="InputFileData::FastLoad_flag__b"></span><span class="target" id="structInputFileData_1aec69321250dfa473f2eae8aa7a92523b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FastLoad_flag</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N13InputFileData13FastLoad_flagE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Skip repeated MagData dimension checks for faster data import. </p>
@@ -696,19 +702,25 @@
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N13InputFileData12RotMat_alphaE">
 <span id="_CPPv3N13InputFileData12RotMat_alphaE"></span><span id="_CPPv2N13InputFileData12RotMat_alphaE"></span><span id="InputFileData::RotMat_alpha__float"></span><span class="target" id="structInputFileData_1aca1cb635179a02927b70b07ab3ec16be"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RotMat_alpha</span></span></span><a class="headerlink" href="#_CPPv4N13InputFileData12RotMat_alphaE" title="Link to this definition">#</a><br /></dt>
-<dd><p>Euler rotation angle alpha [rad]. </p>
+<dd><p>First global Euler rotation angle [degree]. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N13InputFileData11RotMat_betaE">
 <span id="_CPPv3N13InputFileData11RotMat_betaE"></span><span id="_CPPv2N13InputFileData11RotMat_betaE"></span><span id="InputFileData::RotMat_beta__float"></span><span class="target" id="structInputFileData_1af78b3efd6272de0b5478428f8237c867"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RotMat_beta</span></span></span><a class="headerlink" href="#_CPPv4N13InputFileData11RotMat_betaE" title="Link to this definition">#</a><br /></dt>
-<dd><p>Euler rotation angle beta [rad]. </p>
+<dd><p>Second global Euler rotation angle [degree]. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13InputFileData12RotMat_gammaE">
+<span id="_CPPv3N13InputFileData12RotMat_gammaE"></span><span id="_CPPv2N13InputFileData12RotMat_gammaE"></span><span id="InputFileData::RotMat_gamma__float"></span><span class="target" id="structInputFileData_1ab4172cd4f5bb2a218be572c14d6a7d85"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RotMat_gamma</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.0f</span></span><a class="headerlink" href="#_CPPv4N13InputFileData12RotMat_gammaE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Third global Euler rotation angle [degree]. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N13InputFileData6RotMatE">
 <span id="_CPPv3N13InputFileData6RotMatE"></span><span id="_CPPv2N13InputFileData6RotMatE"></span><span id="InputFileData::RotMat__floatA"></span><span class="target" id="structInputFileData_1af8d6759c3689acba13ca328b9af7c36c"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RotMat</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">9</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N13InputFileData6RotMatE" title="Link to this definition">#</a><br /></dt>
-<dd><p>3x3 rotation matrix (row-major) </p>
+<dd><p>3x3 rotation matrix (column-major) </p>
 </dd></dl>
 
 <dl class="cpp var">
@@ -826,6 +838,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData14StructDataPathE"><code class="docutils literal notranslate"><span class="pre">StructDataPath</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData11RotDataPathE"><code class="docutils literal notranslate"><span class="pre">RotDataPath</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData17RotDataConventionE"><code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData16RotMatConventionE"><code class="docutils literal notranslate"><span class="pre">RotMatConvention</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData13FastLoad_flagE"><code class="docutils literal notranslate"><span class="pre">FastLoad_flag</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData30NucData_ReplicationImport_flagE"><code class="docutils literal notranslate"><span class="pre">NucData_ReplicationImport_flag</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData28NucData_NumberOfReplicationsE"><code class="docutils literal notranslate"><span class="pre">NucData_NumberOfReplications</span></code></a></li>
@@ -864,6 +877,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData18cuboid_cell_size_zE"><code class="docutils literal notranslate"><span class="pre">cuboid_cell_size_z</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData12RotMat_alphaE"><code class="docutils literal notranslate"><span class="pre">RotMat_alpha</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData11RotMat_betaE"><code class="docutils literal notranslate"><span class="pre">RotMat_beta</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData12RotMat_gammaE"><code class="docutils literal notranslate"><span class="pre">RotMat_gamma</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData6RotMatE"><code class="docutils literal notranslate"><span class="pre">RotMat</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData15XYZ_Unit_FactorE"><code class="docutils literal notranslate"><span class="pre">XYZ_Unit_Factor</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N13InputFileData12PolarizationE"><code class="docutils literal notranslate"><span class="pre">Polarization</span></code></a></li>

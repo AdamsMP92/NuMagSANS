@@ -142,3 +142,23 @@ Program Listing for File NuMagSANSlib_RotationMatrix.h
        LeftMultiply3x3(rotation_matrix, second_axis_rotation);
        LeftMultiply3x3(rotation_matrix, first_axis_rotation);
    }
+   
+   inline void ComputeEulerRotationMatrixDegrees_3x3(float angle_1_degrees, float angle_2_degrees, float angle_3_degrees,
+                                                     const std::string& convention, float* rotation_matrix) {
+       constexpr float degrees_to_radians = 3.14159265358979323846f / 180.0f;
+   
+       // Global RotMat angles use degrees, whereas object-wise RotData angles use
+       // radians. Both interfaces share the same Euler convention and angle order.
+       rotation_matrix[0] = 1.0f;
+       rotation_matrix[1] = 0.0f;
+       rotation_matrix[2] = 0.0f;
+       rotation_matrix[3] = 0.0f;
+       rotation_matrix[4] = 1.0f;
+       rotation_matrix[5] = 0.0f;
+       rotation_matrix[6] = 0.0f;
+       rotation_matrix[7] = 0.0f;
+       rotation_matrix[8] = 1.0f;
+   
+       Multiply_RotmatEuler_3x3(angle_1_degrees * degrees_to_radians, angle_2_degrees * degrees_to_radians,
+                                angle_3_degrees * degrees_to_radians, convention, rotation_matrix);
+   }
