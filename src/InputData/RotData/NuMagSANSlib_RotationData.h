@@ -216,8 +216,8 @@ void read_RotationData(RotationData* RotData, RotDataProperties* RotDataProp, In
 
         RotMat_select(k, RotData->RotMat, RotMat_buf);
 
-        Multiply_RotmatEuler_3x3(RotData->alpha[k], RotData->beta[k], RotData->gamma[k],
-                                 InputData->RotDataConvention, RotMat_buf);
+        Multiply_RotmatEuler_3x3(RotData->alpha[k], RotData->beta[k], RotData->gamma[k], InputData->RotDataConvention,
+                                 RotMat_buf);
 
         RotMat_store(k, RotData->RotMat, RotMat_buf);
     }
