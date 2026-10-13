@@ -1251,6 +1251,19 @@ How to enable in the ``write_config`` function of the Python interface:
 2D SANS cross sections
 ^^^^^^^^^^^^^^^^^^^^^^
 
+NuMagSANS is based on the unitary Fourier transform:
+
+.. math::
+
+    \widetilde{\mathbf{M}}(\mathbf{q}) = \frac{1}{(2\pi)^{3/2}}
+    \int_{\mathbb{R}^3} \mathbf{M}(\mathbf{r}) \exp(-i \mathbf{q}\cdot\mathbf{r}) d^3r.
+
+.. math::
+
+    \mathbf{M}(\mathbf{r}) = \frac{1}{(2\pi)^{3/2}}
+    \int_{\mathbb{R}^3} \widetilde{\mathbf{M}}(\mathbf{q}) \exp(+i \mathbf{q}\cdot\mathbf{r}) d^3r.
+
+
 In NuMagSANS, the incoming neutron beam is defined to propagate along the
 :math:`x`-axis, such that the corresponding wave vector satisfies
 :math:`\mathbf{k}_0 \parallel \mathbf{e}_x`. The two-dimensional detector
