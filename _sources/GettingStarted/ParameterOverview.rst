@@ -508,6 +508,27 @@ The same expression is applied to the real and imaginary parts of
 
 In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{cm}^{-1}`.
 
+The symmetry statements below assume real-valued nuclear and magnetic
+real-space fields and a real polarization vector. Their Fourier amplitudes
+then obey
+
+.. math::
+
+    \widetilde{N}(-\mathbf q)=\widetilde{N}(\mathbf q)^*,
+    \qquad
+    \widetilde{\mathbf M}(-\mathbf q)
+    =\widetilde{\mathbf M}(\mathbf q)^*,
+    \qquad
+    \widetilde{\mathbf Q}(-\mathbf q)
+    =\widetilde{\mathbf Q}(\mathbf q)^*.
+
+Because :math:`-\mathbf q` corresponds to
+:math:`\theta\rightarrow\theta+\pi` on the detector, these relations impose
+the stated point-inversion symmetries independently of the detailed spatial
+profiles. They do not, in general, imply a symmetry under
+:math:`\theta\rightarrow\theta+\pi/2`; such a relation requires additional
+sample or magnetization symmetries.
+
 ``Nuclear_2D``
     Nuclear SANS cross section on the 2D detector.
 
@@ -517,6 +538,17 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         =
         \frac{8\pi^3}{V}\, |\widetilde{N}|^2
 
+    Symmetry properties:
+
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(\mathbf{q}) = \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(-\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q, \theta) = \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q, \theta + \pi)
+
+
 ``Unpolarized_2D``
     Unpolarized magnetic SANS cross section on the 2D detector.
 
@@ -525,6 +557,20 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
         =
         \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}|^2
+
+    Symmetry properties:
+
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(\mathbf{q})
+        =
+        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(-\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta+\pi)
 
 ``Polarized_2D``
     Auxiliary polarized magnetic SANS cross section on the 2D detector.
@@ -536,6 +582,20 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
         \left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}\right|^2
 
+    Symmetry properties:
+
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(\mathbf{q})
+        =
+        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(-\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta+\pi)
+
 ``NuclearMagnetic_2D``
     Nuclear–magnetic SANS cross section on the 2D detector.
 
@@ -545,6 +605,20 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         =
         \frac{8\pi^3}{V}\, b_{\mathrm{H}}
         \hat{\mathbf{P}}\cdot\left[\widetilde{N}\widetilde{\mathbf{Q}}^{\ast}+\widetilde{N}^{\ast}\widetilde{\mathbf{Q}}\right]
+
+    Symmetry properties:
+
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(\mathbf{q})
+        =
+        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(-\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta+\pi)
 
 ``Chiral_2D``
     Chiral SANS cross section on the 2D detector.
@@ -557,6 +631,20 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         \hat{\mathbf{P}}\cdot
         \left(\widetilde{\mathbf{Q}}\times\widetilde{\mathbf{Q}}^{\ast}\right)
 
+    Symmetry properties:
+
+    .. math::
+
+        \frac{d\Sigma_{\chi}}{d\Omega}(-\mathbf{q})
+        =
+        -\frac{d\Sigma_{\chi}}{d\Omega}(\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta+\pi)
+        =
+        -\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+
 ``SpinFlip_2D``
     Spin-flip SANS cross section on the 2D detector.
 
@@ -567,6 +655,20 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
         -
         \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+
+    Symmetry properties:
+
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(\mathbf{q})
+        =
+        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(-\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta+\pi)
 
 ``PM_SpinFlip_2D``
     Spin-flip SANS cross section on the 2D detector.
@@ -579,17 +681,44 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         +
         \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 
+    Symmetry properties:
+
+    .. math::
+
+        \frac{d\Sigma^{+-}}{d\Omega}(-\mathbf{q})
+        =
+        \frac{d\Sigma^{-+}}{d\Omega}(\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta+\pi)
+        =
+        \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+
 ``MP_SpinFlip_2D``
     Spin-flip SANS cross section on the 2D detector.
 
     .. math::
 
-        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+        \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
         =
         \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
         -
         \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 
+    Symmetry properties:
+
+    .. math::
+
+        \frac{d\Sigma^{-+}}{d\Omega}(-\mathbf{q})
+        =
+        \frac{d\Sigma^{+-}}{d\Omega}(\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma^{-+}}{d\Omega}(q,\theta+\pi)
+        =
+        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
 
 ``PP_NonSpinFlip_2D``
     Non-spin-flip SANS cross section on the 2D detector.
@@ -604,6 +733,20 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         +
         \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
 
+    Symmetry properties:
+
+    .. math::
+
+        \frac{d\Sigma^{++}}{d\Omega}(\mathbf{q})
+        =
+        \frac{d\Sigma^{++}}{d\Omega}(-\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma^{++}}{d\Omega}(q,\theta+\pi)
+
 ``MM_NonSpinFlip_2D``
     Non-spin-flip SANS cross section on the 2D detector.
 
@@ -617,8 +760,23 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         +
         \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
 
+    Symmetry properties:
+
+    .. math::
+
+        \frac{d\Sigma^{--}}{d\Omega}(\mathbf{q})
+        =
+        \frac{d\Sigma^{--}}{d\Omega}(-\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+        =
+        \frac{d\Sigma^{--}}{d\Omega}(q,\theta+\pi)
+
 ``P_SANSPOL_2D``
-    Non-Spin-flip SANS cross section on the 2D detector.
+    SANSPOL cross section for positive incident neutron polarization without
+    final-state spin analysis.
 
     .. math::
 
@@ -628,8 +786,30 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         +
         \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
 
+    Symmetry properties:
+
+    In general, this channel has neither even nor odd point-inversion
+    symmetry. Its antisymmetric part is fixed by the chiral cross section:
+
+    .. math::
+
+        \frac{d\Sigma^{+}}{d\Omega}(\mathbf{q})
+        -
+        \frac{d\Sigma^{+}}{d\Omega}(-\mathbf{q})
+        =
+        2\frac{d\Sigma_{\chi}}{d\Omega}(\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+        -
+        \frac{d\Sigma^{+}}{d\Omega}(q,\theta+\pi)
+        =
+        2\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+
 ``M_SANSPOL_2D``
-    Non-Spin-flip SANS cross section on the 2D detector.
+    SANSPOL cross section for negative incident neutron polarization without
+    final-state spin analysis.
 
     .. math::
 
@@ -638,6 +818,27 @@ In NuMagSANS the 2D SANS cross sections are exported in units of :math:`\mathrm{
         \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
         +
         \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+
+    Symmetry properties:
+
+    In general, this channel has neither even nor odd point-inversion
+    symmetry. Its antisymmetric part is fixed by the chiral cross section:
+
+    .. math::
+
+        \frac{d\Sigma^{-}}{d\Omega}(\mathbf{q})
+        -
+        \frac{d\Sigma^{-}}{d\Omega}(-\mathbf{q})
+        =
+        -2\frac{d\Sigma_{\chi}}{d\Omega}(\mathbf{q})
+
+    .. math::
+
+        \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+        -
+        \frac{d\Sigma^{-}}{d\Omega}(q,\theta+\pi)
+        =
+        -2\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 
 2D correlation functions
 ^^^^^^^^^^^^^^^^^^^^^^^^
