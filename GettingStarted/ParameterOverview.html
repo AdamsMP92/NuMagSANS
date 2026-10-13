@@ -1378,6 +1378,13 @@ output table.</p>
 </section>
 <section id="d-sans-cross-sections">
 <h3>2D SANS cross sections<a class="headerlink" href="#d-sans-cross-sections" title="Link to this heading">#</a></h3>
+<p>NuMagSANS is based on the unitary Fourier transform:</p>
+<div class="math notranslate nohighlight">
+\[\widetilde{\mathbf{M}}(\mathbf{q}) = \frac{1}{(2\pi)^{3/2}}
+\int_{\mathbb{R}^3} \mathbf{M}(\mathbf{r}) \exp(-i \mathbf{q}\cdot\mathbf{r}) d^3r.\]</div>
+<div class="math notranslate nohighlight">
+\[\mathbf{M}(\mathbf{r}) = \frac{1}{(2\pi)^{3/2}}
+\int_{\mathbb{R}^3} \widetilde{\mathbf{M}}(\mathbf{q}) \exp(+i \mathbf{q}\cdot\mathbf{r}) d^3r.\]</div>
 <p>In NuMagSANS, the incoming neutron beam is defined to propagate along the
 <span class="math notranslate nohighlight">\(x\)</span>-axis, such that the corresponding wave vector satisfies
 <span class="math notranslate nohighlight">\(\mathbf{k}_0 \parallel \mathbf{e}_x\)</span>. The two-dimensional detector
