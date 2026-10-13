@@ -469,7 +469,7 @@ the physical model and numerical settings of the simulation.</p>
     <span class="n">Fourier_Approach</span><span class="o">=</span><span class="s2">"atomistic"</span><span class="p">,</span>
     <span class="n">User_Selection</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
     <span class="n">Scattering_Volume_V</span><span class="o">=</span><span class="mf">2.618e-24</span><span class="p">,</span>
-    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"SpinFlip_2D"</span><span class="p">,</span> <span class="s2">"SpinFlip_1D"</span><span class="p">]</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"SpinFlip_2D"</span><span class="p">,</span> <span class="s2">"SpinFlip_1D"</span><span class="p">],</span>
 <span class="p">)</span>
 
 <span class="c1"># Run NuMagSANS simulation</span>
@@ -479,9 +479,13 @@ the physical model and numerical settings of the simulation.</p>
 <span class="n">sim</span><span class="o">.</span><span class="n">config_clear</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>The focused examples below show only the setting being discussed. Replace
+<code class="docutils literal notranslate"><span class="pre">...</span></code> with the configuration-file path, such as <code class="docutils literal notranslate"><span class="pre">config</span></code> from the example
+above, and combine multiple keyword arguments in a single <code class="docutils literal notranslate"><span class="pre">write_config</span></code>
+call as needed.</p>
 </section>
-<section id="data-paths-and-data-selection">
-<h2>Data Paths and Data Selection<a class="headerlink" href="#data-paths-and-data-selection" title="Link to this heading">#</a></h2>
+<section id="input-data">
+<h2>Input Data<a class="headerlink" href="#input-data" title="Link to this heading">#</a></h2>
 <p>These parameters define where the simulation reads input data and where
 results are written.</p>
 <p>NuMagSANS separates local object data from optional assembly metadata:</p>
@@ -518,91 +522,97 @@ backend: fully materialized micromagnetic or atomistic datasets can be imported
 directly through <code class="docutils literal notranslate"><span class="pre">MagData</span></code> and/or <code class="docutils literal notranslate"><span class="pre">NucData</span></code>, while object-based assemblies
 can additionally use <code class="docutils literal notranslate"><span class="pre">StructData</span></code> and <code class="docutils literal notranslate"><span class="pre">RotData</span></code> to translate and rotate
 local object data without rewriting the object files.</p>
-<dl>
-<dt><code class="docutils literal notranslate"><span class="pre">NucDataPath</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/NucData</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">NucData_activate</span></code></dt><dd><p>Default value 0</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MagDataPath</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/MagData</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MagData_activate</span></code></dt><dd><p>Default value 0</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">StructDataFilename</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/StructData.csv</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">StructData_activate</span></code></dt><dd><p>Default value 0</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">StructDataPath</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/StructData</span></code></p>
+<section id="nucdatapath">
+<span id="parameter-nucdatapath"></span><h3>NucDataPath<a class="headerlink" href="#nucdatapath" title="Link to this heading">#</a></h3>
+<p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/NucData</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">NucDataPath</span><span class="o">=</span><span class="s2">"RealSpaceData/NucData"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="nucdata-activate">
+<span id="parameter-nucdata-activate"></span><h3>NucData_activate<a class="headerlink" href="#nucdata-activate" title="Link to this heading">#</a></h3>
+<p>Default value 0
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">NucData_activate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="magdatapath">
+<span id="parameter-magdatapath"></span><h3>MagDataPath<a class="headerlink" href="#magdatapath" title="Link to this heading">#</a></h3>
+<p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/MagData</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">MagDataPath</span><span class="o">=</span><span class="s2">"RealSpaceData/MagData"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="magdata-activate">
+<span id="parameter-magdata-activate"></span><h3>MagData_activate<a class="headerlink" href="#magdata-activate" title="Link to this heading">#</a></h3>
+<p>Default value 0
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">MagData_activate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="structdatafilename">
+<span id="parameter-structdatafilename"></span><h3>StructDataFilename<a class="headerlink" href="#structdatafilename" title="Link to this heading">#</a></h3>
+<p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/StructData.csv</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">StructDataFilename</span><span class="o">=</span><span class="s2">"RealSpaceData/StructData.csv"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="structdata-activate">
+<span id="parameter-structdata-activate"></span><h3>StructData_activate<a class="headerlink" href="#structdata-activate" title="Link to this heading">#</a></h3>
+<p>Default value 0
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">StructData_activate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="structdatapath">
+<span id="parameter-structdatapath"></span><h3>StructDataPath<a class="headerlink" href="#structdatapath" title="Link to this heading">#</a></h3>
+<p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/StructData</span></code></p>
 <p>Folder used by <code class="docutils literal notranslate"><span class="pre">StructDataLoop</span></code>. In this mode, structure files are
 expected to follow the naming convention <code class="docutils literal notranslate"><span class="pre">StructData_1.csv</span></code>,
 <code class="docutils literal notranslate"><span class="pre">StructData_2.csv</span></code>, … inside <code class="docutils literal notranslate"><span class="pre">StructDataPath</span></code>. Each file contains one
 object-center translation table.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotDataFilename</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/RotData.csv</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotData_activate</span></code></dt><dd><p>Default value 0</p>
-<p>If activated, <code class="docutils literal notranslate"><span class="pre">RotDataFilename</span></code> is read as an object-wise rotation table.
-The file must contain one row per object and three columns with angles in
-radians. The axes associated with these columns are defined by
-<code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code>.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code></dt><dd><p>Default <code class="docutils literal notranslate"><span class="pre">zyz</span></code></p>
-<p>Euler-axis sequence used to interpret the three columns in each rotation
-data row. The supported proper-Euler and Tait–Bryan sequences are
-<code class="docutils literal notranslate"><span class="pre">xyx</span></code>, <code class="docutils literal notranslate"><span class="pre">xzx</span></code>, <code class="docutils literal notranslate"><span class="pre">yxy</span></code>, <code class="docutils literal notranslate"><span class="pre">yzy</span></code>, <code class="docutils literal notranslate"><span class="pre">zxz</span></code>, <code class="docutils literal notranslate"><span class="pre">zyz</span></code>, <code class="docutils literal notranslate"><span class="pre">xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">xzy</span></code>,
-<code class="docutils literal notranslate"><span class="pre">yxz</span></code>, <code class="docutils literal notranslate"><span class="pre">yzx</span></code>, <code class="docutils literal notranslate"><span class="pre">zxy</span></code>, and <code class="docutils literal notranslate"><span class="pre">zyx</span></code>.</p>
-<p>The selection is case-insensitive and applies to every active <code class="docutils literal notranslate"><span class="pre">RotData</span></code>
-row and every file in a <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code> within the run; conventions cannot
-be mixed between loop files.</p>
-<p>A convention <code class="docutils literal notranslate"><span class="pre">abc</span></code> and a row <code class="docutils literal notranslate"><span class="pre">angle_1</span> <span class="pre">angle_2</span> <span class="pre">angle_3</span></code> define the
-active rotation</p>
-<div class="math notranslate nohighlight">
-\[R = R_a(\mathrm{angle}_1) R_b(\mathrm{angle}_2) R_c(\mathrm{angle}_3),\]</div>
-<p>acting on column vectors. The rightmost rotation is therefore applied
-first. For example, with <code class="docutils literal notranslate"><span class="pre">RotDataConvention</span> <span class="pre">=</span> <span class="pre">xyz</span></code>, a row
-<code class="docutils literal notranslate"><span class="pre">phi</span> <span class="pre">0</span> <span class="pre">0</span></code> describes a rotation by <code class="docutils literal notranslate"><span class="pre">phi</span></code> around the x-axis. All three
-angles remain in radians.</p>
-<p>If the option is omitted, NuMagSANS uses <code class="docutils literal notranslate"><span class="pre">zyz</span></code> so that existing
-configuration and rotation-data files retain their historical
-interpretation</p>
-<div class="math notranslate nohighlight">
-\[R = R_z(\alpha) R_y(\beta) R_z(\gamma).\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotDataPath</span></code></dt><dd><p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/RotData</span></code></p>
-<p>Folder used by <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code>. In this mode, rotation files are expected
-to follow the naming convention <code class="docutils literal notranslate"><span class="pre">RotData_1.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">RotData_2.csv</span></code>, …
-inside <code class="docutils literal notranslate"><span class="pre">RotDataPath</span></code>. Each file contains one object-wise rotation table.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">foldernameSANSData</span></code></dt><dd><p>Default <code class="docutils literal notranslate"><span class="pre">NuMagSANS_Output</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">FastLoad</span></code></dt><dd><p>Default value 0</p>
-<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, NuMagSANS skips repeated dimension checks for all files
-beyond the first data file inside each object folder. This can accelerate
-import for large datasets. It assumes that, within each object folder, all
-magnetic or nuclear data files have the same number of rows. Different
-objects may still have different numbers of rows.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MagData_ReplicationImport</span></code></dt><dd><p>Default value 0</p>
-<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, NuMagSANS expects one physical magnetic template object in
-<code class="docutils literal notranslate"><span class="pre">MagData</span></code> and replicates it internally during import. The kernels receive
-the same in-memory structure as for explicitly stored object folders.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MagData_NumberOfReplications</span></code></dt><dd><p>Default value 1</p>
-<p>Effective number of magnetic objects generated from the single physical
-template object when <code class="docutils literal notranslate"><span class="pre">MagData_ReplicationImport</span></code> is active.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">NucData_ReplicationImport</span></code></dt><dd><p>Default value 0</p>
-<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, NuMagSANS expects one physical nuclear template object in
-<code class="docutils literal notranslate"><span class="pre">NucData</span></code> and replicates it internally during import.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">NucData_NumberOfReplications</span></code></dt><dd><p>Default value 1</p>
-<p>Effective number of nuclear objects generated from the single physical
-template object when <code class="docutils literal notranslate"><span class="pre">NucData_ReplicationImport</span></code> is active.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Exclude_Zero_Moments</span></code></dt><dd><p>Default value 0</p>
-<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, rows with zero magnetic moment are excluded from imported
-magnetic datasets.</p>
-</dd>
-</dl>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">StructDataPath</span><span class="o">=</span><span class="s2">"RealSpaceData/StructData"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="supported-data-layer-combinations">
 <h3>Supported Data-Layer Combinations<a class="headerlink" href="#supported-data-layer-combinations" title="Link to this heading">#</a></h3>
 <p>The atomistic backend supports pure magnetic, pure nuclear, and combined
@@ -643,72 +653,389 @@ simulation datasets and for object-based assembly models where local objects
 are reused with different positions and orientations.</p>
 </section>
 </section>
-<section id="fourier-approach">
-<h2>Fourier Approach<a class="headerlink" href="#fourier-approach" title="Link to this heading">#</a></h2>
-<p>Defines how the Fourier transform from real space to reciprocal space
-is performed.</p>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">Fourier_Approach</span></code></dt><dd><p>Default <code class="docutils literal notranslate"><span class="pre">atomistic</span></code>
-Options: <code class="docutils literal notranslate"><span class="pre">atomistic</span></code>, <code class="docutils literal notranslate"><span class="pre">micromagnetic</span></code></p>
-</dd>
-</dl>
+<section id="local-rotation-data">
+<h2>Local Rotation Data<a class="headerlink" href="#local-rotation-data" title="Link to this heading">#</a></h2>
+<p>These parameters configure object-wise rotation tables. Each table row
+describes the local orientation of one object.</p>
+<section id="rotdatafilename">
+<span id="parameter-rotdatafilename"></span><h3>RotDataFilename<a class="headerlink" href="#rotdatafilename" title="Link to this heading">#</a></h3>
+<p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/RotData.csv</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotDataFilename</span><span class="o">=</span><span class="s2">"RealSpaceData/RotData.csv"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
-<section id="loop-control">
-<h2>Loop Control<a class="headerlink" href="#loop-control" title="Link to this heading">#</a></h2>
-<p>These parameters control batch simulations or repeated calculations.</p>
-<dl>
-<dt><code class="docutils literal notranslate"><span class="pre">Loop_Modus</span></code></dt><dd><p>Description: Enable looping over selected data-file indices.
-Default <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Loop_From</span></code></dt><dd><p>Description: First index used in loop simulations
+<section id="rotdata-activate">
+<span id="parameter-rotdata-activate"></span><h3>RotData_activate<a class="headerlink" href="#rotdata-activate" title="Link to this heading">#</a></h3>
+<p>Default value 0
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
+<p>If activated, <code class="docutils literal notranslate"><span class="pre">RotDataFilename</span></code> is read as an object-wise rotation table.
+The file must contain one row per object and three columns with angles in
+radians. The axes associated with these columns are defined by
+<code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code>.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotData_activate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rotdataconvention">
+<span id="parameter-rotdataconvention"></span><h3>RotDataConvention<a class="headerlink" href="#rotdataconvention" title="Link to this heading">#</a></h3>
+<p>Default <code class="docutils literal notranslate"><span class="pre">zyz</span></code></p>
+<p>Euler-axis sequence used to interpret the three columns in each rotation
+data row. The supported proper-Euler and Tait–Bryan sequences are
+<code class="docutils literal notranslate"><span class="pre">xyx</span></code>, <code class="docutils literal notranslate"><span class="pre">xzx</span></code>, <code class="docutils literal notranslate"><span class="pre">yxy</span></code>, <code class="docutils literal notranslate"><span class="pre">yzy</span></code>, <code class="docutils literal notranslate"><span class="pre">zxz</span></code>, <code class="docutils literal notranslate"><span class="pre">zyz</span></code>, <code class="docutils literal notranslate"><span class="pre">xyz</span></code>, <code class="docutils literal notranslate"><span class="pre">xzy</span></code>,
+<code class="docutils literal notranslate"><span class="pre">yxz</span></code>, <code class="docutils literal notranslate"><span class="pre">yzx</span></code>, <code class="docutils literal notranslate"><span class="pre">zxy</span></code>, and <code class="docutils literal notranslate"><span class="pre">zyx</span></code>.</p>
+<p>The selection is case-insensitive and applies to every active <code class="docutils literal notranslate"><span class="pre">RotData</span></code>
+row and every file in a <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code> within the run; conventions cannot
+be mixed between loop files.</p>
+<p>A convention <code class="docutils literal notranslate"><span class="pre">abc</span></code> and a row <code class="docutils literal notranslate"><span class="pre">angle_1</span> <span class="pre">angle_2</span> <span class="pre">angle_3</span></code> define the
+active rotation</p>
+<div class="math notranslate nohighlight">
+\[R = R_a(\mathrm{angle}_1) R_b(\mathrm{angle}_2) R_c(\mathrm{angle}_3),\]</div>
+<p>acting on column vectors. The rightmost rotation is therefore applied
+first. For example, with <code class="docutils literal notranslate"><span class="pre">RotDataConvention</span> <span class="pre">=</span> <span class="pre">xyz</span></code>, a row
+<code class="docutils literal notranslate"><span class="pre">phi</span> <span class="pre">0</span> <span class="pre">0</span></code> describes a rotation by <code class="docutils literal notranslate"><span class="pre">phi</span></code> around the x-axis. All three
+angles remain in radians.</p>
+<p>If the option is omitted, NuMagSANS uses <code class="docutils literal notranslate"><span class="pre">zyz</span></code> so that existing
+configuration and rotation-data files retain their historical
+interpretation</p>
+<div class="math notranslate nohighlight">
+\[R = R_z(\alpha) R_y(\beta) R_z(\gamma).\]</div>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotDataConvention</span><span class="o">=</span><span class="s2">"zyz"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rotdatapath">
+<span id="parameter-rotdatapath"></span><h3>RotDataPath<a class="headerlink" href="#rotdatapath" title="Link to this heading">#</a></h3>
+<p>Default path <code class="docutils literal notranslate"><span class="pre">RealSpaceData/RotData</span></code></p>
+<p>Folder used by <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code>. In this mode, rotation files are expected
+to follow the naming convention <code class="docutils literal notranslate"><span class="pre">RotData_1.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">RotData_2.csv</span></code>, …
+inside <code class="docutils literal notranslate"><span class="pre">RotDataPath</span></code>. Each file contains one object-wise rotation table.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotDataPath</span><span class="o">=</span><span class="s2">"RealSpaceData/RotData"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="output-storage">
+<h2>Output Storage<a class="headerlink" href="#output-storage" title="Link to this heading">#</a></h2>
+<p>These parameters define where calculated data are written and which file format is used.</p>
+<section id="foldernamesansdata">
+<span id="parameter-foldernamesansdata"></span><h3>foldernameSANSData<a class="headerlink" href="#foldernamesansdata" title="Link to this heading">#</a></h3>
+<p>Default <code class="docutils literal notranslate"><span class="pre">NuMagSANS_Output</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">foldernameSANSData</span><span class="o">=</span><span class="s2">"NuMagSANS_Output"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="sansdata-output-format">
+<span id="parameter-sansdata-output-format"></span><h3>SANSData_Output_Format<a class="headerlink" href="#sansdata-output-format" title="Link to this heading">#</a></h3>
+<p>Output format used for the calculated SANS data.
+Default <code class="docutils literal notranslate"><span class="pre">csv</span></code>
+Options: <code class="docutils literal notranslate"><span class="pre">csv</span></code> or <code class="docutils literal notranslate"><span class="pre">hdf5</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">hdf5</span></code> option requires a NuMagSANS build configured with
+<code class="docutils literal notranslate"><span class="pre">NUMAGSANS_ENABLE_HDF5=ON</span></code>.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">SANSData_Output_Format</span><span class="o">=</span><span class="s2">"csv"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="loading-and-preprocessing">
+<h2>Loading and Preprocessing<a class="headerlink" href="#loading-and-preprocessing" title="Link to this heading">#</a></h2>
+<p>These parameters control input validation, template-object replication, and preprocessing of imported real-space data.</p>
+<section id="fastload">
+<span id="parameter-fastload"></span><h3>FastLoad<a class="headerlink" href="#fastload" title="Link to this heading">#</a></h3>
+<p>Default value 0
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, NuMagSANS skips repeated dimension checks for all files
+beyond the first data file inside each object folder. This can accelerate
+import for large datasets. It assumes that, within each object folder, all
+magnetic or nuclear data files have the same number of rows. Different
+objects may still have different numbers of rows.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">FastLoad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="magdata-replicationimport">
+<span id="parameter-magdata-replicationimport"></span><h3>MagData_ReplicationImport<a class="headerlink" href="#magdata-replicationimport" title="Link to this heading">#</a></h3>
+<p>Default value 0
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, NuMagSANS expects one physical magnetic template object in
+<code class="docutils literal notranslate"><span class="pre">MagData</span></code> and replicates it internally during import. The kernels receive
+the same in-memory structure as for explicitly stored object folders.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">MagData_ReplicationImport</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="magdata-numberofreplications">
+<span id="parameter-magdata-numberofreplications"></span><h3>MagData_NumberOfReplications<a class="headerlink" href="#magdata-numberofreplications" title="Link to this heading">#</a></h3>
+<p>Default value 1</p>
+<p>Effective number of magnetic objects generated from the single physical
+template object when <code class="docutils literal notranslate"><span class="pre">MagData_ReplicationImport</span></code> is active. The value
+must be a positive integer.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">MagData_NumberOfReplications</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="nucdata-replicationimport">
+<span id="parameter-nucdata-replicationimport"></span><h3>NucData_ReplicationImport<a class="headerlink" href="#nucdata-replicationimport" title="Link to this heading">#</a></h3>
+<p>Default value 0
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, NuMagSANS expects one physical nuclear template object in
+<code class="docutils literal notranslate"><span class="pre">NucData</span></code> and replicates it internally during import.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">NucData_ReplicationImport</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="nucdata-numberofreplications">
+<span id="parameter-nucdata-numberofreplications"></span><h3>NucData_NumberOfReplications<a class="headerlink" href="#nucdata-numberofreplications" title="Link to this heading">#</a></h3>
+<p>Default value 1</p>
+<p>Effective number of nuclear objects generated from the single physical
+template object when <code class="docutils literal notranslate"><span class="pre">NucData_ReplicationImport</span></code> is active. The value
+must be a positive integer.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">NucData_NumberOfReplications</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="exclude-zero-moments">
+<span id="parameter-exclude-zero-moments"></span><h3>Exclude_Zero_Moments<a class="headerlink" href="#exclude-zero-moments" title="Link to this heading">#</a></h3>
+<p>Default value 0
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, rows with zero magnetic moment are excluded from imported
+magnetic datasets.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Exclude_Zero_Moments</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dataset-selection-and-loops">
+<h2>Dataset Selection and Loops<a class="headerlink" href="#dataset-selection-and-loops" title="Link to this heading">#</a></h2>
+<p>These parameters control the selected data-file indices and nested batch calculations over structure and rotation datasets.</p>
+<section id="loop-modus">
+<span id="parameter-loop-modus"></span><h3>Loop_Modus<a class="headerlink" href="#loop-modus" title="Link to this heading">#</a></h3>
+<p>Description: Enable looping over selected data-file indices.
+Default <code class="docutils literal notranslate"><span class="pre">0</span></code>
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Loop_Modus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="loop-from">
+<span id="parameter-loop-from"></span><h3>Loop_From<a class="headerlink" href="#loop-from" title="Link to this heading">#</a></h3>
+<p>Description: First index used in loop simulations
 Default <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Loop_To</span></code></dt><dd><p>Description: Last index used in loop simulations
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Loop_From</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="loop-to">
+<span id="parameter-loop-to"></span><h3>Loop_To<a class="headerlink" href="#loop-to" title="Link to this heading">#</a></h3>
+<p>Description: Last index used in loop simulations
 Default <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">User_Selection</span></code></dt><dd><p>Description: Explicit list of selected indices
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Loop_To</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="user-selection">
+<span id="parameter-user-selection"></span><h3>User_Selection<a class="headerlink" href="#user-selection" title="Link to this heading">#</a></h3>
+<p>Description: Explicit list of selected indices
 Default <code class="docutils literal notranslate"><span class="pre">[1]</span></code></p>
 <p>If <code class="docutils literal notranslate"><span class="pre">Loop_Modus</span> <span class="pre">=</span> <span class="pre">0</span></code>, only the listed file indices are evaluated. If
 <code class="docutils literal notranslate"><span class="pre">Loop_Modus</span> <span class="pre">=</span> <span class="pre">1</span></code>, the index range from <code class="docutils literal notranslate"><span class="pre">Loop_From</span></code> to <code class="docutils literal notranslate"><span class="pre">Loop_To</span></code> is
 used.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">StructDataLoop</span></code></dt><dd><p>Description: Enable an inner loop over several structure-data files.
-Default <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">User_Selection</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="structdataloop">
+<span id="parameter-structdataloop"></span><h3>StructDataLoop<a class="headerlink" href="#structdataloop" title="Link to this heading">#</a></h3>
+<p>Description: Enable an inner loop over several structure-data files.
+Default <code class="docutils literal notranslate"><span class="pre">0</span></code>
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">StructDataLoop</span> <span class="pre">=</span> <span class="pre">1</span></code>, NuMagSANS loads the selected
 <code class="docutils literal notranslate"><span class="pre">StructData_#.csv</span></code> files from <code class="docutils literal notranslate"><span class="pre">StructDataPath</span></code> while keeping the
 currently selected magnetic and nuclear local object data fixed. If
 <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code> is also active, the structure-data loop is the outer loop
 and the rotation-data loop is the inner loop.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">StructDataLoop_From</span></code></dt><dd><p>Description: First structure-data file index used by the inner StructData
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">StructDataLoop</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="structdataloop-from">
+<span id="parameter-structdataloop-from"></span><h3>StructDataLoop_From<a class="headerlink" href="#structdataloop-from" title="Link to this heading">#</a></h3>
+<p>Description: First structure-data file index used by the inner StructData
 loop.
 Default <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">StructDataLoop_To</span></code></dt><dd><p>Description: Last structure-data file index used by the inner StructData
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">StructDataLoop_From</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="structdataloop-to">
+<span id="parameter-structdataloop-to"></span><h3>StructDataLoop_To<a class="headerlink" href="#structdataloop-to" title="Link to this heading">#</a></h3>
+<p>Description: Last structure-data file index used by the inner StructData
 loop.
 Default <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">StructData_User_Selection</span></code></dt><dd><p>Description: Optional explicit list of selected structure-data file
-indices.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">StructDataLoop_To</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="structdata-user-selection">
+<span id="parameter-structdata-user-selection"></span><h3>StructData_User_Selection<a class="headerlink" href="#structdata-user-selection" title="Link to this heading">#</a></h3>
+<p>Description: Optional explicit list of selected structure-data file
+indices.
+Default <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
 <p>If this option is present, it selects the exact <code class="docutils literal notranslate"><span class="pre">StructData_#.csv</span></code> files
 used by the inner StructData loop, for example <code class="docutils literal notranslate"><span class="pre">{1,</span> <span class="pre">3,</span> <span class="pre">4}</span></code>. If it is not
 present, the contiguous range from <code class="docutils literal notranslate"><span class="pre">StructDataLoop_From</span></code> to
 <code class="docutils literal notranslate"><span class="pre">StructDataLoop_To</span></code> is used.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotDataLoop</span></code></dt><dd><p>Description: Enable an inner loop over several rotation-data files.
-Default <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">StructData_User_Selection</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rotdataloop">
+<span id="parameter-rotdataloop"></span><h3>RotDataLoop<a class="headerlink" href="#rotdataloop" title="Link to this heading">#</a></h3>
+<p>Description: Enable an inner loop over several rotation-data files.
+Default <code class="docutils literal notranslate"><span class="pre">0</span></code>
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">RotDataLoop</span> <span class="pre">=</span> <span class="pre">1</span></code>, NuMagSANS loads the selected <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code>
 files from <code class="docutils literal notranslate"><span class="pre">RotDataPath</span></code> while keeping the currently selected magnetic,
 nuclear, and structure data fixed. This is useful for evaluating the same
 local object data under multiple object-wise rotation configurations.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotDataLoop_From</span></code></dt><dd><p>Description: First rotation-data file index used by the inner RotData loop.
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotDataLoop</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rotdataloop-from">
+<span id="parameter-rotdataloop-from"></span><h3>RotDataLoop_From<a class="headerlink" href="#rotdataloop-from" title="Link to this heading">#</a></h3>
+<p>Description: First rotation-data file index used by the inner RotData loop.
 Default <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotDataLoop_To</span></code></dt><dd><p>Description: Last rotation-data file index used by the inner RotData loop.
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotDataLoop_From</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rotdataloop-to">
+<span id="parameter-rotdataloop-to"></span><h3>RotDataLoop_To<a class="headerlink" href="#rotdataloop-to" title="Link to this heading">#</a></h3>
+<p>Description: Last rotation-data file index used by the inner RotData loop.
 Default <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotData_User_Selection</span></code></dt><dd><p>Description: Optional explicit list of selected rotation-data file indices.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotDataLoop_To</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rotdata-user-selection">
+<span id="parameter-rotdata-user-selection"></span><h3>RotData_User_Selection<a class="headerlink" href="#rotdata-user-selection" title="Link to this heading">#</a></h3>
+<p>Description: Optional explicit list of selected rotation-data file indices.
+Default <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
 <p>If this option is present, it selects the exact <code class="docutils literal notranslate"><span class="pre">RotData_#.csv</span></code> files
 used by the inner RotData loop, for example <code class="docutils literal notranslate"><span class="pre">{1,</span> <span class="pre">3,</span> <span class="pre">4}</span></code>. If it is not
 present, the contiguous range from <code class="docutils literal notranslate"><span class="pre">RotDataLoop_From</span></code> to
@@ -717,20 +1044,23 @@ present, the contiguous range from <code class="docutils literal notranslate"><s
 written to a nested folder such as <code class="docutils literal notranslate"><span class="pre">SANS_1/RotData_3/</span></code>. If
 <code class="docutils literal notranslate"><span class="pre">StructDataLoop</span></code> is active as well, the output is nested as
 <code class="docutils literal notranslate"><span class="pre">SANS_1/StructData_2/RotData_3/</span></code>.</p>
-</dd>
-</dl>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotData_User_Selection</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
-<section id="constant-parameters">
-<h2>Constant Parameters<a class="headerlink" href="#constant-parameters" title="Link to this heading">#</a></h2>
-<dl>
-<dt><code class="docutils literal notranslate"><span class="pre">XYZ_Unit_Factor</span></code></dt><dd><p>Conversion factors for coordinate units. Scaling factor applied to spatial coordinates.
-This parameter is equal to <code class="docutils literal notranslate"><span class="pre">1</span></code>, if the positional input data is in units of <span class="math notranslate nohighlight">\(\mathrm{nm}\)</span>.
-Default value <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Scattering_Volume_V</span></code></dt><dd><p>Effective scattering volume in units of <span class="math notranslate nohighlight">\(\mathrm{m}^3\)</span>
-Default value <code class="docutils literal notranslate"><span class="pre">2.618e-24</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotMatConvention</span></code></dt><dd><p>Default <code class="docutils literal notranslate"><span class="pre">zyz</span></code></p>
+</section>
+<section id="global-rotation">
+<h2>Global Rotation<a class="headerlink" href="#global-rotation" title="Link to this heading">#</a></h2>
+<p>These parameters specify a single global Euler rotation applied to the
+complete imported system.</p>
+<section id="rotmatconvention">
+<span id="parameter-rotmatconvention"></span><h3>RotMatConvention<a class="headerlink" href="#rotmatconvention" title="Link to this heading">#</a></h3>
+<p>Default <code class="docutils literal notranslate"><span class="pre">zyz</span></code></p>
 <p>Euler-axis sequence for the global rotation of the complete imported
 system. The supported conventions are identical to those of
 <code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code>. For a convention <code class="docutils literal notranslate"><span class="pre">abc</span></code>, the global angles define</p>
@@ -741,14 +1071,44 @@ first. Unlike object-wise <code class="docutils literal notranslate"><span class
 are specified in degrees. For example, <code class="docutils literal notranslate"><span class="pre">RotMatConvention</span> <span class="pre">=</span> <span class="pre">xyz</span></code> with
 <code class="docutils literal notranslate"><span class="pre">RotMat_alpha</span> <span class="pre">=</span> <span class="pre">phi</span></code> and the other two angles equal to zero produces a
 rotation by <code class="docutils literal notranslate"><span class="pre">phi</span></code> around the x-axis, which is the neutron-beam axis.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotMat_alpha</span></code></dt><dd><p>First global Euler angle in degrees.
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotMatConvention</span><span class="o">=</span><span class="s2">"zyz"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rotmat-alpha">
+<span id="parameter-rotmat-alpha"></span><h3>RotMat_alpha<a class="headerlink" href="#rotmat-alpha" title="Link to this heading">#</a></h3>
+<p>First global Euler angle in degrees.
 Default value <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotMat_beta</span></code></dt><dd><p>Second global Euler angle in degrees.
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotMat_alpha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rotmat-beta">
+<span id="parameter-rotmat-beta"></span><h3>RotMat_beta<a class="headerlink" href="#rotmat-beta" title="Link to this heading">#</a></h3>
+<p>Second global Euler angle in degrees.
 Default value <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">RotMat_gamma</span></code></dt><dd><p>Third global Euler angle in degrees.
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotMat_beta</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rotmat-gamma">
+<span id="parameter-rotmat-gamma"></span><h3>RotMat_gamma<a class="headerlink" href="#rotmat-gamma" title="Link to this heading">#</a></h3>
+<p>Third global Euler angle in degrees.
 Default value <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">RotMatConvention</span></code> and the three <code class="docutils literal notranslate"><span class="pre">RotMat</span></code> angles are independent of
 <code class="docutils literal notranslate"><span class="pre">RotDataConvention</span></code> and the object-wise local rotations. This
@@ -756,51 +1116,266 @@ convention-aware interface intentionally interprets the global angles in
 the direct order <code class="docutils literal notranslate"><span class="pre">(alpha,</span> <span class="pre">beta,</span> <span class="pre">gamma)</span></code>. It therefore replaces the
 earlier two-angle interpretation
 <span class="math notranslate nohighlight">\(R_z(\mathrm{RotMat\_beta})R_y(\mathrm{RotMat\_alpha})\)</span>.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Polarization</span></code></dt><dd><p>Polarization vector (Px, Py, Pz). Defines the polarization vector of the incoming neutron beam.
-Default <code class="docutils literal notranslate"><span class="pre">(0,0,1)</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Number_Of_q_Points</span></code></dt><dd><p>Number of sampled q values in Fourier space.
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">RotMat_gamma</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="fourier-transform-and-sampling">
+<h2>Fourier Transform and Sampling<a class="headerlink" href="#fourier-transform-and-sampling" title="Link to this heading">#</a></h2>
+<p>These parameters select the Fourier-transform approach and define the
+reciprocal-space, real-space, and angular sampling grids.</p>
+<section id="fourier-approach">
+<span id="parameter-fourier-approach"></span><h3>Fourier_Approach<a class="headerlink" href="#fourier-approach" title="Link to this heading">#</a></h3>
+<p>Default <code class="docutils literal notranslate"><span class="pre">atomistic</span></code>
+Options: <code class="docutils literal notranslate"><span class="pre">atomistic</span></code> or <code class="docutils literal notranslate"><span class="pre">micromagnetic</span></code>.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Fourier_Approach</span><span class="o">=</span><span class="s2">"atomistic"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="number-of-q-points">
+<span id="parameter-number-of-q-points"></span><h3>Number_Of_q_Points<a class="headerlink" href="#number-of-q-points" title="Link to this heading">#</a></h3>
+<p>Number of sampled q values in Fourier space.
 Default value <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Number_Of_theta_Points</span></code></dt><dd><p>Number of angular sampling points in Fourier space.
+<p>The value must be an integer larger than one.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Number_Of_q_Points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="number-of-theta-points">
+<span id="parameter-number-of-theta-points"></span><h3>Number_Of_theta_Points<a class="headerlink" href="#number-of-theta-points" title="Link to this heading">#</a></h3>
+<p>Number of angular sampling points in Fourier space.
 Default value <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Number_Of_r_Points</span></code></dt><dd><p>Number of sampled q values in real space (correlation).
-Default value <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Number_Of_alpha_Points</span></code></dt><dd><p>Number of angular sampling points in real space (correlation).
-Default value <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">q_min</span></code></dt><dd><p>Minimum scattering vector in Fourier space in units of <span class="math notranslate nohighlight">\(\mathrm{nm}^{-1}\)</span>.
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Number_Of_theta_Points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="q-min">
+<span id="parameter-q-min"></span><h3>q_min<a class="headerlink" href="#q-min" title="Link to this heading">#</a></h3>
+<p>Minimum scattering vector in Fourier space in units of <span class="math notranslate nohighlight">\(\mathrm{nm}^{-1}\)</span>.
 Default value <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">q_max</span></code></dt><dd><p>Maximum scattering vector in Fourier space in units of <span class="math notranslate nohighlight">\(\mathrm{nm}^{-1}\)</span>.
+<p>The value must be greater than or equal to zero.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">q_min</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="q-max">
+<span id="parameter-q-max"></span><h3>q_max<a class="headerlink" href="#q-max" title="Link to this heading">#</a></h3>
+<p>Maximum scattering vector in Fourier space in units of <span class="math notranslate nohighlight">\(\mathrm{nm}^{-1}\)</span>.
 Default value <code class="docutils literal notranslate"><span class="pre">3.0</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">r_max</span></code></dt><dd><p>Maximum real-space correlation distance in units of <span class="math notranslate nohighlight">\(\mathrm{nm}\)</span>.
-Default value <a href="#id1"><span class="problematic" id="id2">``</span></a>15.0 ``</p>
-</dd>
-</dl>
+<p>The value must be greater than <code class="docutils literal notranslate"><span class="pre">q_min</span></code>.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">q_max</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="number-of-r-points">
+<span id="parameter-number-of-r-points"></span><h3>Number_Of_r_Points<a class="headerlink" href="#number-of-r-points" title="Link to this heading">#</a></h3>
+<p>Number of sampled r values in real space (correlation).
+Default value <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Number_Of_r_Points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="number-of-alpha-points">
+<span id="parameter-number-of-alpha-points"></span><h3>Number_Of_alpha_Points<a class="headerlink" href="#number-of-alpha-points" title="Link to this heading">#</a></h3>
+<p>Number of angular sampling points in real space (correlation).
+Default value <code class="docutils literal notranslate"><span class="pre">1000</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Number_Of_alpha_Points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="r-max">
+<span id="parameter-r-max"></span><h3>r_max<a class="headerlink" href="#r-max" title="Link to this heading">#</a></h3>
+<p>Maximum real-space correlation distance in units of <span class="math notranslate nohighlight">\(\mathrm{nm}\)</span>.
+Default value <code class="docutils literal notranslate"><span class="pre">15.0</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">r_max</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="k-max">
+<span id="parameter-k-max"></span><h3>k_max<a class="headerlink" href="#k-max" title="Link to this heading">#</a></h3>
+<p>Maximum angular wave number.
+Default value <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+<p>The value is a non-negative integer.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">k_max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="angular-spec">
+<span id="parameter-angular-spec"></span><h3>Angular_Spec<a class="headerlink" href="#angular-spec" title="Link to this heading">#</a></h3>
+<p>Enable angular spectrum calculation. (binary selection)
+Default value <code class="docutils literal notranslate"><span class="pre">0</span></code>
+Options: <code class="docutils literal notranslate"><span class="pre">0</span></code> (disabled), <code class="docutils literal notranslate"><span class="pre">1</span></code> (enabled).</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Angular_Spec</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="physical-parameters">
+<h2>Physical Parameters<a class="headerlink" href="#physical-parameters" title="Link to this heading">#</a></h2>
+<p>These parameters define coordinate scaling, scattering normalization, and the
+incident-neutron polarization.</p>
+<section id="xyz-unit-factor">
+<span id="parameter-xyz-unit-factor"></span><h3>XYZ_Unit_Factor<a class="headerlink" href="#xyz-unit-factor" title="Link to this heading">#</a></h3>
+<p>Conversion factors for coordinate units. Scaling factor applied to spatial coordinates.
+This parameter is equal to <code class="docutils literal notranslate"><span class="pre">1</span></code>, if the positional input data is in units of <span class="math notranslate nohighlight">\(\mathrm{nm}\)</span>.
+Default value <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">XYZ_Unit_Factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="scattering-volume-v">
+<span id="parameter-scattering-volume-v"></span><h3>Scattering_Volume_V<a class="headerlink" href="#scattering-volume-v" title="Link to this heading">#</a></h3>
+<p>Effective scattering volume in units of <span class="math notranslate nohighlight">\(\mathrm{m}^3\)</span>
+Default value <code class="docutils literal notranslate"><span class="pre">2.618e-24</span></code></p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Scattering_Volume_V</span><span class="o">=</span><span class="mf">2.618e-24</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="polarization">
+<span id="parameter-polarization"></span><h3>Polarization<a class="headerlink" href="#polarization" title="Link to this heading">#</a></h3>
+<p>Polarization vector (Px, Py, Pz). Defines the polarization vector of the incoming neutron beam.
+Default <code class="docutils literal notranslate"><span class="pre">(0,0,1)</span></code></p>
+<p>The vector must be nonzero. NuMagSANS normalizes non-unit polarization
+vectors automatically.</p>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Polarization</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="micromagnetic-parameters">
 <h2>Micromagnetic Parameters<a class="headerlink" href="#micromagnetic-parameters" title="Link to this heading">#</a></h2>
-<p>Parameters describing the magnetic properties of discretized simulation
-cells.</p>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">Cell_Nuclear_SLD</span></code></dt><dd><p>Description: Nuclear scattering length density of the cell
+<p>These parameters describe the magnetic and nuclear properties of discretized simulation cells.</p>
+<section id="cell-nuclear-sld">
+<span id="parameter-cell-nuclear-sld"></span><h3>Cell_Nuclear_SLD<a class="headerlink" href="#cell-nuclear-sld" title="Link to this heading">#</a></h3>
+<p>Description: Nuclear scattering length density of the cell
 Default <code class="docutils literal notranslate"><span class="pre">8e14</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Cell_Magnetization</span></code></dt><dd><p>Description: Magnetization inside the discretized cell
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Cell_Nuclear_SLD</span><span class="o">=</span><span class="mf">8e14</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cell-magnetization">
+<span id="parameter-cell-magnetization"></span><h3>Cell_Magnetization<a class="headerlink" href="#cell-magnetization" title="Link to this heading">#</a></h3>
+<p>Description: Magnetization inside the discretized cell
 Default <code class="docutils literal notranslate"><span class="pre">486e3</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Cuboid_Cell_Size</span></code></dt><dd><p>Description: Dimensions of the discretization cell (x,y,z)
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Cell_Magnetization</span><span class="o">=</span><span class="mf">486e3</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cuboid-cell-size">
+<span id="parameter-cuboid-cell-size"></span><h3>Cuboid_Cell_Size<a class="headerlink" href="#cuboid-cell-size" title="Link to this heading">#</a></h3>
+<p>Description: Dimensions of the discretization cell (x,y,z)
 Default <code class="docutils literal notranslate"><span class="pre">(2,2,2)</span></code></p>
-</dd>
-</dl>
+<p>How to set in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">Cuboid_Cell_Size</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="output-options">
 <h2>Output Options<a class="headerlink" href="#output-options" title="Link to this heading">#</a></h2>
+<section id="fourier-space-correlation-matrix">
+<h3>Fourier-space correlation matrix<a class="headerlink" href="#fourier-space-correlation-matrix" title="Link to this heading">#</a></h3>
+<section id="fourier-gamma">
+<span id="output-fourier-gamma"></span><h4>Fourier_Gamma<a class="headerlink" href="#fourier-gamma" title="Link to this heading">#</a></h4>
+<p>Exports the real and imaginary parts of the Fourier-space magnetization
+correlation-matrix components <span class="math notranslate nohighlight">\(G_{ij}\)</span> with
+<span class="math notranslate nohighlight">\(i,j\in\{x,y,z\}\)</span>. The columns are added to the two-dimensional SANS
+output table.</p>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Fourier_Gamma"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="d-sans-cross-sections">
 <h3>2D SANS cross sections<a class="headerlink" href="#d-sans-cross-sections" title="Link to this heading">#</a></h3>
 <p>In NuMagSANS, the incoming neutron beam is defined to propagate along the
@@ -885,6 +1460,14 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
 =
 \frac{8\pi^3}{V}\, |\widetilde{N}|^2\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Nuclear_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(\mathbf{q}) = \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(-\mathbf{q})\]</div>
@@ -898,6 +1481,14 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
 =
 \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}|^2\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Unpolarized_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{M}}}{d\Omega}(\mathbf{q})
@@ -916,6 +1507,14 @@ sample or magnetization symmetries.</p>
 =
 \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
 \left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}\right|^2\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Polarized_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{P}}}{d\Omega}(\mathbf{q})
@@ -934,6 +1533,14 @@ sample or magnetization symmetries.</p>
 =
 \frac{8\pi^3}{V}\, b_{\mathrm{H}}
 \hat{\mathbf{P}}\cdot\left[\widetilde{N}\widetilde{\mathbf{Q}}^{\ast}+\widetilde{N}^{\ast}\widetilde{\mathbf{Q}}\right]\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"NuclearMagnetic_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(\mathbf{q})
@@ -964,6 +1571,14 @@ sections, the chiral contribution is their half-difference:</p>
     -
     \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
 \right]\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Chiral_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\chi}}{d\Omega}(-\mathbf{q})
@@ -994,6 +1609,14 @@ sections, the spin-flip contribution is their half-sum:</p>
     +
     \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
 \right]\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"SpinFlip_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(\mathbf{q})
@@ -1013,6 +1636,14 @@ sections, the spin-flip contribution is their half-sum:</p>
 \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
 +
 \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"PM_SpinFlip_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma^{+-}}{d\Omega}(-\mathbf{q})
@@ -1032,6 +1663,14 @@ sections, the spin-flip contribution is their half-sum:</p>
 \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
 -
 \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"MP_SpinFlip_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma^{-+}}{d\Omega}(-\mathbf{q})
@@ -1053,6 +1692,14 @@ sections, the spin-flip contribution is their half-sum:</p>
 \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
 +
 \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"PP_NonSpinFlip_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma^{++}}{d\Omega}(\mathbf{q})
@@ -1074,6 +1721,14 @@ sections, the spin-flip contribution is their half-sum:</p>
 \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
 +
 \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"MM_NonSpinFlip_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma^{--}}{d\Omega}(\mathbf{q})
@@ -1094,6 +1749,14 @@ final-state spin analysis.</p>
 \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
 +
 \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"P_SANSPOL_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <p>In general, this channel has neither even nor odd point-inversion
 symmetry. Its antisymmetric part is fixed by the chiral cross section:</p>
@@ -1120,6 +1783,14 @@ final-state spin analysis.</p>
 \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
 +
 \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"M_SANSPOL_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <p>Symmetry properties:</p>
 <p>In general, this channel has neither even nor odd point-inversion
 symmetry. Its antisymmetric part is fixed by the chiral cross section:</p>
@@ -1180,6 +1851,14 @@ q\,dq\,d\theta .\]</div>
 \frac{d\Sigma_{\mathrm N}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Nuclear_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="unpolarized-corr-2d">
 <span id="output-unpolarized-corr-2d"></span><h4>Unpolarized_Corr_2D<a class="headerlink" href="#unpolarized-corr-2d" title="Link to this heading">#</a></h4>
@@ -1191,6 +1870,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma_{\mathrm M}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Unpolarized_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="polarized-corr-2d">
 <span id="output-polarized-corr-2d"></span><h4>Polarized_Corr_2D<a class="headerlink" href="#polarized-corr-2d" title="Link to this heading">#</a></h4>
@@ -1202,6 +1889,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma_{\mathrm P}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Polarized_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="nuclearmagnetic-corr-2d">
 <span id="output-nuclearmagnetic-corr-2d"></span><h4>NuclearMagnetic_Corr_2D<a class="headerlink" href="#nuclearmagnetic-corr-2d" title="Link to this heading">#</a></h4>
@@ -1213,6 +1908,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"NuclearMagnetic_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="spinflip-corr-2d">
 <span id="output-spinflip-corr-2d"></span><h4>SpinFlip_Corr_2D<a class="headerlink" href="#spinflip-corr-2d" title="Link to this heading">#</a></h4>
@@ -1224,6 +1927,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"SpinFlip_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="chiral-corr-2d">
 <span id="output-chiral-corr-2d"></span><h4>Chiral_Corr_2D<a class="headerlink" href="#chiral-corr-2d" title="Link to this heading">#</a></h4>
@@ -1235,6 +1946,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Chiral_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="pm-spinflip-corr-2d">
 <span id="output-pm-spinflip-corr-2d"></span><h4>PM_SpinFlip_Corr_2D<a class="headerlink" href="#pm-spinflip-corr-2d" title="Link to this heading">#</a></h4>
@@ -1246,6 +1965,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"PM_SpinFlip_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="mp-spinflip-corr-2d">
 <span id="output-mp-spinflip-corr-2d"></span><h4>MP_SpinFlip_Corr_2D<a class="headerlink" href="#mp-spinflip-corr-2d" title="Link to this heading">#</a></h4>
@@ -1257,6 +1984,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"MP_SpinFlip_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="pp-nonspinflip-corr-2d">
 <span id="output-pp-nonspinflip-corr-2d"></span><h4>PP_NonSpinFlip_Corr_2D<a class="headerlink" href="#pp-nonspinflip-corr-2d" title="Link to this heading">#</a></h4>
@@ -1268,6 +2003,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"PP_NonSpinFlip_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="mm-nonspinflip-corr-2d">
 <span id="output-mm-nonspinflip-corr-2d"></span><h4>MM_NonSpinFlip_Corr_2D<a class="headerlink" href="#mm-nonspinflip-corr-2d" title="Link to this heading">#</a></h4>
@@ -1279,6 +2022,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"MM_NonSpinFlip_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="p-sanspol-corr-2d">
 <span id="output-p-sanspol-corr-2d"></span><h4>P_SANSPOL_Corr_2D<a class="headerlink" href="#p-sanspol-corr-2d" title="Link to this heading">#</a></h4>
@@ -1290,6 +2041,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"P_SANSPOL_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="m-sanspol-corr-2d">
 <span id="output-m-sanspol-corr-2d"></span><h4>M_SANSPOL_Corr_2D<a class="headerlink" href="#m-sanspol-corr-2d" title="Link to this heading">#</a></h4>
@@ -1301,6 +2060,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"M_SANSPOL_Corr_2D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="d-azimuthally-averaged-sans-cross-sections">
@@ -1316,6 +2083,14 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Nuclear_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="unpolarized-1d">
 <span id="output-unpolarized-1d"></span><h4>Unpolarized_1D<a class="headerlink" href="#unpolarized-1d" title="Link to this heading">#</a></h4>
@@ -1327,6 +2102,14 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Unpolarized_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="polarized-1d">
 <span id="output-polarized-1d"></span><h4>Polarized_1D<a class="headerlink" href="#polarized-1d" title="Link to this heading">#</a></h4>
@@ -1338,6 +2121,14 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Polarized_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="nuclearmagnetic-1d">
 <span id="output-nuclearmagnetic-1d"></span><h4>NuclearMagnetic_1D<a class="headerlink" href="#nuclearmagnetic-1d" title="Link to this heading">#</a></h4>
@@ -1349,6 +2140,14 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"NuclearMagnetic_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="chiral-1d">
 <span id="output-chiral-1d"></span><h4>Chiral_1D<a class="headerlink" href="#chiral-1d" title="Link to this heading">#</a></h4>
@@ -1360,6 +2159,14 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Chiral_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="spinflip-1d">
 <span id="output-spinflip-1d"></span><h4>SpinFlip_1D<a class="headerlink" href="#spinflip-1d" title="Link to this heading">#</a></h4>
@@ -1371,6 +2178,14 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"SpinFlip_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="pm-spinflip-1d">
 <span id="output-pm-spinflip-1d"></span><h4>PM_SpinFlip_1D<a class="headerlink" href="#pm-spinflip-1d" title="Link to this heading">#</a></h4>
@@ -1383,6 +2198,14 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"PM_SpinFlip_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="mp-spinflip-1d">
 <span id="output-mp-spinflip-1d"></span><h4>MP_SpinFlip_1D<a class="headerlink" href="#mp-spinflip-1d" title="Link to this heading">#</a></h4>
@@ -1395,6 +2218,14 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"MP_SpinFlip_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="pp-nonspinflip-1d">
 <span id="output-pp-nonspinflip-1d"></span><h4>PP_NonSpinFlip_1D<a class="headerlink" href="#pp-nonspinflip-1d" title="Link to this heading">#</a></h4>
@@ -1407,6 +2238,14 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"PP_NonSpinFlip_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="mm-nonspinflip-1d">
 <span id="output-mm-nonspinflip-1d"></span><h4>MM_NonSpinFlip_1D<a class="headerlink" href="#mm-nonspinflip-1d" title="Link to this heading">#</a></h4>
@@ -1419,6 +2258,14 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"MM_NonSpinFlip_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="p-sanspol-1d">
 <span id="output-p-sanspol-1d"></span><h4>P_SANSPOL_1D<a class="headerlink" href="#p-sanspol-1d" title="Link to this heading">#</a></h4>
@@ -1431,6 +2278,14 @@ polarization.</p>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"P_SANSPOL_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="m-sanspol-1d">
 <span id="output-m-sanspol-1d"></span><h4>M_SANSPOL_1D<a class="headerlink" href="#m-sanspol-1d" title="Link to this heading">#</a></h4>
@@ -1443,10 +2298,18 @@ polarization.</p>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"M_SANSPOL_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
-<section id="id3">
-<h3>1D Correlation functions<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h3>1D Correlation functions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>In addition to the azimuthally averaged SANS cross sections <span class="math notranslate nohighlight">\(I(q)\)</span>,
 NuMagSANS can compute the corresponding real-space correlation functions
 <span class="math notranslate nohighlight">\(c(r)\)</span>. These functions are obtained from the scattering intensity
@@ -1469,6 +2332,14 @@ The following correlation functions can be calculated.</p>
 =
 \int_{0}^{\infty}
 I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Nuclear_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="unpolarized-corr-1d">
 <span id="output-unpolarized-corr-1d"></span><h4>Unpolarized_Corr_1D<a class="headerlink" href="#unpolarized-corr-1d" title="Link to this heading">#</a></h4>
@@ -1478,6 +2349,14 @@ I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Unpolarized_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="polarized-corr-1d">
 <span id="output-polarized-corr-1d"></span><h4>Polarized_Corr_1D<a class="headerlink" href="#polarized-corr-1d" title="Link to this heading">#</a></h4>
@@ -1487,6 +2366,14 @@ I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Polarized_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="nuclearmagnetic-corr-1d">
 <span id="output-nuclearmagnetic-corr-1d"></span><h4>NuclearMagnetic_Corr_1D<a class="headerlink" href="#nuclearmagnetic-corr-1d" title="Link to this heading">#</a></h4>
@@ -1496,6 +2383,14 @@ I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"NuclearMagnetic_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="chiral-corr-1d">
 <span id="output-chiral-corr-1d"></span><h4>Chiral_Corr_1D<a class="headerlink" href="#chiral-corr-1d" title="Link to this heading">#</a></h4>
@@ -1505,6 +2400,14 @@ I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I_{\chi}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Chiral_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="spinflip-corr-1d">
 <span id="output-spinflip-corr-1d"></span><h4>SpinFlip_Corr_1D<a class="headerlink" href="#spinflip-corr-1d" title="Link to this heading">#</a></h4>
@@ -1514,6 +2417,14 @@ I_{\chi}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"SpinFlip_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="pm-spinflip-corr-1d">
 <span id="output-pm-spinflip-corr-1d"></span><h4>PM_SpinFlip_Corr_1D<a class="headerlink" href="#pm-spinflip-corr-1d" title="Link to this heading">#</a></h4>
@@ -1523,6 +2434,14 @@ I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I^{+-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"PM_SpinFlip_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="mp-spinflip-corr-1d">
 <span id="output-mp-spinflip-corr-1d"></span><h4>MP_SpinFlip_Corr_1D<a class="headerlink" href="#mp-spinflip-corr-1d" title="Link to this heading">#</a></h4>
@@ -1532,6 +2451,14 @@ I^{+-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I^{-+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"MP_SpinFlip_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="pp-nonspinflip-corr-1d">
 <span id="output-pp-nonspinflip-corr-1d"></span><h4>PP_NonSpinFlip_Corr_1D<a class="headerlink" href="#pp-nonspinflip-corr-1d" title="Link to this heading">#</a></h4>
@@ -1541,6 +2468,14 @@ I^{-+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I^{++}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"PP_NonSpinFlip_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="mm-nonspinflip-corr-1d">
 <span id="output-mm-nonspinflip-corr-1d"></span><h4>MM_NonSpinFlip_Corr_1D<a class="headerlink" href="#mm-nonspinflip-corr-1d" title="Link to this heading">#</a></h4>
@@ -1550,6 +2485,14 @@ I^{++}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I^{--}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"MM_NonSpinFlip_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="p-sanspol-corr-1d">
 <span id="output-p-sanspol-corr-1d"></span><h4>P_SANSPOL_Corr_1D<a class="headerlink" href="#p-sanspol-corr-1d" title="Link to this heading">#</a></h4>
@@ -1559,6 +2502,14 @@ I^{--}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I^{+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"P_SANSPOL_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="m-sanspol-corr-1d">
 <span id="output-m-sanspol-corr-1d"></span><h4>M_SANSPOL_Corr_1D<a class="headerlink" href="#m-sanspol-corr-1d" title="Link to this heading">#</a></h4>
@@ -1568,6 +2519,14 @@ I^{+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 =
 \int_{0}^{\infty}
 I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"M_SANSPOL_Corr_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="d-pair-distance-distribution-functions">
@@ -1596,6 +2555,14 @@ The following pair-distance distribution functions can be calculated.</p>
 r^2
 \int_{0}^{\infty}
 I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Nuclear_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="unpolarized-pairdist-1d">
 <span id="output-unpolarized-pairdist-1d"></span><h4>Unpolarized_PairDist_1D<a class="headerlink" href="#unpolarized-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1606,6 +2573,14 @@ I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Unpolarized_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="polarized-pairdist-1d">
 <span id="output-polarized-pairdist-1d"></span><h4>Polarized_PairDist_1D<a class="headerlink" href="#polarized-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1616,6 +2591,14 @@ I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Polarized_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="nuclearmagnetic-pairdist-1d">
 <span id="output-nuclearmagnetic-pairdist-1d"></span><h4>NuclearMagnetic_PairDist_1D<a class="headerlink" href="#nuclearmagnetic-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1626,6 +2609,14 @@ I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"NuclearMagnetic_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="chiral-pairdist-1d">
 <span id="output-chiral-pairdist-1d"></span><h4>Chiral_PairDist_1D<a class="headerlink" href="#chiral-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1636,6 +2627,14 @@ I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I_{\chi}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"Chiral_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="spinflip-pairdist-1d">
 <span id="output-spinflip-pairdist-1d"></span><h4>SpinFlip_PairDist_1D<a class="headerlink" href="#spinflip-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1646,6 +2645,14 @@ I_{\chi}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"SpinFlip_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="pm-spinflip-pairdist-1d">
 <span id="output-pm-spinflip-pairdist-1d"></span><h4>PM_SpinFlip_PairDist_1D<a class="headerlink" href="#pm-spinflip-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1656,6 +2663,14 @@ I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I^{+-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"PM_SpinFlip_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="mp-spinflip-pairdist-1d">
 <span id="output-mp-spinflip-pairdist-1d"></span><h4>MP_SpinFlip_PairDist_1D<a class="headerlink" href="#mp-spinflip-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1666,6 +2681,14 @@ I^{+-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I^{-+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"MP_SpinFlip_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="pp-nonspinflip-pairdist-1d">
 <span id="output-pp-nonspinflip-pairdist-1d"></span><h4>PP_NonSpinFlip_PairDist_1D<a class="headerlink" href="#pp-nonspinflip-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1676,6 +2699,14 @@ I^{-+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I^{++}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"PP_NonSpinFlip_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="mm-nonspinflip-pairdist-1d">
 <span id="output-mm-nonspinflip-pairdist-1d"></span><h4>MM_NonSpinFlip_PairDist_1D<a class="headerlink" href="#mm-nonspinflip-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1686,6 +2717,14 @@ I^{++}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I^{--}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"MM_NonSpinFlip_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="p-sanspol-pairdist-1d">
 <span id="output-p-sanspol-pairdist-1d"></span><h4>P_SANSPOL_PairDist_1D<a class="headerlink" href="#p-sanspol-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1696,6 +2735,14 @@ I^{--}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I^{+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"P_SANSPOL_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="m-sanspol-pairdist-1d">
 <span id="output-m-sanspol-pairdist-1d"></span><h4>M_SANSPOL_PairDist_1D<a class="headerlink" href="#m-sanspol-pairdist-1d" title="Link to this heading">#</a></h4>
@@ -1706,20 +2753,16 @@ I^{+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 r^2
 \int_{0}^{\infty}
 I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
+<p>How to enable in the <code class="docutils literal notranslate"><span class="pre">write_config</span></code> function of the Python interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write configuration file</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">enable_outputs</span><span class="o">=</span><span class="p">[</span><span class="s2">"M_SANSPOL_PairDist_1D"</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
-</section>
-<section id="angular-spectrum">
-<h2>Angular Spectrum<a class="headerlink" href="#angular-spectrum" title="Link to this heading">#</a></h2>
-<p>Settings for angular spectrum calculations.</p>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">k_max</span></code></dt><dd><p>Maximum angular wave number.
-Default value <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Angular_Spec</span></code></dt><dd><p>Enable angular spectrum calculation. (binary selection)
-Default value <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
-</dd>
-</dl>
 </section>
 </section>
 
@@ -1771,15 +2814,90 @@ Default value <code class="docutils literal notranslate"><span class="pre">0</sp
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-paths-and-data-selection">Data Paths and Data Selection</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-data">Input Data</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nucdatapath">NucDataPath</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nucdata-activate">NucData_activate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#magdatapath">MagDataPath</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#magdata-activate">MagData_activate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structdatafilename">StructDataFilename</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structdata-activate">StructData_activate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structdatapath">StructDataPath</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-data-layer-combinations">Supported Data-Layer Combinations</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-approach">Fourier Approach</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-control">Loop Control</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-parameters">Constant Parameters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#micromagnetic-parameters">Micromagnetic Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-rotation-data">Local Rotation Data</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotdatafilename">RotDataFilename</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotdata-activate">RotData_activate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotdataconvention">RotDataConvention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotdatapath">RotDataPath</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-storage">Output Storage</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#foldernamesansdata">foldernameSANSData</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sansdata-output-format">SANSData_Output_Format</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-and-preprocessing">Loading and Preprocessing</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fastload">FastLoad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#magdata-replicationimport">MagData_ReplicationImport</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#magdata-numberofreplications">MagData_NumberOfReplications</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nucdata-replicationimport">NucData_ReplicationImport</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nucdata-numberofreplications">NucData_NumberOfReplications</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exclude-zero-moments">Exclude_Zero_Moments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-selection-and-loops">Dataset Selection and Loops</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-modus">Loop_Modus</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-from">Loop_From</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-to">Loop_To</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-selection">User_Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structdataloop">StructDataLoop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structdataloop-from">StructDataLoop_From</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structdataloop-to">StructDataLoop_To</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structdata-user-selection">StructData_User_Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotdataloop">RotDataLoop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotdataloop-from">RotDataLoop_From</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotdataloop-to">RotDataLoop_To</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotdata-user-selection">RotData_User_Selection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-rotation">Global Rotation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotmatconvention">RotMatConvention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotmat-alpha">RotMat_alpha</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotmat-beta">RotMat_beta</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotmat-gamma">RotMat_gamma</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-transform-and-sampling">Fourier Transform and Sampling</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-approach">Fourier_Approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#number-of-q-points">Number_Of_q_Points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#number-of-theta-points">Number_Of_theta_Points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q-min">q_min</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q-max">q_max</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#number-of-r-points">Number_Of_r_Points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#number-of-alpha-points">Number_Of_alpha_Points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-max">r_max</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-max">k_max</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#angular-spec">Angular_Spec</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#physical-parameters">Physical Parameters</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xyz-unit-factor">XYZ_Unit_Factor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scattering-volume-v">Scattering_Volume_V</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polarization">Polarization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#micromagnetic-parameters">Micromagnetic Parameters</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-nuclear-sld">Cell_Nuclear_SLD</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cell-magnetization">Cell_Magnetization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuboid-cell-size">Cuboid_Cell_Size</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-options">Output Options</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-space-correlation-matrix">Fourier-space correlation matrix</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-gamma">Fourier_Gamma</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-sans-cross-sections">2D SANS cross sections</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclear-2d">Nuclear_2D</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unpolarized-2d">Unpolarized_2D</a></li>
@@ -1825,7 +2943,7 @@ Default value <code class="docutils literal notranslate"><span class="pre">0</sp
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#m-sanspol-1d">M_SANSPOL_1D</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1D Correlation functions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1D Correlation functions</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclear-corr-1d">Nuclear_Corr_1D</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unpolarized-corr-1d">Unpolarized_Corr_1D</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#polarized-corr-1d">Polarized_Corr_1D</a></li>
@@ -1857,7 +2975,6 @@ Default value <code class="docutils literal notranslate"><span class="pre">0</sp
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#angular-spectrum">Angular Spectrum</a></li>
 </ul>
   </nav></div>
 

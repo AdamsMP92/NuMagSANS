@@ -40,7 +40,7 @@ The following script demonstrates a minimal NuMagSANS workflow.
        Fourier_Approach="atomistic",
        User_Selection=[1, 2, 3],
        Scattering_Volume_V=2.618e-24,
-       enable_outputs=["SpinFlip_2D", "SpinFlip_1D"]
+       enable_outputs=["SpinFlip_2D", "SpinFlip_1D"],
    )
 
    # Run NuMagSANS simulation
@@ -49,9 +49,14 @@ The following script demonstrates a minimal NuMagSANS workflow.
    # Remove temporary configuration file
    sim.config_clear(config)
 
+The focused examples below show only the setting being discussed. Replace
+``...`` with the configuration-file path, such as ``config`` from the example
+above, and combine multiple keyword arguments in a single ``write_config``
+call as needed.
 
-Data Paths and Data Selection
------------------------------
+
+Input Data
+----------
 
 These parameters define where the simulation reads input data and where
 results are written.
@@ -84,125 +89,132 @@ directly through ``MagData`` and/or ``NucData``, while object-based assemblies
 can additionally use ``StructData`` and ``RotData`` to translate and rotate
 local object data without rewriting the object files.
 
-``NucDataPath``
-    Default path ``RealSpaceData/NucData``
+.. _parameter-nucdatapath:
 
-``NucData_activate``
-    Default value 0
+NucDataPath
+^^^^^^^^^^^
 
-``MagDataPath``
-    Default path ``RealSpaceData/MagData``
+Default path ``RealSpaceData/NucData``
 
-``MagData_activate``
-    Default value 0
+How to set in the ``write_config`` function of the Python interface:
 
-``StructDataFilename``
-    Default path ``RealSpaceData/StructData.csv``
+.. code-block:: python
 
-``StructData_activate``
-    Default value 0
+   # Write configuration file
+   sim.write_config(
+       ...,
+       NucDataPath="RealSpaceData/NucData",
+   )
 
-``StructDataPath``
-    Default path ``RealSpaceData/StructData``
+.. _parameter-nucdata-activate:
 
-    Folder used by ``StructDataLoop``. In this mode, structure files are
-    expected to follow the naming convention ``StructData_1.csv``,
-    ``StructData_2.csv``, ... inside ``StructDataPath``. Each file contains one
-    object-center translation table.
+NucData_activate
+^^^^^^^^^^^^^^^^
 
-``RotDataFilename``
-    Default path ``RealSpaceData/RotData.csv``
+Default value 0
+Options: ``0`` (disabled), ``1`` (enabled).
 
-``RotData_activate``
-    Default value 0
+How to set in the ``write_config`` function of the Python interface:
 
-    If activated, ``RotDataFilename`` is read as an object-wise rotation table.
-    The file must contain one row per object and three columns with angles in
-    radians. The axes associated with these columns are defined by
-    ``RotDataConvention``.
+.. code-block:: python
 
-``RotDataConvention``
-    Default ``zyz``
+   # Write configuration file
+   sim.write_config(
+       ...,
+       NucData_activate=1,
+   )
 
-    Euler-axis sequence used to interpret the three columns in each rotation
-    data row. The supported proper-Euler and Tait--Bryan sequences are
-    ``xyx``, ``xzx``, ``yxy``, ``yzy``, ``zxz``, ``zyz``, ``xyz``, ``xzy``,
-    ``yxz``, ``yzx``, ``zxy``, and ``zyx``.
+.. _parameter-magdatapath:
 
-    The selection is case-insensitive and applies to every active ``RotData``
-    row and every file in a ``RotDataLoop`` within the run; conventions cannot
-    be mixed between loop files.
+MagDataPath
+^^^^^^^^^^^
 
-    A convention ``abc`` and a row ``angle_1 angle_2 angle_3`` define the
-    active rotation
+Default path ``RealSpaceData/MagData``
 
-    .. math::
+How to set in the ``write_config`` function of the Python interface:
 
-       R = R_a(\mathrm{angle}_1) R_b(\mathrm{angle}_2) R_c(\mathrm{angle}_3),
+.. code-block:: python
 
-    acting on column vectors. The rightmost rotation is therefore applied
-    first. For example, with ``RotDataConvention = xyz``, a row
-    ``phi 0 0`` describes a rotation by ``phi`` around the x-axis. All three
-    angles remain in radians.
+   # Write configuration file
+   sim.write_config(
+       ...,
+       MagDataPath="RealSpaceData/MagData",
+   )
 
-    If the option is omitted, NuMagSANS uses ``zyz`` so that existing
-    configuration and rotation-data files retain their historical
-    interpretation
+.. _parameter-magdata-activate:
 
-    .. math::
+MagData_activate
+^^^^^^^^^^^^^^^^
 
-       R = R_z(\alpha) R_y(\beta) R_z(\gamma).
+Default value 0
+Options: ``0`` (disabled), ``1`` (enabled).
 
-``RotDataPath``
-    Default path ``RealSpaceData/RotData``
+How to set in the ``write_config`` function of the Python interface:
 
-    Folder used by ``RotDataLoop``. In this mode, rotation files are expected
-    to follow the naming convention ``RotData_1.csv``, ``RotData_2.csv``, ...
-    inside ``RotDataPath``. Each file contains one object-wise rotation table.
+.. code-block:: python
 
-``foldernameSANSData``
-    Default ``NuMagSANS_Output``
+   # Write configuration file
+   sim.write_config(
+       ...,
+       MagData_activate=1,
+   )
 
-``FastLoad``
-    Default value 0
+.. _parameter-structdatafilename:
 
-    If set to ``1``, NuMagSANS skips repeated dimension checks for all files
-    beyond the first data file inside each object folder. This can accelerate
-    import for large datasets. It assumes that, within each object folder, all
-    magnetic or nuclear data files have the same number of rows. Different
-    objects may still have different numbers of rows.
+StructDataFilename
+^^^^^^^^^^^^^^^^^^
 
-``MagData_ReplicationImport``
-    Default value 0
+Default path ``RealSpaceData/StructData.csv``
 
-    If set to ``1``, NuMagSANS expects one physical magnetic template object in
-    ``MagData`` and replicates it internally during import. The kernels receive
-    the same in-memory structure as for explicitly stored object folders.
+How to set in the ``write_config`` function of the Python interface:
 
-``MagData_NumberOfReplications``
-    Default value 1
+.. code-block:: python
 
-    Effective number of magnetic objects generated from the single physical
-    template object when ``MagData_ReplicationImport`` is active.
+   # Write configuration file
+   sim.write_config(
+       ...,
+       StructDataFilename="RealSpaceData/StructData.csv",
+   )
 
-``NucData_ReplicationImport``
-    Default value 0
+.. _parameter-structdata-activate:
 
-    If set to ``1``, NuMagSANS expects one physical nuclear template object in
-    ``NucData`` and replicates it internally during import.
+StructData_activate
+^^^^^^^^^^^^^^^^^^^
 
-``NucData_NumberOfReplications``
-    Default value 1
+Default value 0
+Options: ``0`` (disabled), ``1`` (enabled).
 
-    Effective number of nuclear objects generated from the single physical
-    template object when ``NucData_ReplicationImport`` is active.
+How to set in the ``write_config`` function of the Python interface:
 
-``Exclude_Zero_Moments``
-    Default value 0
+.. code-block:: python
 
-    If set to ``1``, rows with zero magnetic moment are excluded from imported
-    magnetic datasets.
+   # Write configuration file
+   sim.write_config(
+       ...,
+       StructData_activate=1,
+   )
 
+.. _parameter-structdatapath:
+
+StructDataPath
+^^^^^^^^^^^^^^
+
+Default path ``RealSpaceData/StructData``
+
+Folder used by ``StructDataLoop``. In this mode, structure files are
+expected to follow the naming convention ``StructData_1.csv``,
+``StructData_2.csv``, ... inside ``StructDataPath``. Each file contains one
+object-center translation table.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       StructDataPath="RealSpaceData/StructData",
+   )
 
 Supported Data-Layer Combinations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -237,201 +249,1004 @@ simulation datasets and for object-based assembly models where local objects
 are reused with different positions and orientations.
 
 
-Fourier Approach
-----------------
-
-Defines how the Fourier transform from real space to reciprocal space
-is performed.
-
-``Fourier_Approach``
-    Default ``atomistic``
-    Options: ``atomistic``, ``micromagnetic``
-
-Loop Control
-------------
-
-These parameters control batch simulations or repeated calculations.
-
-``Loop_Modus``
-    Description: Enable looping over selected data-file indices.
-    Default ``0``
-
-``Loop_From``
-    Description: First index used in loop simulations
-    Default ``1``
-
-``Loop_To``
-    Description: Last index used in loop simulations
-    Default ``20``
-
-``User_Selection``
-    Description: Explicit list of selected indices
-    Default ``[1]``
-
-    If ``Loop_Modus = 0``, only the listed file indices are evaluated. If
-    ``Loop_Modus = 1``, the index range from ``Loop_From`` to ``Loop_To`` is
-    used.
-
-``StructDataLoop``
-    Description: Enable an inner loop over several structure-data files.
-    Default ``0``
-
-    If ``StructDataLoop = 1``, NuMagSANS loads the selected
-    ``StructData_#.csv`` files from ``StructDataPath`` while keeping the
-    currently selected magnetic and nuclear local object data fixed. If
-    ``RotDataLoop`` is also active, the structure-data loop is the outer loop
-    and the rotation-data loop is the inner loop.
-
-``StructDataLoop_From``
-    Description: First structure-data file index used by the inner StructData
-    loop.
-    Default ``1``
-
-``StructDataLoop_To``
-    Description: Last structure-data file index used by the inner StructData
-    loop.
-    Default ``1``
-
-``StructData_User_Selection``
-    Description: Optional explicit list of selected structure-data file
-    indices.
-
-    If this option is present, it selects the exact ``StructData_#.csv`` files
-    used by the inner StructData loop, for example ``{1, 3, 4}``. If it is not
-    present, the contiguous range from ``StructDataLoop_From`` to
-    ``StructDataLoop_To`` is used.
-
-``RotDataLoop``
-    Description: Enable an inner loop over several rotation-data files.
-    Default ``0``
-
-    If ``RotDataLoop = 1``, NuMagSANS loads the selected ``RotData_#.csv``
-    files from ``RotDataPath`` while keeping the currently selected magnetic,
-    nuclear, and structure data fixed. This is useful for evaluating the same
-    local object data under multiple object-wise rotation configurations.
-
-``RotDataLoop_From``
-    Description: First rotation-data file index used by the inner RotData loop.
-    Default ``1``
-
-``RotDataLoop_To``
-    Description: Last rotation-data file index used by the inner RotData loop.
-    Default ``1``
-
-``RotData_User_Selection``
-    Description: Optional explicit list of selected rotation-data file indices.
-
-    If this option is present, it selects the exact ``RotData_#.csv`` files
-    used by the inner RotData loop, for example ``{1, 3, 4}``. If it is not
-    present, the contiguous range from ``RotDataLoop_From`` to
-    ``RotDataLoop_To`` is used.
-
-    For a fixed data-file index and a selected rotation-data index, output is
-    written to a nested folder such as ``SANS_1/RotData_3/``. If
-    ``StructDataLoop`` is active as well, the output is nested as
-    ``SANS_1/StructData_2/RotData_3/``.
-
-Constant Parameters
+Local Rotation Data
 -------------------
 
-``XYZ_Unit_Factor``
-    Conversion factors for coordinate units. Scaling factor applied to spatial coordinates.
-    This parameter is equal to ``1``, if the positional input data is in units of :math:`\mathrm{nm}`.
-    Default value ``1``
+These parameters configure object-wise rotation tables. Each table row
+describes the local orientation of one object.
 
-``Scattering_Volume_V``
-    Effective scattering volume in units of :math:`\mathrm{m}^3`
-    Default value ``2.618e-24``
+.. _parameter-rotdatafilename:
 
-``RotMatConvention``
-    Default ``zyz``
+RotDataFilename
+^^^^^^^^^^^^^^^
 
-    Euler-axis sequence for the global rotation of the complete imported
-    system. The supported conventions are identical to those of
-    ``RotDataConvention``. For a convention ``abc``, the global angles define
+Default path ``RealSpaceData/RotData.csv``
 
-    .. math::
+How to set in the ``write_config`` function of the Python interface:
 
-       R_\mathrm{global} = R_a(\alpha)R_b(\beta)R_c(\gamma).
+.. code-block:: python
 
-    The rotation acts on column vectors and the rightmost rotation is applied
-    first. Unlike object-wise ``RotData`` angles, all global rotation angles
-    are specified in degrees. For example, ``RotMatConvention = xyz`` with
-    ``RotMat_alpha = phi`` and the other two angles equal to zero produces a
-    rotation by ``phi`` around the x-axis, which is the neutron-beam axis.
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotDataFilename="RealSpaceData/RotData.csv",
+   )
 
-``RotMat_alpha``
-    First global Euler angle in degrees.
-    Default value ``0.0``
+.. _parameter-rotdata-activate:
 
-``RotMat_beta``
-    Second global Euler angle in degrees.
-    Default value ``0.0``
+RotData_activate
+^^^^^^^^^^^^^^^^
 
-``RotMat_gamma``
-    Third global Euler angle in degrees.
-    Default value ``0.0``
+Default value 0
+Options: ``0`` (disabled), ``1`` (enabled).
 
-    ``RotMatConvention`` and the three ``RotMat`` angles are independent of
-    ``RotDataConvention`` and the object-wise local rotations. This
-    convention-aware interface intentionally interprets the global angles in
-    the direct order ``(alpha, beta, gamma)``. It therefore replaces the
-    earlier two-angle interpretation
-    :math:`R_z(\mathrm{RotMat\_beta})R_y(\mathrm{RotMat\_alpha})`.
+If activated, ``RotDataFilename`` is read as an object-wise rotation table.
+The file must contain one row per object and three columns with angles in
+radians. The axes associated with these columns are defined by
+``RotDataConvention``.
 
-``Polarization``
-    Polarization vector (Px, Py, Pz). Defines the polarization vector of the incoming neutron beam.
-    Default ``(0,0,1)``
+How to set in the ``write_config`` function of the Python interface:
 
-``Number_Of_q_Points``
-    Number of sampled q values in Fourier space.
-    Default value ``1000``
+.. code-block:: python
 
-``Number_Of_theta_Points``
-    Number of angular sampling points in Fourier space.
-    Default value ``1000``
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotData_activate=1,
+   )
 
-``Number_Of_r_Points``
-    Number of sampled q values in real space (correlation).
-    Default value ``1000``
+.. _parameter-rotdataconvention:
 
-``Number_Of_alpha_Points``
-    Number of angular sampling points in real space (correlation).
-    Default value ``1000``
+RotDataConvention
+^^^^^^^^^^^^^^^^^
 
-``q_min``
-    Minimum scattering vector in Fourier space in units of :math:`\mathrm{nm}^{-1}`.
-    Default value ``0.0``
+Default ``zyz``
 
-``q_max``
-    Maximum scattering vector in Fourier space in units of :math:`\mathrm{nm}^{-1}`.
-    Default value ``3.0``
+Euler-axis sequence used to interpret the three columns in each rotation
+data row. The supported proper-Euler and Tait--Bryan sequences are
+``xyx``, ``xzx``, ``yxy``, ``yzy``, ``zxz``, ``zyz``, ``xyz``, ``xzy``,
+``yxz``, ``yzx``, ``zxy``, and ``zyx``.
 
-``r_max``
-    Maximum real-space correlation distance in units of :math:`\mathrm{nm}`.
-    Default value ``15.0 ``
+The selection is case-insensitive and applies to every active ``RotData``
+row and every file in a ``RotDataLoop`` within the run; conventions cannot
+be mixed between loop files.
+
+A convention ``abc`` and a row ``angle_1 angle_2 angle_3`` define the
+active rotation
+
+.. math::
+
+   R = R_a(\mathrm{angle}_1) R_b(\mathrm{angle}_2) R_c(\mathrm{angle}_3),
+
+acting on column vectors. The rightmost rotation is therefore applied
+first. For example, with ``RotDataConvention = xyz``, a row
+``phi 0 0`` describes a rotation by ``phi`` around the x-axis. All three
+angles remain in radians.
+
+If the option is omitted, NuMagSANS uses ``zyz`` so that existing
+configuration and rotation-data files retain their historical
+interpretation
+
+.. math::
+
+   R = R_z(\alpha) R_y(\beta) R_z(\gamma).
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotDataConvention="zyz",
+   )
+
+.. _parameter-rotdatapath:
+
+RotDataPath
+^^^^^^^^^^^
+
+Default path ``RealSpaceData/RotData``
+
+Folder used by ``RotDataLoop``. In this mode, rotation files are expected
+to follow the naming convention ``RotData_1.csv``, ``RotData_2.csv``, ...
+inside ``RotDataPath``. Each file contains one object-wise rotation table.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotDataPath="RealSpaceData/RotData",
+   )
+
+
+Output Storage
+--------------
+
+These parameters define where calculated data are written and which file format is used.
+
+.. _parameter-foldernamesansdata:
+
+foldernameSANSData
+^^^^^^^^^^^^^^^^^^
+
+Default ``NuMagSANS_Output``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       foldernameSANSData="NuMagSANS_Output",
+   )
+
+.. _parameter-sansdata-output-format:
+
+SANSData_Output_Format
+^^^^^^^^^^^^^^^^^^^^^^
+
+Output format used for the calculated SANS data.
+Default ``csv``
+Options: ``csv`` or ``hdf5``.
+
+The ``hdf5`` option requires a NuMagSANS build configured with
+``NUMAGSANS_ENABLE_HDF5=ON``.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       SANSData_Output_Format="csv",
+   )
+
+
+Loading and Preprocessing
+-------------------------
+
+These parameters control input validation, template-object replication, and preprocessing of imported real-space data.
+
+.. _parameter-fastload:
+
+FastLoad
+^^^^^^^^
+
+Default value 0
+Options: ``0`` (disabled), ``1`` (enabled).
+
+If set to ``1``, NuMagSANS skips repeated dimension checks for all files
+beyond the first data file inside each object folder. This can accelerate
+import for large datasets. It assumes that, within each object folder, all
+magnetic or nuclear data files have the same number of rows. Different
+objects may still have different numbers of rows.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       FastLoad=1,
+   )
+
+.. _parameter-magdata-replicationimport:
+
+MagData_ReplicationImport
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Default value 0
+Options: ``0`` (disabled), ``1`` (enabled).
+
+If set to ``1``, NuMagSANS expects one physical magnetic template object in
+``MagData`` and replicates it internally during import. The kernels receive
+the same in-memory structure as for explicitly stored object folders.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       MagData_ReplicationImport=1,
+   )
+
+.. _parameter-magdata-numberofreplications:
+
+MagData_NumberOfReplications
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Default value 1
+
+Effective number of magnetic objects generated from the single physical
+template object when ``MagData_ReplicationImport`` is active. The value
+must be a positive integer.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       MagData_NumberOfReplications=8,
+   )
+
+.. _parameter-nucdata-replicationimport:
+
+NucData_ReplicationImport
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Default value 0
+Options: ``0`` (disabled), ``1`` (enabled).
+
+If set to ``1``, NuMagSANS expects one physical nuclear template object in
+``NucData`` and replicates it internally during import.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       NucData_ReplicationImport=1,
+   )
+
+.. _parameter-nucdata-numberofreplications:
+
+NucData_NumberOfReplications
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Default value 1
+
+Effective number of nuclear objects generated from the single physical
+template object when ``NucData_ReplicationImport`` is active. The value
+must be a positive integer.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       NucData_NumberOfReplications=8,
+   )
+
+.. _parameter-exclude-zero-moments:
+
+Exclude_Zero_Moments
+^^^^^^^^^^^^^^^^^^^^
+
+Default value 0
+Options: ``0`` (disabled), ``1`` (enabled).
+
+If set to ``1``, rows with zero magnetic moment are excluded from imported
+magnetic datasets.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Exclude_Zero_Moments=1,
+   )
+
+
+Dataset Selection and Loops
+---------------------------
+
+These parameters control the selected data-file indices and nested batch calculations over structure and rotation datasets.
+
+.. _parameter-loop-modus:
+
+Loop_Modus
+^^^^^^^^^^
+
+Description: Enable looping over selected data-file indices.
+Default ``0``
+Options: ``0`` (disabled), ``1`` (enabled).
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Loop_Modus=1,
+   )
+
+.. _parameter-loop-from:
+
+Loop_From
+^^^^^^^^^
+
+Description: First index used in loop simulations
+Default ``1``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Loop_From=1,
+   )
+
+.. _parameter-loop-to:
+
+Loop_To
+^^^^^^^
+
+Description: Last index used in loop simulations
+Default ``20``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Loop_To=20,
+   )
+
+.. _parameter-user-selection:
+
+User_Selection
+^^^^^^^^^^^^^^
+
+Description: Explicit list of selected indices
+Default ``[1]``
+
+If ``Loop_Modus = 0``, only the listed file indices are evaluated. If
+``Loop_Modus = 1``, the index range from ``Loop_From`` to ``Loop_To`` is
+used.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       User_Selection=[1, 2, 3],
+   )
+
+.. _parameter-structdataloop:
+
+StructDataLoop
+^^^^^^^^^^^^^^
+
+Description: Enable an inner loop over several structure-data files.
+Default ``0``
+Options: ``0`` (disabled), ``1`` (enabled).
+
+If ``StructDataLoop = 1``, NuMagSANS loads the selected
+``StructData_#.csv`` files from ``StructDataPath`` while keeping the
+currently selected magnetic and nuclear local object data fixed. If
+``RotDataLoop`` is also active, the structure-data loop is the outer loop
+and the rotation-data loop is the inner loop.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       StructDataLoop=1,
+   )
+
+.. _parameter-structdataloop-from:
+
+StructDataLoop_From
+^^^^^^^^^^^^^^^^^^^
+
+Description: First structure-data file index used by the inner StructData
+loop.
+Default ``1``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       StructDataLoop_From=1,
+   )
+
+.. _parameter-structdataloop-to:
+
+StructDataLoop_To
+^^^^^^^^^^^^^^^^^
+
+Description: Last structure-data file index used by the inner StructData
+loop.
+Default ``1``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       StructDataLoop_To=3,
+   )
+
+.. _parameter-structdata-user-selection:
+
+StructData_User_Selection
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Description: Optional explicit list of selected structure-data file
+indices.
+Default ``None``
+
+If this option is present, it selects the exact ``StructData_#.csv`` files
+used by the inner StructData loop, for example ``{1, 3, 4}``. If it is not
+present, the contiguous range from ``StructDataLoop_From`` to
+``StructDataLoop_To`` is used.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       StructData_User_Selection=[1, 3, 4],
+   )
+
+.. _parameter-rotdataloop:
+
+RotDataLoop
+^^^^^^^^^^^
+
+Description: Enable an inner loop over several rotation-data files.
+Default ``0``
+Options: ``0`` (disabled), ``1`` (enabled).
+
+If ``RotDataLoop = 1``, NuMagSANS loads the selected ``RotData_#.csv``
+files from ``RotDataPath`` while keeping the currently selected magnetic,
+nuclear, and structure data fixed. This is useful for evaluating the same
+local object data under multiple object-wise rotation configurations.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotDataLoop=1,
+   )
+
+.. _parameter-rotdataloop-from:
+
+RotDataLoop_From
+^^^^^^^^^^^^^^^^
+
+Description: First rotation-data file index used by the inner RotData loop.
+Default ``1``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotDataLoop_From=1,
+   )
+
+.. _parameter-rotdataloop-to:
+
+RotDataLoop_To
+^^^^^^^^^^^^^^
+
+Description: Last rotation-data file index used by the inner RotData loop.
+Default ``1``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotDataLoop_To=3,
+   )
+
+.. _parameter-rotdata-user-selection:
+
+RotData_User_Selection
+^^^^^^^^^^^^^^^^^^^^^^
+
+Description: Optional explicit list of selected rotation-data file indices.
+Default ``None``
+
+If this option is present, it selects the exact ``RotData_#.csv`` files
+used by the inner RotData loop, for example ``{1, 3, 4}``. If it is not
+present, the contiguous range from ``RotDataLoop_From`` to
+``RotDataLoop_To`` is used.
+
+For a fixed data-file index and a selected rotation-data index, output is
+written to a nested folder such as ``SANS_1/RotData_3/``. If
+``StructDataLoop`` is active as well, the output is nested as
+``SANS_1/StructData_2/RotData_3/``.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotData_User_Selection=[1, 3, 4],
+   )
+
+
+Global Rotation
+---------------
+
+These parameters specify a single global Euler rotation applied to the
+complete imported system.
+
+.. _parameter-rotmatconvention:
+
+RotMatConvention
+^^^^^^^^^^^^^^^^
+
+Default ``zyz``
+
+Euler-axis sequence for the global rotation of the complete imported
+system. The supported conventions are identical to those of
+``RotDataConvention``. For a convention ``abc``, the global angles define
+
+.. math::
+
+   R_\mathrm{global} = R_a(\alpha)R_b(\beta)R_c(\gamma).
+
+The rotation acts on column vectors and the rightmost rotation is applied
+first. Unlike object-wise ``RotData`` angles, all global rotation angles
+are specified in degrees. For example, ``RotMatConvention = xyz`` with
+``RotMat_alpha = phi`` and the other two angles equal to zero produces a
+rotation by ``phi`` around the x-axis, which is the neutron-beam axis.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotMatConvention="zyz",
+   )
+
+.. _parameter-rotmat-alpha:
+
+RotMat_alpha
+^^^^^^^^^^^^
+
+First global Euler angle in degrees.
+Default value ``0.0``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotMat_alpha=0.0,
+   )
+
+.. _parameter-rotmat-beta:
+
+RotMat_beta
+^^^^^^^^^^^
+
+Second global Euler angle in degrees.
+Default value ``0.0``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotMat_beta=0.0,
+   )
+
+.. _parameter-rotmat-gamma:
+
+RotMat_gamma
+^^^^^^^^^^^^
+
+Third global Euler angle in degrees.
+Default value ``0.0``
+
+``RotMatConvention`` and the three ``RotMat`` angles are independent of
+``RotDataConvention`` and the object-wise local rotations. This
+convention-aware interface intentionally interprets the global angles in
+the direct order ``(alpha, beta, gamma)``. It therefore replaces the
+earlier two-angle interpretation
+:math:`R_z(\mathrm{RotMat\_beta})R_y(\mathrm{RotMat\_alpha})`.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       RotMat_gamma=0.0,
+   )
+
+
+Fourier Transform and Sampling
+------------------------------
+
+These parameters select the Fourier-transform approach and define the
+reciprocal-space, real-space, and angular sampling grids.
+
+.. _parameter-fourier-approach:
+
+Fourier_Approach
+^^^^^^^^^^^^^^^^
+
+Default ``atomistic``
+Options: ``atomistic`` or ``micromagnetic``.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Fourier_Approach="atomistic",
+   )
+
+.. _parameter-number-of-q-points:
+
+Number_Of_q_Points
+^^^^^^^^^^^^^^^^^^
+
+Number of sampled q values in Fourier space.
+Default value ``1000``
+
+The value must be an integer larger than one.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Number_Of_q_Points=1000,
+   )
+
+.. _parameter-number-of-theta-points:
+
+Number_Of_theta_Points
+^^^^^^^^^^^^^^^^^^^^^^
+
+Number of angular sampling points in Fourier space.
+Default value ``1000``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Number_Of_theta_Points=1000,
+   )
+
+.. _parameter-q-min:
+
+q_min
+^^^^^
+
+Minimum scattering vector in Fourier space in units of :math:`\mathrm{nm}^{-1}`.
+Default value ``0.0``
+
+The value must be greater than or equal to zero.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       q_min=0.0,
+   )
+
+.. _parameter-q-max:
+
+q_max
+^^^^^
+
+Maximum scattering vector in Fourier space in units of :math:`\mathrm{nm}^{-1}`.
+Default value ``3.0``
+
+The value must be greater than ``q_min``.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       q_max=3.0,
+   )
+
+.. _parameter-number-of-r-points:
+
+Number_Of_r_Points
+^^^^^^^^^^^^^^^^^^
+
+Number of sampled r values in real space (correlation).
+Default value ``1000``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Number_Of_r_Points=1000,
+   )
+
+.. _parameter-number-of-alpha-points:
+
+Number_Of_alpha_Points
+^^^^^^^^^^^^^^^^^^^^^^
+
+Number of angular sampling points in real space (correlation).
+Default value ``1000``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Number_Of_alpha_Points=1000,
+   )
+
+.. _parameter-r-max:
+
+r_max
+^^^^^
+
+Maximum real-space correlation distance in units of :math:`\mathrm{nm}`.
+Default value ``15.0``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       r_max=15.0,
+   )
+
+.. _parameter-k-max:
+
+k_max
+^^^^^
+
+Maximum angular wave number.
+Default value ``10``
+
+The value is a non-negative integer.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       k_max=10,
+   )
+
+.. _parameter-angular-spec:
+
+Angular_Spec
+^^^^^^^^^^^^
+
+Enable angular spectrum calculation. (binary selection)
+Default value ``0``
+Options: ``0`` (disabled), ``1`` (enabled).
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Angular_Spec=1,
+   )
+
+
+Physical Parameters
+-------------------
+
+These parameters define coordinate scaling, scattering normalization, and the
+incident-neutron polarization.
+
+.. _parameter-xyz-unit-factor:
+
+XYZ_Unit_Factor
+^^^^^^^^^^^^^^^
+
+Conversion factors for coordinate units. Scaling factor applied to spatial coordinates.
+This parameter is equal to ``1``, if the positional input data is in units of :math:`\mathrm{nm}`.
+Default value ``1``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       XYZ_Unit_Factor=1.0,
+   )
+
+.. _parameter-scattering-volume-v:
+
+Scattering_Volume_V
+^^^^^^^^^^^^^^^^^^^
+
+Effective scattering volume in units of :math:`\mathrm{m}^3`
+Default value ``2.618e-24``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Scattering_Volume_V=2.618e-24,
+   )
+
+.. _parameter-polarization:
+
+Polarization
+^^^^^^^^^^^^
+
+Polarization vector (Px, Py, Pz). Defines the polarization vector of the incoming neutron beam.
+Default ``(0,0,1)``
+
+The vector must be nonzero. NuMagSANS normalizes non-unit polarization
+vectors automatically.
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Polarization=(0.0, 0.0, 1.0),
+   )
 
 
 Micromagnetic Parameters
 ------------------------
 
-Parameters describing the magnetic properties of discretized simulation
-cells.
+These parameters describe the magnetic and nuclear properties of discretized simulation cells.
 
-``Cell_Nuclear_SLD``
-    Description: Nuclear scattering length density of the cell
-    Default ``8e14``
+.. _parameter-cell-nuclear-sld:
 
-``Cell_Magnetization``
-    Description: Magnetization inside the discretized cell
-    Default ``486e3``
+Cell_Nuclear_SLD
+^^^^^^^^^^^^^^^^
 
-``Cuboid_Cell_Size``
-    Description: Dimensions of the discretization cell (x,y,z)
-    Default ``(2,2,2)``
+Description: Nuclear scattering length density of the cell
+Default ``8e14``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Cell_Nuclear_SLD=8e14,
+   )
+
+.. _parameter-cell-magnetization:
+
+Cell_Magnetization
+^^^^^^^^^^^^^^^^^^
+
+Description: Magnetization inside the discretized cell
+Default ``486e3``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Cell_Magnetization=486e3,
+   )
+
+.. _parameter-cuboid-cell-size:
+
+Cuboid_Cell_Size
+^^^^^^^^^^^^^^^^
+
+Description: Dimensions of the discretization cell (x,y,z)
+Default ``(2,2,2)``
+
+How to set in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       Cuboid_Cell_Size=(2.0, 2.0, 2.0),
+   )
+
 
 Output Options
 --------------
+
+Fourier-space correlation matrix
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. _output-fourier-gamma:
+
+Fourier_Gamma
+~~~~~~~~~~~~~
+
+Exports the real and imaginary parts of the Fourier-space magnetization
+correlation-matrix components :math:`G_{ij}` with
+:math:`i,j\in\{x,y,z\}`. The columns are added to the two-dimensional SANS
+output table.
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Fourier_Gamma"],
+   )
 
 2D SANS cross sections
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -542,6 +1357,16 @@ Nuclear SANS cross section on the 2D detector.
     =
     \frac{8\pi^3}{V}\, |\widetilde{N}|^2
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Nuclear_2D"],
+   )
+
 Symmetry properties:
 
 .. math::
@@ -565,6 +1390,17 @@ Unpolarized magnetic SANS cross section on the 2D detector.
     \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
     =
     \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}|^2
+
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Unpolarized_2D"],
+   )
 
 Symmetry properties:
 
@@ -594,6 +1430,17 @@ Auxiliary polarized magnetic SANS cross section on the 2D detector.
     \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
     \left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}\right|^2
 
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Polarized_2D"],
+   )
+
 Symmetry properties:
 
 .. math::
@@ -621,6 +1468,17 @@ Nuclear–magnetic SANS cross section on the 2D detector.
     =
     \frac{8\pi^3}{V}\, b_{\mathrm{H}}
     \hat{\mathbf{P}}\cdot\left[\widetilde{N}\widetilde{\mathbf{Q}}^{\ast}+\widetilde{N}^{\ast}\widetilde{\mathbf{Q}}\right]
+
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["NuclearMagnetic_2D"],
+   )
 
 Symmetry properties:
 
@@ -665,6 +1523,17 @@ sections, the chiral contribution is their half-difference:
         \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
     \right]
 
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Chiral_2D"],
+   )
+
 Symmetry properties:
 
 .. math::
@@ -708,6 +1577,17 @@ sections, the spin-flip contribution is their half-sum:
         \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
     \right]
 
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["SpinFlip_2D"],
+   )
+
 Symmetry properties:
 
 .. math::
@@ -737,6 +1617,17 @@ Spin-flip SANS cross section on the 2D detector.
     +
     \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["PM_SpinFlip_2D"],
+   )
+
 Symmetry properties:
 
 .. math::
@@ -765,6 +1656,17 @@ Spin-flip SANS cross section on the 2D detector.
     \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
     -
     \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["MP_SpinFlip_2D"],
+   )
 
 Symmetry properties:
 
@@ -797,6 +1699,17 @@ Non-spin-flip SANS cross section on the 2D detector.
     +
     \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
 
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["PP_NonSpinFlip_2D"],
+   )
+
 Symmetry properties:
 
 .. math::
@@ -828,6 +1741,17 @@ Non-spin-flip SANS cross section on the 2D detector.
     +
     \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
 
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["MM_NonSpinFlip_2D"],
+   )
+
 Symmetry properties:
 
 .. math::
@@ -857,6 +1781,17 @@ final-state spin analysis.
     \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
     +
     \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["P_SANSPOL_2D"],
+   )
 
 Symmetry properties:
 
@@ -894,6 +1829,17 @@ final-state spin analysis.
     \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
     +
     \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["M_SANSPOL_2D"],
+   )
 
 Symmetry properties:
 
@@ -979,6 +1925,15 @@ Nuclear_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Nuclear_Corr_2D"],
+   )
 
 .. _output-unpolarized-corr-2d:
 
@@ -996,6 +1951,15 @@ Unpolarized_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Unpolarized_Corr_2D"],
+   )
 
 .. _output-polarized-corr-2d:
 
@@ -1013,6 +1977,15 @@ Polarized_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Polarized_Corr_2D"],
+   )
 
 .. _output-nuclearmagnetic-corr-2d:
 
@@ -1030,6 +2003,15 @@ NuclearMagnetic_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["NuclearMagnetic_Corr_2D"],
+   )
 
 .. _output-spinflip-corr-2d:
 
@@ -1047,6 +2029,15 @@ SpinFlip_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["SpinFlip_Corr_2D"],
+   )
 
 .. _output-chiral-corr-2d:
 
@@ -1064,6 +2055,15 @@ Chiral_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Chiral_Corr_2D"],
+   )
 
 .. _output-pm-spinflip-corr-2d:
 
@@ -1081,6 +2081,15 @@ PM_SpinFlip_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["PM_SpinFlip_Corr_2D"],
+   )
 
 .. _output-mp-spinflip-corr-2d:
 
@@ -1098,6 +2107,15 @@ MP_SpinFlip_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["MP_SpinFlip_Corr_2D"],
+   )
 
 .. _output-pp-nonspinflip-corr-2d:
 
@@ -1115,6 +2133,15 @@ PP_NonSpinFlip_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["PP_NonSpinFlip_Corr_2D"],
+   )
 
 .. _output-mm-nonspinflip-corr-2d:
 
@@ -1132,6 +2159,15 @@ MM_NonSpinFlip_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["MM_NonSpinFlip_Corr_2D"],
+   )
 
 .. _output-p-sanspol-corr-2d:
 
@@ -1149,6 +2185,15 @@ P_SANSPOL_Corr_2D
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["P_SANSPOL_Corr_2D"],
+   )
 
 .. _output-m-sanspol-corr-2d:
 
@@ -1165,6 +2210,16 @@ M_SANSPOL_Corr_2D
     \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
     \cos\left(qr\cos(\theta-\alpha)\right)
     q\,dq\,d\theta
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["M_SANSPOL_Corr_2D"],
+   )
 
 1D Azimuthally averaged SANS cross sections
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1187,6 +2242,16 @@ Azimuthally averaged nuclear SANS cross section.
     \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
     \, d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Nuclear_1D"],
+   )
+
 .. _output-unpolarized-1d:
 
 Unpolarized_1D
@@ -1202,6 +2267,16 @@ Azimuthally averaged unpolarized magnetic SANS cross section.
     \int_{0}^{2\pi}
     \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
     \, d\theta
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Unpolarized_1D"],
+   )
 
 .. _output-polarized-1d:
 
@@ -1219,6 +2294,16 @@ Azimuthally averaged polarized magnetic SANS cross section.
     \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
     \, d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Polarized_1D"],
+   )
+
 .. _output-nuclearmagnetic-1d:
 
 NuclearMagnetic_1D
@@ -1234,6 +2319,16 @@ Azimuthally averaged nuclear–magnetic interference cross section.
     \int_{0}^{2\pi}
     \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
     \, d\theta
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["NuclearMagnetic_1D"],
+   )
 
 .. _output-chiral-1d:
 
@@ -1251,6 +2346,16 @@ Azimuthally averaged chiral SANS cross section.
     \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
     \, d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Chiral_1D"],
+   )
+
 .. _output-spinflip-1d:
 
 SpinFlip_1D
@@ -1266,6 +2371,16 @@ Azimuthally averaged spin-flip SANS cross section.
     \int_{0}^{2\pi}
     \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
     \, d\theta
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["SpinFlip_1D"],
+   )
 
 .. _output-pm-spinflip-1d:
 
@@ -1284,6 +2399,16 @@ Azimuthally averaged spin-flip SANS cross section for the
     \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
     \, d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["PM_SpinFlip_1D"],
+   )
+
 .. _output-mp-spinflip-1d:
 
 MP_SpinFlip_1D
@@ -1300,6 +2425,16 @@ Azimuthally averaged spin-flip SANS cross section for the
     \int_{0}^{2\pi}
     \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
     \, d\theta
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["MP_SpinFlip_1D"],
+   )
 
 .. _output-pp-nonspinflip-1d:
 
@@ -1318,6 +2453,16 @@ Azimuthally averaged non-spin-flip SANS cross section for the
     \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
     \, d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["PP_NonSpinFlip_1D"],
+   )
+
 .. _output-mm-nonspinflip-1d:
 
 MM_NonSpinFlip_1D
@@ -1334,6 +2479,16 @@ Azimuthally averaged non-spin-flip SANS cross section for the
     \int_{0}^{2\pi}
     \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
     \, d\theta
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["MM_NonSpinFlip_1D"],
+   )
 
 .. _output-p-sanspol-1d:
 
@@ -1352,6 +2507,16 @@ polarization.
     \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
     \, d\theta
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["P_SANSPOL_1D"],
+   )
+
 .. _output-m-sanspol-1d:
 
 M_SANSPOL_1D
@@ -1368,6 +2533,16 @@ polarization.
     \int_{0}^{2\pi}
     \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
     \, d\theta
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["M_SANSPOL_1D"],
+   )
 
 1D Correlation functions
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1407,6 +2582,16 @@ Correlation function of the nuclear SANS cross section.
     \int_{0}^{\infty}
     I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Nuclear_Corr_1D"],
+   )
+
 .. _output-unpolarized-corr-1d:
 
 Unpolarized_Corr_1D
@@ -1420,6 +2605,16 @@ Correlation function of the unpolarized magnetic SANS cross section.
     =
     \int_{0}^{\infty}
     I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Unpolarized_Corr_1D"],
+   )
 
 .. _output-polarized-corr-1d:
 
@@ -1435,6 +2630,16 @@ Correlation function of the polarized magnetic SANS cross section.
     \int_{0}^{\infty}
     I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Polarized_Corr_1D"],
+   )
+
 .. _output-nuclearmagnetic-corr-1d:
 
 NuclearMagnetic_Corr_1D
@@ -1448,6 +2653,16 @@ Correlation function of the nuclear–magnetic interference SANS cross section.
     =
     \int_{0}^{\infty}
     I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["NuclearMagnetic_Corr_1D"],
+   )
 
 .. _output-chiral-corr-1d:
 
@@ -1463,6 +2678,16 @@ Correlation function of the chiral SANS cross section.
     \int_{0}^{\infty}
     I_{\chi}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Chiral_Corr_1D"],
+   )
+
 .. _output-spinflip-corr-1d:
 
 SpinFlip_Corr_1D
@@ -1476,6 +2701,16 @@ Correlation function of the spin-flip SANS cross section.
     =
     \int_{0}^{\infty}
     I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["SpinFlip_Corr_1D"],
+   )
 
 .. _output-pm-spinflip-corr-1d:
 
@@ -1491,6 +2726,16 @@ Correlation function of the :math:`(+,-)` spin-flip channel.
     \int_{0}^{\infty}
     I^{+-}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["PM_SpinFlip_Corr_1D"],
+   )
+
 .. _output-mp-spinflip-corr-1d:
 
 MP_SpinFlip_Corr_1D
@@ -1504,6 +2749,16 @@ Correlation function of the :math:`(-,+)` spin-flip channel.
     =
     \int_{0}^{\infty}
     I^{-+}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["MP_SpinFlip_Corr_1D"],
+   )
 
 .. _output-pp-nonspinflip-corr-1d:
 
@@ -1519,6 +2774,16 @@ Correlation function of the :math:`(+,+)` non-spin-flip channel.
     \int_{0}^{\infty}
     I^{++}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["PP_NonSpinFlip_Corr_1D"],
+   )
+
 .. _output-mm-nonspinflip-corr-1d:
 
 MM_NonSpinFlip_Corr_1D
@@ -1532,6 +2797,16 @@ Correlation function of the :math:`(-,-)` non-spin-flip channel.
     =
     \int_{0}^{\infty}
     I^{--}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["MM_NonSpinFlip_Corr_1D"],
+   )
 
 .. _output-p-sanspol-corr-1d:
 
@@ -1547,6 +2822,16 @@ Correlation function of the SANSPOL :math:`(+ )` channel.
     \int_{0}^{\infty}
     I^{+}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["P_SANSPOL_Corr_1D"],
+   )
+
 .. _output-m-sanspol-corr-1d:
 
 M_SANSPOL_Corr_1D
@@ -1560,6 +2845,16 @@ Correlation function of the SANSPOL :math:`(- )` channel.
     =
     \int_{0}^{\infty}
     I^{-}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["M_SANSPOL_Corr_1D"],
+   )
 
 1D Pair-distance distribution functions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1601,6 +2896,16 @@ Pair-distance distribution function of the nuclear SANS cross section.
     \int_{0}^{\infty}
     I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Nuclear_PairDist_1D"],
+   )
+
 .. _output-unpolarized-pairdist-1d:
 
 Unpolarized_PairDist_1D
@@ -1615,6 +2920,16 @@ Pair-distance distribution function of the unpolarized magnetic SANS cross secti
     r^2
     \int_{0}^{\infty}
     I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Unpolarized_PairDist_1D"],
+   )
 
 .. _output-polarized-pairdist-1d:
 
@@ -1631,6 +2946,16 @@ Pair-distance distribution function of the polarized magnetic SANS cross section
     \int_{0}^{\infty}
     I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Polarized_PairDist_1D"],
+   )
+
 .. _output-nuclearmagnetic-pairdist-1d:
 
 NuclearMagnetic_PairDist_1D
@@ -1645,6 +2970,16 @@ Pair-distance distribution function of the nuclear–magnetic interference SANS 
     r^2
     \int_{0}^{\infty}
     I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["NuclearMagnetic_PairDist_1D"],
+   )
 
 .. _output-chiral-pairdist-1d:
 
@@ -1661,6 +2996,16 @@ Pair-distance distribution function of the chiral SANS cross section.
     \int_{0}^{\infty}
     I_{\chi}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["Chiral_PairDist_1D"],
+   )
+
 .. _output-spinflip-pairdist-1d:
 
 SpinFlip_PairDist_1D
@@ -1675,6 +3020,16 @@ Pair-distance distribution function of the spin-flip SANS cross section.
     r^2
     \int_{0}^{\infty}
     I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["SpinFlip_PairDist_1D"],
+   )
 
 .. _output-pm-spinflip-pairdist-1d:
 
@@ -1691,6 +3046,16 @@ Pair-distance distribution function of the :math:`(+,-)` spin-flip channel.
     \int_{0}^{\infty}
     I^{+-}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["PM_SpinFlip_PairDist_1D"],
+   )
+
 .. _output-mp-spinflip-pairdist-1d:
 
 MP_SpinFlip_PairDist_1D
@@ -1705,6 +3070,16 @@ Pair-distance distribution function of the :math:`(-,+)` spin-flip channel.
     r^2
     \int_{0}^{\infty}
     I^{-+}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["MP_SpinFlip_PairDist_1D"],
+   )
 
 .. _output-pp-nonspinflip-pairdist-1d:
 
@@ -1721,6 +3096,16 @@ Pair-distance distribution function of the :math:`(+,+)` non-spin-flip channel.
     \int_{0}^{\infty}
     I^{++}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["PP_NonSpinFlip_PairDist_1D"],
+   )
+
 .. _output-mm-nonspinflip-pairdist-1d:
 
 MM_NonSpinFlip_PairDist_1D
@@ -1735,6 +3120,16 @@ Pair-distance distribution function of the :math:`(-,-)` non-spin-flip channel.
     r^2
     \int_{0}^{\infty}
     I^{--}(q)\, j_0(qr)\, q^2 \, dq
+
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["MM_NonSpinFlip_PairDist_1D"],
+   )
 
 .. _output-p-sanspol-pairdist-1d:
 
@@ -1751,6 +3146,16 @@ Pair-distance distribution function of the SANSPOL :math:`(+ )` channel.
     \int_{0}^{\infty}
     I^{+}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
+
+.. code-block:: python
+
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["P_SANSPOL_PairDist_1D"],
+   )
+
 .. _output-m-sanspol-pairdist-1d:
 
 M_SANSPOL_PairDist_1D
@@ -1766,16 +3171,12 @@ Pair-distance distribution function of the SANSPOL :math:`(- )` channel.
     \int_{0}^{\infty}
     I^{-}(q)\, j_0(qr)\, q^2 \, dq
 
+How to enable in the ``write_config`` function of the Python interface:
 
-Angular Spectrum
-----------------
+.. code-block:: python
 
-Settings for angular spectrum calculations.
-
-``k_max``
-    Maximum angular wave number.
-    Default value ``10``
-
-``Angular_Spec``
-    Enable angular spectrum calculation. (binary selection)
-    Default value ``0``
+   # Write configuration file
+   sim.write_config(
+       ...,
+       enable_outputs=["M_SANSPOL_PairDist_1D"],
+   )
