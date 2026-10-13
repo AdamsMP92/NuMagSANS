@@ -1261,7 +1261,7 @@ NuMagSANS is based on the unitary Fourier transform:
 .. math::
 
     \mathbf{M}(\mathbf{r}) = \frac{1}{(2\pi)^{3/2}}
-    \int_{\mathbb{R}^3} \widetilde{\mathbf{M}}(\mathbf{q}) \exp(+i \mathbf{q}\cdot\mathbf{r}) d^3r.
+    \int_{\mathbb{R}^3} \widetilde{\mathbf{M}}(\mathbf{q}) \exp(+i \mathbf{q}\cdot\mathbf{r}) d^3q.
 
 
 In NuMagSANS, the incoming neutron beam is defined to propagate along the
