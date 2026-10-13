@@ -229,12 +229,12 @@ Program Listing for File AtomisticNuMagSANS_StructKernel.h
            SANSData.Gxz_imag[i] = v * (Mx_imag * Mz_real - Mx_real * Mz_imag);
    
            SANSData.Gzx_real[i] = SANSData.Gxz_real[i];
-           SANSData.Gzx_imag[i] = -SANSData.Gxy_imag[i];
+           SANSData.Gzx_imag[i] = -SANSData.Gxz_imag[i];
    
            SANSData.Gyz_real[i] = v * (My_real * Mz_real + My_imag * Mz_imag);
            SANSData.Gyz_imag[i] = v * (My_imag * Mz_real - My_real * Mz_imag);
    
-           SANSData.Gzx_real[i] = SANSData.Gyz_real[i];
-           SANSData.Gzx_imag[i] = -SANSData.Gyz_imag[i];
+           SANSData.Gzy_real[i] = SANSData.Gyz_real[i];
+           SANSData.Gzy_imag[i] = -SANSData.Gyz_imag[i];
        }
    }
