@@ -529,316 +529,392 @@ profiles. They do not, in general, imply a symmetry under
 :math:`\theta\rightarrow\theta+\pi/2`; such a relation requires additional
 sample or magnetization symmetries.
 
-``Nuclear_2D``
-    Nuclear SANS cross section on the 2D detector.
+.. _output-nuclear-2d:
 
-    .. math::
+Nuclear_2D
+~~~~~~~~~~
 
-        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
-        =
-        \frac{8\pi^3}{V}\, |\widetilde{N}|^2
+Nuclear SANS cross section on the 2D detector.
 
-    Symmetry properties:
+.. math::
 
-    .. math::
+    \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+    =
+    \frac{8\pi^3}{V}\, |\widetilde{N}|^2
 
-        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(\mathbf{q}) = \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(-\mathbf{q})
+Symmetry properties:
 
-    .. math::
+.. math::
 
-        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q, \theta) = \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q, \theta + \pi)
+    \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(\mathbf{q}) = \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(-\mathbf{q})
+
+.. math::
+
+    \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q, \theta) = \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q, \theta + \pi)
 
 
-``Unpolarized_2D``
-    Unpolarized magnetic SANS cross section on the 2D detector.
+.. _output-unpolarized-2d:
 
-    .. math::
+Unpolarized_2D
+~~~~~~~~~~~~~~
 
-        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
-        =
-        \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}|^2
+Unpolarized magnetic SANS cross section on the 2D detector.
 
-    Symmetry properties:
+.. math::
 
-    .. math::
+    \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+    =
+    \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2 |\widetilde{\mathbf{Q}}|^2
 
-        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(\mathbf{q})
-        =
-        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(-\mathbf{q})
+Symmetry properties:
 
-    .. math::
+.. math::
 
-        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta+\pi)
+    \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(\mathbf{q})
+    =
+    \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(-\mathbf{q})
 
-``Polarized_2D``
-    Auxiliary polarized magnetic SANS cross section on the 2D detector.
+.. math::
 
-    .. math::
+    \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta+\pi)
 
-        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
-        =
-        \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
-        \left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}\right|^2
+.. _output-polarized-2d:
 
-    Symmetry properties:
+Polarized_2D
+~~~~~~~~~~~~
 
-    .. math::
+Auxiliary polarized magnetic SANS cross section on the 2D detector.
 
-        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(\mathbf{q})
-        =
-        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(-\mathbf{q})
+.. math::
 
-    .. math::
+    \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+    =
+    \frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
+    \left|\hat{\mathbf{P}}\cdot\widetilde{\mathbf{Q}}\right|^2
 
-        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta+\pi)
+Symmetry properties:
 
-``NuclearMagnetic_2D``
-    Nuclear–magnetic SANS cross section on the 2D detector.
+.. math::
 
-    .. math::
+    \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(\mathbf{q})
+    =
+    \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(-\mathbf{q})
 
-        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
-        =
-        \frac{8\pi^3}{V}\, b_{\mathrm{H}}
-        \hat{\mathbf{P}}\cdot\left[\widetilde{N}\widetilde{\mathbf{Q}}^{\ast}+\widetilde{N}^{\ast}\widetilde{\mathbf{Q}}\right]
+.. math::
 
-    Symmetry properties:
+    \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta+\pi)
 
-    .. math::
+.. _output-nuclearmagnetic-2d:
 
-        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(\mathbf{q})
-        =
-        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(-\mathbf{q})
+NuclearMagnetic_2D
+~~~~~~~~~~~~~~~~~~
 
-    .. math::
+Nuclear–magnetic SANS cross section on the 2D detector.
 
-        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta+\pi)
+.. math::
 
-``Chiral_2D``
-    Chiral SANS cross section on the 2D detector.
+    \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+    =
+    \frac{8\pi^3}{V}\, b_{\mathrm{H}}
+    \hat{\mathbf{P}}\cdot\left[\widetilde{N}\widetilde{\mathbf{Q}}^{\ast}+\widetilde{N}^{\ast}\widetilde{\mathbf{Q}}\right]
 
-    .. math::
+Symmetry properties:
 
-        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
-        =
-        -i\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
-        \hat{\mathbf{P}}\cdot
-        \left(\widetilde{\mathbf{Q}}\times\widetilde{\mathbf{Q}}^{\ast}\right)
+.. math::
 
-    Symmetry properties:
+    \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(\mathbf{q})
+    =
+    \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(-\mathbf{q})
 
-    .. math::
+.. math::
 
-        \frac{d\Sigma_{\chi}}{d\Omega}(-\mathbf{q})
-        =
-        -\frac{d\Sigma_{\chi}}{d\Omega}(\mathbf{q})
+    \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta+\pi)
 
-    .. math::
+.. _output-chiral-2d:
 
-        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta+\pi)
-        =
-        -\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+Chiral_2D
+~~~~~~~~~
 
-``SpinFlip_2D``
-    Spin-flip SANS cross section on the 2D detector.
+Chiral SANS cross section on the 2D detector.
 
-    .. math::
+.. math::
 
-        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
-        -
-        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+    \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+    =
+    -i\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
+    \hat{\mathbf{P}}\cdot
+    \left(\widetilde{\mathbf{Q}}\times\widetilde{\mathbf{Q}}^{\ast}\right)
 
-    Symmetry properties:
+In terms of the experimentally accessible spin-resolved spin-flip cross
+sections, the chiral contribution is their half-difference:
 
-    .. math::
+.. math::
 
-        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(\mathbf{q})
-        =
-        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(-\mathbf{q})
-
-    .. math::
-
-        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta+\pi)
-
-``PM_SpinFlip_2D``
-    Spin-flip SANS cross section on the 2D detector.
-
-    .. math::
-
+    \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+    =
+    \frac{1}{2}
+    \left[
         \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
-        +
-        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
-
-    Symmetry properties:
-
-    .. math::
-
-        \frac{d\Sigma^{+-}}{d\Omega}(-\mathbf{q})
-        =
-        \frac{d\Sigma^{-+}}{d\Omega}(\mathbf{q})
-
-    .. math::
-
-        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta+\pi)
-        =
+        -
         \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+    \right]
 
-``MP_SpinFlip_2D``
-    Spin-flip SANS cross section on the 2D detector.
+Symmetry properties:
 
-    .. math::
+.. math::
 
-        \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
-        -
-        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+    \frac{d\Sigma_{\chi}}{d\Omega}(-\mathbf{q})
+    =
+    -\frac{d\Sigma_{\chi}}{d\Omega}(\mathbf{q})
 
-    Symmetry properties:
+.. math::
 
-    .. math::
+    \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta+\pi)
+    =
+    -\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 
-        \frac{d\Sigma^{-+}}{d\Omega}(-\mathbf{q})
-        =
-        \frac{d\Sigma^{+-}}{d\Omega}(\mathbf{q})
+.. _output-spinflip-2d:
 
-    .. math::
+SpinFlip_2D
+~~~~~~~~~~~
 
-        \frac{d\Sigma^{-+}}{d\Omega}(q,\theta+\pi)
-        =
+Spin-flip SANS cross section on the 2D detector.
+
+.. math::
+
+    \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+    -
+    \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+
+In terms of the experimentally accessible spin-resolved spin-flip cross
+sections, the spin-flip contribution is their half-sum:
+
+.. math::
+
+    \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+    =
+    \frac{1}{2}
+    \left[
         \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
-
-``PP_NonSpinFlip_2D``
-    Non-spin-flip SANS cross section on the 2D detector.
-
-    .. math::
-
-        \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
-        +
-        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
-        +
-        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
-
-    Symmetry properties:
-
-    .. math::
-
-        \frac{d\Sigma^{++}}{d\Omega}(\mathbf{q})
-        =
-        \frac{d\Sigma^{++}}{d\Omega}(-\mathbf{q})
-
-    .. math::
-
-        \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma^{++}}{d\Omega}(q,\theta+\pi)
-
-``MM_NonSpinFlip_2D``
-    Non-spin-flip SANS cross section on the 2D detector.
-
-    .. math::
-
-        \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
-        -
-        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
-        +
-        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
-
-    Symmetry properties:
-
-    .. math::
-
-        \frac{d\Sigma^{--}}{d\Omega}(\mathbf{q})
-        =
-        \frac{d\Sigma^{--}}{d\Omega}(-\mathbf{q})
-
-    .. math::
-
-        \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma^{--}}{d\Omega}(q,\theta+\pi)
-
-``P_SANSPOL_2D``
-    SANSPOL cross section for positive incident neutron polarization without
-    final-state spin analysis.
-
-    .. math::
-
-        \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
-        +
-        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
-
-    Symmetry properties:
-
-    In general, this channel has neither even nor odd point-inversion
-    symmetry. Its antisymmetric part is fixed by the chiral cross section:
-
-    .. math::
-
-        \frac{d\Sigma^{+}}{d\Omega}(\mathbf{q})
-        -
-        \frac{d\Sigma^{+}}{d\Omega}(-\mathbf{q})
-        =
-        2\frac{d\Sigma_{\chi}}{d\Omega}(\mathbf{q})
-
-    .. math::
-
-        \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
-        -
-        \frac{d\Sigma^{+}}{d\Omega}(q,\theta+\pi)
-        =
-        2\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
-
-``M_SANSPOL_2D``
-    SANSPOL cross section for negative incident neutron polarization without
-    final-state spin analysis.
-
-    .. math::
-
-        \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
-        =
-        \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
         +
         \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+    \right]
 
-    Symmetry properties:
+Symmetry properties:
 
-    In general, this channel has neither even nor odd point-inversion
-    symmetry. Its antisymmetric part is fixed by the chiral cross section:
+.. math::
 
-    .. math::
+    \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(\mathbf{q})
+    =
+    \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(-\mathbf{q})
 
-        \frac{d\Sigma^{-}}{d\Omega}(\mathbf{q})
-        -
-        \frac{d\Sigma^{-}}{d\Omega}(-\mathbf{q})
-        =
-        -2\frac{d\Sigma_{\chi}}{d\Omega}(\mathbf{q})
+.. math::
 
-    .. math::
+    \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta+\pi)
 
-        \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
-        -
-        \frac{d\Sigma^{-}}{d\Omega}(q,\theta+\pi)
-        =
-        -2\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+.. _output-pm-spinflip-2d:
+
+PM_SpinFlip_2D
+~~~~~~~~~~~~~~
+
+Spin-flip SANS cross section on the 2D detector.
+
+.. math::
+
+    \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+    +
+    \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+
+Symmetry properties:
+
+.. math::
+
+    \frac{d\Sigma^{+-}}{d\Omega}(-\mathbf{q})
+    =
+    \frac{d\Sigma^{-+}}{d\Omega}(\mathbf{q})
+
+.. math::
+
+    \frac{d\Sigma^{+-}}{d\Omega}(q,\theta+\pi)
+    =
+    \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+
+.. _output-mp-spinflip-2d:
+
+MP_SpinFlip_2D
+~~~~~~~~~~~~~~
+
+Spin-flip SANS cross section on the 2D detector.
+
+.. math::
+
+    \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+    -
+    \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+
+Symmetry properties:
+
+.. math::
+
+    \frac{d\Sigma^{-+}}{d\Omega}(-\mathbf{q})
+    =
+    \frac{d\Sigma^{+-}}{d\Omega}(\mathbf{q})
+
+.. math::
+
+    \frac{d\Sigma^{-+}}{d\Omega}(q,\theta+\pi)
+    =
+    \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+
+.. _output-pp-nonspinflip-2d:
+
+PP_NonSpinFlip_2D
+~~~~~~~~~~~~~~~~~
+
+Non-spin-flip SANS cross section on the 2D detector.
+
+.. math::
+
+    \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+    +
+    \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+    +
+    \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+
+Symmetry properties:
+
+.. math::
+
+    \frac{d\Sigma^{++}}{d\Omega}(\mathbf{q})
+    =
+    \frac{d\Sigma^{++}}{d\Omega}(-\mathbf{q})
+
+.. math::
+
+    \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma^{++}}{d\Omega}(q,\theta+\pi)
+
+.. _output-mm-nonspinflip-2d:
+
+MM_NonSpinFlip_2D
+~~~~~~~~~~~~~~~~~
+
+Non-spin-flip SANS cross section on the 2D detector.
+
+.. math::
+
+    \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+    -
+    \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+    +
+    \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+
+Symmetry properties:
+
+.. math::
+
+    \frac{d\Sigma^{--}}{d\Omega}(\mathbf{q})
+    =
+    \frac{d\Sigma^{--}}{d\Omega}(-\mathbf{q})
+
+.. math::
+
+    \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma^{--}}{d\Omega}(q,\theta+\pi)
+
+.. _output-p-sanspol-2d:
+
+P_SANSPOL_2D
+~~~~~~~~~~~~
+
+SANSPOL cross section for positive incident neutron polarization without
+final-state spin analysis.
+
+.. math::
+
+    \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+    +
+    \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+
+Symmetry properties:
+
+In general, this channel has neither even nor odd point-inversion
+symmetry. Its antisymmetric part is fixed by the chiral cross section:
+
+.. math::
+
+    \frac{d\Sigma^{+}}{d\Omega}(\mathbf{q})
+    -
+    \frac{d\Sigma^{+}}{d\Omega}(-\mathbf{q})
+    =
+    2\frac{d\Sigma_{\chi}}{d\Omega}(\mathbf{q})
+
+.. math::
+
+    \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+    -
+    \frac{d\Sigma^{+}}{d\Omega}(q,\theta+\pi)
+    =
+    2\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+
+.. _output-m-sanspol-2d:
+
+M_SANSPOL_2D
+~~~~~~~~~~~~
+
+SANSPOL cross section for negative incident neutron polarization without
+final-state spin analysis.
+
+.. math::
+
+    \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+    =
+    \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+    +
+    \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+
+Symmetry properties:
+
+In general, this channel has neither even nor odd point-inversion
+symmetry. Its antisymmetric part is fixed by the chiral cross section:
+
+.. math::
+
+    \frac{d\Sigma^{-}}{d\Omega}(\mathbf{q})
+    -
+    \frac{d\Sigma^{-}}{d\Omega}(-\mathbf{q})
+    =
+    -2\frac{d\Sigma_{\chi}}{d\Omega}(\mathbf{q})
+
+.. math::
+
+    \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+    -
+    \frac{d\Sigma^{-}}{d\Omega}(q,\theta+\pi)
+    =
+    -2\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 
 2D correlation functions
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -887,315 +963,411 @@ sections via the cosine transform
 
 The following two-dimensional correlation functions can be calculated.
 
-``Nuclear_Corr_2D``
-    2D correlation function of the nuclear SANS cross section.
+.. _output-nuclear-corr-2d:
 
-    .. math::
+Nuclear_Corr_2D
+~~~~~~~~~~~~~~~
 
-        C_{\mathrm N}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma_{\mathrm N}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+2D correlation function of the nuclear SANS cross section.
 
+.. math::
 
-``Unpolarized_Corr_2D``
-    2D correlation function of the unpolarized magnetic SANS cross section.
-
-    .. math::
-
-        C_{\mathrm M}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma_{\mathrm M}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+    C_{\mathrm N}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma_{\mathrm N}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
 
 
-``Polarized_Corr_2D``
-    2D correlation function of the polarized magnetic SANS cross section.
+.. _output-unpolarized-corr-2d:
 
-    .. math::
+Unpolarized_Corr_2D
+~~~~~~~~~~~~~~~~~~~
 
-        C_{\mathrm P}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma_{\mathrm P}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+2D correlation function of the unpolarized magnetic SANS cross section.
 
+.. math::
 
-``NuclearMagnetic_Corr_2D``
-    2D correlation function of the nuclear–magnetic interference SANS cross section.
-
-    .. math::
-
-        C_{\mathrm{NM}}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+    C_{\mathrm M}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma_{\mathrm M}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
 
 
-``SpinFlip_Corr_2D``
-    2D correlation function of the spin-flip SANS cross section.
+.. _output-polarized-corr-2d:
 
-    .. math::
+Polarized_Corr_2D
+~~~~~~~~~~~~~~~~~
 
-        C_{\mathrm{sf}}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+2D correlation function of the polarized magnetic SANS cross section.
 
+.. math::
 
-``Chiral_Corr_2D``
-    2D correlation function of the chiral SANS cross section.
-
-    .. math::
-
-        C_{\chi}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+    C_{\mathrm P}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma_{\mathrm P}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
 
 
-``PM_SpinFlip_Corr_2D``
-    2D correlation function of the :math:`(+,-)` spin-flip channel.
+.. _output-nuclearmagnetic-corr-2d:
 
-    .. math::
+NuclearMagnetic_Corr_2D
+~~~~~~~~~~~~~~~~~~~~~~~
 
-        C^{+-}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+2D correlation function of the nuclear–magnetic interference SANS cross section.
 
+.. math::
 
-``MP_SpinFlip_Corr_2D``
-    2D correlation function of the :math:`(-,+)` spin-flip channel.
-
-    .. math::
-
-        C^{-+}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+    C_{\mathrm{NM}}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
 
 
-``PP_NonSpinFlip_Corr_2D``
-    2D correlation function of the :math:`(+,+)` non-spin-flip channel.
+.. _output-spinflip-corr-2d:
 
-    .. math::
+SpinFlip_Corr_2D
+~~~~~~~~~~~~~~~~
 
-        C^{++}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+2D correlation function of the spin-flip SANS cross section.
 
+.. math::
 
-``MM_NonSpinFlip_Corr_2D``
-    2D correlation function of the :math:`(-,-)` non-spin-flip channel.
-
-    .. math::
-
-        C^{--}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+    C_{\mathrm{sf}}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
 
 
-``P_SANSPOL_Corr_2D``
-    2D correlation function of the SANSPOL :math:`(+ )` channel.
+.. _output-chiral-corr-2d:
 
-    .. math::
+Chiral_Corr_2D
+~~~~~~~~~~~~~~
 
-        C^{+}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+2D correlation function of the chiral SANS cross section.
+
+.. math::
+
+    C_{\chi}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
 
 
-``M_SANSPOL_Corr_2D``
-    2D correlation function of the SANSPOL :math:`(- )` channel.
+.. _output-pm-spinflip-corr-2d:
 
-    .. math::
+PM_SpinFlip_Corr_2D
+~~~~~~~~~~~~~~~~~~~
 
-        C^{-}(r,\alpha)
-        =
-        \int_{0}^{\infty}\int_{0}^{2\pi}
-        \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
-        \cos\left(qr\cos(\theta-\alpha)\right)
-        q\,dq\,d\theta
+2D correlation function of the :math:`(+,-)` spin-flip channel.
+
+.. math::
+
+    C^{+-}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
+
+
+.. _output-mp-spinflip-corr-2d:
+
+MP_SpinFlip_Corr_2D
+~~~~~~~~~~~~~~~~~~~
+
+2D correlation function of the :math:`(-,+)` spin-flip channel.
+
+.. math::
+
+    C^{-+}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
+
+
+.. _output-pp-nonspinflip-corr-2d:
+
+PP_NonSpinFlip_Corr_2D
+~~~~~~~~~~~~~~~~~~~~~~
+
+2D correlation function of the :math:`(+,+)` non-spin-flip channel.
+
+.. math::
+
+    C^{++}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
+
+
+.. _output-mm-nonspinflip-corr-2d:
+
+MM_NonSpinFlip_Corr_2D
+~~~~~~~~~~~~~~~~~~~~~~
+
+2D correlation function of the :math:`(-,-)` non-spin-flip channel.
+
+.. math::
+
+    C^{--}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
+
+
+.. _output-p-sanspol-corr-2d:
+
+P_SANSPOL_Corr_2D
+~~~~~~~~~~~~~~~~~
+
+2D correlation function of the SANSPOL :math:`(+ )` channel.
+
+.. math::
+
+    C^{+}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
+
+
+.. _output-m-sanspol-corr-2d:
+
+M_SANSPOL_Corr_2D
+~~~~~~~~~~~~~~~~~
+
+2D correlation function of the SANSPOL :math:`(- )` channel.
+
+.. math::
+
+    C^{-}(r,\alpha)
+    =
+    \int_{0}^{\infty}\int_{0}^{2\pi}
+    \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+    \cos\left(qr\cos(\theta-\alpha)\right)
+    q\,dq\,d\theta
 
 1D Azimuthally averaged SANS cross sections
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In NuMagSANS the 1D SANS cross sections are exported in units of :math:`\mathrm{cm}^{-1}`.
 
-``Nuclear_1D``
-    Azimuthally averaged nuclear SANS cross section.
+.. _output-nuclear-1d:
 
-    .. math::
+Nuclear_1D
+~~~~~~~~~~
 
-        I_{\mathrm{N}}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
-        \, d\theta
+Azimuthally averaged nuclear SANS cross section.
 
-``Unpolarized_1D``
-    Azimuthally averaged unpolarized magnetic SANS cross section.
+.. math::
 
-    .. math::
+    I_{\mathrm{N}}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
+    \, d\theta
 
-        I_{\mathrm{M}}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
-        \, d\theta
+.. _output-unpolarized-1d:
 
-``Polarized_1D``
-    Azimuthally averaged polarized magnetic SANS cross section.
+Unpolarized_1D
+~~~~~~~~~~~~~~
 
-    .. math::
+Azimuthally averaged unpolarized magnetic SANS cross section.
 
-        I_{\mathrm{P}}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
-        \, d\theta
+.. math::
 
-``NuclearMagnetic_1D``
-    Azimuthally averaged nuclear–magnetic interference cross section.
+    I_{\mathrm{M}}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
+    \, d\theta
 
-    .. math::
+.. _output-polarized-1d:
 
-        I_{\mathrm{NM}}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
-        \, d\theta
+Polarized_1D
+~~~~~~~~~~~~
 
-``Chiral_1D``
-    Azimuthally averaged chiral SANS cross section.
+Azimuthally averaged polarized magnetic SANS cross section.
 
-    .. math::
+.. math::
 
-        I_{\chi}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
-        \, d\theta
+    I_{\mathrm{P}}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
+    \, d\theta
 
-``SpinFlip_1D``
-    Azimuthally averaged spin-flip SANS cross section.
+.. _output-nuclearmagnetic-1d:
 
-    .. math::
+NuclearMagnetic_1D
+~~~~~~~~~~~~~~~~~~
 
-        I_{\mathrm{sf}}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
-        \, d\theta
+Azimuthally averaged nuclear–magnetic interference cross section.
 
-``PM_SpinFlip_1D``
-    Azimuthally averaged spin-flip SANS cross section for the
-    :math:`(+,-)` polarization channel.
+.. math::
 
-    .. math::
+    I_{\mathrm{NM}}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
+    \, d\theta
 
-        I^{+-}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
-        \, d\theta
+.. _output-chiral-1d:
 
-``MP_SpinFlip_1D``
-    Azimuthally averaged spin-flip SANS cross section for the
-    :math:`(-,+)` polarization channel.
+Chiral_1D
+~~~~~~~~~
 
-    .. math::
+Azimuthally averaged chiral SANS cross section.
 
-        I^{-+}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
-        \, d\theta
+.. math::
 
-``PP_NonSpinFlip_1D``
-    Azimuthally averaged non-spin-flip SANS cross section for the
-    :math:`(+,+)` polarization channel.
+    I_{\chi}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+    \, d\theta
 
-    .. math::
+.. _output-spinflip-1d:
 
-        I^{++}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
-        \, d\theta
+SpinFlip_1D
+~~~~~~~~~~~
 
-``MM_NonSpinFlip_1D``
-    Azimuthally averaged non-spin-flip SANS cross section for the
-    :math:`(-,-)` polarization channel.
+Azimuthally averaged spin-flip SANS cross section.
 
-    .. math::
+.. math::
 
-        I^{--}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
-        \, d\theta
+    I_{\mathrm{sf}}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+    \, d\theta
 
-``P_SANSPOL_1D``
-    Azimuthally averaged SANSPOL cross section for positive neutron
-    polarization.
+.. _output-pm-spinflip-1d:
 
-    .. math::
+PM_SpinFlip_1D
+~~~~~~~~~~~~~~
 
-        I^{+}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
-        \, d\theta
+Azimuthally averaged spin-flip SANS cross section for the
+:math:`(+,-)` polarization channel.
 
-``M_SANSPOL_1D``
-    Azimuthally averaged SANSPOL cross section for negative neutron
-    polarization.
+.. math::
 
-    .. math::
+    I^{+-}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+    \, d\theta
 
-        I^{-}(q)
-        =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
-        \, d\theta
+.. _output-mp-spinflip-1d:
+
+MP_SpinFlip_1D
+~~~~~~~~~~~~~~
+
+Azimuthally averaged spin-flip SANS cross section for the
+:math:`(-,+)` polarization channel.
+
+.. math::
+
+    I^{-+}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+    \, d\theta
+
+.. _output-pp-nonspinflip-1d:
+
+PP_NonSpinFlip_1D
+~~~~~~~~~~~~~~~~~
+
+Azimuthally averaged non-spin-flip SANS cross section for the
+:math:`(+,+)` polarization channel.
+
+.. math::
+
+    I^{++}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
+    \, d\theta
+
+.. _output-mm-nonspinflip-1d:
+
+MM_NonSpinFlip_1D
+~~~~~~~~~~~~~~~~~
+
+Azimuthally averaged non-spin-flip SANS cross section for the
+:math:`(-,-)` polarization channel.
+
+.. math::
+
+    I^{--}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
+    \, d\theta
+
+.. _output-p-sanspol-1d:
+
+P_SANSPOL_1D
+~~~~~~~~~~~~
+
+Azimuthally averaged SANSPOL cross section for positive neutron
+polarization.
+
+.. math::
+
+    I^{+}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
+    \, d\theta
+
+.. _output-m-sanspol-1d:
+
+M_SANSPOL_1D
+~~~~~~~~~~~~
+
+Azimuthally averaged SANSPOL cross section for negative neutron
+polarization.
+
+.. math::
+
+    I^{-}(q)
+    =
+    \frac{1}{2\pi}
+    \int_{0}^{2\pi}
+    \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
+    \, d\theta
 
 1D Correlation functions
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1221,125 +1393,173 @@ where :math:`j_0(x)` denotes the spherical Bessel function of order zero,
 In NuMagSANS the 1D correlation functions are exported in units of :math:`\mathrm{nm}^{-4}`.
 The following correlation functions can be calculated.
 
-``Nuclear_Corr_1D``
-    Correlation function of the nuclear SANS cross section.
+.. _output-nuclear-corr-1d:
 
-    .. math::
+Nuclear_Corr_1D
+~~~~~~~~~~~~~~~
 
-        c_{\mathrm{N}}(r)
-        =
-        \int_{0}^{\infty}
-        I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq
+Correlation function of the nuclear SANS cross section.
 
-``Unpolarized_Corr_1D``
-    Correlation function of the unpolarized magnetic SANS cross section.
+.. math::
 
-    .. math::
+    c_{\mathrm{N}}(r)
+    =
+    \int_{0}^{\infty}
+    I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq
 
-        c_{\mathrm{M}}(r)
-        =
-        \int_{0}^{\infty}
-        I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq
+.. _output-unpolarized-corr-1d:
 
-``Polarized_Corr_1D``
-    Correlation function of the polarized magnetic SANS cross section.
+Unpolarized_Corr_1D
+~~~~~~~~~~~~~~~~~~~
 
-    .. math::
+Correlation function of the unpolarized magnetic SANS cross section.
 
-        c_{\mathrm{P}}(r)
-        =
-        \int_{0}^{\infty}
-        I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq
+.. math::
 
-``NuclearMagnetic_Corr_1D``
-    Correlation function of the nuclear–magnetic interference SANS cross section.
+    c_{\mathrm{M}}(r)
+    =
+    \int_{0}^{\infty}
+    I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq
 
-    .. math::
+.. _output-polarized-corr-1d:
 
-        c_{\mathrm{NM}}(r)
-        =
-        \int_{0}^{\infty}
-        I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq
+Polarized_Corr_1D
+~~~~~~~~~~~~~~~~~
 
-``Chiral_Corr_1D``
-    Correlation function of the chiral SANS cross section.
+Correlation function of the polarized magnetic SANS cross section.
 
-    .. math::
+.. math::
 
-        c_{\chi}(r)
-        =
-        \int_{0}^{\infty}
-        I_{\chi}(q)\, j_0(qr)\, q^2 \, dq
+    c_{\mathrm{P}}(r)
+    =
+    \int_{0}^{\infty}
+    I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq
 
-``SpinFlip_Corr_1D``
-    Correlation function of the spin-flip SANS cross section.
+.. _output-nuclearmagnetic-corr-1d:
 
-    .. math::
+NuclearMagnetic_Corr_1D
+~~~~~~~~~~~~~~~~~~~~~~~
 
-        c_{\mathrm{sf}}(r)
-        =
-        \int_{0}^{\infty}
-        I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq
+Correlation function of the nuclear–magnetic interference SANS cross section.
 
-``PM_SpinFlip_Corr_1D``
-    Correlation function of the :math:`(+,-)` spin-flip channel.
+.. math::
 
-    .. math::
+    c_{\mathrm{NM}}(r)
+    =
+    \int_{0}^{\infty}
+    I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq
 
-        c^{+-}(r)
-        =
-        \int_{0}^{\infty}
-        I^{+-}(q)\, j_0(qr)\, q^2 \, dq
+.. _output-chiral-corr-1d:
 
-``MP_SpinFlip_Corr_1D``
-    Correlation function of the :math:`(-,+)` spin-flip channel.
+Chiral_Corr_1D
+~~~~~~~~~~~~~~
 
-    .. math::
+Correlation function of the chiral SANS cross section.
 
-        c^{-+}(r)
-        =
-        \int_{0}^{\infty}
-        I^{-+}(q)\, j_0(qr)\, q^2 \, dq
+.. math::
 
-``PP_NonSpinFlip_Corr_1D``
-    Correlation function of the :math:`(+,+)` non-spin-flip channel.
+    c_{\chi}(r)
+    =
+    \int_{0}^{\infty}
+    I_{\chi}(q)\, j_0(qr)\, q^2 \, dq
 
-    .. math::
+.. _output-spinflip-corr-1d:
 
-        c^{++}(r)
-        =
-        \int_{0}^{\infty}
-        I^{++}(q)\, j_0(qr)\, q^2 \, dq
+SpinFlip_Corr_1D
+~~~~~~~~~~~~~~~~
 
-``MM_NonSpinFlip_Corr_1D``
-    Correlation function of the :math:`(-,-)` non-spin-flip channel.
+Correlation function of the spin-flip SANS cross section.
 
-    .. math::
+.. math::
 
-        c^{--}(r)
-        =
-        \int_{0}^{\infty}
-        I^{--}(q)\, j_0(qr)\, q^2 \, dq
+    c_{\mathrm{sf}}(r)
+    =
+    \int_{0}^{\infty}
+    I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq
 
-``P_SANSPOL_Corr_1D``
-    Correlation function of the SANSPOL :math:`(+ )` channel.
+.. _output-pm-spinflip-corr-1d:
 
-    .. math::
+PM_SpinFlip_Corr_1D
+~~~~~~~~~~~~~~~~~~~
 
-        c^{+}(r)
-        =
-        \int_{0}^{\infty}
-        I^{+}(q)\, j_0(qr)\, q^2 \, dq
+Correlation function of the :math:`(+,-)` spin-flip channel.
 
-``M_SANSPOL_Corr_1D``
-    Correlation function of the SANSPOL :math:`(- )` channel.
+.. math::
 
-    .. math::
+    c^{+-}(r)
+    =
+    \int_{0}^{\infty}
+    I^{+-}(q)\, j_0(qr)\, q^2 \, dq
 
-        c^{-}(r)
-        =
-        \int_{0}^{\infty}
-        I^{-}(q)\, j_0(qr)\, q^2 \, dq
+.. _output-mp-spinflip-corr-1d:
+
+MP_SpinFlip_Corr_1D
+~~~~~~~~~~~~~~~~~~~
+
+Correlation function of the :math:`(-,+)` spin-flip channel.
+
+.. math::
+
+    c^{-+}(r)
+    =
+    \int_{0}^{\infty}
+    I^{-+}(q)\, j_0(qr)\, q^2 \, dq
+
+.. _output-pp-nonspinflip-corr-1d:
+
+PP_NonSpinFlip_Corr_1D
+~~~~~~~~~~~~~~~~~~~~~~
+
+Correlation function of the :math:`(+,+)` non-spin-flip channel.
+
+.. math::
+
+    c^{++}(r)
+    =
+    \int_{0}^{\infty}
+    I^{++}(q)\, j_0(qr)\, q^2 \, dq
+
+.. _output-mm-nonspinflip-corr-1d:
+
+MM_NonSpinFlip_Corr_1D
+~~~~~~~~~~~~~~~~~~~~~~
+
+Correlation function of the :math:`(-,-)` non-spin-flip channel.
+
+.. math::
+
+    c^{--}(r)
+    =
+    \int_{0}^{\infty}
+    I^{--}(q)\, j_0(qr)\, q^2 \, dq
+
+.. _output-p-sanspol-corr-1d:
+
+P_SANSPOL_Corr_1D
+~~~~~~~~~~~~~~~~~
+
+Correlation function of the SANSPOL :math:`(+ )` channel.
+
+.. math::
+
+    c^{+}(r)
+    =
+    \int_{0}^{\infty}
+    I^{+}(q)\, j_0(qr)\, q^2 \, dq
+
+.. _output-m-sanspol-corr-1d:
+
+M_SANSPOL_Corr_1D
+~~~~~~~~~~~~~~~~~
+
+Correlation function of the SANSPOL :math:`(- )` channel.
+
+.. math::
+
+    c^{-}(r)
+    =
+    \int_{0}^{\infty}
+    I^{-}(q)\, j_0(qr)\, q^2 \, dq
 
 1D Pair-distance distribution functions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1366,137 +1586,185 @@ can also be written as
 In NuMagSANS the 1D pair-distance distribution functions are exported in units of :math:`\mathrm{nm}^{-2}`.
 The following pair-distance distribution functions can be calculated.
 
-``Nuclear_PairDist_1D``
-    Pair-distance distribution function of the nuclear SANS cross section.
+.. _output-nuclear-pairdist-1d:
 
-    .. math::
+Nuclear_PairDist_1D
+~~~~~~~~~~~~~~~~~~~
 
-        p_{\mathrm{N}}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq
+Pair-distance distribution function of the nuclear SANS cross section.
 
-``Unpolarized_PairDist_1D``
-    Pair-distance distribution function of the unpolarized magnetic SANS cross section.
+.. math::
 
-    .. math::
+    p_{\mathrm{N}}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq
 
-        p_{\mathrm{M}}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq
+.. _output-unpolarized-pairdist-1d:
 
-``Polarized_PairDist_1D``
-    Pair-distance distribution function of the polarized magnetic SANS cross section.
+Unpolarized_PairDist_1D
+~~~~~~~~~~~~~~~~~~~~~~~
 
-    .. math::
+Pair-distance distribution function of the unpolarized magnetic SANS cross section.
 
-        p_{\mathrm{P}}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq
+.. math::
 
-``NuclearMagnetic_PairDist_1D``
-    Pair-distance distribution function of the nuclear–magnetic interference SANS cross section.
+    p_{\mathrm{M}}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq
 
-    .. math::
+.. _output-polarized-pairdist-1d:
 
-        p_{\mathrm{NM}}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq
+Polarized_PairDist_1D
+~~~~~~~~~~~~~~~~~~~~~
 
-``Chiral_PairDist_1D``
-    Pair-distance distribution function of the chiral SANS cross section.
+Pair-distance distribution function of the polarized magnetic SANS cross section.
 
-    .. math::
+.. math::
 
-        p_{\chi}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I_{\chi}(q)\, j_0(qr)\, q^2 \, dq
+    p_{\mathrm{P}}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq
 
-``SpinFlip_PairDist_1D``
-    Pair-distance distribution function of the spin-flip SANS cross section.
+.. _output-nuclearmagnetic-pairdist-1d:
 
-    .. math::
+NuclearMagnetic_PairDist_1D
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        p_{\mathrm{sf}}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq
+Pair-distance distribution function of the nuclear–magnetic interference SANS cross section.
 
-``PM_SpinFlip_PairDist_1D``
-    Pair-distance distribution function of the :math:`(+,-)` spin-flip channel.
+.. math::
 
-    .. math::
+    p_{\mathrm{NM}}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq
 
-        p^{+-}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I^{+-}(q)\, j_0(qr)\, q^2 \, dq
+.. _output-chiral-pairdist-1d:
 
-``MP_SpinFlip_PairDist_1D``
-    Pair-distance distribution function of the :math:`(-,+)` spin-flip channel.
+Chiral_PairDist_1D
+~~~~~~~~~~~~~~~~~~
 
-    .. math::
+Pair-distance distribution function of the chiral SANS cross section.
 
-        p^{-+}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I^{-+}(q)\, j_0(qr)\, q^2 \, dq
+.. math::
 
-``PP_NonSpinFlip_PairDist_1D``
-    Pair-distance distribution function of the :math:`(+,+)` non-spin-flip channel.
+    p_{\chi}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I_{\chi}(q)\, j_0(qr)\, q^2 \, dq
 
-    .. math::
+.. _output-spinflip-pairdist-1d:
 
-        p^{++}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I^{++}(q)\, j_0(qr)\, q^2 \, dq
+SpinFlip_PairDist_1D
+~~~~~~~~~~~~~~~~~~~~
 
-``MM_NonSpinFlip_PairDist_1D``
-    Pair-distance distribution function of the :math:`(-,-)` non-spin-flip channel.
+Pair-distance distribution function of the spin-flip SANS cross section.
 
-    .. math::
+.. math::
 
-        p^{--}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I^{--}(q)\, j_0(qr)\, q^2 \, dq
+    p_{\mathrm{sf}}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq
 
-``P_SANSPOL_PairDist_1D``
-    Pair-distance distribution function of the SANSPOL :math:`(+ )` channel.
+.. _output-pm-spinflip-pairdist-1d:
 
-    .. math::
+PM_SpinFlip_PairDist_1D
+~~~~~~~~~~~~~~~~~~~~~~~
 
-        p^{+}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I^{+}(q)\, j_0(qr)\, q^2 \, dq
+Pair-distance distribution function of the :math:`(+,-)` spin-flip channel.
 
-``M_SANSPOL_PairDist_1D``
-    Pair-distance distribution function of the SANSPOL :math:`(- )` channel.
+.. math::
 
-    .. math::
+    p^{+-}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I^{+-}(q)\, j_0(qr)\, q^2 \, dq
 
-        p^{-}(r)
-        =
-        r^2
-        \int_{0}^{\infty}
-        I^{-}(q)\, j_0(qr)\, q^2 \, dq
+.. _output-mp-spinflip-pairdist-1d:
+
+MP_SpinFlip_PairDist_1D
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Pair-distance distribution function of the :math:`(-,+)` spin-flip channel.
+
+.. math::
+
+    p^{-+}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I^{-+}(q)\, j_0(qr)\, q^2 \, dq
+
+.. _output-pp-nonspinflip-pairdist-1d:
+
+PP_NonSpinFlip_PairDist_1D
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pair-distance distribution function of the :math:`(+,+)` non-spin-flip channel.
+
+.. math::
+
+    p^{++}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I^{++}(q)\, j_0(qr)\, q^2 \, dq
+
+.. _output-mm-nonspinflip-pairdist-1d:
+
+MM_NonSpinFlip_PairDist_1D
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pair-distance distribution function of the :math:`(-,-)` non-spin-flip channel.
+
+.. math::
+
+    p^{--}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I^{--}(q)\, j_0(qr)\, q^2 \, dq
+
+.. _output-p-sanspol-pairdist-1d:
+
+P_SANSPOL_PairDist_1D
+~~~~~~~~~~~~~~~~~~~~~
+
+Pair-distance distribution function of the SANSPOL :math:`(+ )` channel.
+
+.. math::
+
+    p^{+}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I^{+}(q)\, j_0(qr)\, q^2 \, dq
+
+.. _output-m-sanspol-pairdist-1d:
+
+M_SANSPOL_PairDist_1D
+~~~~~~~~~~~~~~~~~~~~~
+
+Pair-distance distribution function of the SANSPOL :math:`(- )` channel.
+
+.. math::
+
+    p^{-}(r)
+    =
+    r^2
+    \int_{0}^{\infty}
+    I^{-}(q)\, j_0(qr)\, q^2 \, dq
 
 
 Angular Spectrum

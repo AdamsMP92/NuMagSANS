@@ -878,8 +878,9 @@ the stated point-inversion symmetries independently of the detailed spatial
 profiles. They do not, in general, imply a symmetry under
 <span class="math notranslate nohighlight">\(\theta\rightarrow\theta+\pi/2\)</span>; such a relation requires additional
 sample or magnetization symmetries.</p>
-<dl>
-<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_2D</span></code></dt><dd><p>Nuclear SANS cross section on the 2D detector.</p>
+<section id="nuclear-2d">
+<span id="output-nuclear-2d"></span><h4>Nuclear_2D<a class="headerlink" href="#nuclear-2d" title="Link to this heading">#</a></h4>
+<p>Nuclear SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
 =
@@ -889,8 +890,10 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(\mathbf{q}) = \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(-\mathbf{q})\]</div>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q, \theta) = \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q, \theta + \pi)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_2D</span></code></dt><dd><p>Unpolarized magnetic SANS cross section on the 2D detector.</p>
+</section>
+<section id="unpolarized-2d">
+<span id="output-unpolarized-2d"></span><h4>Unpolarized_2D<a class="headerlink" href="#unpolarized-2d" title="Link to this heading">#</a></h4>
+<p>Unpolarized magnetic SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
 =
@@ -904,8 +907,10 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
 =
 \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta+\pi)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Polarized_2D</span></code></dt><dd><p>Auxiliary polarized magnetic SANS cross section on the 2D detector.</p>
+</section>
+<section id="polarized-2d">
+<span id="output-polarized-2d"></span><h4>Polarized_2D<a class="headerlink" href="#polarized-2d" title="Link to this heading">#</a></h4>
+<p>Auxiliary polarized magnetic SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
 =
@@ -920,8 +925,10 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
 =
 \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta+\pi)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_2D</span></code></dt><dd><p>Nuclear–magnetic SANS cross section on the 2D detector.</p>
+</section>
+<section id="nuclearmagnetic-2d">
+<span id="output-nuclearmagnetic-2d"></span><h4>NuclearMagnetic_2D<a class="headerlink" href="#nuclearmagnetic-2d" title="Link to this heading">#</a></h4>
+<p>Nuclear–magnetic SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
 =
@@ -936,14 +943,27 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
 =
 \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta+\pi)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Chiral_2D</span></code></dt><dd><p>Chiral SANS cross section on the 2D detector.</p>
+</section>
+<section id="chiral-2d">
+<span id="output-chiral-2d"></span><h4>Chiral_2D<a class="headerlink" href="#chiral-2d" title="Link to this heading">#</a></h4>
+<p>Chiral SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 =
 -i\frac{8\pi^3}{V}\, b_{\mathrm{H}}^2
 \hat{\mathbf{P}}\cdot
 \left(\widetilde{\mathbf{Q}}\times\widetilde{\mathbf{Q}}^{\ast}\right)\]</div>
+<p>In terms of the experimentally accessible spin-resolved spin-flip cross
+sections, the chiral contribution is their half-difference:</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
+=
+\frac{1}{2}
+\left[
+    \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+    -
+    \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+\right]\]</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\chi}}{d\Omega}(-\mathbf{q})
@@ -953,14 +973,27 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta+\pi)
 =
 -\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_2D</span></code></dt><dd><p>Spin-flip SANS cross section on the 2D detector.</p>
+</section>
+<section id="spinflip-2d">
+<span id="output-spinflip-2d"></span><h4>SpinFlip_2D<a class="headerlink" href="#spinflip-2d" title="Link to this heading">#</a></h4>
+<p>Spin-flip SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
 =
 \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
 -
 \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)\]</div>
+<p>In terms of the experimentally accessible spin-resolved spin-flip cross
+sections, the spin-flip contribution is their half-sum:</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
+=
+\frac{1}{2}
+\left[
+    \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
+    +
+    \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
+\right]\]</div>
 <p>Symmetry properties:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(\mathbf{q})
@@ -970,8 +1003,10 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
 =
 \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta+\pi)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">PM_SpinFlip_2D</span></code></dt><dd><p>Spin-flip SANS cross section on the 2D detector.</p>
+</section>
+<section id="pm-spinflip-2d">
+<span id="output-pm-spinflip-2d"></span><h4>PM_SpinFlip_2D<a class="headerlink" href="#pm-spinflip-2d" title="Link to this heading">#</a></h4>
+<p>Spin-flip SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
 =
@@ -987,8 +1022,10 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma^{+-}}{d\Omega}(q,\theta+\pi)
 =
 \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MP_SpinFlip_2D</span></code></dt><dd><p>Spin-flip SANS cross section on the 2D detector.</p>
+</section>
+<section id="mp-spinflip-2d">
+<span id="output-mp-spinflip-2d"></span><h4>MP_SpinFlip_2D<a class="headerlink" href="#mp-spinflip-2d" title="Link to this heading">#</a></h4>
+<p>Spin-flip SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
 =
@@ -1004,8 +1041,10 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma^{-+}}{d\Omega}(q,\theta+\pi)
 =
 \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">PP_NonSpinFlip_2D</span></code></dt><dd><p>Non-spin-flip SANS cross section on the 2D detector.</p>
+</section>
+<section id="pp-nonspinflip-2d">
+<span id="output-pp-nonspinflip-2d"></span><h4>PP_NonSpinFlip_2D<a class="headerlink" href="#pp-nonspinflip-2d" title="Link to this heading">#</a></h4>
+<p>Non-spin-flip SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma^{++}}{d\Omega}(q,\theta)
 =
@@ -1023,8 +1062,10 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma^{++}}{d\Omega}(q,\theta)
 =
 \frac{d\Sigma^{++}}{d\Omega}(q,\theta+\pi)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MM_NonSpinFlip_2D</span></code></dt><dd><p>Non-spin-flip SANS cross section on the 2D detector.</p>
+</section>
+<section id="mm-nonspinflip-2d">
+<span id="output-mm-nonspinflip-2d"></span><h4>MM_NonSpinFlip_2D<a class="headerlink" href="#mm-nonspinflip-2d" title="Link to this heading">#</a></h4>
+<p>Non-spin-flip SANS cross section on the 2D detector.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma^{--}}{d\Omega}(q,\theta)
 =
@@ -1042,8 +1083,10 @@ sample or magnetization symmetries.</p>
 \[\frac{d\Sigma^{--}}{d\Omega}(q,\theta)
 =
 \frac{d\Sigma^{--}}{d\Omega}(q,\theta+\pi)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">P_SANSPOL_2D</span></code></dt><dd><p>SANSPOL cross section for positive incident neutron polarization without
+</section>
+<section id="p-sanspol-2d">
+<span id="output-p-sanspol-2d"></span><h4>P_SANSPOL_2D<a class="headerlink" href="#p-sanspol-2d" title="Link to this heading">#</a></h4>
+<p>SANSPOL cross section for positive incident neutron polarization without
 final-state spin analysis.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma^{+}}{d\Omega}(q,\theta)
@@ -1066,8 +1109,10 @@ symmetry. Its antisymmetric part is fixed by the chiral cross section:</p>
 \frac{d\Sigma^{+}}{d\Omega}(q,\theta+\pi)
 =
 2\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">M_SANSPOL_2D</span></code></dt><dd><p>SANSPOL cross section for negative incident neutron polarization without
+</section>
+<section id="m-sanspol-2d">
+<span id="output-m-sanspol-2d"></span><h4>M_SANSPOL_2D<a class="headerlink" href="#m-sanspol-2d" title="Link to this heading">#</a></h4>
+<p>SANSPOL cross section for negative incident neutron polarization without
 final-state spin analysis.</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\Sigma^{-}}{d\Omega}(q,\theta)
@@ -1090,8 +1135,7 @@ symmetry. Its antisymmetric part is fixed by the chiral cross section:</p>
 \frac{d\Sigma^{-}}{d\Omega}(q,\theta+\pi)
 =
 -2\frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)\]</div>
-</dd>
-</dl>
+</section>
 </section>
 <section id="d-correlation-functions">
 <h3>2D correlation functions<a class="headerlink" href="#d-correlation-functions" title="Link to this heading">#</a></h3>
@@ -1126,8 +1170,9 @@ sections via the cosine transform</p>
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta .\]</div>
 <p>The following two-dimensional correlation functions can be calculated.</p>
-<dl>
-<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_Corr_2D</span></code></dt><dd><p>2D correlation function of the nuclear SANS cross section.</p>
+<section id="nuclear-corr-2d">
+<span id="output-nuclear-corr-2d"></span><h4>Nuclear_Corr_2D<a class="headerlink" href="#nuclear-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the nuclear SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[C_{\mathrm N}(r,\alpha)
 =
@@ -1135,8 +1180,10 @@ q\,dq\,d\theta .\]</div>
 \frac{d\Sigma_{\mathrm N}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_Corr_2D</span></code></dt><dd><p>2D correlation function of the unpolarized magnetic SANS cross section.</p>
+</section>
+<section id="unpolarized-corr-2d">
+<span id="output-unpolarized-corr-2d"></span><h4>Unpolarized_Corr_2D<a class="headerlink" href="#unpolarized-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the unpolarized magnetic SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[C_{\mathrm M}(r,\alpha)
 =
@@ -1144,8 +1191,10 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma_{\mathrm M}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Polarized_Corr_2D</span></code></dt><dd><p>2D correlation function of the polarized magnetic SANS cross section.</p>
+</section>
+<section id="polarized-corr-2d">
+<span id="output-polarized-corr-2d"></span><h4>Polarized_Corr_2D<a class="headerlink" href="#polarized-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the polarized magnetic SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[C_{\mathrm P}(r,\alpha)
 =
@@ -1153,8 +1202,10 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma_{\mathrm P}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_Corr_2D</span></code></dt><dd><p>2D correlation function of the nuclear–magnetic interference SANS cross section.</p>
+</section>
+<section id="nuclearmagnetic-corr-2d">
+<span id="output-nuclearmagnetic-corr-2d"></span><h4>NuclearMagnetic_Corr_2D<a class="headerlink" href="#nuclearmagnetic-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the nuclear–magnetic interference SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[C_{\mathrm{NM}}(r,\alpha)
 =
@@ -1162,8 +1213,10 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_Corr_2D</span></code></dt><dd><p>2D correlation function of the spin-flip SANS cross section.</p>
+</section>
+<section id="spinflip-corr-2d">
+<span id="output-spinflip-corr-2d"></span><h4>SpinFlip_Corr_2D<a class="headerlink" href="#spinflip-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the spin-flip SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[C_{\mathrm{sf}}(r,\alpha)
 =
@@ -1171,8 +1224,10 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Chiral_Corr_2D</span></code></dt><dd><p>2D correlation function of the chiral SANS cross section.</p>
+</section>
+<section id="chiral-corr-2d">
+<span id="output-chiral-corr-2d"></span><h4>Chiral_Corr_2D<a class="headerlink" href="#chiral-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the chiral SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[C_{\chi}(r,\alpha)
 =
@@ -1180,8 +1235,10 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">PM_SpinFlip_Corr_2D</span></code></dt><dd><p>2D correlation function of the <span class="math notranslate nohighlight">\((+,-)\)</span> spin-flip channel.</p>
+</section>
+<section id="pm-spinflip-corr-2d">
+<span id="output-pm-spinflip-corr-2d"></span><h4>PM_SpinFlip_Corr_2D<a class="headerlink" href="#pm-spinflip-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the <span class="math notranslate nohighlight">\((+,-)\)</span> spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[C^{+-}(r,\alpha)
 =
@@ -1189,8 +1246,10 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MP_SpinFlip_Corr_2D</span></code></dt><dd><p>2D correlation function of the <span class="math notranslate nohighlight">\((-,+)\)</span> spin-flip channel.</p>
+</section>
+<section id="mp-spinflip-corr-2d">
+<span id="output-mp-spinflip-corr-2d"></span><h4>MP_SpinFlip_Corr_2D<a class="headerlink" href="#mp-spinflip-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the <span class="math notranslate nohighlight">\((-,+)\)</span> spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[C^{-+}(r,\alpha)
 =
@@ -1198,8 +1257,10 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">PP_NonSpinFlip_Corr_2D</span></code></dt><dd><p>2D correlation function of the <span class="math notranslate nohighlight">\((+,+)\)</span> non-spin-flip channel.</p>
+</section>
+<section id="pp-nonspinflip-corr-2d">
+<span id="output-pp-nonspinflip-corr-2d"></span><h4>PP_NonSpinFlip_Corr_2D<a class="headerlink" href="#pp-nonspinflip-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the <span class="math notranslate nohighlight">\((+,+)\)</span> non-spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[C^{++}(r,\alpha)
 =
@@ -1207,8 +1268,10 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MM_NonSpinFlip_Corr_2D</span></code></dt><dd><p>2D correlation function of the <span class="math notranslate nohighlight">\((-,-)\)</span> non-spin-flip channel.</p>
+</section>
+<section id="mm-nonspinflip-corr-2d">
+<span id="output-mm-nonspinflip-corr-2d"></span><h4>MM_NonSpinFlip_Corr_2D<a class="headerlink" href="#mm-nonspinflip-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the <span class="math notranslate nohighlight">\((-,-)\)</span> non-spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[C^{--}(r,\alpha)
 =
@@ -1216,8 +1279,10 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">P_SANSPOL_Corr_2D</span></code></dt><dd><p>2D correlation function of the SANSPOL <span class="math notranslate nohighlight">\((+ )\)</span> channel.</p>
+</section>
+<section id="p-sanspol-corr-2d">
+<span id="output-p-sanspol-corr-2d"></span><h4>P_SANSPOL_Corr_2D<a class="headerlink" href="#p-sanspol-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the SANSPOL <span class="math notranslate nohighlight">\((+ )\)</span> channel.</p>
 <div class="math notranslate nohighlight">
 \[C^{+}(r,\alpha)
 =
@@ -1225,8 +1290,10 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">M_SANSPOL_Corr_2D</span></code></dt><dd><p>2D correlation function of the SANSPOL <span class="math notranslate nohighlight">\((- )\)</span> channel.</p>
+</section>
+<section id="m-sanspol-corr-2d">
+<span id="output-m-sanspol-corr-2d"></span><h4>M_SANSPOL_Corr_2D<a class="headerlink" href="#m-sanspol-corr-2d" title="Link to this heading">#</a></h4>
+<p>2D correlation function of the SANSPOL <span class="math notranslate nohighlight">\((- )\)</span> channel.</p>
 <div class="math notranslate nohighlight">
 \[C^{-}(r,\alpha)
 =
@@ -1234,14 +1301,14 @@ q\,dq\,d\theta\]</div>
 \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
 \cos\left(qr\cos(\theta-\alpha)\right)
 q\,dq\,d\theta\]</div>
-</dd>
-</dl>
+</section>
 </section>
 <section id="d-azimuthally-averaged-sans-cross-sections">
 <h3>1D Azimuthally averaged SANS cross sections<a class="headerlink" href="#d-azimuthally-averaged-sans-cross-sections" title="Link to this heading">#</a></h3>
 <p>In NuMagSANS the 1D SANS cross sections are exported in units of <span class="math notranslate nohighlight">\(\mathrm{cm}^{-1}\)</span>.</p>
-<dl>
-<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_1D</span></code></dt><dd><p>Azimuthally averaged nuclear SANS cross section.</p>
+<section id="nuclear-1d">
+<span id="output-nuclear-1d"></span><h4>Nuclear_1D<a class="headerlink" href="#nuclear-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged nuclear SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[I_{\mathrm{N}}(q)
 =
@@ -1249,8 +1316,10 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\mathrm{N}}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_1D</span></code></dt><dd><p>Azimuthally averaged unpolarized magnetic SANS cross section.</p>
+</section>
+<section id="unpolarized-1d">
+<span id="output-unpolarized-1d"></span><h4>Unpolarized_1D<a class="headerlink" href="#unpolarized-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged unpolarized magnetic SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[I_{\mathrm{M}}(q)
 =
@@ -1258,8 +1327,10 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\mathrm{M}}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Polarized_1D</span></code></dt><dd><p>Azimuthally averaged polarized magnetic SANS cross section.</p>
+</section>
+<section id="polarized-1d">
+<span id="output-polarized-1d"></span><h4>Polarized_1D<a class="headerlink" href="#polarized-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged polarized magnetic SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[I_{\mathrm{P}}(q)
 =
@@ -1267,8 +1338,10 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\mathrm{P}}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_1D</span></code></dt><dd><p>Azimuthally averaged nuclear–magnetic interference cross section.</p>
+</section>
+<section id="nuclearmagnetic-1d">
+<span id="output-nuclearmagnetic-1d"></span><h4>NuclearMagnetic_1D<a class="headerlink" href="#nuclearmagnetic-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged nuclear–magnetic interference cross section.</p>
 <div class="math notranslate nohighlight">
 \[I_{\mathrm{NM}}(q)
 =
@@ -1276,8 +1349,10 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\mathrm{NM}}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Chiral_1D</span></code></dt><dd><p>Azimuthally averaged chiral SANS cross section.</p>
+</section>
+<section id="chiral-1d">
+<span id="output-chiral-1d"></span><h4>Chiral_1D<a class="headerlink" href="#chiral-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged chiral SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[I_{\chi}(q)
 =
@@ -1285,8 +1360,10 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\chi}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_1D</span></code></dt><dd><p>Azimuthally averaged spin-flip SANS cross section.</p>
+</section>
+<section id="spinflip-1d">
+<span id="output-spinflip-1d"></span><h4>SpinFlip_1D<a class="headerlink" href="#spinflip-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged spin-flip SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[I_{\mathrm{sf}}(q)
 =
@@ -1294,8 +1371,10 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma_{\mathrm{sf}}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">PM_SpinFlip_1D</span></code></dt><dd><p>Azimuthally averaged spin-flip SANS cross section for the
+</section>
+<section id="pm-spinflip-1d">
+<span id="output-pm-spinflip-1d"></span><h4>PM_SpinFlip_1D<a class="headerlink" href="#pm-spinflip-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged spin-flip SANS cross section for the
 <span class="math notranslate nohighlight">\((+,-)\)</span> polarization channel.</p>
 <div class="math notranslate nohighlight">
 \[I^{+-}(q)
@@ -1304,8 +1383,10 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{+-}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MP_SpinFlip_1D</span></code></dt><dd><p>Azimuthally averaged spin-flip SANS cross section for the
+</section>
+<section id="mp-spinflip-1d">
+<span id="output-mp-spinflip-1d"></span><h4>MP_SpinFlip_1D<a class="headerlink" href="#mp-spinflip-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged spin-flip SANS cross section for the
 <span class="math notranslate nohighlight">\((-,+)\)</span> polarization channel.</p>
 <div class="math notranslate nohighlight">
 \[I^{-+}(q)
@@ -1314,8 +1395,10 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{-+}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">PP_NonSpinFlip_1D</span></code></dt><dd><p>Azimuthally averaged non-spin-flip SANS cross section for the
+</section>
+<section id="pp-nonspinflip-1d">
+<span id="output-pp-nonspinflip-1d"></span><h4>PP_NonSpinFlip_1D<a class="headerlink" href="#pp-nonspinflip-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged non-spin-flip SANS cross section for the
 <span class="math notranslate nohighlight">\((+,+)\)</span> polarization channel.</p>
 <div class="math notranslate nohighlight">
 \[I^{++}(q)
@@ -1324,8 +1407,10 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{++}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MM_NonSpinFlip_1D</span></code></dt><dd><p>Azimuthally averaged non-spin-flip SANS cross section for the
+</section>
+<section id="mm-nonspinflip-1d">
+<span id="output-mm-nonspinflip-1d"></span><h4>MM_NonSpinFlip_1D<a class="headerlink" href="#mm-nonspinflip-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged non-spin-flip SANS cross section for the
 <span class="math notranslate nohighlight">\((-,-)\)</span> polarization channel.</p>
 <div class="math notranslate nohighlight">
 \[I^{--}(q)
@@ -1334,8 +1419,10 @@ q\,dq\,d\theta\]</div>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{--}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">P_SANSPOL_1D</span></code></dt><dd><p>Azimuthally averaged SANSPOL cross section for positive neutron
+</section>
+<section id="p-sanspol-1d">
+<span id="output-p-sanspol-1d"></span><h4>P_SANSPOL_1D<a class="headerlink" href="#p-sanspol-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged SANSPOL cross section for positive neutron
 polarization.</p>
 <div class="math notranslate nohighlight">
 \[I^{+}(q)
@@ -1344,8 +1431,10 @@ polarization.</p>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{+}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">M_SANSPOL_1D</span></code></dt><dd><p>Azimuthally averaged SANSPOL cross section for negative neutron
+</section>
+<section id="m-sanspol-1d">
+<span id="output-m-sanspol-1d"></span><h4>M_SANSPOL_1D<a class="headerlink" href="#m-sanspol-1d" title="Link to this heading">#</a></h4>
+<p>Azimuthally averaged SANSPOL cross section for negative neutron
 polarization.</p>
 <div class="math notranslate nohighlight">
 \[I^{-}(q)
@@ -1354,8 +1443,7 @@ polarization.</p>
 \int_{0}^{2\pi}
 \frac{d\Sigma^{-}}{d\Omega}(q,\theta)
 \, d\theta\]</div>
-</dd>
-</dl>
+</section>
 </section>
 <section id="id3">
 <h3>1D Correlation functions<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
@@ -1373,92 +1461,114 @@ I(q)\, j_0(qr)\, q^2 \, dq ,\]</div>
 \[j_0(x) = \frac{\sin x}{x}.\]</div>
 <p>In NuMagSANS the 1D correlation functions are exported in units of <span class="math notranslate nohighlight">\(\mathrm{nm}^{-4}\)</span>.
 The following correlation functions can be calculated.</p>
-<dl>
-<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_Corr_1D</span></code></dt><dd><p>Correlation function of the nuclear SANS cross section.</p>
+<section id="nuclear-corr-1d">
+<span id="output-nuclear-corr-1d"></span><h4>Nuclear_Corr_1D<a class="headerlink" href="#nuclear-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the nuclear SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[c_{\mathrm{N}}(r)
 =
 \int_{0}^{\infty}
 I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_Corr_1D</span></code></dt><dd><p>Correlation function of the unpolarized magnetic SANS cross section.</p>
+</section>
+<section id="unpolarized-corr-1d">
+<span id="output-unpolarized-corr-1d"></span><h4>Unpolarized_Corr_1D<a class="headerlink" href="#unpolarized-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the unpolarized magnetic SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[c_{\mathrm{M}}(r)
 =
 \int_{0}^{\infty}
 I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Polarized_Corr_1D</span></code></dt><dd><p>Correlation function of the polarized magnetic SANS cross section.</p>
+</section>
+<section id="polarized-corr-1d">
+<span id="output-polarized-corr-1d"></span><h4>Polarized_Corr_1D<a class="headerlink" href="#polarized-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the polarized magnetic SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[c_{\mathrm{P}}(r)
 =
 \int_{0}^{\infty}
 I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_Corr_1D</span></code></dt><dd><p>Correlation function of the nuclear–magnetic interference SANS cross section.</p>
+</section>
+<section id="nuclearmagnetic-corr-1d">
+<span id="output-nuclearmagnetic-corr-1d"></span><h4>NuclearMagnetic_Corr_1D<a class="headerlink" href="#nuclearmagnetic-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the nuclear–magnetic interference SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[c_{\mathrm{NM}}(r)
 =
 \int_{0}^{\infty}
 I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Chiral_Corr_1D</span></code></dt><dd><p>Correlation function of the chiral SANS cross section.</p>
+</section>
+<section id="chiral-corr-1d">
+<span id="output-chiral-corr-1d"></span><h4>Chiral_Corr_1D<a class="headerlink" href="#chiral-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the chiral SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[c_{\chi}(r)
 =
 \int_{0}^{\infty}
 I_{\chi}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_Corr_1D</span></code></dt><dd><p>Correlation function of the spin-flip SANS cross section.</p>
+</section>
+<section id="spinflip-corr-1d">
+<span id="output-spinflip-corr-1d"></span><h4>SpinFlip_Corr_1D<a class="headerlink" href="#spinflip-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the spin-flip SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[c_{\mathrm{sf}}(r)
 =
 \int_{0}^{\infty}
 I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">PM_SpinFlip_Corr_1D</span></code></dt><dd><p>Correlation function of the <span class="math notranslate nohighlight">\((+,-)\)</span> spin-flip channel.</p>
+</section>
+<section id="pm-spinflip-corr-1d">
+<span id="output-pm-spinflip-corr-1d"></span><h4>PM_SpinFlip_Corr_1D<a class="headerlink" href="#pm-spinflip-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the <span class="math notranslate nohighlight">\((+,-)\)</span> spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[c^{+-}(r)
 =
 \int_{0}^{\infty}
 I^{+-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MP_SpinFlip_Corr_1D</span></code></dt><dd><p>Correlation function of the <span class="math notranslate nohighlight">\((-,+)\)</span> spin-flip channel.</p>
+</section>
+<section id="mp-spinflip-corr-1d">
+<span id="output-mp-spinflip-corr-1d"></span><h4>MP_SpinFlip_Corr_1D<a class="headerlink" href="#mp-spinflip-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the <span class="math notranslate nohighlight">\((-,+)\)</span> spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[c^{-+}(r)
 =
 \int_{0}^{\infty}
 I^{-+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">PP_NonSpinFlip_Corr_1D</span></code></dt><dd><p>Correlation function of the <span class="math notranslate nohighlight">\((+,+)\)</span> non-spin-flip channel.</p>
+</section>
+<section id="pp-nonspinflip-corr-1d">
+<span id="output-pp-nonspinflip-corr-1d"></span><h4>PP_NonSpinFlip_Corr_1D<a class="headerlink" href="#pp-nonspinflip-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the <span class="math notranslate nohighlight">\((+,+)\)</span> non-spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[c^{++}(r)
 =
 \int_{0}^{\infty}
 I^{++}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MM_NonSpinFlip_Corr_1D</span></code></dt><dd><p>Correlation function of the <span class="math notranslate nohighlight">\((-,-)\)</span> non-spin-flip channel.</p>
+</section>
+<section id="mm-nonspinflip-corr-1d">
+<span id="output-mm-nonspinflip-corr-1d"></span><h4>MM_NonSpinFlip_Corr_1D<a class="headerlink" href="#mm-nonspinflip-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the <span class="math notranslate nohighlight">\((-,-)\)</span> non-spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[c^{--}(r)
 =
 \int_{0}^{\infty}
 I^{--}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">P_SANSPOL_Corr_1D</span></code></dt><dd><p>Correlation function of the SANSPOL <span class="math notranslate nohighlight">\((+ )\)</span> channel.</p>
+</section>
+<section id="p-sanspol-corr-1d">
+<span id="output-p-sanspol-corr-1d"></span><h4>P_SANSPOL_Corr_1D<a class="headerlink" href="#p-sanspol-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the SANSPOL <span class="math notranslate nohighlight">\((+ )\)</span> channel.</p>
 <div class="math notranslate nohighlight">
 \[c^{+}(r)
 =
 \int_{0}^{\infty}
 I^{+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">M_SANSPOL_Corr_1D</span></code></dt><dd><p>Correlation function of the SANSPOL <span class="math notranslate nohighlight">\((- )\)</span> channel.</p>
+</section>
+<section id="m-sanspol-corr-1d">
+<span id="output-m-sanspol-corr-1d"></span><h4>M_SANSPOL_Corr_1D<a class="headerlink" href="#m-sanspol-corr-1d" title="Link to this heading">#</a></h4>
+<p>Correlation function of the SANSPOL <span class="math notranslate nohighlight">\((- )\)</span> channel.</p>
 <div class="math notranslate nohighlight">
 \[c^{-}(r)
 =
 \int_{0}^{\infty}
 I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-</dl>
+</section>
 </section>
 <section id="d-pair-distance-distribution-functions">
 <h3>1D Pair-distance distribution functions<a class="headerlink" href="#d-pair-distance-distribution-functions" title="Link to this heading">#</a></h3>
@@ -1477,104 +1587,126 @@ r^2
 I(q)\, j_0(qr)\, q^2 \, dq .\]</div>
 <p>In NuMagSANS the 1D pair-distance distribution functions are exported in units of <span class="math notranslate nohighlight">\(\mathrm{nm}^{-2}\)</span>.
 The following pair-distance distribution functions can be calculated.</p>
-<dl>
-<dt><code class="docutils literal notranslate"><span class="pre">Nuclear_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the nuclear SANS cross section.</p>
+<section id="nuclear-pairdist-1d">
+<span id="output-nuclear-pairdist-1d"></span><h4>Nuclear_PairDist_1D<a class="headerlink" href="#nuclear-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the nuclear SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[p_{\mathrm{N}}(r)
 =
 r^2
 \int_{0}^{\infty}
 I_{\mathrm{N}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Unpolarized_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the unpolarized magnetic SANS cross section.</p>
+</section>
+<section id="unpolarized-pairdist-1d">
+<span id="output-unpolarized-pairdist-1d"></span><h4>Unpolarized_PairDist_1D<a class="headerlink" href="#unpolarized-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the unpolarized magnetic SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[p_{\mathrm{M}}(r)
 =
 r^2
 \int_{0}^{\infty}
 I_{\mathrm{M}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Polarized_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the polarized magnetic SANS cross section.</p>
+</section>
+<section id="polarized-pairdist-1d">
+<span id="output-polarized-pairdist-1d"></span><h4>Polarized_PairDist_1D<a class="headerlink" href="#polarized-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the polarized magnetic SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[p_{\mathrm{P}}(r)
 =
 r^2
 \int_{0}^{\infty}
 I_{\mathrm{P}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">NuclearMagnetic_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the nuclear–magnetic interference SANS cross section.</p>
+</section>
+<section id="nuclearmagnetic-pairdist-1d">
+<span id="output-nuclearmagnetic-pairdist-1d"></span><h4>NuclearMagnetic_PairDist_1D<a class="headerlink" href="#nuclearmagnetic-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the nuclear–magnetic interference SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[p_{\mathrm{NM}}(r)
 =
 r^2
 \int_{0}^{\infty}
 I_{\mathrm{NM}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Chiral_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the chiral SANS cross section.</p>
+</section>
+<section id="chiral-pairdist-1d">
+<span id="output-chiral-pairdist-1d"></span><h4>Chiral_PairDist_1D<a class="headerlink" href="#chiral-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the chiral SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[p_{\chi}(r)
 =
 r^2
 \int_{0}^{\infty}
 I_{\chi}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">SpinFlip_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the spin-flip SANS cross section.</p>
+</section>
+<section id="spinflip-pairdist-1d">
+<span id="output-spinflip-pairdist-1d"></span><h4>SpinFlip_PairDist_1D<a class="headerlink" href="#spinflip-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the spin-flip SANS cross section.</p>
 <div class="math notranslate nohighlight">
 \[p_{\mathrm{sf}}(r)
 =
 r^2
 \int_{0}^{\infty}
 I_{\mathrm{sf}}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">PM_SpinFlip_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the <span class="math notranslate nohighlight">\((+,-)\)</span> spin-flip channel.</p>
+</section>
+<section id="pm-spinflip-pairdist-1d">
+<span id="output-pm-spinflip-pairdist-1d"></span><h4>PM_SpinFlip_PairDist_1D<a class="headerlink" href="#pm-spinflip-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the <span class="math notranslate nohighlight">\((+,-)\)</span> spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[p^{+-}(r)
 =
 r^2
 \int_{0}^{\infty}
 I^{+-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MP_SpinFlip_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the <span class="math notranslate nohighlight">\((-,+)\)</span> spin-flip channel.</p>
+</section>
+<section id="mp-spinflip-pairdist-1d">
+<span id="output-mp-spinflip-pairdist-1d"></span><h4>MP_SpinFlip_PairDist_1D<a class="headerlink" href="#mp-spinflip-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the <span class="math notranslate nohighlight">\((-,+)\)</span> spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[p^{-+}(r)
 =
 r^2
 \int_{0}^{\infty}
 I^{-+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">PP_NonSpinFlip_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the <span class="math notranslate nohighlight">\((+,+)\)</span> non-spin-flip channel.</p>
+</section>
+<section id="pp-nonspinflip-pairdist-1d">
+<span id="output-pp-nonspinflip-pairdist-1d"></span><h4>PP_NonSpinFlip_PairDist_1D<a class="headerlink" href="#pp-nonspinflip-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the <span class="math notranslate nohighlight">\((+,+)\)</span> non-spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[p^{++}(r)
 =
 r^2
 \int_{0}^{\infty}
 I^{++}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MM_NonSpinFlip_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the <span class="math notranslate nohighlight">\((-,-)\)</span> non-spin-flip channel.</p>
+</section>
+<section id="mm-nonspinflip-pairdist-1d">
+<span id="output-mm-nonspinflip-pairdist-1d"></span><h4>MM_NonSpinFlip_PairDist_1D<a class="headerlink" href="#mm-nonspinflip-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the <span class="math notranslate nohighlight">\((-,-)\)</span> non-spin-flip channel.</p>
 <div class="math notranslate nohighlight">
 \[p^{--}(r)
 =
 r^2
 \int_{0}^{\infty}
 I^{--}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">P_SANSPOL_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the SANSPOL <span class="math notranslate nohighlight">\((+ )\)</span> channel.</p>
+</section>
+<section id="p-sanspol-pairdist-1d">
+<span id="output-p-sanspol-pairdist-1d"></span><h4>P_SANSPOL_PairDist_1D<a class="headerlink" href="#p-sanspol-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the SANSPOL <span class="math notranslate nohighlight">\((+ )\)</span> channel.</p>
 <div class="math notranslate nohighlight">
 \[p^{+}(r)
 =
 r^2
 \int_{0}^{\infty}
 I^{+}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">M_SANSPOL_PairDist_1D</span></code></dt><dd><p>Pair-distance distribution function of the SANSPOL <span class="math notranslate nohighlight">\((- )\)</span> channel.</p>
+</section>
+<section id="m-sanspol-pairdist-1d">
+<span id="output-m-sanspol-pairdist-1d"></span><h4>M_SANSPOL_PairDist_1D<a class="headerlink" href="#m-sanspol-pairdist-1d" title="Link to this heading">#</a></h4>
+<p>Pair-distance distribution function of the SANSPOL <span class="math notranslate nohighlight">\((- )\)</span> channel.</p>
 <div class="math notranslate nohighlight">
 \[p^{-}(r)
 =
 r^2
 \int_{0}^{\infty}
 I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
-</dd>
-</dl>
+</section>
 </section>
 </section>
 <section id="angular-spectrum">
@@ -1639,7 +1771,7 @@ Default value <code class="docutils literal notranslate"><span class="pre">0</sp
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script">Example Script</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-paths-and-data-selection">Data Paths and Data Selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-paths-and-data-selection">Data Paths and Data Selection</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-data-layer-combinations">Supported Data-Layer Combinations</a></li>
 </ul>
 </li>
@@ -1647,12 +1779,82 @@ Default value <code class="docutils literal notranslate"><span class="pre">0</sp
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-control">Loop Control</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-parameters">Constant Parameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#micromagnetic-parameters">Micromagnetic Parameters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-options">Output Options</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-sans-cross-sections">2D SANS cross sections</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-correlation-functions">2D correlation functions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-azimuthally-averaged-sans-cross-sections">1D Azimuthally averaged SANS cross sections</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1D Correlation functions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-pair-distance-distribution-functions">1D Pair-distance distribution functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-options">Output Options</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-sans-cross-sections">2D SANS cross sections</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclear-2d">Nuclear_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unpolarized-2d">Unpolarized_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#polarized-2d">Polarized_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclearmagnetic-2d">NuclearMagnetic_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#chiral-2d">Chiral_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spinflip-2d">SpinFlip_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pm-spinflip-2d">PM_SpinFlip_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mp-spinflip-2d">MP_SpinFlip_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pp-nonspinflip-2d">PP_NonSpinFlip_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mm-nonspinflip-2d">MM_NonSpinFlip_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#p-sanspol-2d">P_SANSPOL_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#m-sanspol-2d">M_SANSPOL_2D</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-correlation-functions">2D correlation functions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclear-corr-2d">Nuclear_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unpolarized-corr-2d">Unpolarized_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#polarized-corr-2d">Polarized_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclearmagnetic-corr-2d">NuclearMagnetic_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spinflip-corr-2d">SpinFlip_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#chiral-corr-2d">Chiral_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pm-spinflip-corr-2d">PM_SpinFlip_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mp-spinflip-corr-2d">MP_SpinFlip_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pp-nonspinflip-corr-2d">PP_NonSpinFlip_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mm-nonspinflip-corr-2d">MM_NonSpinFlip_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#p-sanspol-corr-2d">P_SANSPOL_Corr_2D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#m-sanspol-corr-2d">M_SANSPOL_Corr_2D</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-azimuthally-averaged-sans-cross-sections">1D Azimuthally averaged SANS cross sections</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclear-1d">Nuclear_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unpolarized-1d">Unpolarized_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#polarized-1d">Polarized_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclearmagnetic-1d">NuclearMagnetic_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#chiral-1d">Chiral_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spinflip-1d">SpinFlip_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pm-spinflip-1d">PM_SpinFlip_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mp-spinflip-1d">MP_SpinFlip_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pp-nonspinflip-1d">PP_NonSpinFlip_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mm-nonspinflip-1d">MM_NonSpinFlip_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#p-sanspol-1d">P_SANSPOL_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#m-sanspol-1d">M_SANSPOL_1D</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1D Correlation functions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclear-corr-1d">Nuclear_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unpolarized-corr-1d">Unpolarized_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#polarized-corr-1d">Polarized_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclearmagnetic-corr-1d">NuclearMagnetic_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#chiral-corr-1d">Chiral_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spinflip-corr-1d">SpinFlip_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pm-spinflip-corr-1d">PM_SpinFlip_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mp-spinflip-corr-1d">MP_SpinFlip_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pp-nonspinflip-corr-1d">PP_NonSpinFlip_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mm-nonspinflip-corr-1d">MM_NonSpinFlip_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#p-sanspol-corr-1d">P_SANSPOL_Corr_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#m-sanspol-corr-1d">M_SANSPOL_Corr_1D</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-pair-distance-distribution-functions">1D Pair-distance distribution functions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclear-pairdist-1d">Nuclear_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unpolarized-pairdist-1d">Unpolarized_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#polarized-pairdist-1d">Polarized_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclearmagnetic-pairdist-1d">NuclearMagnetic_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#chiral-pairdist-1d">Chiral_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#spinflip-pairdist-1d">SpinFlip_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pm-spinflip-pairdist-1d">PM_SpinFlip_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mp-spinflip-pairdist-1d">MP_SpinFlip_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pp-nonspinflip-pairdist-1d">PP_NonSpinFlip_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mm-nonspinflip-pairdist-1d">MM_NonSpinFlip_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#p-sanspol-pairdist-1d">P_SANSPOL_PairDist_1D</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#m-sanspol-pairdist-1d">M_SANSPOL_PairDist_1D</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#angular-spectrum">Angular Spectrum</a></li>
