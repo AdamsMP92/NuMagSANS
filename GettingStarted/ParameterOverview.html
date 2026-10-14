@@ -55,7 +55,7 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Simulation Scenarios" href="SimulationScenarios.html" />
+    <link rel="next" title="Quantum Scattering Theory" href="QM_scattering_theory.html" />
     <link rel="prev" title="Detailled Installation" href="Installation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark"/>
@@ -368,6 +368,7 @@
 <li class="toctree-l1"><a class="reference internal" href="AIAssistedSimulations.html">AI-assisted simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Detailled Installation</a></li>
 <li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">Parameter Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QM_scattering_theory.html">Quantum Scattering Theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SimulationScenarios.html">Simulation Scenarios</a></li>
 </ul>
 </div>
@@ -1357,7 +1358,7 @@ Default <code class="docutils literal notranslate"><span class="pre">(2,2,2)</sp
 </section>
 </section>
 <section id="output-options">
-<h2>Output Options<a class="headerlink" href="#output-options" title="Link to this heading">#</a></h2>
+<span id="id1"></span><h2>Output Options<a class="headerlink" href="#output-options" title="Link to this heading">#</a></h2>
 <section id="fourier-space-correlation-matrix">
 <h3>Fourier-space correlation matrix<a class="headerlink" href="#fourier-space-correlation-matrix" title="Link to this heading">#</a></h3>
 <section id="fourier-gamma">
@@ -1378,6 +1379,9 @@ output table.</p>
 </section>
 <section id="d-sans-cross-sections">
 <h3>2D SANS cross sections<a class="headerlink" href="#d-sans-cross-sections" title="Link to this heading">#</a></h3>
+<p>The quantum-mechanical route from the effective neutron Hamiltonian to these
+spin-resolved cross sections is derived in
+<a class="reference internal" href="QM_scattering_theory.html"><span class="doc">Quantum Scattering Theory</span></a>.</p>
 <p>NuMagSANS is based on the unitary Fourier transform:</p>
 <div class="math notranslate nohighlight">
 \[\widetilde{\mathbf{M}}(\mathbf{q}) = \frac{1}{(2\pi)^{3/2}}
@@ -2315,8 +2319,8 @@ polarization.</p>
 </div>
 </section>
 </section>
-<section id="id1">
-<h3>1D Correlation functions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="id2">
+<h3>1D Correlation functions<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>In addition to the azimuthally averaged SANS cross sections <span class="math notranslate nohighlight">\(I(q)\)</span>,
 NuMagSANS can compute the corresponding real-space correlation functions
 <span class="math notranslate nohighlight">\(c(r)\)</span>. These functions are obtained from the scattering intensity
@@ -2793,11 +2797,11 @@ I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
       </div>
     </a>
     <a class="right-next"
-       href="SimulationScenarios.html"
+       href="QM_scattering_theory.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Simulation Scenarios</p>
+        <p class="prev-next-title">Quantum Scattering Theory</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2950,7 +2954,7 @@ I^{-}(q)\, j_0(qr)\, q^2 \, dq\]</div>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#m-sanspol-1d">M_SANSPOL_1D</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1D Correlation functions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1D Correlation functions</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nuclear-corr-1d">Nuclear_Corr_1D</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unpolarized-corr-1d">Unpolarized_Corr_1D</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#polarized-corr-1d">Polarized_Corr_1D</a></li>

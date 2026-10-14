@@ -8,4 +8,5 @@ Getting Started
    AIAssistedSimulations
    Installation
    ParameterOverview
+   QM_scattering_theory
    SimulationScenarios

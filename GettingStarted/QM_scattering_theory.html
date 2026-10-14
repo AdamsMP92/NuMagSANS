@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Quantum Scattering Theory &#8212; NuMagSANS  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=b457a862" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+    <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'GettingStarted/QM_scattering_theory';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Simulation Scenarios" href="SimulationScenarios.html" />
+    <link rel="prev" title="Parameter Overview" href="ParameterOverview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/NuMagSANScut.png" class="logo__image only-light" alt=""/>
+    <img src="../_static/NuMagSANScut.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title"> </p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorial Slides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../RelatedPublications/index.html">
+    Related Publications
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/AdamsMP92/NuMagSANS">
+    GitHub Repository
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Getting Started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorial Slides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples/index.html">
+    Example Gallery
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../RelatedPublications/index.html">
+    Related Publications
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/AdamsMP92/NuMagSANS">
+    GitHub Repository
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/AdamsMP92" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fab fa-github-square fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quickstart Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AIAssistedSimulations.html">AI-assisted simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Detailled Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ParameterOverview.html">Parameter Overview</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">Quantum Scattering Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SimulationScenarios.html">Simulation Scenarios</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Getting Started</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Quantum Scattering Theory</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="quantum-scattering-theory">
+<span id="id1"></span><h1>Quantum Scattering Theory<a class="headerlink" href="#quantum-scattering-theory" title="Link to this heading">#</a></h1>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boxed{
+\begin{array}{c}
+   \text{stationary Schr\ddot{o}dinger equation} \\
+   \Downarrow \\
+   \text{Lippmann--Schwinger equation} \\
+   \Downarrow \\
+   \text{far-field asymptotics} \\
+   \Downarrow \\
+   \text{scattering amplitude} \\
+   \Downarrow\quad\text{first Born approximation} \\
+   \text{Fourier transform of the interaction potential} \\
+   \Downarrow \\
+   \text{nuclear and magnetic scattering operator} \\
+   \Downarrow \\
+   \text{spin projection and SANS cross sections}
+\end{array}}\end{split}\]</div>
+<p>This page derives the elastic nuclear and magnetic SANS cross sections used by
+NuMagSANS from a single quantum-mechanical scattering problem.  The purpose is
+not to derive the strong neutron–nucleus interaction from first principles.
+Instead, the coherent nuclear scattering-length density and the sample
+magnetization are taken as the effective material fields, and the route from
+these fields to the spin-resolved cross sections is made explicit.</p>
+<p>Fermi’s golden rule provides an equivalent first-order route from the
+interaction matrix element to the transition rate.  It is therefore an
+alternative to the scattering-state argument at the cross-section step, not
+an additional approximation that must be inserted into the chain above.</p>
+<section id="scope-and-assumptions">
+<h2>Scope and assumptions<a class="headerlink" href="#scope-and-assumptions" title="Link to this heading">#</a></h2>
+<p>The derivation describes the model implemented by NuMagSANS under the
+following assumptions:</p>
+<ul class="simple">
+<li><p>the sample is static and the scattering is elastic, so that
+<span class="math notranslate nohighlight">\(|\mathbf{k}_{f}|=|\mathbf{k}_{i}|=k\)</span>;</p></li>
+<li><p>nuclear scattering is coherent and spin independent;</p></li>
+<li><p>the neutron is nonrelativistic and the first Born approximation is valid;</p></li>
+<li><p>magnetic scattering is produced by a magnetostatic magnetization field;</p></li>
+<li><p>the nuclear and magnetic amplitudes are added coherently before their
+absolute square is taken;</p></li>
+<li><p>the incident and analyzed spin states are ideal eigenstates of one chosen
+polarization axis.</p></li>
+</ul>
+<p>NuMagSANS does not include nuclear spin-incoherent scattering, inelastic
+sample dynamics, multiple scattering, refraction at interfaces, instrumental
+resolution, finite polarization efficiency, or spin leakage.  These effects
+require extensions of the theory or experimental corrections.</p>
+<p>The small-angle approximation <span class="math notranslate nohighlight">\(q_x\simeq0\)</span> is introduced only when the
+general result is specialized to the NuMagSANS detector geometry.  It is not
+needed for the scattering-theory steps themselves.</p>
+</section>
+<section id="effective-neutron-hamiltonian">
+<h2>1. Effective neutron Hamiltonian<a class="headerlink" href="#effective-neutron-hamiltonian" title="Link to this heading">#</a></h2>
+<p>Consider a neutron of mass <span class="math notranslate nohighlight">\(m_n\)</span> in a static sample.  Its stationary
+wavefunction is a two-component spinor
+<span class="math notranslate nohighlight">\(\Psi(\mathbf r)\in\mathbb C^2\)</span> and obeys</p>
+<div class="math notranslate nohighlight">
+\[\left[-\frac{\hbar^2}{2m_n}\nabla^2
++\widehat U(\mathbf r)\right]\Psi(\mathbf r)
+=E\Psi(\mathbf r).\]</div>
+<p>The interaction is a <span class="math notranslate nohighlight">\(2\times2\)</span> operator in neutron spin space.  At the
+level required here it contains a scalar nuclear part and a magnetic Zeeman
+part,</p>
+<div class="math notranslate nohighlight">
+\[\widehat U(\mathbf r)
+=U_{\mathrm N}(\mathbf r)\mathbb I_2
+-\widehat{\boldsymbol\mu}_n\cdot\mathbf B(\mathbf r).\]</div>
+<p>The coherent nuclear interaction is represented by the Fermi
+pseudopotential,</p>
+<div class="math notranslate nohighlight">
+\[U_{\mathrm N}(\mathbf r)
+=\frac{2\pi\hbar^2}{m_n}N(\mathbf r),\]</div>
+<p>where <span class="math notranslate nohighlight">\(N(\mathbf r)\)</span> is the coherent nuclear scattering-length density.
+This is already an effective low-energy description: the short-ranged strong
+interaction with the nuclei has been replaced by its coherent scattering
+length.</p>
+<p>The magnetic term couples the neutron magnetic moment
+<span class="math notranslate nohighlight">\(\widehat{\boldsymbol\mu}_n\)</span> to the magnetic induction
+<span class="math notranslate nohighlight">\(\mathbf B\)</span> generated by the sample.  Its spin-space structure will be
+made explicit after the spatial scattering problem has been solved.</p>
+</section>
+<section id="lippmann-schwinger-equation">
+<h2>2. Lippmann–Schwinger equation<a class="headerlink" href="#lippmann-schwinger-equation" title="Link to this heading">#</a></h2>
+<p>Separate the Hamiltonian into</p>
+<div class="math notranslate nohighlight">
+\[\widehat H_0=-\frac{\hbar^2}{2m_n}\nabla^2,
+\qquad
+\widehat H=\widehat H_0+\widehat U.\]</div>
+<p>The stationary Schrödinger equation can then be rewritten exactly as
+the outgoing Lippmann–Schwinger equation</p>
+<div class="math notranslate nohighlight">
+\[|\Psi^{(+)}\rangle
+=|\Phi\rangle
++\widehat G_0^{(+)}(E)\widehat U|\Psi^{(+)}\rangle,
+\qquad
+\widehat G_0^{(+)}(E)
+=\left(E-\widehat H_0+i0^+\right)^{-1}.\]</div>
+<p>For an incoming plane wave with wavevector <span class="math notranslate nohighlight">\(\mathbf k_i\)</span> and normalized
+spinor <span class="math notranslate nohighlight">\(\chi_i\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\Phi(\mathbf r)=e^{i\mathbf k_i\cdot\mathbf r}\chi_i.\]</div>
+<p>The outgoing free Green function in three dimensions gives</p>
+<div class="math notranslate nohighlight">
+\[\Psi^{(+)}(\mathbf r)
+=\Phi(\mathbf r)
+-\frac{m_n}{2\pi\hbar^2}
+\int
+\frac{e^{ik|\mathbf r-\mathbf r'|}}
+     {|\mathbf r-\mathbf r'|}
+\widehat U(\mathbf r')\Psi^{(+)}(\mathbf r')\,d^3r'.\]</div>
+<p>This integral equation is still exact within the effective Hamiltonian above.
+In particular, no Born approximation has yet been made.</p>
+</section>
+<section id="far-field-and-scattering-amplitude">
+<h2>3. Far field and scattering amplitude<a class="headerlink" href="#far-field-and-scattering-amplitude" title="Link to this heading">#</a></h2>
+<p>Far from a localized sample, <span class="math notranslate nohighlight">\(r\gg|\mathbf r'|\)</span>, one has</p>
+<div class="math notranslate nohighlight">
+\[|\mathbf r-\mathbf r'|
+=r-\widehat{\mathbf r}\cdot\mathbf r'+O(r^{-1}),\]</div>
+<p>and therefore</p>
+<div class="math notranslate nohighlight">
+\[\frac{e^{ik|\mathbf r-\mathbf r'|}}
+     {|\mathbf r-\mathbf r'|}
+\sim
+\frac{e^{ikr}}{r}e^{-i\mathbf k_f\cdot\mathbf r'},
+\qquad
+\mathbf k_f=k\widehat{\mathbf r}.\]</div>
+<p>The asymptotic wavefunction is the sum of the incident plane wave and an
+outgoing spherical wave,</p>
+<div class="math notranslate nohighlight">
+\[\Psi^{(+)}(\mathbf r)
+\sim e^{i\mathbf k_i\cdot\mathbf r}\chi_i
++\frac{e^{ikr}}{r}
+\widehat f(\mathbf k_f,\mathbf k_i)\chi_i.\]</div>
+<p>The exact scattering amplitude is determined by</p>
+<div class="math notranslate nohighlight">
+\[\widehat f(\mathbf k_f,\mathbf k_i)\chi_i
+=-\frac{m_n}{2\pi\hbar^2}
+\int e^{-i\mathbf k_f\cdot\mathbf r}
+\widehat U(\mathbf r)\Psi^{(+)}(\mathbf r)\,d^3r.\]</div>
+<p>It is a matrix in spin space: the sample can scatter the spatial wave and can
+also change the neutron spin state.</p>
+</section>
+<section id="first-born-approximation">
+<h2>4. First Born approximation<a class="headerlink" href="#first-born-approximation" title="Link to this heading">#</a></h2>
+<p>The first Born approximation replaces the exact wavefunction <em>inside the
+scattering integral</em> by the incoming plane wave,</p>
+<div class="math notranslate nohighlight">
+\[\Psi^{(+)}(\mathbf r)
+\simeq e^{i\mathbf k_i\cdot\mathbf r}\chi_i.\]</div>
+<p>With the Fourier-space argument</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol\kappa=\mathbf k_f-\mathbf k_i,\]</div>
+<p>the amplitude becomes</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\widehat f^{(1)}(\boldsymbol\kappa)
+=-\frac{m_n}{2\pi\hbar^2}
+\int e^{-i\boldsymbol\kappa\cdot\mathbf r}
+\widehat U(\mathbf r)\,d^3r.}\]</div>
+<p>This is the central result of the spatial scattering problem: in first order,
+the scattering amplitude is proportional to the Fourier transform of the
+interaction potential.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Momentum-transfer sign</p>
+<p>Some neutron-scattering literature defines the momentum transferred to the
+sample as <span class="math notranslate nohighlight">\(\mathbf q=\mathbf k_i-\mathbf k_f\)</span>, whereas the Born
+integral above naturally contains
+<span class="math notranslate nohighlight">\(\boldsymbol\kappa=\mathbf k_f-\mathbf k_i\)</span>.  Thus
+<span class="math notranslate nohighlight">\(\boldsymbol\kappa=-\mathbf q\)</span>.  Reversing this convention replaces
+every Fourier amplitude by its value at <span class="math notranslate nohighlight">\(-\mathbf q\)</span>.  For real
+real-space fields this is its complex conjugate.  The convention must be
+changed consistently, especially for the chiral term, which is odd under
+<span class="math notranslate nohighlight">\(\mathbf q\mapsto-\mathbf q\)</span>.</p>
+</div>
+<p>The first Born approximation is a single-scattering approximation.  Its
+validity is controlled by the size of higher terms in the Born series for the
+complete sample and cannot in general be reduced to a bound on one local
+value of the potential.</p>
+</section>
+<section id="why-only-transverse-magnetization-scatters">
+<h2>5. Why only transverse magnetization scatters<a class="headerlink" href="#why-only-transverse-magnetization-scatters" title="Link to this heading">#</a></h2>
+<p>The magnetic projection follows from magnetostatics.  For
+<span class="math notranslate nohighlight">\(\mathbf q\ne0\)</span>, Maxwell’s equations for the induction generated by the
+sample give, in Fourier space,</p>
+<div class="math notranslate nohighlight">
+\[\mathbf q\cdot\widetilde{\mathbf B}=0,
+\qquad
+\mathbf q\times
+\left(\frac{\widetilde{\mathbf B}}{\mu_0}
+-\widetilde{\mathbf M}\right)=0.\]</div>
+<p>Solving these equations yields</p>
+<div class="math notranslate nohighlight">
+\[\widetilde{\mathbf B}(\mathbf q)
+=\mu_0\left(\mathbb I_3
+-\widehat{\mathbf q}\widehat{\mathbf q}^{\mathsf T}\right)
+\widetilde{\mathbf M}(\mathbf q).\]</div>
+<p>NuMagSANS uses the Halpern–Johnson vector</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\widetilde{\mathbf Q}(\mathbf q)
+=\widehat{\mathbf q}
+ \left(\widehat{\mathbf q}\cdot\widetilde{\mathbf M}\right)
+ -\widetilde{\mathbf M}
+=-\left(\mathbb I_3
+-\widehat{\mathbf q}\widehat{\mathbf q}^{\mathsf T}\right)
+\widetilde{\mathbf M}.}\]</div>
+<p>Consequently,</p>
+<div class="math notranslate nohighlight">
+\[\widetilde{\mathbf B}=-\mu_0\widetilde{\mathbf Q},
+\qquad
+\widehat{\mathbf q}\cdot\widetilde{\mathbf Q}=0.\]</div>
+<p>The longitudinal component of <span class="math notranslate nohighlight">\(\widetilde{\mathbf M}\)</span> therefore cannot
+contribute to the magnetic scattering amplitude.  A spatially uniform
+external guide field contributes only at <span class="math notranslate nohighlight">\(\mathbf q=0\)</span>; it defines the
+spin quantization axis but is not part of the finite-<span class="math notranslate nohighlight">\(q\)</span> SANS signal.</p>
+<p>The magnetic scattering-length coefficient is</p>
+<div class="math notranslate nohighlight">
+\[b_{\mathrm H}
+=\frac{m_n|\mu_n|\mu_0}{2\pi\hbar^2}
+\simeq2.91\times10^8\ \mathrm{A^{-1}m^{-1}},\]</div>
+<p>when <span class="math notranslate nohighlight">\(\mathbf M\)</span> is expressed in <span class="math notranslate nohighlight">\(\mathrm{A/m}\)</span>.</p>
+</section>
+<section id="the-numagsans-scattering-operator">
+<h2>6. The NuMagSANS scattering operator<a class="headerlink" href="#the-numagsans-scattering-operator" title="Link to this heading">#</a></h2>
+<p>From this point onward, <span class="math notranslate nohighlight">\(\mathbf q\)</span> denotes the Fourier-space argument
+used by NuMagSANS.  If momentum transfer is defined with the opposite sign in
+an experimental convention, the conversion described in the note above must
+be applied.</p>
+<p>NuMagSANS uses the unitary Fourier transforms</p>
+<div class="math notranslate nohighlight">
+\[\widetilde N(\mathbf q)
+=\frac{1}{(2\pi)^{3/2}}
+\int N(\mathbf r)e^{-i\mathbf q\cdot\mathbf r}\,d^3r,\]</div>
+<div class="math notranslate nohighlight">
+\[\widetilde{\mathbf M}(\mathbf q)
+=\frac{1}{(2\pi)^{3/2}}
+\int \mathbf M(\mathbf r)e^{-i\mathbf q\cdot\mathbf r}\,d^3r.\]</div>
+<p>Choose the two-state basis so that the neutron magnetic-moment operator is
+written as</p>
+<div class="math notranslate nohighlight">
+\[\widehat{\boldsymbol\mu}_n=|\mu_n|\boldsymbol\sigma.\]</div>
+<p>This is a channel convention: because the neutron gyromagnetic ratio is
+negative, the corresponding angular-momentum eigenstate has the opposite
+label.  Using <span class="math notranslate nohighlight">\(\widetilde{\mathbf B}=-\mu_0\widetilde{\mathbf Q}\)</span> in
+the Zeeman interaction gives</p>
+<div class="math notranslate nohighlight">
+\[\widetilde{\widehat U}(\mathbf q)
+=\frac{2\pi\hbar^2}{m_n}
+\left[
+   \widetilde N(\mathbf q)\mathbb I_2
+   +b_{\mathrm H}\boldsymbol\sigma\cdot
+    \widetilde{\mathbf Q}(\mathbf q)
+\right].\]</div>
+<p>The first-Born amplitude therefore equals a common factor
+<span class="math notranslate nohighlight">\(-(2\pi)^{3/2}\)</span> times the following coherent scattering-length
+operator:</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\widehat{\mathcal A}(\mathbf q)
+=\widetilde N(\mathbf q)\mathbb I_2
++b_{\mathrm H}\,
+ \boldsymbol\sigma\cdot\widetilde{\mathbf Q}(\mathbf q).}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\boldsymbol\sigma\)</span> denotes the Pauli matrices in the channel basis
+used below.  This one operator contains the nuclear amplitude, the magnetic
+amplitude, and their relative phase.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Sign and channel convention</p>
+<p>The neutron gyromagnetic ratio is negative.  Its sign can instead be
+carried explicitly in the magnetic-moment operator, but the labels of the
+two channel states must then be reversed.  NuMagSANS fixes the convention
+operationally by the boxed equation above together with
+<span class="math notranslate nohighlight">\(\widetilde{\mathbf Q}=\widehat{\mathbf q}
+(\widehat{\mathbf q}\cdot\widetilde{\mathbf M})
+-\widetilde{\mathbf M}\)</span> and by defining the first superscript of
+<span class="math notranslate nohighlight">\(\Sigma^{s_i s_f}\)</span> as the incident state.  Once these definitions are
+chosen, the sign of the nuclear–magnetic interference and the assignment
+of the two chiral spin-flip channels are fixed; they are not individually
+arbitrary.</p>
+</div>
+<p>For a scattering volume <span class="math notranslate nohighlight">\(V\)</span>, the matrix element between normalized
+initial and final channel spinors is converted into the macroscopic
+differential cross section according to</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\frac{d\Sigma^{s_i s_f}}{d\Omega}
+=\frac{8\pi^3}{V}
+\left|
+\chi_{s_f}^{\dagger}
+\widehat{\mathcal A}(\mathbf q)
+\chi_{s_i}
+\right|^2.}\]</div>
+<p>The factor <span class="math notranslate nohighlight">\(8\pi^3\)</span> is not an additional physical interaction.  It is
+the square of <span class="math notranslate nohighlight">\((2\pi)^{3/2}\)</span>, which appears when the unnormalized Born
+integral is expressed through the unitary Fourier transforms above.</p>
+</section>
+<section id="spin-projection">
+<h2>7. Spin projection<a class="headerlink" href="#spin-projection" title="Link to this heading">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\widehat{\mathbf P}\)</span> be the real unit vector defining the neutron
+quantization axis, and let</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol\sigma\cdot\widehat{\mathbf P})\chi_{\pm}
+=\pm\chi_{\pm}.\]</div>
+<p>Choose a right-handed orthonormal basis
+<span class="math notranslate nohighlight">\((\mathbf e_1,\mathbf e_2,\widehat{\mathbf P})\)</span> and write</p>
+<div class="math notranslate nohighlight">
+\[\widetilde{\mathbf Q}
+=Q_1\mathbf e_1+Q_2\mathbf e_2+Q_{\parallel}\widehat{\mathbf P},
+\qquad
+Q_{\parallel}=\widehat{\mathbf P}\cdot\widetilde{\mathbf Q}.\]</div>
+<p>In the <span class="math notranslate nohighlight">\((+,-)\)</span> basis the scattering operator becomes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\widehat{\mathcal A}
+=
+\begin{pmatrix}
+   \widetilde N+b_{\mathrm H}Q_{\parallel}
+   &amp; b_{\mathrm H}(Q_1-iQ_2) \\
+   b_{\mathrm H}(Q_1+iQ_2)
+   &amp; \widetilde N-b_{\mathrm H}Q_{\parallel}
+\end{pmatrix}.\end{split}\]</div>
+<p>The diagonal entries preserve the channel state and the off-diagonal entries
+flip it.  We use the NuMagSANS convention that the first sign in
+<span class="math notranslate nohighlight">\(s_i s_f\)</span> labels the incident neutron and the second sign labels the
+scattered neutron.  Thus, for example, <span class="math notranslate nohighlight">\(+-\)</span> means
+<span class="math notranslate nohighlight">\(+\rightarrow-\)</span>.</p>
+<p>It is useful to define the following five real building blocks, with
+<span class="math notranslate nohighlight">\(K=8\pi^3/V\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm N}}{d\Omega}
+=K|\widetilde N|^2,\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm M}}{d\Omega}
+=K b_{\mathrm H}^2
+\widetilde{\mathbf Q}\cdot\widetilde{\mathbf Q}^{\ast},\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm P}}{d\Omega}
+=K b_{\mathrm H}^2
+\left|\widehat{\mathbf P}\cdot
+\widetilde{\mathbf Q}\right|^2,\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}
+=K b_{\mathrm H}\widehat{\mathbf P}\cdot
+\left(
+   \widetilde N\widetilde{\mathbf Q}^{\ast}
+   +\widetilde N^{\ast}\widetilde{\mathbf Q}
+\right),\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\chi}}{d\Omega}
+=-iK b_{\mathrm H}^2\widehat{\mathbf P}\cdot
+\left(
+   \widetilde{\mathbf Q}\times
+   \widetilde{\mathbf Q}^{\ast}
+\right).\]</div>
+<p>The cross product in the last expression is purely imaginary, so the chiral
+cross section is real.  The Pauli identity</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol\sigma\cdot\mathbf a)
+(\boldsymbol\sigma\cdot\mathbf b)
+=(\mathbf a\cdot\mathbf b)\mathbb I_2
++i\boldsymbol\sigma\cdot(\mathbf a\times\mathbf b)\]</div>
+<p>then gives all four channels.</p>
+<section id="non-spin-flip-channels">
+<h3>Non-spin-flip channels<a class="headerlink" href="#non-spin-flip-channels" title="Link to this heading">#</a></h3>
+<p>The diagonal matrix elements give</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\frac{d\Sigma^{++}}{d\Omega}
+=\frac{d\Sigma_{\mathrm N}}{d\Omega}
++\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}
++\frac{d\Sigma_{\mathrm P}}{d\Omega},}\]</div>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\frac{d\Sigma^{--}}{d\Omega}
+=\frac{d\Sigma_{\mathrm N}}{d\Omega}
+-\frac{d\Sigma_{\mathrm{NM}}}{d\Omega}
++\frac{d\Sigma_{\mathrm P}}{d\Omega}.}\]</div>
+<p>The nuclear–magnetic term changes sign because reversing the incident and
+analyzed channel changes the sign of the longitudinal magnetic amplitude but
+not the nuclear amplitude.</p>
+</section>
+<section id="spin-flip-channels">
+<h3>Spin-flip channels<a class="headerlink" href="#spin-flip-channels" title="Link to this heading">#</a></h3>
+<p>Only the part of <span class="math notranslate nohighlight">\(\widetilde{\mathbf Q}\)</span> perpendicular to
+<span class="math notranslate nohighlight">\(\widehat{\mathbf P}\)</span> can connect the two channel states.  Define</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}
+=\frac{d\Sigma_{\mathrm M}}{d\Omega}
+-\frac{d\Sigma_{\mathrm P}}{d\Omega}.\]</div>
+<p>The off-diagonal matrix elements then give</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\frac{d\Sigma^{+-}}{d\Omega}
+=\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}
++\frac{d\Sigma_{\chi}}{d\Omega},}\]</div>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\frac{d\Sigma^{-+}}{d\Omega}
+=\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}
+-\frac{d\Sigma_{\chi}}{d\Omega}.}\]</div>
+<p>Consequently, the polarization-independent spin-flip and chiral terms are the
+half-sum and half-difference of the measurable spin-flip channels,</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\mathrm{sf}}}{d\Omega}
+=\frac{1}{2}
+\left(
+   \frac{d\Sigma^{+-}}{d\Omega}
+   +\frac{d\Sigma^{-+}}{d\Omega}
+\right),\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma_{\chi}}{d\Omega}
+=\frac{1}{2}
+\left(
+   \frac{d\Sigma^{+-}}{d\Omega}
+   -\frac{d\Sigma^{-+}}{d\Omega}
+\right).\]</div>
+</section>
+<section id="unpolarized-and-half-polarized-measurements">
+<h3>Unpolarized and half-polarized measurements<a class="headerlink" href="#unpolarized-and-half-polarized-measurements" title="Link to this heading">#</a></h3>
+<p>Averaging over the two equally populated incident states and summing over the
+unobserved final state removes the nuclear–magnetic and chiral terms.  The
+result is the sum of the nuclear and unpolarized magnetic contributions,</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2}
+\sum_{s_i,s_f}
+\frac{d\Sigma^{s_i s_f}}{d\Omega}
+=\frac{d\Sigma_{\mathrm N}}{d\Omega}
++\frac{d\Sigma_{\mathrm M}}{d\Omega}.\]</div>
+<p>If the incident beam is polarized but the outgoing spin is not analyzed, the
+SANSPOL cross sections are</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\Sigma^+}{d\Omega}
+=\frac{d\Sigma^{++}}{d\Omega}
++\frac{d\Sigma^{+-}}{d\Omega},
+\qquad
+\frac{d\Sigma^-}{d\Omega}
+=\frac{d\Sigma^{--}}{d\Omega}
++\frac{d\Sigma^{-+}}{d\Omega}.\]</div>
+<p>These are precisely the combinations exported by the corresponding
+NuMagSANS output options.</p>
+</section>
+</section>
+<section id="numagsans-sans-geometry">
+<h2>8. NuMagSANS SANS geometry<a class="headerlink" href="#numagsans-sans-geometry" title="Link to this heading">#</a></h2>
+<p>NuMagSANS fixes the incident beam along the <span class="math notranslate nohighlight">\(x\)</span>-axis.  In the
+small-angle approximation the detector lies in the <span class="math notranslate nohighlight">\(yz\)</span>-plane and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf q
+=q\begin{pmatrix}0\\ \sin\theta\\ \cos\theta\end{pmatrix},
+\qquad
+\widehat{\mathbf q}
+=\begin{pmatrix}0\\ \sin\theta\\ \cos\theta\end{pmatrix}.\end{split}\]</div>
+<p>Inserting this direction into the transverse projector gives the components
+actually evaluated in the kernels,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\widetilde{\mathbf Q}
+=\begin{pmatrix}
+   -\widetilde M_x \\
+   (\widetilde M_z\sin\theta
+   -\widetilde M_y\cos\theta)\cos\theta \\
+   (\widetilde M_y\cos\theta
+   -\widetilde M_z\sin\theta)\sin\theta
+\end{pmatrix}.\end{split}\]</div>
+<p>The general spin-projection formulas above remain valid for any real unit
+polarization vector <span class="math notranslate nohighlight">\(\widehat{\mathbf P}\)</span>.  Choosing a particular guide
+field direction simply specifies which component of
+<span class="math notranslate nohighlight">\(\widetilde{\mathbf Q}\)</span> is longitudinal in spin space.</p>
+<p>The complete list of output names, formulas, symmetries, and configuration
+examples is given under <a class="reference internal" href="ParameterOverview.html#output-options"><span class="std std-ref">Output Options</span></a> in the
+<a class="reference internal" href="ParameterOverview.html"><span class="doc">Parameter Overview</span></a>.</p>
+</section>
+<section id="equivalent-derivation-from-fermi-s-golden-rule">
+<h2>9. Equivalent derivation from Fermi’s golden rule<a class="headerlink" href="#equivalent-derivation-from-fermi-s-golden-rule" title="Link to this heading">#</a></h2>
+<p>For completeness, take plane waves normalized in a box of volume
+<span class="math notranslate nohighlight">\(\mathcal V\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\langle\mathbf r|\mathbf k,s\rangle
+=\frac{e^{i\mathbf k\cdot\mathbf r}}{\sqrt{\mathcal V}}\chi_s.\]</div>
+<p>To first order, Fermi’s golden rule gives</p>
+<div class="math notranslate nohighlight">
+\[w_{i\rightarrow f}
+=\frac{2\pi}{\hbar}
+|\langle f|\widehat U|i\rangle|^2
+\delta(E_f-E_i).\]</div>
+<p>Using the final-state density
+<span class="math notranslate nohighlight">\(\mathcal Vd^3k_f/(2\pi)^3\)</span>, integrating the energy delta function, and
+dividing by the incident flux
+<span class="math notranslate nohighlight">\(j_i=\hbar k_i/(m_n\mathcal V)\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\sigma_{i\rightarrow f}}{d\Omega}
+=\frac{k_f}{k_i}
+\left(\frac{m_n}{2\pi\hbar^2}\right)^2
+\left|
+   \int e^{-i\boldsymbol\kappa\cdot\mathbf r}
+   \chi_f^{\dagger}\widehat U(\mathbf r)\chi_i\,d^3r
+\right|^2.\]</div>
+<p>For elastic scattering <span class="math notranslate nohighlight">\(k_f/k_i=1\)</span>, and this is exactly the modulus
+squared of the first-Born amplitude obtained from the Lippmann–Schwinger
+equation.  The two routes therefore contain the same first-order physics:
+one extracts an outgoing wave, while the other computes its transition rate.</p>
+</section>
+<section id="what-changes-beyond-this-model">
+<h2>10. What changes beyond this model?<a class="headerlink" href="#what-changes-beyond-this-model" title="Link to this heading">#</a></h2>
+<p>The compact NuMagSANS formulas are a consequence of the assumptions stated at
+the beginning.  Relaxing them changes the problem as follows:</p>
+<ul class="simple">
+<li><p><strong>Inelastic scattering:</strong> the cross section depends on energy transfer and
+time-dependent correlation functions, and contains the factor
+<span class="math notranslate nohighlight">\(k_f/k_i\)</span>.</p></li>
+<li><p><strong>Spin-dependent nuclear scattering:</strong> the nuclear term is no longer a
+scalar multiple of <span class="math notranslate nohighlight">\(\mathbb I_2\)</span>; nuclear spin-incoherent and
+nuclear–magnetic terms must be added.</p></li>
+<li><p><strong>Multiple scattering or strong refraction:</strong> the incident plane wave cannot
+replace the exact wave inside the sample; the first Born approximation is
+insufficient.</p></li>
+<li><p><strong>Statistical ensembles:</strong> amplitudes are added coherently within one
+realization, whereas the physically appropriate ensemble average is
+normally taken over intensities or correlation functions afterward.</p></li>
+<li><p><strong>Instrumental effects:</strong> finite polarization, analyzer efficiency,
+wavelength spread, detector resolution, and background act on the ideal
+cross sections after the sample-scattering calculation.</p></li>
+</ul>
+<p>Successful execution of NuMagSANS verifies the deterministic calculation of
+the selected model.  Scientific validation still requires suitable
+analytical limits, symmetry relations, convergence studies, and comparison
+with reference data or experiment.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>O. Halpern and M. H. Johnson, <a class="reference external" href="https://doi.org/10.1103/PhysRev.55.898">On the Magnetic Scattering of Neutrons</a>, <em>Physical Review</em> <strong>55</strong>, 898
+(1939).</p></li>
+<li><p>B. A. Lippmann and J. Schwinger, <a class="reference external" href="https://doi.org/10.1103/PhysRev.79.469">Variational Principles for Scattering
+Processes. I</a>, <em>Physical Review</em>
+<strong>79</strong>, 469 (1950).</p></li>
+<li><p>R. M. Moon, T. Riste, and W. C. Koehler, <a class="reference external" href="https://doi.org/10.1103/PhysRev.181.920">Polarization Analysis of
+Thermal-Neutron Scattering</a>,
+<em>Physical Review</em> <strong>181</strong>, 920 (1969).</p></li>
+<li><p>M. P. Adams and A. Michels, <a class="reference external" href="https://doi.org/10.1107/S160057672600258X">NuMagSANS: a GPU-accelerated open-source
+software package for the generic computation of nuclear and magnetic
+small-angle neutron scattering observables of complex systems</a>, <em>Journal of Applied
+Crystallography</em> <strong>59</strong>, 943–959 (2026).</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ParameterOverview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Parameter Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="SimulationScenarios.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Simulation Scenarios</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scope-and-assumptions">Scope and assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effective-neutron-hamiltonian">1. Effective neutron Hamiltonian</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lippmann-schwinger-equation">2. Lippmann–Schwinger equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#far-field-and-scattering-amplitude">3. Far field and scattering amplitude</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-born-approximation">4. First Born approximation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-only-transverse-magnetization-scatters">5. Why only transverse magnetization scatters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-numagsans-scattering-operator">6. The NuMagSANS scattering operator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-projection">7. Spin projection</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-spin-flip-channels">Non-spin-flip channels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-flip-channels">Spin-flip channels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unpolarized-and-half-polarized-measurements">Unpolarized and half-polarized measurements</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numagsans-sans-geometry">8. NuMagSANS SANS geometry</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#equivalent-derivation-from-fermi-s-golden-rule">9. Equivalent derivation from Fermi’s golden rule</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-changes-beyond-this-model">10. What changes beyond this model?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Michael P. Adams, Andreas Michels.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1222,6 +1222,8 @@ How to set in the ``write_config`` function of the Python interface:
    )
 
 
+.. _output-options:
+
 Output Options
 --------------
 
@@ -1250,6 +1252,10 @@ How to enable in the ``write_config`` function of the Python interface:
 
 2D SANS cross sections
 ^^^^^^^^^^^^^^^^^^^^^^
+
+The quantum-mechanical route from the effective neutron Hamiltonian to these
+spin-resolved cross sections is derived in
+:doc:`QM_scattering_theory`.
 
 NuMagSANS is based on the unitary Fourier transform:
 
