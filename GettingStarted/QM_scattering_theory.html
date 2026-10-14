@@ -808,15 +808,57 @@ cancel.  The kinetic terms give</p>
 theorem shows the meaning of <span class="math notranslate nohighlight">\(\mathbf j\)</span>: its outward flux through the
 boundary equals the rate at which probability leaves that volume.  Thus
 <span class="math notranslate nohighlight">\(\mathbf j\cdot\mathbf n\,dA\)</span> is the probability per unit time crossing
-an oriented surface element <span class="math notranslate nohighlight">\(dA\)</span>.  For a stationary beam this
-probability flux is proportional to the neutron count rate: for an ensemble
-of identically prepared neutrons, multiplication by the neutron preparation
-rate converts the single-particle probability flux into a particle flux.</p>
+an oriented surface element <span class="math notranslate nohighlight">\(dA\)</span> for one neutron state.</p>
+<p>This probability current is not yet the experimental neutron flux.  The
+latter is a <em>particle-number current</em>: the expected number of neutrons crossing
+unit area per unit time.  For <span class="math notranslate nohighlight">\(\mathcal N\)</span> statistically independent
+realizations of the same one-neutron preparation, expectation values add, so
+that</p>
+<div class="math notranslate nohighlight">
+\[n_{\mathrm n}=\mathcal N\rho,
+\qquad
+\mathbf J_{\mathrm n}=\mathcal N\mathbf j.\]</div>
+<p>Here <span class="math notranslate nohighlight">\(n_{\mathrm n}\)</span> is the expected neutron number density and
+<span class="math notranslate nohighlight">\(\mathbf J_{\mathrm n}\)</span> is the neutron-number current density measured
+in neutrons per unit area and unit time.  Its magnitude is what is commonly
+called the neutron flux.  A detector count rate is the flux of
+<span class="math notranslate nohighlight">\(\mathbf J_{\mathrm n}\)</span> through its active area.  The ensemble may
+represent distinct dilute wave packets present in the beam or repeated
+one-neutron trials accumulated during a measurement; it does not imply
+multiple occupation of one fermionic mode.</p>
+<p>For example, a single box-normalized plane wave in volume
+<span class="math notranslate nohighlight">\(\mathcal V\)</span> has</p>
+<div class="math notranslate nohighlight">
+\[\rho=\frac{1}{\mathcal V},
+\qquad
+\mathbf j=\frac{\mathbf v}{\mathcal V},
+\qquad
+\mathbf v=\frac{\hbar\mathbf k}{m_n}.\]</div>
+<p>If the beam ensemble contains a mean number <span class="math notranslate nohighlight">\(\mathcal N\)</span> of such
+independently prepared neutrons distributed through that volume, its
+ensemble-averaged quantities are</p>
+<div class="math notranslate nohighlight">
+\[n_{\mathrm n}=\frac{\mathcal N}{\mathcal V},
+\qquad
+\mathbf J_{\mathrm n}=n_{\mathrm n}\mathbf v,\]</div>
+<p>which is the familiar classical expression <code class="docutils literal notranslate"><span class="pre">particle</span> <span class="pre">density</span> <span class="pre">times</span>
+<span class="pre">velocity</span></code>.  Quantum mechanics supplies the corresponding probability flow
+for each neutron; the beam ensemble converts it into the experimentally
+counted particle flow.</p>
 <p>The plane waves used below are not normalizable to one over all space.  They
 are ideal stationary-beam states, which can equivalently be understood as the
 large-volume or broad-wave-packet limit.  This causes no ambiguity in a cross
-section because an overall wave amplitude multiplies both the incident and
-scattered currents by the same factor and therefore cancels from their ratio.</p>
+section.  The same ensemble factor <span class="math notranslate nohighlight">\(\mathcal N\)</span>, or equivalently the
+same overall beam normalization, multiplies both the incident and scattered
+number currents.  Hence</p>
+<div class="math notranslate nohighlight">
+\[\frac{J_{\mathrm n,sc}}{J_{\mathrm n,in}}
+=\frac{\mathcal N j_{\mathrm{sc}}}
+       {\mathcal N j_{\mathrm{in}}}
+=\frac{j_{\mathrm{sc}}}{j_{\mathrm{in}}}.\]</div>
+<p>This cancellation is why the cross section can be derived from
+single-particle probability currents even though the laboratory measures a
+many-neutron count rate.</p>
 </section>
 <section id="what-the-differential-cross-section-measures">
 <h3>What the differential cross section measures<a class="headerlink" href="#what-the-differential-cross-section-measures" title="Link to this heading">#</a></h3>

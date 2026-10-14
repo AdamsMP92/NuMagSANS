@@ -482,16 +482,72 @@ Integrating the continuity equation over a volume and applying the divergence
 theorem shows the meaning of :math:`\mathbf j`: its outward flux through the
 boundary equals the rate at which probability leaves that volume.  Thus
 :math:`\mathbf j\cdot\mathbf n\,dA` is the probability per unit time crossing
-an oriented surface element :math:`dA`.  For a stationary beam this
-probability flux is proportional to the neutron count rate: for an ensemble
-of identically prepared neutrons, multiplication by the neutron preparation
-rate converts the single-particle probability flux into a particle flux.
+an oriented surface element :math:`dA` for one neutron state.
+
+This probability current is not yet the experimental neutron flux.  The
+latter is a *particle-number current*: the expected number of neutrons crossing
+unit area per unit time.  For :math:`\mathcal N` statistically independent
+realizations of the same one-neutron preparation, expectation values add, so
+that
+
+.. math::
+
+   n_{\mathrm n}=\mathcal N\rho,
+   \qquad
+   \mathbf J_{\mathrm n}=\mathcal N\mathbf j.
+
+Here :math:`n_{\mathrm n}` is the expected neutron number density and
+:math:`\mathbf J_{\mathrm n}` is the neutron-number current density measured
+in neutrons per unit area and unit time.  Its magnitude is what is commonly
+called the neutron flux.  A detector count rate is the flux of
+:math:`\mathbf J_{\mathrm n}` through its active area.  The ensemble may
+represent distinct dilute wave packets present in the beam or repeated
+one-neutron trials accumulated during a measurement; it does not imply
+multiple occupation of one fermionic mode.
+
+For example, a single box-normalized plane wave in volume
+:math:`\mathcal V` has
+
+.. math::
+
+   \rho=\frac{1}{\mathcal V},
+   \qquad
+   \mathbf j=\frac{\mathbf v}{\mathcal V},
+   \qquad
+   \mathbf v=\frac{\hbar\mathbf k}{m_n}.
+
+If the beam ensemble contains a mean number :math:`\mathcal N` of such
+independently prepared neutrons distributed through that volume, its
+ensemble-averaged quantities are
+
+.. math::
+
+   n_{\mathrm n}=\frac{\mathcal N}{\mathcal V},
+   \qquad
+   \mathbf J_{\mathrm n}=n_{\mathrm n}\mathbf v,
+
+which is the familiar classical expression ``particle density times
+velocity``.  Quantum mechanics supplies the corresponding probability flow
+for each neutron; the beam ensemble converts it into the experimentally
+counted particle flow.
 
 The plane waves used below are not normalizable to one over all space.  They
 are ideal stationary-beam states, which can equivalently be understood as the
 large-volume or broad-wave-packet limit.  This causes no ambiguity in a cross
-section because an overall wave amplitude multiplies both the incident and
-scattered currents by the same factor and therefore cancels from their ratio.
+section.  The same ensemble factor :math:`\mathcal N`, or equivalently the
+same overall beam normalization, multiplies both the incident and scattered
+number currents.  Hence
+
+.. math::
+
+   \frac{J_{\mathrm n,sc}}{J_{\mathrm n,in}}
+   =\frac{\mathcal N j_{\mathrm{sc}}}
+          {\mathcal N j_{\mathrm{in}}}
+   =\frac{j_{\mathrm{sc}}}{j_{\mathrm{in}}}.
+
+This cancellation is why the cross section can be derived from
+single-particle probability currents even though the laboratory measures a
+many-neutron count rate.
 
 
 What the differential cross section measures
