@@ -515,8 +515,8 @@ macroscopic cross section per sample volume and has units of inverse length.</p>
 Their Fourier transforms can nevertheless be complex because spatial phase
 information is encoded in the Fourier amplitudes.</p>
 </section>
-<section id="effective-neutron-hamiltonian">
-<h2>1. Effective neutron Hamiltonian<a class="headerlink" href="#effective-neutron-hamiltonian" title="Link to this heading">#</a></h2>
+<section id="stationary-schrodinger-equation-and-effective-neutron-hamiltonian">
+<h2>1. Stationary Schrödinger equation and effective neutron Hamiltonian<a class="headerlink" href="#stationary-schrodinger-equation-and-effective-neutron-hamiltonian" title="Link to this heading">#</a></h2>
 <p>Consider a neutron of mass <span class="math notranslate nohighlight">\(m_n\)</span> in a static sample.  Its stationary
 wavefunction is a two-component spinor.  In any chosen orthonormal spin basis
 <span class="math notranslate nohighlight">\((\chi_1,\chi_2)\)</span>, it can be written explicitly as</p>
@@ -530,12 +530,17 @@ wavefunction is a two-component spinor.  In any chosen orthonormal spin basis
 \in\mathbb C^2.\end{split}\]</div>
 <p>The complex functions <span class="math notranslate nohighlight">\(\psi_1\)</span> and <span class="math notranslate nohighlight">\(\psi_2\)</span> are probability
 amplitudes for the two basis states.  Their local probability density is
-<span class="math notranslate nohighlight">\(\Psi^{\dagger}\Psi=|\psi_1|^2+|\psi_2|^2\)</span>.  The stationary
-Schrödinger equation is</p>
+<span class="math notranslate nohighlight">\(\Psi^{\dagger}\Psi=|\psi_1|^2+|\psi_2|^2\)</span>.  The effective low-energy
+Hamiltonian used throughout this derivation is</p>
 <div class="math notranslate nohighlight">
-\[\left[-\frac{\hbar^2}{2m_n}\nabla^2
-+\widehat U(\mathbf r)\right]\Psi(\mathbf r)
-=E\Psi(\mathbf r).\]</div>
+\[\boxed{
+\widehat H
+=-\frac{\hbar^2}{2m_n}\nabla^2\mathbb I_2
++U_{\mathrm N}(\mathbf r)\mathbb I_2
+-\widehat{\boldsymbol\mu}_n\cdot\mathbf B(\mathbf r).}\]</div>
+<p>The corresponding stationary Schrödinger equation is</p>
+<div class="math notranslate nohighlight">
+\[\widehat H\Psi(\mathbf r)=E\Psi(\mathbf r).\]</div>
 <p>The kinetic-energy operator acts in the same way on both components.  The
 interaction <span class="math notranslate nohighlight">\(\widehat U(\mathbf r)\)</span>, in contrast, is a local
 <span class="math notranslate nohighlight">\(2\times2\)</span> matrix and may mix them.  At the level required here it
@@ -594,9 +599,10 @@ derived below.</p>
 </section>
 <section id="lippmann-schwinger-equation">
 <h2>2. Lippmann–Schwinger equation<a class="headerlink" href="#lippmann-schwinger-equation" title="Link to this heading">#</a></h2>
-<p>Separate the Hamiltonian into</p>
+<p>Using the Hamiltonian defined above, separate the free propagation from the
+sample interaction as</p>
 <div class="math notranslate nohighlight">
-\[\widehat H_0=-\frac{\hbar^2}{2m_n}\nabla^2,
+\[\widehat H_0=-\frac{\hbar^2}{2m_n}\nabla^2\mathbb I_2,
 \qquad
 \widehat H=\widehat H_0+\widehat U.\]</div>
 <p>For a free neutron, <span class="math notranslate nohighlight">\(E=\hbar^2k^2/(2m_n)\)</span>.  The symbol <span class="math notranslate nohighlight">\(k\)</span> is the
@@ -1435,7 +1441,7 @@ Crystallography</em> <strong>59</strong>, 943–959 (2026).</p></li>
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scope-and-assumptions">Scope and assumptions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notation-used-below">Notation used below</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effective-neutron-hamiltonian">1. Effective neutron Hamiltonian</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stationary-schrodinger-equation-and-effective-neutron-hamiltonian">1. Stationary Schrödinger equation and effective neutron Hamiltonian</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lippmann-schwinger-equation">2. Lippmann–Schwinger equation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#far-field-and-scattering-amplitude">3. Far field and scattering amplitude</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-born-approximation">4. First Born approximation</a></li>
