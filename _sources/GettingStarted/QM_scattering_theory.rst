@@ -14,7 +14,9 @@ Quantum Scattering Theory
       \text{far-field asymptotics} \\
       \Downarrow \\
       \text{scattering amplitude} \\
-      \Downarrow\quad\text{first Born approximation} \\
+      \Downarrow \\
+      \text{first Born approximation} \\
+      \Downarrow \\
       \text{Fourier transform of the interaction potential} \\
       \Downarrow \\
       \text{nuclear and magnetic scattering operator} \\
