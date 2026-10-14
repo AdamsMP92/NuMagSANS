@@ -61,12 +61,53 @@ general result is specialized to the NuMagSANS detector geometry.  It is not
 needed for the scattering-theory steps themselves.
 
 
+Notation used below
+-------------------
+
+The same symbols occur in ordinary three-dimensional space and in the
+two-dimensional neutron spin space.  The following distinctions are useful:
+
+- bold symbols such as :math:`\mathbf r`, :math:`\mathbf B`, and
+  :math:`\mathbf M` are vectors in real space;
+- a hat on a bold vector, for example
+  :math:`\widehat{\mathbf q}=\mathbf q/|\mathbf q|`, denotes a unit vector;
+- a hat on a non-bold symbol, for example :math:`\widehat U`, denotes an
+  operator acting on the two spin components;
+- :math:`\mathbb I_2` and :math:`\mathbb I_3` are the identity matrices in
+  two-dimensional spin space and three-dimensional real space, respectively;
+- a tilde denotes a spatial Fourier transform, an asterisk denotes complex
+  conjugation, and a dagger denotes a complex-conjugate transpose;
+- the subscripts :math:`i` and :math:`f` mean ``initial`` and ``final``;
+- :math:`d\sigma/d\Omega` is the differential cross section of one scattering
+  system, whereas :math:`d\Sigma/d\Omega=(1/V)d\sigma/d\Omega` is the
+  macroscopic cross section per sample volume and has units of inverse length.
+
+All real-space nuclear and magnetization fields considered here are real.
+Their Fourier transforms can nevertheless be complex because spatial phase
+information is encoded in the Fourier amplitudes.
+
+
 1. Effective neutron Hamiltonian
 --------------------------------
 
 Consider a neutron of mass :math:`m_n` in a static sample.  Its stationary
-wavefunction is a two-component spinor
-:math:`\Psi(\mathbf r)\in\mathbb C^2` and obeys
+wavefunction is a two-component spinor.  In any chosen orthonormal spin basis
+:math:`(\chi_1,\chi_2)`, it can be written explicitly as
+
+.. math::
+
+   \Psi(\mathbf r)
+   =\psi_1(\mathbf r)\chi_1+\psi_2(\mathbf r)\chi_2
+   =\begin{pmatrix}
+      \psi_1(\mathbf r)\\
+      \psi_2(\mathbf r)
+   \end{pmatrix}
+   \in\mathbb C^2.
+
+The complex functions :math:`\psi_1` and :math:`\psi_2` are probability
+amplitudes for the two basis states.  Their local probability density is
+:math:`\Psi^{\dagger}\Psi=|\psi_1|^2+|\psi_2|^2`.  The stationary
+Schrödinger equation is
 
 .. math::
 
@@ -74,15 +115,52 @@ wavefunction is a two-component spinor
    +\widehat U(\mathbf r)\right]\Psi(\mathbf r)
    =E\Psi(\mathbf r).
 
-The interaction is a :math:`2\times2` operator in neutron spin space.  At the
-level required here it contains a scalar nuclear part and a magnetic Zeeman
-part,
+The kinetic-energy operator acts in the same way on both components.  The
+interaction :math:`\widehat U(\mathbf r)`, in contrast, is a local
+:math:`2\times2` matrix and may mix them.  At the level required here it
+contains a scalar nuclear part and a magnetic Zeeman part,
 
 .. math::
 
    \widehat U(\mathbf r)
    =U_{\mathrm N}(\mathbf r)\mathbb I_2
    -\widehat{\boldsymbol\mu}_n\cdot\mathbf B(\mathbf r).
+
+The symbol :math:`\widehat{\boldsymbol\mu}_n` is a *vector of three spin
+operators*, not an ordinary spatial vector.  Introduce the neutron angular
+momentum operator
+
+.. math::
+
+   \widehat{\mathbf S}_n
+   =\frac{\hbar}{2}\boldsymbol\sigma^{(S)},
+
+where :math:`\boldsymbol\sigma^{(S)}` is the vector of Pauli matrices in an
+angular-momentum basis.  The physical magnetic-moment operator is
+
+.. math::
+
+   \boxed{
+   \widehat{\boldsymbol\mu}_n
+   =\gamma_n\widehat{\mathbf S}_n
+   =\mu_n\boldsymbol\sigma^{(S)},}
+   \qquad
+   \mu_n=\frac{\gamma_n\hbar}{2}<0.
+
+The negative sign expresses that the neutron magnetic moment is antiparallel
+to its spin angular momentum.  The dot product in the interaction means
+
+.. math::
+
+   \widehat{\boldsymbol\mu}_n\cdot\mathbf B
+   =\widehat\mu_{n,x}B_x
+   +\widehat\mu_{n,y}B_y
+   +\widehat\mu_{n,z}B_z.
+
+Each :math:`\widehat\mu_{n,j}` is a :math:`2\times2` matrix, while each
+:math:`B_j(\mathbf r)` is a real-valued classical field component.  A magnetic
+field not aligned with the selected spin basis produces off-diagonal matrix
+elements and can therefore flip the neutron channel state.
 
 The coherent nuclear interaction is represented by the Fermi
 pseudopotential,
@@ -93,18 +171,30 @@ pseudopotential,
    =\frac{2\pi\hbar^2}{m_n}N(\mathbf r),
 
 where :math:`N(\mathbf r)` is the coherent nuclear scattering-length density.
+It has units of inverse area.  For discrete nuclei at positions
+:math:`\mathbf R_j`, the idealized field is
+
+.. math::
+
+   N(\mathbf r)=\sum_j b_j\delta(\mathbf r-\mathbf R_j),
+
+where :math:`b_j` is the coherent nuclear scattering length.  A continuum
+description replaces this delta-function field by the corresponding local or
+coarse-grained scattering-length density.
+
 This is already an effective low-energy description: the short-ranged strong
 interaction with the nuclei has been replaced by its coherent scattering
 length.
 
-The magnetic term couples the neutron magnetic moment
-:math:`\widehat{\boldsymbol\mu}_n` to the magnetic induction
-:math:`\mathbf B` generated by the sample.  Its spin-space structure will be
-made explicit after the spatial scattering problem has been solved.
+The scalar nuclear potential multiplies :math:`\mathbb I_2` and cannot change
+the neutron channel in this model.  The magnetic term couples the physical
+moment operator to the magnetic induction :math:`\mathbf B` generated by the
+sample.  Its connection to :math:`\mathbf M` and its explicit matrix form are
+derived below.
 
 
 2. Lippmann--Schwinger equation
-------------------------------
+--------------------------------
 
 Separate the Hamiltonian into
 
@@ -113,6 +203,9 @@ Separate the Hamiltonian into
    \widehat H_0=-\frac{\hbar^2}{2m_n}\nabla^2,
    \qquad
    \widehat H=\widehat H_0+\widehat U.
+
+For a free neutron, :math:`E=\hbar^2k^2/(2m_n)`.  The symbol :math:`k` is the
+magnitude of the elastic incident and final wavevectors.
 
 The stationary Schrödinger equation can then be rewritten exactly as
 the outgoing Lippmann--Schwinger equation
@@ -125,6 +218,16 @@ the outgoing Lippmann--Schwinger equation
    \qquad
    \widehat G_0^{(+)}(E)
    =\left(E-\widehat H_0+i0^+\right)^{-1}.
+
+Here :math:`|\Psi^{(+)}\rangle` denotes the complete quantum state in
+abstract bra--ket notation; :math:`\Psi^{(+)}(\mathbf r)` below is the same
+state represented as a two-component position-space wavefunction.
+:math:`\widehat G_0^{(+)}(E)` is the free-particle Green operator, or
+resolvent.
+
+The infinitesimal positive imaginary term :math:`i0^+` specifies the outgoing
+boundary condition: disturbances created by the sample propagate away from
+it rather than toward it.
 
 For an incoming plane wave with wavevector :math:`\mathbf k_i` and normalized
 spinor :math:`\chi_i`,
@@ -157,9 +260,14 @@ Far from a localized sample, :math:`r\gg|\mathbf r'|`, one has
 .. math::
 
    |\mathbf r-\mathbf r'|
-   =r-\widehat{\mathbf r}\cdot\mathbf r'+O(r^{-1}),
+   =r-\widehat{\mathbf r}\cdot\mathbf r'
+    +O(|\mathbf r'|^2/r),
 
-and therefore
+where :math:`r=|\mathbf r|` is the detector distance,
+:math:`\widehat{\mathbf r}=\mathbf r/r` is the observation direction, and
+:math:`\mathbf r'` is a point inside the sample.  The notation
+:math:`O(|\mathbf r'|^2/r)` collects the next-order corrections in the ratio
+of sample size to detector distance.  Therefore,
 
 .. math::
 
@@ -190,7 +298,21 @@ The exact scattering amplitude is determined by
    \widehat U(\mathbf r)\Psi^{(+)}(\mathbf r)\,d^3r.
 
 It is a matrix in spin space: the sample can scatter the spatial wave and can
-also change the neutron spin state.
+also change the neutron spin state.  The scattering amplitude has units of
+length.  Comparing the outgoing and incident probability currents gives, for
+normalized initial and final spinors and elastic scattering,
+
+.. math::
+
+   \frac{d\sigma_{i\rightarrow f}}{d\Omega}
+   =\left|
+      \chi_f^{\dagger}
+      \widehat f(\mathbf k_f,\mathbf k_i)
+      \chi_i
+    \right|^2.
+
+Thus the spin-resolved cross section is obtained by projecting the amplitude
+onto the selected final spinor before taking its absolute square.
 
 
 4. First Born approximation
@@ -245,19 +367,83 @@ value of the potential.
 5. Why only transverse magnetization scatters
 ---------------------------------------------
 
-The magnetic projection follows from magnetostatics.  For
-:math:`\mathbf q\ne0`, Maxwell's equations for the induction generated by the
-sample give, in Fourier space,
+The magnetic projection follows from Maxwell's equations rather than from an
+additional assumption about the neutron.  In magnetostatics,
+
+.. math::
+
+   \nabla\cdot\mathbf B=0,
+   \qquad
+   \nabla\times\mathbf H=\mathbf J_{\mathrm f},
+   \qquad
+   \mathbf B=\mu_0(\mathbf H+\mathbf M),
+
+where :math:`\mathbf H` is the magnetic field, :math:`\mathbf M` is the sample
+magnetization, and :math:`\mathbf J_{\mathrm f}` is a free-current density.
+The magnetization's bound volume-current density is
+:math:`\mathbf J_{\mathrm b}=\nabla\times\mathbf M`; corresponding surface
+currents are included through the spatial boundary of :math:`\mathbf M`.
+
+NuMagSANS assumes that no free electric current flows through the static
+sample, so :math:`\mathbf J_{\mathrm f}=0`.  The real-space equations for the
+induction generated by the magnetization then become
+
+.. math::
+
+   \boxed{
+   \nabla\cdot\mathbf B=0,
+   \qquad
+   \nabla\times\mathbf B
+   =\mu_0\nabla\times\mathbf M.}
+
+For the Fourier convention
+:math:`\widetilde f(\mathbf q)\propto\int f(\mathbf r)
+e^{-i\mathbf q\cdot\mathbf r}\,d^3r`, a spatial derivative transforms as
+:math:`\nabla\rightarrow i\mathbf q`, provided boundary terms vanish or
+periodic boundary conditions are used.  Hence, for :math:`\mathbf q\ne0`,
 
 .. math::
 
    \mathbf q\cdot\widetilde{\mathbf B}=0,
    \qquad
-   \mathbf q\times
-   \left(\frac{\widetilde{\mathbf B}}{\mu_0}
-   -\widetilde{\mathbf M}\right)=0.
+   \boxed{
+   \mathbf q\times\widetilde{\mathbf B}
+   =\mu_0\mathbf q\times\widetilde{\mathbf M}.}
 
-Solving these equations yields
+To solve for :math:`\widetilde{\mathbf B}`, take the cross product of the
+second equation with :math:`\mathbf q` from the left.  The vector
+triple-product identity
+
+.. math::
+
+   \boxed{
+   \mathbf a\times(\mathbf b\times\mathbf c)
+   =\mathbf b(\mathbf a\cdot\mathbf c)
+   -\mathbf c(\mathbf a\cdot\mathbf b)}
+
+is often remembered as the ``BAC--CAB`` rule.  Applying it to both sides gives
+
+.. math::
+
+   \mathbf q\times
+   (\mathbf q\times\widetilde{\mathbf B})
+   =\mathbf q(\mathbf q\cdot\widetilde{\mathbf B})
+    -q^2\widetilde{\mathbf B}
+   =-q^2\widetilde{\mathbf B},
+
+where :math:`\mathbf q\cdot\widetilde{\mathbf B}=0` was used.  The right-hand
+side is
+
+.. math::
+
+   \mu_0\mathbf q\times
+   (\mathbf q\times\widetilde{\mathbf M})
+   =\mu_0\left[
+      \mathbf q(\mathbf q\cdot\widetilde{\mathbf M})
+      -q^2\widetilde{\mathbf M}
+   \right].
+
+Dividing by :math:`-q^2` yields
 
 .. math::
 
@@ -265,6 +451,41 @@ Solving these equations yields
    =\mu_0\left(\mathbb I_3
    -\widehat{\mathbf q}\widehat{\mathbf q}^{\mathsf T}\right)
    \widetilde{\mathbf M}(\mathbf q).
+
+The matrix
+:math:`\mathbb P_{\perp}=\mathbb I_3-\widehat{\mathbf q}
+\widehat{\mathbf q}^{\mathsf T}` is a projector: it removes the component of
+:math:`\widetilde{\mathbf M}` parallel to :math:`\mathbf q` and leaves the two
+perpendicular components unchanged.  Indeed,
+
+.. math::
+
+   \mathbb P_{\perp}^2=\mathbb P_{\perp},
+   \qquad
+   \mathbb P_{\perp}\widehat{\mathbf q}=0.
+
+Writing
+
+.. math::
+
+   \widetilde{\mathbf M}_{\parallel}
+   =\widehat{\mathbf q}
+    (\widehat{\mathbf q}\cdot\widetilde{\mathbf M}),
+   \qquad
+   \widetilde{\mathbf M}_{\perp}
+   =\widetilde{\mathbf M}-\widetilde{\mathbf M}_{\parallel},
+
+the field equation simply states
+:math:`\widetilde{\mathbf B}=\mu_0\widetilde{\mathbf M}_{\perp}`.
+Equivalently, the triple-product identity gives the double-cross-product form
+
+.. math::
+
+   \widehat{\mathbf q}\times
+   (\widehat{\mathbf q}\times\widetilde{\mathbf M})
+   =\widehat{\mathbf q}
+    (\widehat{\mathbf q}\cdot\widetilde{\mathbf M})
+    -\widetilde{\mathbf M}.
 
 NuMagSANS uses the Halpern--Johnson vector
 
@@ -288,9 +509,126 @@ Consequently,
    \widehat{\mathbf q}\cdot\widetilde{\mathbf Q}=0.
 
 The longitudinal component of :math:`\widetilde{\mathbf M}` therefore cannot
-contribute to the magnetic scattering amplitude.  A spatially uniform
-external guide field contributes only at :math:`\mathbf q=0`; it defines the
-spin quantization axis but is not part of the finite-:math:`q` SANS signal.
+contribute to the magnetic scattering amplitude.
+
+
+Gauge freedom of the magnetization
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The transverse projection also exposes a non-uniqueness of the magnetization
+that is relevant to magnetic scattering.  Let :math:`\chi(\mathbf r)` be a
+sufficiently regular scalar field, with boundary conditions compatible with
+the Fourier transform.  The transformation
+
+.. math::
+
+   \boxed{
+   \mathbf M(\mathbf r)
+   \longrightarrow
+   \mathbf M'(\mathbf r)
+   =\mathbf M(\mathbf r)+\nabla\chi(\mathbf r)}
+
+does not change the bound magnetization-current density, because
+
+.. math::
+
+   \nabla\times\mathbf M'
+   =\nabla\times\mathbf M
+    +\underbrace{\nabla\times\nabla\chi}_{=0}
+   =\nabla\times\mathbf M.
+
+It therefore leaves the magnetostatic Maxwell equations above, and hence
+:math:`\mathbf B`, unchanged.  The invariance is especially transparent in
+Fourier space:
+
+.. math::
+
+   \widetilde{\mathbf M}'
+   =\widetilde{\mathbf M}
+    +i\mathbf q\widetilde\chi,
+
+.. math::
+
+   \begin{aligned}
+   \mathbb P_{\perp}\widetilde{\mathbf M}'
+   &=\mathbb P_{\perp}\widetilde{\mathbf M}
+     +i\widetilde\chi\,
+      \underbrace{\mathbb P_{\perp}\mathbf q}_{=0} \\
+   &=\mathbb P_{\perp}\widetilde{\mathbf M}.
+   \end{aligned}
+
+Consequently,
+
+.. math::
+
+   \widetilde{\mathbf B}[\mathbf M']
+   =\widetilde{\mathbf B}[\mathbf M],
+   \qquad
+   \widetilde{\mathbf Q}[\mathbf M']
+   =\widetilde{\mathbf Q}[\mathbf M].
+
+This is the magnetization gauge freedom meant here: at every
+:math:`\mathbf q\ne0`, magnetic SANS distinguishes only the equivalence class
+
+.. math::
+
+   \mathbf M\sim\mathbf M+\nabla\chi,
+
+not the longitudinal part of :math:`\mathbf M` separately.  This statement
+does not mean that the microscopic magnetization is physically arbitrary.
+It means that the scattering map from :math:`\mathbf M` to
+:math:`\widetilde{\mathbf Q}` is not injective: magnetization fields that
+differ only by such a longitudinal contribution produce the same magnetic
+SANS signal.
+
+The relation can also be expressed through the Helmholtz decomposition
+
+.. math::
+
+   \mathbf M=\mathbf M_{\perp}+\nabla\phi,
+   \qquad
+   \nabla\cdot\mathbf M_{\perp}=0.
+
+Taking the divergence gives the Poisson equation
+
+.. math::
+
+   \nabla^2\phi=\nabla\cdot\mathbf M,
+
+whose solution depends on the chosen boundary conditions.  Subtracting
+:math:`\nabla\phi` is a possible gauge choice; it selects the transverse
+representative.  In Fourier space this representative is uniquely given by
+
+.. math::
+
+   \widetilde{\mathbf M}_{\perp}
+   =\left(\mathbb I_3
+    -\widehat{\mathbf q}\widehat{\mathbf q}^{\mathsf T}\right)
+    \widetilde{\mathbf M},
+   \qquad
+   \mathbf q\cdot\widetilde{\mathbf M}_{\perp}=0.
+
+The associated vector-Laplacian identity,
+
+.. math::
+
+   \boxed{
+   \nabla\times(\nabla\times\mathbf M)
+   =\nabla(\nabla\cdot\mathbf M)-\nabla^2\mathbf M,}
+
+is the differential form of the same longitudinal--transverse separation.
+After Fourier transformation, its left-hand side is
+:math:`-\mathbf q\times(\mathbf q\times\widetilde{\mathbf M})`, while its
+right-hand side is :math:`q^2\mathbb P_{\perp}\widetilde{\mathbf M}`.  Thus it
+reproduces the double-cross-product projector without introducing a vector
+potential.
+
+A spatially uniform external guide field belongs to the separate
+:math:`\mathbf q=0` mode, for which :math:`\widehat{\mathbf q}` and the
+longitudinal--transverse decomposition are not defined.  It sets the spin
+quantization axis but is not part of the finite-:math:`q` SANS signal.  If
+free currents are present, their Fourier-space contribution must be added and
+the magnetization-only projector is no longer the complete field solution.
 
 The magnetic scattering-length coefficient is
 
@@ -325,17 +663,34 @@ NuMagSANS uses the unitary Fourier transforms
    =\frac{1}{(2\pi)^{3/2}}
    \int \mathbf M(\mathbf r)e^{-i\mathbf q\cdot\mathbf r}\,d^3r.
 
-Choose the two-state basis so that the neutron magnetic-moment operator is
-written as
+Since :math:`N` has units :math:`\mathrm{m^{-2}}`, its transform
+:math:`\widetilde N` has units of length.  Likewise,
+:math:`\widetilde{\mathbf M}` has units :math:`\mathrm{A\,m^2}`, so
+:math:`b_{\mathrm H}\widetilde{\mathbf Q}` also has units of length.  The
+nuclear and magnetic terms can therefore be added at the amplitude level.
+
+The physical moment was written above in an angular-momentum basis as
+:math:`\widehat{\boldsymbol\mu}_n
+=\mu_n\boldsymbol\sigma^{(S)}` with :math:`\mu_n<0`.  For the NuMagSANS
+channel labels it is convenient to introduce
+
+.. math::
+
+   \boldsymbol\sigma=-\boldsymbol\sigma^{(S)}.
+
+The same physical operator is then
 
 .. math::
 
    \widehat{\boldsymbol\mu}_n=|\mu_n|\boldsymbol\sigma.
 
-This is a channel convention: because the neutron gyromagnetic ratio is
-negative, the corresponding angular-momentum eigenstate has the opposite
-label.  Using :math:`\widetilde{\mathbf B}=-\mu_0\widetilde{\mathbf Q}` in
-the Zeeman interaction gives
+Thus a :math:`+` eigenstate of the channel matrix
+:math:`\boldsymbol\sigma\cdot\widehat{\mathbf P}` has its magnetic moment
+along :math:`\widehat{\mathbf P}` and its angular momentum in the opposite
+direction.  This relabeling changes no physics, but it must be retained when
+assigning :math:`+` and :math:`-` cross sections.  Using
+:math:`\widetilde{\mathbf B}=-\mu_0\widetilde{\mathbf Q}` in the Zeeman
+interaction gives
 
 .. math::
 
@@ -401,15 +756,38 @@ integral is expressed through the unitary Fourier transforms above.
 ------------------
 
 Let :math:`\widehat{\mathbf P}` be the real unit vector defining the neutron
-quantization axis, and let
+quantization axis.  Complete it to a right-handed orthonormal basis
+:math:`(\mathbf e_1,\mathbf e_2,\widehat{\mathbf P})`.  In this basis the
+three channel Pauli matrices are
+
+.. math::
+
+   \sigma_1=
+   \begin{pmatrix}0&1\\1&0\end{pmatrix},
+   \qquad
+   \sigma_2=
+   \begin{pmatrix}0&-i\\i&0\end{pmatrix},
+   \qquad
+   \sigma_{\parallel}=
+   \begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+
+The two normalized channel spinors are explicitly
+
+.. math::
+
+   \chi_+=\begin{pmatrix}1\\0\end{pmatrix},
+   \qquad
+   \chi_-=\begin{pmatrix}0\\1\end{pmatrix},
+
+and satisfy
 
 .. math::
 
    (\boldsymbol\sigma\cdot\widehat{\mathbf P})\chi_{\pm}
    =\pm\chi_{\pm}.
 
-Choose a right-handed orthonormal basis
-:math:`(\mathbf e_1,\mathbf e_2,\widehat{\mathbf P})` and write
+The generally complex Halpern--Johnson amplitude can be resolved in the same
+real-space basis,
 
 .. math::
 
@@ -417,6 +795,17 @@ Choose a right-handed orthonormal basis
    =Q_1\mathbf e_1+Q_2\mathbf e_2+Q_{\parallel}\widehat{\mathbf P},
    \qquad
    Q_{\parallel}=\widehat{\mathbf P}\cdot\widetilde{\mathbf Q}.
+
+Consequently,
+
+.. math::
+
+   \boldsymbol\sigma\cdot\widetilde{\mathbf Q}
+   =\sigma_1Q_1+\sigma_2Q_2+\sigma_{\parallel}Q_{\parallel}
+   =\begin{pmatrix}
+      Q_{\parallel}&Q_1-iQ_2\\
+      Q_1+iQ_2&-Q_{\parallel}
+   \end{pmatrix}.
 
 In the :math:`(+,-)` basis the scattering operator becomes
 
@@ -431,6 +820,9 @@ In the :math:`(+,-)` basis the scattering operator becomes
       & \widetilde N-b_{\mathrm H}Q_{\parallel}
    \end{pmatrix}.
 
+Rows in this matrix label the final state in the order :math:`(+,-)`, and
+columns label the initial state in the same order.  The lower-left element,
+for example, is therefore the amplitude for :math:`+\rightarrow-`.
 The diagonal entries preserve the channel state and the off-diagonal entries
 flip it.  We use the NuMagSANS convention that the first sign in
 :math:`s_i s_f` labels the incident neutron and the second sign labels the
@@ -492,7 +884,18 @@ then gives all four channels.
 Non-spin-flip channels
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The diagonal matrix elements give
+For the diagonal elements one simply expands
+
+.. math::
+
+   |\widetilde N\pm b_{\mathrm H}Q_{\parallel}|^2
+   =|\widetilde N|^2+b_{\mathrm H}^2|Q_{\parallel}|^2
+   \pm b_{\mathrm H}
+   (\widetilde NQ_{\parallel}^{\ast}
+   +\widetilde N^{\ast}Q_{\parallel}).
+
+The three terms are the nuclear, longitudinal magnetic, and interference
+contributions.  Hence,
 
 .. math::
 
@@ -527,7 +930,25 @@ Only the part of :math:`\widetilde{\mathbf Q}` perpendicular to
    =\frac{d\Sigma_{\mathrm M}}{d\Omega}
    -\frac{d\Sigma_{\mathrm P}}{d\Omega}.
 
-The off-diagonal matrix elements then give
+The difference above equals
+:math:`Kb_{\mathrm H}^2(|Q_1|^2+|Q_2|^2)`.  The imbalance between the two
+off-diagonal matrix elements follows from
+
+.. math::
+
+   |Q_1\pm iQ_2|^2
+   =|Q_1|^2+|Q_2|^2
+   \mp i(Q_1Q_2^{\ast}-Q_2Q_1^{\ast}),
+
+with
+
+.. math::
+
+   \widehat{\mathbf P}\cdot
+   (\widetilde{\mathbf Q}\times\widetilde{\mathbf Q}^{\ast})
+   =Q_1Q_2^{\ast}-Q_2Q_1^{\ast}.
+
+The off-diagonal matrix elements therefore give
 
 .. math::
 
