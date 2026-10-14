@@ -89,8 +89,8 @@ Their Fourier transforms can nevertheless be complex because spatial phase
 information is encoded in the Fourier amplitudes.
 
 
-1. Effective neutron Hamiltonian
---------------------------------
+1. Stationary Schrödinger equation and effective neutron Hamiltonian
+--------------------------------------------------------------------
 
 Consider a neutron of mass :math:`m_n` in a static sample.  Its stationary
 wavefunction is a two-component spinor.  In any chosen orthonormal spin basis
@@ -108,14 +108,22 @@ wavefunction is a two-component spinor.  In any chosen orthonormal spin basis
 
 The complex functions :math:`\psi_1` and :math:`\psi_2` are probability
 amplitudes for the two basis states.  Their local probability density is
-:math:`\Psi^{\dagger}\Psi=|\psi_1|^2+|\psi_2|^2`.  The stationary
-Schrödinger equation is
+:math:`\Psi^{\dagger}\Psi=|\psi_1|^2+|\psi_2|^2`.  The effective low-energy
+Hamiltonian used throughout this derivation is
 
 .. math::
 
-   \left[-\frac{\hbar^2}{2m_n}\nabla^2
-   +\widehat U(\mathbf r)\right]\Psi(\mathbf r)
-   =E\Psi(\mathbf r).
+   \boxed{
+   \widehat H
+   =-\frac{\hbar^2}{2m_n}\nabla^2\mathbb I_2
+   +U_{\mathrm N}(\mathbf r)\mathbb I_2
+   -\widehat{\boldsymbol\mu}_n\cdot\mathbf B(\mathbf r).}
+
+The corresponding stationary Schrödinger equation is
+
+.. math::
+
+   \widehat H\Psi(\mathbf r)=E\Psi(\mathbf r).
 
 The kinetic-energy operator acts in the same way on both components.  The
 interaction :math:`\widehat U(\mathbf r)`, in contrast, is a local
@@ -198,11 +206,12 @@ derived below.
 2. Lippmann--Schwinger equation
 --------------------------------
 
-Separate the Hamiltonian into
+Using the Hamiltonian defined above, separate the free propagation from the
+sample interaction as
 
 .. math::
 
-   \widehat H_0=-\frac{\hbar^2}{2m_n}\nabla^2,
+   \widehat H_0=-\frac{\hbar^2}{2m_n}\nabla^2\mathbb I_2,
    \qquad
    \widehat H=\widehat H_0+\widehat U.
 
