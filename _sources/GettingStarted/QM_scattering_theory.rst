@@ -7,7 +7,7 @@ Quantum Scattering Theory
 
    \boxed{
    \begin{array}{c}
-      \text{stationary Schr\ddot{o}dinger equation} \\
+      \text{stationary Schrödinger equation} \\
       \Downarrow \\
       \text{Lippmann--Schwinger equation} \\
       \Downarrow \\
@@ -423,18 +423,21 @@ magnetization:
 
 .. math::
 
-   \begin{aligned}
    -\nabla^2\mathbf B
-   &=\mu_0\left[
+   =\mu_0\left[
       \nabla(\nabla\cdot\mathbf M)-\nabla^2\mathbf M
-      \right],\\
+      \right].
+
+Equivalently,
+
+.. math::
+
    \boxed{
    \nabla^2\mathbf B
-   &=\mu_0\left[
+   =\mu_0\left[
       \nabla^2\mathbf M-\nabla(\nabla\cdot\mathbf M)
       \right]
     =-\mu_0\nabla\times(\nabla\times\mathbf M).}
-   \end{aligned}
 
 Unlike a pointwise constitutive equation, this differential equation leaves
 harmonic field components to be fixed by boundary conditions.  In particular,
