@@ -454,6 +454,10 @@
    \Downarrow \\
    \text{scattering amplitude} \\
    \Downarrow \\
+   \text{incident and scattered probability currents} \\
+   \Downarrow \\
+   \text{differential cross section} \\
+   \Downarrow \\
    \text{first Born approximation} \\
    \Downarrow \\
    \text{Fourier transform of the interaction potential} \\
@@ -738,18 +742,124 @@ stationary Schrödinger equation together with the specified incident wave and
 the outgoing boundary condition.  No Born approximation has yet been made.</p>
 </section>
 </section>
-<section id="far-field-and-scattering-amplitude">
-<h2>3. Far field and scattering amplitude<a class="headerlink" href="#far-field-and-scattering-amplitude" title="Link to this heading">#</a></h2>
-<p>Far from a localized sample, <span class="math notranslate nohighlight">\(r\gg|\mathbf r'|\)</span>, one has</p>
+<section id="from-the-scattering-state-to-the-differential-cross-section">
+<h2>3. From the scattering state to the differential cross section<a class="headerlink" href="#from-the-scattering-state-to-the-differential-cross-section" title="Link to this heading">#</a></h2>
+<p>Solving the Schrödinger or Lippmann–Schwinger equation gives a wavefunction,
+whereas an experiment records a rate of neutrons arriving at a detector.  A
+cross section is the quantity that connects these two descriptions.  This
+connection requires more than the local probability density
+<span class="math notranslate nohighlight">\(\Psi^\dagger\Psi\)</span>: a density states how much probability is present
+near a point, but not how rapidly or in which direction it moves through a
+detector surface.  The required quantity is the probability current.</p>
+<section id="why-the-probability-current-appears">
+<h3>Why the probability current appears<a class="headerlink" href="#why-the-probability-current-appears" title="Link to this heading">#</a></h3>
+<p>The probability current is fixed by probability conservation rather than
+introduced as an additional scattering assumption.  Return temporarily to
+the time-dependent spinor <span class="math notranslate nohighlight">\(\boldsymbol\psi(\mathbf r,t)\)</span> and define its
+probability density by</p>
+<div class="math notranslate nohighlight">
+\[\rho(\mathbf r,t)
+=\boldsymbol\psi^\dagger(\mathbf r,t)
+ \boldsymbol\psi(\mathbf r,t).\]</div>
+<p>Use the time-dependent Schrödinger equation and its Hermitian conjugate to
+differentiate <span class="math notranslate nohighlight">\(\rho\)</span>.  For the local Hermitian interaction
+<span class="math notranslate nohighlight">\(\widehat U=\widehat U^\dagger\)</span> used here, the two potential terms
+cancel.  The kinetic terms give</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\frac{\partial\rho}{\partial t}
+&amp;=\frac{1}{i\hbar}
+  \left[
+    \boldsymbol\psi^\dagger\widehat H\boldsymbol\psi
+    -(\widehat H\boldsymbol\psi)^\dagger
+     \boldsymbol\psi
+  \right] \\
+&amp;=\frac{i\hbar}{2m_n}
+  \left[
+    \boldsymbol\psi^\dagger\nabla^2\boldsymbol\psi
+    -(\nabla^2\boldsymbol\psi^\dagger)
+     \boldsymbol\psi
+  \right].
+\end{aligned}\end{split}\]</div>
+<p>The vector-calculus identity</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol\psi^\dagger\nabla^2\boldsymbol\psi
+-(\nabla^2\boldsymbol\psi^\dagger)\boldsymbol\psi
+=\nabla\cdot
+ \left[
+    \boldsymbol\psi^\dagger\nabla\boldsymbol\psi
+    -(\nabla\boldsymbol\psi^\dagger)\boldsymbol\psi
+ \right]\]</div>
+<p>therefore turns the Schrödinger equation into the continuity equation</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\frac{\partial\rho}{\partial t}
++\nabla\cdot\mathbf j=0,}\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\mathbf j[\boldsymbol\psi]
+=\frac{\hbar}{2m_n i}
+ \left[
+    \boldsymbol\psi^\dagger\nabla\boldsymbol\psi
+    -(\nabla\boldsymbol\psi^\dagger)\boldsymbol\psi
+ \right].}\]</div>
+<p>Integrating the continuity equation over a volume and applying the divergence
+theorem shows the meaning of <span class="math notranslate nohighlight">\(\mathbf j\)</span>: its outward flux through the
+boundary equals the rate at which probability leaves that volume.  Thus
+<span class="math notranslate nohighlight">\(\mathbf j\cdot\mathbf n\,dA\)</span> is the probability per unit time crossing
+an oriented surface element <span class="math notranslate nohighlight">\(dA\)</span>.  For a stationary beam this
+probability flux is proportional to the neutron count rate: for an ensemble
+of identically prepared neutrons, multiplication by the neutron preparation
+rate converts the single-particle probability flux into a particle flux.</p>
+<p>The plane waves used below are not normalizable to one over all space.  They
+are ideal stationary-beam states, which can equivalently be understood as the
+large-volume or broad-wave-packet limit.  This causes no ambiguity in a cross
+section because an overall wave amplitude multiplies both the incident and
+scattered currents by the same factor and therefore cancels from their ratio.</p>
+</section>
+<section id="what-the-differential-cross-section-measures">
+<h3>What the differential cross section measures<a class="headerlink" href="#what-the-differential-cross-section-measures" title="Link to this heading">#</a></h3>
+<p>Consider a detector element far from the sample.  If it subtends a solid
+angle <span class="math notranslate nohighlight">\(d\Omega\)</span> at distance <span class="math notranslate nohighlight">\(r\)</span>, its area perpendicular to the
+radial direction is</p>
+<div class="math notranslate nohighlight">
+\[dA=r^2d\Omega.\]</div>
+<p>Let <span class="math notranslate nohighlight">\(j_{\mathrm{in}}\)</span> be the magnitude of the incident probability
+current density and let <span class="math notranslate nohighlight">\(j_{\mathrm{sc},i\rightarrow f}^{(r)}\)</span> be the
+outward radial current density scattered from the prepared spin state
+<span class="math notranslate nohighlight">\(\chi_i\)</span> into the analyzed spin state <span class="math notranslate nohighlight">\(\chi_f\)</span>.  The differential
+cross section is <em>defined</em> by</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\frac{d\sigma_{i\rightarrow f}}{d\Omega}
+=\frac{r^2j_{\mathrm{sc},i\rightarrow f}^{(r)}}
+       {j_{\mathrm{in}}}.}\]</div>
+<p>The numerator is the scattered probability per unit time and unit solid
+angle; division by the incident probability per unit area and unit time
+leaves an area.  The cross section is therefore an effective area that
+quantifies how strongly one scattering system redirects the incident beam
+into the selected angular and spin channel.  To evaluate this definition, the
+incident and scattered parts of the Lippmann–Schwinger solution must now be
+examined in the far field.</p>
+</section>
+<section id="the-outgoing-wave-in-the-far-field">
+<h3>The outgoing wave in the far field<a class="headerlink" href="#the-outgoing-wave-in-the-far-field" title="Link to this heading">#</a></h3>
+<p>The separation into an incident and a scattered wave was already obtained
+when constructing the Lippmann–Schwinger equation,</p>
+<div class="math notranslate nohighlight">
+\[\Psi^{(+)}=\Psi_{\mathrm{in}}+\Psi_{\mathrm{sc}}.\]</div>
+<p>It is not an arbitrary decomposition at this stage.  The experimental
+preparation fixes <span class="math notranslate nohighlight">\(\Psi_{\mathrm{in}}\)</span>, and the outgoing Green function
+fixes <span class="math notranslate nohighlight">\(\Psi_{\mathrm{sc}}\)</span> as the wave generated by the sample.  Far
+from a localized sample, <span class="math notranslate nohighlight">\(r\gg|\mathbf r'|\)</span>, one has</p>
 <div class="math notranslate nohighlight">
 \[|\mathbf r-\mathbf r'|
 =r-\widehat{\mathbf r}\cdot\mathbf r'
  +O(|\mathbf r'|^2/r),\]</div>
 <p>where <span class="math notranslate nohighlight">\(r=|\mathbf r|\)</span> is the detector distance,
 <span class="math notranslate nohighlight">\(\widehat{\mathbf r}=\mathbf r/r\)</span> is the observation direction, and
-<span class="math notranslate nohighlight">\(\mathbf r'\)</span> is a point inside the sample.  The notation
-<span class="math notranslate nohighlight">\(O(|\mathbf r'|^2/r)\)</span> collects the next-order corrections in the ratio
-of sample size to detector distance.  Therefore,</p>
+<span class="math notranslate nohighlight">\(\mathbf r'\)</span> is a point inside the sample.  Consequently,</p>
 <div class="math notranslate nohighlight">
 \[\frac{e^{ik|\mathbf r-\mathbf r'|}}
      {|\mathbf r-\mathbf r'|}
@@ -757,32 +867,105 @@ of sample size to detector distance.  Therefore,</p>
 \frac{e^{ikr}}{r}e^{-i\mathbf k_f\cdot\mathbf r'},
 \qquad
 \mathbf k_f=k\widehat{\mathbf r}.\]</div>
-<p>The asymptotic wavefunction is the sum of the incident plane wave and an
-outgoing spherical wave,</p>
+<p>Inserting this approximation into the sample-generated part of the
+Lippmann–Schwinger equation gives</p>
+<div class="math notranslate nohighlight">
+\[\Psi_{\mathrm{sc}}(\mathbf r)
+\sim\frac{e^{ikr}}{r}
+\left[
+   -\frac{m_n}{2\pi\hbar^2}
+   \int e^{-i\mathbf k_f\cdot\mathbf r'}
+   \widehat U(\mathbf r')
+   \Psi^{(+)}(\mathbf r')\,d^3r'
+\right].\]</div>
+<p>The spatial dependence <span class="math notranslate nohighlight">\(e^{ikr}/r\)</span> is an outgoing spherical wave.  Its
+spinor-valued coefficient contains the dependence on the observation
+direction and on the incident state.  The scattering-amplitude operator is
+defined as precisely this coefficient,</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\widehat f(\mathbf k_f,\mathbf k_i)\chi_i
+=-\frac{m_n}{2\pi\hbar^2}
+\int e^{-i\mathbf k_f\cdot\mathbf r'}
+\widehat U(\mathbf r')\Psi^{(+)}(\mathbf r')\,d^3r'.}\]</div>
+<p>Linearity of the scattering problem in the incident spinor makes
+<span class="math notranslate nohighlight">\(\widehat f\)</span> a <span class="math notranslate nohighlight">\(2\times2\)</span> operator in spin space.  The complete
+wavefunction therefore has the asymptotic form</p>
 <div class="math notranslate nohighlight">
 \[\Psi^{(+)}(\mathbf r)
 \sim e^{i\mathbf k_i\cdot\mathbf r}\chi_i
 +\frac{e^{ikr}}{r}
-\widehat f(\mathbf k_f,\mathbf k_i)\chi_i.\]</div>
-<p>The exact scattering amplitude is determined by</p>
+ \widehat f(\mathbf k_f,\mathbf k_i)\chi_i.\]</div>
+<p>The amplitude has units of length.  At this point it is not yet a cross
+section; it is the coefficient of the outgoing spherical wave.</p>
+</section>
+<section id="from-the-outgoing-amplitude-to-the-cross-section">
+<h3>From the outgoing amplitude to the cross section<a class="headerlink" href="#from-the-outgoing-amplitude-to-the-cross-section" title="Link to this heading">#</a></h3>
+<p>If the spin analyzer selects the normalized final spinor <span class="math notranslate nohighlight">\(\chi_f\)</span>, the
+corresponding scalar spatial amplitude in the scattered wave is</p>
 <div class="math notranslate nohighlight">
-\[\widehat f(\mathbf k_f,\mathbf k_i)\chi_i
-=-\frac{m_n}{2\pi\hbar^2}
-\int e^{-i\mathbf k_f\cdot\mathbf r}
-\widehat U(\mathbf r)\Psi^{(+)}(\mathbf r)\,d^3r.\]</div>
-<p>It is a matrix in spin space: the sample can scatter the spatial wave and can
-also change the neutron spin state.  The scattering amplitude has units of
-length.  Comparing the outgoing and incident probability currents gives, for
-normalized initial and final spinors and elastic scattering,</p>
+\[\psi_{\mathrm{sc},i\rightarrow f}(\mathbf r)
+=\chi_f^\dagger\Psi_{\mathrm{sc}}(\mathbf r)
+\sim\frac{e^{ik_f r}}{r}f_{fi},
+\qquad
+f_{fi}=\chi_f^\dagger
+        \widehat f(\mathbf k_f,\mathbf k_i)\chi_i.\]</div>
+<p>For the incident plane wave and normalized <span class="math notranslate nohighlight">\(\chi_i\)</span>, the current
+defined above is</p>
+<div class="math notranslate nohighlight">
+\[\mathbf j_{\mathrm{in}}
+=\frac{\hbar\mathbf k_i}{m_n},
+\qquad
+j_{\mathrm{in}}=\frac{\hbar k_i}{m_n}.\]</div>
+<p>For the outgoing radial wave,</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial}{\partial r}
+\left(\frac{e^{ik_f r}}{r}\right)
+=\left(ik_f-\frac{1}{r}\right)
+ \frac{e^{ik_f r}}{r}.\]</div>
+<p>Substitution into the same current formula gives the outward radial current</p>
+<div class="math notranslate nohighlight">
+\[j_{\mathrm{sc},i\rightarrow f}^{(r)}
+=\frac{\hbar k_f}{m_n}
+ \frac{|f_{fi}|^2}{r^2}.\]</div>
+<p>The <span class="math notranslate nohighlight">\(1/r^2\)</span> decrease is exactly compensated by the
+<span class="math notranslate nohighlight">\(r^2d\Omega\)</span> area of a detector element with fixed solid angle.
+Inserting the incident and scattered currents into the operational definition
+of the cross section gives</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\sigma_{i\rightarrow f}}{d\Omega}
+=\frac{k_f}{k_i}|f_{fi}|^2
+=\frac{k_f}{k_i}
+ \left|
+    \chi_f^\dagger
+    \widehat f(\mathbf k_f,\mathbf k_i)
+    \chi_i
+ \right|^2.\]</div>
+<p>The present derivation is elastic, so <span class="math notranslate nohighlight">\(k_f=k_i=k\)</span>.  It therefore reduces
+to</p>
+<div class="math notranslate nohighlight">
+\[\boxed{
+\frac{d\sigma_{i\rightarrow f}}{d\Omega}
 =\left|
    \chi_f^{\dagger}
    \widehat f(\mathbf k_f,\mathbf k_i)
    \chi_i
- \right|^2.\]</div>
-<p>Thus the spin-resolved cross section is obtained by projecting the amplitude
-onto the selected final spinor before taking its absolute square.</p>
+ \right|^2.}\]</div>
+<p>Thus the absolute square is not postulated as the cross section.  It results
+from the radial probability current carried by the outgoing spherical wave,
+divided by the incident probability current.</p>
+<p>Because the current is quadratic in the wavefunction, the current of
+<span class="math notranslate nohighlight">\(\Psi_{\mathrm{in}}+\Psi_{\mathrm{sc}}\)</span> also contains an interference
+term; it is not simply the sum of the two currents.  The differential
+scattering cross section is defined from the flux carried by the outgoing
+spherical component into a detector direction outside the directly
+transmitted beam.  There the asymptotic boundary condition separates that
+component from the prepared incident plane wave.  In the exact forward
+direction, the interference term cannot be discarded: it accounts for the
+attenuation of the transmitted beam and leads to the optical theorem.  That
+forward-beam relation is distinct from the angular scattered intensity
+calculated here.</p>
+</section>
 </section>
 <section id="first-born-approximation">
 <h2>4. First Born approximation<a class="headerlink" href="#first-born-approximation" title="Link to this heading">#</a></h2>
@@ -1203,8 +1386,11 @@ a box of volume <span class="math notranslate nohighlight">\(\mathcal V\)</span>
 \delta(E_f-E_i).\]</div>
 <p>Using the final-state density
 <span class="math notranslate nohighlight">\(\mathcal Vd^3k_f/(2\pi)^3\)</span>, integrating the energy delta function, and
-dividing by the incident flux
-<span class="math notranslate nohighlight">\(j_i=\hbar k_i/(m_n\mathcal V)\)</span> yields</p>
+dividing by the incident flux yields the cross section.  This is the same
+flux concept derived from the continuity equation in Section 3.  The
+box-normalized incident wave has density <span class="math notranslate nohighlight">\(1/\mathcal V\)</span> and therefore
+incident current
+<span class="math notranslate nohighlight">\(j_i=\hbar k_i/(m_n\mathcal V)\)</span>.  One then obtains</p>
 <div class="math notranslate nohighlight">
 \[\frac{d\sigma_{i\rightarrow f}}{d\Omega}
 =\frac{k_f}{k_i}
@@ -1599,7 +1785,13 @@ Crystallography</em> <strong>59</strong>, 943–959 (2026).</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-integral-equation">Construction of the integral equation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#far-field-and-scattering-amplitude">3. Far field and scattering amplitude</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-the-scattering-state-to-the-differential-cross-section">3. From the scattering state to the differential cross section</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-probability-current-appears">Why the probability current appears</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-differential-cross-section-measures">What the differential cross section measures</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-outgoing-wave-in-the-far-field">The outgoing wave in the far field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-the-outgoing-amplitude-to-the-cross-section">From the outgoing amplitude to the cross section</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-born-approximation">4. First Born approximation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-numagsans-scattering-operator">5. The NuMagSANS scattering operator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-projection">6. Spin projection</a><ul class="pst-show_toc_level nav section-nav flex-column">
